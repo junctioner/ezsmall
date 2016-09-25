@@ -1,0 +1,12 @@
+/.idea
+/.settings
+/WebRoot/upload
+/WebRoot/WEB-INF/classes
+/out
+*.iml
+.classpath
+.mymetadata
+.project
+.springBeans
+.tern-project
+.tgitconfig

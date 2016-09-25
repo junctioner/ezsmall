@@ -537,7 +537,7 @@ $!httpInclude.include("/nav.htm")
     <div class="friendlink">
       <h1>合作伙伴</h1>
       <ul class="linkimg">
-        <li> <a href="#" target="_blank"><img src="$!imageWebServer/resources/style/common/images/wemall.jpg" width="92" height="35" /></a></li>
+        <li> <a href="#" target="_blank"><img src="$!imageWebServer/resources/style/common/images/shopping.jpg" width="92" height="35" /></a></li>
         #foreach($info in $img_partners)
         <li> <a href="$!info.url" target="_blank"><img src="$!imageWebServer/$!info.image.path/$!info.image.name" width="92" height="35" /></a></li>
         #end
@@ -545,7 +545,7 @@ $!httpInclude.include("/nav.htm")
       <div class="linka"> #foreach($info in $text_partners)<a href="$!info.url" target="_blank">$!info.title</a>#end </div>
     </div>
     
-    <div class="wemall"> 
+    <div class="shopping"> 
       #foreach($ac in $acs)
       <div class="shopone">
         <h1>$!ac.className</h1>
