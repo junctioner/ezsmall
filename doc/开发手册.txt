@@ -221,3 +221,27 @@ Payment：支付模型，表wemall_payment
 Accessory：附件模型，表wemall_accessory
 Evaluate：评价模型，表wemall_evaluate
 Dynamic：动态模型，表wemall_dynamic
+
+11.订单关键属性
+支付方式 payment
+alipay：支付宝
+wxcodepay：微信扫码支付
+weixin_wap：微信公众号支付
+chinabank：网银在线
+bill：快钱
+tenpay：财付通
+outline：线下支付
+balance：预付款支付
+payafter：货到付款
+paypal：贝宝支付
+
+订单状态 order_status
+10：待付款
+15：线下支付待审核
+16：货到付款待发货
+20：待发货
+30：已发货
+40：已收货
+50：已完成,已评价
+60：已结束
+0：已取消
