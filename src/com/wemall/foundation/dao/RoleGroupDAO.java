@@ -5,7 +5,6 @@ import com.wemall.foundation.domain.RoleGroup;
 import org.springframework.stereotype.Repository;
 
 @Repository("roleGroupDAO")
-public class RoleGroupDAO extends GenericDAO<RoleGroup>
-{
+public class RoleGroupDAO extends GenericDAO<RoleGroup> {
 }
 

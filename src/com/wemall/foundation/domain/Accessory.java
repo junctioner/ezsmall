@@ -15,155 +15,155 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 /**
  * 附件
- * @author 
+ * @author
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "wemall_accessory")
 public class Accessory extends IdEntity {
-	/**
-	 * UID
-	 */
-	private static final long serialVersionUID = 8707872936870153411L;
-	//附近名称
-	private String name;
-	//附件路径
-	private String path;
-	//大小
-	private float size;
-	//宽度
-	private int width;
-	//高度
-	private int height;
-	//扩展名
-	private String ext;
-	//名称详情
-	private String info;
-	
-	//所属人
-	@ManyToOne(fetch = FetchType.LAZY)
-	private User user;
-	
-	//相册
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Album album;
-	
-	@OneToOne(mappedBy = "album_cover", fetch = FetchType.LAZY)
-	private Album cover_album;
-	
-	//系统配置
-	@ManyToOne(fetch = FetchType.LAZY)
-	private SysConfig config;
+    /**
+     * UID
+     */
+    private static final long serialVersionUID = 8707872936870153411L;
+    //附近名称
+    private String name;
+    //附件路径
+    private String path;
+    //大小
+    private float size;
+    //宽度
+    private int width;
+    //高度
+    private int height;
+    //扩展名
+    private String ext;
+    //名称详情
+    private String info;
 
-	//goods主列表
-	@OneToMany(mappedBy = "goods_main_photo")
-	private List<Goods> goods_main_list = new ArrayList<Goods>();
+    //所属人
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
-	//goods列表
-	@ManyToMany(mappedBy = "goods_photos")
-	private List<Goods> goods_list = new ArrayList<Goods>();
+    //相册
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Album album;
 
-	public List<Goods> getGoods_main_list() {
-		return this.goods_main_list;
-	}
+    @OneToOne(mappedBy = "album_cover", fetch = FetchType.LAZY)
+    private Album cover_album;
 
-	public void setGoods_main_list(List<Goods> goods_main_list) {
-		this.goods_main_list = goods_main_list;
-	}
+    //系统配置
+    @ManyToOne(fetch = FetchType.LAZY)
+    private SysConfig config;
 
-	public List<Goods> getGoods_list() {
-		return this.goods_list;
-	}
+    //goods主列表
+    @OneToMany(mappedBy = "goods_main_photo")
+    private List<Goods> goods_main_list = new ArrayList<Goods>();
 
-	public void setGoods_list(List<Goods> goods_list) {
-		this.goods_list = goods_list;
-	}
+    //goods列表
+    @ManyToMany(mappedBy = "goods_photos")
+    private List<Goods> goods_list = new ArrayList<Goods>();
 
-	public User getUser() {
-		return this.user;
-	}
+    public List<Goods> getGoods_main_list() {
+        return this.goods_main_list;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setGoods_main_list(List<Goods> goods_main_list) {
+        this.goods_main_list = goods_main_list;
+    }
 
-	public String getInfo() {
-		return this.info;
-	}
+    public List<Goods> getGoods_list() {
+        return this.goods_list;
+    }
 
-	public void setInfo(String info) {
-		this.info = info;
-	}
+    public void setGoods_list(List<Goods> goods_list) {
+        this.goods_list = goods_list;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public User getUser() {
+        return this.user;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public String getPath() {
-		return this.path;
-	}
+    public String getInfo() {
+        return this.info;
+    }
 
-	public void setPath(String path) {
-		this.path = path;
-	}
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
-	public float getSize() {
-		return this.size;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public void setSize(float size) {
-		this.size = size;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public int getWidth() {
-		return this.width;
-	}
+    public String getPath() {
+        return this.path;
+    }
 
-	public void setWidth(int width) {
-		this.width = width;
-	}
+    public void setPath(String path) {
+        this.path = path;
+    }
 
-	public int getHeight() {
-		return this.height;
-	}
+    public float getSize() {
+        return this.size;
+    }
 
-	public void setHeight(int height) {
-		this.height = height;
-	}
+    public void setSize(float size) {
+        this.size = size;
+    }
 
-	public String getExt() {
-		return this.ext;
-	}
+    public int getWidth() {
+        return this.width;
+    }
 
-	public void setExt(String ext) {
-		this.ext = ext;
-	}
+    public void setWidth(int width) {
+        this.width = width;
+    }
 
-	public Album getAlbum() {
-		return this.album;
-	}
+    public int getHeight() {
+        return this.height;
+    }
 
-	public void setAlbum(Album album) {
-		this.album = album;
-	}
+    public void setHeight(int height) {
+        this.height = height;
+    }
 
-	public Album getCover_album() {
-		return this.cover_album;
-	}
+    public String getExt() {
+        return this.ext;
+    }
 
-	public void setCover_album(Album cover_album) {
-		this.cover_album = cover_album;
-	}
+    public void setExt(String ext) {
+        this.ext = ext;
+    }
 
-	public SysConfig getConfig() {
-		return this.config;
-	}
+    public Album getAlbum() {
+        return this.album;
+    }
 
-	public void setConfig(SysConfig config) {
-		this.config = config;
-	}
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public Album getCover_album() {
+        return this.cover_album;
+    }
+
+    public void setCover_album(Album cover_album) {
+        this.cover_album = cover_album;
+    }
+
+    public SysConfig getConfig() {
+        return this.config;
+    }
+
+    public void setConfig(SysConfig config) {
+        this.config = config;
+    }
 }

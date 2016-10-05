@@ -5,7 +5,6 @@ import com.wemall.foundation.domain.GroupPriceRange;
 import org.springframework.stereotype.Repository;
 
 @Repository("groupPriceRangeDAO")
-public class GroupPriceRangeDAO extends GenericDAO<GroupPriceRange>
-{
+public class GroupPriceRangeDAO extends GenericDAO<GroupPriceRange> {
 }
 

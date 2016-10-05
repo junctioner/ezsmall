@@ -5,7 +5,6 @@ import com.wemall.foundation.domain.StoreStat;
 import org.springframework.stereotype.Repository;
 
 @Repository("storeStatDAO")
-public class StoreStatDAO extends GenericDAO<StoreStat>
-{
+public class StoreStatDAO extends GenericDAO<StoreStat> {
 }
 

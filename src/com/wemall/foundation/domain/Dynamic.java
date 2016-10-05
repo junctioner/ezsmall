@@ -15,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 /**
  * 动态
- * @author 
+ * @author
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -23,164 +23,164 @@ import com.wemall.core.domain.IdEntity;
 @Table(name = "wemall_dynamic")
 public class Dynamic extends IdEntity {
 
-	/**
-	 * UID
-	 */
-	private static final long serialVersionUID = 6799666483543200124L;
-	
-	//商品
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Goods goods;
-	
-	//店铺
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Store store;
-	
-	//用户
-	@ManyToOne(fetch = FetchType.LAZY)
-	private User user;
-	
-	//被锁住
-	@Column(columnDefinition = "bit default false")
-	private boolean locked;
-	
-	//图片
-	@OneToOne(fetch = FetchType.LAZY)
-	private Accessory img;
-	
-	//内容
-	@Column(columnDefinition = "LongText")
-	private String content;
-	
-	//反对量
-	@Column(columnDefinition = "int default 0")
-	private int turnNum;
-	
-	//讨论数量
-	@Column(columnDefinition = "int default 0")
-	private int discussNum;
-	
-	//点赞数量
-	@Column(columnDefinition = "int default 0")
-	private int praiseNum;
-	
-	//讨论父类
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Dynamic dissParent;
-	
-	//返回父类
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Dynamic turnParent;
-	
-	//动态子类
-	@OneToMany(mappedBy = "dissParent", cascade = { javax.persistence.CascadeType.REMOVE })
-	List<Dynamic> childs = new ArrayList<Dynamic>();
-	
-	//是否显示
-	@Column(columnDefinition = "bit default true")
-	private boolean display;
+    /**
+     * UID
+     */
+    private static final long serialVersionUID = 6799666483543200124L;
 
-	public boolean isDisplay() {
-		return this.display;
-	}
+    //商品
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Goods goods;
 
-	public void setDisplay(boolean display) {
-		this.display = display;
-	}
+    //店铺
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Store store;
 
-	public boolean isLocked() {
-		return this.locked;
-	}
+    //用户
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
-	public void setLocked(boolean locked) {
-		this.locked = locked;
-	}
+    //被锁住
+    @Column(columnDefinition = "bit default false")
+    private boolean locked;
 
-	public Accessory getImg() {
-		return this.img;
-	}
+    //图片
+    @OneToOne(fetch = FetchType.LAZY)
+    private Accessory img;
 
-	public void setImg(Accessory img) {
-		this.img = img;
-	}
+    //内容
+    @Column(columnDefinition = "LongText")
+    private String content;
 
-	public Store getStore() {
-		return this.store;
-	}
+    //反对量
+    @Column(columnDefinition = "int default 0")
+    private int turnNum;
 
-	public void setStore(Store store) {
-		this.store = store;
-	}
+    //讨论数量
+    @Column(columnDefinition = "int default 0")
+    private int discussNum;
 
-	public List<Dynamic> getChilds() {
-		return this.childs;
-	}
+    //点赞数量
+    @Column(columnDefinition = "int default 0")
+    private int praiseNum;
 
-	public void setChilds(List<Dynamic> childs) {
-		this.childs = childs;
-	}
+    //讨论父类
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Dynamic dissParent;
 
-	public Goods getGoods() {
-		return this.goods;
-	}
+    //返回父类
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Dynamic turnParent;
 
-	public void setGoods(Goods goods) {
-		this.goods = goods;
-	}
+    //动态子类
+    @OneToMany(mappedBy = "dissParent", cascade = { javax.persistence.CascadeType.REMOVE })
+    List<Dynamic> childs = new ArrayList<Dynamic>();
 
-	public User getUser() {
-		return this.user;
-	}
+    //是否显示
+    @Column(columnDefinition = "bit default true")
+    private boolean display;
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public boolean isDisplay() {
+        return this.display;
+    }
 
-	public String getContent() {
-		return this.content;
-	}
+    public void setDisplay(boolean display) {
+        this.display = display;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public boolean isLocked() {
+        return this.locked;
+    }
 
-	public int getTurnNum() {
-		return this.turnNum;
-	}
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
 
-	public void setTurnNum(int turnNum) {
-		this.turnNum = turnNum;
-	}
+    public Accessory getImg() {
+        return this.img;
+    }
 
-	public int getDiscussNum() {
-		return this.discussNum;
-	}
+    public void setImg(Accessory img) {
+        this.img = img;
+    }
 
-	public void setDiscussNum(int discussNum) {
-		this.discussNum = discussNum;
-	}
+    public Store getStore() {
+        return this.store;
+    }
 
-	public int getPraiseNum() {
-		return this.praiseNum;
-	}
+    public void setStore(Store store) {
+        this.store = store;
+    }
 
-	public void setPraiseNum(int praiseNum) {
-		this.praiseNum = praiseNum;
-	}
+    public List<Dynamic> getChilds() {
+        return this.childs;
+    }
 
-	public Dynamic getDissParent() {
-		return this.dissParent;
-	}
+    public void setChilds(List<Dynamic> childs) {
+        this.childs = childs;
+    }
 
-	public void setDissParent(Dynamic dissParent) {
-		this.dissParent = dissParent;
-	}
+    public Goods getGoods() {
+        return this.goods;
+    }
 
-	public Dynamic getTurnParent() {
-		return this.turnParent;
-	}
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
 
-	public void setTurnParent(Dynamic turnParent) {
-		this.turnParent = turnParent;
-	}
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public int getTurnNum() {
+        return this.turnNum;
+    }
+
+    public void setTurnNum(int turnNum) {
+        this.turnNum = turnNum;
+    }
+
+    public int getDiscussNum() {
+        return this.discussNum;
+    }
+
+    public void setDiscussNum(int discussNum) {
+        this.discussNum = discussNum;
+    }
+
+    public int getPraiseNum() {
+        return this.praiseNum;
+    }
+
+    public void setPraiseNum(int praiseNum) {
+        this.praiseNum = praiseNum;
+    }
+
+    public Dynamic getDissParent() {
+        return this.dissParent;
+    }
+
+    public void setDissParent(Dynamic dissParent) {
+        this.dissParent = dissParent;
+    }
+
+    public Dynamic getTurnParent() {
+        return this.turnParent;
+    }
+
+    public void setTurnParent(Dynamic turnParent) {
+        this.turnParent = turnParent;
+    }
 }

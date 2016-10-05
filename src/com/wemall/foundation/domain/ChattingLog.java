@@ -11,7 +11,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 /**
  * 聊天日志
- * @author 
+ * @author
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -19,56 +19,56 @@ import com.wemall.core.domain.IdEntity;
 @Table(name = "wemall_chattinglog")
 public class ChattingLog extends IdEntity {
 
-	/**
-	 * UID
-	 */
-	private static final long serialVersionUID = 6666793243500574372L;
-	
-	//聊天
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Chatting chatting;
-	
-	//用户
-	@ManyToOne(fetch = FetchType.LAZY)
-	private User user;
-	
-	//聊天内容
-	@Column(columnDefinition = "LongText")
-	private String content;
-	
-	//标记
-	@Column(columnDefinition = "int default 0")
-	private int mark;
+    /**
+     * UID
+     */
+    private static final long serialVersionUID = 6666793243500574372L;
 
-	public int getMark() {
-		return this.mark;
-	}
+    //聊天
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Chatting chatting;
 
-	public void setMark(int mark) {
-		this.mark = mark;
-	}
+    //用户
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
-	public Chatting getChatting() {
-		return this.chatting;
-	}
+    //聊天内容
+    @Column(columnDefinition = "LongText")
+    private String content;
 
-	public void setChatting(Chatting chatting) {
-		this.chatting = chatting;
-	}
+    //标记
+    @Column(columnDefinition = "int default 0")
+    private int mark;
 
-	public User getUser() {
-		return this.user;
-	}
+    public int getMark() {
+        return this.mark;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setMark(int mark) {
+        this.mark = mark;
+    }
 
-	public String getContent() {
-		return this.content;
-	}
+    public Chatting getChatting() {
+        return this.chatting;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public void setChatting(Chatting chatting) {
+        this.chatting = chatting;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

@@ -17,63 +17,63 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "wemall_goods_return")
 public class GoodsReturn extends IdEntity {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	//返回ID
-	private String return_id;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private OrderForm of;
-	//货物返回项目
-	@OneToMany(mappedBy = "gr", cascade = { javax.persistence.CascadeType.REMOVE })
-	private List<GoodsReturnItem> items = new ArrayList<GoodsReturnItem>();
-	//使用者
-	@ManyToOne(fetch = FetchType.LAZY)
-	private User user;
-	//返回信息
-	@Column(columnDefinition = "LongText")
-	private String return_info;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	public OrderForm getOf() {
-		return this.of;
-	}
+    //返回ID
+    private String return_id;
 
-	public void setOf(OrderForm of) {
-		this.of = of;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OrderForm of;
+    //货物返回项目
+    @OneToMany(mappedBy = "gr", cascade = { javax.persistence.CascadeType.REMOVE })
+    private List<GoodsReturnItem> items = new ArrayList<GoodsReturnItem>();
+    //使用者
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+    //返回信息
+    @Column(columnDefinition = "LongText")
+    private String return_info;
 
-	public List<GoodsReturnItem> getItems() {
-		return this.items;
-	}
+    public OrderForm getOf() {
+        return this.of;
+    }
 
-	public void setItems(List<GoodsReturnItem> items) {
-		this.items = items;
-	}
+    public void setOf(OrderForm of) {
+        this.of = of;
+    }
 
-	public User getUser() {
-		return this.user;
-	}
+    public List<GoodsReturnItem> getItems() {
+        return this.items;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setItems(List<GoodsReturnItem> items) {
+        this.items = items;
+    }
 
-	public String getReturn_id() {
-		return this.return_id;
-	}
+    public User getUser() {
+        return this.user;
+    }
 
-	public void setReturn_id(String return_id) {
-		this.return_id = return_id;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public String getReturn_info() {
-		return this.return_info;
-	}
+    public String getReturn_id() {
+        return this.return_id;
+    }
 
-	public void setReturn_info(String return_info) {
-		this.return_info = return_info;
-	}
+    public void setReturn_id(String return_id) {
+        this.return_id = return_id;
+    }
+
+    public String getReturn_info() {
+        return this.return_info;
+    }
+
+    public void setReturn_info(String return_info) {
+        this.return_info = return_info;
+    }
 }

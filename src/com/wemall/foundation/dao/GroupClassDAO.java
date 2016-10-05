@@ -5,7 +5,6 @@ import com.wemall.foundation.domain.GroupClass;
 import org.springframework.stereotype.Repository;
 
 @Repository("groupClassDAO")
-public class GroupClassDAO extends GenericDAO<GroupClass>
-{
+public class GroupClassDAO extends GenericDAO<GroupClass> {
 }
 

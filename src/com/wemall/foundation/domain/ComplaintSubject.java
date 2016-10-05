@@ -9,48 +9,48 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 /**
  * 举报主题
- * @author 
+ * @author
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "wemall_complaint_subject")
 public class ComplaintSubject extends IdEntity {
-	/**
-	 * UID
-	 */
-	private static final long serialVersionUID = -4022101705095993582L;
-	//类型
-	private String type;
-	
-	//标题
-	private String title;
-	
-	//内容
-	@Column(columnDefinition = "LongText")
-	private String content;
+    /**
+     * UID
+     */
+    private static final long serialVersionUID = -4022101705095993582L;
+    //类型
+    private String type;
 
-	public String getType() {
-		return this.type;
-	}
+    //标题
+    private String title;
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    //内容
+    @Column(columnDefinition = "LongText")
+    private String content;
 
-	public String getTitle() {
-		return this.title;
-	}
+    public String getType() {
+        return this.type;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getContent() {
-		return this.content;
-	}
+    public String getTitle() {
+        return this.title;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

@@ -15,83 +15,83 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "wemall_article")
 public class Article extends IdEntity {
-	/**
-	 * UID
-	 */
-	private static final long serialVersionUID = -8847246543488664326L;
-	
-	//文章标题
-	private String title;
-	//文章类
-	@ManyToOne(fetch = FetchType.LAZY)
-	private ArticleClass articleClass;
-	//文章地址
-	private String url;
-	//文章序列
-	private int sequence;
-	//文章是否显示
-	private boolean display;
-	//文字标记
-	private String mark;
-	
-	//文章内容
-	@Lob
-	@Column(columnDefinition = "LongText")
-	private String content;
+    /**
+     * UID
+     */
+    private static final long serialVersionUID = -8847246543488664326L;
 
-	public String getTitle() {
-		return this.title;
-	}
+    //文章标题
+    private String title;
+    //文章类
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ArticleClass articleClass;
+    //文章地址
+    private String url;
+    //文章序列
+    private int sequence;
+    //文章是否显示
+    private boolean display;
+    //文字标记
+    private String mark;
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    //文章内容
+    @Lob
+    @Column(columnDefinition = "LongText")
+    private String content;
 
-	public ArticleClass getArticleClass() {
-		return this.articleClass;
-	}
+    public String getTitle() {
+        return this.title;
+    }
 
-	public void setArticleClass(ArticleClass articleClass) {
-		this.articleClass = articleClass;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public String getUrl() {
-		return this.url;
-	}
+    public ArticleClass getArticleClass() {
+        return this.articleClass;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public void setArticleClass(ArticleClass articleClass) {
+        this.articleClass = articleClass;
+    }
 
-	public int getSequence() {
-		return this.sequence;
-	}
+    public String getUrl() {
+        return this.url;
+    }
 
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	public boolean isDisplay() {
-		return this.display;
-	}
+    public int getSequence() {
+        return this.sequence;
+    }
 
-	public void setDisplay(boolean display) {
-		this.display = display;
-	}
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
 
-	public String getContent() {
-		return this.content;
-	}
+    public boolean isDisplay() {
+        return this.display;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public void setDisplay(boolean display) {
+        this.display = display;
+    }
 
-	public String getMark() {
-		return this.mark;
-	}
+    public String getContent() {
+        return this.content;
+    }
 
-	public void setMark(String mark) {
-		this.mark = mark;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getMark() {
+        return this.mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
 }

@@ -5,7 +5,6 @@ import com.wemall.foundation.domain.HomePage;
 import org.springframework.stereotype.Repository;
 
 @Repository("homePageDAO")
-public class HomePageDAO extends GenericDAO<HomePage>
-{
+public class HomePageDAO extends GenericDAO<HomePage> {
 }
 

@@ -22,167 +22,167 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "wemall_goodsbrand")
 public class GoodsBrand extends IdEntity {
-	/**
-	 * 商品品牌
-	 */
-	private static final long serialVersionUID = 5608767062084760770L;
-	//名称
-	private String name;
-	//序列
-	private int sequence;
-	
-	//品牌logo
-	@OneToOne(fetch = FetchType.LAZY)
-	private Accessory brandLogo;
-	//是否推荐
-	private boolean recommend;
-	
-	//审计
-	@Column(columnDefinition = "int default 0")
-	private int audit;
-	
-	//使用者身份
-	@Column(columnDefinition = "int default 0")
-	private int userStatus;
+    /**
+     * 商品品牌
+     */
+    private static final long serialVersionUID = 5608767062084760770L;
+    //名称
+    private String name;
+    //序列
+    private int sequence;
 
-	//使用者
-	@ManyToOne(fetch = FetchType.LAZY)
-	private User user;
-	
-	//评论
-	@Column(columnDefinition = "LongText")
-	private String remark;
+    //品牌logo
+    @OneToOne(fetch = FetchType.LAZY)
+    private Accessory brandLogo;
+    //是否推荐
+    private boolean recommend;
 
-	//商品种类集合
-	@ManyToMany(mappedBy = "gbs")
-	private List<GoodsType> types = new ArrayList<GoodsType>();
-	
-	//商品品牌种类
-	@ManyToOne(fetch = FetchType.LAZY)
-	private GoodsBrandCategory category;
-	
-	//商品集合
-	@OneToMany(mappedBy = "goods_brand")
-	private List<Goods> goods_list = new ArrayList<Goods>();
-	
-	//是否在微信店铺推荐
-	@Column(columnDefinition = "bit default false")
-	private boolean weixin_shop_recommend;
-	
-	//微信店铺推荐时间
-	@Temporal(TemporalType.DATE)
-	private Date weixin_shop_recommendTime;
-	private String first_word;
+    //审计
+    @Column(columnDefinition = "int default 0")
+    private int audit;
 
-	public String getFirst_word() {
-		return this.first_word;
-	}
+    //使用者身份
+    @Column(columnDefinition = "int default 0")
+    private int userStatus;
 
-	public void setFirst_word(String first_word) {
-		this.first_word = first_word;
-	}
+    //使用者
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
-	public boolean isWeixin_shop_recommend() {
-		return this.weixin_shop_recommend;
-	}
+    //评论
+    @Column(columnDefinition = "LongText")
+    private String remark;
 
-	public void setWeixin_shop_recommend(boolean weixin_shop_recommend) {
-		this.weixin_shop_recommend = weixin_shop_recommend;
-	}
+    //商品种类集合
+    @ManyToMany(mappedBy = "gbs")
+    private List<GoodsType> types = new ArrayList<GoodsType>();
 
-	public Date getWeixin_shop_recommendTime() {
-		return this.weixin_shop_recommendTime;
-	}
+    //商品品牌种类
+    @ManyToOne(fetch = FetchType.LAZY)
+    private GoodsBrandCategory category;
 
-	public void setWeixin_shop_recommendTime(Date weixin_shop_recommendTime) {
-		this.weixin_shop_recommendTime = weixin_shop_recommendTime;
-	}
+    //商品集合
+    @OneToMany(mappedBy = "goods_brand")
+    private List<Goods> goods_list = new ArrayList<Goods>();
 
-	public String getRemark() {
-		return this.remark;
-	}
+    //是否在微信店铺推荐
+    @Column(columnDefinition = "bit default false")
+    private boolean weixin_shop_recommend;
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+    //微信店铺推荐时间
+    @Temporal(TemporalType.DATE)
+    private Date weixin_shop_recommendTime;
+    private String first_word;
 
-	public int getUserStatus() {
-		return this.userStatus;
-	}
+    public String getFirst_word() {
+        return this.first_word;
+    }
 
-	public void setUserStatus(int userStatus) {
-		this.userStatus = userStatus;
-	}
+    public void setFirst_word(String first_word) {
+        this.first_word = first_word;
+    }
 
-	public User getUser() {
-		return this.user;
-	}
+    public boolean isWeixin_shop_recommend() {
+        return this.weixin_shop_recommend;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setWeixin_shop_recommend(boolean weixin_shop_recommend) {
+        this.weixin_shop_recommend = weixin_shop_recommend;
+    }
 
-	public List<Goods> getGoods_list() {
-		return this.goods_list;
-	}
+    public Date getWeixin_shop_recommendTime() {
+        return this.weixin_shop_recommendTime;
+    }
 
-	public void setGoods_list(List<Goods> goods_list) {
-		this.goods_list = goods_list;
-	}
+    public void setWeixin_shop_recommendTime(Date weixin_shop_recommendTime) {
+        this.weixin_shop_recommendTime = weixin_shop_recommendTime;
+    }
 
-	public GoodsBrandCategory getCategory() {
-		return this.category;
-	}
+    public String getRemark() {
+        return this.remark;
+    }
 
-	public void setCategory(GoodsBrandCategory category) {
-		this.category = category;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public int getUserStatus() {
+        return this.userStatus;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setUserStatus(int userStatus) {
+        this.userStatus = userStatus;
+    }
 
-	public int getSequence() {
-		return this.sequence;
-	}
+    public User getUser() {
+        return this.user;
+    }
 
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public Accessory getBrandLogo() {
-		return this.brandLogo;
-	}
+    public List<Goods> getGoods_list() {
+        return this.goods_list;
+    }
 
-	public void setBrandLogo(Accessory brandLogo) {
-		this.brandLogo = brandLogo;
-	}
+    public void setGoods_list(List<Goods> goods_list) {
+        this.goods_list = goods_list;
+    }
 
-	public boolean isRecommend() {
-		return this.recommend;
-	}
+    public GoodsBrandCategory getCategory() {
+        return this.category;
+    }
 
-	public void setRecommend(boolean recommend) {
-		this.recommend = recommend;
-	}
+    public void setCategory(GoodsBrandCategory category) {
+        this.category = category;
+    }
 
-	public int getAudit() {
-		return this.audit;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public void setAudit(int audit) {
-		this.audit = audit;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public List<GoodsType> getTypes() {
-		return this.types;
-	}
+    public int getSequence() {
+        return this.sequence;
+    }
 
-	public void setTypes(List<GoodsType> types) {
-		this.types = types;
-	}
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
+
+    public Accessory getBrandLogo() {
+        return this.brandLogo;
+    }
+
+    public void setBrandLogo(Accessory brandLogo) {
+        this.brandLogo = brandLogo;
+    }
+
+    public boolean isRecommend() {
+        return this.recommend;
+    }
+
+    public void setRecommend(boolean recommend) {
+        this.recommend = recommend;
+    }
+
+    public int getAudit() {
+        return this.audit;
+    }
+
+    public void setAudit(int audit) {
+        this.audit = audit;
+    }
+
+    public List<GoodsType> getTypes() {
+        return this.types;
+    }
+
+    public void setTypes(List<GoodsType> types) {
+        this.types = types;
+    }
 }

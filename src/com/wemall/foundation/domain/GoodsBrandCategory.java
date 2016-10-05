@@ -14,40 +14,40 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "wemall_brandcategory")
 public class GoodsBrandCategory extends IdEntity {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	//名称
-	private String name;
-	//序列
-	private int sequence;
-	
-	//商品品牌
-	@OneToMany(mappedBy = "category")
-	private List<GoodsBrand> brands = new ArrayList<GoodsBrand>();
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    //名称
+    private String name;
+    //序列
+    private int sequence;
 
-	public String getName() {
-		return this.name;
-	}
+    //商品品牌
+    @OneToMany(mappedBy = "category")
+    private List<GoodsBrand> brands = new ArrayList<GoodsBrand>();
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public int getSequence() {
-		return this.sequence;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
-	}
+    public int getSequence() {
+        return this.sequence;
+    }
 
-	public List<GoodsBrand> getBrands() {
-		return this.brands;
-	}
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
 
-	public void setBrands(List<GoodsBrand> brands) {
-		this.brands = brands;
-	}
+    public List<GoodsBrand> getBrands() {
+        return this.brands;
+    }
+
+    public void setBrands(List<GoodsBrand> brands) {
+        this.brands = brands;
+    }
 }

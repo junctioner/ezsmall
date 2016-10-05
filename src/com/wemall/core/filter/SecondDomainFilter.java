@@ -22,44 +22,39 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SecondDomainFilter
-  implements Filter
-{
+    implements Filter {
 
-  @Autowired
-  private IUserService userService;
+    @Autowired
+    private IUserService userService;
 
-  @Autowired
-  private ISysConfigService configService;
+    @Autowired
+    private ISysConfigService configService;
 
-  public void destroy()
-  {
-  }
-
-  public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-    throws IOException, ServletException
-  {
-    HttpServletRequest request = (HttpServletRequest)req;
-    HttpServletResponse response = (HttpServletResponse)res;
-    if (this.configService.getSysConfig().isSecond_domain_open())
-    {
-      Cookie[] cookies = request.getCookies();
-      String id = "";
-      if (cookies != null) {
-        for (Cookie cookie : cookies) {
-          if (cookie.getName().equals("wemall_user_session")) {
-            id = CommUtil.null2String(cookie.getValue());
-          }
-        }
-        User user = this.userService.getObjById(CommUtil.null2Long(id));
-        if (user != null)
-          request.getSession(false).setAttribute("user", user);
-      }
+    public void destroy() {
     }
-    chain.doFilter(req, res);
-  }
 
-  public void init(FilterConfig config)
-    throws ServletException
-  {
-  }
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+    throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest)req;
+        HttpServletResponse response = (HttpServletResponse)res;
+        if (this.configService.getSysConfig().isSecond_domain_open()) {
+            Cookie[] cookies = request.getCookies();
+            String id = "";
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("wemall_user_session")) {
+                        id = CommUtil.null2String(cookie.getValue());
+                    }
+                }
+                User user = this.userService.getObjById(CommUtil.null2Long(id));
+                if (user != null)
+                    request.getSession(false).setAttribute("user", user);
+            }
+        }
+        chain.doFilter(req, res);
+    }
+
+    public void init(FilterConfig config)
+    throws ServletException {
+    }
 }

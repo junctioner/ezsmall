@@ -11,62 +11,62 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 /**
  * 优惠券信息
- * @author 
+ * @author
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "wemall_coupon_info")
 public class CouponInfo extends IdEntity {
-	/**
-	 * UID
-	 */
-	private static final long serialVersionUID = 9035884340618991295L;
-	
-	//优惠券码
-	private String coupon_sn;
-	
-	//用户
-	@ManyToOne(fetch = FetchType.LAZY)
-	private User user;
-	
-	//优惠券
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Coupon coupon;
-	
-	//优惠券状态
-	@Column(columnDefinition = "int default 0")
-	private int status;
+    /**
+     * UID
+     */
+    private static final long serialVersionUID = 9035884340618991295L;
 
-	public int getStatus() {
-		return this.status;
-	}
+    //优惠券码
+    private String coupon_sn;
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
+    //用户
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
-	public String getCoupon_sn() {
-		return this.coupon_sn;
-	}
+    //优惠券
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Coupon coupon;
 
-	public void setCoupon_sn(String coupon_sn) {
-		this.coupon_sn = coupon_sn;
-	}
+    //优惠券状态
+    @Column(columnDefinition = "int default 0")
+    private int status;
 
-	public User getUser() {
-		return this.user;
-	}
+    public int getStatus() {
+        return this.status;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
-	public Coupon getCoupon() {
-		return this.coupon;
-	}
+    public String getCoupon_sn() {
+        return this.coupon_sn;
+    }
 
-	public void setCoupon(Coupon coupon) {
-		this.coupon = coupon;
-	}
+    public void setCoupon_sn(String coupon_sn) {
+        this.coupon_sn = coupon_sn;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Coupon getCoupon() {
+        return this.coupon;
+    }
+
+    public void setCoupon(Coupon coupon) {
+        this.coupon = coupon;
+    }
 }

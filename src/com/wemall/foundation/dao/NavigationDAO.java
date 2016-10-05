@@ -5,7 +5,6 @@ import com.wemall.foundation.domain.Navigation;
 import org.springframework.stereotype.Repository;
 
 @Repository("navigationDAO")
-public class NavigationDAO extends GenericDAO<Navigation>
-{
+public class NavigationDAO extends GenericDAO<Navigation> {
 }
 

@@ -13,43 +13,43 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "wemall_goodsclassstaple")
 public class GoodsClassStaple extends IdEntity {
-	/**
-	 * 主要产品
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * 主要产品
+     */
+    private static final long serialVersionUID = 1L;
 
-	//名称
-	private String name;
-	
-	//货物类型
-	@ManyToOne(fetch = FetchType.LAZY)
-	private GoodsClass gc;
+    //名称
+    private String name;
 
-	//商店
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Store store;
+    //货物类型
+    @ManyToOne(fetch = FetchType.LAZY)
+    private GoodsClass gc;
 
-	public String getName() {
-		return this.name;
-	}
+    //商店
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Store store;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public GoodsClass getGc() {
-		return this.gc;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setGc(GoodsClass gc) {
-		this.gc = gc;
-	}
+    public GoodsClass getGc() {
+        return this.gc;
+    }
 
-	public Store getStore() {
-		return this.store;
-	}
+    public void setGc(GoodsClass gc) {
+        this.gc = gc;
+    }
 
-	public void setStore(Store store) {
-		this.store = store;
-	}
+    public Store getStore() {
+        return this.store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
 }

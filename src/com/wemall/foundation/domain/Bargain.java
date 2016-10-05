@@ -13,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 /**
  * 特价
- * @author 
+ * @author
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -21,56 +21,56 @@ import com.wemall.core.domain.IdEntity;
 @Table(name = "wemall_bargain")
 public class Bargain extends IdEntity {
 
-	/**
-	 * UID
-	 */
-	private static final long serialVersionUID = -7595750284812779918L;
+    /**
+     * UID
+     */
+    private static final long serialVersionUID = -7595750284812779918L;
 
-	//特价时间
-	@Temporal(TemporalType.DATE)
-	private Date bargain_time;
-	
-	//折扣
-	@Column(precision = 3, scale = 2)
-	private BigDecimal rebate;
+    //特价时间
+    @Temporal(TemporalType.DATE)
+    private Date bargain_time;
 
-	//最大值
-	@Column(columnDefinition = "int default 0")
-	private int maximum;
-	
-	//状态
-	@Column(columnDefinition = "LongText")
-	private String state;
+    //折扣
+    @Column(precision = 3, scale = 2)
+    private BigDecimal rebate;
 
-	public Date getBargain_time() {
-		return this.bargain_time;
-	}
+    //最大值
+    @Column(columnDefinition = "int default 0")
+    private int maximum;
 
-	public void setBargain_time(Date bargain_time) {
-		this.bargain_time = bargain_time;
-	}
+    //状态
+    @Column(columnDefinition = "LongText")
+    private String state;
 
-	public BigDecimal getRebate() {
-		return this.rebate;
-	}
+    public Date getBargain_time() {
+        return this.bargain_time;
+    }
 
-	public void setRebate(BigDecimal rebate) {
-		this.rebate = rebate;
-	}
+    public void setBargain_time(Date bargain_time) {
+        this.bargain_time = bargain_time;
+    }
 
-	public int getMaximum() {
-		return this.maximum;
-	}
+    public BigDecimal getRebate() {
+        return this.rebate;
+    }
 
-	public void setMaximum(int maximum) {
-		this.maximum = maximum;
-	}
+    public void setRebate(BigDecimal rebate) {
+        this.rebate = rebate;
+    }
 
-	public String getState() {
-		return this.state;
-	}
+    public int getMaximum() {
+        return this.maximum;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    public void setMaximum(int maximum) {
+        this.maximum = maximum;
+    }
+
+    public String getState() {
+        return this.state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 }

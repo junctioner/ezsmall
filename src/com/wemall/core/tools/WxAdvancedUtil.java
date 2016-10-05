@@ -20,7 +20,7 @@ import java.util.List;
  * Created by John on 2016/1/13.
  */
 public class WxAdvancedUtil {
-    
+
     private static Logger log = LoggerFactory.getLogger(WxAdvancedUtil.class);
 
     /**
@@ -141,7 +141,7 @@ public class WxAdvancedUtil {
      * @param scope snsapi_base和snsapi_userinfo
      * @return String
      */
-    public static String getWxCodeRequestURL(String appId,String redirectURL,String scope) {
+    public static String getWxCodeRequestURL(String appId, String redirectURL, String scope) {
         // 拼接请求地址
         String requestUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPES&state=STATE#wechat_redirect";
         requestUrl = requestUrl.replace("APPID", appId);
@@ -265,68 +265,68 @@ public class WxAdvancedUtil {
     }
 
     *//**
-     * 创建临时带参二维码
-     *
-     * @param accessToken 接口访问凭证
-     * @param expireSeconds 二维码有效时间，单位为秒，最大不超过1800
-     * @param sceneId 场景ID
-     * @return WeixinQRCode
-     *//*
-    public static WxQRCode createTemporaryQRCode(String accessToken, int expireSeconds, int sceneId) {
-        WxQRCode weixinQRCode = null;
-        // 拼接请求地址
-        String requestUrl = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=ACCESS_TOKEN";
-        requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken);
-        // 需要提交的json数据
-        String jsonMsg = "{\"expire_seconds\": %d, \"action_name\": \"QR_SCENE\", \"action_info\": {\"scene\": {\"scene_id\": %d}}}";
-        // 创建临时带参二维码
-        JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "POST", String.format(jsonMsg, expireSeconds, sceneId));
+* 创建临时带参二维码
+*
+* @param accessToken 接口访问凭证
+* @param expireSeconds 二维码有效时间，单位为秒，最大不超过1800
+* @param sceneId 场景ID
+* @return WeixinQRCode
+*//*
+public static WxQRCode createTemporaryQRCode(String accessToken, int expireSeconds, int sceneId) {
+WxQRCode weixinQRCode = null;
+// 拼接请求地址
+String requestUrl = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=ACCESS_TOKEN";
+requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken);
+// 需要提交的json数据
+String jsonMsg = "{\"expire_seconds\": %d, \"action_name\": \"QR_SCENE\", \"action_info\": {\"scene\": {\"scene_id\": %d}}}";
+// 创建临时带参二维码
+JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "POST", String.format(jsonMsg, expireSeconds, sceneId));
 
-        if (null != jsonObject) {
-            try {
-                weixinQRCode = new WxQRCode();
-                weixinQRCode.setTicket(jsonObject.getString("ticket"));
-                weixinQRCode.setExpireSeconds(jsonObject.getInt("expire_seconds"));
-                log.info("创建临时带参二维码成功 ticket:{} expire_seconds:{}", weixinQRCode.getTicket(), weixinQRCode.getExpireSeconds());
-            } catch (Exception e) {
-                weixinQRCode = null;
-                int errorCode = jsonObject.getInt("errcode");
-                String errorMsg = jsonObject.getString("errmsg");
-                log.error("创建临时带参二维码失败 errcode:{} errmsg:{}", errorCode, errorMsg);
-            }
-        }
-        return weixinQRCode;
+if (null != jsonObject) {
+    try {
+        weixinQRCode = new WxQRCode();
+        weixinQRCode.setTicket(jsonObject.getString("ticket"));
+        weixinQRCode.setExpireSeconds(jsonObject.getInt("expire_seconds"));
+        log.info("创建临时带参二维码成功 ticket:{} expire_seconds:{}", weixinQRCode.getTicket(), weixinQRCode.getExpireSeconds());
+    } catch (Exception e) {
+        weixinQRCode = null;
+        int errorCode = jsonObject.getInt("errcode");
+        String errorMsg = jsonObject.getString("errmsg");
+        log.error("创建临时带参二维码失败 errcode:{} errmsg:{}", errorCode, errorMsg);
     }
+}
+return weixinQRCode;
+}
 
-    *//**
-     * 创建永久带参二维码
-     *
-     * @param accessToken 接口访问凭证
-     * @param sceneId 场景ID
-     * @return ticket
-     *//*
-    public static String createPermanentQRCode(String accessToken, int sceneId) {
-        String ticket = null;
-        // 拼接请求地址
-        String requestUrl = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=ACCESS_TOKEN";
-        requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken);
-        // 需要提交的json数据
-        String jsonMsg = "{\"action_name\": \"QR_LIMIT_SCENE\", \"action_info\": {\"scene\": {\"scene_id\": %d}}}";
-        // 创建永久带参二维码
-        JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "POST", String.format(jsonMsg, sceneId));
+*//**
+* 创建永久带参二维码
+*
+* @param accessToken 接口访问凭证
+* @param sceneId 场景ID
+* @return ticket
+*//*
+public static String createPermanentQRCode(String accessToken, int sceneId) {
+String ticket = null;
+// 拼接请求地址
+String requestUrl = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=ACCESS_TOKEN";
+requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken);
+// 需要提交的json数据
+String jsonMsg = "{\"action_name\": \"QR_LIMIT_SCENE\", \"action_info\": {\"scene\": {\"scene_id\": %d}}}";
+// 创建永久带参二维码
+JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "POST", String.format(jsonMsg, sceneId));
 
-        if (null != jsonObject) {
-            try {
-                ticket = jsonObject.getString("ticket");
-                log.info("创建永久带参二维码成功 ticket:{}", ticket);
-            } catch (Exception e) {
-                int errorCode = jsonObject.getInt("errcode");
-                String errorMsg = jsonObject.getString("errmsg");
-                log.error("创建永久带参二维码失败 errcode:{} errmsg:{}", errorCode, errorMsg);
-            }
-        }
-        return ticket;
-    }*/
+if (null != jsonObject) {
+    try {
+        ticket = jsonObject.getString("ticket");
+        log.info("创建永久带参二维码成功 ticket:{}", ticket);
+    } catch (Exception e) {
+        int errorCode = jsonObject.getInt("errcode");
+        String errorMsg = jsonObject.getString("errmsg");
+        log.error("创建永久带参二维码失败 errcode:{} errmsg:{}", errorCode, errorMsg);
+    }
+}
+return ticket;
+}*/
 
     /**
      * 根据ticket换取二维码
@@ -810,10 +810,10 @@ public class WxAdvancedUtil {
         /**
          * 上传多媒体文件
          */
-       /* WeixinMedia weixinMedia = uploadMedia(accessToken, "voice", "http://localhost:8080/weixinmpapi/test.mp3");
-        System.out.println(weixinMedia.getMediaId());
-        System.out.println(weixinMedia.getType());
-        System.out.println(weixinMedia.getCreatedAt());*/
+        /* WeixinMedia weixinMedia = uploadMedia(accessToken, "voice", "http://localhost:8080/weixinmpapi/test.mp3");
+         System.out.println(weixinMedia.getMediaId());
+         System.out.println(weixinMedia.getType());
+         System.out.println(weixinMedia.getCreatedAt());*/
 
         /**
          * 下载多媒体文件

@@ -11,7 +11,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 /**
  * 举报商品
- * @author 
+ * @author
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -19,44 +19,44 @@ import com.wemall.core.domain.IdEntity;
 @Table(name = "wemall_complaint_goods")
 public class ComplaintGoods extends IdEntity {
 
-	/**
-	 * UID
-	 */
-	private static final long serialVersionUID = 688451202252628683L;
-	
-	//商品
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Goods goods;
-	
-	//内容
-	@Column(columnDefinition = "LongText")
-	private String content;
-	
-	//举报
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Complaint complaint;
+    /**
+     * UID
+     */
+    private static final long serialVersionUID = 688451202252628683L;
 
-	public Goods getGoods() {
-		return this.goods;
-	}
+    //商品
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Goods goods;
 
-	public void setGoods(Goods goods) {
-		this.goods = goods;
-	}
+    //内容
+    @Column(columnDefinition = "LongText")
+    private String content;
 
-	public String getContent() {
-		return this.content;
-	}
+    //举报
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Complaint complaint;
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public Goods getGoods() {
+        return this.goods;
+    }
 
-	public Complaint getComplaint() {
-		return this.complaint;
-	}
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
 
-	public void setComplaint(Complaint complaint) {
-		this.complaint = complaint;
-	}
+    public String getContent() {
+        return this.content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Complaint getComplaint() {
+        return this.complaint;
+    }
+
+    public void setComplaint(Complaint complaint) {
+        this.complaint = complaint;
+    }
 }

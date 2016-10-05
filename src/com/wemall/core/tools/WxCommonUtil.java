@@ -279,7 +279,7 @@ public class WxCommonUtil {
      * @param bstr
      * @return String
      */
-    public static String encode(byte[] bstr){
+    public static String encode(byte[] bstr) {
         return new sun.misc.BASE64Encoder().encode(bstr);
     }
 
@@ -288,7 +288,7 @@ public class WxCommonUtil {
      * @param str
      * @return string
      */
-    public static byte[] decode(String str){
+    public static byte[] decode(String str) {
 
         byte[] bt = null;
         try {
@@ -390,7 +390,7 @@ public class WxCommonUtil {
      * @return
      */
     public static String getMoney(String amount) {
-        if(amount==null){
+        if(amount == null) {
             return "";
         }
         // 金额转化为分为单位
@@ -398,14 +398,14 @@ public class WxCommonUtil {
         int index = currency.indexOf(".");
         int length = currency.length();
         Long amLong = 0l;
-        if(index == -1){
-            amLong = Long.valueOf(currency+"00");
-        }else if(length - index >= 3){
-            amLong = Long.valueOf((currency.substring(0, index+3)).replace(".", ""));
-        }else if(length - index == 2){
-            amLong = Long.valueOf((currency.substring(0, index+2)).replace(".", "")+0);
-        }else{
-            amLong = Long.valueOf((currency.substring(0, index+1)).replace(".", "")+"00");
+        if(index == -1) {
+            amLong = Long.valueOf(currency + "00");
+        } else if(length - index >= 3) {
+            amLong = Long.valueOf((currency.substring(0, index + 3)).replace(".", ""));
+        } else if(length - index == 2) {
+            amLong = Long.valueOf((currency.substring(0, index + 2)).replace(".", "") + 0);
+        } else {
+            amLong = Long.valueOf((currency.substring(0, index + 1)).replace(".", "") + "00");
         }
         return amLong.toString();
     }
@@ -473,7 +473,7 @@ public class WxCommonUtil {
      * @throws JDOMException
      * @throws IOException
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings( { "unchecked", "rawtypes" })
     public static Map doXMLParse(String strxml) throws JDOMException, IOException {
         strxml = strxml.replaceFirst("encoding=\".*\"", "encoding=\"UTF-8\"");
 
@@ -541,8 +541,8 @@ public class WxCommonUtil {
      */
     public static String setXML(String return_code, String return_msg) {
         return "<xml><return_code><![CDATA[" + return_code
-                + "]]></return_code><return_msg><![CDATA[" + return_msg
-                + "]]></return_msg></xml>";
+               + "]]></return_code><return_msg><![CDATA[" + return_msg
+               + "]]></return_msg></xml>";
     }
 
     /**
@@ -633,7 +633,7 @@ public class WxCommonUtil {
      * @param nonce
      * @return
      */
-    public static boolean checkSignature(String token,String signature, String timestamp, String nonce) {
+    public static boolean checkSignature(String token, String signature, String timestamp, String nonce) {
         String[] arr = new String[] { token, timestamp, nonce };
         // 将token、timestamp、nonce三个参数进行字典序排序
         Arrays.sort(arr);

@@ -25,109 +25,109 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "wemall_activity")
 public class Activity extends IdEntity {
-	/**
-	 * UID
-	 */
-	private static final long serialVersionUID = 9102443646190265675L;
-	
-	//活动标题
-	private String ac_title;
-	
-	//活动开始时间
-	@Temporal(TemporalType.DATE)
-	private Date ac_begin_time;
-	
-	//活动结束时间
-	@Temporal(TemporalType.DATE)
-	private Date ac_end_time;
-	
-	//活动附件
-	@OneToOne(cascade = { javax.persistence.CascadeType.REMOVE }, fetch = FetchType.LAZY)
-	private Accessory ac_acc;
-	//活动序列号
-	private int ac_sequence;
-	//活动状态
-	private int ac_status;
-	//活动内容
-	@Column(columnDefinition = "LongText")
-	private String ac_content;
+    /**
+     * UID
+     */
+    private static final long serialVersionUID = 9102443646190265675L;
 
-	@OneToMany(mappedBy = "act", cascade = { javax.persistence.CascadeType.REMOVE })
-	private List<ActivityGoods> ags = new ArrayList<ActivityGoods>();
-	
-	//活动折扣
-	@Column(precision = 3, scale = 2)
-	private BigDecimal ac_rebate;
+    //活动标题
+    private String ac_title;
 
-	public List<ActivityGoods> getAgs() {
-		return this.ags;
-	}
+    //活动开始时间
+    @Temporal(TemporalType.DATE)
+    private Date ac_begin_time;
 
-	public void setAgs(List<ActivityGoods> ags) {
-		this.ags = ags;
-	}
+    //活动结束时间
+    @Temporal(TemporalType.DATE)
+    private Date ac_end_time;
 
-	public String getAc_title() {
-		return this.ac_title;
-	}
+    //活动附件
+    @OneToOne(cascade = { javax.persistence.CascadeType.REMOVE }, fetch = FetchType.LAZY)
+    private Accessory ac_acc;
+    //活动序列号
+    private int ac_sequence;
+    //活动状态
+    private int ac_status;
+    //活动内容
+    @Column(columnDefinition = "LongText")
+    private String ac_content;
 
-	public void setAc_title(String ac_title) {
-		this.ac_title = ac_title;
-	}
+    @OneToMany(mappedBy = "act", cascade = { javax.persistence.CascadeType.REMOVE })
+    private List<ActivityGoods> ags = new ArrayList<ActivityGoods>();
 
-	public Date getAc_begin_time() {
-		return this.ac_begin_time;
-	}
+    //活动折扣
+    @Column(precision = 3, scale = 2)
+    private BigDecimal ac_rebate;
 
-	public void setAc_begin_time(Date ac_begin_time) {
-		this.ac_begin_time = ac_begin_time;
-	}
+    public List<ActivityGoods> getAgs() {
+        return this.ags;
+    }
 
-	public Date getAc_end_time() {
-		return this.ac_end_time;
-	}
+    public void setAgs(List<ActivityGoods> ags) {
+        this.ags = ags;
+    }
 
-	public void setAc_end_time(Date ac_end_time) {
-		this.ac_end_time = ac_end_time;
-	}
+    public String getAc_title() {
+        return this.ac_title;
+    }
 
-	public Accessory getAc_acc() {
-		return this.ac_acc;
-	}
+    public void setAc_title(String ac_title) {
+        this.ac_title = ac_title;
+    }
 
-	public void setAc_acc(Accessory ac_acc) {
-		this.ac_acc = ac_acc;
-	}
+    public Date getAc_begin_time() {
+        return this.ac_begin_time;
+    }
 
-	public int getAc_sequence() {
-		return this.ac_sequence;
-	}
+    public void setAc_begin_time(Date ac_begin_time) {
+        this.ac_begin_time = ac_begin_time;
+    }
 
-	public void setAc_sequence(int ac_sequence) {
-		this.ac_sequence = ac_sequence;
-	}
+    public Date getAc_end_time() {
+        return this.ac_end_time;
+    }
 
-	public int getAc_status() {
-		return this.ac_status;
-	}
+    public void setAc_end_time(Date ac_end_time) {
+        this.ac_end_time = ac_end_time;
+    }
 
-	public void setAc_status(int ac_status) {
-		this.ac_status = ac_status;
-	}
+    public Accessory getAc_acc() {
+        return this.ac_acc;
+    }
 
-	public String getAc_content() {
-		return this.ac_content;
-	}
+    public void setAc_acc(Accessory ac_acc) {
+        this.ac_acc = ac_acc;
+    }
 
-	public void setAc_content(String ac_content) {
-		this.ac_content = ac_content;
-	}
+    public int getAc_sequence() {
+        return this.ac_sequence;
+    }
 
-	public BigDecimal getAc_rebate() {
-		return this.ac_rebate;
-	}
+    public void setAc_sequence(int ac_sequence) {
+        this.ac_sequence = ac_sequence;
+    }
 
-	public void setAc_rebate(BigDecimal ac_rebate) {
-		this.ac_rebate = ac_rebate;
-	}
+    public int getAc_status() {
+        return this.ac_status;
+    }
+
+    public void setAc_status(int ac_status) {
+        this.ac_status = ac_status;
+    }
+
+    public String getAc_content() {
+        return this.ac_content;
+    }
+
+    public void setAc_content(String ac_content) {
+        this.ac_content = ac_content;
+    }
+
+    public BigDecimal getAc_rebate() {
+        return this.ac_rebate;
+    }
+
+    public void setAc_rebate(BigDecimal ac_rebate) {
+        this.ac_rebate = ac_rebate;
+    }
 }

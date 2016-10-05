@@ -10,61 +10,61 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 /**
  * 收藏
- * @author 
+ * @author
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "wemall_favorite")
 public class Favorite extends IdEntity {
-	/**
-	 * UID
-	 */
-	private static final long serialVersionUID = -6806868000509737275L;
-	//类型
-	private int type;
-	
-	//商品
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Goods goods;
-	
-	//店铺
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Store store;
-	
-	//用户
-	@ManyToOne(fetch = FetchType.LAZY)
-	private User user;
+    /**
+     * UID
+     */
+    private static final long serialVersionUID = -6806868000509737275L;
+    //类型
+    private int type;
 
-	public int getType() {
-		return this.type;
-	}
+    //商品
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Goods goods;
 
-	public void setType(int type) {
-		this.type = type;
-	}
+    //店铺
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Store store;
 
-	public Goods getGoods() {
-		return this.goods;
-	}
+    //用户
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
-	public void setGoods(Goods goods) {
-		this.goods = goods;
-	}
+    public int getType() {
+        return this.type;
+    }
 
-	public Store getStore() {
-		return this.store;
-	}
+    public void setType(int type) {
+        this.type = type;
+    }
 
-	public void setStore(Store store) {
-		this.store = store;
-	}
+    public Goods getGoods() {
+        return this.goods;
+    }
 
-	public User getUser() {
-		return this.user;
-	}
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public Store getStore() {
+        return this.store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

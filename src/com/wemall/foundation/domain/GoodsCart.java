@@ -22,101 +22,103 @@ import com.wemall.core.domain.IdEntity;
 @Table(name = "wemall_goodscart")
 public class GoodsCart extends IdEntity {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	//商品
-	@OneToOne
-	private Goods goods;
-	//数量
-	private int count;
-	
-	//价格
-	@Column(precision = 12, scale = 2)
-	private BigDecimal price;
-	
-	//商品规格属性
-	@ManyToMany
-	@JoinTable(name = "wemall_cart_gsp", joinColumns = {
-			@javax.persistence.JoinColumn(name = "cart_id") }, inverseJoinColumns = {
-					@javax.persistence.JoinColumn(name = "gsp_id") })
-	private List<GoodsSpecProperty> gsps = new ArrayList<GoodsSpecProperty>();
-	
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    //商品
+    @OneToOne
+    private Goods goods;
+    //数量
+    private int count;
+
+    //价格
+    @Column(precision = 12, scale = 2)
+    private BigDecimal price;
+
+    //商品规格属性
+    @ManyToMany
+    @JoinTable(name = "wemall_cart_gsp", joinColumns = {
+        @javax.persistence.JoinColumn(name = "cart_id")
+    }, inverseJoinColumns = {
+        @javax.persistence.JoinColumn(name = "gsp_id")
+    })
+    private List<GoodsSpecProperty> gsps = new ArrayList<GoodsSpecProperty>();
+
     //商品规格
-	@Lob
-	@Column(columnDefinition = "LongText")
-	private String spec_info;
+    @Lob
+    @Column(columnDefinition = "LongText")
+    private String spec_info;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private OrderForm of;
-	private String cart_type;
-	
-	//商店运输
-	@ManyToOne(fetch=FetchType.LAZY)
-	private StoreCart sc;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OrderForm of;
+    private String cart_type;
 
-	public StoreCart getSc() {
-		return this.sc;
-	}
+    //商店运输
+    @ManyToOne(fetch = FetchType.LAZY)
+    private StoreCart sc;
 
-	public void setSc(StoreCart sc) {
-		this.sc = sc;
-	}
+    public StoreCart getSc() {
+        return this.sc;
+    }
 
-	public Goods getGoods() {
-		return this.goods;
-	}
+    public void setSc(StoreCart sc) {
+        this.sc = sc;
+    }
 
-	public void setGoods(Goods goods) {
-		this.goods = goods;
-	}
+    public Goods getGoods() {
+        return this.goods;
+    }
 
-	public int getCount() {
-		return this.count;
-	}
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
 
-	public void setCount(int count) {
-		this.count = count;
-	}
+    public int getCount() {
+        return this.count;
+    }
 
-	public List<GoodsSpecProperty> getGsps() {
-		return this.gsps;
-	}
+    public void setCount(int count) {
+        this.count = count;
+    }
 
-	public void setGsps(List<GoodsSpecProperty> gsps) {
-		this.gsps = gsps;
-	}
+    public List<GoodsSpecProperty> getGsps() {
+        return this.gsps;
+    }
 
-	public String getSpec_info() {
-		return this.spec_info;
-	}
+    public void setGsps(List<GoodsSpecProperty> gsps) {
+        this.gsps = gsps;
+    }
 
-	public void setSpec_info(String spec_info) {
-		this.spec_info = spec_info;
-	}
+    public String getSpec_info() {
+        return this.spec_info;
+    }
 
-	public OrderForm getOf() {
-		return this.of;
-	}
+    public void setSpec_info(String spec_info) {
+        this.spec_info = spec_info;
+    }
 
-	public void setOf(OrderForm of) {
-		this.of = of;
-	}
+    public OrderForm getOf() {
+        return this.of;
+    }
 
-	public BigDecimal getPrice() {
-		return this.price;
-	}
+    public void setOf(OrderForm of) {
+        this.of = of;
+    }
 
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
+    public BigDecimal getPrice() {
+        return this.price;
+    }
 
-	public String getCart_type() {
-		return this.cart_type;
-	}
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
-	public void setCart_type(String cart_type) {
-		this.cart_type = cart_type;
-	}
+    public String getCart_type() {
+        return this.cart_type;
+    }
+
+    public void setCart_type(String cart_type) {
+        this.cart_type = cart_type;
+    }
 }

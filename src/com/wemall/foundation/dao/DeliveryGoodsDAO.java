@@ -5,7 +5,6 @@ import com.wemall.foundation.domain.DeliveryGoods;
 import org.springframework.stereotype.Repository;
 
 @Repository("deliveryGoodsDAO")
-public class DeliveryGoodsDAO extends GenericDAO<DeliveryGoods>
-{
+public class DeliveryGoodsDAO extends GenericDAO<DeliveryGoods> {
 }
 

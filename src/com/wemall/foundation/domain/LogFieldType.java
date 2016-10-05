@@ -1,11 +1,9 @@
- package com.wemall.foundation.domain;
- 
- public enum LogFieldType
- {
-   String, Long, Integer;
- }
+package com.wemall.foundation.domain;
+
+public enum LogFieldType {
+    String, Long, Integer;
+}
 
 
 
- 
- 
+

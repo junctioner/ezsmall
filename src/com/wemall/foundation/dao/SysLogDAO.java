@@ -5,7 +5,6 @@ import com.wemall.foundation.domain.SysLog;
 import org.springframework.stereotype.Repository;
 
 @Repository("sysLogDAO")
-public class SysLogDAO extends GenericDAO<SysLog>
-{
+public class SysLogDAO extends GenericDAO<SysLog> {
 }
 

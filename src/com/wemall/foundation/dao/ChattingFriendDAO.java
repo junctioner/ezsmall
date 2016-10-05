@@ -5,7 +5,6 @@ import com.wemall.foundation.domain.ChattingFriend;
 import org.springframework.stereotype.Repository;
 
 @Repository("chattingFriendDAO")
-public class ChattingFriendDAO extends GenericDAO<ChattingFriend>
-{
+public class ChattingFriendDAO extends GenericDAO<ChattingFriend> {
 }
 

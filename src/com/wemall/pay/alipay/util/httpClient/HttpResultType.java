@@ -1,13 +1,11 @@
- package com.wemall.pay.alipay.util.httpClient;
- 
- public enum HttpResultType
- {
-   STRING, 
- 
-   BYTES;
- }
+package com.wemall.pay.alipay.util.httpClient;
+
+public enum HttpResultType {
+    STRING,
+
+    BYTES;
+}
 
 
- 
- 
- 
+
+

@@ -189,8 +189,8 @@ public final class Base64Wap {
         for (; i < numberQuadruple - 1; i++) {
 
             if (!isData((d1 = base64Data[dataIndex++])) || !isData((d2 = base64Data[dataIndex++]))
-                || !isData((d3 = base64Data[dataIndex++]))
-                || !isData((d4 = base64Data[dataIndex++]))) {
+                    || !isData((d3 = base64Data[dataIndex++]))
+                    || !isData((d4 = base64Data[dataIndex++]))) {
                 return null;
             }//if found "no data" just return null
 
@@ -213,10 +213,9 @@ public final class Base64Wap {
 
         d3 = base64Data[dataIndex++];
         d4 = base64Data[dataIndex++];
-        if (!isData((d3)) || !isData((d4))) {//Check if they are PAD characters
+        if (!isData((d3)) || !isData((d4))) { //Check if they are PAD characters
             if (isPad(d3) && isPad(d4)) {
-                if ((b2 & 0xf) != 0)//last 4 bits should be zero
-                {
+                if ((b2 & 0xf) != 0) { //last 4 bits should be zero
                     return null;
                 }
                 byte[] tmp = new byte[i * 3 + 1];
@@ -225,8 +224,7 @@ public final class Base64Wap {
                 return tmp;
             } else if (!isPad(d3) && isPad(d4)) {
                 b3 = base64Alphabet[d3];
-                if ((b3 & 0x3) != 0)//last 2 bits should be zero
-                {
+                if ((b3 & 0x3) != 0) { //last 2 bits should be zero
                     return null;
                 }
                 byte[] tmp = new byte[i * 3 + 2];
