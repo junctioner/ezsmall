@@ -1103,7 +1103,7 @@ public class OrderSellerAction {
         return mv;
     }
 
-    @SecurityMapping(display = false, rsequence = 0, title = "买家退货物流详情", value = "/seller/seller_order_return_ship_view.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
+    @SecurityMapping(display = false, rsequence = 0, title = "买家退商品流详情", value = "/seller/seller_order_return_ship_view.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
     @RequestMapping( {"/seller/seller_order_return_ship_view.htm"})
     public ModelAndView seller_order_return_ship_view(HttpServletRequest request, HttpServletResponse response, String id) {
         ModelAndView mv = new JModelAndView("error.html",
@@ -1127,7 +1127,7 @@ public class OrderSellerAction {
                 mv.addObject("obj", obj);
                 mv.addObject("transInfo", transInfo);
             } else {
-                mv.addObject("op_title", "买家没有提交退货物流信息");
+                mv.addObject("op_title", "买家没有提交退商品流信息");
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/seller/order.htm");
             }

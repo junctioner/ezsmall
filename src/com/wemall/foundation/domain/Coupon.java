@@ -30,7 +30,7 @@ public class Coupon extends IdEntity {
      */
     private static final long serialVersionUID = 4988110222207115350L;
 
-    //优惠券名字
+    //优惠券名称
     private String coupon_name;
 
     //优惠券金额
@@ -44,10 +44,10 @@ public class Coupon extends IdEntity {
     //结束时间
     @Temporal(TemporalType.DATE)
     private Date coupon_end_time;
-    //优惠数量
+    //优惠券数量
     private int coupon_count;
 
-    //优惠订单金额
+    //优惠券订单金额
     @Column(precision = 12, scale = 2)
     private BigDecimal coupon_order_amount;
 

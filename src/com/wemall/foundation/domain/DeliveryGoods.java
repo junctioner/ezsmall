@@ -13,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 /**
- * 确认收货
+ * 确认配送
  * @author
  *
  */

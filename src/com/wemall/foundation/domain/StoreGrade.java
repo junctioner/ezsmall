@@ -39,7 +39,7 @@ public class StoreGrade extends IdEntity {
     //模板
     private String templates;
 
-    //等级水平
+    //等级等级
     @Column(columnDefinition = "int default 0")
     private int gradeLevel;
 

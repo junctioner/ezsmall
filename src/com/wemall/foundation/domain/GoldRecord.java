@@ -27,7 +27,7 @@ public class GoldRecord extends IdEntity {
      */
     private static final long serialVersionUID = 6264078752531365625L;
 
-    //金币序列
+    //金币序列号
     private String gold_sn;
 
     //金币用户

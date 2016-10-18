@@ -28,7 +28,7 @@ public class TransArea extends IdEntity {
     private TransArea parent;
     //序列
     private int sequence;
-    //水平
+    //等级
     private int level;
 
     public String getAreaName() {

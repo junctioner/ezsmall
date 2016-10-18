@@ -11,6 +11,11 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 
+/**
+ * 活动商品
+ * @author wemall
+ *
+ */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "wemall_activity_goods")

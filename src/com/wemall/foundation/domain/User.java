@@ -115,7 +115,7 @@ public class User extends IdEntity
     @OneToMany(mappedBy = "user")
     private List<Accessory> files = new ArrayList();
 
-    //商店
+    //店铺
     @OneToOne(cascade = {javax.persistence.CascadeType.REMOVE})
     private Store store;
 
@@ -136,7 +136,7 @@ public class User extends IdEntity
     private String qq_openid;
     private String sina_openid;
 
-    //商店快捷菜单
+    //店铺快捷菜单
     @Column(columnDefinition = "LongText")
     private String store_quick_menu;
 

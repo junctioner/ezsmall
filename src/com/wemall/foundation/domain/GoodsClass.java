@@ -15,15 +15,15 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 
+/**
+ * 商品分类
+ */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "wemall_goodsclass")
 public class GoodsClass extends IdEntity {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
-    //类型名称
+    //分类名称
     private String className;
 
     //商品子分类
@@ -35,14 +35,14 @@ public class GoodsClass extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private GoodsClass parent;
     private int sequence;
-    //水平等级
+    //等级等级
     private int level;
     //是否展示
     private boolean display;
     //是否推荐
     private boolean recommend;
 
-    //货物类型
+    //商品类型
     @ManyToOne(fetch = FetchType.LAZY)
     private GoodsType goodsType;
 
@@ -54,7 +54,7 @@ public class GoodsClass extends IdEntity {
     @Column(columnDefinition = "LongText")
     private String seo_description;
 
-    //货物集合
+    //商品集合
     @OneToMany(mappedBy = "gc")
     private List<Goods> goods_list = new ArrayList<Goods>();
 

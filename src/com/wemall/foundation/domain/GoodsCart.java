@@ -54,7 +54,7 @@ public class GoodsCart extends IdEntity {
     private OrderForm of;
     private String cart_type;
 
-    //商店运输
+    //店铺购物车
     @ManyToOne(fetch = FetchType.LAZY)
     private StoreCart sc;
 

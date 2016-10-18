@@ -65,7 +65,7 @@ public class ExcelWriter {
         HSSFCellStyle style = workbook.createCellStyle();
         style.setFont(font);
         style.setAlignment(HSSFCellStyle.VERTICAL_CENTER); // 垂直居中
-        style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 水平居中
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 等级居中
         createCell(style, headRow0.createCell(0), headline);
     }
 

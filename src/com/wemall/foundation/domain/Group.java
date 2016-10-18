@@ -26,11 +26,11 @@ public class Group extends IdEntity {
     //状态
     private int status;
 
-    //货物集合
+    //商品集合
     @OneToMany(mappedBy = "group")
     private List<Goods> goods_list = new ArrayList();
 
-    //分组货物集合
+    //分组商品集合
     @OneToMany(mappedBy = "group")
     private List<GroupGoods> gg_list = new ArrayList();
 

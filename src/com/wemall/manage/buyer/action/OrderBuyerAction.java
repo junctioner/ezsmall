@@ -704,7 +704,7 @@ public class OrderBuyerAction {
         }
         return "redirect:order.htm?currentPage=" + currentPage;
     }
-    @SecurityMapping(display = false, rsequence = 0, title = "买家退货物流信息", value = "/buyer/order_return_ship.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
+    @SecurityMapping(display = false, rsequence = 0, title = "买家退商品流信息", value = "/buyer/order_return_ship.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/order_return_ship.htm"})
     public ModelAndView order_return_ship(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
         ModelAndView mv = new JModelAndView(
@@ -751,7 +751,7 @@ public class OrderBuyerAction {
         return mv;
     }
 
-    @SecurityMapping(display = false, rsequence = 0, title = "买家退货物流信息保存", value = "/buyer/order_return_ship_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
+    @SecurityMapping(display = false, rsequence = 0, title = "买家退商品流信息保存", value = "/buyer/order_return_ship_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/order_return_ship_save.htm"})
     public String order_return_ship_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String ec_id, String return_shipCode) {
         ModelAndView mv = new JModelAndView(

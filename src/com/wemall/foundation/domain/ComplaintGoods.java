@@ -10,7 +10,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 /**
- * 举报商品
+ * 投诉商品
  * @author
  *
  */
@@ -32,7 +32,7 @@ public class ComplaintGoods extends IdEntity {
     @Column(columnDefinition = "LongText")
     private String content;
 
-    //举报
+    //投诉
     @ManyToOne(fetch = FetchType.LAZY)
     private Complaint complaint;
 

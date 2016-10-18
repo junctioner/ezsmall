@@ -23,7 +23,7 @@ public class UserGoodsClass extends IdEntity {
     private int sequence;
     //是否展示
     private boolean display;
-    //水平
+    //等级
     private int level;
 
     //用户父类型

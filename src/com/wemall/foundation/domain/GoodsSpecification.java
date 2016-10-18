@@ -25,7 +25,7 @@ public class GoodsSpecification extends IdEntity {
     //类型集合
     @ManyToMany(mappedBy = "gss")
     private List<GoodsType> types = new ArrayList();
-    //货物规格集合
+    //商品规格集合
     @OneToMany(mappedBy = "spec")
     @OrderBy("sequence asc")
     private List<GoodsSpecProperty> properties = new ArrayList();

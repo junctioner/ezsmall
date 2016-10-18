@@ -18,13 +18,13 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 
+/**
+ * 商品品牌
+ */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "wemall_goodsbrand")
 public class GoodsBrand extends IdEntity {
-    /**
-     * 商品品牌
-     */
     private static final long serialVersionUID = 5608767062084760770L;
     //名称
     private String name;

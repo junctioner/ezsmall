@@ -23,7 +23,7 @@ public class GoodsSpecProperty extends IdEntity {
     //规格图
     @OneToOne(fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.REMOVE})
     private Accessory specImage;
-    //货物规格
+    //商品规格
     @ManyToOne(fetch = FetchType.LAZY)
     private GoodsSpecification spec;
 

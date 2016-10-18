@@ -10,7 +10,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 /**
- * 收货日志
+ * 配送日志
  * @author
  *
  */

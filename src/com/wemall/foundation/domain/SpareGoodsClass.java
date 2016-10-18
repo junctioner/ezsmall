@@ -26,7 +26,7 @@ public class SpareGoodsClass extends IdEntity {
     @Column(columnDefinition = "int default 0")
     private int sequence;
 
-    //水平
+    //等级
     @Column(columnDefinition = "int default 0")
     private int level;
 

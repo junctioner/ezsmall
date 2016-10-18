@@ -31,7 +31,7 @@ public class Evaluate extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Goods evaluate_goods;
 
-    //商品序列
+    //商品规格
     @Lob
     @Column(columnDefinition = "LongText")
     private String goods_spec;

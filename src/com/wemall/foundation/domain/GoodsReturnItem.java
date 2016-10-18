@@ -22,10 +22,10 @@ import com.wemall.core.domain.IdEntity;
 public class GoodsReturnItem extends IdEntity {
 
     private static final long serialVersionUID = 3006242082958970206L;
-    //货物
+    //商品
     @OneToOne(fetch = FetchType.LAZY)
     private Goods goods;
-    //返回货物
+    //返回商品
     @ManyToOne(fetch = FetchType.LAZY)
     private GoodsReturn gr;
 

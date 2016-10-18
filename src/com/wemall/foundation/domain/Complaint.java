@@ -29,34 +29,34 @@ public class Complaint extends IdEntity {
      */
     private static final long serialVersionUID = 1022459514300854119L;
 
-    //举报人
+    //投诉人
     @ManyToOne(fetch = FetchType.LAZY)
     private User from_user;
 
-    //被举报人
+    //被投诉人
     @ManyToOne(fetch = FetchType.LAZY)
     private User to_user;
-    //举报类型
+    //投诉类型
     private String type;
-    //举报状态
+    //投诉状态
     private int status;
 
-    //举报商品
+    //投诉商品
     @OneToMany(mappedBy = "complaint", cascade = { javax.persistence.CascadeType.ALL })
     private List<ComplaintGoods> cgs = new ArrayList<ComplaintGoods>();
 
-    //举报主题
+    //投诉主题
     @ManyToOne(fetch = FetchType.LAZY)
     private ComplaintSubject cs;
 
-    //举报内容
+    //投诉内容
     @Column(columnDefinition = "LongText")
     private String from_user_content;
 
-    //被举报内容
+    //被投诉内容
     @Column(columnDefinition = "LongText")
     private String to_user_content;
-    //举报日期
+    //投诉日期
     private Date appeal_time;
 
     //处理内容
@@ -93,7 +93,7 @@ public class Complaint extends IdEntity {
     @OneToOne(fetch = FetchType.LAZY)
     private Accessory to_acc3;
 
-    //被举报订单
+    //被投诉订单
     @ManyToOne(fetch = FetchType.LAZY)
     private OrderForm of;
 

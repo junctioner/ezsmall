@@ -23,14 +23,14 @@ public class StoreClass extends IdEntity {
     //序列
     private int sequence;
 
-    //商店父类型
+    //店铺父类型
     @ManyToOne(fetch = FetchType.LAZY)
     private StoreClass parent;
 
-    //商店子类型
+    //店铺子类型
     @OneToMany(mappedBy = "parent")
     private List<StoreClass> childs = new ArrayList();
-    //水平
+    //等级
     private int level;
 
     //描述评价

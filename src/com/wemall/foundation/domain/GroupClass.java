@@ -33,7 +33,7 @@ public class GroupClass extends IdEntity {
 
     @OneToMany(mappedBy = "gg_gc", cascade = {javax.persistence.CascadeType.REMOVE})
     private List<GroupGoods> ggs = new ArrayList();
-    //分组类型水平
+    //分组类型等级
     private int gc_level;
 
     public List<GroupGoods> getGgs() {

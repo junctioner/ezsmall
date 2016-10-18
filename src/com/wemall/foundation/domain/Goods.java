@@ -39,34 +39,34 @@ public class Goods extends IdEntity {
     @Lob
     @Column(columnDefinition = "LongText")
     private String seo_description;
-    //货物名称
+    //名称
     private String goods_name;
 
-    //货物价格
+    //价格
     @Column(precision = 12, scale = 2)
     private BigDecimal goods_price;
 
-    //商店价格
+    //店铺价格
     @Column(precision = 12, scale = 2)
     private BigDecimal store_price;
-    //存货清单
+    //库存
     private int goods_inventory;
-    //存货类型
+    //库存类型
     private String inventory_type;
     private int goods_salenum;
     private String goods_serial;
 
-    //货物重量
+    //重量
     @Column(precision = 12, scale = 2)
     private BigDecimal goods_weight;
 
-    //货物量
+    //量
     @Column(precision = 12, scale = 2)
     private BigDecimal goods_volume;
-    //货物小费
+    //小费
     private String goods_fee;
 
-    //货物细节
+    //细节
     @Lob
     @Column(columnDefinition = "LongText")
     private String goods_details;
@@ -74,32 +74,32 @@ public class Goods extends IdEntity {
     private boolean store_recommend;
     //推荐店铺时间
     private Date store_recommend_time;
-    //是否为推荐货物
+    //是否为推荐
     private boolean goods_recommend;
-    //货物点击量
+    //点击量
     private int goods_click;
 
-    //货物收藏量
+    //收藏量
     @Column(columnDefinition = "int default 0")
     private int goods_collect;
 
-    //货物商店
+    //店铺
     @ManyToOne(fetch = FetchType.EAGER)
     private Store goods_store;
-    //货物状态
+    //状态
     private int goods_status;
     private Date goods_seller_time;
     private int goods_transfee;
 
-    //货物类型
+    //商品分类
     @ManyToOne(fetch = FetchType.LAZY)
     private GoodsClass gc;
 
-    //货物主照片
+    //主照片
     @ManyToOne(cascade = { javax.persistence.CascadeType.REMOVE })
     private Accessory goods_main_photo;
 
-    //货物照片
+    //照片
     @ManyToMany
     @JoinTable(name = "wemall_goods_photo", joinColumns = {
         @javax.persistence.JoinColumn(name = "goods_id")

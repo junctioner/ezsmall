@@ -70,7 +70,7 @@ public class Payment extends IdEntity {
     //类型
     private String type;
 
-    //商店
+    //店铺
     @ManyToOne(fetch = FetchType.LAZY)
     private Store store;
 

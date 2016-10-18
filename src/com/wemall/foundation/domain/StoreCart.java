@@ -20,7 +20,7 @@ import com.wemall.core.domain.IdEntity;
 @Table(name = "wemall_storecart")
 public class StoreCart extends IdEntity {
 
-    //商店
+    //店铺
     @ManyToOne
     private Store store;
 

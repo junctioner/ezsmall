@@ -24,42 +24,42 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "wemall_store")
 public class Store extends IdEntity {
-    //商店名称
+    //店铺名称
     private String store_name;
     //店主
     private String store_ower;
     //店主名片
     private String store_ower_card;
-    //商店电话
+    //店铺电话
     private String store_telephone;
-    //商店qq
+    //店铺qq
     private String store_qq;
-    //商店msn
+    //店铺msn
     private String store_msn;
-    //商店网站
+    //店铺网站
     private String store_ww;
-    //商店地址
+    //店铺地址
     private String store_address;
     private String store_zip;
-    //商店状态
+    //店铺状态
     private int store_status;
 
     //用户
     @OneToOne(mappedBy = "store", fetch = FetchType.LAZY)
     private User user;
 
-    //商店级别
+    //店铺级别
     @ManyToOne(fetch = FetchType.LAZY)
     private StoreGrade grade;
 
-    //商店类型
+    //店铺类型
     @ManyToOne(fetch = FetchType.LAZY)
     private StoreClass sc;
 
-    //商店地址
+    //店铺地址
     @ManyToOne(fetch = FetchType.LAZY)
     private Area area;
-    //是否推荐商店
+    //是否推荐店铺
     private boolean store_recommend;
     //推荐时间
     private Date store_recommend_time;
@@ -67,11 +67,11 @@ public class Store extends IdEntity {
     private Date validity;
     private boolean card_approve;
 
-    //商店logo
+    //店铺logo
     @OneToOne(fetch = FetchType.LAZY)
     private Accessory store_logo;
 
-    //商店标语
+    //店铺标语
     @OneToOne(fetch = FetchType.LAZY)
     private Accessory store_banner;
 
@@ -87,7 +87,7 @@ public class Store extends IdEntity {
     //商品集合
     @OneToMany(mappedBy = "goods_store")
     private List<Goods> goods_list = new ArrayList();
-    //商店信用
+    //店铺信用
     private int store_credit;
     //模板
     private String template;
@@ -107,7 +107,7 @@ public class Store extends IdEntity {
     @Column(columnDefinition = "LongText")
     private String store_seo_description;
 
-    //商店信息
+    //店铺信息
     @Lob
     @Column(columnDefinition = "LongText")
     private String store_info;
@@ -149,7 +149,7 @@ public class Store extends IdEntity {
     //组合结束时间
     private Date combin_end_time;
 
-    //商店等级记录
+    //店铺等级记录
     @OneToMany(mappedBy = "store", cascade = { javax.persistence.CascadeType.REMOVE })
     private List<StoreGradeLog> logs = new ArrayList();
 
@@ -160,7 +160,7 @@ public class Store extends IdEntity {
     @OneToOne(mappedBy = "store", fetch = FetchType.LAZY, cascade = { javax.persistence.CascadeType.REMOVE })
     private StorePoint sp;
 
-    //商店导航
+    //店铺导航
     @OneToMany(mappedBy = "store", cascade = { javax.persistence.CascadeType.REMOVE })
     private List<StoreNavigation> navs = new ArrayList();
 

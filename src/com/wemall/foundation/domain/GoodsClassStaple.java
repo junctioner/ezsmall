@@ -9,23 +9,23 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 
+/**
+ * 主要产品
+ */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "wemall_goodsclassstaple")
 public class GoodsClassStaple extends IdEntity {
-    /**
-     * 主要产品
-     */
     private static final long serialVersionUID = 1L;
 
     //名称
     private String name;
 
-    //货物类型
+    //商品类型
     @ManyToOne(fetch = FetchType.LAZY)
     private GoodsClass gc;
 
-    //商店
+    //店铺
     @ManyToOne(fetch = FetchType.LAZY)
     private Store store;
 

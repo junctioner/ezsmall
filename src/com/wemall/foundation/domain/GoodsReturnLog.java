@@ -17,7 +17,7 @@ public class GoodsReturnLog extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private OrderForm of;
 
-    //返回货物
+    //返回商品
     @ManyToOne(fetch = FetchType.LAZY)
     private GoodsReturn gr;
     //返回人

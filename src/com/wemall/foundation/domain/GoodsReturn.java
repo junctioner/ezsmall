@@ -13,27 +13,27 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 
+/**
+ * 商品退货
+ */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "wemall_goods_return")
 public class GoodsReturn extends IdEntity {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
-    //返回ID
+    //退货ID
     private String return_id;
-
+    //订单
     @ManyToOne(fetch = FetchType.LAZY)
     private OrderForm of;
-    //货物返回项目
+    //商品退货项目
     @OneToMany(mappedBy = "gr", cascade = { javax.persistence.CascadeType.REMOVE })
     private List<GoodsReturnItem> items = new ArrayList<GoodsReturnItem>();
     //使用者
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-    //返回信息
+    //退货信息
     @Column(columnDefinition = "LongText")
     private String return_info;
 

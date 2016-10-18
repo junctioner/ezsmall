@@ -17,20 +17,20 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "wemall_group_area")
 public class GroupArea extends IdEntity {
-    //分组地区名称
+    //团购地区名称
     private String ga_name;
-    //分组地区序列
+    //团购地区序列
     private int ga_sequence;
 
-    //分组父地区
+    //团购父地区
     @ManyToOne(fetch = FetchType.LAZY)
     private GroupArea parent;
 
-    //分组子地区
+    //团购子地区
     @OneToMany(mappedBy = "parent", cascade = {javax.persistence.CascadeType.REMOVE})
     @OrderBy("ga_sequence asc")
     private List<GroupArea> childs = new ArrayList();
-    //分组地区水平
+    //团购地区等级
     private int ga_level;
 
     public int getGa_level() {
