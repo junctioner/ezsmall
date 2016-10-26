@@ -16,7 +16,7 @@ public class ReportSubject extends IdEntity {
     //标题
     private String title;
 
-    //报道类型
+    //报表类型
     @ManyToOne(fetch = FetchType.LAZY)
     private ReportType type;
 

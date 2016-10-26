@@ -26,7 +26,7 @@ public class Payment extends IdEntity {
     private String mark;
     //安全码
     private String safeKey;
-    //同伴
+    //合作伙伴
     private String partner;
     //销售者邮箱
     private String seller_email;

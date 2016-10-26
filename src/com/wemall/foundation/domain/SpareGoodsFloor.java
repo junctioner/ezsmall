@@ -24,7 +24,7 @@ public class SpareGoodsFloor extends IdEntity {
     @Column(columnDefinition = "int default 0")
     private int sequence;
 
-    //余下商品类型
+    //闲置商品类型
     @OneToOne(fetch = FetchType.LAZY)
     private SpareGoodsClass sgc;
 
@@ -32,7 +32,7 @@ public class SpareGoodsFloor extends IdEntity {
     @Column(columnDefinition = "bit default true")
     private boolean display;
 
-    //余下商品
+    //闲置商品
     @OneToMany(mappedBy = "sgf")
     private List<SpareGoods> sgs = new ArrayList();
 

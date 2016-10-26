@@ -11,6 +11,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 
+/**
+ * 闲置商品
+ */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "wemall_spare_goods")
@@ -75,7 +78,7 @@ public class SpareGoods extends IdEntity {
     @Column(columnDefinition = "int default 0")
     private int goods_price;
 
-    //余下商品类型
+    //闲置商品类型
     @OneToOne(fetch = FetchType.LAZY)
     private SpareGoodsClass spareGoodsClass;
 

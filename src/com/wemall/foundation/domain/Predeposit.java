@@ -23,7 +23,7 @@ public class Predeposit extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private User pd_user;
 
-    //数量
+    //金额
     @Column(precision = 12, scale = 2)
     private BigDecimal pd_amount;
     private String pd_sn;

@@ -19,26 +19,26 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "wemall_group_goods")
 public class GroupGoods extends IdEntity {
-    //分组
+    //团购
     @ManyToOne(fetch = FetchType.LAZY)
     private Group group;
-    //分组类型
+    //团购类型
     @ManyToOne(fetch = FetchType.LAZY)
     private GroupClass gg_gc;
-    //分组地区
+    //团购地区
     @ManyToOne(fetch = FetchType.LAZY)
     private GroupArea gg_ga;
-    //分组商品名称
+    //团购商品名称
     private String gg_name;
-    //分组商品
+    //团购商品
     @ManyToOne(fetch = FetchType.LAZY)
     private Goods gg_goods;
-    //分组商品价格
+    //团购商品价格
     @Column(precision = 12, scale = 2)
     private BigDecimal gg_price;
-    //分组商品数量
+    //团购商品数量
     private int gg_count;
-    //分组数量
+    //团购数量
     private int gg_group_count;
     //定义数量
     private int gg_def_count;
@@ -48,22 +48,22 @@ public class GroupGoods extends IdEntity {
     //数量最大值
     private int gg_max_count;
 
-    //分组商品折扣
+    //团购商品折扣
     @Column(precision = 12, scale = 2)
     private BigDecimal gg_rebate;
-    //分组商品状态
+    //团购商品状态
     private int gg_status;
-    //审计时间
+    //审核时间
     private Date gg_audit_time;
-    //分组商品推荐
+    //团购商品推荐
     private int gg_recommend;
-    //分组商品推荐时间
+    //团购商品推荐时间
     private Date gg_recommend_time;
 
-    //分组商品内容
+    //团购商品内容
     @Column(columnDefinition = "LongText")
     private String gg_content;
-    //分组商品图片
+    //团购商品图片
     @OneToOne(fetch = FetchType.LAZY, cascade = {javax.persistence.CascadeType.REMOVE})
     private Accessory gg_img;
     //是否在微信店铺推荐

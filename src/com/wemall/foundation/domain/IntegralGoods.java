@@ -59,7 +59,7 @@ public class IntegralGoods extends IdEntity {
     private String ig_seo_description;
     //内容
     private String ig_content;
-    //交换总数
+    //兑换总数
     private int ig_exchange_count;
     //点击总数
     private int ig_click_count;

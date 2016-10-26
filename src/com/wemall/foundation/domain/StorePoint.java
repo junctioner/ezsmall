@@ -34,7 +34,7 @@ public class StorePoint extends IdEntity {
     @Column(precision = 4, scale = 1)
     private BigDecimal service_evaluate;
 
-    //运送评价
+    //配送评价
     @Column(precision = 4, scale = 1)
     private BigDecimal ship_evaluate;
 
@@ -46,7 +46,7 @@ public class StorePoint extends IdEntity {
     @Column(precision = 4, scale = 1)
     private BigDecimal service_evaluate_halfyear;
 
-    //半年运送评价
+    //半年配送评价
     @Column(precision = 4, scale = 1)
     private BigDecimal ship_evaluate_halfyear;
     //半年描述评价5
@@ -61,23 +61,23 @@ public class StorePoint extends IdEntity {
     private int description_evaluate_halfyear_count1;
     //半年服务评价5
     private int service_evaluate_halfyear_count5;
-    //半年描述评价4
+    //半年服务评价4
     private int service_evaluate_halfyear_count4;
-    //半年描述评价3
+    //半年服务评价3
     private int service_evaluate_halfyear_count3;
-    //半年描述评价2
+    //半年服务评价2
     private int service_evaluate_halfyear_count2;
-    //半年描述评价1
+    //半年服务评价1
     private int service_evaluate_halfyear_count1;
-    //半年运送评价5
+    //半年配送评价5
     private int ship_evaluate_halfyear_count5;
-    //半年运送评价4
+    //半年配送评价4
     private int ship_evaluate_halfyear_count4;
-    //半年运送评价3
+    //半年配送评价3
     private int ship_evaluate_halfyear_count3;
-    //半年运送评价2
+    //半年配送评价2
     private int ship_evaluate_halfyear_count2;
-    //半年运送评价1
+    //半年配送评价1
     private int ship_evaluate_halfyear_count1;
 
     public BigDecimal getDescription_evaluate_halfyear() {

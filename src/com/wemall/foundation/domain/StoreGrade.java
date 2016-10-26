@@ -16,7 +16,7 @@ public class StoreGrade extends IdEntity {
     //等级名称
     private String gradeName;
     private boolean sysGrade;
-    //是否审计
+    //是否审核
     private boolean audit;
 
     //商品数量
@@ -39,7 +39,7 @@ public class StoreGrade extends IdEntity {
     //模板
     private String templates;
 
-    //等级等级
+    //等级
     @Column(columnDefinition = "int default 0")
     private int gradeLevel;
 
