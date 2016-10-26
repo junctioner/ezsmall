@@ -119,9 +119,9 @@ public class SysConfig extends IdEntity {
     private boolean gold;
     //金币值
     private int goldMarketValue;
-    //成员注册
+    //会员注册
     private int memberRegister;
-    //成员登录
+    //会员登录
     private int memberDayLogin;
     private int indentComment;
     //合理消费
@@ -140,7 +140,7 @@ public class SysConfig extends IdEntity {
     @OneToOne(cascade = {javax.persistence.CascadeType.ALL}, fetch = FetchType.LAZY)
     private Accessory goodsImage;
 
-    //成员图标
+    //会员图标
     @OneToOne(cascade = {javax.persistence.CascadeType.ALL}, fetch = FetchType.LAZY)
     private Accessory memberIcon;
     private boolean store_allow;
@@ -240,22 +240,22 @@ public class SysConfig extends IdEntity {
     //交易状态
     @Column(columnDefinition = "LongText")
     private String bargain_state;
-    //运送标题
+    //配送标题
     private String delivery_title;
 
-    //运送状态
+    //配送状态
     @Column(columnDefinition = "int default 0")
     private int delivery_status;
 
-    //运送数量
+    //配送数量
     @Column(columnDefinition = "int default 50")
     private int delivery_amount;
 
-    //结合量
+    //组合量
     @Column(columnDefinition = "int default 50")
     private int combin_amount;
 
-    //结合数量
+    //组合数量
     @Column(columnDefinition = "int default 3")
     private int combin_count;
 
@@ -338,7 +338,7 @@ public class SysConfig extends IdEntity {
     @OneToOne
     private Accessory weixin_qr_img;
 
-    //微信账目
+    //微信账户
     @Lock
     private String weixin_account;
 
