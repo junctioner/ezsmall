@@ -44,6 +44,9 @@ import com.wemall.lucene.LuceneUtil;
 import com.wemall.lucene.LuceneVo;
 import com.wemall.view.web.tools.StoreViewTools;
 
+/**
+ * 搜索试图类
+ */
 @Controller
 public class SearchViewAction {
 
@@ -334,7 +337,3 @@ public class SearchViewAction {
         return ids;
     }
 }
-
-
-
-

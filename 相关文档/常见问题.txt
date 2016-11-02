@@ -18,12 +18,13 @@ Lucene全文检索原生API深度开发，完美支持电商平台，支持自�
 电商平台配属体系强大，完备的产品体系包含手机商城、微信商城、桌面助手等多种外相关电商统；
 
 开发和推荐部署环境Windows操作系统64位版、jdk1.7 64位版和tomcat7 64位版
-前台首页：http://j15b548420.imwork.net
-管理员后台：http://j15b548420.imwork.net/admin/login.htm
+PC前台首页：http://localhost:8080/index.htm
+手机WAP前台首页：http://localhost:8080/wap/index.htm
+管理员后台：http://localhost:8080/admin/login.htm
 管理员：admin/123456
-买家中心：http://j15b548420.imwork.net/buyer/index.htm
+买家中心：http://localhost:8080/buyer/index.htm
 买家：zhangsan/123456、test3/123456
-卖家中心：http://j15b548420.imwork.net/seller/index.htm
+卖家中心：http://localhost:8080/seller/index.htm
 卖家：wemall/123456、liying/123456
 
 二次开发步骤：
