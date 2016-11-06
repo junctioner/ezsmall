@@ -17,17 +17,17 @@ import com.wemall.foundation.service.IUserConfigService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.nutz.json.Json;
+import org.nutz.json.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -239,6 +239,43 @@ public class TransAreaManageAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(val.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ajax根据parentId查询下属配送区域
+     * @param parentId
+     */
+    @RequestMapping(value = "/get_trans_area.htm", method = RequestMethod.POST)
+    public void get_trans_area(HttpServletRequest request, HttpServletResponse response, String parentId) {
+        if(StringUtils.isEmpty(parentId)){
+            parentId = "100001,100002,100003,100004,100005,100006,100007,100008,100009";
+        }
+        String[] parentIds = parentId.split(",");
+        List list = new ArrayList();
+        int i = 0;
+        while (i < parentIds.length) {
+            TransArea transArea = this.transareaService.getObjById(Long.valueOf(Long.parseLong(parentIds[i])));
+            for (TransArea area : transArea.getChilds()) {
+                Map map = new HashMap();
+                map.put("id", area.getId());
+                map.put("areaName", area.getAreaName());
+                map.put("level", area.getLevel());
+                list.add(map);
+            }
+            i++;
+        }
+
+        String result = Json.toJson(list, JsonFormat.compact());
+
+        response.setContentType("text/html");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setCharacterEncoding("UTF-8");
+        try {
+            PrintWriter writer = response.getWriter();
+            writer.print(result);
         } catch (IOException e) {
             e.printStackTrace();
         }

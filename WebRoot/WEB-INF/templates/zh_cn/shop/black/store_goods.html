@@ -480,86 +480,92 @@ $!httpInclude.include("/store_head.htm?store_id=$!{store.id}")
           <div class="productshop">
             <div class="detailstop">
               <ul>
-                <li><span class="detbt">商品原价：</span><span class="through">¥$!{obj.goods_price}</span></li>
+                <li class="detailstop_ul_li"><span class="detbt">商品原价：</span><span class="through">¥$!{obj.goods_price}</span></li>
                 #if($!group==0)
-                <li><span class="detbt">店铺价格：</span><span class="pricedata"><strong class="orange" id="store_price">¥$!{current_price}</strong></span><span class="greenp">(节省：<b id="rest" style="font-weight:normal;">¥$!CommUtil.subtract($!{obj.goods_price},$!{current_price})</b>)</span></li>
+                <li class="detailstop_ul_li"><span class="detbt">店铺价格：</span><span class="pricedata"><strong class="orange" id="store_price">¥$!{current_price}</strong></span><span class="greenp">(节省：<b id="rest" style="font-weight:normal;">¥$!CommUtil.subtract($!{obj.goods_price},$!{current_price})</b>)</span></li>
                 #else
-                <li><span class="detbt">团购价格：</span><span class="pricedata"><strong class="orange" id="store_price">¥$!{current_price}</strong></span><span class="greenp">(节省：<b id="rest" style="font-weight:normal;">¥$!CommUtil.subtract($!{obj.goods_price},$!{current_price})</b>)</span></li>
+                <li class="detailstop_ul_li"><span class="detbt">团购价格：</span><span class="pricedata"><strong class="orange" id="store_price">¥$!{current_price}</strong></span><span class="greenp">(节省：<b id="rest" style="font-weight:normal;">¥$!CommUtil.subtract($!{obj.goods_price},$!{current_price})</b>)</span></li>
                 #end
-                <li><span class="detbt">商品重量：</span><span>$!{obj.goods_weight}千克(kg)</span></li>
-                <li> <span class="detbt">物流运费：</span>
+                <li class="detailstop_ul_li"><span class="detbt">商品重量：</span><span>$!{obj.goods_weight}千克(kg)</span></li>
+                <li class="detailstop_ul_li"> <span class="detbt">物流运费：</span>
                   <div class="logistics"> <span class="start">$!{store.area.parent.areaName} | 至</span>
-                    <div class="log_ps"> <span class="log_d"><a href="javascript:void(0);"><em id="current_city_info">$!{current_city}</em><i></i> </a></span>
-                      <div class="goods_ct" style="display:none;">
-                        <h3><span class="h3_l">选择你的收货城市</span><span class="h3_r"><a href="javascript:void(0);"><img src="$!webPath/resources/style/shop/default/images/14-14.png" /></a></span></h3>
-                        <p>您当前所在地：$!{current_city}</p>
-                        <div class="Region">
-                          <ul>
-                            #foreach($area in $areas)
-                            <li class="item"> <a  href="javascript:void(0);" area_id="$!area.id" area_name="$!area.areaName">$!CommUtil.substring("$!area.areaName",5)</a>
-                              <div class="Cities" style="display:none;">
-                                <ul>
-                                  #foreach($c_area in $area.childs)
-                                  <li><a href="javascript:void(0);" city_id="$!c_area.id" city_name="$!c_area.areaName">$!{c_area.areaName}</a></li>
-                                  #end
-                                </ul>
+                    <div>
+                      <span class="select_area" style="float:left; left:5px;top:-3px;">
+                          <div class="select_area_top" style="cursor: pointer;" onclick="show_areas()">
+                          <span id="city_info" city_id="" city_name="">
+                              <span city_id="">请选择省份</span>
+                              <span city_id="">请选择城市</span>
+                              <span city_id="">请选择区县</span>
+                          </span>
+                            <em><img src="$!imageWebServer/resources/style/shop/default/images/down_arrow.gif" data-bd-imgshare-binded="1"></em>
+                          </div>
+                          <div class="select_area_list" style="display: none;">
+                            <div class="select_area_list_close"><a onclick="javascript:$('.select_area_list').hide();" href="javascript:void(0);">X</a></div>
+                            <div class="select_area_list_center">
+                              <div class="select_area_list_center_t" id="area_tab">
+                                <span class="this"><a href="javascript:void(0);" city_id="" city_name=""></a><em></em></span>
+                                <span><a href="javascript:void(0);" city_id="" city_name=""></a><em></em></span>
+                                <span><a href="javascript:void(0);" city_id="" city_name=""></a><em></em></span>
                               </div>
-                            </li>
-                            #end
-                          </ul>
-                        </div>
-                      </div>
+
+                              <div class="select_area_list_center_m" id="citys">
+                                <ul></ul>
+                              </div>
+
+                            </div>
+                          </div>
+                      </span>
                     </div>
                     <!--物流运费新增start-->
                     #if($!obj.goods_transfee==1) <span class="detbt"></span><span>卖家承担</span> #else
                     #if($!obj.transport) <span> #if($!obj.transport.trans_mail)
                     平邮: <i id="goods_mail_fee">¥$!transportTools.cal_goods_trans_fee("$!obj.transport.id","mail","$!obj.goods_weight","$!obj.goods_volume","$!{current_city}") </i> #end
                     #if($!obj.transport.trans_express)
-                    快递: <i id="goods_express_fee"> ¥$!transportTools.cal_goods_trans_fee("$!obj.transport.id","express","$!obj.goods_weight","$!obj.goods_volume","$!{current_city}") </i> #end 
+                    快递: <i id="goods_express_fee"> ¥$!transportTools.cal_goods_trans_fee("$!obj.transport.id","express","$!obj.goods_weight","$!obj.goods_volume","$!{current_city}") </i> #end
                     #if($!obj.transport.trans_ems)
                     EMS: <i id="goods_ems_fee"> ¥$!transportTools.cal_goods_trans_fee("$!obj.transport.id","ems","$!obj.goods_weight","$!obj.goods_volume","$!{current_city}") </i> #end </span> #else <span>平邮:¥$!CommUtil.null2Float($!{obj.mail_trans_fee}) 快递:¥$!CommUtil.null2Float($!{obj.express_trans_fee}) EMS:¥$!CommUtil.null2Float($!{obj.ems_trans_fee})</span> #end
-                  #end </div>
+                    #end </div>
                 </li>
                 #if($!obj.dg)
-                <li><span class="detbt">赠品：</span> <span style="margin-right:10px;width:360px;overflow:hidden;"><a href="$!webPath/goods_$!{obj.dg.d_delivery_goods.id}.htm" target="_blank">$!{obj.dg.d_delivery_goods.goods_name}</a></span> #if($!obj.dg.d_delivery_goods.goods_main_photo)               #set($img="$!imageWebServer/$!{obj.dg.d_delivery_goods.goods_main_photo.path}/$!{obj.dg.d_delivery_goods.goods_main_photo.name}_small.$!{obj.dg.d_delivery_goods.goods_main_photo.ext}")
+                <li class="detailstop_ul_li"><span class="detbt">赠品：</span> <span style="margin-right:10px;width:360px;overflow:hidden;"><a href="$!webPath/goods_$!{obj.dg.d_delivery_goods.id}.htm" target="_blank">$!{obj.dg.d_delivery_goods.goods_name}</a></span> #if($!obj.dg.d_delivery_goods.goods_main_photo)               #set($img="$!imageWebServer/$!{obj.dg.d_delivery_goods.goods_main_photo.path}/$!{obj.dg.d_delivery_goods.goods_main_photo.name}_small.$!{obj.dg.d_delivery_goods.goods_main_photo.ext}")
                   #else
                   #set($img="$!imageWebServer/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
                   #end <span style="float:left;margin-left:90px;width:360px;overflow:hidden;"><a href="$!webPath/goods_$!{obj.dg.d_delivery_goods.id}.htm" target="_blank"><img src="$!img" width="60" height="60" /></a></span> </li>
                 #end
                 <!--物流运费新增end-->
-                <li><span class="detbt">销售情况：</span><span>售出$!{obj.goods_salenum}件($!{obj.evaluates.size()}条评论)</span></li>
-                <li><span class="detbt">关注次数：</span><span>$!{obj.goods_click}次</span></li>
+                <li class="detailstop_ul_li"><span class="detbt">销售情况：</span><span>售出$!{obj.goods_salenum}件($!{obj.evaluates.size()}条评论)</span></li>
+                <li class="detailstop_ul_li"><span class="detbt">关注次数：</span><span>$!{obj.goods_click}次</span></li>
               </ul>
             </div>
             <script>
-			  function goods_spec_set(obj){
-				var spec=jQuery(obj).attr("spec");
-				var gsp="";
-				var load=true;
-				jQuery(".colordate a[spec="+spec+"]").removeClass("this");
-			    jQuery(obj).addClass("this");
-				jQuery(".colordate").each(function(){
-                    jQuery.each(jQuery(this).find("a[class=this]"),function(){
-					  gsp=jQuery(this).attr("gsp")+","+gsp; 
-					});
-	            });
-				jQuery(".colordate").each(function(){
-                     if(jQuery(this).find("a[class=this]").length==0) load=false;
-	             });
-			  if(load){
-				jQuery("#goods_spec_info").removeClass().addClass("detailsbottom");  
-	            jQuery("#goods_spec_info_close").hide();    
-				jQuery("#goods_spec_chose").hide();
-				jQuery.post("$!webPath/load_goods_gsp.htm",{"id":"$!obj.id","gsp":gsp},function(data){
-				   goods_inventory=data.count;
-				   store_price=data.price;
-				   jQuery("#goods_inventory").html(goods_inventory);
-				   jQuery("#store_price").html("¥"+store_price);
-				   jQuery("#rest").html("¥"+(goods_price-store_price));
-				  },"json");
-			    }
-			  }
-			  </script>
+              function goods_spec_set(obj){
+                var spec=jQuery(obj).attr("spec");
+                var gsp="";
+                var load=true;
+                jQuery(".colordate a[spec="+spec+"]").removeClass("this");
+                jQuery(obj).addClass("this");
+                jQuery(".colordate").each(function(){
+                  jQuery.each(jQuery(this).find("a[class=this]"),function(){
+                    gsp=jQuery(this).attr("gsp")+","+gsp;
+                  });
+                });
+                jQuery(".colordate").each(function(){
+                  if(jQuery(this).find("a[class=this]").length==0) load=false;
+                });
+                if(load){
+                  jQuery("#goods_spec_info").removeClass().addClass("detailsbottom");
+                  jQuery("#goods_spec_info_close").hide();
+                  jQuery("#goods_spec_chose").hide();
+                  jQuery.post("$!webPath/load_goods_gsp.htm",{"id":"$!obj.id","gsp":gsp},function(data){
+                    goods_inventory=data.count;
+                    store_price=data.price;
+                    jQuery("#goods_inventory").html(goods_inventory);
+                    jQuery("#store_price").html("¥"+store_price);
+                    jQuery("#rest").html("¥"+(goods_price-store_price));
+                  },"json");
+                }
+              }
+            </script>
             <div class="detail_solid"></div>
             <div class="detailsbottom_ps">
               <div class="detailsbottom" id="goods_spec_info">
@@ -575,8 +581,8 @@ $!httpInclude.include("/store_head.htm?store_id=$!{store.id}")
                     </span> #if($!obj.group_buy==2)
                     #foreach($gg_info in $obj.group_goods_list)
                     #if($!gg_info.gg_goods.id==$!obj.id)
-                    #set($goods_inventory=$!{gg_info.gg_count}) 
-                    #end                  
+                    #set($goods_inventory=$!{gg_info.gg_count})
+                    #end
                     #end
                     #else
                     #set($goods_inventory="$!{obj.goods_inventory}")

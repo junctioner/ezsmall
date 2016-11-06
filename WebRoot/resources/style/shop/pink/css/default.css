@@ -71,6 +71,33 @@ left:-50%; z-index:0;}
 .Region .Cities ul li { width:82px; float:left; height:22px; line-height:22px; white-space:normal; overflow:hidden;}
 .Region .Cities ul li a { width:70px; padding:0px 5px; float:left; height:20px; line-height:20px;}
 
+/* 2016-04-18新版选择地区 start */
+.select_area{float:left; height:25px; line-height:25px; padding:0 5px; font-family:Verdana, Geneva, sans-serif; position:relative;font-size:12px;}
+.select_area_top{ float:left; height:25px; border:1px solid #dcdcdc; position:relative; z-index:1; background:#fff;}
+.select_area_top.this{ border-bottom:none; z-index:101;}
+.select_area_top span{ height:25px; padding:0 4px; float:left;}
+.select_area_top em{ height:10px; width:10px; float:left; margin:10px 7px;}
+.select_area_list{ width:450px; height:auto; float:left; padding:10px; border:1px solid #dcdcdc; background:#fff; position:absolute; top:25px; left:5px; z-index:1000;  box-shadow:1px 4px 7px 1px #ddd; min-height:230px}
+.select_area_list_close{ position:absolute; right:5px; top:5px; float:left; height:15px; width:15px;}
+.select_area_list_close a{ display:block; height:15px; width:15px; float:left; font-size:14px; line-height:15px; text-align:center; color:#a8a8a8;}
+.select_area_list_use{ height:50px; width:100%; float:left; margin-bottom:10px;}
+.select_area_list_use h3{ width:100%; float:left; height:20px; margin-bottom:5px; line-height:20px; font-size:12px; font-weight:100;}
+.select_area_list_use_l{ float:left; padding:0 5px; height:25px; line-height:25px; border:1px solid #ccc; cursor:pointer; margin-right:5px}
+.select_area_list_use_l:hover{ background:#fa9904; color:#fff;border:1px solid #fa9904;}
+.select_area_list_center{ width:100%; float:left;}
+.select_area_list_center_t{ height:25px; line-height:25px; float:left; width:100%; border-bottom:1px solid #ccc; border-bottom:2px solid #feb648;}
+.select_area_list_center_t span{ border:1px solid #cacaca; padding:0 5px; margin:0 8px;height:24px; line-height:24px; float:left; border-bottom:none; color:#4a4a4a; background:#fff;}
+.select_area_list_center_t span em{ height:5px; width:10px; float:right; margin:10px 0 0 5px; background:url(../images/select_area_list_center_t.png) no-repeat top center;webkit-transition: All .2s ease;}
+.select_area_list_center_t span a{ color:#555; text-decoration: none;}
+.select_area_list_center_t span.this{ border:2px solid #feb648;height:25px; line-height:25px; border-bottom:none;}
+.select_area_list_center_t span.this em{ height:5px; width:10px; float:right; margin:10px 0 0 5px; background:url(../images/select_area_list_center_t.png) no-repeat bottom center;}
+.select_area_list_center_m{ width:400px; float:left; margin-left: 0px;}
+.select_area_list_center_m li{ width:88px; float:left; height:25px; line-height:25px; color:#4a4a4a; overflow:hidden;!important}
+.select_area_list_center_m li a{ display:block; padding:0 14px;float:left; height:25px; line-height:25px; color:#4a4a4a; overflow:hidden; text-decoration: none;}
+.select_area_list_center_m li a:hover{ background:#fa9904; color:#fff}
+.select_area_list_center_m li a.this{ background:#fa9904; color:#fff}
+/* 选择地区 end */
+
 .detailsbottom_ps { width:465px; position:relative; float:left; z-index:999;}
 .detailsbottom_hover { width:463px; border:1px solid #F60; background-color:#fffdfc; overflow:hidden; padding-bottom:10px;}
 .detail_chose { padding-left:20px; color:#F60;}
@@ -236,8 +263,8 @@ left:-50%; z-index:0;}
 .enjoy_b input { width:140px;height:22px; line-height:22px; border-radius:2px; color:#FFF; border:none; cursor:pointer; background:url(../images/enjoy.gif) no-repeat 5px 5px #ed9a02; padding-right:5px;}
 
 .detailstop{ width:465px; }
-.detailstop ul{ width:465px; }
-.detailstop ul li{ line-height:30px; float:left; width:465px;}
+.detailstop ul{ width:465px;}
+.detailstop_ul_li{ line-height:30px; float:left;}
 .detailstop ul li span{ float:left;}
 .detbt{ width:80px; text-align:right; margin-right:10px;}
 .pricedata{ font-size:18px;}
