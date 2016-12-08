@@ -1,5 +1,6 @@
 /.idea
 /.settings
+/WebRoot/lucene
 /WebRoot/upload
 /WebRoot/WEB-INF/classes
 /out

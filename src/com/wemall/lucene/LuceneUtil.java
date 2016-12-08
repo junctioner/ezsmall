@@ -322,7 +322,7 @@ public class LuceneUtil {
 
     public static void main(String[] args) {
         LuceneUtil lucence = instance();
-        setIndex_path("E:\\apache-tomcat-7.0.42\\luence\\goods");
+        setIndex_path("E:\\apache-tomcat-7.0.42\\lucene\\goods");
         Date d1 = new Date();
         LuceneResult list = lucence.search("专柜正品黑色时尚冬装男", 0, 0.0D, 500.0D, null, null);
         Date d2 = new Date();

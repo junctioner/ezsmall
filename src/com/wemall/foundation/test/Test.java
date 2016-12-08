@@ -14,7 +14,7 @@ public class Test {
     static int totalFile = 0;
 
     public static void main(String[] args) {
-        String path = "E:\\apache-tomcat-7.0.42\\luence";
+        String path = "E:\\apache-tomcat-7.0.42\\lucene";
         double size = CommUtil.fileSize(new File(path));
         System.out.println(size);
         long size1 = getFileSize(new File(path));

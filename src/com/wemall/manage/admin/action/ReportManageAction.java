@@ -135,8 +135,7 @@ public class ReportManageAction {
             goods.setGoods_status(-3);
             this.goodsService.update(goods);
 
-            String goods_lucene_path = System.getProperty("user.dir") +
-                                       File.separator + "luence" + File.separator + "goods";
+            String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
             File file = new File(goods_lucene_path);
             if (!file.exists()) {
                 CommUtil.createFolder(goods_lucene_path);

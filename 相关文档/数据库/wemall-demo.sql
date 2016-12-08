@@ -9726,7 +9726,7 @@ INSERT INTO `wemall_role` VALUES ('51', '2015-02-26 14:59:36', '\0', '', null, 
 INSERT INTO `wemall_role` VALUES ('52', '2015-02-26 14:59:38', '\0', '', null, 'ROLE_GOODS_FLOOR', '首页楼层', '0', 'ADMIN', '2');
 INSERT INTO `wemall_role` VALUES ('53', '2015-02-26 14:59:39', '\0', '', null, 'ROLE_DATA_MANAGE', '数据库管理', '0', 'ADMIN', '9');
 INSERT INTO `wemall_role` VALUES ('54', '2015-02-26 14:59:39', '\0', '', null, 'ROLE_CACHE_MANAGE', '更新缓存', '0', 'ADMIN', '9');
-INSERT INTO `wemall_role` VALUES ('55', '2015-02-26 14:59:39', '\0', '', null, 'ROLE_LUENCE_MANAGE', '全文检索', '0', 'ADMIN', '9');
+INSERT INTO `wemall_role` VALUES ('55', '2015-02-26 14:59:39', '\0', '', null, 'ROLE_lucene_MANAGE', '全文检索', '0', 'ADMIN', '9');
 INSERT INTO `wemall_role` VALUES ('56', '2015-02-26 14:59:40', '\0', '', null, 'ROLE_ACTIVITY_ADMIN', '活动管理', '0', 'ADMIN', '8');
 INSERT INTO `wemall_role` VALUES ('57', '2015-02-26 14:59:41', '\0', '', null, 'ROLE_BARGAIN_ADMIN', '天天特价', '0', 'ADMIN', '8');
 INSERT INTO `wemall_role` VALUES ('58', '2015-02-26 14:59:42', '\0', '', null, 'ROLE_DELIVERY_ADMIN', '买就送', '0', 'ADMIN', '8');

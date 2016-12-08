@@ -6,29 +6,22 @@ import com.wemall.core.tools.CommUtil;
 import com.wemall.foundation.domain.Goods;
 import com.wemall.foundation.domain.Store;
 import com.wemall.foundation.domain.SysConfig;
-import com.wemall.foundation.service.IArticleService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IStoreService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
+import com.wemall.foundation.service.*;
 import com.wemall.lucene.LuceneThread;
 import com.wemall.lucene.LuceneVo;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.nutz.json.Json;
 import org.nutz.json.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
 
 @Controller
 public class LuceneManageAction {
@@ -48,11 +41,11 @@ public class LuceneManageAction {
     @Autowired
     private IArticleService articleService;
 
-    @SecurityMapping( display = false, rsequence = 0, title = "全文检索设置", value = "/admin/lucene.htm*", rtype = "admin", rname = "全文检索", rcode = "luence_manage", rgroup = "工具" )
+    @SecurityMapping( display = false, rsequence = 0, title = "全文检索设置", value = "/admin/lucene.htm*", rtype = "admin", rname = "全文检索", rcode = "lucene_manage", rgroup = "工具" )
     @RequestMapping( { "/admin/lucene.htm" } )
     public ModelAndView lucene( HttpServletRequest request, HttpServletResponse response ) {
         ModelAndView mv = new JModelAndView( "admin/blue/lucene.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response );
-        String path = System.getProperty( "user.dir" ) + File.separator + "luence";
+        String path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append("lucene").toString();
         File file = new File( path );
         if( !file.exists() ) {
             CommUtil.createFolder( path );
@@ -62,7 +55,7 @@ public class LuceneManageAction {
         return mv;
     }
 
-    @SecurityMapping( display = false, rsequence = 0, title = "全文检索关键字保存", value = "/admin/lucene_hot_save.htm*", rtype = "admin", rname = "全文检索", rcode = "luence_manage", rgroup = "工具" )
+    @SecurityMapping( display = false, rsequence = 0, title = "全文检索关键字保存", value = "/admin/lucene_hot_save.htm*", rtype = "admin", rname = "全文检索", rcode = "lucene_manage", rgroup = "工具" )
     @RequestMapping( { "/admin/lucene_hot_save.htm" } )
     public void lucene_hot_save( HttpServletRequest request, HttpServletResponse response, String id, String hotSearch ) {
         SysConfig obj = this.configService.getSysConfig();
@@ -86,7 +79,7 @@ public class LuceneManageAction {
         }
     }
 
-    @SecurityMapping( display = false, rsequence = 0, title = "全文检索更新", value = "/admin/lucene_update.htm*", rtype = "admin", rname = "全文检索", rcode = "luence_manage", rgroup = "工具" )
+    @SecurityMapping( display = false, rsequence = 0, title = "全文检索更新", value = "/admin/lucene_update.htm*", rtype = "admin", rname = "全文检索", rcode = "lucene_manage", rgroup = "工具" )
     @RequestMapping( { "/admin/lucene_update.htm" } )
     public void lucene_update( HttpServletRequest request, HttpServletResponse response, String id, String hotSearch ) {
         Map params = new HashMap();
@@ -98,8 +91,8 @@ public class LuceneManageAction {
         params.clear();
         params.put( "display", Boolean.valueOf( true ) );
         List article_list = this.articleService.query( "select obj from Article obj where obj.display=:display", params, -1, -1 );
-        String goods_lucene_path = System.getProperty( "user.dir" ) + File.separator + "luence" + File.separator + "goods";
-        String store_lucene_path = System.getProperty( "user.dir" ) + File.separator + "luence" + File.separator + "store";
+        String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
+        String store_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("store").toString();
         File file = new File( goods_lucene_path );
         if( !file.exists() ) {
             CommUtil.createFolder( goods_lucene_path );
@@ -135,7 +128,7 @@ public class LuceneManageAction {
         goods_thread.run();
         store_thread.run();
         Date d2 = new Date();
-        String path = System.getProperty( "user.dir" ) + File.separator + "luence";
+        String path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append("lucene").toString();
         Map map = new HashMap();
         map.put( "run_time", Long.valueOf( d2.getTime() - d1.getTime() ) );
         map.put( "file_size", Double.valueOf( CommUtil.fileSize( new File( path ) ) ) );

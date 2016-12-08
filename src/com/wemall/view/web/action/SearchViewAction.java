@@ -163,7 +163,7 @@ public class SearchViewAction {
             mv.addObject("storeGrades", storeGrades);
         }
         if ((type.equals("goods")) && (!CommUtil.null2String(keyword).equals(""))) {
-            String path = System.getProperty("user.dir") + File.separator + "luence" + File.separator + "goods";
+            String path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
             LuceneUtil lucene = LuceneUtil.instance();
             LuceneUtil.setIndex_path(path);
             boolean order_type = true;
@@ -238,7 +238,7 @@ public class SearchViewAction {
 
         keyword = CommUtil.decode(keyword);
 
-        String path = System.getProperty("user.dir") + File.separator + "luence" + File.separator + "goods";
+        String path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
         LuceneUtil lucene = LuceneUtil.instance();
         LuceneUtil.setIndex_path(path);
         boolean order_type = true;

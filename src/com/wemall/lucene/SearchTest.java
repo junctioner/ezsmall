@@ -5,7 +5,7 @@ import java.util.Date;
 public class SearchTest {
     public static void main(String[] args) {
         LuceneUtil lucence = LuceneUtil.instance();
-        LuceneUtil.setIndex_path("D:\\software\\Tomcat7.0.65\\bin\\luence\\goods");
+        LuceneUtil.setIndex_path("D:\\software\\Tomcat7.0.65\\bin\\lucene\\goods");
         Date d1 = new Date();
         LuceneResult list = lucence.search("男", 0, 0.0D, 500.0D, null, null);
         Date d2 = new Date();

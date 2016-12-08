@@ -802,7 +802,7 @@ public class GoodsSellerAction {
             if (id.equals("")) {
                 this.goodsService.save(goods);
 
-                String goods_lucene_path = System.getProperty("user.dir") + File.separator + "luence" + File.separator + "goods";
+                String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
                 File file = new File(goods_lucene_path);
                 if (!file.exists()) {
                     CommUtil.createFolder(goods_lucene_path);
@@ -821,8 +821,7 @@ public class GoodsSellerAction {
             } else {
                 this.goodsService.update(goods);
 
-                String goods_lucene_path = System.getProperty("user.dir")
-                                           + File.separator + "luence" + File.separator + "goods";
+                String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
                 File file = new File(goods_lucene_path);
                 if (!file.exists()) {
                     CommUtil.createFolder(goods_lucene_path);
@@ -1249,10 +1248,7 @@ public class GoodsSellerAction {
                     if (goods_status == 0) {
                         url = "/seller/goods_storage.htm";
 
-                        String goods_lucene_path = System
-                                                   .getProperty("user.dir")
-                                                   + File.separator
-                                                   + "luence" + File.separator + "goods";
+                        String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
                         File file = new File(goods_lucene_path);
                         if (!file.exists()) {
                             CommUtil.createFolder(goods_lucene_path);
@@ -1270,10 +1266,7 @@ public class GoodsSellerAction {
                         LuceneUtil.setIndex_path(goods_lucene_path);
                         lucene.update(CommUtil.null2String(goods.getId()), vo);
                     } else {
-                        String goods_lucene_path = System
-                                                   .getProperty("user.dir")
-                                                   + File.separator
-                                                   + "luence" + File.separator + "goods";
+                        String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
                         File file = new File(goods_lucene_path);
                         if (!file.exists()) {
                             CommUtil.createFolder(goods_lucene_path);
@@ -1333,9 +1326,7 @@ public class GoodsSellerAction {
                     goods.getGoods_specs().clear();
                     this.goodsService.delete(goods.getId());
 
-                    String goods_lucene_path = System.getProperty("user.dir")
-                                               + File.separator + "luence" + File.separator
-                                               + "goods";
+                    String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
                     File file = new File(goods_lucene_path);
                     if (!file.exists()) {
                         CommUtil.createFolder(goods_lucene_path);
