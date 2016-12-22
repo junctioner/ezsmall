@@ -1,44 +1,23 @@
 package com.wemall.manage.timer;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.wemall.core.tools.CommUtil;
+import com.wemall.foundation.domain.*;
+import com.wemall.foundation.service.*;
+import com.wemall.lucene.LuceneThread;
+import com.wemall.lucene.LuceneVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.BargainGoods;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.GoodsCart;
-import com.wemall.foundation.domain.Message;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.StoreCart;
-import com.wemall.foundation.domain.SysConfig;
-import com.wemall.foundation.domain.Template;
-import com.wemall.foundation.domain.ZTCGoldLog;
-import com.wemall.foundation.service.IBargainGoodsService;
-import com.wemall.foundation.service.IGoodsCartService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IMessageService;
-import com.wemall.foundation.service.IStoreCartService;
-import com.wemall.foundation.service.IStoreService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.ITemplateService;
-import com.wemall.foundation.service.IUserService;
-import com.wemall.foundation.service.IZTCGoldLogService;
-import com.wemall.lucene.LuceneThread;
-import com.wemall.lucene.LuceneVo;
+import java.io.File;
+import java.util.*;
 
+/**
+ * 定时任务job组件
+ */
 @Component("shop_job")
 @Transactional
 public class JobManageAction {
-
     @Autowired
     private IGoodsService goodsService;
 

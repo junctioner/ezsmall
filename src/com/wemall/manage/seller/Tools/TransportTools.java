@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 配送工具组件
+ * 运送工具组件
  */
 @Component
 public class TransportTools {

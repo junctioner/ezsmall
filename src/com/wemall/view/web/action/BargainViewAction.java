@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
- * 特价控制器
+ * 今日特价控制器
  */
 @Controller
 public class BargainViewAction {

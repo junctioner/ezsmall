@@ -1,70 +1,28 @@
 package com.wemall.manage.timer;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
+import com.wemall.core.security.support.SecurityUserHolder;
+import com.wemall.core.tools.CommUtil;
+import com.wemall.foundation.domain.*;
+import com.wemall.foundation.service.*;
+import com.wemall.manage.admin.tools.MsgTools;
+import com.wemall.manage.admin.tools.StatTools;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wemall.core.security.support.SecurityUserHolder;
-import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.Activity;
-import com.wemall.foundation.domain.ActivityGoods;
-import com.wemall.foundation.domain.DeliveryGoods;
-import com.wemall.foundation.domain.Evaluate;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.Group;
-import com.wemall.foundation.domain.GroupGoods;
-import com.wemall.foundation.domain.MobileVerifyCode;
-import com.wemall.foundation.domain.OrderForm;
-import com.wemall.foundation.domain.OrderFormLog;
-import com.wemall.foundation.domain.Payment;
-import com.wemall.foundation.domain.PredepositLog;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.StoreClass;
-import com.wemall.foundation.domain.StorePoint;
-import com.wemall.foundation.domain.StoreStat;
-import com.wemall.foundation.domain.User;
-import com.wemall.foundation.service.IActivityGoodsService;
-import com.wemall.foundation.service.IActivityService;
-import com.wemall.foundation.service.IDeliveryGoodsService;
-import com.wemall.foundation.service.IEvaluateService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IGroupGoodsService;
-import com.wemall.foundation.service.IGroupService;
-import com.wemall.foundation.service.IMobileVerifyCodeService;
-import com.wemall.foundation.service.IOrderFormLogService;
-import com.wemall.foundation.service.IOrderFormService;
-import com.wemall.foundation.service.IPaymentService;
-import com.wemall.foundation.service.IPredepositLogService;
-import com.wemall.foundation.service.IStoreClassService;
-import com.wemall.foundation.service.IStorePointService;
-import com.wemall.foundation.service.IStoreService;
-import com.wemall.foundation.service.IStoreStatService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.ITemplateService;
-import com.wemall.foundation.service.IUserService;
-import com.wemall.manage.admin.tools.MsgTools;
-import com.wemall.manage.admin.tools.StatTools;
+import java.io.*;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.*;
 
+/**
+ * 定时任务统计组件
+ */
 @Component("shop_stat")
 @Transactional
 public class StatManageAction {
-
     @Autowired
     private IStoreStatService storeStatService;
 
@@ -541,8 +499,7 @@ public class StatManageAction {
         cal = Calendar.getInstance();
         params.clear();
         cal.add(6, -auto_order_evaluate);
-        /**2016年3月30日凌晨修改，定时器执行到此发现hql语句中无此参数报错*/
-        // 缺少：return_shipTime参数，将查询语句中的return_shipTime修改为auto_order_evaluate
+
         params.put("auto_order_evaluate", cal.getTime());//自动订单评价
         params.put("order_status_40", Integer.valueOf(40));
         params.put("order_status_47", Integer.valueOf(47));
@@ -599,7 +556,7 @@ public class StatManageAction {
 
         List<Goods> goods_list = this.evaluateService.query_goods(
                                      "select distinct obj.evaluate_goods from Evaluate obj ", null, -1, -1);
-        // double description_evaluate;
+
         for (Goods goods1 : goods_list) {
             description_evaluate = 0.0D;
             params.clear();

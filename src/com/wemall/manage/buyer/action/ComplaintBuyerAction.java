@@ -6,37 +6,9 @@ import com.wemall.core.mv.JModelAndView;
 import com.wemall.core.query.support.IPageList;
 import com.wemall.core.security.support.SecurityUserHolder;
 import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.Accessory;
-import com.wemall.foundation.domain.Complaint;
-import com.wemall.foundation.domain.ComplaintGoods;
-import com.wemall.foundation.domain.ComplaintSubject;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.OrderForm;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.SysConfig;
-import com.wemall.foundation.domain.User;
+import com.wemall.foundation.domain.*;
 import com.wemall.foundation.domain.query.ComplaintQueryObject;
-import com.wemall.foundation.service.IAccessoryService;
-import com.wemall.foundation.service.IComplaintService;
-import com.wemall.foundation.service.IComplaintSubjectService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IOrderFormService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserService;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import com.wemall.foundation.service.*;
 import org.nutz.json.Json;
 import org.nutz.json.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +16,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
+
+/**
+ * 买家投诉控制器
+ */
 @Controller
 public class ComplaintBuyerAction {
 

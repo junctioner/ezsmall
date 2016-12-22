@@ -26,6 +26,9 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.*;
 
+/**
+ * 卖家活动控制器
+ */
 @Controller
 public class ActivitySellerAction {
 

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 特价卖家工具组件
+ * 卖家今日特价工具组件
  */
 @Component
 public class BargainSellerTools {

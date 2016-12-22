@@ -33,6 +33,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
 
+/**
+ * 卖家订单控制器
+ */
 @Controller
 public class OrderSellerAction {
 

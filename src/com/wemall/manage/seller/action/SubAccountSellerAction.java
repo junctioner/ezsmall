@@ -9,32 +9,9 @@ import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.Md5Encrypt;
 import com.wemall.foundation.domain.Role;
 import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.StoreGrade;
 import com.wemall.foundation.domain.User;
 import com.wemall.foundation.domain.query.UserQueryObject;
-import com.wemall.foundation.service.IEvaluateService;
-import com.wemall.foundation.service.IGoodsCartService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IOrderFormLogService;
-import com.wemall.foundation.service.IOrderFormService;
-import com.wemall.foundation.service.IRoleGroupService;
-import com.wemall.foundation.service.IRoleService;
-import com.wemall.foundation.service.IStoreService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserService;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.wemall.foundation.service.*;
 import org.nutz.json.Json;
 import org.nutz.json.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +19,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * 卖家子账户控制器
+ */
 @Controller
 public class SubAccountSellerAction {
 

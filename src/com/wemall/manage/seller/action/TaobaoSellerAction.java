@@ -5,41 +5,9 @@ import com.wemall.core.annotation.SecurityMapping;
 import com.wemall.core.mv.JModelAndView;
 import com.wemall.core.security.support.SecurityUserHolder;
 import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.Accessory;
-import com.wemall.foundation.domain.Album;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.GoodsClass;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.StoreGrade;
-import com.wemall.foundation.domain.SysConfig;
-import com.wemall.foundation.domain.User;
-import com.wemall.foundation.domain.UserGoodsClass;
-import com.wemall.foundation.domain.WaterMark;
-import com.wemall.foundation.service.IAccessoryService;
-import com.wemall.foundation.service.IAlbumService;
-import com.wemall.foundation.service.IGoodsClassService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserGoodsClassService;
-import com.wemall.foundation.service.IUserService;
-import com.wemall.foundation.service.IWaterMarkService;
+import com.wemall.foundation.domain.*;
+import com.wemall.foundation.service.*;
 import com.wemall.manage.admin.tools.StoreTools;
-import java.awt.Font;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.math.BigDecimal;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +15,19 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.util.*;
+import java.util.List;
+
+/**
+ * 卖家淘宝导入控制器
+ */
 @Controller
 public class TaobaoSellerAction {
 
@@ -81,78 +62,78 @@ public class TaobaoSellerAction {
     private StoreTools storeTools;
 
     @SecurityMapping(display = false, rsequence = 0, title = "导入淘宝CSV", value = "/seller/taobao.htm*", rtype = "seller", rname = "淘宝导入", rcode = "taobao_seller", rgroup = "淘宝管理")
-    @RequestMapping( {"/seller/taobao.htm"})
+    @RequestMapping({"/seller/taobao.htm"})
     public ModelAndView taobao(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new JModelAndView(
-            "user/default/usercenter/taobao.html",
-            this.configService.getSysConfig(),
-            this.userConfigService.getUserConfig(), 0, request, response);
+                "user/default/usercenter/taobao.html",
+                this.configService.getSysConfig(),
+                this.userConfigService.getUserConfig(), 0, request, response);
         String taobao_upload_status = CommUtil.null2String(request.getSession(
-                                          false).getAttribute("taobao_upload_status"));
+                false).getAttribute("taobao_upload_status"));
         if (taobao_upload_status.equals("")) {
             Map params = new HashMap();
             params.put("user_id", SecurityUserHolder.getCurrentUser().getId());
             params.put("display", Boolean.valueOf(true));
             List ugcs = this.userGoodsClassService
-                        .query("select obj from UserGoodsClass obj where obj.user.id=:user_id and obj.display=:display and obj.parent.id is null order by obj.sequence asc",
-                               params, -1, -1);
+                    .query("select obj from UserGoodsClass obj where obj.user.id=:user_id and obj.display=:display and obj.parent.id is null order by obj.sequence asc",
+                            params, -1, -1);
             params.clear();
             params.put("display", Boolean.valueOf(true));
             List gcs = this.goodsClassService
-                       .query("select obj from GoodsClass obj where obj.parent.id is null and obj.display=:display order by obj.sequence asc",
-                              params, -1, -1);
+                    .query("select obj from GoodsClass obj where obj.parent.id is null and obj.display=:display order by obj.sequence asc",
+                            params, -1, -1);
             mv.addObject("gcs", gcs);
             mv.addObject("ugcs", ugcs);
         }
         if (taobao_upload_status.equals("upload_img")) {
             mv = new JModelAndView(
-                "user/default/usercenter/taobao_import_img.html",
-                this.configService.getSysConfig(),
-                this.userConfigService.getUserConfig(), 0, request,
-                response);
+                    "user/default/usercenter/taobao_import_img.html",
+                    this.configService.getSysConfig(),
+                    this.userConfigService.getUserConfig(), 0, request,
+                    response);
             HashMap params = new HashMap();
             params.put("user_id", SecurityUserHolder.getCurrentUser().getId());
             List alubms = this.albumService.query(
-                              "select obj from Album obj where obj.user.id=:user_id",
-                              params, -1, -1);
+                    "select obj from Album obj where obj.user.id=:user_id",
+                    params, -1, -1);
             mv.addObject("alubms", alubms);
             mv.addObject("already_import_count", request.getSession(false)
-                         .getAttribute("already_import_count"));
+                    .getAttribute("already_import_count"));
             mv.addObject("no_import_count", request.getSession(false)
-                         .getAttribute("no_import_count"));
+                    .getAttribute("no_import_count"));
             mv.addObject("jsessionid", request.getSession().getId());
         }
         if (taobao_upload_status.equals("upload_finish")) {
             mv = new JModelAndView(
-                "user/default/usercenter/taobao_import_finish.html",
-                this.configService.getSysConfig(),
-                this.userConfigService.getUserConfig(), 0, request,
-                response);
+                    "user/default/usercenter/taobao_import_finish.html",
+                    this.configService.getSysConfig(),
+                    this.userConfigService.getUserConfig(), 0, request,
+                    response);
         }
         return mv;
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "导入淘宝CSV", value = "/seller/taobao_import_csv.htm*", rtype = "seller", rname = "淘宝导入", rcode = "taobao_seller", rgroup = "淘宝管理")
-    @RequestMapping( {"/seller/taobao_import_csv.htm"})
+    @RequestMapping({"/seller/taobao_import_csv.htm"})
     public ModelAndView taobao_import_csv(HttpServletRequest request, HttpServletResponse response, String gc_id3, String ugc_ids) {
         ModelAndView mv = new JModelAndView(
-            "user/default/usercenter/taobao_import_img.html",
-            this.configService.getSysConfig(),
-            this.userConfigService.getUserConfig(), 0, request, response);
+                "user/default/usercenter/taobao_import_img.html",
+                this.configService.getSysConfig(),
+                this.userConfigService.getUserConfig(), 0, request, response);
         String taobao_upload_status = CommUtil.null2String(request.getSession(
-                                          false).getAttribute("taobao_upload_status"));
+                false).getAttribute("taobao_upload_status"));
         String path = request.getSession().getServletContext().getRealPath("") +
-                      File.separator + "csv";
+                File.separator + "csv";
         int already_import_count = 0;
         int no_import_count = 0;
         List taobao_goods_list = new ArrayList();
         try {
             Map map = CommUtil.saveFileToServer(request, "taobao_cvs", path,
-                                                "taobao.cvs", null);
+                    "taobao.cvs", null);
             if (!map.get("fileName").equals("")) {
                 String csvFilePath = path + File.separator + "taobao.cvs";
                 CsvReader reader = new CsvReader(csvFilePath, '\t',
-                                                 Charset.forName("UTF-16LE"));
+                        Charset.forName("UTF-16LE"));
                 reader.readHeaders();// 跳过模板版本号，version 1.00
                 // 宝贝名称、宝贝价格、宝贝数量、放入仓库、运费承担、橱窗推荐、宝贝描述、新图片
                 int goods_name_pos = 0;// 宝贝名称
@@ -178,39 +159,39 @@ public class TaobaoSellerAction {
                 reader.readRecord();// 跳过中文标题
                 while (reader.readRecord()) {
                     Store store = this.userService.getObjById(user.getId())
-                                  .getStore();
+                            .getStore();
                     StoreGrade grade = store.getGrade();
                     if ((grade.getGoodsCount() == 0) ||
                             (store.getGoods_list().size() < grade
-                             .getGoodsCount())) {
+                                    .getGoodsCount())) {
                         Goods goods = new Goods();
                         goods.setGoods_name(reader.get(goods_name_pos));
                         goods.setStore_price(BigDecimal.valueOf(
-                                                 CommUtil.null2Double(reader.get(goods_price_pos))));
+                                CommUtil.null2Double(reader.get(goods_price_pos))));
                         goods.setGoods_price(goods.getStore_price());
                         goods.setGoods_inventory(CommUtil.null2Int(reader
-                                                 .get(goods_count_pos)));
+                                .get(goods_count_pos)));
                         /** 本系统定义0：立即发布；1：放入仓库
                          *  淘宝模板中定义1：立即发布；2：放入仓库
                          *  导入模板时做转换
                          */
                         goods.setGoods_status(CommUtil.null2Int(reader.get(goods_status_pos)) == 1 ? 0 : 1);
                         goods.setGoods_recommend(CommUtil.null2Boolean(reader
-                                                 .get(goods_recommend_pos)));
+                                .get(goods_recommend_pos)));
                         goods.setGoods_details(reader.get(goods_detail_pos));
                         goods.setGoods_store(store);
                         goods.setGoods_transfee(CommUtil.null2Int(reader
-                                                .get(goods_transfee_pos)) - 1);
+                                .get(goods_transfee_pos)) - 1);
                         goods.setGoods_current_price(goods.getStore_price());
                         goods.setAddTime(new Date());
                         goods.setGoods_seller_time(new Date());
                         GoodsClass gc = this.goodsClassService
-                                        .getObjById(CommUtil.null2Long(gc_id3));
+                                .getObjById(CommUtil.null2Long(gc_id3));
                         goods.setGc(gc);
                         String[] ugc_id_list = ugc_ids.split(",");
                         for (String ugc_id : ugc_id_list) {
                             UserGoodsClass ugc = this.userGoodsClassService
-                                                 .getObjById(CommUtil.null2Long(ugc_id));
+                                    .getObjById(CommUtil.null2Long(ugc_id));
                             goods.getGoods_ugcs().add(ugc);
                         }
                         this.goodsService.save(goods);
@@ -219,13 +200,13 @@ public class TaobaoSellerAction {
                     } else {
                         no_import_count++;
                         mv = new JModelAndView("error.html",
-                                               this.configService.getSysConfig(),
-                                               this.userConfigService.getUserConfig(), 1,
-                                               request, response);
+                                this.configService.getSysConfig(),
+                                this.userConfigService.getUserConfig(), 1,
+                                request, response);
                         mv.addObject("op_title",
-                                     "您的店铺等级只允许上传" + grade.getGoodsCount() + "件商品!");
+                                "您的店铺等级只允许上传" + grade.getGoodsCount() + "件商品!");
                         mv.addObject("url", CommUtil.getURL(request) +
-                                     "/seller/store_grade.htm");
+                                "/seller/store_grade.htm");
                         break;
                     }
                 }
@@ -238,18 +219,18 @@ public class TaobaoSellerAction {
             HashMap params = new HashMap();
             params.put("user_id", SecurityUserHolder.getCurrentUser().getId());
             List alubms = this.albumService.query(
-                              "select obj from Album obj where obj.user.id=:user_id",
-                              params, -1, -1);
+                    "select obj from Album obj where obj.user.id=:user_id",
+                    params, -1, -1);
             mv.addObject("alubms", alubms);
             mv.addObject("jsessionid", request.getSession().getId());
             request.getSession(false).setAttribute("taobao_goods_list",
-                                                   taobao_goods_list);
+                    taobao_goods_list);
             request.getSession(false).setAttribute("taobao_upload_status",
-                                                   "upload_img");
+                    "upload_img");
             request.getSession(false).setAttribute("already_import_count",
-                                                   Integer.valueOf(already_import_count));
+                    Integer.valueOf(already_import_count));
             request.getSession(false).setAttribute("no_import_count",
-                                                   Integer.valueOf(no_import_count));
+                    Integer.valueOf(no_import_count));
         }
         mv.addObject("already_import_count", Integer.valueOf(already_import_count));
         mv.addObject("no_import_count", Integer.valueOf(no_import_count));
@@ -257,33 +238,33 @@ public class TaobaoSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "上传淘宝图片", value = "/seller/taobao_img_upload.htm*", rtype = "seller", rname = "淘宝导入", rcode = "taobao_seller", rgroup = "淘宝管理")
-    @RequestMapping( {"/seller/taobao_img_upload.htm"})
+    @RequestMapping({"/seller/taobao_img_upload.htm"})
     public void taobao_img_upload(HttpServletRequest request, HttpServletResponse response, String user_id, String album_id) {
         String csv_path = request.getSession().getServletContext()
-                          .getRealPath("") +
-                          File.separator + "csv";
+                .getRealPath("") +
+                File.separator + "csv";
         try {
             String csvFilePath = csv_path + File.separator + "taobao.cvs";
             CsvReader reader = new CsvReader(csvFilePath, '\t',
-                                             Charset.forName("UTF-16LE"));
+                    Charset.forName("UTF-16LE"));
             reader.readHeaders();
             int goods_name_pos = 0;
             int goods_price_pos = 7;
             int goods_photo_pos = 28;
             User user = this.userService
-                        .getObjById(CommUtil.null2Long(user_id));
+                    .getObjById(CommUtil.null2Long(user_id));
             Store store = this.userService.getObjById(user.getId()).getStore();
             StoreGrade grade = store.getGrade();
             String photo_path = this.storeTools.createUserFolder(request,
-                                this.configService.getSysConfig(), user.getStore());
+                    this.configService.getSysConfig(), user.getStore());
             String photo_url = this.storeTools.createUserFolderURL(
-                                   this.configService.getSysConfig(), user.getStore());
+                    this.configService.getSysConfig(), user.getStore());
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
             CommonsMultipartFile file = (CommonsMultipartFile) multipartRequest
-                                        .getFile("imgFile");
+                    .getFile("imgFile");
             String upload_img_name = file.getOriginalFilename();
             upload_img_name = upload_img_name.substring(0,
-                              upload_img_name.indexOf("."));
+                    upload_img_name.indexOf("."));
             double fileSize = Double.valueOf(file.getSize()).doubleValue();
             fileSize /= 1048576.0D;
             double csize = CommUtil.fileSize(new File(photo_path));
@@ -295,7 +276,7 @@ public class TaobaoSellerAction {
             }
             Map json_map = new HashMap();
             List<Goods> goods_list = (List) request.getSession(false)
-                                     .getAttribute("taobao_goods_list");
+                    .getAttribute("taobao_goods_list");
             System.out.println(goods_list);
             System.out.println(SecurityUserHolder.getCurrentUser());
             Goods goods = new Goods();
@@ -304,12 +285,12 @@ public class TaobaoSellerAction {
                 if (reader.get(goods_photo_pos).indexOf(upload_img_name) >= 0) {
                     String goods_name = reader.get(goods_name_pos);
                     double goods_price = CommUtil.null2Double(reader
-                                         .get(goods_price_pos));
+                            .get(goods_price_pos));
                     photo_list = reader.get(goods_photo_pos).split(";");
                     for (Goods temp_goods : goods_list) {
                         if ((!temp_goods.getGoods_name().equals(goods_name)) ||
                                 (CommUtil.null2Double(temp_goods
-                                                      .getGoods_price()) != goods_price)) continue;
+                                        .getGoods_price()) != goods_price)) continue;
                         goods = temp_goods;
                     }
                 }
@@ -320,44 +301,44 @@ public class TaobaoSellerAction {
                 if (remainSpace > fileSize) {
                     try {
                         Map map = CommUtil.saveFileToServer(request, "imgFile",
-                                                            photo_path, upload_img_name + ".tbi", null);
+                                photo_path, upload_img_name + ".tbi", null);
                         Map params = new HashMap();
                         params.put("store_id", user.getStore().getId());
                         List wms = this.waterMarkService
-                                   .query("select obj from WaterMark obj where obj.store.id=:store_id",
-                                          params, -1, -1);
+                                .query("select obj from WaterMark obj where obj.store.id=:store_id",
+                                        params, -1, -1);
                         if (wms.size() > 0) {
                             WaterMark mark = (WaterMark) wms.get(0);
                             if (mark.isWm_image_open()) {
                                 String pressImg = request.getSession()
-                                                  .getServletContext().getRealPath("") +
-                                                  File.separator +
-                                                  mark.getWm_image().getPath() +
-                                                  File.separator +
-                                                  mark.getWm_image().getName();
+                                        .getServletContext().getRealPath("") +
+                                        File.separator +
+                                        mark.getWm_image().getPath() +
+                                        File.separator +
+                                        mark.getWm_image().getName();
                                 String targetImg = photo_path + File.separator +
-                                                   map.get("fileName");
+                                        map.get("fileName");
                                 int pos = mark.getWm_image_pos();
                                 float alpha = mark.getWm_image_alpha();
                                 CommUtil.waterMarkWithImage(pressImg,
-                                                            targetImg, pos, alpha);
+                                        targetImg, pos, alpha);
                             }
                             if (mark.isWm_text_open()) {
                                 String targetImg = photo_path + File.separator +
-                                                   map.get("fileName");
+                                        map.get("fileName");
                                 int pos = mark.getWm_text_pos();
                                 String text = mark.getWm_text();
                                 String markContentColor = mark
-                                                          .getWm_text_color();
+                                        .getWm_text_color();
                                 CommUtil.waterMarkWithText(
-                                    targetImg,
-                                    targetImg,
-                                    text,
-                                    markContentColor,
-                                    new Font(mark.getWm_text_font(),
-                                             1, mark
-                                             .getWm_text_font_size()),
-                                    pos, 100.0F);
+                                        targetImg,
+                                        targetImg,
+                                        text,
+                                        markContentColor,
+                                        new Font(mark.getWm_text_font(),
+                                                1, mark
+                                                .getWm_text_font_size()),
+                                        pos, 100.0F);
                             }
                         }
                         Accessory image = new Accessory();
@@ -371,10 +352,10 @@ public class TaobaoSellerAction {
                         Album album = null;
                         if ((album_id != null) && (!album_id.equals(""))) {
                             album = this.albumService.getObjById(
-                                        CommUtil.null2Long(album_id));
+                                    CommUtil.null2Long(album_id));
                         } else {
                             album = this.albumService.getDefaultAlbum(
-                                        CommUtil.null2Long(user_id));
+                                    CommUtil.null2Long(user_id));
                             if (album == null) {
                                 album = new Album();
                                 album.setAddTime(new Date());
@@ -389,24 +370,24 @@ public class TaobaoSellerAction {
                         goods.getGoods_photos().add(image);
                         this.goodsService.update(goods);
                         json_map.put("url", CommUtil.getURL(request) + "/" +
-                                     photo_url + "/" + image.getName());
+                                photo_url + "/" + image.getName());
                         json_map.put("id", image.getId());
                         json_map.put("remainSpace",
-                                     Double.valueOf(remainSpace == 10000000.0D ? 0.0D :
-                                                    remainSpace));
+                                Double.valueOf(remainSpace == 10000000.0D ? 0.0D :
+                                        remainSpace));
 
                         String ext = image.getExt().indexOf(".") < 0 ? "." +
-                                     image.getExt() : image.getExt();
+                                image.getExt() : image.getExt();
                         String source = request.getSession()
-                                        .getServletContext().getRealPath("/") +
-                                        image.getPath() +
-                                        File.separator +
-                                        image.getName();
+                                .getServletContext().getRealPath("/") +
+                                image.getPath() +
+                                File.separator +
+                                image.getName();
                         String target = source + "_small" + ext;
                         CommUtil.createSmall(source, target, this.configService
-                                             .getSysConfig().getSmallWidth(),
-                                             this.configService.getSysConfig()
-                                             .getSmallHeight());
+                                        .getSysConfig().getSmallWidth(),
+                                this.configService.getSysConfig()
+                                        .getSmallHeight());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -421,16 +402,16 @@ public class TaobaoSellerAction {
             e.printStackTrace();
         }
         request.getSession(false).setAttribute("taobao_upload_status",
-                                               "upload_finish");
+                "upload_finish");
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "淘宝导入完成", value = "/seller/taobao_import_finish.htm*", rtype = "seller", rname = "淘宝导入", rcode = "taobao_seller", rgroup = "淘宝管理")
-    @RequestMapping( {"/seller/taobao_import_finish.htm"})
+    @RequestMapping({"/seller/taobao_import_finish.htm"})
     public ModelAndView taobao_import_finish(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new JModelAndView(
-            "user/default/usercenter/taobao_import_finish.html",
-            this.configService.getSysConfig(),
-            this.userConfigService.getUserConfig(), 0, request, response);
+                "user/default/usercenter/taobao_import_finish.html",
+                this.configService.getSysConfig(),
+                this.userConfigService.getUserConfig(), 0, request, response);
         request.getSession(false).removeAttribute("taobao_upload_status");
         request.getSession(false).removeAttribute("taobao_goods_list");
         request.getSession(false).removeAttribute("already_import_count");
@@ -438,12 +419,12 @@ public class TaobaoSellerAction {
         return mv;
     }
 
-    @RequestMapping( {"/seller/taobao_authorize.htm"})
+    @RequestMapping({"/seller/taobao_authorize.htm"})
     public ModelAndView taobao_authorize(HttpServletRequest request, HttpServletResponse response, String code, String state) {
         ModelAndView mv = new JModelAndView(
-            "user/default/usercenter/taobao_import_finish.html",
-            this.configService.getSysConfig(),
-            this.userConfigService.getUserConfig(), 0, request, response);
+                "user/default/usercenter/taobao_import_finish.html",
+                this.configService.getSysConfig(),
+                this.userConfigService.getUserConfig(), 0, request, response);
 
         return mv;
     }

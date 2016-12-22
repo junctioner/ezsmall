@@ -7,47 +7,26 @@ import com.wemall.core.query.support.IPageList;
 import com.wemall.core.security.support.SecurityUserHolder;
 import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.WebForm;
-import com.wemall.foundation.domain.Dynamic;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.GoodsClass;
-import com.wemall.foundation.domain.HomePageGoodsClass;
-import com.wemall.foundation.domain.SnsAttention;
-import com.wemall.foundation.domain.SnsFriend;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.User;
+import com.wemall.foundation.domain.*;
 import com.wemall.foundation.domain.query.DynamicQueryObject;
 import com.wemall.foundation.domain.query.FavoriteQueryObject;
-import com.wemall.foundation.service.IDynamicService;
-import com.wemall.foundation.service.IFavoriteService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IHomePageGoodsClassService;
-import com.wemall.foundation.service.IMessageService;
-import com.wemall.foundation.service.ISnsAttentionService;
-import com.wemall.foundation.service.ISnsFriendService;
-import com.wemall.foundation.service.IStoreService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
+import com.wemall.foundation.service.*;
 import com.wemall.view.web.tools.OrderViewTools;
 import com.wemall.view.web.tools.StoreViewTools;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
+
+/**
+ * 买家会员中心控制器
+ */
 @Controller
 public class BaseBuyerAction {
 
@@ -178,6 +157,7 @@ public class BaseBuyerAction {
         }
         return ids;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买家中心导航", value = "/buyer/nav.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/nav.htm"})
     public ModelAndView nav(HttpServletRequest request, HttpServletResponse response) {
@@ -189,6 +169,7 @@ public class BaseBuyerAction {
         mv.addObject("op", op);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买家中心导航", value = "/buyer/head.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/head.htm"})
     public ModelAndView head(HttpServletRequest request, HttpServletResponse response) {

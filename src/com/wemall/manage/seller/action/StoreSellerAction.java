@@ -6,28 +6,20 @@ import com.wemall.core.security.support.SecurityUserHolder;
 import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.QRCodeEncoderHandler;
 import com.wemall.core.tools.WebForm;
-import com.wemall.foundation.domain.Accessory;
-import com.wemall.foundation.domain.Area;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.StoreClass;
-import com.wemall.foundation.domain.StoreGrade;
-import com.wemall.foundation.domain.StoreGradeLog;
-import com.wemall.foundation.domain.StoreSlide;
-import com.wemall.foundation.domain.SysConfig;
-import com.wemall.foundation.domain.User;
-import com.wemall.foundation.service.IAccessoryService;
-import com.wemall.foundation.service.IAreaService;
-import com.wemall.foundation.service.IRoleService;
-import com.wemall.foundation.service.IStoreClassService;
-import com.wemall.foundation.service.IStoreGradeLogService;
-import com.wemall.foundation.service.IStoreGradeService;
-import com.wemall.foundation.service.IStoreService;
-import com.wemall.foundation.service.IStoreSlideService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserService;
+import com.wemall.foundation.domain.*;
+import com.wemall.foundation.service.*;
 import com.wemall.view.web.tools.AreaViewTools;
 import com.wemall.view.web.tools.StoreViewTools;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.Authentication;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -35,20 +27,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.Authentication;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * 卖家店铺控制器
+ */
 @Controller
 public class StoreSellerAction {
 

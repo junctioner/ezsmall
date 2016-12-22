@@ -26,6 +26,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 卖家广告控制器
+ */
 @Controller
 public class AdvertSellerAction {
 

@@ -1,36 +1,5 @@
 package com.wemall.manage.buyer.action;
 
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-
-
-//import sun.misc.BASE64Decoder;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.wemall.core.annotation.SecurityMapping;
 import com.wemall.core.domain.virtual.SysMap;
 import com.wemall.core.mv.JModelAndView;
@@ -39,24 +8,28 @@ import com.wemall.core.security.support.SecurityUserHolder;
 import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.Md5Encrypt;
 import com.wemall.core.tools.WebForm;
-import com.wemall.foundation.domain.Accessory;
-import com.wemall.foundation.domain.Area;
-import com.wemall.foundation.domain.MobileVerifyCode;
-import com.wemall.foundation.domain.SnsFriend;
-import com.wemall.foundation.domain.User;
+import com.wemall.foundation.domain.*;
 import com.wemall.foundation.domain.query.SnsFriendQueryObject;
 import com.wemall.foundation.domain.query.UserQueryObject;
-import com.wemall.foundation.service.IAccessoryService;
-import com.wemall.foundation.service.IAreaService;
-import com.wemall.foundation.service.IMobileVerifyCodeService;
-import com.wemall.foundation.service.ISnsFriendService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.ITemplateService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserService;
+import com.wemall.foundation.service.*;
 import com.wemall.manage.admin.tools.MsgTools;
 import com.wemall.uc.api.UCClient;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.*;
+
+/**
+ * 买家个人信息控制器
+ */
 @Controller
 public class AccountBuyerAction {
 
@@ -87,7 +60,6 @@ public class AccountBuyerAction {
     @Autowired
     private MsgTools msgTools;
     private static final String DEFAULT_AVATAR_FILE_EXT = ".jpg";
-    //private static BASE64Decoder _decoder = new BASE64Decoder();
     public static final String OPERATE_RESULT_CODE_SUCCESS = "200";
     public static final String OPERATE_RESULT_CODE_FAIL = "400";
 

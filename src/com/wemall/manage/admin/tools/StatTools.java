@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 /**
- * 状态工具组件
+ * 统计工具组件
  */
 @Component
 public class StatTools {

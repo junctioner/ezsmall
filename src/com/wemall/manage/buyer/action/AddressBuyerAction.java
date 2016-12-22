@@ -1,16 +1,5 @@
 package com.wemall.manage.buyer.action;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.wemall.core.annotation.SecurityMapping;
 import com.wemall.core.domain.virtual.SysMap;
 import com.wemall.core.mv.JModelAndView;
@@ -26,7 +15,19 @@ import com.wemall.foundation.service.IAddressService;
 import com.wemall.foundation.service.IAreaService;
 import com.wemall.foundation.service.ISysConfigService;
 import com.wemall.foundation.service.IUserConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * 买家收货地址控制器
+ */
 @Controller
 public class AddressBuyerAction {
 
