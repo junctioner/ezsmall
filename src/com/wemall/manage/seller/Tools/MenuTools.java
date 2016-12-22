@@ -1,11 +1,15 @@
-package com.wemall.manage.seller.Tools;
+package com.wemall.manage.seller.tools;
+
+import org.nutz.json.Json;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.nutz.json.Json;
-import org.springframework.stereotype.Component;
 
+/**
+ * 菜单工具组件
+ */
 @Component
 public class MenuTools {
     public List<Map> generic_seller_quick_menu(String menu_json) {

@@ -1,26 +1,25 @@
-package com.wemall.manage.seller.Tools;
+package com.wemall.manage.seller.tools;
 
 import com.wemall.core.domain.virtual.CglibBean;
 import com.wemall.core.domain.virtual.SysMap;
 import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.Area;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.GoodsCart;
-import com.wemall.foundation.domain.StoreCart;
-import com.wemall.foundation.domain.Transport;
+import com.wemall.foundation.domain.*;
 import com.wemall.foundation.service.IAreaService;
 import com.wemall.foundation.service.IGoodsService;
 import com.wemall.foundation.service.ITransportService;
-import java.io.PrintStream;
+import org.nutz.json.Json;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.nutz.json.Json;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
+/**
+ * 配送工具组件
+ */
 @Component
 public class TransportTools {
 

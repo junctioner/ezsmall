@@ -5,29 +5,25 @@ import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.Md5Encrypt;
 import com.wemall.foundation.domain.Album;
 import com.wemall.foundation.domain.IntegralLog;
-import com.wemall.foundation.domain.SysConfig;
 import com.wemall.foundation.domain.User;
-import com.wemall.foundation.service.IAlbumService;
-import com.wemall.foundation.service.IIntegralLogService;
-import com.wemall.foundation.service.IRoleService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserService;
+import com.wemall.foundation.service.*;
 import com.wemall.uc.api.UCClient;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * UCenter接入控制器
+ */
 @Controller
 public class UCViewAction {
     private static final long serialVersionUID = -7377364931916922413L;

@@ -1,20 +1,22 @@
 package com.wemall.view.web.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.wemall.core.domain.virtual.SysMap;
+import com.wemall.core.mv.JModelAndView;
+import com.wemall.core.query.support.IPageList;
+import com.wemall.core.security.support.SecurityUserHolder;
+import com.wemall.core.tools.CommUtil;
+import com.wemall.foundation.domain.*;
+import com.wemall.foundation.domain.query.ConsultQueryObject;
+import com.wemall.foundation.domain.query.EvaluateQueryObject;
+import com.wemall.foundation.domain.query.GoodsCartQueryObject;
+import com.wemall.foundation.domain.query.GoodsQueryObject;
+import com.wemall.foundation.service.*;
+import com.wemall.manage.admin.tools.UserTools;
+import com.wemall.manage.seller.Tools.TransportTools;
+import com.wemall.view.web.tools.AreaViewTools;
+import com.wemall.view.web.tools.GoodsViewTools;
+import com.wemall.view.web.tools.IpAddress;
+import com.wemall.view.web.tools.StoreViewTools;
 import org.nutz.json.Json;
 import org.nutz.json.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,49 +24,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.wemall.core.domain.virtual.SysMap;
-import com.wemall.core.mv.JModelAndView;
-import com.wemall.core.query.support.IPageList;
-import com.wemall.core.security.support.SecurityUserHolder;
-import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.Area;
-import com.wemall.foundation.domain.Consult;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.GoodsBrand;
-import com.wemall.foundation.domain.GoodsClass;
-import com.wemall.foundation.domain.GoodsSpecProperty;
-import com.wemall.foundation.domain.GoodsTypeProperty;
-import com.wemall.foundation.domain.Group;
-import com.wemall.foundation.domain.GroupGoods;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.StoreClass;
-import com.wemall.foundation.domain.UserGoodsClass;
-import com.wemall.foundation.domain.query.ConsultQueryObject;
-import com.wemall.foundation.domain.query.EvaluateQueryObject;
-import com.wemall.foundation.domain.query.GoodsCartQueryObject;
-import com.wemall.foundation.domain.query.GoodsQueryObject;
-import com.wemall.foundation.service.IAreaService;
-import com.wemall.foundation.service.IConsultService;
-import com.wemall.foundation.service.IEvaluateService;
-import com.wemall.foundation.service.IGoodsBrandService;
-import com.wemall.foundation.service.IGoodsCartService;
-import com.wemall.foundation.service.IGoodsClassService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IGoodsSpecPropertyService;
-import com.wemall.foundation.service.IGoodsTypePropertyService;
-import com.wemall.foundation.service.IOrderFormService;
-import com.wemall.foundation.service.IStoreClassService;
-import com.wemall.foundation.service.IStoreService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserGoodsClassService;
-import com.wemall.manage.admin.tools.UserTools;
-import com.wemall.manage.seller.Tools.TransportTools;
-import com.wemall.view.web.tools.AreaViewTools;
-import com.wemall.view.web.tools.GoodsViewTools;
-import com.wemall.view.web.tools.IpAddress;
-import com.wemall.view.web.tools.StoreViewTools;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.util.*;
 
+/**
+ * 商品控制器
+ */
 @Controller
 public class GoodsViewAction {
 

@@ -7,34 +7,27 @@ import com.wemall.core.tools.CommUtil;
 import com.wemall.foundation.domain.Store;
 import com.wemall.foundation.domain.StoreClass;
 import com.wemall.foundation.domain.StoreNavigation;
-import com.wemall.foundation.domain.StorePoint;
-import com.wemall.foundation.domain.SysConfig;
-import com.wemall.foundation.domain.User;
 import com.wemall.foundation.domain.query.EvaluateQueryObject;
 import com.wemall.foundation.domain.query.GoodsQueryObject;
 import com.wemall.foundation.domain.query.StoreQueryObject;
-import com.wemall.foundation.service.IEvaluateService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IStoreClassService;
-import com.wemall.foundation.service.IStoreNavigationService;
-import com.wemall.foundation.service.IStorePartnerService;
-import com.wemall.foundation.service.IStoreService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserGoodsClassService;
+import com.wemall.foundation.service.*;
 import com.wemall.view.web.tools.AreaViewTools;
 import com.wemall.view.web.tools.GoodsViewTools;
 import com.wemall.view.web.tools.StoreViewTools;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 店铺控制器
+ */
 @Controller
 public class StoreViewAction {
 

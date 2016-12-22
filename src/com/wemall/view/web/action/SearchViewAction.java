@@ -45,7 +45,7 @@ import com.wemall.lucene.LuceneVo;
 import com.wemall.view.web.tools.StoreViewTools;
 
 /**
- * 搜索试图类
+ * 搜索控制器
  */
 @Controller
 public class SearchViewAction {

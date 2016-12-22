@@ -4,13 +4,17 @@ import com.wemall.core.tools.CommUtil;
 import com.wemall.foundation.domain.Accessory;
 import com.wemall.foundation.service.IAccessoryService;
 import com.wemall.foundation.service.IAlbumService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
+/**
+ * 相册工具组件
+ */
 @Component
 public class AlbumViewTools {
 

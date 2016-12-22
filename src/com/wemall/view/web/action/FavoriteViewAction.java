@@ -5,23 +5,22 @@ import com.wemall.core.tools.CommUtil;
 import com.wemall.foundation.domain.Favorite;
 import com.wemall.foundation.domain.Goods;
 import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.User;
-import com.wemall.foundation.service.IFavoriteService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IStoreService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
+import com.wemall.foundation.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * ÊÕ²Ø¿ØÖÆÆ÷
+ */
 @Controller
 public class FavoriteViewAction {
 

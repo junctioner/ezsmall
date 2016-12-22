@@ -1,65 +1,32 @@
 package com.wemall.view.web.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.wemall.core.mv.JModelAndView;
 import com.wemall.core.security.support.SecurityUserHolder;
 import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.Md5Encrypt;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.GoodsBrand;
-import com.wemall.foundation.domain.GoodsCart;
-import com.wemall.foundation.domain.GoodsClass;
-import com.wemall.foundation.domain.GoodsFloor;
-import com.wemall.foundation.domain.Group;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.StoreCart;
-import com.wemall.foundation.domain.SysConfig;
-import com.wemall.foundation.domain.User;
-import com.wemall.foundation.service.IAccessoryService;
-import com.wemall.foundation.service.IArticleClassService;
-import com.wemall.foundation.service.IArticleService;
-import com.wemall.foundation.service.IBargainGoodsService;
-import com.wemall.foundation.service.IDeliveryGoodsService;
-import com.wemall.foundation.service.IGoodsBrandService;
-import com.wemall.foundation.service.IGoodsCartService;
-import com.wemall.foundation.service.IGoodsClassService;
-import com.wemall.foundation.service.IGoodsFloorService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IGroupGoodsService;
-import com.wemall.foundation.service.IGroupService;
-import com.wemall.foundation.service.IMessageService;
-import com.wemall.foundation.service.INavigationService;
-import com.wemall.foundation.service.IPartnerService;
-import com.wemall.foundation.service.IRoleService;
-import com.wemall.foundation.service.IStoreCartService;
-import com.wemall.foundation.service.IStoreService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserService;
+import com.wemall.foundation.domain.*;
+import com.wemall.foundation.service.*;
 import com.wemall.manage.admin.tools.MsgTools;
 import com.wemall.view.web.tools.GoodsFloorViewTools;
 import com.wemall.view.web.tools.GoodsViewTools;
 import com.wemall.view.web.tools.NavViewTools;
 import com.wemall.view.web.tools.StoreViewTools;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
+
+/**
+ * 商城首页控制器
+ */
 @Controller
 public class IndexViewAction {
 

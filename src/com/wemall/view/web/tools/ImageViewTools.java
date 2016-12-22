@@ -8,6 +8,9 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+	图像工具组件
+**/
 @Component
 public class ImageViewTools {
 

@@ -5,13 +5,17 @@ import com.wemall.foundation.service.IActivityService;
 import com.wemall.foundation.service.IArticleService;
 import com.wemall.foundation.service.IGoodsClassService;
 import com.wemall.foundation.service.INavigationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
+/**
+ * 导航工具组件
+ */
 @Component
 public class NavViewTools {
 

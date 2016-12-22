@@ -4,24 +4,22 @@ import com.wemall.core.domain.virtual.SysMap;
 import com.wemall.core.mv.JModelAndView;
 import com.wemall.core.query.support.IPageList;
 import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.SysConfig;
 import com.wemall.foundation.domain.query.BargainGoodsQueryObject;
 import com.wemall.foundation.service.IBargainGoodsService;
 import com.wemall.foundation.service.ISysConfigService;
 import com.wemall.foundation.service.IUserConfigService;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
+
+/**
+ * ÌØ¼Û¿ØÖÆÆ÷
+ */
 @Controller
 public class BargainViewAction {
 

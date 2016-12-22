@@ -6,6 +6,9 @@ import com.wemall.foundation.service.IAreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * 地区工具组件
+ */
 @Component
 public class AreaViewTools {
 

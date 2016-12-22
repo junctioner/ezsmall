@@ -5,32 +5,22 @@ import com.wemall.core.mv.JModelAndView;
 import com.wemall.core.query.support.IPageList;
 import com.wemall.core.security.support.SecurityUserHolder;
 import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.Chatting;
-import com.wemall.foundation.domain.ChattingFriend;
-import com.wemall.foundation.domain.ChattingLog;
-import com.wemall.foundation.domain.SnsFriend;
-import com.wemall.foundation.domain.User;
+import com.wemall.foundation.domain.*;
 import com.wemall.foundation.domain.query.ChattingLogQueryObject;
-import com.wemall.foundation.service.IChattingFriendService;
-import com.wemall.foundation.service.IChattingLogService;
-import com.wemall.foundation.service.IChattingService;
-import com.wemall.foundation.service.ISnsFriendService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserService;
+import com.wemall.foundation.service.*;
 import com.wemall.manage.admin.tools.UserTools;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
+
+/**
+ * ÁÄÌì¿ØÖÆÆ÷
+ */
 @Controller
 public class ChattingViewAction {
 

@@ -6,39 +6,8 @@ import com.wemall.core.security.support.SecurityUserHolder;
 import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.Md5Encrypt;
 import com.wemall.core.tools.WxCommonUtil;
-import com.wemall.foundation.domain.GoldLog;
-import com.wemall.foundation.domain.GoldRecord;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.GoodsCart;
-import com.wemall.foundation.domain.GoodsSpecProperty;
-import com.wemall.foundation.domain.Group;
-import com.wemall.foundation.domain.GroupGoods;
-import com.wemall.foundation.domain.IntegralGoods;
-import com.wemall.foundation.domain.IntegralGoodsCart;
-import com.wemall.foundation.domain.IntegralGoodsOrder;
-import com.wemall.foundation.domain.OrderForm;
-import com.wemall.foundation.domain.OrderFormLog;
-import com.wemall.foundation.domain.Payment;
-import com.wemall.foundation.domain.Predeposit;
-import com.wemall.foundation.domain.PredepositLog;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.SysConfig;
-import com.wemall.foundation.domain.User;
-import com.wemall.foundation.service.IGoldLogService;
-import com.wemall.foundation.service.IGoldRecordService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IGroupGoodsService;
-import com.wemall.foundation.service.IIntegralGoodsOrderService;
-import com.wemall.foundation.service.IIntegralGoodsService;
-import com.wemall.foundation.service.IOrderFormLogService;
-import com.wemall.foundation.service.IOrderFormService;
-import com.wemall.foundation.service.IPaymentService;
-import com.wemall.foundation.service.IPredepositLogService;
-import com.wemall.foundation.service.IPredepositService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.ITemplateService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserService;
+import com.wemall.foundation.domain.*;
+import com.wemall.foundation.service.*;
 import com.wemall.manage.admin.tools.MsgTools;
 import com.wemall.pay.alipay.config.AlipayConfig;
 import com.wemall.pay.alipay.util.AlipayNotify;
@@ -46,33 +15,6 @@ import com.wemall.pay.bill.util.MD5Util;
 import com.wemall.pay.tenpay.RequestHandler;
 import com.wemall.pay.tenpay.ResponseHandler;
 import com.wemall.pay.tenpay.util.TenpayUtil;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.jdom.JDOMException;
@@ -85,6 +27,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.util.*;
+
+/**
+ * 支付控制器
+ */
 @Controller
 public class PayViewAction {
 

@@ -1,35 +1,25 @@
 package com.wemall.view.web.action;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Random;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.UUID;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.wemall.core.annotation.SecurityMapping;
+import com.wemall.core.domain.virtual.SysMap;
+import com.wemall.core.mv.JModelAndView;
+import com.wemall.core.query.support.IPageList;
+import com.wemall.core.security.support.SecurityUserHolder;
+import com.wemall.core.tools.*;
+import com.wemall.core.tools.bean.WxOauth2Token;
+import com.wemall.core.tools.bean.WxToken;
+import com.wemall.foundation.domain.*;
+import com.wemall.foundation.domain.query.AddressQueryObject;
+import com.wemall.foundation.service.*;
+import com.wemall.manage.admin.tools.MsgTools;
+import com.wemall.manage.admin.tools.PaymentTools;
+import com.wemall.manage.seller.Tools.TransportTools;
+import com.wemall.pay.alipay.config.AlipayConfig;
+import com.wemall.pay.alipay.util.AlipaySubmit;
+import com.wemall.pay.tools.PayTools;
+import com.wemall.view.web.tools.GoodsViewTools;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.jdom.JDOMException;
@@ -42,58 +32,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.wemall.core.annotation.SecurityMapping;
-import com.wemall.core.domain.virtual.SysMap;
-import com.wemall.core.mv.JModelAndView;
-import com.wemall.core.query.support.IPageList;
-import com.wemall.core.security.support.SecurityUserHolder;
-import com.wemall.core.tools.CommUtil;
-import com.wemall.core.tools.QRCodeEncoderHandler;
-import com.wemall.core.tools.WebForm;
-import com.wemall.core.tools.WxAdvancedUtil;
-import com.wemall.core.tools.WxCommonUtil;
-import com.wemall.core.tools.bean.WxOauth2Token;
-import com.wemall.core.tools.bean.WxToken;
-import com.wemall.foundation.domain.Address;
-import com.wemall.foundation.domain.Area;
-import com.wemall.foundation.domain.CouponInfo;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.GoodsCart;
-import com.wemall.foundation.domain.GoodsSpecProperty;
-import com.wemall.foundation.domain.GroupGoods;
-import com.wemall.foundation.domain.OrderForm;
-import com.wemall.foundation.domain.OrderFormLog;
-import com.wemall.foundation.domain.Payment;
-import com.wemall.foundation.domain.PredepositLog;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.StoreCart;
-import com.wemall.foundation.domain.User;
-import com.wemall.foundation.domain.query.AddressQueryObject;
-import com.wemall.foundation.service.IAddressService;
-import com.wemall.foundation.service.IAreaService;
-import com.wemall.foundation.service.ICouponInfoService;
-import com.wemall.foundation.service.IGoodsCartService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IGoodsSpecPropertyService;
-import com.wemall.foundation.service.IGroupGoodsService;
-import com.wemall.foundation.service.IOrderFormLogService;
-import com.wemall.foundation.service.IOrderFormService;
-import com.wemall.foundation.service.IPaymentService;
-import com.wemall.foundation.service.IPredepositLogService;
-import com.wemall.foundation.service.IStoreCartService;
-import com.wemall.foundation.service.IStoreService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.ITemplateService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserService;
-import com.wemall.manage.admin.tools.MsgTools;
-import com.wemall.manage.admin.tools.PaymentTools;
-import com.wemall.manage.seller.Tools.TransportTools;
-import com.wemall.pay.alipay.config.AlipayConfig;
-import com.wemall.pay.alipay.util.AlipaySubmit;
-import com.wemall.pay.tools.PayTools;
-import com.wemall.view.web.tools.GoodsViewTools;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.*;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.*;
 
+/**
+ * 购物车控制器
+ */
 @Controller
 public class CartViewAction {
 

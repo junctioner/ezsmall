@@ -5,6 +5,9 @@ import java.math.RoundingMode;
 
 import com.wemall.core.tools.CommUtil;
 
+/**
+ * 货币（钱）工具
+ */
 public class MoneyUtil {
     public String getFormatMoney(Object money, int scale, double divisor) {
         if (divisor == 0.0D) {

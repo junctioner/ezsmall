@@ -7,21 +7,7 @@ import com.wemall.core.tools.Md5Encrypt;
 import com.wemall.core.tools.database.DatabaseTools;
 import com.wemall.foundation.domain.SysConfig;
 import com.wemall.foundation.domain.User;
-import com.wemall.foundation.service.IResService;
-import com.wemall.foundation.service.IRoleGroupService;
-import com.wemall.foundation.service.IRoleService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserService;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
-import java.util.Map;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import com.wemall.foundation.service.*;
 import net.sf.ehcache.CacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
+import java.util.Map;
+
+/**
+ * 商城系统安装控制器
+ */
 @Controller
 public class InstallViewAction implements ServletContextAware {
     private ServletContext servletContext;

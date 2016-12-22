@@ -2,28 +2,18 @@ package com.wemall.view.web.tools;
 
 import com.wemall.core.security.support.SecurityUserHolder;
 import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.GoodsClass;
-import com.wemall.foundation.domain.GoodsSpecProperty;
-import com.wemall.foundation.domain.GoodsSpecification;
-import com.wemall.foundation.domain.User;
-import com.wemall.foundation.domain.UserGoodsClass;
+import com.wemall.foundation.domain.*;
 import com.wemall.foundation.service.IGoodsClassService;
 import com.wemall.foundation.service.IGoodsService;
 import com.wemall.foundation.service.IUserGoodsClassService;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.*;
+
+/**
+ * 商品工具组件
+ */
 @Component
 public class GoodsViewTools {
 

@@ -1,32 +1,17 @@
 package com.wemall.view.web.tools;
 
 import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.StoreClass;
-import com.wemall.foundation.domain.StoreGrade;
-import com.wemall.foundation.domain.StorePoint;
-import com.wemall.foundation.domain.SysConfig;
-import com.wemall.foundation.domain.User;
-import com.wemall.foundation.service.IEvaluateService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IStoreClassService;
-import com.wemall.foundation.service.IStoreService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserService;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.wemall.foundation.domain.*;
+import com.wemall.foundation.service.*;
 import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.*;
+
+/**
+ * 店铺工具组件
+ */
 @Component
 public class StoreViewTools {
 

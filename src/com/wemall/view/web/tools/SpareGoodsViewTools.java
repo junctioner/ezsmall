@@ -3,14 +3,17 @@ package com.wemall.view.web.tools;
 import com.wemall.foundation.domain.SpareGoodsClass;
 import com.wemall.foundation.domain.SpareGoodsFloor;
 import com.wemall.foundation.service.ISpareGoodsClassService;
-import java.io.PrintStream;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
+/**
+ * 闲置商品工具组件
+ */
 @Component
 public class SpareGoodsViewTools {
 

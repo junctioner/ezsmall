@@ -1,15 +1,17 @@
 package com.wemall.view.web.tools;
 
 import com.wemall.core.security.support.SecurityUserHolder;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.User;
 import com.wemall.foundation.service.IOrderFormService;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 订单工具组件
+ */
 @Component
 public class OrderViewTools {
 

@@ -5,42 +5,25 @@ import com.wemall.core.mv.JModelAndView;
 import com.wemall.core.query.support.IPageList;
 import com.wemall.core.security.support.SecurityUserHolder;
 import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.GoodsCart;
-import com.wemall.foundation.domain.Group;
-import com.wemall.foundation.domain.GroupArea;
-import com.wemall.foundation.domain.GroupGoods;
-import com.wemall.foundation.domain.GroupPriceRange;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.User;
+import com.wemall.foundation.domain.*;
 import com.wemall.foundation.domain.query.GoodsQueryObject;
 import com.wemall.foundation.domain.query.GroupGoodsQueryObject;
 import com.wemall.foundation.domain.query.GroupQueryObject;
-import com.wemall.foundation.service.IGoodsCartService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IGroupAreaService;
-import com.wemall.foundation.service.IGroupClassService;
-import com.wemall.foundation.service.IGroupGoodsService;
-import com.wemall.foundation.service.IGroupPriceRangeService;
-import com.wemall.foundation.service.IGroupService;
-import com.wemall.foundation.service.IOrderFormService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserService;
+import com.wemall.foundation.service.*;
 import com.wemall.view.web.tools.GroupViewTools;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.util.*;
+
+/**
+ * 团购控制器
+ */
 @Controller
 public class GroupViewAction {
 
