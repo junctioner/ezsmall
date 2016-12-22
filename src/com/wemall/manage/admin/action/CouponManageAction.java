@@ -2,6 +2,9 @@ package com.wemall.manage.admin.action;
 
 import com.easyjf.beans.BeanUtils;
 import com.easyjf.beans.BeanWrapper;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGEncodeParam;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import com.wemall.core.annotation.SecurityMapping;
 import com.wemall.core.domain.virtual.SysMap;
 import com.wemall.core.mv.JModelAndView;
@@ -12,50 +15,31 @@ import com.wemall.core.tools.WebForm;
 import com.wemall.foundation.domain.Accessory;
 import com.wemall.foundation.domain.Coupon;
 import com.wemall.foundation.domain.CouponInfo;
-import com.wemall.foundation.domain.SysConfig;
 import com.wemall.foundation.domain.User;
 import com.wemall.foundation.domain.query.CouponInfoQueryObject;
 import com.wemall.foundation.domain.query.CouponQueryObject;
-import com.wemall.foundation.service.IAccessoryService;
-import com.wemall.foundation.service.ICouponInfoService;
-import com.wemall.foundation.service.ICouponService;
-import com.wemall.foundation.service.IOrderFormService;
-import com.wemall.foundation.service.IStoreGradeService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserService;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGEncodeParam;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
-import java.awt.AlphaComposite;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import com.wemall.foundation.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.UUID;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.swing.ImageIcon;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * 优惠券管理控制器
+ */
 @Controller
 public class CouponManageAction {
 

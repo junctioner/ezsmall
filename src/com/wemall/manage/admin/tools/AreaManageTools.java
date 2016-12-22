@@ -5,6 +5,9 @@ import com.wemall.foundation.service.IAreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * 地区管理工具组件
+ */
 @Component
 public class AreaManageTools {
 

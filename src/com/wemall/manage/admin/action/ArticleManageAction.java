@@ -8,27 +8,29 @@ import com.wemall.core.query.support.IPageList;
 import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.WebForm;
 import com.wemall.foundation.domain.Article;
-import com.wemall.foundation.domain.SysConfig;
 import com.wemall.foundation.domain.query.ArticleQueryObject;
 import com.wemall.foundation.service.IArticleClassService;
 import com.wemall.foundation.service.IArticleService;
 import com.wemall.foundation.service.ISysConfigService;
 import com.wemall.foundation.service.IUserConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * 文章管理控制器
+ */
 @Controller
 public class ArticleManageAction {
 

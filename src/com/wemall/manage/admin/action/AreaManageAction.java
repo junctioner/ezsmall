@@ -10,31 +10,27 @@ import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.WebForm;
 import com.wemall.core.tools.database.DatabaseTools;
 import com.wemall.foundation.domain.Area;
-import com.wemall.foundation.domain.SysConfig;
 import com.wemall.foundation.domain.query.AreaQueryObject;
 import com.wemall.foundation.service.IAreaService;
 import com.wemall.foundation.service.ISysConfigService;
 import com.wemall.foundation.service.IUserConfigService;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Field;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import net.sf.ehcache.CacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.reflect.Field;
+import java.util.*;
+
+/**
+ * 地区管理控制器
+ */
 @Controller
 public class AreaManageAction {
 

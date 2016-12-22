@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**
- * ÅäËÍ¿ØÖÆÆ÷
+ * Âò¾ÍËÍ¿ØÖÆÆ÷
  */
 @Controller
 public class DeliveryViewAction {

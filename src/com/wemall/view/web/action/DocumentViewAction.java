@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 文档控制器
+ * 系统文章控制器
  */
 @Controller
 public class DocumentViewAction {

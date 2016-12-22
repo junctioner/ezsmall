@@ -3,12 +3,16 @@ package com.wemall.manage.admin.tools;
 import com.wemall.core.tools.CommUtil;
 import com.wemall.foundation.domain.User;
 import com.wemall.foundation.service.IUserService;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.concurrent.SessionRegistry;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 会员工具组件
+ */
 @Component
 public class UserTools {
 

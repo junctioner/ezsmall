@@ -1,21 +1,19 @@
 package com.wemall.manage.admin.tools;
 
 import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.GoodsClass;
-import com.wemall.foundation.domain.GoodsSpecProperty;
-import com.wemall.foundation.domain.GoodsSpecification;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.SysConfig;
+import com.wemall.foundation.domain.*;
 import com.wemall.foundation.service.IGoodsClassService;
 import com.wemall.foundation.service.IStoreService;
-import java.io.File;
-import java.util.Date;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.Date;
+
+/**
+ * 店铺工具组件
+ */
 @Component
 public class StoreTools {
 

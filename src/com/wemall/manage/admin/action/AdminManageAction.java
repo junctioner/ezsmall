@@ -13,34 +13,12 @@ import com.wemall.core.tools.database.DatabaseTools;
 import com.wemall.foundation.domain.Res;
 import com.wemall.foundation.domain.Role;
 import com.wemall.foundation.domain.RoleGroup;
-import com.wemall.foundation.domain.SysConfig;
 import com.wemall.foundation.domain.User;
 import com.wemall.foundation.domain.query.UserQueryObject;
-import com.wemall.foundation.service.IOrderFormService;
-import com.wemall.foundation.service.IResService;
-import com.wemall.foundation.service.IRoleGroupService;
-import com.wemall.foundation.service.IRoleService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserService;
+import com.wemall.foundation.service.*;
 import com.wemall.manage.buyer.action.BaseBuyerAction;
 import com.wemall.manage.seller.action.BaseSellerAction;
 import com.wemall.view.web.action.CartViewAction;
-
-import java.io.PrintStream;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,6 +26,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.*;
+
+/**
+ * 管理员管理控制器
+ */
 @Controller
 public class AdminManageAction implements ServletContextAware {
     private ServletContext servletContext;

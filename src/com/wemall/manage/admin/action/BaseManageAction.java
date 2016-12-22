@@ -54,6 +54,9 @@ import com.wemall.manage.admin.tools.MsgTools;
 import com.wemall.manage.admin.tools.StatTools;
 import com.wemall.uc.api.UCClient;
 
+/**
+ * 基本管理控制器
+ */
 @Controller
 public class BaseManageAction {
 

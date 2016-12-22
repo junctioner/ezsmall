@@ -3,16 +3,18 @@ package com.wemall.manage.admin.tools;
 import com.wemall.core.security.support.SecurityUserHolder;
 import com.wemall.core.tools.CommUtil;
 import com.wemall.foundation.domain.Payment;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.User;
 import com.wemall.foundation.service.IPaymentService;
 import com.wemall.foundation.service.IUserService;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 支付工具组件
+ */
 @Component
 public class PaymentTools {
 

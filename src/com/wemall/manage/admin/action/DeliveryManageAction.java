@@ -12,23 +12,22 @@ import com.wemall.foundation.domain.Goods;
 import com.wemall.foundation.domain.Navigation;
 import com.wemall.foundation.domain.SysConfig;
 import com.wemall.foundation.domain.query.DeliveryGoodsQueryObject;
-import com.wemall.foundation.service.IAccessoryService;
-import com.wemall.foundation.service.IDeliveryGoodsService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.INavigationService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.wemall.foundation.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 买就送管理控制器
+ */
 @Controller
 public class DeliveryManageAction {
 

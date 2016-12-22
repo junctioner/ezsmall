@@ -9,57 +9,12 @@ import com.wemall.core.query.support.IPageList;
 import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.WebForm;
 import com.wemall.core.tools.database.DatabaseTools;
-import com.wemall.foundation.domain.Accessory;
-import com.wemall.foundation.domain.Album;
-import com.wemall.foundation.domain.Area;
-import com.wemall.foundation.domain.Evaluate;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.GoodsCart;
-import com.wemall.foundation.domain.Message;
-import com.wemall.foundation.domain.OrderForm;
-import com.wemall.foundation.domain.Store;
-import com.wemall.foundation.domain.StoreClass;
-import com.wemall.foundation.domain.StoreGradeLog;
-import com.wemall.foundation.domain.SysConfig;
-import com.wemall.foundation.domain.User;
+import com.wemall.foundation.domain.*;
 import com.wemall.foundation.domain.query.StoreGradeLogQueryObject;
 import com.wemall.foundation.domain.query.StoreQueryObject;
-import com.wemall.foundation.service.IAccessoryService;
-import com.wemall.foundation.service.IAlbumService;
-import com.wemall.foundation.service.IAreaService;
-import com.wemall.foundation.service.IConsultService;
-import com.wemall.foundation.service.IEvaluateService;
-import com.wemall.foundation.service.IGoodsCartService;
-import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IMessageService;
-import com.wemall.foundation.service.IOrderFormLogService;
-import com.wemall.foundation.service.IOrderFormService;
-import com.wemall.foundation.service.IRoleService;
-import com.wemall.foundation.service.IStoreClassService;
-import com.wemall.foundation.service.IStoreGradeLogService;
-import com.wemall.foundation.service.IStoreGradeService;
-import com.wemall.foundation.service.IStoreService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.ITemplateService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserService;
+import com.wemall.foundation.service.*;
 import com.wemall.manage.admin.tools.AreaManageTools;
 import com.wemall.manage.admin.tools.StoreTools;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.lang.reflect.Field;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.nutz.json.Json;
@@ -69,6 +24,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.lang.reflect.Field;
+import java.util.*;
+
+/**
+ * 店铺管理控制器
+ */
 @Controller
 public class StoreManageAction {
 

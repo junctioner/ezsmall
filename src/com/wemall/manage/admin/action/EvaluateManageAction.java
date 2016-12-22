@@ -9,18 +9,18 @@ import com.wemall.foundation.domain.Evaluate;
 import com.wemall.foundation.domain.Store;
 import com.wemall.foundation.domain.User;
 import com.wemall.foundation.domain.query.EvaluateQueryObject;
-import com.wemall.foundation.service.IEvaluateService;
-import com.wemall.foundation.service.IStoreService;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserConfigService;
-import com.wemall.foundation.service.IUserService;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.wemall.foundation.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * 商品评价管理控制器
+ */
 @Controller
 public class EvaluateManageAction {
 

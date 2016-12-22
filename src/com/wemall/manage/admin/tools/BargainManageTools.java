@@ -2,17 +2,20 @@ package com.wemall.manage.admin.tools;
 
 import com.wemall.foundation.domain.Bargain;
 import com.wemall.foundation.domain.BargainGoods;
-import com.wemall.foundation.domain.SysConfig;
 import com.wemall.foundation.service.IBargainGoodsService;
 import com.wemall.foundation.service.IBargainService;
 import com.wemall.foundation.service.ISysConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
+/**
+ * 特价管理工具组件
+ */
 @Component
 public class BargainManageTools {
 

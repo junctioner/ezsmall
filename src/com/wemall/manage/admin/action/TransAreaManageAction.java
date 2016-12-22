@@ -8,19 +8,11 @@ import com.wemall.core.mv.JModelAndView;
 import com.wemall.core.query.support.IPageList;
 import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.WebForm;
-import com.wemall.foundation.domain.SysConfig;
 import com.wemall.foundation.domain.TransArea;
 import com.wemall.foundation.domain.query.AreaQueryObject;
 import com.wemall.foundation.service.ISysConfigService;
 import com.wemall.foundation.service.ITransAreaService;
 import com.wemall.foundation.service.IUserConfigService;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Field;
-import java.util.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.nutz.json.Json;
 import org.nutz.json.JsonFormat;
@@ -30,6 +22,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.reflect.Field;
+import java.util.*;
+
+/**
+ * 运费地区管理控制器
+ */
 @Controller
 public class TransAreaManageAction {
 

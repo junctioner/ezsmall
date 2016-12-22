@@ -1,29 +1,17 @@
 package com.wemall.manage.admin.tools;
 
 import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.Accessory;
-import com.wemall.foundation.domain.Advert;
-import com.wemall.foundation.domain.AdvertPosition;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.GoodsBrand;
-import com.wemall.foundation.domain.GoodsClass;
-import com.wemall.foundation.service.IAccessoryService;
-import com.wemall.foundation.service.IAdvertPositionService;
-import com.wemall.foundation.service.IAdvertService;
-import com.wemall.foundation.service.IGoodsBrandService;
-import com.wemall.foundation.service.IGoodsClassService;
-import com.wemall.foundation.service.IGoodsFloorService;
-import com.wemall.foundation.service.IGoodsService;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import com.wemall.foundation.domain.*;
+import com.wemall.foundation.service.*;
 import org.nutz.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.*;
+
+/**
+ * 商品楼层管理工具组件
+ */
 @Component
 public class GoodsFloorTools {
 

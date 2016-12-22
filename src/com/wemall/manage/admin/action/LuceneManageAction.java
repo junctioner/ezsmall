@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
+/**
+ * lucene全文检索管理控制器
+ */
 @Controller
 public class LuceneManageAction {
 
