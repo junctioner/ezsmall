@@ -17,7 +17,7 @@
 <script src="$!webPath/resources/js/jquery.lazyload.js"></script>
 <script>
 jQuery(document).ready(function(){
-  jQuery(".brandsort_show a").click(function(){								 
+  jQuery(".brandsort_show a").click(function(){
      var goods_view=jQuery(this).attr("goods_view");
 	 if(goods_view=="list"){
 	   jQuery(".goodstyletwo").show();
@@ -29,21 +29,21 @@ jQuery(document).ready(function(){
 	   jQuery(".smallgoods").show();
 	   jQuery(".goodstyletwo").hide();
 	   jQuery(this).addClass("brandsort_show_big2");
-	   jQuery("#list_view").removeClass().addClass("brandsort_show_list");	  
+	   jQuery("#list_view").removeClass().addClass("brandsort_show_list");
 	 }
 	 jQuery("#goods_view").val(goods_view);
   });
   #if("$!goods_view"=="list")
-	 jQuery(".goodstyletwo").show();
-	 jQuery(".smallgoods").hide();
-	 jQuery("#list_view").addClass("brandsort_show_list2");
-	 jQuery("#thumb_view").removeClass().addClass("brandsort_show_big");    
+    jQuery(".goodstyletwo").show();
+    jQuery(".smallgoods").hide();
+    jQuery("#list_view").addClass("brandsort_show_list2");
+    jQuery("#thumb_view").removeClass().addClass("brandsort_show_big");
   #end
   #if("$!goods_view"=="thumb")
 	 jQuery(".smallgoods").show();
 	 jQuery(".goodstyletwo").hide();
 	 jQuery("#thumb_view").addClass("brandsort_show_big2");
-	 jQuery("#list_view").removeClass().addClass("brandsort_show_list");	 
+	 jQuery("#list_view").removeClass().addClass("brandsort_show_list");
   #end
 //排序
  jQuery(".brandsort_price_bottom a").click(function(){
@@ -80,9 +80,10 @@ jQuery(document).ready(function(){
 	  jQuery("li[class='goodshidden']").hide();
 	  jQuery(this).find("li[class='goodshidden']").show();
 	  },function(){
-	  jQuery(this).removeClass("this").find("li[class='goodshidden']").hide(); 
-	  });
-      //
+	    jQuery(this).removeClass("this").find("li[class='goodshidden']").hide();
+	  }
+  );
+
   var search_bar_top=jQuery("#search_bar").offset().top;
   jQuery(window).scroll(function(){
       var top= jQuery("#search_bar").offset().top;
@@ -157,7 +158,7 @@ $!httpInclude.include("/top.htm")
                   #if($!obj.combin_status==2)<span style="color:#F00;">[组合]</span>#end
                   #if($!obj.bargain_status==2)<span style="color:#F00;">[特价]</span>#end
                   #if($!obj.delivery_status==2)<span style="color:#F00;">[买就送]</span>#end
-                  $!CommUtil.substring("$!obj.goods_name",25)</a></li>
+                  $!obj.goods_name"</a></li>
                 <li class="recentgoodsok">最近成交<strong>$!{obj.goods_salenum}</strong>笔</li>
                 <li class="goodshidden" style="display:none"> <span class="goods_description">与描述相符: <b style="color:#F00">$!CommUtil.null2Double($!{obj.description_evaluate})</b> 分 </span> <span class="goodshshop_name">店铺名称：<a href="$!webPath/store_$!{obj.goods_store.id}.htm" target="_blank"><i>$!obj.goods_store.store_name</i></a></span> <span class="goods_eva"><i><em>累计评价</em>
                   <p>$!{obj.evaluates.size()}</p>
@@ -166,7 +167,8 @@ $!httpInclude.include("/top.htm")
                   </i></span></li>
               </ul>
               #end </div>
-            <div class="goodstyletwo" style="display:none"> #foreach($obj in $objs)
+            <div class="goodstyletwo" style="display: none">
+              #foreach($obj in $objs)
               #if($!obj.goods_main_photo)
               #set($img="$!imageWebServer/$!{obj.goods_main_photo.path}/$!{obj.goods_main_photo.name}_small.$!{obj.goods_main_photo.ext}")
               #else
@@ -176,22 +178,33 @@ $!httpInclude.include("/top.htm")
               #if($!config.second_domain_open)
               #set($goods_url="http://$!{obj.goods_store.store_second_domain}.$!{domainPath}/goods_$!{obj.id}.htm")
               #end
-              <div class="goodstwo"> <span class="goodtwoimg"> <span class="goodtwoimg_span">
-                <p> <a href="$!goods_url" target="_blank"><img src="$!imageWebServer/resources/style/common/images/loader.gif" original="$!img" onerror="this.src='$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}';" width="28" height="28"/></a> </p>
-                </span> </span>
+              <div class="goodstwo">
+                <span class="goodtwoimg">
+                  <span class="goodtwoimg_span">
+                    <p> <a href="$!goods_url" target="_blank">
+                      <img src="$!imageWebServer/resources/style/common/images/loader.gif" original="$!img" onerror="this.src='$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}';" width="28" height="28"/></a>
+                    </p>
+                  </span>
+                </span>
                 <ul class="goodsul">
                   <li class="goodsli1"><span class="goods2name"> #if($!obj.group_buy==2) <span style="color:#F00;">[团购]</span> #end
                     #if($!obj.activity_status==2) <span style="color:#F00;">[活动]</span> #end
                     #if($!obj.combin_status==2)<span style="color:#F00;">[组合]</span>#end
                     #if($!obj.bargain_status==2)<span style="color:#F00;">[特价]</span>#end
-                    #if($!obj.delivery_status==2)<span style="color:#F00;">[买就送]</span>#end <a href="$!goods_url" target="_blank">$!CommUtil.substring("$!obj.goods_name",25)</a> </span><span class="goods2market">市场价：¥$!{obj.goods_price}</span> <span class="goods2shop">商城价：<strong>¥$!{obj.store_price}</strong></span><span class="recent">累计售出<strong class="orange">$!{obj.goods_salenum}</strong>笔</span></li>
+                    #if($!obj.delivery_status==2)<span style="color:#F00;">[买就送]</span>#end
+                    <a href="$!goods_url" target="_blank">$!obj.goods_name"</a> </span>
+                    <span class="goods2market">市场价：¥$!{obj.goods_price}</span>
+                    <span class="goods2shop">商城价：<strong>¥$!{obj.store_price}</strong></span>
+                    <span class="recent">累计售出<strong class="orange">$!{obj.goods_salenum}</strong>笔</span>
+                  </li>
                   <li class="goodsli2">
                     <p class="goodsli2_p2"><span class="goodshopname">店铺名称：<a href="$!webPath/store_$!{obj.goods_store.id}.htm">$!obj.goods_store.store_name</a></span><span class="goods2send">店铺等级：$!obj.goods_store.grade.gradeName</span></p>
                     <p class="goodsli2_p"><span class="goodsli2_p_sp">与描述相符：<b style="color:#F00">$!CommUtil.null2Double($!{obj.description_evaluate})</b> 分</span><span class="goodsli2_p_eva">累计评价：<i>$!{obj.evaluates.size()}</i></span></p>
                   </li>
                 </ul>
               </div>
-              #end </div>
+              #end
+            </div>
             #else
             <div class="starshop_list">
               <div class="sigh"> <span><img src="$!imageWebServer/resources/style/system/front/default/images/sigh.png" width="120" height="109" /></span> <b>对不起，没有对应的数据!</b> </div>
@@ -224,7 +237,7 @@ $!httpInclude.include("/top.htm")
           <ul>
             <li><a href="$!goods_url" target="_blank"><img src="$!img" width="160" height="160" /></a></li>
             <li class="center"><strong class="orange">￥$!{ztc_good.store_price}</strong></li>
-            <li class="blue2"><a href="$!goods_url" target="_blank">$!CommUtil.substring("$!ztc_good.goods_name",25)</a></li>
+            <li class="blue2"><a href="$!goods_url" target="_blank">$!ztc_good.goods_name</a></li>
             <li class="center">最近成交$!{ztc_good.goods_salenum}件</li>
           </ul>
         </div>

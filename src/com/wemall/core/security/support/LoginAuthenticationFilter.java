@@ -1,12 +1,9 @@
 package com.wemall.core.security.support;
 
-import java.io.IOException;
-import java.util.LinkedList;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.wemall.core.tools.CommUtil;
+import com.wemall.foundation.service.ISysConfigService;
+import com.wemall.uc.api.UCClient;
+import com.wemall.uc.api.XMLHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.Authentication;
 import org.springframework.security.AuthenticationException;
@@ -14,28 +11,33 @@ import org.springframework.security.providers.UsernamePasswordAuthenticationToke
 import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
 import org.springframework.security.util.TextUtils;
 
-import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.uc.api.UCClient;
-import com.wemall.uc.api.XMLHelper;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.LinkedList;
 
 public class LoginAuthenticationFilter extends AuthenticationProcessingFilter {
-
     @Autowired
     private ISysConfigService configService;
 
-    public Authentication attemptAuthentication(HttpServletRequest request)
-    throws AuthenticationException {
+    /** 登录验证
+     *
+     * @param request
+     * @return
+     * @throws AuthenticationException
+     */
+    public Authentication attemptAuthentication(HttpServletRequest request) throws AuthenticationException {
         String login_role = request.getParameter("login_role");
-        //CommUtil.null2String(request.getSession(false).getAttribute("wemall_view_type"))
         String wemall_view_type = CommUtil.null2String(request.getSession(false).getAttribute("wemall_view_type"));
         if ((login_role == null) || (login_role.equals("")))
             login_role = "user";
         HttpSession session = request.getSession();
         session.setAttribute("login_role", login_role);
-        session.setAttribute("ajax_login",
-                             Boolean.valueOf(CommUtil.null2Boolean(request.getParameter("ajax_login"))));
+        session.setAttribute("ajax_login", Boolean.valueOf(CommUtil.null2Boolean(request.getParameter("ajax_login"))));
         session.setAttribute("wemall_view_type", wemall_view_type);
+
+        // 验证码校验
         boolean flag = true;
         if (session.getAttribute("verify_code") != null) {
             String code = request.getParameter("code") != null ? request.getParameter("code").toUpperCase() : "";
@@ -43,6 +45,8 @@ public class LoginAuthenticationFilter extends AuthenticationProcessingFilter {
                 flag = false;
             }
         }
+
+        // 用户输入验证码错误
         if (!flag) {
             String username = obtainUsername(request);
             String password = "";
@@ -56,6 +60,7 @@ public class LoginAuthenticationFilter extends AuthenticationProcessingFilter {
             setDetails(request, authRequest);
             return getAuthenticationManager().authenticate(authRequest);
         }
+
         String username = "";
         if (CommUtil.null2Boolean(request.getParameter("encode")))
             username = CommUtil.decode(obtainUsername(request)) + "," +
@@ -79,18 +84,17 @@ public class LoginAuthenticationFilter extends AuthenticationProcessingFilter {
                 TextUtils.escapeEntities(username));
         }
         setDetails(request, authRequest);
+
         return getAuthenticationManager().authenticate(authRequest);
     }
 
-    protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult)
-    throws IOException {
+    protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult) throws IOException {
         request.getSession(false).removeAttribute("verify_code");
 
         super.onSuccessfulAuthentication(request, response, authResult);
     }
 
-    protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed)
-    throws IOException {
+    protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
         String uri = request.getRequestURI();
         super.onUnsuccessfulAuthentication(request, response, failed);
     }
@@ -110,7 +114,6 @@ public class LoginAuthenticationFilter extends AuthenticationProcessingFilter {
             } else if (uid == -1) {
                 System.out.println("用户不存在,或者被删除");
             }
-
         }
 
         return ucsynlogin;

@@ -15,7 +15,7 @@
 <script src="$!webPath/resources/js/jquery.validate.min.js"></script>
 <script>
 jQuery(document).ready(function(){
- //
+ // 用户输入验证
  jQuery.validator.addMethod("verify",function(value,element){
 	  var re = /^[0-9a-zA-Z]*$/;
         if(re.test(jQuery("#userName").val())){			
@@ -110,7 +110,6 @@ jQuery(document).ready(function(){
 		#end
 	  }
 	});
- //
 });
 </script>
 </head>
@@ -177,10 +176,10 @@ $!httpInclude.include("/top.htm")
                     <td class="login_nameu2">点击图片更新验证码</td>
                   </tr>
                   <script>
-function refreshCode(){
-	jQuery("#code_img").attr("src","$!webPath/verify.htm?d"+new Date().getTime());
-}
-</script>
+                    function refreshCode(){
+                        jQuery("#code_img").attr("src","$!webPath/verify.htm?d"+new Date().getTime());
+                    }
+                  </script>
                   #end
                   <tr>
                     <td>&nbsp;</td>

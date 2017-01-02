@@ -597,8 +597,6 @@ public class IndexViewAction {
         return mv;
     }
 
-
-
     /** wap首页业务逻辑begin */
 
     /**

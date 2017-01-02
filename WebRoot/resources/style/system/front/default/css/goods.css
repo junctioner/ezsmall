@@ -298,7 +298,7 @@ left:-50%; z-index:1;}
 .smallgoods .look{ float:right; background:url(../images/ckxq.jpg) no-repeat; display:block; width:78px; height:19px; line-height:19px; text-align:center; color:#FFF}
 .smallgoods .goodslook { height:25px; line-height:25px;}
 .smallgoods .goodslook strong{ color:#F30; font-size:14px; display:block; float:left}
-.smallgoods .goodsnames{ line-height:20px; margin-top:5px; height:40px; }
+.smallgoods .goodsnames{ line-height:20px; margin-top:5px; height:40px; overflow:hidden;}
 .smallgoods .goodsnames a{ color:#666 }
 .smallgoods .goodsnames a:hover{color:#2069CD; text-decoration:underline}
 .smallgoods .recentgoodsok{ color:#000; margin-top:5px;}

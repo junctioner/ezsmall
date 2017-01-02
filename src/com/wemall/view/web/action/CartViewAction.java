@@ -13,7 +13,7 @@ import com.wemall.foundation.domain.query.AddressQueryObject;
 import com.wemall.foundation.service.*;
 import com.wemall.manage.admin.tools.MsgTools;
 import com.wemall.manage.admin.tools.PaymentTools;
-import com.wemall.manage.seller.Tools.TransportTools;
+import com.wemall.manage.seller.tools.TransportTools;
 import com.wemall.pay.alipay.config.AlipayConfig;
 import com.wemall.pay.alipay.util.AlipaySubmit;
 import com.wemall.pay.tools.PayTools;

@@ -7,12 +7,13 @@ import com.wemall.core.query.support.IPageList;
 import com.wemall.core.query.support.IQueryObject;
 import com.wemall.foundation.domain.Store;
 import com.wemall.foundation.service.IStoreService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
@@ -57,6 +58,11 @@ public class StoreServiceImpl
         return true;
     }
 
+    /** ≤È—ØµÍ∆Ã
+     *
+     * @param properties
+     * @return
+     */
     public IPageList list(IQueryObject properties) {
         if (properties == null) {
             return null;
@@ -67,10 +73,11 @@ public class StoreServiceImpl
                 params, this.storeDao);
         if (properties != null) {
             PageObject pageObj = properties.getPageObj();
-            if (pageObj != null)
+            if (pageObj != null) {
                 pList.doList(pageObj.getCurrentPage() == null ? 0 : pageObj
-                             .getCurrentPage().intValue(), pageObj.getPageSize() == null ? 0 :
-                             pageObj.getPageSize().intValue());
+                        .getCurrentPage().intValue(), pageObj.getPageSize() == null ? 0 :
+                        pageObj.getPageSize().intValue());
+            }
         } else {
             pList.doList(0, -1);
         }

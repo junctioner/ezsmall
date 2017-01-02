@@ -65,7 +65,6 @@ public class LoginViewAction {
      */
     @RequestMapping( {"/user/login.htm"})
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response, String url) {
-
         ModelAndView mv = new JModelAndView("login.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
 
         String wemall_view_type = CommUtil.null2String(request.getSession(false).getAttribute("wemall_view_type"));
@@ -130,21 +129,25 @@ public class LoginViewAction {
     public String register_finish(HttpServletRequest request, HttpServletResponse response, String userName, String password, String email, String code)
     throws HttpException, IOException {
         boolean reg = true;
+
+        // 判断验证码
         if ((code != null) && (!code.equals(""))) {
             code = CommUtil.filterHTML(code);
         }
-        //System.out.println(this.configService.getSysConfig().isSecurityCodeRegister());
         if (this.configService.getSysConfig().isSecurityCodeRegister()) {
             if (!request.getSession(false).getAttribute("verify_code").equals(code)) {
                 reg = false;
             }
         }
+
+        // 用户名不能重复
         Map params = new HashMap();
         params.put("userName", userName);
         List users = this.userService.query("select obj from User obj where obj.userName=:userName", params, -1, -1);
         if ((users != null) && (users.size() > 0)) {
             reg = false;
         }
+
         if (reg) {
             User user = new User();
             user.setUserName(userName);
@@ -156,6 +159,8 @@ public class LoginViewAction {
             params.put("type", "BUYER");
             List roles = this.roleService.query("select obj from Role obj where obj.type=:type", params, -1, -1);
             user.getRoles().addAll(roles);
+
+            // 如果系统开启积分功能，则给会员新增积分
             if (this.configService.getSysConfig().isIntegral()) {
                 user.setIntegral(this.configService.getSysConfig().getMemberRegister());
                 this.userService.save(user);
@@ -170,6 +175,7 @@ public class LoginViewAction {
                 this.userService.save(user);
             }
 
+            // 设置相册
             Album album = new Album();
             album.setAddTime(new Date());
             album.setAlbum_default(true);
@@ -177,7 +183,10 @@ public class LoginViewAction {
             album.setAlbum_sequence(-10000);
             album.setUser(user);
             this.albumService.save(album);
+
             request.getSession(false).removeAttribute("verify_code");
+
+            // UC会员同步
             if (this.configService.getSysConfig().isUc_bbs()) {
                 UCClient client = new UCClient();
                 String ret = client.uc_user_register(userName, password, email);
@@ -201,9 +210,11 @@ public class LoginViewAction {
                     this.ucTools.active_user(userName, user.getPassword(), email);
                 }
             }
+
             return "redirect:wemall_login.htm?username=" +
                    CommUtil.encode(userName) + "&password=" + password + "&encode=true";
         }
+
         return "redirect:register.htm";
     }
 

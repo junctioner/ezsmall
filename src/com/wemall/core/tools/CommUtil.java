@@ -1,23 +1,24 @@
 package com.wemall.core.tools;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGEncodeParam;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import com.wemall.core.query.support.IPageList;
+import com.wemall.foundation.domain.*;
+import com.wemall.lucene.LuceneResult;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
+import java.io.*;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -25,39 +26,10 @@ import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.swing.ImageIcon;
-
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.wemall.core.query.support.IPageList;
-import com.wemall.foundation.domain.Accessory;
-import com.wemall.foundation.domain.Goods;
-import com.wemall.foundation.domain.GoodsCart;
-import com.wemall.foundation.domain.OrderForm;
-import com.wemall.foundation.domain.SysConfig;
-import com.wemall.lucene.LuceneResult;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGEncodeParam;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 public class CommUtil {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -155,6 +127,7 @@ public class CommUtil {
         return df.format(v);
     }
 
+    // UTF-8解码
     public static String decode(String s) {
         String ret = s;
         try {
@@ -164,6 +137,7 @@ public class CommUtil {
         return ret;
     }
 
+    // UTF-8编码
     public static String encode(String s) {
         String ret = s;
         try {

@@ -1,14 +1,6 @@
 package com.wemall.core.security.interceptor;
 
 import com.wemall.core.tools.CommUtil;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.ConfigAttributeDefinition;
 import org.springframework.security.ConfigAttributeEditor;
@@ -18,8 +10,12 @@ import org.springframework.security.util.AntUrlPathMatcher;
 import org.springframework.security.util.RegexUrlPathMatcher;
 import org.springframework.security.util.UrlMatcher;
 
-public class SecureResourceFilterInvocationDefinitionSource
-    implements FilterInvocationDefinitionSource, InitializingBean {
+import javax.servlet.ServletContext;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+
+public class SecureResourceFilterInvocationDefinitionSource implements FilterInvocationDefinitionSource, InitializingBean {
     private UrlMatcher urlMatcher;
     private boolean useAntPath = true;
 
@@ -33,8 +29,7 @@ public class SecureResourceFilterInvocationDefinitionSource
         this.lowercaseComparisons = lowercaseComparisons;
     }
 
-    public void afterPropertiesSet()
-    throws Exception {
+    public void afterPropertiesSet() throws Exception {
         this.urlMatcher = new RegexUrlPathMatcher();
 
         if (this.useAntPath) {
@@ -51,8 +46,7 @@ public class SecureResourceFilterInvocationDefinitionSource
             .setRequiresLowerCaseUrl(false);
     }
 
-    public ConfigAttributeDefinition getAttributes(Object filter)
-    throws IllegalArgumentException {
+    public ConfigAttributeDefinition getAttributes(Object filter) throws IllegalArgumentException {
         FilterInvocation filterInvocation = (FilterInvocation)filter;
         String requestURI = filterInvocation.getRequestUrl();
         boolean verify = true;

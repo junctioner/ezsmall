@@ -12,7 +12,7 @@ import com.wemall.foundation.domain.query.GoodsCartQueryObject;
 import com.wemall.foundation.domain.query.GoodsQueryObject;
 import com.wemall.foundation.service.*;
 import com.wemall.manage.admin.tools.UserTools;
-import com.wemall.manage.seller.Tools.TransportTools;
+import com.wemall.manage.seller.tools.TransportTools;
 import com.wemall.view.web.tools.AreaViewTools;
 import com.wemall.view.web.tools.GoodsViewTools;
 import com.wemall.view.web.tools.IpAddress;

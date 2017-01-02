@@ -1,21 +1,19 @@
 package com.wemall.core.security;
 
-import java.io.IOException;
+import org.springframework.security.AuthenticationException;
+import org.springframework.security.ui.AuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
+
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.springframework.security.AuthenticationException;
-import org.springframework.security.ui.AuthenticationEntryPoint;
-import org.springframework.stereotype.Component;
+import java.io.IOException;
 
 @Component
-public class LoginUrlEntryPoint
-    implements AuthenticationEntryPoint {
-    public void commence(ServletRequest req, ServletResponse res, AuthenticationException authException)
-    throws IOException, ServletException {
+public class LoginUrlEntryPoint implements AuthenticationEntryPoint {
+    public void commence(ServletRequest req, ServletResponse res, AuthenticationException authException) throws IOException, ServletException {
         String targetUrl = null;
         HttpServletRequest request = (HttpServletRequest)req;
         HttpServletResponse response = (HttpServletResponse)res;

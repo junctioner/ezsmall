@@ -6,12 +6,6 @@ import com.wemall.foundation.domain.Role;
 import com.wemall.foundation.domain.User;
 import com.wemall.foundation.service.IResService;
 import com.wemall.foundation.service.IUserService;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.GrantedAuthority;
@@ -20,17 +14,16 @@ import org.springframework.security.userdetails.UserDetails;
 import org.springframework.security.userdetails.UserDetailsService;
 import org.springframework.security.userdetails.UsernameNotFoundException;
 
-public class SecurityManagerSupport
-    implements UserDetailsService, SecurityManager {
+import java.util.*;
 
+public class SecurityManagerSupport implements UserDetailsService, SecurityManager {
     @Autowired
     private IUserService userService;
 
     @Autowired
     private IResService resService;
 
-    public UserDetails loadUserByUsername(String data)
-    throws UsernameNotFoundException, DataAccessException {
+    public UserDetails loadUserByUsername(String data) throws UsernameNotFoundException, DataAccessException {
         String[] list = data.split(",");
         String userName = list[0];
         String loginRole = "user";
@@ -66,6 +59,7 @@ public class SecurityManagerSupport
 
         GrantedAuthority[] auths = new GrantedAuthority[authorities.size()];
         user.setAuthorities((GrantedAuthority[])authorities.toArray(auths));
+
         return user;
     }
 
@@ -79,6 +73,7 @@ public class SecurityManagerSupport
         for (Res res : urlResources) {
             urlAuthorities.put(res.getValue(), res.getRoleAuthorities());
         }
+
         return urlAuthorities;
     }
 }
