@@ -105,7 +105,7 @@ jQuery(document).ready(function(){
 	 }
   });
   jQuery("a[id^=batch_del_]").live("click",function(){
-     jQuery(this).parent().parent().find(":checkbox[checked=true][id^=trans_ck]").each(function(){
+     jQuery(this).parent().parent().find(":checkbox:checked[id^=trans_ck]").each(function(){
 	     jQuery(this).parent().parent().parent().parent().remove();
 	 });
 	 jQuery("#mail_trans_all").attr("checked",false);
@@ -121,7 +121,7 @@ jQuery(document).ready(function(){
 	   jQuery(this).parent().parent().parent().find(":checkbox").attr("checked",false);
 	 }
   });
-  jQuery(":radio[id=trans_type]").click(function(){
+  jQuery(":radio[name=trans_type]").click(function(){
      if(confirm("正在切换计价方式，确定继续么？")){
 	     var trans_type=jQuery(this).val();
 		 if(trans_type=="0"){
@@ -254,13 +254,13 @@ $!httpInclude.include("/top.htm")
                         承诺买家付款后该时间内录入物流信息并发货，以物流公司收单信息为准</span> </li>
                       <li> <span class="li_left">计价方式:</span> <span class="li_right_font">
                         <label>
-                          <input name="trans_type" type="radio" id="trans_type" value="0" checked="checked" />
+                          <input type="radio" name="trans_type" value="0" checked="checked" />
                           按件数 </label>
                         <label>
-                          <input type="radio" name="trans_type" id="trans_type" value="1" />
+                          <input type="radio" name="trans_type" value="1" />
                           按重量 </label>
                         <label>
-                          <input type="radio" name="trans_type" id="trans_type" value="2" />
+                          <input type="radio" name="trans_type" value="2" />
                           按体积 </label>
                         </span> </li>
                       <li> <span class="li_left">运送方式:</span> <span class="li_right_font">除指定地区外，其他地区的运费采用“默认运费”</span> </li>

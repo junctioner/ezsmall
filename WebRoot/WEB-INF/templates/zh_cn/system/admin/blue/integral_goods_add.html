@@ -140,23 +140,23 @@ jQuery(document).ready(function(){
 	  changeYear: true
   });
   //
-  jQuery(":radio[id=ig_limit_type][value=$!obj.ig_limit_type]").attr("checked","checked");
+  jQuery(":radio[name=ig_limit_type][value=$!obj.ig_limit_type]").attr("checked","checked");
   #if($!obj.ig_limit_type==true)
     jQuery("#ig_limit_count_info").show();
   #end
-  jQuery(":radio[id=ig_transfee_type][value=$!obj.ig_transfee_type]").attr("checked","checked");
+  jQuery(":radio[name=ig_transfee_type][value=$!obj.ig_transfee_type]").attr("checked","checked");
   #if($!obj.ig_transfee_type==1)
     jQuery("#ig_transfee_info").show();
   #end  
-  jQuery(":radio[id=ig_time_type][value=$!obj.ig_time_type]").attr("checked","checked");
+  jQuery(":radio[name=ig_time_type][value=$!obj.ig_time_type]").attr("checked","checked");
   #if($!obj.ig_time_type==true)
     jQuery("#limitime_begin").show();
 	jQuery("#limitime_end").show();
   #end
   jQuery("#begin_hour").val($!CommUtil.formatTime("HH",$!obj.ig_begin_time));
   jQuery("#end_hour").val($!CommUtil.formatTime("HH",$!obj.ig_end_time));
-  jQuery(":radio[id=ig_show][value=$!obj.ig_show]").attr("checked","checked");
-  jQuery(":radio[id=ig_recommend][value=$!obj.ig_recommend]").attr("checked","checked");
+  jQuery(":radio[name=ig_show][value=$!obj.ig_show]").attr("checked","checked");
+  jQuery(":radio[name=ig_recommend][value=$!obj.ig_recommend]").attr("checked","checked");
 });
 </script>
 </head>
@@ -224,9 +224,9 @@ jQuery(document).ready(function(){
       <ul class="set3">
         <li>限制每会员兑换数量</li>
         <li class="radiosp"><span>
-          <input name="ig_limit_type" id="ig_limit_type" type="radio" value="true" />
+          <input name="ig_limit_type" type="radio" value="true" />
           </span><span>限制</span><span>
-          <input name="ig_limit_type" type="radio" id="ig_limit_type" value="false" checked="checked" />
+          <input name="ig_limit_type" type="radio" value="false" checked="checked" />
         </span><span>不限制</span></li>
       </ul>
       <ul class="set3" id="ig_limit_count_info" style="display:none;">
@@ -238,9 +238,9 @@ jQuery(document).ready(function(){
       <ul class="set3">
         <li>运费承担方式</li>
         <li class="radiosp"><span>
-          <input name="ig_transfee_type" id="ig_transfee_type" type="radio" value="0" checked="checked" />
+          <input name="ig_transfee_type" type="radio" value="0" checked="checked" />
           </span><span>卖家</span><span>
-          <input name="ig_transfee_type" id="ig_transfee_type" type="radio" value="1" />
+          <input name="ig_transfee_type" type="radio" value="1" />
         </span><span>买家</span></li>
       </ul>
       <ul class="set3" id="ig_transfee_info" style="display:none;">
@@ -252,9 +252,9 @@ jQuery(document).ready(function(){
       <ul class="set3">
         <li>限制兑换时间</li>
         <li class="radiosp"> <span>
-          <input name="ig_time_type" id="ig_time_type" type="radio" value="true" />
+          <input name="ig_time_type" type="radio" value="true" />
           </span><span>限制</span><span>
-          <input name="ig_time_type" id="ig_time_type" type="radio" value="false" checked="checked" />
+          <input name="ig_time_type" type="radio" value="false" checked="checked" />
         </span><span>不限制</span> </li>
       </ul>
       <div class="limitime" id="limitime_begin" style="display:none;">
@@ -283,17 +283,17 @@ jQuery(document).ready(function(){
       <ul class="set3">
         <li>是否上架</li>
         <li class="radiosp"><span>
-          <input name="ig_show" id="ig_show" type="radio" value="true" checked="checked"  />
+          <input name="ig_show" type="radio" value="true" checked="checked"  />
           </span><span>是</span><span>
-          <input name="ig_show" id="ig_show" type="radio" value="false" />
+          <input name="ig_show" type="radio" value="false" />
         </span><span>否</span> </li>
       </ul>
       <ul class="set3">
         <li>是否推荐</li>
          <li class="radiosp"> <span>
-          <input name="ig_recommend" id="ig_recommend" type="radio" value="true" checked="checked"  />
+          <input name="ig_recommend" type="radio" value="true" checked="checked"  />
           </span><span>是</span><span>
-          <input name="ig_recommend" id="ig_recommend" type="radio" value="false" />
+          <input name="ig_recommend" type="radio" value="false" />
         </span><span>否</span> </li>
       </ul>
        <ul class="set3">

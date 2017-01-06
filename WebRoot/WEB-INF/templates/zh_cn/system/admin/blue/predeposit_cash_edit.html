@@ -7,8 +7,8 @@
 <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
 <script>
 jQuery(document).ready(function(){
-  jQuery(":radio[id=cash_status][value=$!obj.cash_status]").attr("checked",true);
-  jQuery(":radio[id=cash_pay_status][value=$!obj.cash_pay_status]").attr("checked",true);
+  jQuery(":radio[name=cash_status][value=$!obj.cash_status]").attr("checked",true);
+  jQuery(":radio[name=cash_pay_status][value=$!obj.cash_pay_status]").attr("checked",true);
 });
 </script>
 </head>
@@ -77,9 +77,9 @@ jQuery(document).ready(function(){
        <li>支付状态</li> 
        <li>
        <span class="webname">
-      <input style="border:none; height:16px; width:16px;" name="cash_pay_status" id="cash_pay_status"  type="radio" value="0" />
+      <input style="border:none; height:16px; width:16px;" name="cash_pay_status" type="radio" value="0" />
       等待支付
-	  <input style="border:none; height:16px; width:16px;"  id="cash_pay_status" name="cash_pay_status" type="radio" value="2" />
+	  <input style="border:none; height:16px; width:16px;" name="cash_pay_status" type="radio" value="2" />
 	  完成支付
 	   </span>
        </li>
@@ -88,9 +88,9 @@ jQuery(document).ready(function(){
        <li>提现状态</li>
        <li>
        <span class="webname">
-      <input style="border:none; height:16px; width:16px;" name="cash_status" id="cash_status"  type="radio" value="0" />
+      <input style="border:none; height:16px; width:16px;" name="cash_status"  type="radio" value="0" />
       等待审核
-      <input style="border:none; height:16px; width:16px;"  id="cash_status" name="cash_status" type="radio" value="1" />
+      <input style="border:none; height:16px; width:16px;" name="cash_status" type="radio" value="1" />
 	  完成审核
 	   </span>
        </li>

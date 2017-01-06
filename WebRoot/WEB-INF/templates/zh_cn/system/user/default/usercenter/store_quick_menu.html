@@ -1,7 +1,7 @@
 <script>
 function ajax_form(){
   var menus="";
-  jQuery(".pop_up_main :checkbox[checked=true]").each(function(){
+  jQuery(".pop_up_main :checkbox:checked").each(function(){
      menus=menus+","+jQuery(this).val();
   });
   jQuery.post("$!webPath/seller/store_quick_menu_save.htm",{"menus":menus},function(ret){

@@ -10,7 +10,7 @@
 <script src="$!webPath/resources/js/jquery.shop.common.js"></script>
 <script>
 jQuery(document).ready(function(){
-   jQuery(":radio[id=install][value=$!obj.install]").attr("checked","checked");
+   jQuery(":radio[name=install][value=$!obj.install]").attr("checked","checked");
 });
 </script>
 </head>
@@ -54,9 +54,9 @@ $!httpInclude.include("/top.htm")
                   </tr>
                  <tr>
                     <td align="right" valign="top">是否启用：</td>
-                    <td class="px10"><input name="install" type="radio" id="install" value="true" />
+                    <td class="px10"><input type="radio" name="install" value="true" />
                      启用
-                       <input type="radio" name="install" id="install" value="false" />
+                       <input type="radio" name="install" value="false" />
                        禁用</td>
                   </tr>
                   <tr>

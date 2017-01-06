@@ -123,14 +123,14 @@
 			jQuery("#pay_div").show();
 		}
 		function submit_day() {
-			var time = jQuery(":radio[id=hdelivery_time][checked=true]").val();
+			var time = jQuery(":radio[id=hdelivery_time]:checked").val();
 			jQuery("#delivery_time").val(time);
 			jQuery("#delivery_time_html").html(time);
 			jQuery("#day_div").hide();
 			jQuery("#form_div").show();
 		}
 		function submit_ship() {
-			var addr = jQuery(":radio[id=delivery_address][checked=true]").attr("mark");
+			var addr = jQuery(":radio[id=delivery_address]:checked").attr("mark");
 			if (addr != undefined) {
 				jQuery("#ship_html").html("快递配送,自提:" + addr);
 			}
@@ -139,7 +139,7 @@
 			jQuery("#form_div").show();
 		}
 		function submit_fp() {
-			var fp = jQuery(":radio[id=invoiceType][checked=true]").attr("mark");
+			var fp = jQuery(":radio[id=invoiceType]:checked").attr("mark");
 			jQuery("#fp_html").html(fp);
 			jQuery("#fp_div").hide();
 			jQuery("#form_div").show();
@@ -155,7 +155,7 @@
 		}
 		function invoice_save() {
 			var invoice = jQuery("#invoice").val();
-			var invoiceType = jQuery(":radio[id=invoiceType][checked=true]").val();
+			var invoiceType = jQuery(":radio[id=invoiceType]:checked").val();
 			jQuery.ajax({
 				type : 'POST',
 				url : '$!webPath/invoice_save.htm',

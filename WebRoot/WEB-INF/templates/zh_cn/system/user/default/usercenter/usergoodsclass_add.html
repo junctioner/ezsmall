@@ -13,7 +13,7 @@ jQuery(document).ready(function(){
   });
  //
  jQuery("#pid").val("$!obj.parent.id");
- jQuery(":radio[id=display][value=$!obj.display]").attr("checked",true);;
+ jQuery(":radio[name=display][value=$!obj.display]").attr("checked",true);;
 });
 </script>
 <form action="$!webPath/seller/usergoodsclass_save.htm" method="post" id="theForm">
@@ -42,9 +42,9 @@ jQuery(document).ready(function(){
     </tr>
     <tr>
       <td width="120" align="right" class="hui_table">显示状态:</td>
-      <td align="left"><input name="display" type="radio" id="display" value="true" checked="checked" />
+      <td align="left"><input type="radio" name="display" value="true" checked="checked" />
         &nbsp;是 &nbsp;
-        <input type="radio" name="display" id="display" value="false" />
+        <input type="radio" name="display" value="false" />
         &nbsp;否</td>
     </tr>
     <tr>

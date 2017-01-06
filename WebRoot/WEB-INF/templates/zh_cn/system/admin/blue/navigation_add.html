@@ -63,8 +63,8 @@ jQuery(document).ready(function(){
 	}
   }); 	  
   //
-  jQuery(":radio[id='type']").click(function(){
-      var type=jQuery(":radio[id='type'][checked=true]").val();
+  jQuery(":radio[name='type']").click(function(){
+      var type=jQuery(":radio[name='type']:checked").val();
       jQuery("select").hide();
       jQuery("#"+type+"_id").show();
 	  if(type!="diy"){
@@ -76,8 +76,8 @@ jQuery(document).ready(function(){
 		  }
   });
   //
-  jQuery(":radio[id='type'][value=$!obj.type]").attr("checked","checked");
-  jQuery(":radio[id=location][value='$!obj.location']").attr("checked",true);
+  jQuery(":radio[name='type'][value=$!obj.type]").attr("checked","checked");
+  jQuery(":radio[name=location][value='$!obj.location']").attr("checked",true);
   #if($!obj.type=="goodsclass")
     jQuery("#goodsclass_id").show();
 	jQuery("#goodsclass_id").val("$!obj.type_id");
@@ -96,7 +96,7 @@ jQuery(document).ready(function(){
 });
 
 function saveForm(){
- var type=jQuery(":radio[id='type'][checked=true]").val();
+ var type=jQuery(":radio[name='type']:checked").val();
  var type_id=jQuery("#"+type+"_id");
  jQuery("#type_id").val(type_id);
  jQuery("#theForm").submit();
@@ -118,10 +118,10 @@ function saveForm(){
           <input name="type_id" type="hidden" id="type_id" value="$!obj.type_id" />
         </li>
         <li>
-          <input name="type" id="type" type="radio" value="diy" style="border:none;width:16px;height:16px;"/>
+          <input name="type" type="radio" value="diy" style="border:none;width:16px;height:16px;"/>
           自定义类型 </li>
         <li>
-          <input name="type" id="type" type="radio" value="goodsclass" style="border:none;width:16px;height:16px;"/>
+          <input name="type" type="radio" value="goodsclass" style="border:none;width:16px;height:16px;"/>
           商品导航
           <select name="goodsclass_id" id="goodsclass_id"  style="display:none;">
             
@@ -132,7 +132,7 @@ function saveForm(){
           </select>
         </li>
         <li>
-          <input name="type" id="type" type="radio" style="border:none;width:16px;height:16px;" value="articleclass"/>
+          <input name="type" type="radio" style="border:none;width:16px;height:16px;" value="articleclass"/>
           文章导航
           <select name="articleclass_id" id="articleclass_id"  style="display:none;">
             
@@ -156,7 +156,7 @@ function saveForm(){
           </select>
         </li>
         <li>
-          <input name="type" id="type" type="radio" style="border:none;width:16px;height:16px;" value="activity"/>
+          <input name="type" type="radio" style="border:none;width:16px;height:16px;" value="activity"/>
           活动导航
           <select name="activity_id" id="activity_id" style="display:none;">
           #foreach($activity in $activitys)
@@ -165,7 +165,7 @@ function saveForm(){
           </select>
         </li>       
         <li> 
-          <input name="type" id="type" type="radio" value="sparegoods" style="border:none;width:16px;height:16px;" />
+          <input name="type" type="radio" value="sparegoods" style="border:none;width:16px;height:16px;" />
          闲置导航       
         </li>
       </ul>
@@ -185,11 +185,11 @@ function saveForm(){
       <ul class="set1" id="ul_place">
         <li>导航位置</li>
         <li>
-          <input id="location" name="location" type="radio" style="border:none;width:16px;height:16px;" value="-1"/>
+          <input name="location" type="radio" style="border:none;width:16px;height:16px;" value="-1"/>
           顶部
-          <input name="location" type="radio" id="location" style="border:none;width:16px;height:16px;" value="0"/>
+          <input name="location" type="radio" style="border:none;width:16px;height:16px;" value="0"/>
           中间
-          <input id="location" name="location" type="radio" style="border:none;width:16px;height:16px;" value="1"/>
+          <input name="location" type="radio" style="border:none;width:16px;height:16px;" value="1"/>
           底部 
           </li>
       </ul>

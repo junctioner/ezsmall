@@ -59,9 +59,9 @@ jQuery(document).ready(function(){
    })
 	//
   jQuery("#ap_type").val("$!obj.ap_type");
-  jQuery(":radio[id=ap_sys_type][value=$!obj.ap_sys_type]").attr("checked","checked");
-  jQuery(":radio[id=ap_show_type][value=$!obj.ap_show_type]").attr("checked",true); 
-  jQuery(":radio[id=ap_status][value=$!obj.ap_status]").attr("checked",true); 
+  jQuery(":radio[name=ap_sys_type][value=$!obj.ap_sys_type]").attr("checked",true);
+  jQuery(":radio[name=ap_show_type][value=$!obj.ap_show_type]").attr("checked",true); 
+  jQuery(":radio[name=ap_status][value=$!obj.ap_status]").attr("checked",true); 
   #if($!obj.ap_type=="text")
 	jQuery("#advert_text").show();
 	jQuery("#advert_img").hide();
@@ -131,26 +131,26 @@ function saveForm(){
     <ul class="set4">
       <li>系统广告</li>
       <li class="radiosp"><span>
-        <input name="ap_sys_type" id="ap_sys_type" type="radio" value="0" />
+        <input name="ap_sys_type" type="radio" value="0" />
         </span><span>是</span><span>
-        <input name="ap_sys_type" id="ap_sys_type" type="radio" value="1" checked="checked" />
+        <input name="ap_sys_type" type="radio" value="1" checked="checked" />
         </span><span>否</span><span id="nothis"><strong class="q"></strong><strong class="w">系统广告不可删除，主要处理商城预留广告位</strong><strong class="c"></strong></span></li>
     </ul>
     <ul class="set4">
       <li>是否启用</li>
       <li class="radiosp"><span>
-        <input name="ap_status"  id="ap_status" type="radio" value="1" />
+        <input name="ap_status" type="radio" value="1" />
         </span><span>是</span><span>
-        <input name="ap_status" id="ap_status" type="radio" value="0" checked="checked" />
+        <input name="ap_status" type="radio" value="0" checked="checked" />
         </span><span>否</span></li>
     </ul>
     <ul class="set4">
       <li>展示方式</li>
       <li  class="radiosp"><label><span>
-        <input name="ap_show_type" id="ap_show_type" type="radio" value="1" />
+        <input name="ap_show_type" type="radio" value="1" />
         </span><span>可以发布多条广告并随机展示</span></label></li>
       <li class="radiosp"><label><span>
-        <input name="ap_show_type" id="ap_show_type" type="radio" value="0" checked="checked" />
+        <input name="ap_show_type" type="radio" value="0" checked="checked" />
         </span><span>只允许发布并展示一条广告</span></label></li>
     </ul>
     <ul class="set1">

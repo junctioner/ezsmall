@@ -17,7 +17,7 @@
 <script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
 <script>
 jQuery(document).ready(function(){
-  jQuery(":radio[id=map_type]").click(function(){
+  jQuery(":radio[name=map_type]").click(function(){
      var map_type=jQuery(this).val();
 	 window.location.href="$!webPath/seller/store_map.htm?map_type="+map_type;	 
   });
@@ -49,10 +49,10 @@ $!httpInclude.include("/top.htm")
                     <tr>
                       <td height="30" align="right" valign="middle">选择地图：</td>
                       <td align="left" valign="middle"><label>
-                          <input name="map_type" type="radio" id="map_type" value="baidu" checked="checked" />
+                          <input name="map_type" type="radio" value="baidu" checked="checked" />
                           百度地图 </label>
                         <label>
-                          <input type="radio" name="map_type" id="map_type" value="google" />
+                          <input type="radio" name="map_type" value="google" />
                           Google地图 </label></td>
                     </tr>
                      <tr>

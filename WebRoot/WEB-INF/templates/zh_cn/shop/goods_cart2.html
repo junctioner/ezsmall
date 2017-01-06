@@ -32,7 +32,7 @@ jQuery(document).ready(function(){
 		    jQuery("#cart_address").show();  
 	   }});   
   #end
-  jQuery(":radio[id=invoiceType]").click(function(){
+  jQuery(":radio[name=invoiceType]").click(function(){
      var val=jQuery(this).val();
 	 if(val=="1"){
 	   jQuery("#invoice_info").show();
@@ -41,7 +41,7 @@ jQuery(document).ready(function(){
 	 }
   });
   //
-  jQuery(":radio[id=addr_id]").click(function(){
+  jQuery(":radio[name=addr_id]").click(function(){
     var addr=jQuery(this).parent().parent().find("#address").html();
 	var person=jQuery(this).parent().parent().find("#person").html()+" "+jQuery(this).parent().parent().find("#mobile").html();
 	jQuery("#order_address_info").html("寄送至:"+addr);
@@ -213,7 +213,7 @@ $!httpInclude.include("/top.htm")
             <li><strong><img src="$!webPath/resources/style/system/front/default/images/Steps_02.gif" width="14" height="23" /></strong>
               <label> 
                 <strong>
-                <input type="radio" name="addr_id" id="addr_id" value="$!addr.id" #if($!velocityCount==1) checked="checked" #end/>
+                <input type="radio" name="addr_id" value="$!addr.id" #if($!velocityCount==1) checked="checked" #end/>
                 </strong>
                 <span id="address">$!{addr.area.parent.parent.areaName}$!{addr.area.parent.areaName}$!{addr.area.areaName}$!{addr.area_info}</span><span id="person">$!{addr.trueName}</span><span id="mobile">$!{addr.mobile}</span> </label>
             </li>
@@ -225,10 +225,10 @@ $!httpInclude.include("/top.htm")
           <ul>
             <li>
               <label>
-                <input name="invoiceType" type="radio" id="invoiceType" value="0" checked="checked" />
+                <input name="invoiceType" type="radio" value="0" checked="checked" />
                 个人 </label>
               <label>
-                <input name="invoiceType" id="invoiceType" type="radio" value="1" />
+                <input name="invoiceType" type="radio" value="1" />
                 单位 </label>
             </li>
             <li id="invoice_info" style="display:none;"><span style="margin-bottom:5px;">发票抬头：</span>

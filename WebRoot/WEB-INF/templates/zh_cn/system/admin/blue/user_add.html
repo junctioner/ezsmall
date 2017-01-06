@@ -69,7 +69,7 @@ jQuery(document).ready(function(){
 	  password:{required:"密码不能为空",minlength:"密码不能少于{0}位",maxlength:"密码不能大于{0}位"}#end
 	}
   });	
-  jQuery(":radio[id=sex]").each(function(){
+  jQuery(":radio[name=sex]").each(function(){
     if(jQuery(this).val()=="$!obj.sex")jQuery(this).attr("checked",true);
   });
   jQuery(":radio[id=report][value=$!obj.report]").attr("checked",true);
@@ -127,19 +127,19 @@ function saveForm(){
 	<ul class="set1">
       <li>性别</li>
 	   <li><span class="webname">
-      <input style="border:none; height:16px; width:16px;" name="sex" id="sex"  type="radio" value="1" />
+      <input style="border:none; height:16px; width:16px;" name="sex" type="radio" value="1" />
       男
-	  <input style="border:none; height:16px; width:16px;"type="radio" id="sex" name="sex" value="0" />女
-	   <input style="border:none; height:16px; width:16px;" type="radio" id="sex" name="sex" value="-1" />保密
+	  <input style="border:none; height:16px; width:16px;"type="radio" name="sex" value="0" />女
+	   <input style="border:none; height:16px; width:16px;" type="radio" name="sex" value="-1" />保密
 	   </span>
 	   </li>
 	</ul>
     <ul class="set1">
       <li>举报商品</li>
 	   <li><span class="webname">
-      <input style="border:none; height:16px; width:16px;" name="report" id="report"  type="radio" value="0" />
+      <input style="border:none; height:16px; width:16px;" name="report" type="radio" value="0" />
       允许
-	  <input style="border:none; height:16px; width:16px;"type="radio" id="report" name="report" value="-1" />
+	  <input style="border:none; height:16px; width:16px;"type="radio" name="report" value="-1" />
 	  禁止
 	   </span>
 	   </li>

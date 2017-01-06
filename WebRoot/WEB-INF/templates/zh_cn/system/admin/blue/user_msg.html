@@ -27,10 +27,10 @@ jQuery(document).ready(function(){
 	}
   }); 	  
   //
-  jQuery(":radio[id='type']").click(function(){
+  jQuery(":radio[name='type']").click(function(){
       jQuery("#the_user_list").hide();
 	  jQuery("#the_store_list").hide();
-      var type=jQuery(":radio[id='type'][checked=true]").val();
+      var type=jQuery(":radio[name='type']:checked").val();
       jQuery("#"+type+"_list").show();
   });
   //
@@ -49,19 +49,19 @@ function saveForm(){
       <ul class="set1">
         <li>发送对象        </li>
         <li>
-          <input name="type" type="radio" id="type" style="border:none;width:16px;height:16px;" value="all_user" checked="checked"/>
+          <input name="type" type="radio" style="border:none;width:16px;height:16px;" value="all_user" checked="checked"/>
           所有会员
         </li>
         <li>
-          <input name="type" id="type" type="radio" value="the_user" style="border:none;width:16px;height:16px;"/>
+          <input name="type" type="radio" value="the_user" style="border:none;width:16px;height:16px;"/>
           指定会员
         </li>
         <li>
-          <input name="type" id="type" type="radio" style="border:none;width:16px;height:16px;" value="all_store"/>
+          <input name="type" type="radio" style="border:none;width:16px;height:16px;" value="all_store"/>
           所有店铺
         </li>
         <li>
-          <input name="type" id="type" type="radio" style="border:none;width:16px;height:16px;" value="the_store"/>
+          <input name="type" type="radio" style="border:none;width:16px;height:16px;" value="the_store"/>
           指定店铺等级
         </li>
       </ul>

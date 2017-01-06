@@ -44,7 +44,7 @@ jQuery(document).ready(function(){
 	  password1:{required:"重复密码不能为空",minlength:"最小长度为6位",maxlength:"最大不能超过20位",equalTo:"两次输入密码不一致"},
 	}
   });	
-  jQuery(":radio[id=sex]").each(function(){
+  jQuery(":radio[name=sex]").each(function(){
     if(jQuery(this).val()=="$!obj.sex")jQuery(this).attr("checked",true);
   });
 });

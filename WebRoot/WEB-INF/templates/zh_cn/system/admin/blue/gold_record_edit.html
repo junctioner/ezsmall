@@ -57,7 +57,7 @@ jQuery(document).ready(function(){
 	  password:{required:"密码不能为空",minlength:"密码不能少于{0}位",maxlength:"密码不能大于{0}位"}#end
 	}
   });	
-  jQuery(":radio[id=sex]").each(function(){
+  jQuery(":radio[name=sex]").each(function(){
     if(jQuery(this).val()=="$!obj.sex")jQuery(this).attr("checked",true);
   });
   jQuery(":radio[id=report][value=$!obj.report]").attr("checked",true);

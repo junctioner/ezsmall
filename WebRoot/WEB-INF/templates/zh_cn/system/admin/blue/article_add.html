@@ -150,7 +150,7 @@ function saveForm(method){
       <ul class="set1">
         <li>显示</li>
 		<li>
-        <input name="display" id="display" type="hidden" value="$!obj.display" >
+        <input id="display" name="display" type="hidden" value="$!obj.display" >
         <img #if($!obj.display)src="$!webPath/resources/style/system/manage/$!{config.websiteCss}/images/yes.jpg"#else src="$!webPath/resources/style/system/manage/blue/images/no.jpg"#end width="61" height="23" id="display_img" style="cursor:pointer"/>
 		</li>
       </ul>

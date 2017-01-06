@@ -7,8 +7,8 @@
 <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
 <script>
 jQuery(document).ready(function(){
-  jQuery(":radio[id=pd_status][value=$!obj.pd_status]").attr("checked",true);
-  jQuery(":radio[id=pd_pay_status][value=$!obj.pd_pay_status]").attr("checked",true);
+  jQuery(":radio[name=pd_status][value=$!obj.pd_status]").attr("checked",true);
+  jQuery(":radio[name=pd_pay_status][value=$!obj.pd_pay_status]").attr("checked",true);
 });
 </script>
 </head>
@@ -77,11 +77,11 @@ jQuery(document).ready(function(){
        <li>支付状态</li> 
        <li>
        <span class="webname">
-      <input style="border:none; height:16px; width:16px;" name="pd_pay_status" id="pd_pay_status"  type="radio" value="0" />
+      <input style="border:none; height:16px; width:16px;" name="pd_pay_status" type="radio" value="0" />
       等待支付
-      <input style="border:none; height:16px; width:16px;" name="pd_pay_status" id="pd_pay_status"  type="radio" value="1" />
+      <input style="border:none; height:16px; width:16px;" name="pd_pay_status" type="radio" value="1" />
       等待审核
-	  <input style="border:none; height:16px; width:16px;"  id="pd_pay_status" name="pd_pay_status" type="radio" value="2" />
+	  <input style="border:none; height:16px; width:16px;" name="pd_pay_status" type="radio" value="2" />
 	  完成支付
 	   </span>
        </li>
@@ -90,11 +90,11 @@ jQuery(document).ready(function(){
        <li>预存款状态</li>
        <li>
        <span class="webname">
-      <input style="border:none; height:16px; width:16px;" name="pd_status" id="pd_status"  type="radio" value="0" />
+      <input style="border:none; height:16px; width:16px;" name="pd_status" type="radio" value="0" />
       等待审核
-	  <input style="border:none; height:16px; width:16px;"  id="pd_status" name="pd_status" type="radio" value="-1" />
+	  <input style="border:none; height:16px; width:16px;" name="pd_status" type="radio" value="-1" />
 	  已经关闭
-      <input style="border:none; height:16px; width:16px;"  id="pd_status" name="pd_status" type="radio" value="1" />
+      <input style="border:none; height:16px; width:16px;" name="pd_status" type="radio" value="1" />
 	  完成审核
 	   </span>
        </li>
