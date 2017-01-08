@@ -45,7 +45,7 @@ jQuery(document).ready(function(){
             <!--special_list_ul_this-->
             <ul class="special_list_ul">
             <li class="special_list_pic"><a href="$!webPath/goods_$!{obj.d_goods.id}.htm" target="_blank"><img src="$!imageWebServer/resources/style/common/images/loader.gif" original="$!img" onerror="this.src='$!imageWebServer/$!{config.goodsImage.path}/$!{config.goodsImage.name}';" width="28" height="28"/></a></li>
-            <li class="special_list_name"><a href="$!webPath/goods_$!{obj.d_goods.id}.htm" title="$!{obj.d_goods.goods_name}">$!CommUtil.substring("$!{obj.d_goods.goods_name}",30)</a></li>
+            <li class="special_list_name"><a href="$!webPath/goods_$!{obj.d_goods.id}.htm" title="$!{obj.d_goods.goods_name}">$!{obj.d_goods.goods_name}</a></li>
             <li class="send"><a class="price_left" href="$!webPath/goods_$!{obj.d_goods.id}.htm">¥$!{obj.d_goods.goods_current_price}</a><em>市场价:¥$!{obj.d_goods.goods_price}</em></li>
             <li class="h4"> <span class="buy">
               <div class="sd"><b>赠品：</b>$!CommUtil.substring("$!{obj.d_delivery_goods.goods_name}",7)</div>

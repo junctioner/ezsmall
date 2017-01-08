@@ -884,7 +884,7 @@ opacity:0.80;background:#999; right:0px; font-style:normal }
 .floor .flr_m_du li p span a{ color:#888;}
 .floor .flr_m_du li p span a:hover{ color:#000; text-decoration:underline}
 .floor .flr_advertisment{ width:193px; float:left; height:193px;  overflow:hidden;}
-.floor .floor_brand{  width:1000px;  float:left; overflow:hidden;border:1px solid #ddd;border-top:0px; height:47px}
+.floor .floor_brand{  width:1200px;  float:left; overflow:hidden;border:1px solid #ddd;border-top:0px; height:47px}
 .floor .flr_sp_brand{ float:left; display:block; width:1220px; overflow:hidden;}
 .floor .flr_sp_brand a{ display:block; width:98px; height:35px; display:inline; margin:4px; padding:2px; float:left; margin-left:4px; margin-right:5px;}
 
@@ -900,7 +900,7 @@ opacity:0.80;background:#999; right:0px; font-style:normal }
 .floor .ftabone {width:609px;}
 .floor .classpro {width:619px;}
 .floor .productone { width:153px;}
-.floor .floor_brand{  width:1000px;}
+.floor .floor_brand{  width:1200px;}
 .floor .flr_sp_brand a{ margin-left:4px; margin-right:5px;}
 
 }
@@ -2127,9 +2127,9 @@ opacity:0.90; border:2px solid #000;}
 
 
 @media screen and (min-widht:800px) and (max-width:1024px){
-.friendlink{ width:1000px; }
-.friendlink .linkimg{ width:1000px;}
-.friendlink .linka{ width:1000px;}
+.friendlink{ width:1200px; }
+.friendlink .linkimg{ width:1200px;}
+.friendlink .linka{ width:1200px;}
 .wemall{ width:1200px; }
 .footer .footerArea{  width:1200px;}
 }

@@ -164,7 +164,7 @@ html,body{ width:100%}
 
 /***2013-9-9(闲置宝贝end)-----------------------------------------------------------------------------------****/***(闲置宝贝 详细页start)-----------------------------------------------------------------------------------****/
 .Detail { width:1200px; float:left;}
-.top_nav { width:1000px; height:60px; float:left; background:url(../images/Idle_04.png) repeat-x 0px 47px; border-left:1px solid #eeeeee; border-right:1px solid #eeeeee; border-bottom:1px solid #eeeeee;
+.top_nav { width:1200px; height:60px; float:left; background:url(../images/Idle_04.png) repeat-x 0px 47px; border-left:1px solid #eeeeee; border-right:1px solid #eeeeee; border-bottom:1px solid #eeeeee;
  border-radius:0px 0px 4px 4px;}
 .top_nav_lf { width:224px; float:left; background:url(../images/Idle_04.png) repeat-x 0px -58px; height:50px; padding-top:10px; border-right:1px solid #e6e6e6; border-radius:0px 0px 0px 4px; padding-left:10px;
 position:relative;}
@@ -349,7 +349,7 @@ position:relative;}
 
 /***(闲置宝贝 详细页start)-----------------------------------------------------------------------------------****/
 .Detail { width:1200px; float:left;}
-.top_nav { width:1000px; height:60px; float:left; background:url(../images/special_img/Idle_04.png) repeat-x 0px 47px; border-left:1px solid #eeeeee; border-right:1px solid #eeeeee; border-bottom:1px solid #eeeeee;
+.top_nav { width:1200px; height:60px; float:left; background:url(../images/special_img/Idle_04.png) repeat-x 0px 47px; border-left:1px solid #eeeeee; border-right:1px solid #eeeeee; border-bottom:1px solid #eeeeee;
  border-radius:0px 0px 4px 4px;}
 .top_nav_lf { width:224px; float:left; background:url(../images/special_img/Idle_04.png) repeat-x 0px -58px; height:50px; padding-top:10px; border-right:1px solid #e6e6e6; border-radius:0px 0px 0px 4px; padding-left:10px;
 position:relative;}
@@ -400,7 +400,7 @@ position:relative;}
 .h2 .QQ { width:105px; height:25px; float:left; margin-top:8px;}
 
 /**宝贝介绍-----------------*/
-.tit { width:1000px; height:44px; border:1px solid #e6e6e6; border-radius:3px; float:left; background:url(../images/special_img/Idle_04.png) repeat-x 0px -14px;}
+.tit { width:1200px; height:44px; border:1px solid #e6e6e6; border-radius:3px; float:left; background:url(../images/special_img/Idle_04.png) repeat-x 0px -14px;}
 .tit li { float:left;}
 .tit li a { padding:0px 25px; line-height:46px; font-weight:bold; color:#333; font-size:14px; float:left;}
 .tit .this a { color:#FFF; background-color:#369103;}

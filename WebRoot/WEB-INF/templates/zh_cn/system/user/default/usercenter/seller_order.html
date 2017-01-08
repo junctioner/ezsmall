@@ -92,8 +92,7 @@ $!httpInclude.include("/top.htm")
                   <input name="" type="submit" value="搜索" style="cursor:pointer;"/>
                   </span> </div>
                 <div class="myorder"> #foreach($obj in $objs)
-                  
-                  #set($group=false) 
+                  #set($group=false)
                   #foreach($gc in $obj.gcs)
                   #if($!{gc.goods.group}&&$!{gc.goods.group_buy}==2)
                   #set($group=true)
@@ -208,7 +207,7 @@ $!httpInclude.include("/top.htm")
                       <div class="line_02">
                         <table width="100%" cellpadding="0" cellspacing="0"  class="order_table">
                           <tr>
-                            <td> #foreach($gc in $obj.gcs)
+                            <td width="449px"> #foreach($gc in $obj.gcs)
                               #if($!gc.goods.goods_main_photo)
                               #set($img="$!webPath/$!{gc.goods.goods_main_photo.path}/$!{gc.goods.goods_main_photo.name}_small.$!{gc.goods.goods_main_photo.ext}")
                               #else

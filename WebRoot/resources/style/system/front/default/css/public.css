@@ -270,11 +270,11 @@ hidden; line-height:60px;opacity:0; /*Chrome、Safari、Firefox、Opera */ filte
 .position a{ color:#555;}
 .position span{ color:#555;}
 .pos{ margin-left:10px; margin-right:10px;}
-.friendlink{ width:1000px; border:1px solid #ccc; overflow:hidden; float:left; margin-top:10px;}
+.friendlink{ width:1200px; border:1px solid #ccc; overflow:hidden; float:left; margin-top:10px;}
 .friendlink h1{ height:30px; line-height:30px; padding-left:20px; border-bottom:1px solid #ccc;}
-.friendlink .linkimg{ width:1000px; float:left; overflow:hidden}
+.friendlink .linkimg{ width:1200px; float:left; overflow:hidden}
 .friendlink .linkimg li{ float:left; margin:8px; border:1px solid #ccc;}
-.friendlink .linka{ width:1000px; float:left; overflow:hidden;}
+.friendlink .linka{ width:1200px; float:left; overflow:hidden;}
 .friendlink .linka a{ white-space:nowrap; margin-left:10px; margin-right:5px; line-height:25px;}
 .wemall{ width:1200px; border-top:1px solid #ccc; overflow:hidden; margin-top:10px; float:left;}
 .shopone{ width:130px; float:left; margin:10px; _margin-left:5px;}

@@ -230,6 +230,7 @@ public class OrderSellerAction {
         OrderForm obj = this.orderFormService
                         .getObjById(CommUtil.null2Long(id));
 
+        // 判断订单所属店铺是否是当前登录用户的店铺
         if (obj.getStore().getId()
                 .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
             obj.setOrder_status(0);
@@ -288,6 +289,7 @@ public class OrderSellerAction {
         OrderForm obj = this.orderFormService
                         .getObjById(CommUtil.null2Long(id));
 
+        // 判断订单所属店铺是否是当前登录用户的店铺
         if (obj.getStore().getId()
                 .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
             obj.setGoods_amount(BigDecimal.valueOf(
@@ -297,6 +299,7 @@ public class OrderSellerAction {
             obj.setTotalPrice(BigDecimal.valueOf(
                                   CommUtil.null2Double(totalPrice)));
             this.orderFormService.update(obj);
+
             OrderFormLog ofl = new OrderFormLog();
             ofl.setAddTime(new Date());
             ofl.setLog_info("调整订单费用");
@@ -312,6 +315,7 @@ public class OrderSellerAction {
                          "sms_tobuyer_order_fee_notify");
             }
         }
+
         return "redirect:order.htm?currentPage=" + currentPage;
     }
 
