@@ -130,6 +130,12 @@ public class OperationManageAction {
         return mv;
     }
 
+    /**
+     * 定义积分规则
+     * @param request
+     * @param response
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "积分规则", value = "/admin/operation_integral_rule.htm*", rtype = "admin", rname = "积分规则", rcode = "integral_rule", rgroup = "运营")
     @RequestMapping( {"/admin/operation_integral_rule.htm"})
     public ModelAndView integral_rule(HttpServletRequest request, HttpServletResponse response) {
@@ -140,6 +146,18 @@ public class OperationManageAction {
         return mv;
     }
 
+    /**
+     * 保存积分规则
+     * @param request
+     * @param response
+     * @param id
+     * @param memberRegister
+     * @param memberDayLogin
+     * @param indentComment
+     * @param consumptionRatio
+     * @param everyIndentLimit
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "积分规则保存", value = "/admin/integral_rule_save.htm*", rtype = "admin", rname = "积分设置", rcode = "integral_rule", rgroup = "运营")
     @RequestMapping( {"/admin/integral_rule_save.htm"})
     public ModelAndView integral_rule_save(HttpServletRequest request, HttpServletResponse response, String id, String memberRegister, String memberDayLogin, String indentComment, String consumptionRatio, String everyIndentLimit) {
@@ -152,9 +170,9 @@ public class OperationManageAction {
         config.setIndentComment(CommUtil.null2Int(indentComment));
         config.setConsumptionRatio(CommUtil.null2Int(consumptionRatio));
         config.setEveryIndentLimit(CommUtil.null2Int(everyIndentLimit));
-        if (id.equals(""))
+        if (id.equals("")) {
             this.configService.save(config);
-        else {
+        } else {
             this.configService.update(config);
         }
         mv.addObject("op_title", "保存积分设置成功");

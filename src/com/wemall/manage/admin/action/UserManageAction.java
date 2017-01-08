@@ -81,6 +81,14 @@ public class UserManageAction {
         return mv;
     }
 
+    /**
+     * 编辑会员资料
+     * @param request
+     * @param response
+     * @param id
+     * @param op
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "会员编辑", value = "/admin/user_edit.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
     @RequestMapping( {"/admin/user_edit.htm"})
     public ModelAndView user_edit(HttpServletRequest request, HttpServletResponse response, String id, String op) {
@@ -131,6 +139,17 @@ public class UserManageAction {
         return mv;
     }
 
+    /**
+     * 保存会员资料
+     * @param request
+     * @param response
+     * @param id
+     * @param role_ids
+     * @param list_url
+     * @param add_url
+     * @param password
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "会员保存", value = "/admin/user_save.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
     @RequestMapping( {"/admin/user_save.htm"})
     public ModelAndView user_save(HttpServletRequest request, HttpServletResponse response, String id, String role_ids, String list_url, String add_url, String password) {
@@ -146,7 +165,7 @@ public class UserManageAction {
         if ((password != null) && (!password.equals(""))) {
             user.setPassword(Md5Encrypt.md5(password).toLowerCase());
         }
-        if (id.equals("")) {
+        if (id.equals("")) {// 新增会员
             user.setUserRole("BUYER");
             user.getRoles().clear();
             Map params = new HashMap();
@@ -164,7 +183,7 @@ public class UserManageAction {
             album.setAlbum_sequence(-10000);
             album.setUser(user);
             this.albumService.save(album);
-        } else {
+        } else {// 修改会员资料
             this.userService.update(user);
         }
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
@@ -179,6 +198,13 @@ public class UserManageAction {
         return mv;
     }
 
+    /**
+     * 删除会员
+     * @param request
+     * @param mulitId
+     * @param currentPage
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "会员删除", value = "/admin/user_del.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
     @RequestMapping( {"/admin/user_del.htm"})
     public String user_del(HttpServletRequest request, String mulitId, String currentPage) {

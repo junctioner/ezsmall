@@ -1,28 +1,14 @@
 package com.wemall.foundation.domain;
 
+import com.wemall.core.domain.IdEntity;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import com.wemall.core.domain.IdEntity;
 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
@@ -108,6 +94,7 @@ public class Goods extends IdEntity {
     })
     private List<Accessory> goods_photos = new ArrayList<Accessory>();
 
+    // 商品自定义分类
     @ManyToMany
     @JoinTable(name = "wemall_goods_ugc", joinColumns = {
         @javax.persistence.JoinColumn(name = "goods_id")
@@ -116,6 +103,7 @@ public class Goods extends IdEntity {
     })
     private List<UserGoodsClass> goods_ugcs = new ArrayList<UserGoodsClass>();
 
+    // 商品规格，SKU
     @ManyToMany
     @JoinTable(name = "wemall_goods_spec", joinColumns = {
         @javax.persistence.JoinColumn(name = "goods_id")

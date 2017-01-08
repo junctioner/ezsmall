@@ -67,6 +67,14 @@ public class IntegralViewAction {
     @Autowired
     private PayTools payTools;
 
+    /**
+     * 积分商城首页
+     * @param request
+     * @param response
+     * @param begin
+     * @param end
+     * @return
+     */
     @RequestMapping( {"/integral.htm"})
     public ModelAndView integral(HttpServletRequest request, HttpServletResponse response, String begin, String end) {
         ModelAndView mv = new JModelAndView("integral.html",
@@ -140,6 +148,13 @@ public class IntegralViewAction {
         return mv;
     }
 
+    /**
+     * 积分礼品详情页
+     * @param request
+     * @param response
+     * @param id
+     * @return
+     */
     @RequestMapping( {"/integral_view.htm"})
     public ModelAndView integral_view(HttpServletRequest request, HttpServletResponse response, String id) {
         ModelAndView mv = new JModelAndView("integral_view.html",
@@ -226,13 +241,13 @@ public class IntegralViewAction {
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
         if (this.configService.getSysConfig().isIntegralStore()) {
-            IntegralGoods obj = this.integralGoodsService.getObjById(
-                                    CommUtil.null2Long(id));
+            IntegralGoods obj = this.integralGoodsService.getObjById(CommUtil.null2Long(id));
             int exchange_status = 0;
             if (obj != null) {
                 if ((exchange_count == null) || (exchange_count.equals(""))) {
                     exchange_count = "1";
                 }
+                // 判断积分礼品库存是否充足
                 if (obj.getIg_goods_count() < CommUtil.null2Int(exchange_count)) {
                     exchange_status = -1;
                     mv = new JModelAndView("error.html",
@@ -243,6 +258,7 @@ public class IntegralViewAction {
                     mv.addObject("url", CommUtil.getURL(request) +
                                  "/integral_view_" + id + ".htm");
                 }
+                // 判断积分礼品是否有数量限制
                 if (obj.isIg_limit_type()) {
                     if (obj.getIg_limit_count() <
                             CommUtil.null2Int(exchange_count)) {
@@ -257,6 +273,8 @@ public class IntegralViewAction {
                                      "/integral_view_" + id + ".htm");
                     }
                 }
+
+                // 判断积分是否够兑换当前选择的积分礼品数量
                 int cart_total_integral = obj.getIg_goods_integral() *
                                           CommUtil.null2Int(exchange_count);
                 User user = this.userService.getObjById(
@@ -288,9 +306,10 @@ public class IntegralViewAction {
 
             }
 
+            // 积分充足，执行兑换
             if (exchange_status == 0) {
                 List<IntegralGoodsCart> integral_goods_cart = (List)request
-                        .getSession(false).getAttribute("integral_goods_cart");
+                        .getSession(false).getAttribute("integral_goods_cart");// 积分兑换购物车
                 if (integral_goods_cart == null) {
                     integral_goods_cart = new ArrayList();
                 }
@@ -464,6 +483,21 @@ public class IntegralViewAction {
         return mv;
     }
 
+    /**
+     * 提交积分礼品兑换
+     * @param request
+     * @param response
+     * @param addr_id
+     * @param igo_msg
+     * @param integral_order_session
+     * @param area_id
+     * @param trueName
+     * @param area_info
+     * @param zip
+     * @param telephone
+     * @param mobile
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "积分兑换第三步", value = "/integral_exchange3.htm*", rtype = "buyer", rname = "积分兑换", rcode = "integral_exchange", rgroup = "积分兑换")
     @RequestMapping( {"/integral_exchange3.htm"})
     public ModelAndView integral_exchange3(HttpServletRequest request, HttpServletResponse response, String addr_id, String igo_msg, String integral_order_session, String area_id, String trueName, String area_info, String zip, String telephone, String mobile) {
@@ -493,7 +527,10 @@ public class IntegralViewAction {
                             CommUtil.null2Double(igc.getTrans_fee()) +
                             trans_fee;
                     }
-                    IntegralGoodsOrder order = new IntegralGoodsOrder();
+
+                    IntegralGoodsOrder order = new IntegralGoodsOrder();// 准备积分兑换订单
+
+                    // 保存收货地址
                     Address addr = null;
                     if (addr_id.equals("new")) {
                         addr = new Address();
@@ -528,6 +565,8 @@ public class IntegralViewAction {
                     for (IntegralGoodsCart igc : igcs) {
                         igc.setOrder(order);
                     }
+
+                    // 保存积分兑换订单
                     if (trans_fee == 0.0D) {
                         order.setIgo_status(20);
                         order.setIgo_pay_time(new Date());
@@ -558,10 +597,12 @@ public class IntegralViewAction {
                         mv.addObject("paymentTools", this.paymentTools);
                     }
 
+                    // 扣减积分
                     user.setIntegral(user.getIntegral() -
                                      order.getIgo_total_integral());
                     this.userService.update(user);
 
+                    // 记录积分兑换日志
                     IntegralLog log = new IntegralLog();
                     log.setAddTime(new Date());
                     log.setContent("兑换商品消耗积分");

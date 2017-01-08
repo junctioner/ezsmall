@@ -125,6 +125,13 @@ public class GoodsSellerAction {
     @Autowired
     private DatabaseTools databaseTools;
 
+    /**
+     * 发布新商品
+     * @param request
+     * @param response
+     * @param id
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "发布商品第一步", value = "/seller/add_goods_first.htm*", rtype = "seller", rname = "商品发布", rcode = "goods_seller", rgroup = "商品管理")
     @RequestMapping( { "/seller/add_goods_first.htm" })
     public ModelAndView add_goods_first(HttpServletRequest request,
@@ -631,7 +638,7 @@ public class GoodsSellerAction {
                                          HttpServletResponse response, String id, String goods_class_id,
                                          String image_ids, String goods_main_img_id, String user_class_ids,
                                          String goods_brand_id, String goods_spec_ids,
-                                         String goods_properties, String intentory_details,
+                                         String goods_properties, String inventory_details,
                                          String goods_session, String transport_type, String transport_id) {
         ModelAndView mv = null;
         String goods_session1 = CommUtil.null2String(request.getSession(false).getAttribute("goods_session"));
@@ -677,9 +684,7 @@ public class GoodsSellerAction {
             goods.setGoods_main_photo(main_img);
             goods.getGoods_ugcs().clear();
             String[] ugc_ids = user_class_ids.split(",");
-            // String[] arrayOfString1;
-            // UserGoodsClass localUserGoodsClass2 = (arrayOfString1 =
-            // ugc_ids).length;
+
             for (int i = 0; i < ugc_ids.length; i++) {
                 String ugc_id = ugc_ids[i];
                 if (!ugc_id.equals("")) {
@@ -690,7 +695,7 @@ public class GoodsSellerAction {
             }
             String[] img_ids = image_ids.split(",");
             goods.getGoods_photos().clear();
-            // UserGoodsClass localUserGoodsClass3 = (ugc = img_ids).length;
+
             for (int i = 0; i < img_ids.length; i++) {
                 String img_id = img_ids[i];
                 if (!img_id.equals("")) {
@@ -704,7 +709,7 @@ public class GoodsSellerAction {
             }
             goods.getGoods_specs().clear();
             String[] spec_ids = goods_spec_ids.split(",");
-            // UserGoodsClass ugc = (img = spec_ids).length;
+
             for (int i = 0; i < spec_ids.length; i++) {
                 String spec_id = spec_ids[i];
                 if (!spec_id.equals("")) {
@@ -714,8 +719,7 @@ public class GoodsSellerAction {
             }
             Object maps = new ArrayList();
             String[] properties = goods_properties.split(";");
-            // String[] arrayOfString2;
-            // GoodsSpecProperty gsp = (arrayOfString2 = properties).length;
+
             String[] list;
             for (int i = 0; i < properties.length; i++) {
                 String property = properties[i];
@@ -730,9 +734,8 @@ public class GoodsSellerAction {
             }
             goods.setGoods_property(Json.toJson(maps, JsonFormat.compact()));
             ((List) maps).clear();
-            String[] inventory_list = intentory_details.split(";");
-            // GoodsSpecProperty localGoodsSpecProperty1 = (list =
-            // inventory_list).length;
+            String[] inventory_list = inventory_details.split(";");
+
             for (int i = 0; i < inventory_list.length; i++) {
                 String inventory = inventory_list[i];
                 if (!inventory.equals("")) {
@@ -973,6 +976,17 @@ public class GoodsSellerAction {
         return goods_class_info;
     }
 
+    /**
+     * 查询出售中的商品列表
+     * @param request
+     * @param response
+     * @param currentPage
+     * @param orderBy
+     * @param orderType
+     * @param goods_name
+     * @param user_class_id
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "出售中的商品列表", value = "/seller/goods.htm*", rtype = "seller", rname = "出售中的商品", rcode = "goods_list_seller", rgroup = "商品管理")
     @RequestMapping( { "/seller/goods.htm" })
     public ModelAndView goods(HttpServletRequest request,
@@ -1006,11 +1020,12 @@ public class GoodsSellerAction {
                                  .valueOf(Long.parseLong(user_class_id)));
             qo.addQuery("ugc", ugc, "obj.goods_ugcs", "member of");
         }
-        IPageList pList = this.goodsService.list(qo);
+        IPageList pList = this.goodsService.list(qo);// 根据条件查询商品
         CommUtil.saveIPageList2ModelAndView(url + "/seller/goods.htm", "",
                                             params, pList, mv);
         mv.addObject("storeTools", this.storeTools);
         mv.addObject("goodsViewTools", this.goodsViewTools);
+
         return mv;
     }
 
@@ -1183,6 +1198,13 @@ public class GoodsSellerAction {
         return mv;
     }
 
+    /**
+     * 商品上下架管理
+     * @param request
+     * @param response
+     * @param mulitId
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "商品上下架", value = "/seller/goods_sale.htm*", rtype = "seller", rname = "商品上下架", rcode = "goods_sale_seller", rgroup = "商品管理")
     @RequestMapping( { "/seller/goods_sale.htm" })
     public String goods_sale(HttpServletRequest request,
@@ -1198,15 +1220,17 @@ public class GoodsSellerAction {
                         .equals(SecurityUserHolder.getCurrentUser().getId())) {
                     int goods_status = goods.getGoods_status() == 0 ? 1 : 0;
                     goods.setGoods_status(goods_status);
-                    this.goodsService.update(goods);
+                    this.goodsService.update(goods);// 更新商品资料
                     if (goods_status == 0) {
                         url = "/seller/goods_storage.htm";
 
+                        // 更新全文检索
                         String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
                         File file = new File(goods_lucene_path);
                         if (!file.exists()) {
                             CommUtil.createFolder(goods_lucene_path);
                         }
+
                         LuceneVo vo = new LuceneVo();
                         vo.setVo_id(goods.getId());
                         vo.setVo_title(goods.getGoods_name());

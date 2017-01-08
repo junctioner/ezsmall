@@ -100,7 +100,7 @@ public class PredepositManageAction {
                             new SysMap("endTime",
                                        CommUtil.formatDate(endTime)), "<=");
             }
-            IPageList pList = this.predepositService.list(qo);
+            IPageList pList = this.predepositService.list(qo);// 查询会员预存款列表
             CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
             mv.addObject("pd_payment", pd_payment);
             mv.addObject("pd_pay_status", pd_pay_status);

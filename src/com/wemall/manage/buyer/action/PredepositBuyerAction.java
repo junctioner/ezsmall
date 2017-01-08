@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 买家充值控制器
+ * 买家预存款充值控制器
  */
 @Controller
 public class PredepositBuyerAction {
@@ -53,6 +53,13 @@ public class PredepositBuyerAction {
     @Autowired
     private PayTools payTools;
 
+    /**
+     * 预存款充值
+     * @param request
+     * @param response
+     * @param id
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "会员充值", value = "/buyer/predeposit.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
     @RequestMapping( {"/buyer/predeposit.htm"})
     public ModelAndView predeposit(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -129,12 +136,12 @@ public class PredepositBuyerAction {
                 log.setPd_op_type("充值");
                 log.setPd_type("可用预存款");
                 log.setPredeposit(obj);
-                this.predepositLogService.save(log);
+                this.predepositLogService.save(log);// 新增预存款充值记录
             } else {
                 Predeposit pre = this.predepositService.getObjById(
                                      CommUtil.null2Long(id));
                 obj = (Predeposit)wf.toPo(request, pre);
-                this.predepositService.update(obj);
+                this.predepositService.update(obj);// 更新预存款充值记录
             }
             if (pd_payment.equals("outline")) {
                 mv = new JModelAndView("success.html", this.configService

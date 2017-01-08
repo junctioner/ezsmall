@@ -206,10 +206,13 @@ StoreClass：店铺类型，表wemall_storeclass
 
 User：用户模型，表wemall_user
 
-Goods：商品模型，表wemall_goods
-GoodsSpecProperty：商品规格模型，表wemall_goodsspecproperty
+Goods：商品模型，表wemall_goods，商品规格的库存和价格在商品表的goods_inventory_detail字段中，款式、材质和衣长在goods_property字段中
+GoodsSpecification：商品规格定义模型：表
+GoodsSpecProperty：商品规格属性定义模型，表wemall_goodsspecproperty
+注：wemall_goods_spec表定义wemall_goods和wemall_goods_spec_property表的关系
 GoodsClass：商品类型模型，表wemall_goodsclass
 UserGoodsClass：店铺自定义商品分类模型，表wemall_usergoodsclass
+注：wemall_goods_ugc表定义wemall_goods和wemall_usergoodsclass表的关系
 GoodsBrand：品牌模型，表wemall_goodsbrand
 GroupGoods：团购商品模型，表wemall_group_goods
 Group：团购模型，表wemall_group

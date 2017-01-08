@@ -17,7 +17,7 @@
 <script src="$!webPath/resources/js/jquery.validate.min.js"></script>
 <script>
 jQuery(document).ready(function(){
-  jQuery(":radio[id^=addr_id]").click(function(){
+  jQuery(":radio[name^=addr_id]").click(function(){
     if(jQuery(this).val()=="new"){
 	  jQuery("#new_address").show();
 	}else{
@@ -85,13 +85,13 @@ $!httpInclude.include("/top.htm")
            #foreach($addr in $addrs)
            <li>
             <b>
-            <input name="addr_id" id="addr_id" type="radio" value="$!addr.id" #if($!velocityCount==1) checked="checked"#end/>
+            <input name="addr_id" type="radio" value="$!addr.id" #if($!velocityCount==1) checked="checked"#end/>
             </b>
             <span class="transad"> $!{addr.area.parent.parent.areaName}$!{addr.area.parent.areaName}$!{addr.area.areaName} $!{addr.area_info}</span><span class="transuser">收货人姓名: $!addr.trueName</span><span class="transtel">电话:$!addr.mobile</span>
             </li>
             #end
           <li class="this"><b>
-            <input name="addr_id" id="addr_id" type="radio" value="new" />
+            <input name="addr_id" type="radio" value="new" />
             </b><span>使用新的收货地址</span></li>
         </ul>
         <div class="transtable" id="new_address" style="display:none;">

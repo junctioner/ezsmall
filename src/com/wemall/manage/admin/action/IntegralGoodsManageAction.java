@@ -72,7 +72,7 @@ public class IntegralGoodsManageAction {
                             new SysMap("ig_show",
                                        Boolean.valueOf(CommUtil.null2Boolean(ig_show))), "=");
             }
-            IPageList pList = this.integralgoodsService.list(qo);
+            IPageList pList = this.integralgoodsService.list(qo);// 查询积分礼品
             CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
             mv.addObject("ig_goods_name", ig_goods_name);
             mv.addObject("ig_show", ig_show);
@@ -257,6 +257,19 @@ public class IntegralGoodsManageAction {
         return "redirect:integral_goods_list.htm?currentPage=" + currentPage;
     }
 
+    /**
+     * 展示会员积分兑换的订单列表
+     * @param request
+     * @param response
+     * @param currentPage
+     * @param orderBy
+     * @param orderType
+     * @param igo_order_sn
+     * @param userName
+     * @param igo_payment
+     * @param igo_status
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "积分礼品兑换列表", value = "/admin/integral_order.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
     @RequestMapping( {"/admin/integral_order.htm"})
     public ModelAndView integral_order(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String igo_order_sn, String userName, String igo_payment, String igo_status) {
@@ -488,6 +501,17 @@ public class IntegralGoodsManageAction {
         return mv;
     }
 
+    /**
+     * 管理员发货积分兑换订单
+     * @param request
+     * @param response
+     * @param id
+     * @param currentPage
+     * @param igo_ship_code
+     * @param igo_ship_time
+     * @param igo_ship_content
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "发货设置保存", value = "/admin/integral_order_ship_save.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
     @RequestMapping( {"/admin/integral_order_ship_save.htm"})
     public String integral_order_ship_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String igo_ship_code, String igo_ship_time, String igo_ship_content) {

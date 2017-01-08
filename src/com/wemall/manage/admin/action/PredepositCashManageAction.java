@@ -70,7 +70,7 @@ public class PredepositCashManageAction {
                             new SysMap("endTime",
                                        CommUtil.formatDate(q_endTime)), "<=");
             }
-            IPageList pList = this.predepositcashService.list(qo);
+            IPageList pList = this.predepositcashService.list(qo);// 查询预存款提现申请列表
             CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
             mv.addObject("q_pd_userName", q_pd_userName);
             mv.addObject("q_beginTime", q_beginTime);
@@ -129,7 +129,7 @@ public class PredepositCashManageAction {
             this.predepositcashService.update(predepositcash);
             User user = obj.getCash_user();
             user.setAvailableBalance(BigDecimal.valueOf(CommUtil.subtract(user
-                                     .getAvailableBalance(), predepositcash.getCash_amount())));
+                                     .getAvailableBalance(), predepositcash.getCash_amount())));// 扣减会员预存款
             this.userService.update(user);
             mv.addObject("list_url", list_url);
             mv.addObject("op_title", "审核提现申请成功");

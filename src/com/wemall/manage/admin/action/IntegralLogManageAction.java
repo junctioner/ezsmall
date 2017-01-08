@@ -43,6 +43,16 @@ public class IntegralLogManageAction {
     @Autowired
     private IUserService userService;
 
+    /**
+     * 查询积分明细
+     * @param request
+     * @param response
+     * @param currentPage
+     * @param orderBy
+     * @param orderType
+     * @param userName
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "积分明细", value = "/admin/integrallog_list.htm*", rtype = "admin", rname = "积分明细", rcode = "user_integral", rgroup = "会员")
     @RequestMapping( {"/admin/integrallog_list.htm"})
     public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String userName) {
@@ -90,6 +100,12 @@ public class IntegralLogManageAction {
         return mv;
     }
 
+    /**
+     * 查询会员积分
+     * @param request
+     * @param response
+     * @param userName
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "积分动态获取", value = "/admin/verify_user_integral.htm*", rtype = "admin", rname = "积分管理", rcode = "user_integral", rgroup = "会员")
     @RequestMapping( {"/admin/verify_user_integral.htm"})
     public void verify_user_integral(HttpServletRequest request, HttpServletResponse response, String userName) {
@@ -109,6 +125,16 @@ public class IntegralLogManageAction {
         }
     }
 
+    /**
+     * 保存积分
+     * @param request
+     * @param response
+     * @param userName
+     * @param operate_type
+     * @param integral
+     * @param content
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "积分管理保存", value = "/admin/user_integral_save.htm*", rtype = "admin", rname = "积分管理", rcode = "user_integral", rgroup = "会员")
     @RequestMapping( {"/admin/user_integral_save.htm"})
     public ModelAndView user_integral_save(HttpServletRequest request, HttpServletResponse response, String userName, String operate_type, String integral, String content) {
@@ -119,10 +145,9 @@ public class IntegralLogManageAction {
         User user = this.userService.getObjByProperty("userName", userName);
         if (operate_type.equals("add")) {
             user.setIntegral(user.getIntegral() + CommUtil.null2Int(integral));
-        } else if (user.getIntegral() > CommUtil.null2Int(integral))
-            user.setIntegral(user.getIntegral() -
-                             CommUtil.null2Int(integral));
-        else {
+        } else if (user.getIntegral() > CommUtil.null2Int(integral)) {
+            user.setIntegral(user.getIntegral() - CommUtil.null2Int(integral));
+        } else {
             user.setIntegral(0);
         }
 

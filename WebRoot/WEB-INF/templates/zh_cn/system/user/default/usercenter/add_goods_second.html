@@ -374,6 +374,7 @@ function inventory_type(){
 	jQuery(":checkbox[id^=spec_]:checked").each(function(){
 		goods_spec_ids=jQuery(this).val()+","+goods_spec_ids;
 	});
+	  alert(goods_spec_ids);
 	jQuery.post("$!webPath/seller/goods_inventory.htm",{"goods_spec_ids":goods_spec_ids},function(data){
 		jQuery("#inventory_detail_content").append(data);
 		jQuery("#inventory_detail").show();
