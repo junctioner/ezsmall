@@ -61,6 +61,27 @@ public class SearchViewAction {
     @Autowired
     private IAreaService areaService;
 
+    /**
+     * 搜索结果
+     * @param request
+     * @param response
+     * @param type
+     * @param keyword
+     * @param currentPage
+     * @param orderBy
+     * @param orderType
+     * @param store_price_begin
+     * @param store_price_end
+     * @param view_type
+     * @param sc_id
+     * @param storeGrade_id
+     * @param checkbox_id
+     * @param storepoint
+     * @param area_id
+     * @param area_name
+     * @param goods_view
+     * @return
+     */
     @RequestMapping( {"/search.htm"})
     public ModelAndView search(HttpServletRequest request, HttpServletResponse response, String type, String keyword, String currentPage, String orderBy, String orderType, String store_price_begin, String store_price_end, String view_type, String sc_id, String storeGrade_id, String checkbox_id, String storepoint, String area_id, String area_name, String goods_view) {
         ModelAndView mv = new JModelAndView("search_goods_list.html",

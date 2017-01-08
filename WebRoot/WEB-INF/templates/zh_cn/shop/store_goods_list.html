@@ -346,7 +346,7 @@ $!httpInclude.include("/top.htm")
                   #if($!obj.combin_status==2)<span style="color:#F00;">[组合]</span>#end
                   #if($!obj.bargain_status==2)<span style="color:#F00;">[特价]</span>#end
                   #if($!obj.delivery_status==2)<span style="color:#F00;">[买就送]</span>#end
-                  $!CommUtil.substring("$!obj.goods_name",25)</a></li>
+                  $!obj.goods_name</a></li>
                 <li class="recentgoodsok">最近成交<strong>$!{obj.goods_salenum}</strong>笔</li>
                 <li class="goodshidden" style="display:none"> <span class="goods_description">与描述相符: <b style="color:#F00">$!CommUtil.null2Double($!{obj.description_evaluate})</b> 分 </span> <span class="goodshshop_name">店铺名称：<a href="$!webPath/store_$!{obj.goods_store.id}.htm" target="_blank"><i>$!obj.goods_store.store_name</i></a></span> <span class="goods_eva"><i><em>累计评价</em>
                   <p>$!{obj.evaluates.size()}</p>
@@ -373,7 +373,7 @@ $!httpInclude.include("/top.htm")
                     #if($!obj.activity_status==2) <span style="color:#F00;">[活动]</span> #end
                     #if($!obj.combin_status==2)<span style="color:#F00;">[组合]</span>#end
                     #if($!obj.bargain_status==2)<span style="color:#F00;">[特价]</span>#end
-                    #if($!obj.delivery_status==2)<span style="color:#F00;">[买就送]</span>#end <a href="$!goods_url" target="_blank">$!CommUtil.substring("$!obj.goods_name",25)</a> </span><span class="goods2market">市场价：¥$!{obj.goods_price}</span> <span class="goods2shop">商城价：<strong>¥$!{obj.store_price}</strong></span><span class="recent">累计售出<strong class="orange">$!{obj.goods_salenum}</strong>笔</span></li>
+                    #if($!obj.delivery_status==2)<span style="color:#F00;">[买就送]</span>#end <a href="$!goods_url" target="_blank">$!obj.goods_name</a> </span><span class="goods2market">市场价：¥$!{obj.goods_price}</span> <span class="goods2shop">商城价：<strong>¥$!{obj.store_price}</strong></span><span class="recent">累计售出<strong class="orange">$!{obj.goods_salenum}</strong>笔</span></li>
                   <li class="goodsli2">
                     <p class="goodsli2_p2"><span class="goodshopname">店铺名称：<a href="$!webPath/store_$!{obj.goods_store.id}.htm">$!obj.goods_store.store_name</a></span><span class="goods2send">店铺等级：$!obj.goods_store.grade.gradeName</span></p>
                     <p class="goodsli2_p"><span class="goodsli2_p_sp">与描述相符：<b style="color:#F00">$!CommUtil.null2Double($!{obj.description_evaluate})</b> 分</span><span class="goodsli2_p_eva">累计评价：<i>$!{obj.evaluates.size()}</i></span></p>
@@ -420,7 +420,7 @@ $!httpInclude.include("/top.htm")
           <ul>
             <li><a href="$!goods_url" target="_blank"><img src="$!img" width="160" height="160" /></a></li>
             <li class="center"><strong class="orange">￥$!{ztc_good.store_price}</strong></li>
-            <li class="blue2"><a href="$!goods_url" target="_blank">$!CommUtil.substring("$!ztc_good.goods_name",25)</a></li>
+            <li class="blue2"><a href="$!goods_url" target="_blank">$!ztc_good.goods_name</a></li>
             <li class="center">最近成交$!{ztc_good.goods_salenum}件</li>
           </ul>
         </div>

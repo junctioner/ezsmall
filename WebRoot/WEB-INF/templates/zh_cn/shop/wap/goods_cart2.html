@@ -20,8 +20,7 @@
 			});
 			
 			// 选择配送地点
-			jQuery(":radio[id^=addr_id]").click(function(){
-				
+			jQuery(":radio[name^=addr_id]").click(function(){
 			       var addr_id=jQuery(this).val();
 			       
 				   jQuery.ajax({type:'POST',url:'$!webPath/order_address.htm',data:{'addr_id':addr_id,"store_id":"$!sc.store.id"},dataType:'json',
@@ -94,9 +93,7 @@
 		});
 		
 		function save_order() {
-			
 			var addr_save = false;
-			
 			var invoice_save = true;
 			
 			if(jQuery("#addr_id").val()==undefined){
@@ -168,7 +165,6 @@
 				}
 			});
 		}
-		
 	</script>
 </head>
 <body>
@@ -197,7 +193,7 @@
 	                #set($default_person_info="$!{addr.trueName} $!{addr.mobile}")
 	              #end
 					<li class="tel">
-						<input type="radio" name="addr_id" id="addr_id" value="$!addr.id" #if($!velocityCount==1) checked="checked" #end />
+						<input type="radio" name="addr_id" value="$!addr.id" #if($!velocityCount==1) checked="checked" #end />
 						$!{addr.trueName}<span>$!{addr.mobile}</span>
 					</li>
 					<li class="site">$!{addr.area.parent.parent.areaName}$!{addr.area.parent.areaName}$!{addr.area.areaName}$!{addr.area_info}</li>
@@ -268,7 +264,6 @@
 		           </a>
 		          </li>
 		        #end                        
-		        
 		      </ul>
 		           
 		      <ul class="check_ul">
@@ -311,10 +306,8 @@
 				<a class="paymen_btn" href="javascript:void(0);" onclick="save_order();">提交订单</a>
 			</div>
 		</div>
-		
 	</form>
 	
 	<div class="mt50"></div>
-
 </body>
 </html>

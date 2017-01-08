@@ -37,7 +37,7 @@ left:-50%; z-index:0;}
 .shop {display: block; margin: 0 auto; width: 100%;}
 .shopbanner{ width:100%; text-align:center; }
 .nav_bg { width:100%; height:32px; background-color:#0098eb; margin-top:6px;}
-.shopnav{ width:1002px; margin-top:10px;overflow:hidden; margin-left:auto; margin-right:auto; }
+.shopnav{ width:1200px; margin-top:10px;overflow:hidden; margin-left:auto; margin-right:auto; }
 .shopnavul ul li{ float:left; width:87px; height:32px; text-align:center; line-height:31px; margin-right:5px; }
 .shopnavul ul li a { color:#FFF;}
 .shopnav .this{ background:url(../images/nav1.jpg) no-repeat;}
@@ -137,12 +137,12 @@ left:-50%; z-index:0;}
 /***2013-09-25物流信息新增样式end--------------------------------------------------***/
 
 
-/*.shopnavs{ background:url(../images/navs.jpg) repeat-x; width:1002px; height:9px; float:left;}*/
-.shop_index{ margin: 0 auto; width:1002px; padding-top:10px; clear:both;}
-.shop_index_box { clear: both; margin: 0 auto; padding-top: 10px; width: 1002px;}
+/*.shopnavs{ background:url(../images/navs.jpg) repeat-x; width:1200px; height:9px; float:left;}*/
+.shop_index{ margin: 0 auto; width:1200px; padding-top:10px; clear:both;}
+.shop_index_box { clear: both; margin: 0 auto; padding-top: 10px; width: 1200px;}
 .shopindex_left{ width:195px; float:left;  margin-right:10px; _margin-right:7px;}
 .shopindex_right{ width:797px;float:left; position:relative;}
-.shopindex_center{ width:1002px; float:left; overflow:hidden}
+.shopindex_center{ width:1200px; float:left; overflow:hidden}
 .shoptop{ width:193px; border:1px solid #D6DAE2; float:left; position:relative; z-index:5;}
 .shop_repright{ width:195px; float:right;}
 .shop_report{ width:193px; height:30px; float:left; position:relative; z-index:6;}
@@ -332,14 +332,14 @@ left:-50%; z-index:0;}
 .goodevt{  width:797px; }
 .goodevtable{ border-collapse:collapse; border:none}
 .goodevtable td{ border:1px solid #ccc; padding-top:5px; padding-bottom:5px;}
-.evaludetail{ width:1002px; overflow:hidden;  clear:both}
+.evaludetail{ width:1200px; overflow:hidden;  clear:both}
 .evlua ul {  float:left; overflow:hidden; padding-left:20px;}
 .evlua ul li{ float:left; background:url(../images/eval.jpg) no-repeat; width:97px; height:32px; line-height:32px; text-align:center; margin-right:5px; cursor:pointer}
 .evlua ul .this{ background:url(../images/allevl.jpg) no-repeat; width:97px; height:32px;}
 .evlua{ width:797px; overflow:hidden; float:left; position:relative; top:2px;}
-.evalubot{ border-top:2px solid #8B98AD; float:left; overflow:hidden; width:1002px;}
-.evaluone{ width:1002px; float:left;}
-.evaluonetable { margin-top:10px; width:1002px;}
+.evalubot{ border-top:2px solid #8B98AD; float:left; overflow:hidden; width:1200px;}
+.evaluone{ width:1200px; float:left;}
+.evaluonetable { margin-top:10px; width:1200px;}
 .evaluonetable td{ padding-top:5px; padding-bottom:5px; border-bottom:1px solid #ccc;padding-left:10px;}
 .imgevalu img{ width:50px; height:50px;}
 .goodsevalu{ width:100px; text-align:center}
@@ -527,7 +527,7 @@ dd,dl,dt{ padding:0px; margin:0px;}
 .goods_change .recentgoodsok strong{ color:#F30;}
 
 /*网店介绍shop_map*/
-.shopindex_center{ width:1002px; float:left; overflow:hidden; background:#fff;}
+.shopindex_center{ width:1200px; float:left; overflow:hidden; background:#fff;}
 .shop_map{ padding:5px; width:706px; margin-left:auto; margin-right:auto;  margin-bottom:20px; overflow:hidden; clear:both; background:#EFEFEF; margin-top:10px;}
 .shopinfo_box{ width:704px; margin-top:10px; margin-left:auto; margin-right:auto; overflow:hidden; border:1px solid #ccc;}
 .shopinfo_topbox{ float:left; width:706px;  overflow:hidden; padding-top:10px;}

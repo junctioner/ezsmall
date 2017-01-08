@@ -215,10 +215,10 @@ background-color:#B40C0C;}
 .tuandru_rush{ float:right;  display:block; background:url(../images/group/tuandrum.jpg) no-repeat; width:79px; height:25px; line-height:25px; text-align:center;}
 .tuandru_m b{ color:#000; line-height:25px;}
 .tuandru_m b strong{ color:#F00; padding-left:3px; padding-right:3px;} 
-.before_tuan{ width:1002px; margin-top:10px;}
-.before_h4{ width:1002px; border-bottom:1px solid #FF7928; overflow:hidden; margin-bottom:10px; padding-bottom:10px;}
+.before_tuan{ width:1200px; margin-top:10px;}
+.before_h4{ width:1200px; border-bottom:1px solid #FF7928; overflow:hidden; margin-bottom:10px; padding-bottom:10px;}
 .beforeh_sp{ background:#FCFCD5; border:1px solid #FDCB5D; display:block; float:left; color:#000; height:25px; line-height:25px; padding-left:10px; padding-right:10px;}
-.before_box{ width:1002px; overflow:hidden; padding-bottom:10px;}
+.before_box{ width:1200px; overflow:hidden; padding-bottom:10px;}
 .before_intbox{ width:1010px; overflow:hidden}
 .before_d{ width:304px; float:left; border-right:1px dashed #CDCDCD;border-bottom:1px dashed #CDCDCD; padding:15px; overflow:hidden}
 .before_d dt{ width:304px; height:45px; float:left; font-size:14px;}

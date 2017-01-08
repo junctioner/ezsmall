@@ -385,10 +385,10 @@ left:-50%; }
 .star_shop li{ padding-left:20px; width:178px; float:left; background:url(../images/asan.jpg) no-repeat 10px center; line-height:23px;}
 /*购物流程*/
 /*加入购物车*/
-.shopprocess{ width:1002px; overflow:hidden; float:left; margin-top:10px;}
+.shopprocess{ width:1200px; overflow:hidden; float:left; margin-top:10px;}
 .processname a{ color:#399DF5;}
 .trolley{ border-top:2px solid #ccc; margin-top:10px;}
-.trolley .trotable{ width:1002px; border-collapse:collapse; border:none;}
+.trolley .trotable{ width:1200px; border-collapse:collapse; border:none;}
 .trolley .trotable td{ padding-top:5px; padding-bottom:5px; padding-left:5px;}
 .trotable .troborder{ border-bottom:1px solid #ccc;}
 .troimg_span{width:77px;border:1px solid #ccc; 
@@ -569,14 +569,14 @@ left:-50%; }
 
 
 /*活动页面*/
-.active_box{ width:1002px; float:left; overflow:hidden;}
-.active_banner{ width:1002px; float:left; overflow:hidden; position:relative;}
-.active_left{ width:1002px; float:left;}
+.active_box{ width:1200px; float:left; overflow:hidden;}
+.active_banner{ width:1200px; float:left; overflow:hidden; position:relative;}
+.active_left{ width:1200px; float:left;}
 .active_right{ display:none;}
 .active_banner_img{ width:980px; margin-left:auto; margin-right:auto; text-align:center;}
 .active_title{ background:url(../images/active_t.gif) no-repeat; width:255px; height:51px; text-align:center; line-height:40px; color:#fff; position:absolute; top:10px; left:0px; font-size:18px;}
 .active_p{ width:205px; height:240px; background:url(../images/activep.png) no-repeat; position:absolute; top:60px; left:20px; padding:10px; line-height:20px;}
-.active_list{ width:1002px; float:left; overflow:hidden; padding-top:20px;}
+.active_list{ width:1200px; float:left; overflow:hidden; padding-top:20px;}
 .active_list_box{ width:1013px;}
 .active_list_one{ width:183px; display:inline; float:left; margin-right:12px; background:#f1f1f1; padding:3px; }
 .active_list_one a{ display:block; background:#fff; }
@@ -590,7 +590,7 @@ left:-50%; }
 .active_list_btn { background:url(../images/active_btn_bg.png) repeat-x 4px top; padding-top:4px;}
 .active_list_btn span{padding-left:10px; color:#FFF; font-size:14px;  display:block;width:160px; height:34px; line-height:34px; background:#ef4546 url(../images/active_bg_r.jpg) no-repeat right top}
 .active_list_btn span b{ color:#FF3} 
-.active_page{ float:left; margin-top:10px; margin-bottom:10px; width:1002px; text-align:right}
+.active_page{ float:left; margin-top:10px; margin-bottom:10px; width:1200px; text-align:right}
 
 
 /*qq绑定*/
@@ -625,7 +625,7 @@ left:-50%; }
 
 /*热卖搜索*/
 
-.product_list_hot{ overflow:hidden; width:1002px; float:left; position:relative; z-index:0;}
+.product_list_hot{ overflow:hidden; width:1200px; float:left; position:relative; z-index:0;}
 .product_list_hot .product_one{ width:244px; height:360px; float:left; position:relative;  }
 .product_list_hot .product_border{ border:4px solid #fff; width:236px; height:350px;}
 .product_list_hot .product_one .this{ border:4px solid #EAE5E1;} 
@@ -777,7 +777,7 @@ em { font-style:normal;}
 /***2013-8-23(店铺搜索end)-----------------------------------------------------------------------------------****/
 
 /***购物流程2013.09.18---------------------------------------------------------------------------------------***/
-.Steps_box { width:1002px; margin:0px auto; clear:both;}
+.Steps_box { width:1200px; margin:0px auto; clear:both;}
 .Steps { width:990px; margin:20px 0px; float:left;}
 .Steps li { width:183px; height:23px; line-height:23px; padding-left:15px; width:183px; float:left; background:url(../images/flow_steps_bg.png) no-repeat scroll 100% 0px rgb(228, 228, 228); font-weight:bold; font-size:14px;}
 .Steps .this { background-color:#ff6600; color:#FFF;}
@@ -844,7 +844,7 @@ em { font-style:normal;}
 .tm_hot ul li span a:hover{ color:#666; text-decoration:underline;} 
 
 /***2013-8-14(今日特价start)-----------------------------------------------------------------------------------****/
-.index_special {width:1002px; overflow:hidden; float:left; margin-top:10px;}
+.index_special {width:1200px; overflow:hidden; float:left; margin-top:10px;}
 .special_date { width:100%; float:left; background-color:#e9e0ce;}
 .special_date a { color:#9c8b74; display: inline-block; padding:10px 10px;}
 .special_date .this { color:#734912; background-color:#f0f0f0;}

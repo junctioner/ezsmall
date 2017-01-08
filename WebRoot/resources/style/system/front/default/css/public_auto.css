@@ -3,12 +3,12 @@
 
 /*共用public.css响应式*/
 @media screen and (min-width:800px) and (max-width:1024px){
-.top_page{ width:1002px;}
-.head{ width:1002px;}
+.top_page{ width:1200px;}
+.head{ width:1200px;}
 .head_search{width:535px; }
 .head_seartxt .h_sear_txt{ width:400px;}
 .nav{ width:100%;background:#e60012;}
-.main{ width:1002px;}
+.main{ width:1200px;}
 .footer_left{ width:642px}
 .shopone{ width:130px;}
 }

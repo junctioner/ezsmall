@@ -17,7 +17,7 @@
 <script src="$!webPath/resources/js/jquery.validate.min.js"></script>
 <script src="$!webPath/resources/js/jquery.shop.common.js"></script>
 <script>
-jQuery(document).ready(function(){	
+jQuery(document).ready(function(){
    //
   #if($!addrs.size()==0)
    jQuery("body").append("<div id='cart_address'><div class='white_content'><div class='white_box'><h1>新增收货地址</h1><div class='content_load'></div></div></div><div class='black_overlay'></div></div>");
@@ -69,7 +69,7 @@ jQuery(document).ready(function(){
 	  }
   });
   //
-  jQuery(":radio[id^=addr_id]").click(function(){											   
+  jQuery(":radio[name^=addr_id]").click(function(){
        var addr_id=jQuery(this).val();
 	   jQuery.ajax({type:'POST',url:'$!webPath/order_address.htm',data:{'addr_id':addr_id,"store_id":"$!sc.store.id"},dataType:'json',
 				  beforeSend:function(){
@@ -126,7 +126,7 @@ jQuery(document).ready(function(){
   //
   jQuery("#coupon_id").val("0");
   jQuery("#ship_price").find("option:first").attr("selected",true);
-  jQuery(":radio[id^=addr_id]:first").attr("checked",true);
+  jQuery(":radio[name^=addr_id]:first").attr("checked",true);
 });
 function save_order(){
   jQuery("#cart_form").submit();

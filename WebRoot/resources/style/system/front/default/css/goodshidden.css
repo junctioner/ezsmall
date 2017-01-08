@@ -14,7 +14,7 @@
 
 .index2_list{ width:787px;  float:left;  margin-right:5px;}
 @media screen and (min-widht:800px) and (max-width:1024px){
-.index2{ width:1002px; padding-bottom:10px;}
+.index2{ width:1200px; padding-bottom:10px;}
 .index2_list{ width:787px; padding-left:5px; float:left; }
 .chosenb{ width:640px;}
 .brandsort_screen_top{ width:786px;}
@@ -44,7 +44,7 @@
 
 /*买就送天天特价*/
 @media screen and (min-widht:800px) and (max-width:1024px){
-.index_special{ width:1002px;}
+.index_special{ width:1200px;}
 .special_main { width:988px; padding:10px 5px;}
 .special_main_box{ width:998px; float:left;}
 .special_list { margin:10px 5px;}
@@ -57,7 +57,7 @@
 }
 /*商品热卖*/
 @media screen and (min-widht:800px) and (max-width:1024px){
-	.product_list_hot{ width:1002px; }
+	.product_list_hot{ width:1200px; }
 	.product_list_hot .product_one{width:244px; }
 	.product_list_hot .product_border{width:236px; }
 	.product_list_hot .product_ul{ padding:8px;}
@@ -72,10 +72,10 @@
 
 /*活动页面*/
 @media screen and (min-widht:800px) and (max-width:1024px){
-.active_box{ width:1002px;}
+.active_box{ width:1200px;}
 .active_right{ display:none;}
-.active_banner{ width:1002px;}
-.active_list{ width:1002px;}
+.active_banner{ width:1200px;}
+.active_list{ width:1200px;}
 .active_list_one{margin-right:12px;}
 .active_list_box{ width:1013px;}
 }

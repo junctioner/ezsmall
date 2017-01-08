@@ -232,6 +232,7 @@ jQuery(".enjoy_btn").mouseover(function(){
 var time=0;
 var time_id;
 
+// 商品添加到购物车
 function add_cart(){
 #if($!user.id==$!obj.goods_store.user.id)
  alert("不能购买自己的商品！");
@@ -285,11 +286,12 @@ function cart_fadeOut(){
   }
 }
 
+// 立即购买
 function buy_goods(){
 #if($!user.id==$!obj.goods_store.user.id)
  alert("不能购买自己的商品！");
 #else
-  var add=true
+  var add=true;
   var gsp="";
   if(jQuery(".colordate").length==0){
     add=true;
@@ -529,6 +531,7 @@ $!httpInclude.include("/store_head.htm?store_id=$!{store.id}")
               </ul>
             </div>
             <script>
+              // 记录买家选择的商品规格
               function goods_spec_set(obj){
                 var spec=jQuery(obj).attr("spec");
                 var gsp="";
@@ -559,6 +562,7 @@ $!httpInclude.include("/store_head.htm?store_id=$!{store.id}")
             </script>
             <div class="detail_solid"></div>
             <div class="detailsbottom_ps">
+              <!-- 商品多规格 -->
               <div class="detailsbottom" id="goods_spec_info">
                 <ul>
                   <li id="goods_spec_chose" class="detail_chose" style="display:none;">请选择商品属性</li>

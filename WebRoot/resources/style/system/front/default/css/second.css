@@ -18,7 +18,7 @@ html,body{ width:100%}
 .search_btn_b{ width:80px; height:34px; background:#FF5400; color:#fff; border:0px; font-size:14px; float:left;}
 /***2013-9-17(闲置宝贝 导航start)-----------------------------------------------------------------------------------****/
 .Idle_nav { width:100%;background:url(../images/special_img/Idle_01.jpg) repeat-x bottom; height:34px; line-height:34px; padding-bottom:6px; font-weight:bold;}
-.Idle_menu { width:1002px; margin-left:auto; margin-right:auto; position:relative;}
+.Idle_menu { width:1200px; margin-left:auto; margin-right:auto; position:relative;}
 .Classify { width:118px; height:34px; float:left;}
 .Classify a { width:89px; padding-left:10px; font-size:14px; display:block; color:#349000; background:url(../images/special_img/Idle_02.jpg) no-repeat; float:left;}
 .Classify a:hover { width:89px; padding-left:10px; font-size:14px; display:block; color:#fff; background:url(../images/special_img/Idle_03.jpg) no-repeat;}
@@ -72,10 +72,10 @@ html,body{ width:100%}
 
 
 /***2013-9-9(闲置宝贝start)-----------------------------------------------------------------------------------****/
-.Idle_baby { width:1002px; float:left; padding-top:30px;}
+.Idle_baby { width:1200px; float:left; padding-top:30px;}
 .Idle_baby h1 { font-size:18px; font-family:"微软雅黑"; padding:5px 0px;}
-.Idle_baby_left { width:710px; float:left;}
-.Idle_baby_tab { width:710px; height:32px; float:left; border-bottom:2px solid #4d950b;}
+.Idle_baby_left { width:908px; float:left;}
+.Idle_baby_tab { width:908px; height:32px; float:left; border-bottom:2px solid #4d950b;}
 .Idle_baby_tab ul { float:left;}
 .Idle_baby_tab li { width:90px; float:left; margin-right:5px; height:32px; line-height:32px; text-align:center;}
 .Idle_baby_tab li a { width:90px; float:left; height:32px; line-height:32px; background-color:#4d950b; color:#FFF; border-radius:2px 2px 0px 0px; }
@@ -84,8 +84,8 @@ html,body{ width:100%}
 .Idle_baby_tab span { float:right; margin-top:10px;}
 .Idle_baby_tab span a { color:#4b9908;}
 .Idle_baby_tab span a:hover { text-decoration:underline;}
-.Idle_baby_form { width:710px; float:left; padding-top:10px;}
-.Idle_baby_form li { width:710px; float:left; height:40px; line-height:40px;}
+.Idle_baby_form { width:908px; float:left; padding-top:10px;}
+.Idle_baby_form li { width:908px; float:left; height:40px; line-height:40px;}
 .form_left { width:78px; float:left; padding-right:20px; text-align:right; font-weight:bold; color:#333;}
 .form_right { width:612px; float:left;}
 .form_right .title { margin-top:8px; width:348px; padding:4px 5px; height:14px; line-height:14px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1) inset; border-radius:1px; border:1px solid #CCC;}
@@ -135,7 +135,7 @@ html,body{ width:100%}
 .form_right_line_05 .form_right_city .Select_box ul li a { width:130px; height:24px; line-height:24px; float:left; text-indent:6px;}
 .form_right_line_05 .form_right_city .Select_box ul li { width:130px; height:24px; line-height:24px; float:left;}
 .form_right_line_05 .form_right_city .Select_box ul li a:hover { background-color:#4b9808; color:#FFF;}
-.Idle_baby_form .baby_img { width:710px; height:auto; float:left;}
+.Idle_baby_form .baby_img { width:908px; height:auto; float:left;}
 .form_right_line_06 { width:612px; float:left;}
 .form_right_line_06 .line_06_img_box { width:117px; float:left; margin-right:5px;}
 .form_right_line_06 .line_06_img { width:109px; height:109px; border:1px solid #dddddd; position:relative; padding:4px;}
@@ -163,7 +163,7 @@ html,body{ width:100%}
 .Idle_baby_right ul li a:hover { background-color:#edf9e2; border-radius:15px; color:#428a04; padding:5px;}
 
 /***2013-9-9(闲置宝贝end)-----------------------------------------------------------------------------------****/***(闲置宝贝 详细页start)-----------------------------------------------------------------------------------****/
-.Detail { width:1002px; float:left;}
+.Detail { width:1200px; float:left;}
 .top_nav { width:1000px; height:60px; float:left; background:url(../images/Idle_04.png) repeat-x 0px 47px; border-left:1px solid #eeeeee; border-right:1px solid #eeeeee; border-bottom:1px solid #eeeeee;
  border-radius:0px 0px 4px 4px;}
 .top_nav_lf { width:224px; float:left; background:url(../images/Idle_04.png) repeat-x 0px -58px; height:50px; padding-top:10px; border-right:1px solid #e6e6e6; border-radius:0px 0px 0px 4px; padding-left:10px;
@@ -181,7 +181,7 @@ position:relative;}
 .top_nav_lf_hover .details { width:214px; padding:10px; border:1px solid #e6e6e6; background-color:#FFF; position:absolute; left:-1px; top:59px; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);}
 .top_nav_lf_hover .details li {width:214px; float:left; line-height:20px;}
 
-.Detail_main { width:1002px; float:left; padding-top:10px;}
+.Detail_main { width:1200px; float:left; padding-top:10px;}
 .Detail_sub { width:600px; float:left;}
 .Detail_slider { width:600px; height:470px; position:relative; overflow:hidden; background:url(../images/Idle_03.png) repeat;}
 .Detail_slider li { width:600px; height:390px; float:left; display:table;}
@@ -245,10 +245,10 @@ position:relative;}
 .silder_botm_img{ width:190px; height:132px; overflow:hidden;}
 
 /***(闲置宝贝 列表start)-----------------------------------------------------------------------------------****/
-.index_floor { width:1002px; float:left; padding-top:30px;}
+.index_floor { width:1200px; float:left; padding-top:30px;}
 .index_floor h1 { width:985px; float:left; line-height:14px; height:14px; border-left:2px solid #6cbe3d; padding-left:15px; font-size:16px; color:#333; font-weight:normal;}
 .index_floor h1 a:hover { color:#6cbe3d; text-decoration:underline;}
-.index_floor .list { width:1002px; margin-top:20px; padding:10px 0px; float:left; border-top:1px solid #e6e6e6;}
+.index_floor .list { width:1200px; margin-top:20px; padding:10px 0px; float:left; border-top:1px solid #e6e6e6;}
 .index_floor .left_list { width:250px; float:left; padding-top:10px;}
 .index_floor .left_list a { padding:5px 15px 5px 15px; white-space:nowrap; float:left; border-bottom:1px dotted #e6e6e6;}
 .index_floor .left_list a:hover,.list_ul a:hover { color:#6cbe3d; text-decoration:underline;}
@@ -343,12 +343,12 @@ position:relative;}
 .li_right .num { width:169px; float:left; padding-top:10px;}
 .li_right .num b { color:#6cbe3d; font-weight:normal;}
 
-.Idle_page { width:1002px; float:left; text-align:center; margin-top:10px; padding:10px 0px;}
+.Idle_page { width:1200px; float:left; text-align:center; margin-top:10px; padding:10px 0px;}
 .Idle_page a { background-color:#FFF; padding:8px 12px; color:#666;}
 .Idle_page a:hover,.Idle_page .this { background-color:#4b9808; color:#FFF}
 
 /***(闲置宝贝 详细页start)-----------------------------------------------------------------------------------****/
-.Detail { width:1002px; float:left;}
+.Detail { width:1200px; float:left;}
 .top_nav { width:1000px; height:60px; float:left; background:url(../images/special_img/Idle_04.png) repeat-x 0px 47px; border-left:1px solid #eeeeee; border-right:1px solid #eeeeee; border-bottom:1px solid #eeeeee;
  border-radius:0px 0px 4px 4px;}
 .top_nav_lf { width:224px; float:left; background:url(../images/special_img/Idle_04.png) repeat-x 0px -58px; height:50px; padding-top:10px; border-right:1px solid #e6e6e6; border-radius:0px 0px 0px 4px; padding-left:10px;
@@ -367,7 +367,7 @@ position:relative;}
 .top_nav_lf_hover .details { width:214px; padding:10px; border:1px solid #e6e6e6; background-color:#FFF; position:absolute; left:-1px; top:59px; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);}
 .top_nav_lf_hover .details li {width:214px; float:left; line-height:20px;}
 
-.Detail_main { width:1002px; float:left; padding-top:10px;}
+.Detail_main { width:1200px; float:left; padding-top:10px;}
 .Detail_sub { width:600px; float:left;}
 .Detail_slider { width:600px; height:470px; position:relative; overflow:hidden; background:url(../images/special_img/Idle_03.png) repeat; text-align:center;}
 .Detail_slider li { width:600px; height:390px; float:left; display:table; text-align:center;}
@@ -406,10 +406,10 @@ position:relative;}
 .tit .this a { color:#FFF; background-color:#369103;}
 .tit .this a:hover { text-decoration:underline; color:#FFF;}
 .tit li a:hover { color:#369103; text-decoration:underline;}
-.baby_idle { width:1002px; float:left;}
-.baby_idle h2 { width:1002px; float:left; background:url(../images/special_img/Idle_04.png) repeat-x 0px -119px; margin:15px 0px;}
+.baby_idle { width:1200px; float:left;}
+.baby_idle h2 { width:1200px; float:left; background:url(../images/special_img/Idle_04.png) repeat-x 0px -119px; margin:15px 0px;}
 .baby_idle h2 b { font-size:16px; background-color:#FFF; padding:0px 5px;}
-.baby_idle p { width:1002px; float:left; font-size:14px; line-height:24px;}
+.baby_idle p { width:1200px; float:left; font-size:14px; line-height:24px;}
 
 /*搜索不到商品*/
 .starshop_list{ width:100%; overflow:hidden;}

@@ -270,16 +270,17 @@ public class CartViewAction {
             cookie.setDomain(CommUtil.generic_domain(request));
             response.addCookie(cookie);
         }
-        List<StoreCart> cart = new ArrayList<StoreCart>();
-        List<StoreCart> user_cart = new ArrayList<StoreCart>();
-        List<StoreCart> cookie_cart = new ArrayList<StoreCart>();
+
+        List<StoreCart> cart = new ArrayList<StoreCart>();// 购物车对象
+        List<StoreCart> user_cart = new ArrayList<StoreCart>();// 买家登录状态下的购物车
+        List<StoreCart> cookie_cart = new ArrayList<StoreCart>();// 买家未登录状态下的购物车
         User user = null;
         if (SecurityUserHolder.getCurrentUser() != null) {
             user = this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId());
         }
         Map params = new HashMap();
         StoreCart sc;
-        if (user != null) {
+        if (user != null) {// 买家已登录
             if (!cart_session_id.equals("")) {
                 if (user.getStore() != null) {
                     params.clear();
@@ -322,7 +323,7 @@ public class CartViewAction {
                                 -1, -1);
             }
 
-        } else if (!cart_session_id.equals("")) {
+        } else if (!cart_session_id.equals("")) {// 买家未登录
             params.clear();
             params.put("cart_session_id", cart_session_id);
             params.put("sc_status", Integer.valueOf(0));
@@ -331,6 +332,7 @@ public class CartViewAction {
                               params, -1, -1);
         }
 
+        // 遍历买家登录状态下的购物车，并将购物车内容添加到cart对象里
         for (StoreCart sc12 : user_cart) {
             boolean sc_add = true;
             for (StoreCart sc1 : cart) {
@@ -342,6 +344,8 @@ public class CartViewAction {
                 cart.add(sc12);
             }
         }
+
+        // 遍历买家未登录状态下的购物车，并将购物车内容添加到cart对象里
         for (StoreCart sc11 : cookie_cart) {
             boolean sc_add = true;
             for (StoreCart sc1 : cart) {
@@ -359,32 +363,39 @@ public class CartViewAction {
             }
         }
 
-        String[] gsp_ids = gsp.split(",");
+        String[] gsp_ids = gsp.split(",");// 买家选择的商品规格
         Arrays.sort(gsp_ids);
-        boolean add = true;
+        boolean add = true;// 是否加入购物车的标志位
         double total_price = 0.0D;
         int total_count = 0;
-        String[] gsp_ids1;
-        for (StoreCart sc1 : cart)
-            for (GoodsCart gc : sc1.getGcs())
+        String[] gsp_ids1;// 已有购物车内的商品规格
+        // 遍历购物车明细，判断用户已有购物车内是否包含当前所选规格的商品。如果包含，则
+        for (StoreCart sc1 : cart) {
+            for (GoodsCart gc : sc1.getGcs()) {
                 if ((gsp_ids != null) && (gsp_ids.length > 0) && (gc.getGsps() != null) && (gc.getGsps().size() > 0)) {
                     gsp_ids1 = new String[gc.getGsps().size()];
                     for (int i = 0; i < gc.getGsps().size(); i++) {
                         gsp_ids1[i] = (gc.getGsps().get(i) != null ? ((GoodsSpecProperty) gc.getGsps().get(i)).getId().toString() : "");
                     }
                     Arrays.sort(gsp_ids1);
-                    if ((!gc.getGoods().getId().toString().equals(id)) || (!Arrays.equals(gsp_ids, gsp_ids1)))
+                    if ((!gc.getGoods().getId().toString().equals(id)) || (!Arrays.equals(gsp_ids, gsp_ids1))) {
                         continue;
+                    }
                     add = false;
                 } else if (gc.getGoods().getId().toString().equals(id)) {
                     add = false;
                 }
+            }
+        }
 
         Object obj;
-        if (add) {
+        if (add) {// 买家当前所选规格的商品可以添加到购物车
             Goods goods = this.goodsService.getObjById(CommUtil.null2Long(id));
-            String type = "save";
+
+            // 判断是更新购物车还是新增购物车，一个卖家一条购物车记录
+            String type = "save";// 更新购物车内商品或新增加商品到购物车的标志位
             StoreCart sc33 = new StoreCart();
+            // 遍历购物车，检查当前买家所选规格商品的店铺是否存在。如果存在，则更新购物车记录，否则新增购物车记录
             for (StoreCart sc1 : cart) {
                 if (sc1.getStore().getId().equals(goods.getGoods_store().getId())) {
                     sc33 = sc1;
@@ -400,6 +411,7 @@ public class CartViewAction {
                 this.storeCartService.update(sc33);
             }
 
+            // 处理购物车明细
             obj = new GoodsCart();
             ((GoodsCart) obj).setAddTime(new Date());
             if (CommUtil.null2String(buy_type).equals("")) {
@@ -412,6 +424,7 @@ public class CartViewAction {
                 ((GoodsCart) obj).setPrice(goods.getCombin_price());
             }
             ((GoodsCart) obj).setGoods(goods);
+            // 解析商品规格
             String spec_info = "";
             GoodsSpecProperty spec_property;
             for (String gsp_id : gsp_ids) {
@@ -423,15 +436,13 @@ public class CartViewAction {
             }
             ((GoodsCart) obj).setSc(sc33);
             ((GoodsCart) obj).setSpec_info(spec_info);
-            this.goodsCartService.save((GoodsCart) obj);
-            sc33.getGcs().add((GoodsCart) obj);
+            this.goodsCartService.save((GoodsCart) obj);// 保存购物车明细
+            sc33.getGcs().add((GoodsCart) obj);// 将购物车明细添加到购物车内
 
             double cart_total_price = 0.0D;
 
             for (GoodsCart gc1 : sc33.getGcs()) {
-                // GoodsCart gc1 = (GoodsCart)((Iterator)???).next();
                 if (CommUtil.null2String(gc1.getCart_type()).equals("")) {
-                    /*cart_total_price = cart_total_price + CommUtil.null2Double(gc1.getGoods().getGoods_current_price()) * gc1.getCount();*/
                     cart_total_price = cart_total_price + CommUtil.null2Double(gc1.getPrice()) * gc1.getCount();
                 }
                 if (!CommUtil.null2String(gc1.getCart_type()).equals("combin"))
@@ -446,6 +457,8 @@ public class CartViewAction {
             else {
                 sc33.setUser(user);
             }
+
+            // 再次更新购物车
             if (((String) type).equals("save")) {
                 sc33.setAddTime(new Date());
                 this.storeCartService.save(sc33);
@@ -462,6 +475,8 @@ public class CartViewAction {
                 cart.add(sc33);
             }
         }
+
+        // 计算购物车内商品总价
         for (Object type = cart.iterator(); ((Iterator) type).hasNext();) {
             StoreCart sc1 = (StoreCart) ((Iterator) type).next();
 
@@ -472,6 +487,7 @@ public class CartViewAction {
                 total_price = total_price + CommUtil.mul(gc1.getPrice(), Integer.valueOf(gc1.getCount()));
             }
         }
+
         Map map = new HashMap();
         map.put("count", Integer.valueOf(total_count));
         map.put("total_price", Double.valueOf(total_price));

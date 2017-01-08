@@ -5,10 +5,10 @@
 
 /*头部响应式布局*/
 @media screen and (min-widht:800px) and (max-width:1024px){
-.main{ width:1002px;}	
-.page{ width:1002px;}
-.head{ width:1002px;}
-.Idle_menu{ width:1002px;}	
+.main{ width:1200px;}	
+.page{ width:1200px;}
+.head{ width:1200px;}
+.Idle_menu{ width:1200px;}	
 }
 @media screen and (min-width:1024px) {
 .main{ width:1202px;}
@@ -37,9 +37,9 @@
 
 /*楼层*/
 @media screen and (min-widht:800px) and (max-width:1024px){
-.index_floor { width:1002px;}
+.index_floor { width:1200px;}
 .index_floor h1{ width:985px;}
-.index_floor .list { width:1002px; }
+.index_floor .list { width:1200px; }
 .index_floor .mid_list { width:750px;}
 }
 @media screen and (min-width:1024px) {
@@ -54,9 +54,9 @@
 
 /*闲置宝贝列表*/
 @media screen and (min-widht:800px) and (max-width:1024px){
-	.index_floor{ width:1002px;}
+	.index_floor{ width:1200px;}
 	.index_floor h1 { width:985px;}
-	.index_floor .list { width:1002px; }
+	.index_floor .list { width:1200px; }
 	.all_list { width:230px;}
 	.all_list h1 { width:215px; }
 	.list_ul { width:230px;}

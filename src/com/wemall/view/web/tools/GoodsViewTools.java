@@ -26,6 +26,11 @@ public class GoodsViewTools {
     @Autowired
     private IUserGoodsClassService userGoodsClassService;
 
+    /**
+     * 根据商品id生成该商品的多规格
+     * @param id
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public List<GoodsSpecification> generic_spec(String id) {
         List specs = new ArrayList();
@@ -43,6 +48,7 @@ public class GoodsViewTools {
                 return (((GoodsSpecification)gs1).getSequence()) - (((GoodsSpecification)gs2).getSequence());
             }
         });
+
         return specs;
     }
 

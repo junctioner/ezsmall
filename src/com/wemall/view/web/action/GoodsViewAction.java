@@ -190,12 +190,19 @@ public class GoodsViewAction {
         return ids;
     }
 
+    /**
+     * 商品详情页
+     * @param request
+     * @param response
+     * @param id 商品id
+     * @return
+     */
     @RequestMapping( {"/goods.htm"})
     public ModelAndView goods(HttpServletRequest request, HttpServletResponse response, String id) {
         ModelAndView mv = null;
         String wemall_view_type = CommUtil.null2String( request.getSession().getAttribute( "wemall_view_type" ) );
         Goods obj = this.goodsService.getObjById(Long.valueOf(Long.parseLong(id)));
-        if (obj.getGoods_status() == 0) {
+        if (obj.getGoods_status() == 0) {// 商品上架状态
             String template = "default";
             if ((obj.getGoods_store().getTemplate() != null) &&
                     (!obj.getGoods_store().getTemplate().equals(""))) {
@@ -222,7 +229,7 @@ public class GoodsViewAction {
             }
 
             this.goodsService.update(obj);
-            if (obj.getGoods_store().getStore_status() == 2) {
+            if (obj.getGoods_store().getStore_status() == 2) {// 店铺状态正常
                 mv.addObject("obj", obj);
                 mv.addObject("store", obj.getGoods_store());
                 Map params = new HashMap();
@@ -280,14 +287,14 @@ public class GoodsViewAction {
                 List areas = this.areaService.query("select obj from Area obj where obj.parent.id is null order by obj.sequence asc", null, -1, -1);
                 mv.addObject("areas", areas);
                 generic_evaluate(obj.getGoods_store(), mv);
-            } else {
+            } else {// 店铺状态异常
                 mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request, response);
                 if( (wemall_view_type != null) && (!wemall_view_type.equals( "" )) && (wemall_view_type.equals( "wap" )) ) {
                     mv = new JModelAndView("wap/error.html", this.configService.getSysConfig(),
                                            this.userConfigService.getUserConfig(), 1, request, response);
                 }
-                mv.addObject("op_title", "店铺够开通，拒绝访问");
+                mv.addObject("op_title", "店铺未开通，拒绝访问");
                 mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
             }
         } else {
@@ -302,6 +309,28 @@ public class GoodsViewAction {
         return mv;
     }
 
+    /**
+     * 商品分类展示页
+     * @param request
+     * @param response
+     * @param gc_id
+     * @param currentPage
+     * @param orderBy
+     * @param orderType
+     * @param store_price_begin
+     * @param store_price_end
+     * @param brand_ids
+     * @param gs_ids
+     * @param properties
+     * @param op
+     * @param goods_name
+     * @param area_name
+     * @param area_id
+     * @param goods_view
+     * @param all_property_status
+     * @param detail_property_status
+     * @return
+     */
     @RequestMapping( {"/store_goods_list.htm"})
     public ModelAndView store_goods_list(HttpServletRequest request, HttpServletResponse response, String gc_id, String currentPage, String orderBy, String orderType, String store_price_begin, String store_price_end, String brand_ids, String gs_ids, String properties, String op, String goods_name, String area_name, String area_id, String goods_view, String all_property_status, String detail_property_status) {
         ModelAndView mv = new JModelAndView("store_goods_list.html", this.configService.getSysConfig(),

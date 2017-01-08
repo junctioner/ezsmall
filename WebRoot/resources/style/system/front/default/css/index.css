@@ -97,11 +97,11 @@
 /*公用响应式布局*/
 
 @media screen and (min-widht:800px) and (max-width:1024px){
-.top_index{ width:1002px;}
+.top_index{ width:1200px;}
 .top_mid_adv{ display:none;}
 .top_mid{ width:563px;}
 .top_mid_slide{ width:563px;}
-.page,.main,.head{widht:1002px;}
+.page,.main,.head{widht:1200px;}
 .logo{ width:200px;}
 .logo span{ width:200px; h}
 .toph_bigsearch{ width:520px; padding-left:70px; }
@@ -135,11 +135,11 @@
 
 .indextop_adv { display:none }/*1024以下不显示*/
 @media screen and (min-widht:800px) and (max-width:1024px){
-.index{ width:1002px;  clear:both}
-.index2{ width:1002px;  clear:both}
+.index{ width:1200px;  clear:both}
+.index2{ width:1200px;  clear:both}
 .indextop {
 	float:left;
-	width:1002px;
+	width:1200px;
 	height:535px;
 }
 .indextop_adv { display:none }
@@ -404,7 +404,7 @@ background:url(../images/slide_right.gif) no-repeat center center; width:40px; h
 
 /*特别推荐*/
 .index_mid {
-	width:1002px;
+	width:1200px;
 	overflow:hidden;
 	float:left;
 	margin-top:10px;
@@ -470,7 +470,7 @@ background:url(../images/slide_right.gif) no-repeat center center; width:40px; h
 
 @media screen and (min-widht:800px) and (max-width:1024px){
 	.index_mid {
-	width:1002px;
+	width:1200px;
 } 
 .limitime { width:709px;
 	}
@@ -652,7 +652,7 @@ opacity:0.80;background:#999; right:0px; font-style:normal }
 
 /*楼层样式0*/
 .floor {
-	width:1002px;
+	width:1200px;
 	overflow:hidden;
 	clear:both;
 	margin-top:20px;
@@ -671,7 +671,7 @@ opacity:0.80;background:#999; right:0px; font-style:normal }
   width: 0;
 }
 
-.floor .floor_box{ width:1002px; float:left; overflow:hidden}
+.floor .floor_box{ width:1200px; float:left; overflow:hidden}
 .floor .floorclass {
 	width:609px;
 	float:left;
@@ -890,8 +890,8 @@ opacity:0.80;background:#999; right:0px; font-style:normal }
 
 
 @media screen and (min-widht:800px) and (max-width:1024px){
-.floor { width:1002px;}
-.floor .floor_box{ width:1002px;}
+.floor { width:1200px;}
+.floor .floor_box{ width:1200px;}
 .floor .floorclass{ width:609px;}
 .floor .floorul_hidden{ width:609px;}
 .floor .productone ul {padding:5px 2px;}
@@ -1008,7 +1008,7 @@ opacity:0.80;background:#999; right:0px; font-style:normal }
 
 /*楼层样式1*/
 .floor_one {
-	width:1002px;
+	width:1200px;
 	overflow:hidden;
 	clear:both;
 	margin-top:20px;
@@ -1313,7 +1313,7 @@ opacity:0.80;background:#999; right:0px; font-style:normal }
 .floor_one .floor_right_top{ width:809px; float:left;overflow:hidden}
 
 @media screen and (min-widht:800px) and (max-width:1024px){
-.floor_one { width:1002px;}
+.floor_one { width:1200px;}
 .floor_one .ftab { width:516px;}
 .floor_one .floor_box_right{ width:809px; }
 .floor_one .floor_right_top{ width:809px;}
@@ -1355,7 +1355,7 @@ opacity:0.90; border:2px solid #000;}
 
 
 /*楼层样式2*/
-.floor_two{	width:1002px;
+.floor_two{	width:1200px;
 	overflow:hidden;
 	clear:both;
 	margin-top:20px;
@@ -1576,7 +1576,7 @@ opacity:0.90; border:2px solid #000;}
 .floor_two .floor_right_top{ width:809px; float:left;overflow:hidden;}
 
 @media screen and (min-widht:800px) and (max-width:1024px){
-.floor_two { width:1002px;}
+.floor_two { width:1200px;}
 .floor_two .ftab { width:600px;}
 .floor_two .floor_box_right{ width:809px; }
 .floor_two .floor_right_top{ width:809px;}
@@ -1603,7 +1603,7 @@ opacity:0.90; border:2px solid #000;}
 
 /*楼层样式3*/
 .floor_three {
-	width:1002px;
+	width:1200px;
 	overflow:hidden;
 	clear:both;
 	margin-top:20px;
@@ -1868,7 +1868,7 @@ opacity:0.90; border:2px solid #000;}
 .floor_three .floor_box_right{ width:809px; float:left;overflow:hidden}
 
 @media screen and (min-widht:800px) and (max-width:1024px){
-.floor_three { width:1002px;}
+.floor_three { width:1200px;}
 .floor_three .floor_box_right{ width:809px;}
 .floor_three .floor_three_adv{ display:none;}
 }
@@ -1882,7 +1882,7 @@ opacity:0.90; border:2px solid #000;}
 
 
 /*楼层样式4*/
-.floor_four{	width:1002px;
+.floor_four{	width:1200px;
 	overflow:hidden;
 	clear:both;
 	margin-top:20px;
@@ -2092,7 +2092,7 @@ opacity:0.90; border:2px solid #000;}
 
 
 @media screen and (min-widht:800px) and (max-width:1024px){
-.floor_four { width:1002px;}
+.floor_four { width:1200px;}
 .floor_four .floor_box_right{ width:809px; }
 .floor_four .floorclass { width:808px;}
 .floor_four .ftab { width:808px;}
@@ -2130,8 +2130,8 @@ opacity:0.90; border:2px solid #000;}
 .friendlink{ width:1000px; }
 .friendlink .linkimg{ width:1000px;}
 .friendlink .linka{ width:1000px;}
-.wemall{ width:1002px; }
-.footer .footerArea{  width:1002px;}
+.wemall{ width:1200px; }
+.footer .footerArea{  width:1200px;}
 }
 
 @media screen and (min-width:1024px) {
