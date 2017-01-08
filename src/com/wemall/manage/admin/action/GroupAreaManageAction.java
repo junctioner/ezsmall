@@ -99,6 +99,7 @@ public class GroupAreaManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -135,6 +136,7 @@ public class GroupAreaManageAction {
                      "/admin/group_area_add.htm" + "?currentPage=" + currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "团购区域删除", value = "/admin/group_area_del.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
     @RequestMapping( {"/admin/group_area_del.htm"})
     public String delete(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {

@@ -76,6 +76,7 @@ public class AccountBuyerAction {
                          SecurityUserHolder.getCurrentUser().getId()));
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "个人信息", value = "/buyer/account.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/account.htm"})
     public ModelAndView account(HttpServletRequest request, HttpServletResponse response) {
@@ -91,6 +92,7 @@ public class AccountBuyerAction {
         mv.addObject("areas", areas);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "个人信息获取下级地区ajax", value = "/buyer/account_getAreaChilds.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/account_getAreaChilds.htm"})
     public ModelAndView account_getAreaChilds(HttpServletRequest request, HttpServletResponse response, String parent_id) {
@@ -102,8 +104,10 @@ public class AccountBuyerAction {
         if (childs.size() > 0) {
             mv.addObject("childs", childs);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "个人信息保存", value = "/buyer/account_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/account_save.htm"})
     public ModelAndView account_save(HttpServletRequest request, HttpServletResponse response, String area_id, String birthday) {
@@ -126,6 +130,7 @@ public class AccountBuyerAction {
         mv.addObject("url", CommUtil.getURL(request) + "/buyer/account.htm");
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "密码修改", value = "/buyer/account_password.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/account_password.htm"})
     public ModelAndView account_password(HttpServletRequest request, HttpServletResponse response) {
@@ -135,6 +140,7 @@ public class AccountBuyerAction {
         if( (wemall_view_type != null) && (!wemall_view_type.equals( "" )) && (wemall_view_type.equals( "wap" )) ) {
             mv = new JModelAndView("wap/account_password.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
         }
+
         return mv;
     }
 
@@ -173,6 +179,7 @@ public class AccountBuyerAction {
         mv.addObject("url", CommUtil.getURL(request) + "/buyer/account_password.htm");
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "邮箱修改", value = "/buyer/account_email.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/account_email.htm"})
     public ModelAndView account_email(HttpServletRequest request, HttpServletResponse response) {
@@ -182,6 +189,7 @@ public class AccountBuyerAction {
             this.userConfigService.getUserConfig(), 0, request, response);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "邮箱修改保存", value = "/buyer/account_email_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/account_email_save.htm"})
     public ModelAndView account_email_save(HttpServletRequest request, HttpServletResponse response, String password, String email) {
@@ -205,6 +213,7 @@ public class AccountBuyerAction {
                      "/buyer/account_email.htm");
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "图像修改", value = "/buyer/account_avatar.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/account_avatar.htm"})
     public ModelAndView account_avatar(HttpServletRequest request, HttpServletResponse response) {
@@ -217,6 +226,7 @@ public class AccountBuyerAction {
         mv.addObject("url", CommUtil.getURL(request));
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "图像上传", value = "/buyer/upload_avatar.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/upload_avatar.htm"})
     public void upload_avatar(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -332,6 +342,7 @@ public class AccountBuyerAction {
             mv.addObject("url", CommUtil.getURL(request) +
                          "/buyer/account_mobile.htm");
         }
+
         return mv;
     }
 
@@ -394,6 +405,7 @@ public class AccountBuyerAction {
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "好友添加", value = "/buyer/friend_add.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/friend_add.htm"})
     public ModelAndView friend_add(HttpServletRequest request, HttpServletResponse response) {
@@ -471,6 +483,7 @@ public class AccountBuyerAction {
         mv.addObject("areas", areas);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "好友添加", value = "/buyer/friend_add_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/friend_add_save.htm"})
     public void friend_add_save(HttpServletRequest request, HttpServletResponse response, String user_id) {
@@ -528,6 +541,7 @@ public class AccountBuyerAction {
         mv.addObject("user", user);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "账号解除绑定", value = "/buyer/account_bind_cancel.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/account_bind_cancel.htm"})
     public String account_bind_cancel(HttpServletRequest request, HttpServletResponse response, String account) {

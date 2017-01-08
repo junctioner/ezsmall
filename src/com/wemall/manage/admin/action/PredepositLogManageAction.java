@@ -64,6 +64,7 @@ public class PredepositLogManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 }

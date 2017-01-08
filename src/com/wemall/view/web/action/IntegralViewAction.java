@@ -136,6 +136,7 @@ public class IntegralViewAction {
             mv.addObject("op_title", "系统未开启积分商城");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -163,6 +164,7 @@ public class IntegralViewAction {
             mv.addObject("op_title", "系统未开启积分商城");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -213,8 +215,10 @@ public class IntegralViewAction {
             mv.addObject("op_title", "系统未开启积分商城");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "积分兑换第一步", value = "/integral_exchange1.htm*", rtype = "buyer", rname = "积分兑换", rcode = "integral_exchange", rgroup = "积分兑换")
     @RequestMapping( {"/integral_exchange1.htm"})
     public ModelAndView integral_exchange1(HttpServletRequest request, HttpServletResponse response, String id, String exchange_count) {
@@ -326,6 +330,7 @@ public class IntegralViewAction {
             mv.addObject("op_title", "系统未开启积分商城");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -455,6 +460,7 @@ public class IntegralViewAction {
             mv.addObject("op_title", "系统未开启积分商城");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -589,6 +595,7 @@ public class IntegralViewAction {
             mv.addObject("op_title", "系统未开启积分商城");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -653,6 +660,7 @@ public class IntegralViewAction {
             mv.addObject("op_title", "该订单不能进行付款！");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -684,6 +692,7 @@ public class IntegralViewAction {
             mv.addObject("url", CommUtil.getURL(request) +
                          "/buyer/integral_order.htm");
         }
+
         return mv;
     }
 
@@ -733,6 +742,7 @@ public class IntegralViewAction {
 
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "积分订单支付结果", value = "/integral_order_finish.htm*", rtype = "buyer", rname = "积分兑换", rcode = "integral_exchange", rgroup = "积分兑换")
     @RequestMapping( {"/integral_order_finish.htm"})
     public ModelAndView integral_order_finish(HttpServletRequest request, HttpServletResponse response, String order_id) {
@@ -744,6 +754,7 @@ public class IntegralViewAction {
         mv.addObject("obj", obj);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "订单支付详情", value = "/integral_order_pay_view.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")
     @RequestMapping( {"/integral_order_pay_view.htm"})
     public ModelAndView integral_order_pay_view(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -771,6 +782,7 @@ public class IntegralViewAction {
             mv.addObject("url", CommUtil.getURL(request) +
                          "/buyer/integral_order_list.htm");
         }
+
         return mv;
     }
 }

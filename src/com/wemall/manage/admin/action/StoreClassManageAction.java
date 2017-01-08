@@ -78,6 +78,7 @@ public class StoreClassManageAction {
                           .getObjById(Long.valueOf(Long.parseLong(pid))));
             mv.addObject("obj", obj);
         }
+
         return mv;
     }
 
@@ -99,6 +100,7 @@ public class StoreClassManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -134,6 +136,7 @@ public class StoreClassManageAction {
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage +
                          "&pid=" + pid);
         }
+
         return mv;
     }
 
@@ -149,6 +152,7 @@ public class StoreClassManageAction {
         }
         return ids;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "店铺分类删除", value = "/admin/storeclass_del.htm*", rtype = "admin", rname = "店铺分类", rcode = "store_class", rgroup = "店铺")
     @RequestMapping( {"/admin/storeclass_del.htm"})
     public String delete(HttpServletRequest request, String mulitId, String currentPage) {

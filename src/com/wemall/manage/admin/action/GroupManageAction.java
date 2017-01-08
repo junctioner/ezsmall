@@ -81,6 +81,7 @@ public class GroupManageAction {
             Group group = (Group)groups.get(0);
             mv.addObject("group", group);
         }
+
         return mv;
     }
 
@@ -105,6 +106,7 @@ public class GroupManageAction {
                 mv.addObject("group", group1);
             }
         }
+
         return mv;
     }
 
@@ -146,6 +148,7 @@ public class GroupManageAction {
                      "/admin/group_add.htm" + "?currentPage=" + currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "团购删除", value = "/admin/group_del.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
     @RequestMapping( {"/admin/group_del.htm"})
     public String group_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
@@ -167,6 +170,7 @@ public class GroupManageAction {
         }
         return "redirect:group_list.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "团购关闭", value = "/admin/group_close.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
     @RequestMapping( {"/admin/group_close.htm"})
     public String group_close(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {

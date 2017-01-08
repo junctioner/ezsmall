@@ -714,6 +714,7 @@ public class CartViewAction {
             ztc_goods = randomZtcGoods(goods);
             mv.addObject("ztc_goods", ztc_goods);
         }
+
         return mv;
     }
 
@@ -802,6 +803,7 @@ public class CartViewAction {
             mv.addObject("op_title", "购物车信息为空");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -902,6 +904,7 @@ public class CartViewAction {
             mv.addObject("op_title", "订单信息错误");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -937,6 +940,7 @@ public class CartViewAction {
             mv.addObject("op_title", "该订单已经付款！");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -1015,6 +1019,7 @@ public class CartViewAction {
             mv.addObject("op_title", "该订单不能进行付款！");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
     /**
@@ -1172,6 +1177,7 @@ public class CartViewAction {
             mv.addObject("op_title", "用户未授权！");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm?authdeny");
         }
+
         return mv;
     }
 
@@ -1478,6 +1484,7 @@ public class CartViewAction {
             mv.addObject("op_title", "订单已经支付，禁止重复支付！");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/order.htm");
         }
+
         return mv;
     }
 
@@ -1524,6 +1531,7 @@ public class CartViewAction {
             mv.addObject("op_title", "订单已经支付，禁止重复支付！");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/order.htm");
         }
+
         return mv;
     }
 
@@ -1631,6 +1639,7 @@ public class CartViewAction {
             mv.addObject("op_title", "可用余额不足，支付失败！");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/order.htm");
         }
+
         return mv;
     }
 

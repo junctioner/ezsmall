@@ -59,6 +59,7 @@ public class ImageManageAction {
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "会员相册删除", value = "/admin/user_photo_del.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
     @RequestMapping( {"/admin/user_photo_del.htm"})
     public String user_album_del(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId) {

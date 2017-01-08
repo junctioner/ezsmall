@@ -59,6 +59,7 @@ public class SnsManageAction {
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "会员动态删除", value = "/admin/sns_del.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
     @RequestMapping( {"/admin/sns_del.htm"})
     public String sns_user_del(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId) {
@@ -96,6 +97,7 @@ public class SnsManageAction {
         mv.addObject("storeViewTools", this.storeViewTools);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "店铺动态删除", value = "/admin/sns_store_del.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
     @RequestMapping( {"/admin/sns_store_del.htm"})
     public String sns_store_del(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId) {

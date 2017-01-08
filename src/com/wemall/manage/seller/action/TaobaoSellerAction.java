@@ -110,6 +110,7 @@ public class TaobaoSellerAction {
                     this.userConfigService.getUserConfig(), 0, request,
                     response);
         }
+
         return mv;
     }
 

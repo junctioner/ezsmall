@@ -208,8 +208,10 @@ public class GoodsClassManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url + "?pid=" + pid);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "商品分类下级加载", value = "/admin/goods_class_data.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
     @RequestMapping( {"/admin/goods_class_data.htm"})
     public ModelAndView goods_class_data(HttpServletRequest request, HttpServletResponse response, String pid, String currentPage) {
@@ -276,6 +278,7 @@ public class GoodsClassManageAction {
         }
         return ids;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "商品分类批量推荐", value = "/admin/goods_class_recommend.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
     @RequestMapping( {"/admin/goods_class_recommend.htm"})
     public String goods_class_recommend(HttpServletRequest request, String mulitId, String currentPage) {
@@ -290,6 +293,7 @@ public class GoodsClassManageAction {
         }
         return "redirect:goods_class_list.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "商品分类批量删除", value = "/admin/goods_class_del.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
     @RequestMapping( {"/admin/goods_class_del.htm"})
     public String goods_class_del(HttpServletRequest request, String mulitId, String currentPage) {

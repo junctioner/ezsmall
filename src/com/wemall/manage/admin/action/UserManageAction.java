@@ -80,6 +80,7 @@ public class UserManageAction {
                                             .getUserConfig(), 0, request, response);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "会员编辑", value = "/admin/user_edit.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
     @RequestMapping( {"/admin/user_edit.htm"})
     public ModelAndView user_edit(HttpServletRequest request, HttpServletResponse response, String id, String op) {
@@ -174,8 +175,10 @@ public class UserManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "会员删除", value = "/admin/user_del.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
     @RequestMapping( {"/admin/user_del.htm"})
     public String user_del(HttpServletRequest request, String mulitId, String currentPage) {
@@ -260,6 +263,7 @@ public class UserManageAction {
         }
         return "redirect:user_list.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "会员通知", value = "/admin/user_msg.htm*", rtype = "admin", rname = "会员通知", rcode = "user_msg", rgroup = "会员")
     @RequestMapping( {"/admin/user_msg.htm"})
     public ModelAndView user_msg(HttpServletRequest request, HttpServletResponse response) {
@@ -330,6 +334,7 @@ public class UserManageAction {
         mv.addObject("list_url", list_url);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "会员信用", value = "/admin/user_creditrule.htm*", rtype = "admin", rname = "会员信用", rcode = "user_creditrule", rgroup = "会员")
     @RequestMapping( {"/admin/user_creditrule.htm"})
     public ModelAndView user_creditrule(HttpServletRequest request, HttpServletResponse response) {
@@ -338,6 +343,7 @@ public class UserManageAction {
                                             .getUserConfig(), 0, request, response);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买家信用保存", value = "/admin/user_creditrule_save.htm*", rtype = "admin", rname = "会员信用", rcode = "user_creditrule", rgroup = "会员")
     @RequestMapping( {"/admin/user_creditrule_save.htm"})
     public ModelAndView user_creditrule_save(HttpServletRequest request, HttpServletResponse response, String id, String list_url) {

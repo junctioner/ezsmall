@@ -96,6 +96,7 @@ public class AdvertSellerAction {
             mv.addObject("user", this.userService.getObjById(
                              SecurityUserHolder.getCurrentUser().getId()));
         }
+
         return mv;
     }
 
@@ -225,6 +226,7 @@ public class AdvertSellerAction {
             mv.addObject("url", CommUtil.getURL(request) +
                          "/seller/advert_my.htm");
         }
+
         return mv;
     }
 
@@ -290,6 +292,7 @@ public class AdvertSellerAction {
             mv.addObject("user", this.userService.getObjById(
                              SecurityUserHolder.getCurrentUser().getId()));
         }
+
         return mv;
     }
 
@@ -347,6 +350,7 @@ public class AdvertSellerAction {
                              "/seller/advert_delay.htm?id=" + id);
             }
         }
+
         return mv;
     }
 }

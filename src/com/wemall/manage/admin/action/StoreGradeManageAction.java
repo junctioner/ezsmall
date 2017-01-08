@@ -83,6 +83,7 @@ public class StoreGradeManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -112,8 +113,10 @@ public class StoreGradeManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "店铺等级删除", value = "/admin/storegrade_del.htm*", rtype = "admin", rname = "店铺等级", rcode = "store_grade", rgroup = "店铺")
     @RequestMapping( {"/admin/storegrade_del.htm"})
     public String storegrade_del(HttpServletRequest request, String mulitId, String currentPage) {

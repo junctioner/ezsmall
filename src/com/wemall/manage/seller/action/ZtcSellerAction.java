@@ -66,6 +66,7 @@ public class ZtcSellerAction {
         mv.addObject("user", user);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "直通车商品加载", value = "/seller/ztc_goods.htm*", rtype = "seller", rname = "竞价直通车", rcode = "ztc_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/ztc_goods.htm"})
     public void ztc_goods(HttpServletRequest request, HttpServletResponse response, String goods_name) {
@@ -137,8 +138,10 @@ public class ZtcSellerAction {
                              "/seller/ztc_apply.htm");
             }
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "直通车申请列表", value = "/seller/ztc_apply_list.htm*", rtype = "seller", rname = "竞价直通车", rcode = "ztc_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/ztc_apply_list.htm"})
     public ModelAndView ztc_apply_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String goods_name) {
@@ -168,8 +171,10 @@ public class ZtcSellerAction {
             CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
             mv.addObject("goods_name", goods_name);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "直通车商品列表", value = "/seller/ztc_list.htm*", rtype = "seller", rname = "竞价直通车", rcode = "ztc_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/ztc_list.htm"})
     public ModelAndView ztc_list(HttpServletRequest request, HttpServletResponse response, String currentPage) {
@@ -193,8 +198,10 @@ public class ZtcSellerAction {
             IPageList pList = this.goodsService.list(qo);
             CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "直通车申请查看", value = "/seller/ztc_apply_view.htm*", rtype = "seller", rname = "竞价直通车", rcode = "ztc_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/ztc_apply_view.htm"})
     public ModelAndView ztc_apply_view(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -224,6 +231,7 @@ public class ZtcSellerAction {
                              "/seller/ztc_list.htm");
             }
         }
+
         return mv;
     }
 }

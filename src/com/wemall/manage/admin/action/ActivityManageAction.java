@@ -115,6 +115,7 @@ public class ActivityManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -183,6 +184,7 @@ public class ActivityManageAction {
                      "/admin/activity_add.htm" + "?currentPage=" + currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "活动删除", value = "/admin/activity_del.htm*", rtype = "admin", rname = "活动管理", rcode = "activity_admin", rgroup = "运营")
     @RequestMapping( {"/admin/activity_del.htm"})
     public String activity_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {

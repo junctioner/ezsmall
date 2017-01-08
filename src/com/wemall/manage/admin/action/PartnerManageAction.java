@@ -99,6 +99,7 @@ public class PartnerManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -165,8 +166,10 @@ public class PartnerManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "合作伙伴删除", value = "/admin/partner_del.htm*", rtype = "admin", rname = "合作伙伴", rcode = "partner_manage", rgroup = "网站")
     @RequestMapping( {"/admin/partner_del.htm"})
     public String delete(HttpServletRequest request, String mulitId) {

@@ -78,6 +78,7 @@ public class PredepositBuyerAction {
             mv.addObject("op_title", "系统未开启预存款");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/index.htm");
         }
+
         return mv;
     }
 
@@ -168,8 +169,10 @@ public class PredepositBuyerAction {
             mv.addObject("op_title", "系统未开启预存款");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/index.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "会员充值列表", value = "/buyer/predeposit_list.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
     @RequestMapping( {"/buyer/predeposit_list.htm"})
     public ModelAndView predeposit_list(HttpServletRequest request, HttpServletResponse response, String currentPage) {
@@ -192,8 +195,10 @@ public class PredepositBuyerAction {
             mv.addObject("op_title", "系统未开启预存款");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/index.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "会员充值详情", value = "/buyer/predeposit_view.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
     @RequestMapping( {"/buyer/predeposit_view.htm"})
     public ModelAndView predeposit_view(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -224,8 +229,10 @@ public class PredepositBuyerAction {
             mv.addObject("op_title", "系统未开启预存款");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/index.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "会员充值支付", value = "/buyer/predeposit_pay.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
     @RequestMapping( {"/buyer/predeposit_pay.htm"})
     public ModelAndView predeposit_pay(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -256,8 +263,10 @@ public class PredepositBuyerAction {
             mv.addObject("op_title", "系统未开启预存款");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/index.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "会员收入明细", value = "/buyer/predeposit_log.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
     @RequestMapping( {"/buyer/predeposit_log.htm"})
     public ModelAndView predeposit_log(HttpServletRequest request, HttpServletResponse response, String currentPage) {
@@ -282,6 +291,7 @@ public class PredepositBuyerAction {
             mv.addObject("op_title", "系统未开启预存款");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/index.htm");
         }
+
         return mv;
     }
 }

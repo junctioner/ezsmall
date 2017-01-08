@@ -67,6 +67,7 @@ public class IntegralLogManageAction {
             CommUtil.null2String(userName), pList, mv);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "积分管理", value = "/admin/user_integral.htm*", rtype = "admin", rname = "积分管理", rcode = "user_integral", rgroup = "会员")
     @RequestMapping( {"/admin/user_integral.htm"})
     public ModelAndView user_integral(HttpServletRequest request, HttpServletResponse response) {
@@ -85,8 +86,10 @@ public class IntegralLogManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/welcome.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "积分动态获取", value = "/admin/verify_user_integral.htm*", rtype = "admin", rname = "积分管理", rcode = "user_integral", rgroup = "会员")
     @RequestMapping( {"/admin/verify_user_integral.htm"})
     public void verify_user_integral(HttpServletRequest request, HttpServletResponse response, String userName) {

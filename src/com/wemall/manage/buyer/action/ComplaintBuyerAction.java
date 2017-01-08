@@ -75,6 +75,7 @@ public class ComplaintBuyerAction {
         mv.addObject("status", status);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买家投诉发起", value = "/buyer/complaint_handle.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/complaint_handle.htm"})
     public ModelAndView complaint_handle(HttpServletRequest request, HttpServletResponse response, String order_id) {
@@ -229,6 +230,7 @@ public class ComplaintBuyerAction {
         mv.addObject("url", CommUtil.getURL(request) + "/buyer/complaint.htm");
         return (ModelAndView)mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买家查看投诉详情", value = "/buyer/complaint_view.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/complaint_view.htm"})
     public ModelAndView complaint_view(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -252,8 +254,10 @@ public class ComplaintBuyerAction {
             mv.addObject("url", CommUtil.getURL(request) +
                          "/buyer/complaint.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买家取消投诉", value = "/buyer/complaint_cancel.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/complaint_cancel.htm"})
     public String complaint_cancel(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -265,6 +269,7 @@ public class ComplaintBuyerAction {
 
         return "redirect:complaint.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "投诉图片", value = "/buyer/complaint_img.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/complaint_img.htm"})
     public ModelAndView complaint_img(HttpServletRequest request, HttpServletResponse response, String id, String type) {

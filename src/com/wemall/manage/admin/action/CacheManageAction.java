@@ -53,6 +53,7 @@ public class CacheManageAction {
         mv.addObject("page_cache_size", Integer.valueOf(cache.getSize()));
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "更新缓存", value = "/admin/update_cache.htm*", rtype = "admin", rname = "更新缓存", rcode = "cache_manage", rgroup = "工具")
     @RequestMapping( {"/admin/update_cache.htm"})
     public ModelAndView update_cache(HttpServletRequest request, HttpServletResponse response, String data_cache, String page_cache) {

@@ -97,6 +97,7 @@ public class GoodsSpecificationManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -126,6 +127,7 @@ public class GoodsSpecificationManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url);
         }
+
         return mv;
     }
 
@@ -230,6 +232,7 @@ public class GoodsSpecificationManageAction {
         }
         return "redirect:goods_spec_list.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "商品规格属性AJAX删除", value = "/admin/goods_property_delete.htm*", rtype = "admin", rname = "规格管理", rcode = "goods_spec", rgroup = "商品")
     @RequestMapping( {"/admin/goods_property_delete.htm"})
     public void goods_property_delete(HttpServletRequest request, HttpServletResponse response, String id) {

@@ -386,6 +386,7 @@ public class SpareGoodsFloorManageAction {
             sg.setSgf(sgf);
             this.sparegoodsService.update(sg);
         }
+
         return mv;
     }
 

@@ -91,6 +91,7 @@ public class AddressBuyerAction {
         mv.addObject("currentPage", currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "新增收货地址", value = "/buyer/address_edit.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/address_edit.htm"})
     public ModelAndView address_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -130,6 +131,7 @@ public class AddressBuyerAction {
             this.addressService.update(address);
         return "redirect:address.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "收货地址删除", value = "/buyer/address_del.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/address_del.htm"})
     public String address_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {

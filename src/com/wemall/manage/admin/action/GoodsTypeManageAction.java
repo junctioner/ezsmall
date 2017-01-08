@@ -118,6 +118,7 @@ public class GoodsTypeManageAction {
             mv.addObject("obj", goodsType);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -222,6 +223,7 @@ public class GoodsTypeManageAction {
         }
         return "redirect:goods_type_list.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "商品类型属性AJAX删除", value = "/admin/goods_type_property_delete.htm*", rtype = "admin", rname = "类型管理", rcode = "goods_type", rgroup = "商品")
     @RequestMapping( {"/admin/goods_type_property_delete.htm"})
     public void goods_type_property_delete(HttpServletRequest request, HttpServletResponse response, String id) {

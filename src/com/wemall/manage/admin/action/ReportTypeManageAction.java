@@ -78,6 +78,7 @@ public class ReportTypeManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -107,8 +108,10 @@ public class ReportTypeManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "举报类型删除", value = "/admin/reporttype_del.htm*", rtype = "admin", rname = "举报管理", rcode = "report_manage", rgroup = "交易")
     @RequestMapping( {"/admin/reporttype_del.htm"})
     public String delete(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {

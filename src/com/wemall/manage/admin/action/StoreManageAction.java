@@ -207,6 +207,7 @@ public class StoreManageAction {
                              .generic_area_info(store.getArea()));
             }
         }
+
         return mv;
     }
 
@@ -271,6 +272,7 @@ public class StoreManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
+
         return mv;
     }
 
@@ -556,6 +558,7 @@ public class StoreManageAction {
         mv.addObject("grades", grades);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "店铺升级编辑", value = "/admin/store_gradelog_edit.htm*", rtype = "admin", rname = "店铺管理", rcode = "admin_store_set", rgroup = "店铺")
     @RequestMapping( {"/admin/store_gradelog_edit.htm"})
     public ModelAndView store_gradelog_edit(HttpServletRequest request, HttpServletResponse response, String currentPage, String id) {
@@ -606,6 +609,7 @@ public class StoreManageAction {
         mv.addObject("op_title", "保存店铺成功");
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "店铺升级日志查看", value = "/admin/store_gradelog_view.htm*", rtype = "admin", rname = "店铺管理", rcode = "admin_store_set", rgroup = "店铺")
     @RequestMapping( {"/admin/store_gradelog_view.htm"})
     public ModelAndView store_gradelog_view(HttpServletRequest request, HttpServletResponse response, String currentPage, String id) {

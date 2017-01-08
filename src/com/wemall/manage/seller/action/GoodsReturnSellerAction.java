@@ -79,6 +79,7 @@ public class GoodsReturnSellerAction {
         mv.addObject("endTime", endTime);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家退款列表", value = "/seller/return_view.htm*", rtype = "seller", rname = "退货管理", rcode = "goods_return_seller", rgroup = "客户服务")
     @RequestMapping( {"/seller/return_view.htm"})
     public ModelAndView return_view(HttpServletRequest request, HttpServletResponse response, String id) {

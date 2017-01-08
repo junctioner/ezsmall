@@ -116,6 +116,7 @@ public class DatabaseManageAction {
                      "/admin/database_add.htm");
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "数据库分卷备份", value = "/admin/database_bund_backup.htm*", rtype = "admin", rname = "数据库管理", rcode = "data_manage", rgroup = "工具")
     @RequestMapping( {"/admin/database_bund_backup.htm"})
     public void database_bund_backup(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -170,6 +171,7 @@ public class DatabaseManageAction {
         mv.addObject("objs", objs);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "数据库备份删除", value = "/admin/database_del.htm*", rtype = "admin", rname = "数据库管理", rcode = "data_manage", rgroup = "工具")
     @RequestMapping( {"/admin/database_del.htm"})
     public ModelAndView database_del(HttpServletRequest request, HttpServletResponse response, String names) {
@@ -188,6 +190,7 @@ public class DatabaseManageAction {
         mv.addObject("op_title", "删除备份数据成功");
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "数据库导入引导", value = "/admin/database_store.htm*", rtype = "admin", rname = "数据库管理", rcode = "data_manage", rgroup = "工具")
     @RequestMapping( {"/admin/database_store.htm"})
     public ModelAndView database_store(HttpServletRequest request, HttpServletResponse response, String name) {

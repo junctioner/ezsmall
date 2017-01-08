@@ -83,6 +83,7 @@ public class GroupSellerAction {
         mv.addObject("gg_name", gg_name);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家团购添加", value = "/seller/group_add.htm*", rtype = "seller", rname = "团购管理", rcode = "group_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/group_add.htm"})
     public ModelAndView group_add(HttpServletRequest request, HttpServletResponse response) {
@@ -109,6 +110,7 @@ public class GroupSellerAction {
         mv.addObject("groups", groups);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家团购编辑", value = "/seller/group_edit.htm*", rtype = "seller", rname = "团购管理", rcode = "group_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/group_edit.htm"})
     public ModelAndView group_edit(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -138,6 +140,7 @@ public class GroupSellerAction {
         mv.addObject("groups", groups);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家团购商品", value = "/seller/group_goods.htm*", rtype = "seller", rname = "团购管理", rcode = "group_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/group_goods.htm"})
     public ModelAndView group_goods(HttpServletRequest request, HttpServletResponse response) {
@@ -308,6 +311,7 @@ public class GroupSellerAction {
         }
         return ids;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "团购商品删除", value = "/seller/group_del.htm*", rtype = "seller", rname = "团购管理", rcode = "group_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/group_del.htm"})
     public String group_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {

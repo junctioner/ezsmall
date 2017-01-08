@@ -62,6 +62,7 @@ public class WaterMarkSellerAction {
                 mv.addObject("obj", wms.get(0));
             }
         }
+
         return mv;
     }
 

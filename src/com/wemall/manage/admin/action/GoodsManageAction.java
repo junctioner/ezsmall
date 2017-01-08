@@ -159,6 +159,7 @@ public class GoodsManageAction {
             mv.addObject("obj", goods);
             mv.addObject("currentPage", currentPage);
         }
+
         return mv;
     }
 
@@ -186,8 +187,10 @@ public class GoodsManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "商品删除", value = "/admin/goods_del.htm*", rtype = "admin", rname = "商品管理", rcode = "admin_goods", rgroup = "商品")
     @RequestMapping( {"/admin/goods_del.htm"})
     public String goods_del(HttpServletRequest request, String mulitId) throws Exception {

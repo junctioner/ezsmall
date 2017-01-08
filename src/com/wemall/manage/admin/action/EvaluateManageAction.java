@@ -61,6 +61,7 @@ public class EvaluateManageAction {
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "商品评价编辑", value = "/admin/evaluate_edit.htm*", rtype = "admin", rname = "商品评价", rcode = "evaluate_admin", rgroup = "交易")
     @RequestMapping( {"/admin/evaluate_edit.htm"})
     public ModelAndView evaluate_edit(HttpServletRequest request, HttpServletResponse response, String currentPage, String id) {

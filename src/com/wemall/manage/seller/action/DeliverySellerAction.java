@@ -217,6 +217,7 @@ public class DeliverySellerAction {
                                     CommUtil.null2Long(id));
             mv.addObject("obj", obj);
         }
+
         return mv;
     }
 
@@ -292,6 +293,7 @@ public class DeliverySellerAction {
 
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买就送删除", value = "/seller/delivery_del.htm*", rtype = "seller", rname = "买就送", rcode = "delivery_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/delivery_del.htm"})
     public String delivery_del(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId) {

@@ -369,6 +369,7 @@ public class BaseBuyerAction {
                               CommUtil.null2Long(parent_id));
             mv.addObject("obj", obj);
         }
+
         return mv;
     }
 

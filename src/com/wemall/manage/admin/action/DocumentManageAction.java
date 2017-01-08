@@ -83,6 +83,7 @@ public class DocumentManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -111,8 +112,10 @@ public class DocumentManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "系统文章删除", value = "/admin/document_del.htm*", rtype = "admin", rname = "系统文章", rcode = "document_manage", rgroup = "网站")
     @RequestMapping( {"/admin/document_del.htm"})
     public String delete(HttpServletRequest request, String mulitId) {

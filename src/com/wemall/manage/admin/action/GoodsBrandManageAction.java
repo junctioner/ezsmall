@@ -113,6 +113,7 @@ public class GoodsBrandManageAction {
         mv.addObject("category", category);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "商品品牌审核通过", value = "/admin/goods_brands_pass.htm*", rtype = "admin", rname = "品牌管理", rcode = "goods_brand", rgroup = "商品")
     @RequestMapping( {"/admin/goods_brands_pass.htm"})
     public String goods_brands_pass(HttpServletRequest request, String id) {
@@ -124,6 +125,7 @@ public class GoodsBrandManageAction {
         }
         return "redirect:goods_brand_audit.htm";
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "商品品牌审核拒绝", value = "/admin/goods_brands_refuse.htm*", rtype = "admin", rname = "品牌管理", rcode = "goods_brand", rgroup = "商品")
     @RequestMapping( {"/admin/goods_brands_refuse.htm"})
     public String goods_brands_refuse(HttpServletRequest request, String id) {
@@ -244,8 +246,10 @@ public class GoodsBrandManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "商品品牌删除", value = "/admin/goods_brand_del.htm*", rtype = "admin", rname = "品牌管理", rcode = "goods_brand", rgroup = "商品")
     @RequestMapping( {"/admin/goods_brand_del.htm"})
     public String delete(HttpServletRequest request, String mulitId, String audit, String currentPage) {

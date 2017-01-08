@@ -129,6 +129,7 @@ public class NavigationManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -173,8 +174,10 @@ public class NavigationManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "页面导航删除", value = "/admin/navigation_del.htm*", rtype = "admin", rname = "页面导航", rcode = "nav_manage", rgroup = "网站")
     @RequestMapping( {"/admin/navigation_del.htm"})
     public String delete(HttpServletRequest request, String mulitId) {

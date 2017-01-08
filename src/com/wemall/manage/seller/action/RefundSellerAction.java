@@ -75,6 +75,7 @@ public class RefundSellerAction {
         mv.addObject("endTime", endTime);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家退款列表", value = "/seller/refund_view.htm*", rtype = "seller", rname = "退款管理", rcode = "refund_seller", rgroup = "客户服务")
     @RequestMapping( {"/seller/refund_view.htm"})
     public ModelAndView refund_view(HttpServletRequest request, HttpServletResponse response, String id) {

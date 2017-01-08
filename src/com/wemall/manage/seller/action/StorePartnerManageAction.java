@@ -90,6 +90,7 @@ public class StorePartnerManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -122,6 +123,7 @@ public class StorePartnerManageAction {
         mv.addObject("op_title", "保存友情链接成功");
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家合作伙伴删除", value = "/seller/store_partner_del.htm*", rtype = "seller", rname = "友情链接", rcode = "store_partner_seller", rgroup = "店铺设置")
     @RequestMapping( {"/seller/store_partner_del.htm"})
     public String store_partner_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {

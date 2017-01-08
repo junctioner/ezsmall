@@ -84,6 +84,7 @@ public class IntegralGoodsManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 
@@ -104,6 +105,7 @@ public class IntegralGoodsManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 
@@ -130,6 +132,7 @@ public class IntegralGoodsManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 
@@ -235,8 +238,10 @@ public class IntegralGoodsManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "积分礼品删除", value = "/admin/integral_goods_del.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
     @RequestMapping( {"/admin/integral_goods_del.htm"})
     public String integral_goods_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
@@ -295,8 +300,10 @@ public class IntegralGoodsManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "积分礼品兑换详情", value = "/admin/integral_order_view.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
     @RequestMapping( {"/admin/integral_order_view.htm"})
     public ModelAndView integral_order_view(HttpServletRequest request, HttpServletResponse response, String currentPage, String id) {
@@ -316,8 +323,10 @@ public class IntegralGoodsManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "取消积分订单", value = "/admin/integral_order_cancel.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
     @RequestMapping( {"/admin/integral_order_cancel.htm"})
     public ModelAndView integral_order_cancel(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -357,8 +366,10 @@ public class IntegralGoodsManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "订单确认付款", value = "/admin/integral_order_payok.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
     @RequestMapping( {"/admin/integral_order_payok.htm"})
     public ModelAndView integral_order_payok(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -381,8 +392,10 @@ public class IntegralGoodsManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "订单删除", value = "/admin/integral_order_del.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
     @RequestMapping( {"/admin/integral_order_del.htm"})
     public ModelAndView integral_order_del(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -406,8 +419,10 @@ public class IntegralGoodsManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "订单费用调整", value = "/admin/integral_order_fee.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
     @RequestMapping( {"/admin/integral_order_fee.htm"})
     public ModelAndView integral_order_fee(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -428,6 +443,7 @@ public class IntegralGoodsManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 
@@ -447,6 +463,7 @@ public class IntegralGoodsManageAction {
         }
         return "redirect:integral_order.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "发货设置", value = "/admin/integral_order_ship.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
     @RequestMapping( {"/admin/integral_order_ship.htm"})
     public ModelAndView integral_order_ship(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -467,6 +484,7 @@ public class IntegralGoodsManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 

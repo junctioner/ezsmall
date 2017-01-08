@@ -92,6 +92,7 @@ public class TransportSellerAction {
         mv.addObject("transportTools", this.transportTools);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家运费模板复制", value = "/seller/transport_copy.htm*", rtype = "seller", rname = "物流工具", rcode = "transport_seller", rgroup = "交易管理")
     @RequestMapping( {"/seller/transport_copy.htm"})
     public ModelAndView transport_copy(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -231,6 +232,7 @@ public class TransportSellerAction {
             this.transportService.update(transport);
         return "redirect:transport_success.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家运费模板保存成功", value = "/seller/transport_success.htm*", rtype = "seller", rname = "物流工具", rcode = "transport_seller", rgroup = "交易管理")
     @RequestMapping( {"/seller/transport_success.htm"})
     public ModelAndView transport_success(HttpServletRequest request, HttpServletResponse response, String currentPage) {
@@ -241,6 +243,7 @@ public class TransportSellerAction {
                      "/seller/transport_list.htm?currentPage=" + currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家运费模板删除", value = "/seller/transport_del.htm*", rtype = "seller", rname = "物流工具", rcode = "transport_seller", rgroup = "交易管理")
     @RequestMapping( {"/seller/transport_del.htm"})
     public String transport_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
@@ -253,6 +256,7 @@ public class TransportSellerAction {
         }
         return "redirect:transport_list.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家运费模板详细信息", value = "/seller/transport_info.htm*", rtype = "seller", rname = "物流工具", rcode = "transport_seller", rgroup = "交易管理")
     @RequestMapping( {"/seller/transport_info.htm"})
     public ModelAndView transport_info(HttpServletRequest request, HttpServletResponse response, String type, String id) {
@@ -275,6 +279,7 @@ public class TransportSellerAction {
             mv.addObject("obj", transport);
             mv.addObject("transportTools", this.transportTools);
         }
+
         return mv;
     }
 

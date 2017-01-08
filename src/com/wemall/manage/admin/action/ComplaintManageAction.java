@@ -97,6 +97,7 @@ public class ComplaintManageAction {
         mv.addObject("endTime", endTime);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "投诉设置", value = "/admin/complaint_set.htm*", rtype = "admin", rname = "投诉管理", rcode = "complaint_manage", rgroup = "交易")
     @RequestMapping( {"/admin/complaint_set.htm"})
     public ModelAndView complaint_set(HttpServletRequest request, HttpServletResponse response, String currentPage) {
@@ -106,6 +107,7 @@ public class ComplaintManageAction {
         mv.addObject("config", this.configService.getSysConfig());
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "投诉设置保存", value = "/admin/complaint_set_save.htm*", rtype = "admin", rname = "投诉管理", rcode = "complaint_manage", rgroup = "交易")
     @RequestMapping( {"/admin/complaint_set_save.htm"})
     public ModelAndView complaint_set_save(HttpServletRequest request, HttpServletResponse response, String id, String complaint_time) {
@@ -126,6 +128,7 @@ public class ComplaintManageAction {
                      "/admin/complaint_set.htm");
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "投诉详情", value = "/admin/complaint_view.htm*", rtype = "admin", rname = "投诉管理", rcode = "complaint_manage", rgroup = "交易")
     @RequestMapping( {"/admin/complaint_view.htm"})
     public ModelAndView complaint_view(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -137,6 +140,7 @@ public class ComplaintManageAction {
         mv.addObject("obj", obj);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "投诉图片", value = "/admin/complaint_img.htm*", rtype = "admin", rname = "投诉管理", rcode = "complaint_manage", rgroup = "交易")
     @RequestMapping( {"/admin/complaint_img.htm"})
     public ModelAndView complaint_img(HttpServletRequest request, HttpServletResponse response, String id, String type) {
@@ -149,6 +153,7 @@ public class ComplaintManageAction {
         mv.addObject("type", type);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "投诉审核", value = "/admin/complaint_audit.htm*", rtype = "admin", rname = "投诉管理", rcode = "complaint_manage", rgroup = "交易")
     @RequestMapping( {"/admin/complaint_audit.htm"})
     public ModelAndView complaint_audit(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -164,6 +169,7 @@ public class ComplaintManageAction {
                      "/admin/complaint_list.htm");
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "投诉关闭", value = "/admin/complaint_close.htm*", rtype = "admin", rname = "投诉管理", rcode = "complaint_manage", rgroup = "交易")
     @RequestMapping( {"/admin/complaint_close.htm"})
     public ModelAndView complaint_close(HttpServletRequest request, HttpServletResponse response, String id, String handle_content) {

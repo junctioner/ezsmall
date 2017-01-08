@@ -155,6 +155,7 @@ public class SpareGoodsSellerAction {
                          "/seller/spare_goods.htm");
             mv.addObject("op_title", "您所访问的地址不存在!");
         }
+
         return mv;
     }
 
@@ -189,6 +190,7 @@ public class SpareGoodsSellerAction {
             mv.addObject("url", CommUtil.getURL(request) +
                          "/seller/spare_goods.htm?currentPage=" + currentPage);
         }
+
         return mv;
     }
 
@@ -218,6 +220,7 @@ public class SpareGoodsSellerAction {
                              "&&type=" + type);
             }
         }
+
         return mv;
     }
 
@@ -325,6 +328,7 @@ public class SpareGoodsSellerAction {
         if (area_mark.equals("city")) {
             mv.addObject("area_mark", "last");
         }
+
         return mv;
     }
 

@@ -173,6 +173,7 @@ public class SpareGoodsManageAction {
             obj.setParent(parent);
             mv.addObject("obj", obj);
         }
+
         return mv;
     }
 
@@ -231,8 +232,10 @@ public class SpareGoodsManageAction {
             mv.addObject("add_url", add_url + "?pid=" + pid + "&currentPage=" +
                          currentPage);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "闲置商品分类删除", value = "/admin/sparegoods_class_del.htm*", rtype = "admin", rname = "闲置分类", rcode = "sparegoods_class_admin", rgroup = "闲置")
     @RequestMapping( {"/admin/sparegoods_class_del.htm"})
     public String sparegoods_class_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
@@ -333,6 +336,7 @@ public class SpareGoodsManageAction {
         mv.addObject("gcs", gcs);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "闲置商品分类验证是否存在", value = "/admin/sparegoods_class_verify.htm*", rtype = "admin", rname = "闲置分类", rcode = "sparegoods_class_admin", rgroup = "闲置")
     @RequestMapping( {"/admin/sparegoods_class_verify.htm"})
     public void sparegoods_class_verify(HttpServletRequest request, HttpServletResponse response, String className, String pid) {

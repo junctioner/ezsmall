@@ -84,6 +84,7 @@ public class AlbumSellerAction {
         mv.addObject("albumViewTools", this.albumViewTools);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "新增相册", value = "/seller/album_add.htm*", rtype = "seller", rname = "图片管理", rcode = "album_seller", rgroup = "其他设置")
     @RequestMapping( {"/seller/album_add.htm"})
     public ModelAndView album_add(HttpServletRequest request, HttpServletResponse response, String currentPage) {
@@ -94,6 +95,7 @@ public class AlbumSellerAction {
         mv.addObject("currentPage", currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "新增相册", value = "/seller/album_edit.htm*", rtype = "seller", rname = "图片管理", rcode = "album_seller", rgroup = "其他设置")
     @RequestMapping( {"/seller/album_edit.htm"})
     public ModelAndView album_edit(HttpServletRequest request, HttpServletResponse response, String currentPage, String id) {
@@ -106,6 +108,7 @@ public class AlbumSellerAction {
         mv.addObject("currentPage", currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "相册保存", value = "/seller/album_save.htm*", rtype = "seller", rname = "图片管理", rcode = "album_seller", rgroup = "其他设置")
     @RequestMapping( {"/seller/album_save.htm"})
     public String album_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -126,6 +129,7 @@ public class AlbumSellerAction {
             ret = this.albumService.update(album);
         return "redirect:album.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "图片上传", value = "/seller/album_upload.htm*", rtype = "seller", rname = "图片管理", rcode = "album_seller", rgroup = "其他设置")
     @RequestMapping( {"/seller/album_upload.htm"})
     public ModelAndView album_upload(HttpServletRequest request, HttpServletResponse response, String currentPage) {
@@ -142,6 +146,7 @@ public class AlbumSellerAction {
         mv.addObject("currentPage", currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "相册删除", value = "/seller/album_del.htm*", rtype = "seller", rname = "图片管理", rcode = "album_seller", rgroup = "其他设置")
     @RequestMapping( {"/seller/album_del.htm"})
     public String album_del(HttpServletRequest request, String mulitId) {
@@ -210,6 +215,7 @@ public class AlbumSellerAction {
         return "redirect:album_image.htm?id=" + album_id + "&currentPage=" +
                currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "图片列表", value = "/seller/album_image.htm*", rtype = "seller", rname = "图片管理", rcode = "album_seller", rgroup = "其他设置")
     @RequestMapping( {"/seller/album_image.htm"})
     public ModelAndView album_image(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -246,6 +252,7 @@ public class AlbumSellerAction {
         mv.addObject("album", album);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "图片幻灯查看", value = "/seller/image_slide.htm*", rtype = "seller", rname = "图片管理", rcode = "album_seller", rgroup = "其他设置")
     @RequestMapping( {"/seller/image_slide.htm"})
     public ModelAndView image_slide(HttpServletRequest request, HttpServletResponse response, String album_id, String id) {
@@ -261,6 +268,7 @@ public class AlbumSellerAction {
         mv.addObject("current_img", current_img);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "相册内图片删除", value = "/seller/album_img_del.htm*", rtype = "seller", rname = "图片管理", rcode = "album_seller", rgroup = "其他设置")
     @RequestMapping( {"/seller/album_img_del.htm"})
     public String album_img_del(HttpServletRequest request, String mulitId, String album_id, String currentPage) {
@@ -288,6 +296,7 @@ public class AlbumSellerAction {
         return "redirect:album_image.htm?id=" + album_id + "&currentPage=" +
                currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "图片转移相册", value = "/seller/album_watermark.htm*", rtype = "seller", rname = "图片管理", rcode = "album_seller", rgroup = "其他设置")
     @RequestMapping( {"/seller/album_watermark.htm"})
     public String album_watermark(HttpServletRequest request, String mulitId, String album_id, String to_album_id, String currentPage) {

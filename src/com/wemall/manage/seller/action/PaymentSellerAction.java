@@ -61,8 +61,10 @@ public class PaymentSellerAction {
             mv.addObject("map", map);
             mv.addObject("paymentTools", this.paymentTools);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "支付方式安装", value = "/seller/payment_install.htm*", rtype = "seller", rname = "支付方式", rcode = "payment_seller", rgroup = "交易管理")
     @RequestMapping( {"/seller/payment_install.htm"})
     public ModelAndView payment_install(HttpServletRequest request, HttpServletResponse response, String mark) {
@@ -86,6 +88,7 @@ public class PaymentSellerAction {
 
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "支付方式卸载", value = "/seller/payment_uninstall.htm*", rtype = "seller", rname = "支付方式", rcode = "payment_seller", rgroup = "交易管理")
     @RequestMapping( {"/seller/payment_uninstall.htm"})
     public ModelAndView payment_uninstall(HttpServletRequest request, HttpServletResponse response, String mark) {
@@ -112,6 +115,7 @@ public class PaymentSellerAction {
         mv.addObject("url", CommUtil.getURL(request) + "/seller/payment.htm");
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "支付方式编辑", value = "/seller/payment_edit.htm*", rtype = "seller", rname = "支付方式", rcode = "payment_seller", rgroup = "交易管理")
     @RequestMapping( {"/seller/payment_edit.htm"})
     public ModelAndView payment_edit(HttpServletRequest request, HttpServletResponse response, String mark) {
@@ -131,6 +135,7 @@ public class PaymentSellerAction {
             mv.addObject("obj", objs.get(0));
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "支付方式保存", value = "/seller/payment_save.htm*", rtype = "seller", rname = "支付方式", rcode = "payment_seller", rgroup = "交易管理")
     @RequestMapping( {"/seller/payment_save.htm"})
     public ModelAndView payment_save(HttpServletRequest request, HttpServletResponse response, String id) {

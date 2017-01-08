@@ -90,6 +90,7 @@ public class StoreNavSellerAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -121,6 +122,7 @@ public class StoreNavSellerAction {
         mv.addObject("op_title", "保存导航成功");
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家导航删除", value = "/seller/store_nav_del.htm*", rtype = "seller", rname = "导航管理", rcode = "store_nav", rgroup = "店铺设置")
     @RequestMapping( {"/seller/store_nav_del.htm"})
     public String store_nav_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {

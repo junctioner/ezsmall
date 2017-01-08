@@ -72,6 +72,7 @@ public class ConsultSellerAction {
         mv.addObject("reply", CommUtil.null2String(reply));
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家咨询回复", value = "/seller/consult_reply.htm*", rtype = "seller", rname = "咨询管理", rcode = "consult_seller", rgroup = "客户服务")
     @RequestMapping( {"/seller/consult_reply.htm"})
     public ModelAndView consult_reply(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {

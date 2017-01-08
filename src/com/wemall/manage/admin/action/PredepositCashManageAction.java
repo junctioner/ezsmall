@@ -83,6 +83,7 @@ public class PredepositCashManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 
@@ -108,6 +109,7 @@ public class PredepositCashManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 
@@ -139,8 +141,10 @@ public class PredepositCashManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "提现申请详情", value = "/admin/predeposit_cash_view.htm*", rtype = "admin", rname = "预存款管理", rcode = "predeposit", rgroup = "会员")
     @RequestMapping( {"/admin/predeposit_cash_view.htm"})
     public ModelAndView predeposit_cash_view(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -162,6 +166,7 @@ public class PredepositCashManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 }

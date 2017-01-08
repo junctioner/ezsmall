@@ -121,6 +121,7 @@ public class ComplaintSellerAction {
         }
         return (ModelAndView)mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家被投诉列表", value = "/seller/complaint.htm*", rtype = "seller", rname = "投诉管理", rcode = "complaint_seller", rgroup = "客户服务")
     @RequestMapping( {"/seller/complaint.htm"})
     public ModelAndView complaint_seller(HttpServletRequest request, HttpServletResponse response, String currentPage, String status) {
@@ -145,6 +146,7 @@ public class ComplaintSellerAction {
         mv.addObject("status", status);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家查看投诉详情", value = "/seller/complaint_view.htm*", rtype = "seller", rname = "投诉管理", rcode = "complaint_seller", rgroup = "客户服务")
     @RequestMapping( {"/seller/complaint_view.htm"})
     public ModelAndView complaint_view(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -168,8 +170,10 @@ public class ComplaintSellerAction {
             mv.addObject("url", CommUtil.getURL(request) +
                          "/seller/complaint.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家查看投诉详情", value = "/seller/complaint_appeal.htm*", rtype = "seller", rname = "投诉管理", rcode = "complaint_seller", rgroup = "客户服务")
     @RequestMapping( {"/seller/complaint_appeal.htm"})
     public ModelAndView complaint_appeal(HttpServletRequest request, HttpServletResponse response, String id, String to_user_content) {

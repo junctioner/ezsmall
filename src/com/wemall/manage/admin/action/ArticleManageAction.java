@@ -104,6 +104,7 @@ public class ArticleManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -135,8 +136,10 @@ public class ArticleManageAction {
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage +
                          "&class_id=" + class_id);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "文章删除", value = "/admin/article_del.htm*", rtype = "admin", rname = "文章管理", rcode = "article", rgroup = "网站")
     @RequestMapping( {"/admin/article_del.htm"})
     public String delete(HttpServletRequest request, String mulitId) {

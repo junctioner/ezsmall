@@ -90,6 +90,7 @@ public class GoodsBrandSellerAction extends IdEntity {
         mv.addObject("edit", Boolean.valueOf(true));
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家品牌删除", value = "/seller/usergoodsbrand_dele.htm*", rtype = "seller", rname = "品牌申请", rcode = "usergoodsbrand_seller", rgroup = "商品管理")
     @RequestMapping( {"/seller/usergoodsbrand_dele.htm"})
     public String usergoodsbrand_dele(HttpServletRequest request, String id, String currentPage) {

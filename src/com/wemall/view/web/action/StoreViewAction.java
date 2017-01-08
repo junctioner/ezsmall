@@ -213,6 +213,7 @@ public class StoreViewAction {
             mv.addObject("op_title", "店铺信息错误");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -244,6 +245,7 @@ public class StoreViewAction {
             mv.addObject("op_title", "店铺信息错误");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -277,6 +279,7 @@ public class StoreViewAction {
             mv.addObject("op_title", "店铺信息错误");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -301,6 +304,7 @@ public class StoreViewAction {
             mv.addObject("op_title", "店铺信息错误");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 

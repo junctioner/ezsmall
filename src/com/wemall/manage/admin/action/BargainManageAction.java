@@ -147,6 +147,7 @@ public class BargainManageAction {
             .addObject("add_url", add_url + "?currentPage=" +
                        currentPage);
         }
+
         return mv;
     }
 
@@ -176,6 +177,7 @@ public class BargainManageAction {
                          "/admin/bargain_list.htm");
             mv.addObject("op_tip", "删除成功已恢复通用设置");
         }
+
         return mv;
     }
 
@@ -233,6 +235,7 @@ public class BargainManageAction {
         mv.addObject("dates", dates);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "时间查询设置", value = "/admin/date_query_set.htm*", rtype = "admin", rname = "天天特价", rcode = "bargain_admin", rgroup = "运营")
     @RequestMapping( {"/admin/date_query_set.htm"})
     public ModelAndView date_query_set(HttpServletRequest request, HttpServletResponse response, String count, String date) {
@@ -398,6 +401,7 @@ public class BargainManageAction {
         }
         return uri;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "特价商品审核数超出", value = "/admin/bargain_audits_out.htm*", rtype = "admin", rname = "天天特价", rcode = "bargain_admin", rgroup = "运营")
     @RequestMapping( {"/admin/bargain_audits_out.htm"})
     public ModelAndView bargain_audits_out(HttpServletRequest request, HttpServletResponse response) {

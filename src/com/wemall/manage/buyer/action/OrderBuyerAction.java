@@ -239,6 +239,7 @@ public class OrderBuyerAction {
             mv.addObject("op_title", "您没有编号为" + id + "的订单！");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/order.htm");
         }
+
         return mv;
     }
 
@@ -304,6 +305,7 @@ public class OrderBuyerAction {
             mv.addObject("op_title", "您没有编号为" + id + "的订单！");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/order.htm");
         }
+
         return mv;
     }
 
@@ -399,6 +401,7 @@ public class OrderBuyerAction {
         String url = "redirect:order.htm?currentPage=" + currentPage;
         return url;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买家评价", value = "/buyer/order_evaluate.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/order_evaluate.htm"})
     public ModelAndView order_evaluate(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -421,8 +424,10 @@ public class OrderBuyerAction {
             mv.addObject("op_title", "您没有编号为" + id + "的订单！");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/order.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买家评价保存", value = "/buyer/order_evaluate_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/order_evaluate_save.htm"})
     public ModelAndView order_evaluate_save(HttpServletRequest request, HttpServletResponse response, String id) throws Exception {
@@ -534,6 +539,7 @@ public class OrderBuyerAction {
 
         return "redirect:order.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买家订单详情", value = "/buyer/order_view.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/order_view.htm"})
     public ModelAndView order_view(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -557,8 +563,10 @@ public class OrderBuyerAction {
             mv.addObject("op_title", "您没有编号为" + id + "的订单！");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/order.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买家物流详情", value = "/buyer/ship_view.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/ship_view.htm"})
     public ModelAndView order_ship_view(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -591,8 +599,10 @@ public class OrderBuyerAction {
             mv.addObject("op_title", "您查询的物流不存在！");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/order.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "物流跟踪查询", value = "/buyer/query_ship.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/query_ship.htm"})
     public ModelAndView query_ship(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -604,6 +614,7 @@ public class OrderBuyerAction {
         mv.addObject("transInfo", info);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "虚拟商品信息", value = "/buyer/order_seller_intro.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/order_seller_intro.htm"})
     public ModelAndView order_seller_intro(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -618,8 +629,10 @@ public class OrderBuyerAction {
                 .equals(SecurityUserHolder.getCurrentUser().getId())) {
             mv.addObject("obj", obj);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买家退货申请", value = "/buyer/order_return_apply.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/order_return_apply.htm"})
     public ModelAndView order_return_apply(HttpServletRequest request, HttpServletResponse response, String id, String view) {
@@ -642,6 +655,7 @@ public class OrderBuyerAction {
             mv.addObject("op_title", "您没有编号为" + id + "的订单！");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/order.htm");
         }
+
         return mv;
     }
 
@@ -667,6 +681,7 @@ public class OrderBuyerAction {
         }
         return "redirect:order.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买家退商品流信息", value = "/buyer/order_return_ship.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/order_return_ship.htm"})
     public ModelAndView order_return_ship(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -711,6 +726,7 @@ public class OrderBuyerAction {
             mv.addObject("op_title", "您没有编号为" + id + "的订单！");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/order.htm");
         }
+
         return mv;
     }
 

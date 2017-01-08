@@ -64,8 +64,10 @@ public class IntegralOrderBuyerAction {
             mv.addObject("op_title", "系统未开启积分商城");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/index.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "取消订单", value = "/buyer/integral_order_cancel.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/integral_order_cancel.htm"})
     public ModelAndView integral_order_cancel(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -110,6 +112,7 @@ public class IntegralOrderBuyerAction {
 
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "积分订单详情", value = "/buyer/integral_order_view.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/integral_order_view.htm"})
     public ModelAndView integral_order_view(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -135,6 +138,7 @@ public class IntegralOrderBuyerAction {
 
         label172: return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "确认收货", value = "/buyer/integral_order_cofirm.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/integral_order_cofirm.htm"})
     public ModelAndView integral_order_cofirm(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -159,6 +163,7 @@ public class IntegralOrderBuyerAction {
 
         label161: return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "确认收货保存", value = "/buyer/integral_order_cofirm_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/integral_order_cofirm_save.htm"})
     public ModelAndView integral_order_cofirm_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {

@@ -177,6 +177,7 @@ public class ChattingViewAction {
                                                      .getCurrentPage(), pList.getPages()));
             }
         }
+
         return mv;
     }
 

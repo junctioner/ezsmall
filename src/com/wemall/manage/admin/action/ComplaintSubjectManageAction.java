@@ -81,6 +81,7 @@ public class ComplaintSubjectManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -110,8 +111,10 @@ public class ComplaintSubjectManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "投诉主题删除", value = "/admin/complaintsubject_del.htm*", rtype = "admin", rname = "投诉管理", rcode = "complaint_manage", rgroup = "交易")
     @RequestMapping( {"/admin/complaintsubject_del.htm"})
     public String delete(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {

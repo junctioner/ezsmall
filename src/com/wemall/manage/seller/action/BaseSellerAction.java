@@ -90,6 +90,7 @@ public class BaseSellerAction {
         mv.addObject("areaViewTools", this.areaViewTools);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家中心导航", value = "/seller/nav.htm*", rtype = "buyer", rname = "卖家中心导航", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/seller/nav.htm"})
     public ModelAndView nav(HttpServletRequest request, HttpServletResponse response) {
@@ -106,6 +107,7 @@ public class BaseSellerAction {
         mv.addObject("user", this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId()));
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家中心导航", value = "/seller/head.htm*", rtype = "buyer", rname = "卖家中心导航", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/seller/nav_head.htm"})
     public ModelAndView nav_head(HttpServletRequest request, HttpServletResponse response) {
@@ -120,6 +122,7 @@ public class BaseSellerAction {
                          SecurityUserHolder.getCurrentUser().getId()));
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家中心快捷功能设置", value = "/seller/store_quick_menu.htm*", rtype = "seller", rname = "用户中心", rcode = "user_center_seller", rgroup = "用户中心")
     @RequestMapping( {"/seller/store_quick_menu.htm"})
     public ModelAndView store_quick_menu(HttpServletRequest request, HttpServletResponse response) {
@@ -129,6 +132,7 @@ public class BaseSellerAction {
             this.userConfigService.getUserConfig(), 0, request, response);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家中心快捷功能设置保存", value = "/seller/store_quick_menu_save.htm*", rtype = "seller", rname = "用户中心", rcode = "user_center_seller", rgroup = "用户中心")
     @RequestMapping( {"/seller/store_quick_menu_save.htm"})
     public ModelAndView store_quick_menu_save(HttpServletRequest request, HttpServletResponse response, String menus) {

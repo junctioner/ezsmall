@@ -122,8 +122,10 @@ public class StoreSellerAction {
             mv.addObject("op_title", "系统暂时关闭了申请店铺");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "申请店铺第二步", value = "/seller/store_create_second.htm*", rtype = "buyer", rname = "申请店铺", rcode = "create_store", rgroup = "申请店铺")
     @RequestMapping( {"/seller/store_create_second.htm"})
     public ModelAndView store_create_second(HttpServletRequest request, HttpServletResponse response, String grade_id) {
@@ -193,6 +195,7 @@ public class StoreSellerAction {
             mv.addObject("op_title", "系统暂时关闭了申请店铺");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -295,8 +298,10 @@ public class StoreSellerAction {
             mv.addObject("op_title", "表单已经失效");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "店铺设置", value = "/seller/store_set.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
     @RequestMapping( {"/seller/store_set.htm"})
     public ModelAndView store_set(HttpServletRequest request, HttpServletResponse response) {
@@ -428,6 +433,7 @@ public class StoreSellerAction {
         mv.addObject("url", CommUtil.getURL(request) + "/seller/store_set.htm");
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "店铺地图", value = "/seller/store_map.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
     @RequestMapping( {"/seller/store_map.htm"})
     public ModelAndView store_map(HttpServletRequest request, HttpServletResponse response, String map_type) {
@@ -447,6 +453,7 @@ public class StoreSellerAction {
         mv.addObject("store", store);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "店铺地图保存", value = "/seller/store_map_save.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
     @RequestMapping( {"/seller/store_map_save.htm"})
     public ModelAndView store_map_save(HttpServletRequest request, HttpServletResponse response, String store_lat, String store_lng) {
@@ -463,6 +470,7 @@ public class StoreSellerAction {
         mv.addObject("url", CommUtil.getURL(request) + "/seller/store_map.htm");
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "主题设置", value = "/seller/store_theme.htm*", rtype = "seller", rname = "主题设置", rcode = "store_theme_seller", rgroup = "店铺设置")
     @RequestMapping( {"/seller/store_theme.htm"})
     public ModelAndView store_theme(HttpServletRequest request, HttpServletResponse response) {
@@ -475,6 +483,7 @@ public class StoreSellerAction {
         mv.addObject("store", store);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "主题设置", value = "/seller/store_theme_save.htm*", rtype = "seller", rname = "主题设置", rcode = "store_theme_seller", rgroup = "店铺设置")
     @RequestMapping( {"/seller/store_theme_save.htm"})
     public String store_theme_set(HttpServletRequest request, HttpServletResponse response, String theme) {
@@ -486,6 +495,7 @@ public class StoreSellerAction {
         }
         return "redirect:store_theme.htm";
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "店铺认证", value = "/seller/store_approve.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
     @RequestMapping( {"/seller/store_approve.htm"})
     public ModelAndView store_approve(HttpServletRequest request, HttpServletResponse response) {
@@ -498,6 +508,7 @@ public class StoreSellerAction {
         mv.addObject("store", store);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "店铺认证保存", value = "/seller/store_approve_save.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
     @RequestMapping( {"/seller/store_approve_save.htm"})
     public String store_approve_save(HttpServletRequest request, HttpServletResponse response) {
@@ -586,6 +597,7 @@ public class StoreSellerAction {
         this.storeService.update(store);
         return "redirect:store_approve.htm";
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "店铺升级", value = "/seller/store_grade.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
     @RequestMapping( {"/seller/store_grade.htm"})
     public ModelAndView store_grade(HttpServletRequest request, HttpServletResponse response) {
@@ -610,8 +622,10 @@ public class StoreSellerAction {
             mv.addObject("url", CommUtil.getURL(request) +
                          "/seller/store_set.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "店铺升级申请完成", value = "/seller/store_grade_finish.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
     @RequestMapping( {"/seller/store_grade_finish.htm"})
     public ModelAndView store_grade_finish(HttpServletRequest request, HttpServletResponse response, String grade_id) {
@@ -633,6 +647,7 @@ public class StoreSellerAction {
         mv.addObject("url", CommUtil.getURL(request) + "/seller/store_set.htm");
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "店铺幻灯", value = "/seller/store_slide.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
     @RequestMapping( {"/seller/store_slide.htm"})
     public ModelAndView store_slide(HttpServletRequest request, HttpServletResponse response) {
@@ -645,6 +660,7 @@ public class StoreSellerAction {
         mv.addObject("store", store);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "店铺幻灯保存", value = "/seller/store_slide_save.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
     @RequestMapping( {"/seller/store_slide_save.htm"})
     public ModelAndView store_slide_save(HttpServletRequest request, HttpServletResponse response) {

@@ -304,6 +304,7 @@ public class PayViewAction {
             mv.addObject("op_title", "支付回调失败！");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -755,6 +756,7 @@ public class PayViewAction {
             mv.addObject("op_title", "快钱支付失败！");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -1220,6 +1222,7 @@ public class PayViewAction {
             mv.addObject("op_title", "财付通认证签名失败！");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -1559,6 +1562,7 @@ public class PayViewAction {
             mv.addObject("op_title", "Paypal支付失败");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 

@@ -88,6 +88,7 @@ public class CombinSellerAction {
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "申请组合销售", value = "/seller/combin_apply.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/combin_apply.htm"})
     public ModelAndView combin_apply(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -132,6 +133,7 @@ public class CombinSellerAction {
         .setAttribute("combin_session", combin_session);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "销售组合编辑", value = "/seller/combin_edit.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/combin_edit.htm"})
     public ModelAndView combin_edit(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -230,6 +232,7 @@ public class CombinSellerAction {
                      "/seller/combin.htm?currentPage=" + currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "组合销售删除", value = "/seller/combin_del.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/combin_del.htm"})
     public String delivery_del(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId) {
@@ -251,6 +254,7 @@ public class CombinSellerAction {
         }
         return "redirect:combin.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "组合销售套餐购买", value = "/seller/combin_buy.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/combin_buy.htm"})
     public ModelAndView combin_buy(HttpServletRequest request, HttpServletResponse response) {
@@ -263,6 +267,7 @@ public class CombinSellerAction {
         mv.addObject("user", user);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "组合销售套餐购买保存", value = "/seller/combin_buy_save.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/combin_buy_save.htm"})
     public String combin_buy_save(HttpServletRequest request, HttpServletResponse response, String count) {

@@ -127,6 +127,7 @@ public class GoodsFloorManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -161,8 +162,10 @@ public class GoodsFloorManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "楼层分类删除", value = "/admin/goods_floor_del.htm*", rtype = "admin", rname = "首页楼层", rcode = "goods_floor", rgroup = "商品")
     @RequestMapping( {"/admin/goods_floor_del.htm"})
     public String goods_floor_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
@@ -247,6 +250,7 @@ public class GoodsFloorManageAction {
         mv.addObject("url", CommUtil.getURL(request));
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "楼层模板商品分类编辑", value = "/admin/goods_floor_class.htm*", rtype = "admin", rname = "首页楼层", rcode = "goods_floor", rgroup = "商品")
     @RequestMapping( {"/admin/goods_floor_class.htm"})
     public ModelAndView goods_floor_class(HttpServletRequest request, HttpServletResponse response, String currentPage, String id) {
@@ -265,6 +269,7 @@ public class GoodsFloorManageAction {
         mv.addObject("currentPage", currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "楼层模板商品分类加载", value = "/admin/goods_floor_class_load.htm*", rtype = "admin", rname = "首页楼层", rcode = "goods_floor", rgroup = "商品")
     @RequestMapping( {"/admin/goods_floor_class_load.htm"})
     public ModelAndView goods_floor_class_load(HttpServletRequest request, HttpServletResponse response, String currentPage, String gc_id) {
@@ -277,6 +282,7 @@ public class GoodsFloorManageAction {
         mv.addObject("gc", gc);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "楼层模板商品分类保存", value = "/admin/goods_floor_class_save.htm*", rtype = "admin", rname = "首页楼层", rcode = "goods_floor", rgroup = "商品")
     @RequestMapping( {"/admin/goods_floor_class_save.htm"})
     public String goods_floor_class_save(HttpServletRequest request, HttpServletResponse response, String id, String ids, String gf_name) {
@@ -305,6 +311,7 @@ public class GoodsFloorManageAction {
         this.goodsfloorService.update(obj);
         return "redirect:goods_floor_template.htm?id=" + id;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "楼层模板分类商品编辑", value = "/admin/goods_floor_gc_goods.htm*", rtype = "admin", rname = "首页楼层", rcode = "goods_floor", rgroup = "商品")
     @RequestMapping( {"/admin/goods_floor_gc_goods.htm"})
     public ModelAndView goods_floor_gc_goods(HttpServletRequest request, HttpServletResponse response, String currentPage, String id) {
@@ -323,6 +330,7 @@ public class GoodsFloorManageAction {
         mv.addObject("currentPage", currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "楼层模板分类商品保存", value = "/admin/goods_floor_gc_goods_save.htm*", rtype = "admin", rname = "首页楼层", rcode = "goods_floor", rgroup = "商品")
     @RequestMapping( {"/admin/goods_floor_gc_goods_save.htm"})
     public String goods_floor_gc_goods_save(HttpServletRequest request, HttpServletResponse response, String gf_name, String id, String ids) {
@@ -342,6 +350,7 @@ public class GoodsFloorManageAction {
         return "redirect:goods_floor_template.htm?id=" +
                obj.getParent().getId() + "&tab=" + id;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "楼层模板右侧商品列表编辑", value = "/admin/goods_floor_list_goods.htm*", rtype = "admin", rname = "首页楼层", rcode = "goods_floor", rgroup = "商品")
     @RequestMapping( {"/admin/goods_floor_list_goods.htm"})
     public ModelAndView goods_floor_list_goods(HttpServletRequest request, HttpServletResponse response, String currentPage, String id) {
@@ -379,6 +388,7 @@ public class GoodsFloorManageAction {
         this.goodsfloorService.update(obj);
         return "redirect:goods_floor_template.htm?id=" + obj.getId();
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "楼层模板左下方广告编辑", value = "/admin/goods_floor_left_adv.htm*", rtype = "admin", rname = "首页楼层", rcode = "goods_floor", rgroup = "商品")
     @RequestMapping( {"/admin/goods_floor_left_adv.htm"})
     public ModelAndView goods_floor_left_adv(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -448,6 +458,7 @@ public class GoodsFloorManageAction {
         this.goodsfloorService.update(obj);
         return "redirect:goods_floor_template.htm?id=" + obj.getId();
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "楼层模板右下方广告编辑", value = "/admin/goods_floor_right_adv.htm*", rtype = "admin", rname = "首页楼层", rcode = "goods_floor", rgroup = "商品")
     @RequestMapping( {"/admin/goods_floor_right_adv.htm"})
     public ModelAndView goods_floor_right_adv(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -517,6 +528,7 @@ public class GoodsFloorManageAction {
         this.goodsfloorService.update(obj);
         return "redirect:goods_floor_template.htm?id=" + obj.getId();
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "楼层模板品牌编辑", value = "/admin/goods_floor_brand.htm*", rtype = "admin", rname = "首页楼层", rcode = "goods_floor", rgroup = "商品")
     @RequestMapping( {"/admin/goods_floor_brand.htm"})
     public ModelAndView goods_floor_brand(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -536,6 +548,7 @@ public class GoodsFloorManageAction {
         mv.addObject("gf_tools", this.gf_tools);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "楼层模板品牌保存", value = "/admin/goods_floor_brand_save.htm*", rtype = "admin", rname = "首页楼层", rcode = "goods_floor", rgroup = "商品")
     @RequestMapping( {"/admin/goods_floor_brand_save.htm"})
     public String goods_floor_brand_save(HttpServletRequest request, HttpServletResponse response, String id, String ids) {
@@ -553,6 +566,7 @@ public class GoodsFloorManageAction {
         this.goodsfloorService.update(obj);
         return "redirect:goods_floor_template.htm?id=" + obj.getId();
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "楼层模板品牌加载", value = "/admin/goods_floor_brand_load.htm*", rtype = "admin", rname = "首页楼层", rcode = "goods_floor", rgroup = "商品")
     @RequestMapping( {"/admin/goods_floor_brand_load.htm"})
     public ModelAndView goods_floor_brand_load(HttpServletRequest request, HttpServletResponse response, String currentPage, String name) {

@@ -83,6 +83,7 @@ public class GoldSellerAction {
             mv.addObject("gold_session", gold_session);
             mv.addObject("payments", payments);
         }
+
         return mv;
     }
 
@@ -225,8 +226,10 @@ public class GoldSellerAction {
             mv.addObject("op_title", "系统未开启金币");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "金币兑换", value = "/seller/gold_record_list.htm*", rtype = "seller", rname = "金币管理", rcode = "gold_seller", rgroup = "其他设置")
     @RequestMapping( {"/seller/gold_record_list.htm"})
     public ModelAndView gold_record_list(HttpServletRequest request, HttpServletResponse response, String currentPage) {
@@ -249,8 +252,10 @@ public class GoldSellerAction {
             IPageList pList = this.goldRecordService.list(qo);
             CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "金币兑换支付", value = "/seller/gold_pay.htm*", rtype = "seller", rname = "金币管理", rcode = "gold_seller", rgroup = "其他设置")
     @RequestMapping( {"/seller/gold_pay.htm"})
     public ModelAndView gold_pay(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -285,8 +290,10 @@ public class GoldSellerAction {
             mv.addObject("op_title", "系统未开启金币");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "金币兑换详情", value = "/seller/gold_view.htm*", rtype = "seller", rname = "金币管理", rcode = "gold_seller", rgroup = "其他设置")
     @RequestMapping( {"/seller/gold_view.htm"})
     public ModelAndView gold_view(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -317,8 +324,10 @@ public class GoldSellerAction {
             mv.addObject("op_title", "系统未开启金币");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "兑换日志", value = "/seller/gold_log.htm*", rtype = "seller", rname = "金币管理", rcode = "gold_seller", rgroup = "其他设置")
     @RequestMapping( {"/seller/gold_log.htm"})
     public ModelAndView gold_log(HttpServletRequest request, HttpServletResponse response, String currentPage) {
@@ -343,6 +352,7 @@ public class GoldSellerAction {
             mv.addObject("user", this.userService.getObjById(
                              SecurityUserHolder.getCurrentUser().getId()));
         }
+
         return mv;
     }
 }

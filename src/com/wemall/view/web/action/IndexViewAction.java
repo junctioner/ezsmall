@@ -453,6 +453,7 @@ public class IndexViewAction {
         if( (wemall_view_type != null) && (!wemall_view_type.equals( "" )) && (wemall_view_type.equals( "wap" )) ) {
             mv = new JModelAndView( "wap/close.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response );
         }
+
         return mv;
     }
 
@@ -520,6 +521,7 @@ public class IndexViewAction {
             mv.addObject( "op_title", "系统关闭邮件功能，不能找回密码" );
             mv.addObject( "url", CommUtil.getURL( request ) + "/index.htm" );
         }
+
         return mv;
     }
 
@@ -555,6 +557,7 @@ public class IndexViewAction {
             mv.addObject( "op_title", "验证码不正确" );
             mv.addObject( "url", CommUtil.getURL( request ) + "/forget.htm" );
         }
+
         return mv;
     }
 
@@ -594,6 +597,7 @@ public class IndexViewAction {
             mv = new JModelAndView( "wap/error.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response );
             mv.addObject( "url", CommUtil.getURL( request ) + "/wap/index.htm" );
         }
+
         return mv;
     }
 

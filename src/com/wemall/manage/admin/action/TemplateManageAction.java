@@ -89,6 +89,7 @@ public class TemplateManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -117,6 +118,7 @@ public class TemplateManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
+
         return mv;
     }
 
@@ -210,6 +212,7 @@ public class TemplateManageAction {
             mv.addObject("obj", template);
             mv.addObject("currentPage", currentPage);
         }
+
         return mv;
     }
 }

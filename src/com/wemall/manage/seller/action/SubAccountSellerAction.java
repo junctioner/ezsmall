@@ -88,6 +88,7 @@ public class SubAccountSellerAction {
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "子账户添加", value = "/seller/sub_account_add.htm*", rtype = "seller", rname = "子账户管理", rcode = "sub_account_seller", rgroup = "店铺设置")
     @RequestMapping( {"/seller/sub_account_add.htm"})
     public ModelAndView sub_account_add(HttpServletRequest request, HttpServletResponse response) {
@@ -123,6 +124,7 @@ public class SubAccountSellerAction {
         mv.addObject("rgs", rgs);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "子账户编辑", value = "/seller/sub_account_edit.htm*", rtype = "seller", rname = "子账户管理", rcode = "sub_account_seller", rgroup = "店铺设置")
     @RequestMapping( {"/seller/sub_account_edit.htm"})
     public ModelAndView sub_account_edit(HttpServletRequest request, HttpServletResponse response, String id) {

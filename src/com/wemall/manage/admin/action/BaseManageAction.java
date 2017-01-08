@@ -225,8 +225,10 @@ public class BaseManageAction {
                                  .getAttribute("uc_login_js"));
             mv.addObject("uc_login_js", uc_login_js);
         }
+
         return mv;
     }
+
     @SecurityMapping( rsequence = 0, title = "欢迎页面", value = "/admin/welcome.htm*", rtype = "admin", rname = "欢迎页面", rcode = "admin_index", display = false, rgroup = "设置")
     @RequestMapping( {"/admin/welcome.htm"})
     public ModelAndView welcome(HttpServletRequest request, HttpServletResponse response) {
@@ -252,6 +254,7 @@ public class BaseManageAction {
         mv.addObject("stat", stat);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "关于我们", value = "/admin/aboutus.htm*", rtype = "admin", rname = "关于我们", rcode = "admin_index",  rgroup = "设置")
     @RequestMapping( {"/admin/aboutus.htm"})
     public ModelAndView aboutus(HttpServletRequest request, HttpServletResponse response) {
@@ -260,6 +263,7 @@ public class BaseManageAction {
                                             this.userConfigService.getUserConfig(), 0, request, response);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "站点设置", value = "/admin/set_site.htm*", rtype = "admin", rname = "站点设置", rcode = "admin_set_site", rgroup = "设置")
     @RequestMapping( {"/admin/set_site.htm"})
     public ModelAndView site_set(HttpServletRequest request, HttpServletResponse response) {
@@ -268,6 +272,7 @@ public class BaseManageAction {
                                             this.userConfigService.getUserConfig(), 0, request, response);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "上传设置", value = "/admin/set_image.htm*", rtype = "admin", rname = "上传设置", rcode = "admin_set_image", rgroup = "设置")
     @RequestMapping( {"/admin/set_image.htm"})
     public ModelAndView set_image(HttpServletRequest request, HttpServletResponse response) {
@@ -466,6 +471,7 @@ public class BaseManageAction {
         mv.addObject("list_url", list_url);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "Email设置", value = "/admin/set_email.htm*", rtype = "admin", rname = "Email设置", rcode = "admin_set_email", rgroup = "设置")
     @RequestMapping( {"/admin/set_email.htm"})
     public ModelAndView set_email(HttpServletRequest request, HttpServletResponse response) {
@@ -475,6 +481,7 @@ public class BaseManageAction {
             this.userConfigService.getUserConfig(), 0, request, response);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "短信设置", value = "/admin/set_sms.htm*", rtype = "admin", rname = "短信设置", rcode = "admin_set_sms", rgroup = "设置")
     @RequestMapping( {"/admin/set_sms.htm"})
     public ModelAndView set_sms(HttpServletRequest request, HttpServletResponse response) {
@@ -483,6 +490,7 @@ public class BaseManageAction {
                                             this.userConfigService.getUserConfig(), 0, request, response);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "SEO设置", value = "/admin/set_seo.htm*", rtype = "admin", rname = "SEO设置", rcode = "admin_set_seo", rgroup = "设置")
     @RequestMapping( {"/admin/set_seo.htm"})
     public ModelAndView set_seo(HttpServletRequest request, HttpServletResponse response) {
@@ -491,6 +499,7 @@ public class BaseManageAction {
                                             this.userConfigService.getUserConfig(), 0, request, response);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "二级域名设置", value = "/admin/set_second_domain.htm*", rtype = "admin", rname = "二级域名设置", rcode = "admin_set_second_domain", rgroup = "设置")
     @RequestMapping( {"/admin/set_second_domain.htm"})
     public ModelAndView set_second_domain(HttpServletRequest request, HttpServletResponse response) {
@@ -538,8 +547,10 @@ public class BaseManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/set_second_domain.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "QQ互联登录", value = "/admin/set_site_qq.htm*", rtype = "admin", rname = "二级域名设置", rcode = "admin_set_second_domain", rgroup = "设置")
     @RequestMapping( {"/admin/set_site_qq.htm"})
     public ModelAndView set_site_qq(HttpServletRequest request, HttpServletResponse response) {
@@ -607,6 +618,7 @@ public class BaseManageAction {
         if (user != null) {
             mv.addObject("user", user);
         }
+
         return mv;
     }
 
@@ -660,6 +672,7 @@ public class BaseManageAction {
             mv.addObject("op_title", "系统出现异常");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
@@ -676,6 +689,7 @@ public class BaseManageAction {
                                    response);
             mv.addObject("op_title", "域名绑定错误");
         }
+
         return mv;
     }
 

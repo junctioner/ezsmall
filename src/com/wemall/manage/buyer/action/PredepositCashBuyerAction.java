@@ -64,6 +64,7 @@ public class PredepositCashBuyerAction {
 
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "提现管理保存", value = "/buyer/buyer_cash_save.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
     @RequestMapping( {"/buyer/buyer_cash_save.htm"})
     public ModelAndView buyer_cash_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -104,6 +105,7 @@ public class PredepositCashBuyerAction {
 
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "提现管理", value = "/buyer/buyer_cash_list.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
     @RequestMapping( {"/buyer/buyer_cash_list.htm"})
     public ModelAndView buyer_cash_list(HttpServletRequest request, HttpServletResponse response, String currentPage) {
@@ -126,8 +128,10 @@ public class PredepositCashBuyerAction {
             IPageList pList = this.predepositCashService.list(qo);
             CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "会员提现详情", value = "/buyer/buyer_cash_view.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
     @RequestMapping( {"/buyer/buyer_cash_view.htm"})
     public ModelAndView buyer_cash_view(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -146,6 +150,7 @@ public class PredepositCashBuyerAction {
             mv.addObject("op_title", "系统未开启预存款");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/index.htm");
         }
+
         return mv;
     }
 }

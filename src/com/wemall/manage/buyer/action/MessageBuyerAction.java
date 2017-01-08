@@ -101,6 +101,7 @@ public class MessageBuyerAction {
         }
         return "redirect:message.htm?from_user_id=" + from_user_id;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "站内短信查看", value = "/buyer/message_info.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/message_info.htm"})
     public ModelAndView message_info(HttpServletRequest request, HttpServletResponse response, String id, String type) {
@@ -126,6 +127,7 @@ public class MessageBuyerAction {
         cal_msg_info(mv);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "站内短信发送", value = "/buyer/message_send.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/message_send.htm"})
     public ModelAndView message_send(HttpServletRequest request, HttpServletResponse response, String id, String userName) {
@@ -137,8 +139,10 @@ public class MessageBuyerAction {
         if ((userName != null) && (!userName.equals(""))) {
             mv.addObject("userName", userName);
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "站内短信保存", value = "/buyer/message_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/message_save.htm"})
     public void message_save(HttpServletRequest request, HttpServletResponse response, String users, String content) {

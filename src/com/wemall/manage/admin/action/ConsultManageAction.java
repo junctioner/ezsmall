@@ -64,6 +64,7 @@ public class ConsultManageAction {
         mv.addObject("consult_content", consult_content);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "咨询删除", value = "/admin/consult_del.htm*", rtype = "admin", rname = "咨询管理", rcode = "consult_admin", rgroup = "交易")
     @RequestMapping( {"/admin/consult_del.htm"})
     public String delete(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {

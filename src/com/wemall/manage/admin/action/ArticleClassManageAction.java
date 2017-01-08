@@ -94,6 +94,7 @@ public class ArticleClassManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -127,6 +128,7 @@ public class ArticleClassManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url + "?pid=" + pid);
         }
+
         return mv;
     }
 
@@ -142,6 +144,7 @@ public class ArticleClassManageAction {
         }
         return ids;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "文章分类删除", value = "/admin/articleclass_del.htm*", rtype = "admin", rname = "文章分类", rcode = "article_class", rgroup = "网站")
     @RequestMapping( {"/admin/articleclass_del.htm"})
     public String delete(HttpServletRequest request, String mulitId) {

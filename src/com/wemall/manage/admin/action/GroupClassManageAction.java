@@ -103,6 +103,7 @@ public class GroupClassManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -139,6 +140,7 @@ public class GroupClassManageAction {
                      "/admin/group_class_add.htm" + "?currentPage=" + currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "团购分类删除", value = "/admin/group_class_del.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
     @RequestMapping( {"/admin/group_class_del.htm"})
     public String delete(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {

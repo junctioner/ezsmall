@@ -118,6 +118,7 @@ public class PredepositManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 
@@ -139,6 +140,7 @@ public class PredepositManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 
@@ -164,6 +166,7 @@ public class PredepositManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 
@@ -202,8 +205,10 @@ public class PredepositManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "预存款手动修改", value = "/admin/predeposit_modify.htm*", rtype = "admin", rname = "预存款管理", rcode = "predeposit", rgroup = "会员")
     @RequestMapping( {"/admin/predeposit_modify.htm"})
     public ModelAndView predeposit_modify(HttpServletRequest request, HttpServletResponse response) {
@@ -219,8 +224,10 @@ public class PredepositManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "加载用户预存款信息", value = "/admin/predeposit_user.htm*", rtype = "admin", rname = "预存款管理", rcode = "predeposit", rgroup = "会员")
     @RequestMapping( {"/admin/predeposit_user.htm"})
     public void predeposit_user(HttpServletRequest request, HttpServletResponse response, String userName) {
@@ -288,6 +295,7 @@ public class PredepositManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 }

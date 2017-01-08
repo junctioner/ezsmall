@@ -298,6 +298,7 @@ public class GoodsViewAction {
             mv.addObject("op_title", "该商品未上架，不允许查看");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 

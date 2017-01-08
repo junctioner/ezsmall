@@ -115,6 +115,7 @@ public class ReportBuyerAction {
                              goods_id + ".htm");
             }
         }
+
         return mv;
     }
 

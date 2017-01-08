@@ -208,6 +208,7 @@ public class BargainSellerAction {
                    bargain_time);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "商品保存失败", value = "/seller/bargain_apply_error.htm*", rtype = "seller", rname = "今日特价", rcode = "bargain_seller", rgroup = "促销管理")
     @RequestMapping( {"/seller/bargain_apply_error.htm"})
     public ModelAndView bargain_apply_error(HttpServletRequest request, HttpServletResponse response) {

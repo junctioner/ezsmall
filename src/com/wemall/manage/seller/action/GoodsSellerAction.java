@@ -198,6 +198,7 @@ public class GoodsSellerAction {
             mv.addObject("op_title", "您的店铺已被关闭，不能发布商品");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
         }
+
         return mv;
     }
 
@@ -305,6 +306,7 @@ public class GoodsSellerAction {
             mv.addObject("op_title", "您的店铺已被关闭，不能发布商品");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
         }
+
         return mv;
     }
 
@@ -1177,6 +1179,7 @@ public class GoodsSellerAction {
             mv.addObject("op_title", "您没有该商品信息！");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 

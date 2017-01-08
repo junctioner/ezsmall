@@ -58,6 +58,7 @@ public class DeliveryManageAction {
 
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买就送设置保存", value = "/admin/set_delivery_save.htm*", rtype = "admin", rname = "买就送", rcode = "delivery_admin", rgroup = "运营")
     @RequestMapping( {"/admin/set_delivery_save.htm"})
     public ModelAndView set_delivery_save(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -140,6 +141,7 @@ public class DeliveryManageAction {
         mv.addObject("goods_name", goods_name);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买就送商品审核", value = "/admin/delivery_goods_audit.htm*", rtype = "admin", rname = "买就送", rcode = "delivery_admin", rgroup = "运营")
     @RequestMapping( {"/admin/delivery_goods_audit.htm"})
     public String delivery_goods_audit(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
@@ -159,6 +161,7 @@ public class DeliveryManageAction {
         }
         return "redirect:delivery_goods_list.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "买就送拒绝", value = "/admin/delivery_goods_refuse.htm*", rtype = "admin", rname = "买就送", rcode = "delivery_admin", rgroup = "运营")
     @RequestMapping( {"/admin/delivery_goods_refuse.htm"})
     public String delivery_goods_refuse(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {

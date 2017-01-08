@@ -149,6 +149,7 @@ public class OrderManageAction {
         mv.addObject("end_price", end_price);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "订单详情", value = "/admin/order_view.htm*", rtype = "admin", rname = "订单管理", rcode = "order_admin", rgroup = "交易")
     @RequestMapping( {"/admin/order_view.htm"})
     public ModelAndView order_view(HttpServletRequest request, HttpServletResponse response, String id) {

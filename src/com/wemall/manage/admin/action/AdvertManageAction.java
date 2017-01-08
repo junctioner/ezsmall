@@ -120,6 +120,7 @@ public class AdvertManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
 
@@ -134,6 +135,7 @@ public class AdvertManageAction {
             mv.addObject("obj", advert);
             mv.addObject("currentPage", currentPage);
         }
+
         return mv;
     }
 
@@ -241,6 +243,7 @@ public class AdvertManageAction {
                      "/admin/advert_add.htm?currentPage=" + currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "广告删除", value = "/admin/advert_del.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
     @RequestMapping( {"/admin/advert_del.htm"})
     public String advert_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
@@ -257,6 +260,7 @@ public class AdvertManageAction {
         }
         return "redirect:advert_list.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "广告位添加", value = "/admin/adv_pos_add.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
     @RequestMapping( {"/admin/adv_pos_add.htm"})
     public ModelAndView adv_pos_add(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -334,6 +338,7 @@ public class AdvertManageAction {
         if (add_url != null) {
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
+
         return mv;
     }
 
@@ -355,6 +360,7 @@ public class AdvertManageAction {
         mv.addObject("ap_title", ap_title);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "广告位编辑", value = "/admin/adv_pos_edit.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
     @RequestMapping( {"/admin/adv_pos_edit.htm"})
     public ModelAndView adv_pos_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -368,8 +374,10 @@ public class AdvertManageAction {
             mv.addObject("currentPage", currentPage);
             mv.addObject("edit", Boolean.valueOf(true));
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "广告位删除", value = "/admin/adv_pos_del.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
     @RequestMapping( {"/admin/adv_pos_del.htm"})
     public String adv_pos_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {

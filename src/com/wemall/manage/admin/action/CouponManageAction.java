@@ -207,6 +207,7 @@ public class CouponManageAction {
         this.couponService.save(coupon);
         return "redirect:coupon_success.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "优惠券保存成功", value = "/admin/coupon_success.htm*", rtype = "admin", rname = "优惠券管理", rcode = "coupon_admin", rgroup = "运营")
     @RequestMapping( {"/admin/coupon_success.htm"})
     public ModelAndView coupon_success(HttpServletRequest request, HttpServletResponse response, String currentPage) {
@@ -220,6 +221,7 @@ public class CouponManageAction {
                      "/admin/coupon_add.htm" + "?currentPage=" + currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "优惠券发放", value = "/admin/coupon_send.htm*", rtype = "admin", rname = "优惠券管理", rcode = "coupon_admin", rgroup = "运营")
     @RequestMapping( {"/admin/coupon_send.htm"})
     public ModelAndView coupon_send(HttpServletRequest request, HttpServletResponse response, String currentPage, String id) {

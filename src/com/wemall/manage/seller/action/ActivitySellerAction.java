@@ -170,6 +170,7 @@ public class ActivitySellerAction {
             mv.addObject("url", CommUtil.getURL(request) +
                          "/seller/activity.htm");
         }
+
         return mv;
     }
 

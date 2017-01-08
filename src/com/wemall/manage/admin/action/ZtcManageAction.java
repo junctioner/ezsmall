@@ -122,6 +122,7 @@ public class ZtcManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/ztc_set.htm");
         }
+
         return mv;
     }
 
@@ -143,6 +144,7 @@ public class ZtcManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/ztc_set.htm");
         }
+
         return mv;
     }
 
@@ -164,6 +166,7 @@ public class ZtcManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/ztc_set.htm");
         }
+
         return mv;
     }
 
@@ -209,6 +212,7 @@ public class ZtcManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/ztc_set.htm");
         }
+
         return mv;
     }
 
@@ -249,6 +253,7 @@ public class ZtcManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/ztc_set.htm");
         }
+
         return mv;
     }
 
@@ -293,6 +298,7 @@ public class ZtcManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/ztc_set.htm");
         }
+
         return mv;
     }
 }

@@ -86,6 +86,7 @@ public class GoldRecordManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 
@@ -120,6 +121,7 @@ public class GoldRecordManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 
@@ -154,6 +156,7 @@ public class GoldRecordManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 
@@ -211,8 +214,10 @@ public class GoldRecordManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "金币购买记录删除", value = "/admin/gold_record_del.htm*", rtype = "admin", rname = "金币管理", rcode = "gold_record_admin", rgroup = "运营")
     @RequestMapping( {"/admin/gold_record_del.htm"})
     public String gold_record_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
@@ -228,6 +233,7 @@ public class GoldRecordManageAction {
         }
         return "redirect:gold_record.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "金币购买记录", value = "/admin/gold_record_view.htm*", rtype = "admin", rname = "金币管理", rcode = "gold_record_admin", rgroup = "运营")
     @RequestMapping( {"/admin/gold_record_view.htm"})
     public ModelAndView gold_record_view(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
@@ -259,6 +265,7 @@ public class GoldRecordManageAction {
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/operation_base_set.htm");
         }
+
         return mv;
     }
 }

@@ -157,6 +157,7 @@ public class AdminManageAction implements ServletContextAware {
         if (add_url != null) {
         	mv.addObject("add_url", add_url);
         }
+
         return mv;*/
         WebForm wf = new WebForm();
         User user = null;
@@ -203,6 +204,7 @@ public class AdminManageAction implements ServletContextAware {
         if (add_url != null) {
             mv.addObject("add_url", add_url);
         }
+
         return mv;
     }
 

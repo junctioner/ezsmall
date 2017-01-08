@@ -185,6 +185,7 @@ public class TransAreaManageAction {
         }
         return ids;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "运费地区删除", value = "/admin/trans_area_del.htm*", rtype = "admin", rname = "运费区域", rcode = "admin_trans_area", rgroup = "设置")
     @RequestMapping( {"/admin/trans_area_del.htm"})
     public String trans_area_del(HttpServletRequest request, String mulitId, String currentPage, String pid) {

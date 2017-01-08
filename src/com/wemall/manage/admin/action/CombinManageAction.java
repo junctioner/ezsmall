@@ -44,6 +44,7 @@ public class CombinManageAction {
                                             .getUserConfig(), 0, request, response);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "组合销售设置保存", value = "/admin/set_combin_save.htm*", rtype = "admin", rname = "组合销售", rcode = "combin_admin", rgroup = "运营")
     @RequestMapping( {"/admin/set_combin_save.htm"})
     public ModelAndView set_combin_save(HttpServletRequest request, HttpServletResponse response, String id) {
@@ -97,6 +98,7 @@ public class CombinManageAction {
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "组合销售商品审核", value = "/admin/combin_goods_audit.htm*", rtype = "admin", rname = "组合销售", rcode = "combin_admin", rgroup = "运营")
     @RequestMapping( {"/admin/combin_goods_audit.htm"})
     public String combin_goods_audit(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
@@ -111,6 +113,7 @@ public class CombinManageAction {
         }
         return "redirect:combin_goods.htm?currentPage=" + currentPage;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "组合销售商品拒绝", value = "/admin/combin_goods_refuse.htm*", rtype = "admin", rname = "组合销售", rcode = "combin_admin", rgroup = "运营")
     @RequestMapping( {"/admin/combin_goods_refuse.htm"})
     public String combin_goods_refuse(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {

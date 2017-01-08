@@ -94,6 +94,7 @@ public class GoodsClassSellerAction {
             ret = this.usergoodsclassService.update(usergoodsclass);
         return "redirect:usergoodsclass_list.htm";
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "卖家商品分类删除", value = "/seller/usergoodsclass_del.htm*", rtype = "seller", rname = "商品分类", rcode = "usergoodsclass_seller", rgroup = "商品管理")
     @RequestMapping( {"/seller/usergoodsclass_del.htm"})
     public String usergoodsclass_del(HttpServletRequest request, String mulitId) {
@@ -132,6 +133,7 @@ public class GoodsClassSellerAction {
         mv.addObject("currentPage", currentPage);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "编辑卖家商品分类", value = "/seller/usergoodsclass_edit.htm*", rtype = "seller", rname = "商品分类", rcode = "usergoodsclass_seller", rgroup = "商品管理")
     @RequestMapping( {"/seller/usergoodsclass_edit.htm"})
     public ModelAndView usergoodsclass_edit(HttpServletRequest request, HttpServletResponse response, String currentPage, String id) {

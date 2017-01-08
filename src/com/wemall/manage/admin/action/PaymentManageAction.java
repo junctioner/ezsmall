@@ -134,6 +134,7 @@ public class PaymentManageAction {
         mv.addObject("paymentTools", this.paymentTools);
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "支付方式编辑", value = "/admin/payment_edit.htm*", rtype = "admin", rname = "支付方式", rcode = "payment_set", rgroup = "设置")
     @RequestMapping( {"/admin/payment_edit.htm"})
     public ModelAndView payment_edit(HttpServletRequest request, HttpServletResponse response, String mark) {
@@ -155,6 +156,7 @@ public class PaymentManageAction {
         mv.addObject("edit", Boolean.valueOf(true));
         return mv;
     }
+
     @SecurityMapping(display = false, rsequence = 0, title = "支付方式保存", value = "/admin/payment_save.htm*", rtype = "admin", rname = "支付方式", rcode = "payment_set", rgroup = "设置")
     @RequestMapping( {"/admin/payment_save.htm"})
     public ModelAndView payment_save(HttpServletRequest request, HttpServletResponse response, String mark, String list_url) {

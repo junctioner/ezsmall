@@ -127,6 +127,7 @@ public class GroupViewAction {
             mv.addObject("gc_id", gc_id);
             mv.addObject("gpr_id", gpr_id);
         }
+
         return mv;
     }
 
@@ -146,6 +147,7 @@ public class GroupViewAction {
         else {
             mv.addObject("ga", "全国");
         }
+
         return mv;
     }
 
@@ -222,6 +224,7 @@ public class GroupViewAction {
             mv.addObject("op_title", "团购商品参数错误");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
+
         return mv;
     }
 
