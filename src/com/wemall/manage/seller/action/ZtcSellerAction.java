@@ -64,6 +64,7 @@ public class ZtcSellerAction {
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
         mv.addObject("user", user);
+
         return mv;
     }
 

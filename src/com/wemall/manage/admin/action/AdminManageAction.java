@@ -83,6 +83,7 @@ public class AdminManageAction implements ServletContextAware {
         }
         CommUtil.saveIPageList2ModelAndView(url + "/admin/admin_list.htm", "", "", pList, mv);
         mv.addObject("userRole", "ADMIN");
+
         return mv;
     }
 
@@ -95,6 +96,7 @@ public class AdminManageAction implements ServletContextAware {
         List rgs = this.roleGroupService.query("select obj from RoleGroup obj where obj.type=:type order by obj.sequence asc", params, -1, -1);
         mv.addObject("rgs", rgs);
         mv.addObject("op", "admin_add");
+
         return mv;
     }
 
@@ -112,6 +114,7 @@ public class AdminManageAction implements ServletContextAware {
 
         mv.addObject("rgs", rgs);
         mv.addObject("op", op);
+
         return mv;
     }
 
@@ -222,6 +225,7 @@ public class AdminManageAction implements ServletContextAware {
                 }
             }
         }
+
         return "redirect:admin_list.htm?currentPage=" + currentPage;
     }
 
@@ -230,6 +234,7 @@ public class AdminManageAction implements ServletContextAware {
     public ModelAndView admin_pws(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new JModelAndView("admin/blue/admin_pws.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
         mv.addObject("user", this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId()));
+
         return mv;
     }
 
@@ -248,6 +253,7 @@ public class AdminManageAction implements ServletContextAware {
             mv.addObject("op_title", "原密码错误");
         }
         mv.addObject("list_url", CommUtil.getURL(request) + "/admin/admin_pws.htm");
+
         return mv;
     }
 
@@ -403,6 +409,7 @@ public class AdminManageAction implements ServletContextAware {
             this.servletContext.setAttribute("urlAuthorities", urlAuthorities);
             return "redirect:admin_list.htm";
         }
+
         return (String) "redirect:login.htm";
     }
 

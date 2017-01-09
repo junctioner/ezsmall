@@ -64,6 +64,7 @@ public class GroupClassManageAction {
         IPageList pList = this.groupclassService.list(qo);
         CommUtil.saveIPageList2ModelAndView(
             url + "/admin/group_class_list.htm", "", params, pList, mv);
+
         return mv;
     }
 
@@ -83,6 +84,7 @@ public class GroupClassManageAction {
         mv.addObject("obj", obj);
         mv.addObject("gcs", gcs);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -138,6 +140,7 @@ public class GroupClassManageAction {
         mv.addObject("op_title", "保存团购分类成功");
         mv.addObject("add_url", CommUtil.getURL(request) +
                      "/admin/group_class_add.htm" + "?currentPage=" + currentPage);
+
         return mv;
     }
 
@@ -158,6 +161,7 @@ public class GroupClassManageAction {
                 this.groupclassService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:group_class_list.htm?currentPage=" + currentPage;
     }
 
@@ -212,6 +216,7 @@ public class GroupClassManageAction {
                        map, -1, -1);
         mv.addObject("gcs", gcs);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 

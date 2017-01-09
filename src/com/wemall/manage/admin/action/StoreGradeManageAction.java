@@ -57,6 +57,7 @@ public class StoreGradeManageAction {
         wf.toQueryPo(request, qo, StoreGrade.class, mv);
         IPageList pList = this.storegradeService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", params, pList, mv);
+
         return mv;
     }
 
@@ -67,6 +68,7 @@ public class StoreGradeManageAction {
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -128,6 +130,7 @@ public class StoreGradeManageAction {
                 this.storegradeService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:storegrade_list.htm?currentPage=" + currentPage;
     }
 
@@ -180,6 +183,7 @@ public class StoreGradeManageAction {
         mv.addObject("obj", this.storegradeService.getObjById(
                          Long.valueOf(Long.parseLong(id))));
         mv.addObject("separator", File.separator);
+
         return mv;
     }
 
@@ -195,6 +199,7 @@ public class StoreGradeManageAction {
         this.storegradeService.update(grade);
         mv.addObject("list_url", list_url);
         mv.addObject("op_title", "保存店铺等级模板成功");
+
         return mv;
     }
 }

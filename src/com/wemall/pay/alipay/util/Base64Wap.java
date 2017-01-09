@@ -266,6 +266,7 @@ public final class Base64Wap {
                 data[newSize++] = data[i];
             }
         }
+
         return newSize;
     }
 }

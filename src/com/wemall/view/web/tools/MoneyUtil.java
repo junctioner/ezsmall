@@ -51,6 +51,7 @@ public class MoneyUtil {
             }
             returnMeony.append(moneyChar[i]);
         }
+
         returnMeony.reverse();
 
         if (dotPosition > 0) {
@@ -59,6 +60,7 @@ public class MoneyUtil {
         if (negativePosition == 0) {
             return "-" + returnMeony.toString();
         }
+
         return returnMeony.toString();
     }
 

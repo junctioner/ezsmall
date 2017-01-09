@@ -23,6 +23,7 @@ public class GenericQuery
 
     public List getResult(String condition, int begin, int max) {
         Object[] params = null;
+
         return this.dao.find(condition, this.params, begin, max);
     }
 
@@ -36,6 +37,7 @@ public class GenericQuery
         if ((ret != null) && (ret.size() > 0)) {
             return ((Long)ret.get(0)).intValue();
         }
+
         return 0;
     }
 

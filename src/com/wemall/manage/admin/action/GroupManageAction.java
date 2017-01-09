@@ -62,6 +62,7 @@ public class GroupManageAction {
         IPageList pList = this.groupService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url + "/admin/group_list.htm", "",
                                             params, pList, mv);
+
         return mv;
     }
 
@@ -146,6 +147,7 @@ public class GroupManageAction {
         mv.addObject("op_title", "保存团购成功");
         mv.addObject("add_url", CommUtil.getURL(request) +
                      "/admin/group_add.htm" + "?currentPage=" + currentPage);
+
         return mv;
     }
 
@@ -168,6 +170,7 @@ public class GroupManageAction {
                 this.groupService.delete(CommUtil.null2Long(id));
             }
         }
+
         return "redirect:group_list.htm?currentPage=" + currentPage;
     }
 
@@ -193,6 +196,7 @@ public class GroupManageAction {
                 }
             }
         }
+
         return "redirect:group_list.htm?currentPage=" + currentPage;
     }
 
@@ -216,6 +220,7 @@ public class GroupManageAction {
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("group_id", group_id);
         mv.addObject("gg_status", Integer.valueOf(CommUtil.null2Int(gg_status)));
+
         return mv;
     }
 
@@ -238,6 +243,7 @@ public class GroupManageAction {
                 this.goodsService.update(goods);
             }
         }
+
         return "redirect:group_goods_list.htm?group_id=" + group_id +
                "&gg_status=" + gg_status + "&currentPage=" + currentPage;
     }
@@ -259,6 +265,7 @@ public class GroupManageAction {
                 this.groupGoodsService.update(gg);
             }
         }
+
         return "redirect:group_goods_list.htm?group_id=" + group_id +
                "&gg_status=" + gg_status + "&currentPage=" + currentPage;
     }
@@ -280,6 +287,7 @@ public class GroupManageAction {
                 this.groupGoodsService.update(gg);
             }
         }
+
         return "redirect:group_goods_list.htm?group_id=" + group_id +
                "&gg_status=" + gg_status + "&currentPage=" + currentPage;
     }

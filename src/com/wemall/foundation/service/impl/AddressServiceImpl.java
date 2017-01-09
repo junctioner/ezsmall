@@ -29,6 +29,7 @@ public class AddressServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class AddressServiceImpl
         if (address != null) {
             return address;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class AddressServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class AddressServiceImpl
         for (Serializable id : addressIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class AddressServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class AddressServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

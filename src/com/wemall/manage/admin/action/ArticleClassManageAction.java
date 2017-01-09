@@ -53,6 +53,7 @@ public class ArticleClassManageAction {
         qo.setOrderType("asc");
         IPageList pList = this.articleClassService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -73,6 +74,7 @@ public class ArticleClassManageAction {
             mv.addObject("obj", obj);
         }
         mv.addObject("acs", acs);
+
         return mv;
     }
 
@@ -142,6 +144,7 @@ public class ArticleClassManageAction {
             }
             ids.add(child.getId());
         }
+
         return ids;
     }
 
@@ -165,6 +168,7 @@ public class ArticleClassManageAction {
                 }
             }
         }
+
         return "redirect:articleclass_list.htm";
     }
 
@@ -182,6 +186,7 @@ public class ArticleClassManageAction {
                        map, -1, -1);
         mv.addObject("acs", acs);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 

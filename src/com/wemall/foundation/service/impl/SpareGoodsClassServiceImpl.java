@@ -29,6 +29,7 @@ public class SpareGoodsClassServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class SpareGoodsClassServiceImpl
         if (spareGoodsClass != null) {
             return spareGoodsClass;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class SpareGoodsClassServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class SpareGoodsClassServiceImpl
         for (Serializable id : spareGoodsClassIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class SpareGoodsClassServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class SpareGoodsClassServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

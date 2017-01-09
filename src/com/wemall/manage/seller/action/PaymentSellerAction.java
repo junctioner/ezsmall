@@ -113,6 +113,7 @@ public class PaymentSellerAction {
         }
         mv.addObject("op_title", "支付方式卸载成功");
         mv.addObject("url", CommUtil.getURL(request) + "/seller/payment.htm");
+
         return mv;
     }
 
@@ -133,6 +134,7 @@ public class PaymentSellerAction {
                            params, -1, -1);
         if (objs.size() > 0)
             mv.addObject("obj", objs.get(0));
+
         return mv;
     }
 
@@ -160,6 +162,7 @@ public class PaymentSellerAction {
         }
         mv.addObject("op_title", "支付方式保存成功");
         mv.addObject("url", CommUtil.getURL(request) + "/seller/payment.htm");
+
         return mv;
     }
 }

@@ -127,6 +127,7 @@ public class SysConfigService
         memberIcon.setPath("resources/style/common/images");
         memberIcon.setName("member.jpg");
         sc.setMemberIcon(memberIcon);
+
         return sc;
     }
 
@@ -137,6 +138,7 @@ public class SysConfigService
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -147,6 +149,7 @@ public class SysConfigService
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 }

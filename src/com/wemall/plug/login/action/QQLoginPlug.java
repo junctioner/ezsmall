@@ -139,6 +139,7 @@ public class QQLoginPlug {
                         SecurityUserHolder.getCurrentUser().getId());
         user.setQq_openid(qq_openid);
         this.userService.update(user);
+
         return "redirect:" + CommUtil.getURL(request) + "/buyer/account_bind.htm";
     }
 
@@ -172,6 +173,7 @@ public class QQLoginPlug {
         }
         request.getSession(false).removeAttribute("verify_code");
         request.getSession(false).removeAttribute("bind");
+
         return url;
     }
 
@@ -225,6 +227,7 @@ public class QQLoginPlug {
                 }
             }
         }
+
         return name;
     }
 

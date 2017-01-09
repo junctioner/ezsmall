@@ -89,6 +89,7 @@ public class ActivityManageAction {
         mv.addObject("ac_status", ac_status);
         mv.addObject("beginTime", beginTime);
         mv.addObject("endTime", endTime);
+
         return mv;
     }
 
@@ -99,6 +100,7 @@ public class ActivityManageAction {
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -182,6 +184,7 @@ public class ActivityManageAction {
         mv.addObject("op_title", "保存商城活动成功");
         mv.addObject("add_url", CommUtil.getURL(request) +
                      "/admin/activity_add.htm" + "?currentPage=" + currentPage);
+
         return mv;
     }
 
@@ -197,6 +200,7 @@ public class ActivityManageAction {
                 this.activityService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:activity_list.htm?currentPage=" + currentPage;
     }
 
@@ -265,6 +269,7 @@ public class ActivityManageAction {
         mv.addObject("ag_status", ag_status);
         mv.addObject("goods_name", goods_name);
         mv.addObject("act_id", act_id);
+
         return mv;
     }
 
@@ -293,6 +298,7 @@ public class ActivityManageAction {
                 this.goodService.update(goods);
             }
         }
+
         return "redirect:activity_goods_list.htm?act_id=" + act_id +
                "&currentPage=" + currentPage;
     }
@@ -315,6 +321,7 @@ public class ActivityManageAction {
                 this.goodService.update(goods);
             }
         }
+
         return "redirect:activity_goods_list.htm?act_id=" + act_id +
                "&currentPage=" + currentPage;
     }

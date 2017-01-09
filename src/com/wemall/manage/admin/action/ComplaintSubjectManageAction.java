@@ -53,6 +53,7 @@ public class ComplaintSubjectManageAction {
         IPageList pList = this.complaintsubjectService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url +
                                             "/admin/complaintsubject_list.htm", "", params, pList, mv);
+
         return mv;
     }
 
@@ -64,6 +65,7 @@ public class ComplaintSubjectManageAction {
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -126,6 +128,7 @@ public class ComplaintSubjectManageAction {
                 this.complaintsubjectService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:complaintsubject_list.htm?currentPage=" + currentPage;
     }
 }

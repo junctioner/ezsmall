@@ -47,6 +47,7 @@ public class CouponBuyerAction {
                                SecurityUserHolder.getCurrentUser().getId()), "=");
         IPageList pList = this.couponInfoService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 }

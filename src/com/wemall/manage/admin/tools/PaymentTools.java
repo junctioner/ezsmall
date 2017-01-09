@@ -35,6 +35,7 @@ public class PaymentTools {
         if (objs.size() > 0) {
             return ((Payment)objs.get(0)).isInstall();
         }
+
         return false;
     }
 
@@ -58,6 +59,7 @@ public class PaymentTools {
             ret.put("install", Boolean.valueOf(false));
             ret.put("already", Boolean.valueOf(false));
         }
+
         return ret;
     }
 
@@ -76,6 +78,7 @@ public class PaymentTools {
             ret.put("install", Boolean.valueOf(false));
             ret.put("content", "");
         }
+
         return ret;
     }
 
@@ -94,6 +97,7 @@ public class PaymentTools {
             ret.put("install", Boolean.valueOf(false));
             ret.put("content", "");
         }
+
         return ret;
     }
 }

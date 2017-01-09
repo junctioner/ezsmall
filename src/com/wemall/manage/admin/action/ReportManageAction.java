@@ -70,6 +70,7 @@ public class ReportManageAction {
         IPageList pList = this.reportService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url + "/admin/report_list.htm", "",
                                             params, pList, mv);
+
         return mv;
     }
 
@@ -102,6 +103,7 @@ public class ReportManageAction {
         IPageList pList = this.reportService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url + "/admin/report_list.htm", "",
                                             params, pList, mv);
+
         return mv;
     }
 
@@ -114,6 +116,7 @@ public class ReportManageAction {
         Report obj = this.reportService.getObjById(CommUtil.null2Long(id));
         mv.addObject("obj", obj);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -151,6 +154,7 @@ public class ReportManageAction {
         mv.addObject("op_title", "处理举报成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/report_list.htm?currentPage=" + currentPage);
+
         return mv;
     }
 }

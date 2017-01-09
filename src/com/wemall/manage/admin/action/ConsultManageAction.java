@@ -62,6 +62,7 @@ public class ConsultManageAction {
                                             "", params, pList, mv);
         mv.addObject("consult_user_userName", consult_user_userName);
         mv.addObject("consult_content", consult_content);
+
         return mv;
     }
 
@@ -76,6 +77,7 @@ public class ConsultManageAction {
                 this.consultService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:consult_list.htm?currentPage=" + currentPage;
     }
 }

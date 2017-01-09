@@ -101,6 +101,7 @@ public class CouponManageAction {
         IPageList pList = this.couponService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url + "/admin/coupon_list.htm", "",
                                             params, pList, mv);
+
         return mv;
     }
 
@@ -111,6 +112,7 @@ public class CouponManageAction {
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -205,6 +207,7 @@ public class CouponManageAction {
             e.printStackTrace();
         }
         this.couponService.save(coupon);
+
         return "redirect:coupon_success.htm?currentPage=" + currentPage;
     }
 
@@ -219,6 +222,7 @@ public class CouponManageAction {
         mv.addObject("op_title", "优惠券保存成功");
         mv.addObject("add_url", CommUtil.getURL(request) +
                      "/admin/coupon_add.htm" + "?currentPage=" + currentPage);
+
         return mv;
     }
 
@@ -235,6 +239,7 @@ public class CouponManageAction {
         mv.addObject("currentPage", currentPage);
         mv.addObject("obj", this.couponService.getObjById(
                          CommUtil.null2Long(id)));
+
         return mv;
     }
 
@@ -328,6 +333,7 @@ public class CouponManageAction {
         mv.addObject("op_title", "优惠券发放成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/coupon_list.htm");
+
         return mv;
     }
 
@@ -388,6 +394,7 @@ public class CouponManageAction {
         IPageList pList = this.couponinfoService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", params, pList, mv);
         mv.addObject("coupon_id", coupon_id);
+
         return mv;
     }
 
@@ -423,6 +430,7 @@ public class CouponManageAction {
         } catch (Exception e) {
             return false;
         }
+
         return true;
     }
 }

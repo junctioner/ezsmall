@@ -282,6 +282,7 @@ public class OrderBuyerAction {
                 send_sms(request, obj, obj.getStore().getUser().getMobile(), "sms_toseller_order_cancel_notify");
             }
         }
+
         return "redirect:order.htm?currentPage=" + currentPage;
     }
 
@@ -400,6 +401,7 @@ public class OrderBuyerAction {
             }
         }
         String url = "redirect:order.htm?currentPage=" + currentPage;
+
         return url;
     }
 
@@ -521,6 +523,7 @@ public class OrderBuyerAction {
                                             this.userConfigService.getUserConfig(), 1, request, response);
         mv.addObject("op_title", "订单评价成功！");
         mv.addObject("url", CommUtil.getURL(request) + "/buyer/order.htm");
+
         return mv;
     }
 
@@ -613,6 +616,7 @@ public class OrderBuyerAction {
             this.userConfigService.getUserConfig(), 0, request, response);
         TransInfo info = query_ship_getData(id);
         mv.addObject("transInfo", info);
+
         return mv;
     }
 
@@ -680,6 +684,7 @@ public class OrderBuyerAction {
                          "sms_toseller_order_return_apply_notify");
             }
         }
+
         return "redirect:order.htm?currentPage=" + currentPage;
     }
 
@@ -745,6 +750,7 @@ public class OrderBuyerAction {
         obj.setReturn_ec(ec);
         obj.setReturn_shipCode(return_shipCode);
         this.orderFormService.update(obj);
+
         return "redirect:order.htm?currentPage=" + currentPage;
     }
 
@@ -789,6 +795,7 @@ public class OrderBuyerAction {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return info;
     }
 

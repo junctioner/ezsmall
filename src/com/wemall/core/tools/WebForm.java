@@ -94,6 +94,7 @@ public class WebForm {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return (T) obj;
     }
 
@@ -113,6 +114,7 @@ public class WebForm {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return obj;
     }
 

@@ -55,6 +55,7 @@ public class LuceneManageAction {
         }
         mv.addObject( "lucene_disk_size", Double.valueOf( CommUtil.fileSize( file ) ) );
         mv.addObject( "lucene_disk_path", path );
+
         return mv;
     }
 

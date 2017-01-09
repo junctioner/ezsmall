@@ -30,6 +30,7 @@ public class EvaluateServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -38,6 +39,7 @@ public class EvaluateServiceImpl
         if (evaluate != null) {
             return evaluate;
         }
+
         return null;
     }
 
@@ -48,6 +50,7 @@ public class EvaluateServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -55,6 +58,7 @@ public class EvaluateServiceImpl
         for (Serializable id : evaluateIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -77,6 +81,7 @@ public class EvaluateServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -87,6 +92,7 @@ public class EvaluateServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

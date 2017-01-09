@@ -32,6 +32,7 @@ public class CompressionResponse extends HttpServletResponseWrapper {
             }
             this.out = this.compressedOut;
         }
+
         return this.out;
     }
 
@@ -43,6 +44,7 @@ public class CompressionResponse extends HttpServletResponseWrapper {
             }
             this.writer = new PrintWriter(this.compressedOut);
         }
+
         return this.writer;
     }
 

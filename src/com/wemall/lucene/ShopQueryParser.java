@@ -24,6 +24,7 @@ public class ShopQueryParser extends QueryParser {
             return NumericRangeQuery.newLongRange(field, Long.valueOf(Long.parseLong(part1)),
                                                   Long.valueOf(Long.parseLong(part2)), inclusive, inclusive);
         }
+
         return super.newRangeQuery(field, part1, part2, inclusive);
     }
 }

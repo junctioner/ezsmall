@@ -83,6 +83,7 @@ public class GoodsBrandManageAction {
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("name", name);
         mv.addObject("category", category);
+
         return mv;
     }
 
@@ -111,6 +112,7 @@ public class GoodsBrandManageAction {
                                             "", pList, mv);
         mv.addObject("name", name);
         mv.addObject("category", category);
+
         return mv;
     }
 
@@ -123,6 +125,7 @@ public class GoodsBrandManageAction {
             goodsBrand.setAudit(1);
             this.goodsBrandService.update(goodsBrand);
         }
+
         return "redirect:goods_brand_audit.htm";
     }
 
@@ -135,6 +138,7 @@ public class GoodsBrandManageAction {
             goodsBrand.setAudit(-1);
             this.goodsBrandService.update(goodsBrand);
         }
+
         return "redirect:goods_brand_audit.htm";
     }
 
@@ -147,6 +151,7 @@ public class GoodsBrandManageAction {
         List categorys = this.goodsBrandCategoryService
                          .query("select obj from GoodsBrandCategory obj", null, -1, -1);
         mv.addObject("categorys", categorys);
+
         return mv;
     }
 
@@ -165,6 +170,7 @@ public class GoodsBrandManageAction {
                          .query("select obj from GoodsBrandCategory obj", null, -1, -1);
         mv.addObject("categorys", categorys);
         mv.addObject("edit", Boolean.valueOf(true));
+
         return mv;
     }
 
@@ -275,6 +281,7 @@ public class GoodsBrandManageAction {
             returnUrl = "redirect:goods_brand_audit.htm?currentPage=" +
                         currentPage;
         }
+
         return returnUrl;
     }
 

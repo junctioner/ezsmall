@@ -793,6 +793,7 @@ public class IntegralViewAction {
         IntegralGoodsOrder obj = this.integralGoodsOrderService
                                  .getObjById(CommUtil.null2Long(order_id));
         mv.addObject("obj", obj);
+
         return mv;
     }
 

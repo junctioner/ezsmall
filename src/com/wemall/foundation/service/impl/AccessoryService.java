@@ -28,6 +28,7 @@ public class AccessoryService
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -41,6 +42,7 @@ public class AccessoryService
             return true;
         } catch (Exception e) {
         }
+
         return false;
     }
 
@@ -50,6 +52,7 @@ public class AccessoryService
             return true;
         } catch (Exception e) {
         }
+
         return false;
     }
 
@@ -74,6 +77,7 @@ public class AccessoryService
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 

@@ -99,6 +99,7 @@ public class BrandViewAction {
             all_list.add(brand_map);
         }
         mv.addObject("all_list", all_list);
+
         return mv;
     }
 
@@ -142,6 +143,7 @@ public class BrandViewAction {
         gqo.setPageSize(Integer.valueOf(20));
         IPageList pList = this.goodsService.list(gqo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 

@@ -29,6 +29,7 @@ public class CombinLogServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class CombinLogServiceImpl
         if (combinLog != null) {
             return combinLog;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class CombinLogServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class CombinLogServiceImpl
         for (Serializable id : combinLogIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class CombinLogServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class CombinLogServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

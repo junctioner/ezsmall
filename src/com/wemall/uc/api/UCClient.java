@@ -93,6 +93,7 @@ public class UCClient extends PHPFunctions {
             sep = "&";
         }
         String postdata = uc_api_requestdata(module, action, s.toString(), "");
+
         return uc_fopen2(UC_API + "/index.php", 500000, postdata, "", true,
                          UC_IP, 20, true);
     }
@@ -102,18 +103,21 @@ public class UCClient extends PHPFunctions {
         String post = "m=" + module + "&a=" + action + "&inajax=2&release=" +
                       UC_CLIENT_RELEASE + "&input=" + input + "&appid=" + UC_APPID +
                       extra;
+
         return post;
     }
 
     protected String uc_api_url(String module, String action, String arg, String extra) {
         String url = UC_API + "/index.php?" +
                      uc_api_requestdata(module, action, arg, extra);
+
         return url;
     }
 
     public String uc_api_input(String data) {
         String s = urlencode(uc_authcode(data + "&agent=" + md5("") + "&time=" +
                                          time(), "ENCODE", UC_KEY));
+
         return s;
     }
 
@@ -121,6 +125,7 @@ public class UCClient extends PHPFunctions {
         if (action.charAt(0) != '_') {
             return null;
         }
+
         return "";
     }
 
@@ -203,6 +208,7 @@ public class UCClient extends PHPFunctions {
 
     protected String uc_fopen2(String url, int limit, String post, String cookie, boolean bysocket, String ip, int timeout, boolean block) {
         url = url + (url.indexOf("?") > 0 ? "&" : "?__times__=1");
+
         return uc_fopen(url, limit, post, cookie, bysocket, ip, timeout, block);
     }
 
@@ -274,11 +280,13 @@ public class UCClient extends PHPFunctions {
             fp.close();
         } catch (IOException localIOException) {
         }
+
         return ret;
     }
 
     public String uc_app_ls() {
         String ret = call_user_func(UC_API_FUNC, "app", "ls", null);
+
         return UC_CONNECT.equals("mysql") ? ret : uc_unserialize(ret);
     }
 
@@ -293,6 +301,7 @@ public class UCClient extends PHPFunctions {
         args.put("email", email);
         args.put("questionid", questionid);
         args.put("answer", answer);
+
         return call_user_func(UC_API_FUNC, "user", "register", args);
     }
 
@@ -313,6 +322,7 @@ public class UCClient extends PHPFunctions {
         args.put("questionid", Integer.valueOf(questionid));
         args.put("answer", answer);
         String ret = call_user_func(UC_API_FUNC, "user", "login", args);
+
         return UC_CONNECT.equals("mysql") ? ret : uc_unserialize(ret);
     }
 
@@ -320,12 +330,14 @@ public class UCClient extends PHPFunctions {
         Map args = new HashMap();
         args.put("uid", Integer.valueOf(uid));
         String ret = uc_api_post("user", "synlogin", args);
+
         return ret;
     }
 
     public String uc_user_synlogout() {
         String ret = uc_api_post("user", "synlogout",
                                  new HashMap());
+
         return ret;
     }
 
@@ -334,6 +346,7 @@ public class UCClient extends PHPFunctions {
         args.put("username", username);
         args.put("isuid", Integer.valueOf(isuid));
         String ret = call_user_func(UC_API_FUNC, "user", "get_user", args);
+
         return UC_CONNECT.equals("mysql") ? ret : uc_unserialize(ret);
     }
 
@@ -346,18 +359,21 @@ public class UCClient extends PHPFunctions {
         args.put("ignoreoldpw", Integer.valueOf(ignoreoldpw));
         args.put("questionid", Integer.valueOf(questionid));
         args.put("answer", Integer.valueOf(answer));
+
         return call_user_func(UC_API_FUNC, "user", "edit", args);
     }
 
     public String uc_user_delete(String uid) {
         Map args = new HashMap();
         args.put("uid", uid);
+
         return call_user_func(UC_API_FUNC, "user", "delete", args);
     }
 
     public String uc_user_deleteavatar(String uid) {
         Map args = new HashMap();
         args.put("uid", uid);
+
         return uc_api_post("user", "deleteavatar", args);
     }
 }

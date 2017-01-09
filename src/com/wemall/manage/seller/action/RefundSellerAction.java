@@ -73,6 +73,7 @@ public class RefundSellerAction {
         mv.addObject("data", data);
         mv.addObject("beginTime", beginTime);
         mv.addObject("endTime", endTime);
+
         return mv;
     }
 
@@ -86,6 +87,7 @@ public class RefundSellerAction {
         RefundLog obj = this.refundLogService
                         .getObjById(CommUtil.null2Long(id));
         mv.addObject("obj", obj);
+
         return mv;
     }
 }

@@ -104,6 +104,7 @@ public class AreaManageAction {
         CommUtil.saveIPageList2ModelAndView( url + "/admin/area_list.htm", "", params, pList, mv );
         List areas = this.areaService.query( "select obj from Area obj where obj.parent.id is null", null, -1, -1 );
         mv.addObject( "areas", areas );
+
         return mv;
     }
 
@@ -144,6 +145,7 @@ public class AreaManageAction {
         ModelAndView mv = new JModelAndView( "admin/blue/success.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response );
         mv.addObject( "op_title", "更新区域成功" );
         mv.addObject( "list_url", list_url + "?currentPage=" + currentPage + "&pid=" + pid );
+
         return mv;
     }
 
@@ -157,6 +159,7 @@ public class AreaManageAction {
             }
             ids.add( child.getId() );
         }
+
         return ids;
     }
 
@@ -176,6 +179,7 @@ public class AreaManageAction {
                 }
             }
         }
+
         return "redirect:area_list.htm?pid=" + pid + "&currentPage=" + currentPage;
     }
 
@@ -209,6 +213,7 @@ public class AreaManageAction {
             mv.addObject( "op_title", "数据导入失败" );
         }
         mv.addObject( "list_url", list_url );
+
         return mv;
     }
 
@@ -227,6 +232,7 @@ public class AreaManageAction {
         }
         mv.addObject( "op_title", "数据导出" );
         mv.addObject( "list_url", CommUtil.getURL( request ) + "/admin/area_list.htm" );
+
         return mv;
     }
 

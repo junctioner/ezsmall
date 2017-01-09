@@ -68,6 +68,7 @@ public class AdvertManageAction {
         IPageList pList = this.advertService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("ad_title", ad_title);
+
         return mv;
     }
 
@@ -89,6 +90,7 @@ public class AdvertManageAction {
         IPageList pList = this.advertService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("ad_title", ad_title);
+
         return mv;
     }
 
@@ -102,6 +104,7 @@ public class AdvertManageAction {
                        "select obj from AdvertPosition obj", null, -1, -1);
         mv.addObject("aps", aps);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -168,6 +171,7 @@ public class AdvertManageAction {
         mv.addObject("op_title", "广告审核成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/advert_list_audit.htm?currentPage=" + currentPage);
+
         return mv;
     }
 
@@ -241,6 +245,7 @@ public class AdvertManageAction {
         mv.addObject("op_title", "保存广告成功");
         mv.addObject("add_url", CommUtil.getURL(request) +
                      "/admin/advert_add.htm?currentPage=" + currentPage);
+
         return mv;
     }
 
@@ -258,6 +263,7 @@ public class AdvertManageAction {
                 }
             }
         }
+
         return "redirect:advert_list.htm?currentPage=" + currentPage;
     }
 
@@ -270,6 +276,7 @@ public class AdvertManageAction {
         List advs = this.advertService.query(
                         "select obj from Advert obj", null, -1, -1);
         mv.addObject("advs", advs);
+
         return mv;
     }
 
@@ -358,6 +365,7 @@ public class AdvertManageAction {
         IPageList pList = this.advertPositionService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("ap_title", ap_title);
+
         return mv;
     }
 
@@ -392,6 +400,7 @@ public class AdvertManageAction {
                 }
             }
         }
+
         return "redirect:adv_pos_list.htm?currentPage=" + currentPage;
     }
 }

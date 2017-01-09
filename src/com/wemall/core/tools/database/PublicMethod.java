@@ -29,6 +29,7 @@ public class PublicMethod {
         } catch (Exception e) {
             throw new Exception("数据链接错误,请检查用户输入的信息!");
         }
+
         return conn;
     }
 
@@ -45,6 +46,7 @@ public class PublicMethod {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return rs;
     }
 
@@ -61,6 +63,7 @@ public class PublicMethod {
         } finally {
             this.dbConnectoin.closeAll();
         }
+
         return list;
     }
 
@@ -77,6 +80,7 @@ public class PublicMethod {
         } finally {
             this.dbConnectoin.closeAll();
         }
+
         return list;
     }
 
@@ -101,6 +105,7 @@ public class PublicMethod {
         } finally {
             this.dbConnectoin.closeAll();
         }
+
         return list;
     }
 
@@ -130,6 +135,7 @@ public class PublicMethod {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return sqlList;
     }
 
@@ -143,6 +149,7 @@ public class PublicMethod {
         } catch (Exception e) {
             throw e;
         }
+
         return matcher.replaceAll("");
     }
 
@@ -163,6 +170,7 @@ public class PublicMethod {
         } finally {
             this.dbConnectoin.closeAll();
         }
+
         return query_sql;
     }
 }

@@ -317,6 +317,7 @@ public class StoreSellerAction {
                          "select obj from Area obj where obj.parent.id is null", null,
                          -1, -1);
         mv.addObject("areas", areas);
+
         return mv;
     }
 
@@ -431,6 +432,7 @@ public class StoreSellerAction {
         this.storeService.update(store);
         mv.addObject("op_title", "店铺设置成功");
         mv.addObject("url", CommUtil.getURL(request) + "/seller/store_set.htm");
+
         return mv;
     }
 
@@ -451,6 +453,7 @@ public class StoreSellerAction {
                                             map_type + "_map.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
         mv.addObject("store", store);
+
         return mv;
     }
 
@@ -468,6 +471,7 @@ public class StoreSellerAction {
         this.storeService.update(store);
         mv.addObject("op_title", "店铺设置成功");
         mv.addObject("url", CommUtil.getURL(request) + "/seller/store_map.htm");
+
         return mv;
     }
 
@@ -481,6 +485,7 @@ public class StoreSellerAction {
         Store store = this.storeService.getObjByProperty("user.id",
                       SecurityUserHolder.getCurrentUser().getId());
         mv.addObject("store", store);
+
         return mv;
     }
 
@@ -493,6 +498,7 @@ public class StoreSellerAction {
             store.setTemplate(theme);
             this.storeService.update(store);
         }
+
         return "redirect:store_theme.htm";
     }
 
@@ -506,6 +512,7 @@ public class StoreSellerAction {
         Store store = this.storeService.getObjByProperty("user.id",
                       SecurityUserHolder.getCurrentUser().getId());
         mv.addObject("store", store);
+
         return mv;
     }
 
@@ -595,6 +602,7 @@ public class StoreSellerAction {
             e.printStackTrace();
         }
         this.storeService.update(store);
+
         return "redirect:store_approve.htm";
     }
 
@@ -645,6 +653,7 @@ public class StoreSellerAction {
         this.storeGradeLogService.save(grade_log);
         mv.addObject("op_title", "申请提交成功");
         mv.addObject("url", CommUtil.getURL(request) + "/seller/store_set.htm");
+
         return mv;
     }
 
@@ -658,6 +667,7 @@ public class StoreSellerAction {
         Store store = this.storeService.getObjByProperty("user.id",
                       SecurityUserHolder.getCurrentUser().getId());
         mv.addObject("store", store);
+
         return mv;
     }
 
@@ -729,6 +739,7 @@ public class StoreSellerAction {
             }
         }
         mv.addObject("store", store);
+
         return mv;
     }
 }

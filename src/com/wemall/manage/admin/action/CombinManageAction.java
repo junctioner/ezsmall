@@ -42,6 +42,7 @@ public class CombinManageAction {
         ModelAndView mv = new JModelAndView("admin/blue/set_combin.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -69,6 +70,7 @@ public class CombinManageAction {
         mv.addObject("op_title", "组合销售设置成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/set_combin.htm");
+
         return mv;
     }
 
@@ -96,6 +98,7 @@ public class CombinManageAction {
         }
         IPageList pList = this.goodsService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -111,6 +114,7 @@ public class CombinManageAction {
                 this.goodsService.update(goods);
             }
         }
+
         return "redirect:combin_goods.htm?currentPage=" + currentPage;
     }
 
@@ -126,6 +130,7 @@ public class CombinManageAction {
                 this.goodsService.update(goods);
             }
         }
+
         return "redirect:combin_goods.htm?currentPage=" + currentPage;
     }
 }

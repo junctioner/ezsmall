@@ -155,6 +155,7 @@ public class UCViewAction {
             }
             return API_RETURN_FORBIDDEN;
         }
+
         return "";
     }
 

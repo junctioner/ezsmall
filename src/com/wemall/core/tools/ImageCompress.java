@@ -232,11 +232,13 @@ public class ImageCompress extends Frame {
         if ((widthRatio < 1.0D) || (heightRatio < 1.0D)) {
             Ratio = widthRatio <= heightRatio ? widthRatio : heightRatio;
         }
+
         return Ratio;
     }
 
     public static String getFileExt(String filePath) {
         String tmp = filePath.substring(filePath.lastIndexOf(".") + 1);
+
         return tmp.toUpperCase();
     }
 
@@ -274,6 +276,7 @@ public class ImageCompress extends Frame {
                 pos = 0;
             return filePath.substring(pos);
         }
+
         return "";
     }
 

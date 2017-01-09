@@ -32,6 +32,7 @@ public class ClientInfo {
         Matcher matcher = pattern.matcher(this.info);
         if (matcher.find())
             this.explorerVer = matcher.group(1);
+
         return str;
     }
 
@@ -43,6 +44,7 @@ public class ClientInfo {
         String str = "无";
         if (this.info.indexOf("Maxthon") != -1)
             str = "Maxthon";
+
         return str;
     }
 
@@ -57,6 +59,7 @@ public class ClientInfo {
         Matcher matcher = pattern.matcher(this.info);
         if (matcher.find())
             this.OSVer = matcher.group(1);
+
         return str;
     }
 

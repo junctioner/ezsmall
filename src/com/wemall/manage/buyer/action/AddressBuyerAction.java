@@ -67,6 +67,7 @@ public class AddressBuyerAction {
         CommUtil.saveIPageList2ModelAndView(url + "/buyer/address.htm", "", params, pList, mv);
         List areas = this.areaService.query("select obj from Area obj where obj.parent.id is null", null, -1, -1);
         mv.addObject("areas", areas);
+
         return mv;
     }
     /**
@@ -89,6 +90,7 @@ public class AddressBuyerAction {
         List areas = this.areaService.query("select obj from Area obj where obj.parent.id is null", null, -1, -1);
         mv.addObject("areas", areas);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -107,6 +109,7 @@ public class AddressBuyerAction {
         mv.addObject("obj", obj);
         mv.addObject("areas", areas);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -129,6 +132,7 @@ public class AddressBuyerAction {
             this.addressService.save(address);
         else
             this.addressService.update(address);
+
         return "redirect:address.htm?currentPage=" + currentPage;
     }
 
@@ -143,6 +147,7 @@ public class AddressBuyerAction {
                 this.addressService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:address.htm?currentPage=" + currentPage;
     }
 }

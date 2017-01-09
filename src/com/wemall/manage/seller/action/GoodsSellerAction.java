@@ -20,6 +20,7 @@ import com.wemall.manage.admin.tools.StoreTools;
 import com.wemall.manage.seller.tools.TransportTools;
 import com.wemall.view.web.tools.GoodsViewTools;
 import com.wemall.view.web.tools.StoreViewTools;
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.nutz.json.Json;
 import org.nutz.json.JsonFormat;
@@ -240,13 +241,13 @@ public class GoodsSellerAction {
         CommUtil.saveIPageList2ModelAndView(
             url + "/seller/goods_transport.htm", "", params, pList, mv);
         mv.addObject("transportTools", this.transportTools);
+
         return mv;
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "发布商品第二步", value = "/seller/add_goods_second.htm*", rtype = "seller", rname = "商品发布", rcode = "goods_seller", rgroup = "商品管理")
     @RequestMapping( { "/seller/add_goods_second.htm" })
     public ModelAndView add_goods_second(HttpServletRequest request, HttpServletResponse response) {
-
         ModelAndView mv = new JModelAndView("error.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
         User user = this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId());
         int store_status = this.storeService.getObjByProperty("user.id", user.getId()).getStore_status();
@@ -362,6 +363,7 @@ public class GoodsSellerAction {
         List gsp_list = generic_spec_property(specs);
         mv.addObject("specs", Arrays.asList(spec_list));
         mv.addObject("gsps", gsp_list);
+
         return mv;
     }
 
@@ -372,6 +374,7 @@ public class GoodsSellerAction {
             gps[i] = ((GoodsSpecProperty[]) ((List) list.get(i))
                       .toArray(new GoodsSpecProperty[((List) list.get(i)).size()]));
         }
+
         return gps;
     }
 
@@ -410,13 +413,13 @@ public class GoodsSellerAction {
             });
             result_list.add(Arrays.asList(temp_gsps));
         }
+
         return result_list;
     }
 
     @RequestMapping( { "/seller/swf_upload.htm" })
     public void swf_upload(HttpServletRequest request,
                            HttpServletResponse response, String user_id, String album_id) {
-
         User user = this.userService.getObjById(CommUtil.null2Long(user_id));
         String path = this.storeTools.createUserFolder(request, this.configService.getSysConfig(), user.getStore());
         String url = this.storeTools.createUserFolderURL(this.configService.getSysConfig(), user.getStore());
@@ -524,9 +527,6 @@ public class GoodsSellerAction {
 
     @RequestMapping( {"/seller/upload.htm"})
     public void upload(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
-
-        /*String saveFilePathName = request.getSession().getServletContext().getRealPath("/") +
-        		this.configService.getSysConfig().getUploadFilePath() + File.separator + "common";*/
         Store store = SecurityUserHolder.getCurrentUser().getStore();
 
         String saveFilePathName = this.storeTools.createUserFolder(request, this.configService.getSysConfig(), store);
@@ -542,7 +542,6 @@ public class GoodsSellerAction {
         JSONObject obj = new JSONObject();
         try {
             Map map = CommUtil.saveFileToServer(request, "imgFile", saveFilePathName, null, null);
-            //String url = webPath + "/" + this.configService.getSysConfig().getUploadFilePath() + "/common/" + map.get("fileName");
             url = CommUtil.getURL(request) + "/" + url + "/" + map.get("fileName");
             obj.put("error", Integer.valueOf(0));
             obj.put("url", url);
@@ -629,6 +628,7 @@ public class GoodsSellerAction {
         } catch (Exception e) {
             System.err.println("Html2Text: " + e.getMessage());
         }
+
         return textStr;
     }
 
@@ -717,37 +717,46 @@ public class GoodsSellerAction {
                     goods.getGoods_specs().add(gsp);
                 }
             }
-            Object maps = new ArrayList();
-            String[] properties = goods_properties.split(";");
 
-            String[] list;
-            for (int i = 0; i < properties.length; i++) {
-                String property = properties[i];
-                if (!property.equals("")) {
-                    list = property.split(",");
-                    Map map = new HashMap();
-                    map.put("id", list[0]);
-                    map.put("val", list[1]);
-                    map.put("name", this.goodsTypePropertyService.getObjById(Long.valueOf(Long.parseLong(list[0]))).getName());
-                    ((List) maps).add(map);
-                }
-            }
-            goods.setGoods_property(Json.toJson(maps, JsonFormat.compact()));
-            ((List) maps).clear();
-            String[] inventory_list = inventory_details.split(";");
+            List maps = new ArrayList();
 
-            for (int i = 0; i < inventory_list.length; i++) {
-                String inventory = inventory_list[i];
-                if (!inventory.equals("")) {
-                    String[] list1 = inventory.split(",");
-                    Map map = new HashMap();
-                    map.put("id", list1[0]);
-                    map.put("count", list1[1]);
-                    map.put("price", list1[2]);
-                    ((List) maps).add(map);
+            // 组装商品属性
+            if(org.apache.commons.lang.StringUtils.isNotEmpty(goods_properties)) {
+                String[] properties = goods_properties.split(";");
+                String[] list;
+                for (int i = 0; i < properties.length; i++) {
+                    String property = properties[i];
+                    if (StringUtils.isNotEmpty(property)) {
+                        list = property.split(",");
+                        Map map = new HashMap();
+                        map.put("id", list[0]);
+                        map.put("val", list[1]);
+                        map.put("name", this.goodsTypePropertyService.getObjById(Long.valueOf(Long.parseLong(list[0]))).getName());
+                        maps.add(map);
+                    }
                 }
+                goods.setGoods_property(Json.toJson(maps, JsonFormat.compact()));
             }
-            goods.setGoods_inventory_detail(Json.toJson(maps, JsonFormat.compact()));
+
+            maps.clear();
+
+            // 组装商品多规格库存和价格
+            if(org.apache.commons.lang.StringUtils.isNotEmpty(inventory_details)) {
+                String[] inventory_list = inventory_details.split(";");
+                for (int i = 0; i < inventory_list.length; i++) {
+                    String inventory = inventory_list[i];
+                    if (org.apache.commons.lang.StringUtils.isNotEmpty(inventory)) {
+                        String[] list1 = inventory.split(",");
+                        Map map = new HashMap();
+                        map.put("id", list1[0]);
+                        map.put("count", list1[1]);
+                        map.put("price", list1[2]);
+                        maps.add(map);
+                    }
+                }
+                goods.setGoods_inventory_detail(Json.toJson(maps, JsonFormat.compact()));
+            }
+
             if (CommUtil.null2Int(transport_type) == 0) {
                 Transport trans = this.transportService.getObjById(CommUtil.null2Long(transport_id));
                 goods.setTransport(trans);
@@ -973,6 +982,7 @@ public class GoodsSellerAction {
             String class_info = generic_goods_class_info(gc.getParent());
             goods_class_info = class_info + goods_class_info;
         }
+
         return goods_class_info;
     }
 
@@ -1011,11 +1021,11 @@ public class GoodsSellerAction {
                     .getStore().getId()), "=");
         qo.setOrderBy("addTime");
         qo.setOrderType("desc");
-        if ((goods_name != null) && (!goods_name.equals(""))) {
+        if (org.apache.commons.lang.StringUtils.isNotEmpty(goods_name)) {
             qo.addQuery("obj.goods_name", new SysMap("goods_name", "%"
                         + goods_name + "%"), "like");
         }
-        if ((user_class_id != null) && (!user_class_id.equals(""))) {
+        if (org.apache.commons.lang.StringUtils.isNotEmpty(user_class_id)) {
             UserGoodsClass ugc = this.userGoodsClassService.getObjById(Long
                                  .valueOf(Long.parseLong(user_class_id)));
             qo.addQuery("ugc", ugc, "obj.goods_ugcs", "member of");
@@ -1039,7 +1049,7 @@ public class GoodsSellerAction {
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if (org.apache.commons.lang.StringUtils.isEmpty(url)) {
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -1053,11 +1063,11 @@ public class GoodsSellerAction {
                     .getStore().getId()), "=");
         qo.setOrderBy("goods_seller_time");
         qo.setOrderType("desc");
-        if ((goods_name != null) && (!goods_name.equals(""))) {
+        if (org.apache.commons.lang.StringUtils.isNotEmpty(goods_name)) {
             qo.addQuery("obj.goods_name", new SysMap("goods_name", "%"
                         + goods_name + "%"), "like");
         }
-        if ((user_class_id != null) && (!user_class_id.equals(""))) {
+        if (org.apache.commons.lang.StringUtils.isNotEmpty(user_class_id)) {
             UserGoodsClass ugc = this.userGoodsClassService.getObjById(Long
                                  .valueOf(Long.parseLong(user_class_id)));
             qo.addQuery("ugc", ugc, "obj.goods_ugcs", "member of");
@@ -1067,6 +1077,7 @@ public class GoodsSellerAction {
                                             "", params, pList, mv);
         mv.addObject("storeTools", this.storeTools);
         mv.addObject("goodsViewTools", this.goodsViewTools);
+
         return mv;
     }
 
@@ -1094,11 +1105,11 @@ public class GoodsSellerAction {
                     .getStore().getId()), "=");
         qo.setOrderBy("goods_seller_time");
         qo.setOrderType("desc");
-        if ((goods_name != null) && (!goods_name.equals(""))) {
+        if (org.apache.commons.lang.StringUtils.isNotEmpty(goods_name)) {
             qo.addQuery("obj.goods_name", new SysMap("goods_name", "%"
                         + goods_name + "%"), "like");
         }
-        if ((user_class_id != null) && (!user_class_id.equals(""))) {
+        if (org.apache.commons.lang.StringUtils.isNotEmpty(user_class_id)) {
             UserGoodsClass ugc = this.userGoodsClassService.getObjById(Long
                                  .valueOf(Long.parseLong(user_class_id)));
             qo.addQuery("ugc", ugc, "obj.goods_ugcs", "member of");
@@ -1108,6 +1119,7 @@ public class GoodsSellerAction {
                                             params, pList, mv);
         mv.addObject("storeTools", this.storeTools);
         mv.addObject("goodsViewTools", this.goodsViewTools);
+
         return mv;
     }
 
@@ -1255,6 +1267,7 @@ public class GoodsSellerAction {
                 }
             }
         }
+
         return "redirect:" + url;
     }
 
@@ -1315,6 +1328,7 @@ public class GoodsSellerAction {
                 }
             }
         }
+
         return "redirect:" + url;
     }
 
@@ -1334,6 +1348,7 @@ public class GoodsSellerAction {
         qo.addQuery("obj.result", new SysMap("result", Integer.valueOf(1)), "=");
         IPageList pList = this.reportService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -1347,6 +1362,7 @@ public class GoodsSellerAction {
             this.userConfigService.getUserConfig(), 0, request, response);
         Report obj = this.reportService.getObjById(CommUtil.null2Long(id));
         mv.addObject("obj", obj);
+
         return mv;
     }
 

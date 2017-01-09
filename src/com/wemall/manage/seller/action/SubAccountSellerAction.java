@@ -86,6 +86,7 @@ public class SubAccountSellerAction {
                                 SecurityUserHolder.getCurrentUser().getId()), "=");
         IPageList pList = this.userService.list(uqo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -122,6 +123,7 @@ public class SubAccountSellerAction {
                    .query("select obj from RoleGroup obj where obj.type=:type order by obj.addTime asc",
                           params, -1, -1);
         mv.addObject("rgs", rgs);
+
         return mv;
     }
 
@@ -150,6 +152,7 @@ public class SubAccountSellerAction {
                           params, -1, -1);
         mv.addObject("rgs", rgs);
         mv.addObject("obj", this.userService.getObjById(CommUtil.null2Long(id)));
+
         return mv;
     }
 
@@ -181,6 +184,7 @@ public class SubAccountSellerAction {
         } catch (Exception e) {
             System.err.println("Html2Text: " + e.getMessage());
         }
+
         return textStr;
     }
 
@@ -270,6 +274,7 @@ public class SubAccountSellerAction {
         User user = this.userService.getObjById(CommUtil.null2Long(mulitId));
         user.getRoles().clear();
         this.userService.delete(user.getId());
+
         return "redirect:sub_account_list.htm";
     }
 }

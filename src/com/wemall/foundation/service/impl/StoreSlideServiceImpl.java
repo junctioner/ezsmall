@@ -29,6 +29,7 @@ public class StoreSlideServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class StoreSlideServiceImpl
         if (storeSlide != null) {
             return storeSlide;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class StoreSlideServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class StoreSlideServiceImpl
         for (Serializable id : storeSlideIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class StoreSlideServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class StoreSlideServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

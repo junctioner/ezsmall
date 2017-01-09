@@ -147,6 +147,7 @@ public class BaseBuyerAction {
         }
         mv.addObject("type", type);
         mv.addObject("emoticons", list);
+
         return mv;
     }
 
@@ -155,6 +156,7 @@ public class BaseBuyerAction {
         for (SnsAttention attention : SnsAttentions) {
             ids.add(attention.getToUser().getId());
         }
+
         return ids;
     }
 
@@ -167,6 +169,7 @@ public class BaseBuyerAction {
             this.userConfigService.getUserConfig(), 0, request, response);
         String op = CommUtil.null2String(request.getAttribute("op"));
         mv.addObject("op", op);
+
         return mv;
     }
 
@@ -177,6 +180,7 @@ public class BaseBuyerAction {
             "user/default/usercenter/buyer_head.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -187,6 +191,7 @@ public class BaseBuyerAction {
                                             request, response);
         mv.addObject("op_title", "您没有该项操作权限");
         mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
+
         return mv;
     }
 
@@ -197,6 +202,7 @@ public class BaseBuyerAction {
                 ids.add(friend.getToUser().getId());
             }
         }
+
         return ids;
     }
 
@@ -250,6 +256,7 @@ public class BaseBuyerAction {
         qo.setPageSize(Integer.valueOf(10));
         IPageList pList = this.dynamicService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -274,6 +281,7 @@ public class BaseBuyerAction {
         qo.setPageSize(Integer.valueOf(10));
         IPageList pList = this.dynamicService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -299,6 +307,7 @@ public class BaseBuyerAction {
         dynamic.setContent(reply_content);
         this.dynamicService.save(dynamic);
         mv.addObject("obj", parent);
+
         return mv;
     }
 
@@ -348,6 +357,7 @@ public class BaseBuyerAction {
         qo.setPageSize(Integer.valueOf(10));
         IPageList pList = this.dynamicService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -393,6 +403,7 @@ public class BaseBuyerAction {
                           "/buyer/fav_store_list_ajax.htm";
         mv.addObject("gotoPageAjaxHTML", CommUtil.showPageAjaxHtml(Ajax_url,
                      "", pList.getCurrentPage(), pList.getPages()));
+
         return mv;
     }
 
@@ -416,6 +427,7 @@ public class BaseBuyerAction {
                           "/buyer/fav_store_list_ajax.htm";
         mv.addObject("gotoPageAjaxHTML", CommUtil.showPageAjaxHtml(Ajax_url,
                      "", pList.getCurrentPage(), pList.getPages()));
+
         return mv;
     }
 
@@ -439,6 +451,7 @@ public class BaseBuyerAction {
                           "/buyer/fav_goods_list_ajax.htm";
         mv.addObject("gotoPageAjaxHTML", CommUtil.showPageAjaxHtml(Ajax_url,
                      "", pList.getCurrentPage(), pList.getPages()));
+
         return mv;
     }
 
@@ -462,6 +475,7 @@ public class BaseBuyerAction {
                           "/buyer/fav_goods_list_ajax.htm";
         mv.addObject("gotoPageAjaxHTML", CommUtil.showPageAjaxHtml(Ajax_url,
                      "", pList.getCurrentPage(), pList.getPages()));
+
         return mv;
     }
 }

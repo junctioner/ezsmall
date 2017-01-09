@@ -32,6 +32,7 @@ public class UCTools {
         } finally {
             closeAll();
         }
+
         return ret;
     }
 
@@ -57,6 +58,7 @@ public class UCTools {
             }
             thread.set(conn);
         }
+
         return conn;
     }
 

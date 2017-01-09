@@ -43,6 +43,7 @@ public class StoreViewTools {
                 fun = "富文本编辑器" + fun;
             }
         }
+
         return fun;
     }
 
@@ -52,6 +53,7 @@ public class StoreViewTools {
         for (String l : list) {
             suffix = "*." + l + ";" + suffix;
         }
+
         return suffix.substring(0, suffix.length() - 1);
     }
 
@@ -86,6 +88,7 @@ public class StoreViewTools {
         if (store.getStore_credit() >= ints[(ints.length - 1)].intValue()) {
             credit = ints.length;
         }
+
         return credit;
     }
 
@@ -121,6 +124,7 @@ public class StoreViewTools {
         if (user.getUser_credit() >= ints[(ints.length - 1)].intValue()) {
             credit = ints.length;
         }
+
         return credit;
     }
 
@@ -131,6 +135,7 @@ public class StoreViewTools {
         list = this.storeService
                .query("select obj from Store obj where obj.store_recommend=:recommend order by obj.store_recommend_time desc",
                       params, 0, count);
+
         return list;
     }
 
@@ -148,6 +153,7 @@ public class StoreViewTools {
                 goods.add(null);
             }
         }
+
         return goods;
     }
 
@@ -173,6 +179,7 @@ public class StoreViewTools {
         List evas = this.evaluateService
                     .query("select obj from Evaluate obj where obj.evaluate_goods.goods_store.id=:store_id and obj.evaluate_buyer_val=:evaluate_buyer_val and obj.addTime" +
                            symbol + ":addTime", params, -1, -1);
+
         return evas.size();
     }
 
@@ -260,6 +267,7 @@ public class StoreViewTools {
             map.put("ship_result",
                     CommUtil.null2String(Double.valueOf(CommUtil.mul(Double.valueOf(-ship_result), Integer.valueOf(100)))) + "%");
         }
+
         return map;
     }
 }

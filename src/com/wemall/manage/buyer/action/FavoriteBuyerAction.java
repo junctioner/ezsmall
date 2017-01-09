@@ -55,6 +55,7 @@ public class FavoriteBuyerAction {
         IPageList pList = this.favoriteService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url + "/buyer/favorite_goods.htm",
                                             "", params, pList, mv);
+
         return mv;
     }
 
@@ -79,6 +80,7 @@ public class FavoriteBuyerAction {
         IPageList pList = this.favoriteService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url + "/buyer/favorite_store.htm",
                                             "", params, pList, mv);
+
         return mv;
     }
 
@@ -96,6 +98,7 @@ public class FavoriteBuyerAction {
         if (type == 0) {
             return "redirect:favorite_goods.htm?currentPage=" + currentPage;
         }
+
         return "redirect:favorite_store.htm?currentPage=" + currentPage;
     }
 }

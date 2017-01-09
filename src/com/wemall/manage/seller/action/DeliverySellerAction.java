@@ -69,6 +69,7 @@ public class DeliverySellerAction {
                                .getStore().getId()), "=");
         IPageList pList = this.deliveryGoodsService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -88,6 +89,7 @@ public class DeliverySellerAction {
                                .getId()), "=");
         IPageList pList = this.deliveryLogService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -101,6 +103,7 @@ public class DeliverySellerAction {
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
         mv.addObject("user", user);
+
         return mv;
     }
 
@@ -145,6 +148,7 @@ public class DeliverySellerAction {
             this.deliveryLogService.save(d_log);
             return "redirect:delivery_buy_success.htm";
         }
+
         return "redirect:delivery_buy_error.htm";
     }
 
@@ -156,6 +160,7 @@ public class DeliverySellerAction {
                                             request, response);
         mv.addObject("op_title", "买就送套餐购买成功");
         mv.addObject("url", CommUtil.getURL(request) + "/seller/delivery.htm");
+
         return mv;
     }
 
@@ -167,6 +172,7 @@ public class DeliverySellerAction {
                                             request, response);
         mv.addObject("op_title", "金币不足不能购买套餐");
         mv.addObject("url", CommUtil.getURL(request) + "/seller/delivery.htm");
+
         return mv;
     }
 
@@ -253,6 +259,7 @@ public class DeliverySellerAction {
                                             "/seller/delivery_goods.htm", "",
                                             "&goods_name=" + goods_name, pList, mv);
         mv.addObject("node_id", node_id);
+
         return mv;
     }
 
@@ -309,6 +316,7 @@ public class DeliverySellerAction {
                 }
             }
         }
+
         return "redirect:delivery.htm?currentPage=" + currentPage;
     }
 }

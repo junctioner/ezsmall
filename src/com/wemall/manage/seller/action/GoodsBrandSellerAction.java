@@ -62,6 +62,7 @@ public class GoodsBrandSellerAction extends IdEntity {
         qo.setOrderType("desc");
         IPageList pList = this.goodsBrandService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -72,6 +73,7 @@ public class GoodsBrandSellerAction extends IdEntity {
             "user/default/usercenter/usergoodsbrand_add.html",
             this.configService.getSysConfig(), this.userConfigService
             .getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -88,6 +90,7 @@ public class GoodsBrandSellerAction extends IdEntity {
             mv.addObject("obj", goodsBrand);
         }
         mv.addObject("edit", Boolean.valueOf(true));
+
         return mv;
     }
 
@@ -102,6 +105,7 @@ public class GoodsBrandSellerAction extends IdEntity {
                 this.goodsBrandService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:usergoodsbrand_list.htm?currentPage=" + currentPage;
     }
 
@@ -164,6 +168,7 @@ public class GoodsBrandSellerAction extends IdEntity {
             this.goodsBrandService.save(goodsBrand);
         else
             this.goodsBrandService.update(goodsBrand);
+
         return "redirect:usergoodsbrand_list.htm";
     }
 }

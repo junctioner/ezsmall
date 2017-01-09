@@ -62,6 +62,7 @@ public class StoreNavSellerAction {
         IPageList pList = this.storenavigationService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url + "/seller/store_nav.htm", "",
                                             params, pList, mv);
+
         return mv;
     }
 
@@ -73,6 +74,7 @@ public class StoreNavSellerAction {
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -120,6 +122,7 @@ public class StoreNavSellerAction {
             this.userConfigService.getUserConfig(), 0, request, response);
         mv.addObject("url", CommUtil.getURL(request) + "/seller/store_nav.htm");
         mv.addObject("op_title", "保存导航成功");
+
         return mv;
     }
 
@@ -134,6 +137,7 @@ public class StoreNavSellerAction {
                 this.storenavigationService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:store_nav.htm?currentPage=" + currentPage;
     }
 }

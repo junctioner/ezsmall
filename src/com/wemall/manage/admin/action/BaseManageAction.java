@@ -211,6 +211,7 @@ public class BaseManageAction {
             mv.addObject("url", CommUtil.getURL(request) + "/user/login.htm");
         }
         mv.addObject("op_title", "登录失败");
+
         return mv;
     }
 
@@ -252,6 +253,7 @@ public class BaseManageAction {
             stat = new StoreStat();
         }
         mv.addObject("stat", stat);
+
         return mv;
     }
 
@@ -261,6 +263,7 @@ public class BaseManageAction {
         ModelAndView mv = new JModelAndView("admin/blue/aboutus.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -270,6 +273,7 @@ public class BaseManageAction {
         ModelAndView mv = new JModelAndView("admin/blue/set_site_setting.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -279,6 +283,7 @@ public class BaseManageAction {
         ModelAndView mv = new JModelAndView("admin/blue/set_image_setting.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -469,6 +474,7 @@ public class BaseManageAction {
                                             this.userConfigService.getUserConfig(), 0, request, response);
         mv.addObject("op_title", op_title);
         mv.addObject("list_url", list_url);
+
         return mv;
     }
 
@@ -479,6 +485,7 @@ public class BaseManageAction {
             "admin/blue/set_email_setting.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -488,6 +495,7 @@ public class BaseManageAction {
         ModelAndView mv = new JModelAndView("admin/blue/set_sms_setting.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -497,6 +505,7 @@ public class BaseManageAction {
         ModelAndView mv = new JModelAndView("admin/blue/set_seo_setting.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -507,6 +516,7 @@ public class BaseManageAction {
             "admin/blue/set_second_domain.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -556,6 +566,7 @@ public class BaseManageAction {
     public ModelAndView set_site_qq(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new JModelAndView("admin/blue/set_second_domain.html",
                                             this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -564,6 +575,7 @@ public class BaseManageAction {
     public ModelAndView set_fenrun(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new JModelAndView("admin/blue/set_fenrun.html",
                                             this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -590,6 +602,7 @@ public class BaseManageAction {
                                             this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
         mv.addObject("op_title", "分润设置成功");
         mv.addObject("list_url", CommUtil.getURL(request) + "/admin/set_fenrun.htm");
+
         return mv;
     }
 
@@ -605,6 +618,7 @@ public class BaseManageAction {
             SecurityContextHolder.getContext()
             .setAuthentication(authentication);
         }
+
         return "redirect:../index.htm";
     }
 
@@ -632,6 +646,7 @@ public class BaseManageAction {
         mv.addObject("url", request.getSession(false).getAttribute("url"));
         request.getSession(false).removeAttribute("op_title");
         request.getSession(false).removeAttribute("url");
+
         return mv;
     }
 
@@ -654,6 +669,7 @@ public class BaseManageAction {
         mv.addObject("url", request.getSession(false).getAttribute("url"));
         request.getSession(false).removeAttribute("op_title");
         request.getSession(false).removeAttribute("url");
+
         return mv;
     }
 
@@ -716,6 +732,7 @@ public class BaseManageAction {
         ModelAndView mv = new JModelAndView("admin/blue/editor_test.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -758,6 +775,7 @@ public class BaseManageAction {
         ModelAndView mv = new JModelAndView("resources/js/" + js + ".js",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 2, request, response);
+
         return mv;
     }
     @RequestMapping( {"/admin/test_mail.htm"})

@@ -78,6 +78,7 @@ public class UserManageAction {
         ModelAndView mv = new JModelAndView("admin/blue/user_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -97,6 +98,7 @@ public class UserManageAction {
                                             .getUserConfig(), 0, request, response);
         mv.addObject("obj", this.userService.getObjById(Long.valueOf(Long.parseLong(id))));
         mv.addObject("edit", Boolean.valueOf(true));
+
         return mv;
     }
 
@@ -136,6 +138,7 @@ public class UserManageAction {
                                             "", pList, mv);
         mv.addObject("userRole", "USER");
         mv.addObject("storeTools", this.storeTools);
+
         return mv;
     }
 
@@ -287,6 +290,7 @@ public class UserManageAction {
                 }
             }
         }
+
         return "redirect:user_list.htm?currentPage=" + currentPage;
     }
 
@@ -300,6 +304,7 @@ public class UserManageAction {
                           "select obj from StoreGrade obj order by obj.sequence asc",
                           null, -1, -1);
         mv.addObject("grades", grades);
+
         return mv;
     }
 
@@ -358,6 +363,7 @@ public class UserManageAction {
         }
         mv.addObject("op_title", "会员通知发送成功");
         mv.addObject("list_url", list_url);
+
         return mv;
     }
 
@@ -367,6 +373,7 @@ public class UserManageAction {
         ModelAndView mv = new JModelAndView("admin/blue/user_creditrule.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -390,6 +397,7 @@ public class UserManageAction {
             this.configService.update(sc);
         mv.addObject("list_url", list_url);
         mv.addObject("op_title", "保存会员信用成功");
+
         return mv;
     }
 }

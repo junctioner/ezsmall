@@ -78,6 +78,7 @@ public class BargainManageAction {
         }
         mv.addObject("dates", dates);
         mv.addObject("bargainManageTools", this.bargainManageTools);
+
         return mv;
     }
 
@@ -96,6 +97,7 @@ public class BargainManageAction {
         }
         mv.addObject("dates", dates);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -233,6 +235,7 @@ public class BargainManageAction {
             dates.add(cal.getTime());
         }
         mv.addObject("dates", dates);
+
         return mv;
     }
 
@@ -251,6 +254,7 @@ public class BargainManageAction {
             dates.add(cal.getTime());
         }
         mv.addObject("dates", dates);
+
         return mv;
     }
 
@@ -306,6 +310,7 @@ public class BargainManageAction {
                                             .getUserConfig(), 0, request, response);
         mv.addObject("op_title", op_title);
         mv.addObject("list_url", list_url);
+
         return mv;
     }
 
@@ -345,6 +350,7 @@ public class BargainManageAction {
             dates.add(cal.getTime());
         }
         mv.addObject("dates", dates);
+
         return mv;
     }
 
@@ -399,6 +405,7 @@ public class BargainManageAction {
                 }
             }
         }
+
         return uri;
     }
 
@@ -411,6 +418,7 @@ public class BargainManageAction {
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/bargain_list.htm");
         mv.addObject("op_tip", "审核商品数已超出特价商品的最多数");
+
         return mv;
     }
 
@@ -431,6 +439,7 @@ public class BargainManageAction {
                 this.goodsService.update(goods);
             }
         }
+
         return "redirect:bargain_goods_list.htm?bargain_time=" + bargain_time +
                "&currentPage=" + currentPage;
     }

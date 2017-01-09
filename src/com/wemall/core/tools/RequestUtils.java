@@ -82,6 +82,7 @@ public class RequestUtils {
                 params.put(entry.getKey(), entry.getValue());
             }
         }
+
         return params;
     }
 
@@ -136,6 +137,7 @@ public class RequestUtils {
             }
             ht.put(key, valArray);
         }
+
         return ht;
     }
 
@@ -160,6 +162,7 @@ public class RequestUtils {
                 map.put(key, value);
             }
         }
+
         return map;
     }
 
@@ -211,6 +214,7 @@ public class RequestUtils {
         if (queryString != null) {
             buff.append("?").append(queryString);
         }
+
         return buff.toString();
     }
 

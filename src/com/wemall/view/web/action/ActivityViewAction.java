@@ -60,6 +60,7 @@ public class ActivityViewAction {
         IPageList pList = this.activityGoodsService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("act", act);
+
         return mv;
     }
 }

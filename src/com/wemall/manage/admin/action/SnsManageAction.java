@@ -57,6 +57,7 @@ public class SnsManageAction {
         qo.setOrderType("desc");
         IPageList pList = this.dynamicService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -70,6 +71,7 @@ public class SnsManageAction {
             this.dynamicService.delete(CommUtil.null2Long(id));
         }
         String url = "redirect:/admin/sns_user.htm?currentPage=" + currentPage;
+
         return url;
     }
 
@@ -95,6 +97,7 @@ public class SnsManageAction {
         IPageList pList = this.dynamicService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("storeViewTools", this.storeViewTools);
+
         return mv;
     }
 
@@ -108,6 +111,7 @@ public class SnsManageAction {
             this.dynamicService.delete(CommUtil.null2Long(id));
         }
         String url = "redirect:/admin/sns_store.htm?currentPage=" + currentPage;
+
         return url;
     }
 
@@ -132,6 +136,7 @@ public class SnsManageAction {
         }
         String url = "redirect:/admin/sns_" + mark + ".htm?currentPage=" +
                      currentPage;
+
         return url;
     }
 }

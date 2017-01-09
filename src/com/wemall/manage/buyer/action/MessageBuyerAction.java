@@ -84,6 +84,7 @@ public class MessageBuyerAction {
         cal_msg_info(mv);
         mv.addObject("type", type);
         mv.addObject("from_user_id", from_user_id);
+
         return mv;
     }
 
@@ -99,6 +100,7 @@ public class MessageBuyerAction {
         if (CommUtil.null2String(from_user_id).equals("")) {
             return "redirect:message.htm?type=" + type;
         }
+
         return "redirect:message.htm?from_user_id=" + from_user_id;
     }
 
@@ -125,6 +127,7 @@ public class MessageBuyerAction {
         mv.addObject("obj", obj);
         mv.addObject("type", type);
         cal_msg_info(mv);
+
         return mv;
     }
 
@@ -182,6 +185,7 @@ public class MessageBuyerAction {
             this.userConfigService.getUserConfig(), 0, request, response);
         mv.addObject("op_title", "短信保存成功");
         mv.addObject("url", CommUtil.getURL(request) + "/buyer/message.htm");
+
         return mv;
     }
 
@@ -210,6 +214,7 @@ public class MessageBuyerAction {
         mv.addObject("op_title", "短信回复成功");
         mv.addObject("url", CommUtil.getURL(request) +
                      "/buyer/message.htm?type=" + CommUtil.null2Int(type));
+
         return mv;
     }
 

@@ -39,6 +39,7 @@ public class NavViewTools {
         params.put("type", "sparegoods");
         navs = this.navService
                .query("select obj from Navigation obj where obj.display=:display and obj.location=:location and obj.type!=:type order by obj.sequence asc", params, 0, count);
+
         return navs;
     }
 }

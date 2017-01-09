@@ -27,6 +27,7 @@ public class QRCodeDecoderHandler {
             System.out.println("Error: " + dfe.getMessage());
             dfe.printStackTrace();
         }
+
         return decodedData;
     }
 

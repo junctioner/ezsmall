@@ -119,6 +119,7 @@ public class WaterMarkSellerAction {
             mv.addObject("op_title", "您尚未开店");
         }
         mv.addObject("url", CommUtil.getURL(request) + "/seller/watermark.htm");
+
         return mv;
     }
 }

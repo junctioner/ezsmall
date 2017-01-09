@@ -28,6 +28,7 @@ public class ImageViewTools {
         } else {
             img = "resources/style/common/images/login_img.jpg";
         }
+
         return img;
     }
 }

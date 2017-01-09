@@ -124,6 +124,7 @@ public class TransAreaManageAction {
                          "select obj from TransArea obj where obj.parent.id is null",
                          null, -1, -1);
         mv.addObject("areas", areas);
+
         return mv;
     }
 
@@ -170,6 +171,7 @@ public class TransAreaManageAction {
         mv.addObject("op_title", "更新配送区域成功");
         mv.addObject("list_url", list_url + "?currentPage=" + currentPage +
                      "&pid=" + pid);
+
         return mv;
     }
 
@@ -183,6 +185,7 @@ public class TransAreaManageAction {
             }
             ids.add(child.getId());
         }
+
         return ids;
     }
 
@@ -205,6 +208,7 @@ public class TransAreaManageAction {
                 }
             }
         }
+
         return "redirect:trans_area_list.htm?pid=" + pid + "&currentPage=" +
                currentPage;
     }

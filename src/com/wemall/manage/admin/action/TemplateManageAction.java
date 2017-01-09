@@ -63,6 +63,7 @@ public class TemplateManageAction {
         CommUtil.saveIPageList2ModelAndView(url + "/admin/template_list.htm",
                                             "", params, pList, mv);
         mv.addObject("type", type);
+
         return mv;
     }
 
@@ -73,6 +74,7 @@ public class TemplateManageAction {
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -172,6 +174,7 @@ public class TemplateManageAction {
                 this.templateService.update(obj);
             }
         }
+
         return "redirect:template_list.htm?currentPage=" + currentPage +
                "&type=" + type;
     }

@@ -28,6 +28,7 @@ public class XMLHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return result;
     }
 }

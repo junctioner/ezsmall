@@ -29,6 +29,7 @@ public class IntegralGoodsServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class IntegralGoodsServiceImpl
         if (integralGoods != null) {
             return integralGoods;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class IntegralGoodsServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class IntegralGoodsServiceImpl
         for (Serializable id : integralGoodsIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class IntegralGoodsServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class IntegralGoodsServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

@@ -231,6 +231,7 @@ public class GoldRecordManageAction {
                 }
             }
         }
+
         return "redirect:gold_record.htm?currentPage=" + currentPage;
     }
 

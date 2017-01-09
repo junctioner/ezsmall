@@ -111,6 +111,7 @@ public class StoreViewAction {
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
         generic_evaluate(store, mv);
+
         return mv;
     }
 
@@ -136,6 +137,7 @@ public class StoreViewAction {
                                params, -1, -1);
         mv.addObject("partners", partners);
         mv.addObject("goodsViewTools", this.goodsViewTools);
+
         return mv;
     }
 
@@ -159,6 +161,7 @@ public class StoreViewAction {
                         .query("select obj from StorePartner obj where obj.store.id=:store_id order by obj.sequence asc",
                                params, -1, -1);
         mv.addObject("partners", partners);
+
         return mv;
     }
 
@@ -176,6 +179,7 @@ public class StoreViewAction {
                                             this.userConfigService.getUserConfig(), 1, request, response);
         mv.addObject("store", store);
         add_store_common_info(mv, store);
+
         return mv;
     }
 
@@ -323,6 +327,7 @@ public class StoreViewAction {
         mv.addObject("store", nav.getStore());
         mv.addObject("nav", nav);
         mv.addObject("nav_id", nav.getId());
+
         return mv;
     }
 
@@ -386,6 +391,7 @@ public class StoreViewAction {
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("storeViewTools", this.storeViewTools);
         mv.addObject("type", type);
+
         return mv;
     }
 
@@ -411,6 +417,7 @@ public class StoreViewAction {
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("keyword", keyword);
         mv.addObject("store", store);
+
         return mv;
     }
 
@@ -424,6 +431,7 @@ public class StoreViewAction {
         generic_evaluate(store, mv);
         mv.addObject("store", store);
         mv.addObject("storeViewTools", this.storeViewTools);
+
         return mv;
     }
 

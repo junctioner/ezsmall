@@ -66,12 +66,14 @@ public class PageCacheFiler extends SimplePageFragmentCachingFilter {
                 return true;
             }
         }
+
         return false;
     }
 
     protected boolean acceptsGzipEncoding(HttpServletRequest request) {
         boolean ie6 = headerContains(request, "User-Agent", "MSIE 6.0");
         boolean ie7 = headerContains(request, "User-Agent", "MSIE 7.0");
+
         return (acceptsEncoding(request, "gzip")) || (ie6) || (ie7);
     }
 
@@ -94,6 +96,7 @@ public class PageCacheFiler extends SimplePageFragmentCachingFilter {
             CommUtil.null2String(httpRequest
                                  .getAttribute("javax.serlvet.include.query_string")));
         String key = stringBuffer.toString();
+
         return key;
     }
 }

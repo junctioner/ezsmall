@@ -37,6 +37,7 @@ public class PinYinUtil {
         } catch (BadHanyuPinyinOutputFormatCombination e) {
             e.printStackTrace();
         }
+
         return output;
     }
 
@@ -69,6 +70,7 @@ public class PinYinUtil {
                 pybf.append(arr[i]);
             }
         }
+
         return pybf.toString().replaceAll("\\W", "").trim();
     }
 
@@ -98,6 +100,7 @@ public class PinYinUtil {
                 pybf.append(arr[i]);
             }
         }
+
         return pybf.toString();
     }
 }

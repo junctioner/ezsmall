@@ -113,6 +113,7 @@ public class DeliveryManageAction {
         mv.addObject("op_title", "买就送设置成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/set_delivery.htm");
+
         return mv;
     }
 
@@ -139,6 +140,7 @@ public class DeliveryManageAction {
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("d_status", d_status);
         mv.addObject("goods_name", goods_name);
+
         return mv;
     }
 
@@ -159,6 +161,7 @@ public class DeliveryManageAction {
                 this.goodsService.update(goods);
             }
         }
+
         return "redirect:delivery_goods_list.htm?currentPage=" + currentPage;
     }
 
@@ -176,6 +179,7 @@ public class DeliveryManageAction {
                 this.deliveryGoodsService.update(obj);
             }
         }
+
         return "redirect:delivery_goods_list.htm?currentPage=" + currentPage;
     }
 }

@@ -59,6 +59,7 @@ public class ReportSubjectManageAction {
         IPageList pList = this.reportsubjectService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url +
                                             "/admin/reportsubject_list.htm", "", params, pList, mv);
+
         return mv;
     }
 
@@ -74,6 +75,7 @@ public class ReportSubjectManageAction {
                          null, -1, -1);
         mv.addObject("types", types);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -142,6 +144,7 @@ public class ReportSubjectManageAction {
                 this.reportsubjectService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:reportsubject_list.htm?currentPage=" + currentPage;
     }
 }

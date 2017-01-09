@@ -102,6 +102,7 @@ public class HomePageBuyerAction {
                               map, -1, -1);
         mv.addObject("attentions_num", Integer.valueOf(attentions.size()));
         mv.addObject("fans_num", Integer.valueOf(fans.size()));
+
         return mv;
     }
 
@@ -239,6 +240,7 @@ public class HomePageBuyerAction {
         mv.addObject("visits", visits);
         IPageList pList = this.dynamicService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -352,6 +354,7 @@ public class HomePageBuyerAction {
                     "=");
         IPageList pList = this.snsFriendService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -376,6 +379,7 @@ public class HomePageBuyerAction {
                   new SysMap("user_id", user.getId()), "=");
         IPageList pList = this.attentionService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -398,6 +402,7 @@ public class HomePageBuyerAction {
         qo.addQuery("obj.toUser.id", new SysMap("user_id", user.getId()), "=");
         IPageList pList = this.attentionService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -423,6 +428,7 @@ public class HomePageBuyerAction {
                           "select obj from Visit obj where obj.homepage.owner.id=:uid order by addTime desc",
                           map, -1, 10);
         mv.addObject("visits", visits);
+
         return mv;
     }
 
@@ -494,6 +500,7 @@ public class HomePageBuyerAction {
         mv.addObject("orders", orders);
         mv.addObject("fcurrentCount", Integer.valueOf(fcount));
         mv.addObject("ocurrentCount", Integer.valueOf(ocount));
+
         return mv;
     }
 
@@ -517,6 +524,7 @@ public class HomePageBuyerAction {
                              map, fcount, 7);
         mv.addObject("favorites", favorites);
         mv.addObject("fcurrentCount", Integer.valueOf(fcount));
+
         return mv;
     }
 
@@ -540,6 +548,7 @@ public class HomePageBuyerAction {
                           map, ocount, 7);
         mv.addObject("orders", orders);
         mv.addObject("ocurrentCount", Integer.valueOf(ocount));
+
         return mv;
     }
 
@@ -568,6 +577,7 @@ public class HomePageBuyerAction {
         mv.addObject("favorites", favorites);
         mv.addObject("favorite_Allsize", Integer.valueOf(Allfavorites.size()));
         mv.addObject("currentCount", Integer.valueOf(currentCount));
+
         return mv;
     }
 
@@ -591,6 +601,7 @@ public class HomePageBuyerAction {
                              map, count, 7);
         mv.addObject("favorites", favorites);
         mv.addObject("currentCount", Integer.valueOf(count));
+
         return mv;
     }
 

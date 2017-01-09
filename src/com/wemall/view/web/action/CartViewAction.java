@@ -212,6 +212,7 @@ public class CartViewAction {
                 cart.add(sc);
             }
         }
+
         return (List<StoreCart>) cart;
     }
 
@@ -238,6 +239,7 @@ public class CartViewAction {
         }
         mv.addObject("total_price", Float.valueOf(total_price));
         mv.addObject("cart", list);
+
         return mv;
     }
 
@@ -750,6 +752,7 @@ public class CartViewAction {
                              "select obj from Goods obj where obj.ztc_status =:ztc_status and obj.ztc_begin_time <=:now_date and obj.ztc_gold>:ztc_gold order by obj.ztc_dredge_price desc",
                              ztc_map, random_num, 8);
         Collections.shuffle(ztc_goods);
+
         return ztc_goods;
     }
 
@@ -1142,6 +1145,7 @@ public class CartViewAction {
                    + CommUtil.getURL(request)
                    + "/index.htm?orderError";
         }
+
         return null;
     }
 
@@ -1671,6 +1675,7 @@ public class CartViewAction {
         }
         OrderForm obj = this.orderFormService.getObjById(CommUtil.null2Long(order_id));
         mv.addObject("obj", obj);
+
         return mv;
     }
 
@@ -1688,6 +1693,7 @@ public class CartViewAction {
         List areas = this.areaService.query("select obj from Area obj where obj.parent.id is null", null, -1, -1);
         mv.addObject("areas", areas);
         mv.addObject("store_id", store_id);
+
         return mv;
     }
 
@@ -1710,6 +1716,7 @@ public class CartViewAction {
             this.addressService.save(address);
         else
             this.addressService.update(address);
+
         return "redirect:goods_cart2.htm?store_id=" + store_id;
     }
 
@@ -1761,6 +1768,7 @@ public class CartViewAction {
         List areas = this.areaService.query("select obj from Area obj where obj.parent.id is null", null, -1, -1);
         mv.addObject("areas", areas);
         mv.addObject("store_id", store_id);
+
         return mv;
     }
 
@@ -1781,6 +1789,7 @@ public class CartViewAction {
         mv.addObject("areas", areas);
         mv.addObject("store_id", store_id);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -1794,6 +1803,7 @@ public class CartViewAction {
                 this.addressService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:goods_cart2.htm?store_id=" + store_id;
     }
 

@@ -58,6 +58,7 @@ public class UcenterManageAction {
         mv.addObject("op_title", "UC配置保存成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/ucenter.htm");
+
         return mv;
     }
 }

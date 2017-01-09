@@ -51,6 +51,7 @@ public class OrderManageAction {
             "admin/blue/set_order_confirm.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -81,6 +82,7 @@ public class OrderManageAction {
         mv.addObject("op_title", "订单设置成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/set_order_confirm.htm");
+
         return mv;
     }
 
@@ -147,6 +149,7 @@ public class OrderManageAction {
         mv.addObject("endTime", endTime);
         mv.addObject("begin_price", begin_price);
         mv.addObject("end_price", end_price);
+
         return mv;
     }
 
@@ -161,6 +164,7 @@ public class OrderManageAction {
         TransInfo transInfo = query_ship_getData(id);
         mv.addObject("transInfo", transInfo);
         mv.addObject("obj", obj);
+
         return mv;
     }
 
@@ -206,6 +210,7 @@ public class OrderManageAction {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return info;
     }
 }

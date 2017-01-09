@@ -17,6 +17,7 @@ public class MenuTools {
         if ((menu_json != null) && (!menu_json.equals(""))) {
             list = (List)Json.fromJson(List.class, menu_json);
         }
+
         return list;
     }
 }

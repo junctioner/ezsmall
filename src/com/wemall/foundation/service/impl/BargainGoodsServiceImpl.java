@@ -29,6 +29,7 @@ public class BargainGoodsServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class BargainGoodsServiceImpl
         if (bargainGoods != null) {
             return bargainGoods;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class BargainGoodsServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class BargainGoodsServiceImpl
         for (Serializable id : bargainGoodsIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class BargainGoodsServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class BargainGoodsServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

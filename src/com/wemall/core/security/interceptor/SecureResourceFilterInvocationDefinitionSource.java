@@ -95,6 +95,7 @@ public class SecureResourceFilterInvocationDefinitionSource implements FilterInv
     private Map<String, String> getUrlAuthorities(FilterInvocation filterInvocation) {
         ServletContext servletContext = filterInvocation.getHttpRequest()
                                         .getSession().getServletContext();
+
         return (Map)servletContext
                .getAttribute("urlAuthorities");
     }

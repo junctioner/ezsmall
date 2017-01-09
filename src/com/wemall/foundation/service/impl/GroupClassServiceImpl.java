@@ -29,6 +29,7 @@ public class GroupClassServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class GroupClassServiceImpl
         if (groupClass != null) {
             return groupClass;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class GroupClassServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class GroupClassServiceImpl
         for (Serializable id : groupClassIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class GroupClassServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class GroupClassServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

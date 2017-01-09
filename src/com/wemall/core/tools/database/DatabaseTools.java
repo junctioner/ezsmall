@@ -134,6 +134,7 @@ public class DatabaseTools
             e.printStackTrace();
             throw new Exception("出现错误,创建备份文件失败!");
         }
+
         return ret;
     }
 
@@ -176,6 +177,7 @@ public class DatabaseTools
             conn.rollback();
             ex.printStackTrace();
         }
+
         return ret;
     }
 
@@ -259,6 +261,7 @@ public class DatabaseTools
         StringBuilder columnsStr;
         StringBuilder sqlStr;
         List columnList;
+
         return list;
     }
 
@@ -332,6 +335,7 @@ public class DatabaseTools
             throw e;
         }
         //     List list;
+
         return list;
     }
 
@@ -348,6 +352,7 @@ public class DatabaseTools
         } finally {
             this.publicMethod.closeConn();
         }
+
         return tables;
     }
 
@@ -365,6 +370,7 @@ public class DatabaseTools
         } finally {
             this.publicMethod.closeConn();
         }
+
         return version;
     }
 
@@ -381,6 +387,7 @@ public class DatabaseTools
         } finally {
             this.publicMethod.closeConn();
         }
+
         return ret;
     }
 
@@ -408,6 +415,7 @@ public class DatabaseTools
             ret = false;
             e.printStackTrace();
         }
+
         return ret;
     }
 
@@ -425,6 +433,7 @@ public class DatabaseTools
         } finally {
             this.publicMethod.closeConn();
         }
+
         return rs;
     }
 }

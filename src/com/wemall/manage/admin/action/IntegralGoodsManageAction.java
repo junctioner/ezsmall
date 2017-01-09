@@ -254,6 +254,7 @@ public class IntegralGoodsManageAction {
                 this.integralgoodsService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:integral_goods_list.htm?currentPage=" + currentPage;
     }
 
@@ -474,6 +475,7 @@ public class IntegralGoodsManageAction {
             }
             this.integralGoodsOrderService.update(obj);
         }
+
         return "redirect:integral_order.htm?currentPage=" + currentPage;
     }
 
@@ -524,6 +526,7 @@ public class IntegralGoodsManageAction {
             obj.setIgo_ship_content(igo_ship_content);
             this.integralGoodsOrderService.update(obj);
         }
+
         return "redirect:integral_order.htm?currentPage=" + currentPage;
     }
 }

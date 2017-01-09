@@ -36,6 +36,7 @@ public class MsgTools {
         if (!ret.substring(0, 3).equals("000")) {
             result = false;
         }
+
         return result;
     }
 
@@ -88,6 +89,7 @@ public class MsgTools {
         } else {
             ret = false;
         }
+
         return ret;
     }
 }

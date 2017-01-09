@@ -41,6 +41,7 @@ public class StatTools {
         stores = this.storeService.query(
                      "select obj from Store obj where obj.addTime>=:time", params,
                      -1, -1);
+
         return stores.size();
     }
 
@@ -53,6 +54,7 @@ public class StatTools {
         users = this.userService.query(
                     "select obj from User obj where obj.addTime>=:time", params,
                     -1, -1);
+
         return users.size();
     }
 
@@ -65,6 +67,7 @@ public class StatTools {
         goods = this.goodsService.query(
                     "select obj from Goods obj where obj.addTime>=:time", params,
                     -1, -1);
+
         return goods.size();
     }
 
@@ -77,6 +80,7 @@ public class StatTools {
         orders = this.orderFormService.query(
                      "select obj from OrderForm obj where obj.addTime>=:time",
                      params, -1, -1);
+
         return orders.size();
     }
 
@@ -86,18 +90,21 @@ public class StatTools {
         List users = this.userService.query(
                          "select obj from User obj where obj.userRole!=:userRole",
                          params, -1, -1);
+
         return users.size();
     }
 
     public int query_all_goods() {
         List goods = this.goodsService.query(
                          "select obj from Goods obj", null, -1, -1);
+
         return goods.size();
     }
 
     public int query_all_store() {
         List stores = this.storeService.query(
                           "select obj from Store obj", null, -1, -1);
+
         return stores.size();
     }
 
@@ -106,6 +113,7 @@ public class StatTools {
                       .query(
                           "select obj from Store obj where obj.update_grade.id is not null",
                           null, -1, -1);
+
         return stores.size();
     }
 
@@ -120,6 +128,7 @@ public class StatTools {
         for (OrderForm of : ofs) {
             price = CommUtil.null2Double(of.getTotalPrice()) + price;
         }
+
         return price;
     }
 
@@ -134,6 +143,7 @@ public class StatTools {
                .query(
                    "select obj from Complaint obj where obj.addTime>=:time and obj.status=:status",
                    params, -1, -1);
+
         return objs.size();
     }
 
@@ -148,6 +158,7 @@ public class StatTools {
                .query(
                    "select obj from Report obj where obj.addTime>=:time and obj.status=:status",
                    params, -1, -1);
+
         return objs.size();
     }
 }

@@ -124,6 +124,7 @@ public class StoreManageAction {
                           "select obj from StoreGrade obj order by obj.sequence asc",
                           null, -1, -1);
         mv.addObject("grades", grades);
+
         return mv;
     }
 
@@ -134,6 +135,7 @@ public class StoreManageAction {
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -398,6 +400,7 @@ public class StoreManageAction {
                               "msg_toseller_goods_delete_by_admin_notify", store);
             }
         }
+
         return "redirect:store_list.htm";
     }
 
@@ -452,6 +455,7 @@ public class StoreManageAction {
         ModelAndView mv = new JModelAndView("admin/blue/store_base_set.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -476,6 +480,7 @@ public class StoreManageAction {
             this.configService.update(sc);
         mv.addObject("list_url", list_url);
         mv.addObject("op_title", "保存店铺设置成功");
+
         return mv;
     }
 
@@ -487,6 +492,7 @@ public class StoreManageAction {
                                             .getUserConfig(), 0, request, response);
         mv.addObject("path", request.getRealPath("/"));
         mv.addObject("separator", File.separator);
+
         return mv;
     }
 
@@ -497,6 +503,7 @@ public class StoreManageAction {
             "admin/blue/store_template_add.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -514,6 +521,7 @@ public class StoreManageAction {
             this.configService.update(sc);
         mv.addObject("list_url", list_url);
         mv.addObject("op_title", "店铺模板设置成功");
+
         return mv;
     }
 
@@ -556,6 +564,7 @@ public class StoreManageAction {
                           "select obj from StoreGrade obj order by obj.sequence asc",
                           null, -1, -1);
         mv.addObject("grades", grades);
+
         return mv;
     }
 
@@ -570,6 +579,7 @@ public class StoreManageAction {
                                 CommUtil.null2Long(id));
         mv.addObject("obj", obj);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -607,6 +617,7 @@ public class StoreManageAction {
                                             .getUserConfig(), 0, request, response);
         mv.addObject("list_url", list_url);
         mv.addObject("op_title", "保存店铺成功");
+
         return mv;
     }
 
@@ -621,6 +632,7 @@ public class StoreManageAction {
                                 CommUtil.null2Long(id));
         mv.addObject("obj", obj);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 }

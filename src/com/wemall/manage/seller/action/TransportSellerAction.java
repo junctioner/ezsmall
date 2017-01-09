@@ -65,6 +65,7 @@ public class TransportSellerAction {
         IPageList pList = this.transportService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", params, pList, mv);
         mv.addObject("transportTools", this.transportTools);
+
         return mv;
     }
 
@@ -75,6 +76,7 @@ public class TransportSellerAction {
             "user/default/usercenter/transport_add.html", this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -90,6 +92,7 @@ public class TransportSellerAction {
             mv.addObject("currentPage", currentPage);
         }
         mv.addObject("transportTools", this.transportTools);
+
         return mv;
     }
 
@@ -115,6 +118,7 @@ public class TransportSellerAction {
             mv.addObject("currentPage", currentPage);
         }
         mv.addObject("transportTools", this.transportTools);
+
         return mv;
     }
 
@@ -230,6 +234,7 @@ public class TransportSellerAction {
             this.transportService.save(transport);
         else
             this.transportService.update(transport);
+
         return "redirect:transport_success.htm?currentPage=" + currentPage;
     }
 
@@ -241,6 +246,7 @@ public class TransportSellerAction {
         mv.addObject("op_title", "运费模板保存成功");
         mv.addObject("url", CommUtil.getURL(request) +
                      "/seller/transport_list.htm?currentPage=" + currentPage);
+
         return mv;
     }
 
@@ -254,6 +260,7 @@ public class TransportSellerAction {
                 this.transportService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:transport_list.htm?currentPage=" + currentPage;
     }
 
@@ -297,6 +304,7 @@ public class TransportSellerAction {
         mv.addObject("objs", objs);
         mv.addObject("trans_city_type", trans_city_type);
         mv.addObject("trans_index", trans_index);
+
         return mv;
     }
 }

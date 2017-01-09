@@ -137,6 +137,7 @@ public class SystemLogAdvice {
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
+
         return method;
     }
 
@@ -184,6 +185,7 @@ public class SystemLogAdvice {
                 index++;
             }
         }
+
         return rs.toString();
     }
 }

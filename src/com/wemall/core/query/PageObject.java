@@ -9,6 +9,7 @@ public class PageObject {
         if (this.currentPage == null) {
             this.currentPage = Integer.valueOf(-1);
         }
+
         return this.currentPage;
     }
 

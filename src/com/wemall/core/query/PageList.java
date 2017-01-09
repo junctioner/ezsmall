@@ -74,12 +74,14 @@ public class PageList
     public int getNextPage() {
         int p = this.currentPage + 1;
         if (p > this.pages) p = this.pages;
+
         return p;
     }
 
     public int getPreviousPage() {
         int p = this.currentPage - 1;
         if (p < 1) p = 1;
+
         return p;
     }
 }

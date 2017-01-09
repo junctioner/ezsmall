@@ -34,6 +34,7 @@ public class UserConfigServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -42,6 +43,7 @@ public class UserConfigServiceImpl
         if (userConfig != null) {
             return userConfig;
         }
+
         return null;
     }
 
@@ -52,6 +54,7 @@ public class UserConfigServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -59,6 +62,7 @@ public class UserConfigServiceImpl
         for (Serializable id : userConfigIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -79,6 +83,7 @@ public class UserConfigServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -89,6 +94,7 @@ public class UserConfigServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -106,6 +112,7 @@ public class UserConfigServiceImpl
         } else {
             config = new UserConfig();
         }
+
         return config;
     }
 }

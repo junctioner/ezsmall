@@ -35,6 +35,7 @@ public class DocumentViewAction {
                                             request, response);
         Document obj = this.documentService.getObjByProperty("mark", mark);
         mv.addObject("obj", obj);
+
         return mv;
     }
 }

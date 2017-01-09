@@ -58,6 +58,7 @@ public class GoodsFloorTools {
                 }
             }
         }
+
         return gcs;
     }
 
@@ -98,6 +99,7 @@ public class GoodsFloorTools {
             map.put("goods6", this.goodsService.getObjById(
                         CommUtil.null2Long(list.get("goods_id6"))));
         }
+
         return map;
     }
 
@@ -165,6 +167,7 @@ public class GoodsFloorTools {
             }
         }
         template = template + "</div>";
+
         return template;
     }
 
@@ -181,6 +184,7 @@ public class GoodsFloorTools {
                 }
             }
         }
+
         return brands;
     }
 }

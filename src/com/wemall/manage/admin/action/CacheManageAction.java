@@ -51,6 +51,7 @@ public class CacheManageAction {
         mv.addObject("cache_memory_size", Long.valueOf(cache_memory_size));
         mv.addObject("data_cache_size", Integer.valueOf(data_cache_size));
         mv.addObject("page_cache_size", Integer.valueOf(cache.getSize()));
+
         return mv;
     }
 
@@ -77,6 +78,7 @@ public class CacheManageAction {
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/cache_list.htm");
         mv.addObject("op_title", "更新缓存成功");
+
         return mv;
     }
 }

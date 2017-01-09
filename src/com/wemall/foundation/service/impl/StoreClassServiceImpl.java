@@ -29,6 +29,7 @@ public class StoreClassServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class StoreClassServiceImpl
         if (storeClass != null) {
             return storeClass;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class StoreClassServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class StoreClassServiceImpl
         for (Serializable id : storeClassIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class StoreClassServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class StoreClassServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

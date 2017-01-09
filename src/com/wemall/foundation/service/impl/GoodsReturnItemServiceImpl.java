@@ -29,6 +29,7 @@ public class GoodsReturnItemServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class GoodsReturnItemServiceImpl
         if (goodsReturnItem != null) {
             return goodsReturnItem;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class GoodsReturnItemServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class GoodsReturnItemServiceImpl
         for (Serializable id : goodsReturnItemIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class GoodsReturnItemServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class GoodsReturnItemServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

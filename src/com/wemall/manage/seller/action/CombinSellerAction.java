@@ -67,6 +67,7 @@ public class CombinSellerAction {
         qo.addQuery("obj.goods_status", new SysMap("goods_status", Integer.valueOf(0)), "=");
         IPageList pList = this.goodsService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -86,6 +87,7 @@ public class CombinSellerAction {
                                .getId()), "=");
         IPageList pList = this.combinLogService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -131,6 +133,7 @@ public class CombinSellerAction {
         mv.addObject("combin_session", combin_session);
         request.getSession(false)
         .setAttribute("combin_session", combin_session);
+
         return mv;
     }
 
@@ -178,6 +181,7 @@ public class CombinSellerAction {
         .setAttribute("combin_session", combin_session);
         Goods obj = this.goodsService.getObjById(CommUtil.null2Long(id));
         mv.addObject("obj", obj);
+
         return mv;
     }
 
@@ -230,6 +234,7 @@ public class CombinSellerAction {
         mv.addObject("op_title", "组合销售保存成功");
         mv.addObject("url", CommUtil.getURL(request) +
                      "/seller/combin.htm?currentPage=" + currentPage);
+
         return mv;
     }
 
@@ -252,6 +257,7 @@ public class CombinSellerAction {
                 }
             }
         }
+
         return "redirect:combin.htm?currentPage=" + currentPage;
     }
 
@@ -265,6 +271,7 @@ public class CombinSellerAction {
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
         mv.addObject("user", user);
+
         return mv;
     }
 
@@ -309,6 +316,7 @@ public class CombinSellerAction {
             this.combinLogService.save(c_log);
             return "redirect:combin_buy_success.htm";
         }
+
         return "redirect:combin_buy_error.htm";
     }
 
@@ -320,6 +328,7 @@ public class CombinSellerAction {
                                             request, response);
         mv.addObject("op_title", "组合销售套餐购买成功");
         mv.addObject("url", CommUtil.getURL(request) + "/seller/combin.htm");
+
         return mv;
     }
 
@@ -331,6 +340,7 @@ public class CombinSellerAction {
                                             request, response);
         mv.addObject("op_title", "金币不足不能购买套餐");
         mv.addObject("url", CommUtil.getURL(request) + "/seller/combin.htm");
+
         return mv;
     }
 
@@ -375,6 +385,7 @@ public class CombinSellerAction {
                                             "/seller/combin_goods.htm", "", "&goods_name=" + goods_name,
                                             pList, mv);
         mv.addObject("target_id", target_id);
+
         return mv;
     }
 }

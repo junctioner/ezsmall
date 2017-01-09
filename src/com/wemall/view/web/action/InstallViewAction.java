@@ -77,6 +77,7 @@ public class InstallViewAction implements ServletContextAware {
             mv.addObject( "shop_manage_url", shop_manage_url );
         }
         mv.addObject( "version", "V2.0" );
+
         return mv;
     }
 
@@ -84,12 +85,14 @@ public class InstallViewAction implements ServletContextAware {
     public ModelAndView install_over( HttpServletRequest request, HttpServletResponse response ) {
         ModelAndView mv = new JModelAndView( "success.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response );
         mv.addObject( "op_title", "您已经安装wemall商城系统，重新安装请删除install.lock文件" );
+
         return mv;
     }
 
     @RequestMapping( { "/install_view.htm" } )
     public ModelAndView install_view( HttpServletRequest request, HttpServletResponse response ) {
         ModelAndView mv = new JModelAndView( "WEB-INF/templates/install/install_view.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 2, request, response );
+
         return mv;
     }
 

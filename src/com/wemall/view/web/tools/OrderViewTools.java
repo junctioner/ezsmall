@@ -45,6 +45,7 @@ public class OrderViewTools {
                    .query(
                        "select obj from OrderForm obj where obj.order_status=:status and obj.user.id=:user_id",
                        params, -1, -1);
+
         return ofs.size();
     }
 
@@ -79,6 +80,7 @@ public class OrderViewTools {
                            params, -1, -1);
             return ofs.size();
         }
+
         return 0;
     }
 }

@@ -59,6 +59,7 @@ public class EvaluateManageAction {
         mv.addObject("userName", userName);
         IPageList pList = this.evaluateService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -70,6 +71,7 @@ public class EvaluateManageAction {
                                             .getUserConfig(), 0, request, response);
         Evaluate obj = this.evaluateService.getObjById(CommUtil.null2Long(id));
         mv.addObject("obj", obj);
+
         return mv;
     }
 
@@ -95,6 +97,7 @@ public class EvaluateManageAction {
         }
         mv.addObject("list_url", list_url);
         mv.addObject("op_title", "商品评价编辑成功");
+
         return mv;
     }
 }

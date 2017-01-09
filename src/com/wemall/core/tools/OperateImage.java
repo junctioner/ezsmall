@@ -337,6 +337,7 @@ public class OperateImage {
             e.printStackTrace();
             return false;
         }
+
         return true;
     }
 
@@ -436,6 +437,7 @@ public class OperateImage {
             e.printStackTrace();
             return false;
         }
+
         return true;
     }
 

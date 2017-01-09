@@ -81,6 +81,7 @@ public class GroupSellerAction {
         IPageList pList = this.groupGoodsService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("gg_name", gg_name);
+
         return mv;
     }
 
@@ -108,6 +109,7 @@ public class GroupSellerAction {
         mv.addObject("gcs", gcs);
         mv.addObject("gas", gas);
         mv.addObject("groups", groups);
+
         return mv;
     }
 
@@ -138,6 +140,7 @@ public class GroupSellerAction {
         mv.addObject("gcs", gcs);
         mv.addObject("gas", gas);
         mv.addObject("groups", groups);
+
         return mv;
     }
 
@@ -155,6 +158,7 @@ public class GroupSellerAction {
                        "select obj from UserGoodsClass obj where obj.parent.id is null and obj.user.id=:user_id order by obj.sequence asc",
                        params, -1, -1);
         mv.addObject("gcs", gcs);
+
         return mv;
     }
 
@@ -294,6 +298,7 @@ public class GroupSellerAction {
         request.getSession(false).setAttribute("url",
                                                CommUtil.getURL(request) + "/seller/group.htm");
         request.getSession(false).setAttribute("op_title", "团购商品保存成功");
+
         return "redirect:" + CommUtil.getURL(request) + "/success.htm";
     }
 
@@ -309,6 +314,7 @@ public class GroupSellerAction {
                 ids.add(child.getId());
             }
         }
+
         return ids;
     }
 
@@ -325,6 +331,7 @@ public class GroupSellerAction {
             CommUtil.del_acc(request, gg.getGg_img());
             this.groupGoodsService.delete(CommUtil.null2Long(id));
         }
+
         return "redirect:group.htm?currentPage=" + currentPage;
     }
 }

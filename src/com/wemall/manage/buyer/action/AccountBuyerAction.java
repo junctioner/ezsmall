@@ -74,6 +74,7 @@ public class AccountBuyerAction {
         mv.addObject("op", op);
         mv.addObject("user", this.userService.getObjById(
                          SecurityUserHolder.getCurrentUser().getId()));
+
         return mv;
     }
 
@@ -90,6 +91,7 @@ public class AccountBuyerAction {
                          "select obj from Area obj where obj.parent.id is null", null,
                          -1, -1);
         mv.addObject("areas", areas);
+
         return mv;
     }
 
@@ -128,6 +130,7 @@ public class AccountBuyerAction {
         this.userService.update(user);
         mv.addObject("op_title", "个人信息修改成功");
         mv.addObject("url", CommUtil.getURL(request) + "/buyer/account.htm");
+
         return mv;
     }
 
@@ -177,6 +180,7 @@ public class AccountBuyerAction {
             mv.addObject("op_title", "原始密码输入错误，修改失败");
         }
         mv.addObject("url", CommUtil.getURL(request) + "/buyer/account_password.htm");
+
         return mv;
     }
 
@@ -187,6 +191,7 @@ public class AccountBuyerAction {
             "user/default/usercenter/account_email.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -211,6 +216,7 @@ public class AccountBuyerAction {
         }
         mv.addObject("url", CommUtil.getURL(request) +
                      "/buyer/account_email.htm");
+
         return mv;
     }
 
@@ -224,6 +230,7 @@ public class AccountBuyerAction {
         mv.addObject("user", this.userService.getObjById(
                          SecurityUserHolder.getCurrentUser().getId()));
         mv.addObject("url", CommUtil.getURL(request));
+
         return mv;
     }
 
@@ -310,6 +317,7 @@ public class AccountBuyerAction {
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         mv.addObject("url", CommUtil.getURL(request));
+
         return mv;
     }
 
@@ -403,6 +411,7 @@ public class AccountBuyerAction {
                                SecurityUserHolder.getCurrentUser().getId()), "=");
         IPageList pList = this.sndFriendService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -417,6 +426,7 @@ public class AccountBuyerAction {
                          "select obj from Area obj where obj.parent.id is null", null,
                          -1, -1);
         mv.addObject("areas", areas);
+
         return mv;
     }
 
@@ -481,6 +491,7 @@ public class AccountBuyerAction {
                          "select obj from Area obj where obj.parent.id is null", null,
                          -1, -1);
         mv.addObject("areas", areas);
+
         return mv;
     }
 
@@ -539,6 +550,7 @@ public class AccountBuyerAction {
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
         mv.addObject("user", user);
+
         return mv;
     }
 
@@ -558,6 +570,7 @@ public class AccountBuyerAction {
             user.setSina_openid(null);
         }
         this.userService.update(user);
+
         return "redirect:account_bind.htm";
     }
 

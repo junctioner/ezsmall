@@ -73,6 +73,7 @@ public class DatabaseManageAction {
         mv.addObject("tables", this.databaseTools.getTables());
         mv.addObject("name", CommUtil.formatTime("yyyyMMdd_" + count,
                      new Date()));
+
         return mv;
     }
 
@@ -114,6 +115,7 @@ public class DatabaseManageAction {
         }
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/database_add.htm");
+
         return mv;
     }
 
@@ -169,6 +171,7 @@ public class DatabaseManageAction {
             }
         }
         mv.addObject("objs", objs);
+
         return mv;
     }
 
@@ -188,6 +191,7 @@ public class DatabaseManageAction {
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/database_list.htm");
         mv.addObject("op_title", "删除备份数据成功");
+
         return mv;
     }
 
@@ -204,6 +208,7 @@ public class DatabaseManageAction {
         request.getSession(false).setAttribute("db_store_tables", files);
         mv.addObject("name", name);
         mv.addObject("mode", "store");
+
         return mv;
     }
 
@@ -272,6 +277,7 @@ public class DatabaseManageAction {
         request.getSession(false).removeAttribute("backup_size");
         mv.addObject("op_title", op_title);
         mv.addObject("list_url", list_url);
+
         return mv;
     }
 
@@ -297,6 +303,7 @@ public class DatabaseManageAction {
         request.getSession(false).removeAttribute("backup_size");
         mv.addObject("op_title", op_title);
         mv.addObject("list_url", list_url);
+
         return mv;
     }
 }

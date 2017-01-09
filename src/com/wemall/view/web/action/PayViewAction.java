@@ -1644,6 +1644,7 @@ public class PayViewAction {
         } else {
             logger.info("------微信异步回调失败-------");
         }
+
         return "";
     }
 
@@ -1659,6 +1660,7 @@ public class PayViewAction {
         ModelAndView mv = new JModelAndView("wap/paysuccess.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
         mv.addObject("totalPrice", totalPrice);
+
         return mv;
     }
 
@@ -1842,6 +1844,7 @@ public class PayViewAction {
         ModelAndView mv = new JModelAndView("alipaysuccess.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
         //mv.addObject("totalPrice",totalPrice);
+
         return mv;
     }
 

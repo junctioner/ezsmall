@@ -59,6 +59,7 @@ public class GroupAreaManageAction {
         IPageList pList = this.groupareaService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url + "/admin/group_area_list.htm",
                                             "", params, pList, mv);
+
         return mv;
     }
 
@@ -78,6 +79,7 @@ public class GroupAreaManageAction {
         mv.addObject("gas", gas);
         mv.addObject("obj", obj);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -134,6 +136,7 @@ public class GroupAreaManageAction {
         mv.addObject("op_title", "保存团购区域成功");
         mv.addObject("add_url", CommUtil.getURL(request) +
                      "/admin/group_area_add.htm" + "?currentPage=" + currentPage);
+
         return mv;
     }
 
@@ -148,6 +151,7 @@ public class GroupAreaManageAction {
                 this.groupareaService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:group_area_list.htm?currentPage=" + currentPage;
     }
 
@@ -202,6 +206,7 @@ public class GroupAreaManageAction {
                        -1, -1);
         mv.addObject("gas", gas);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 

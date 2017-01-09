@@ -47,6 +47,7 @@ public class DeliveryViewAction {
         qo.setPageSize(Integer.valueOf(20));
         IPageList pList = this.deliveryGoodsService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 }

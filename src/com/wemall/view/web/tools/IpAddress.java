@@ -73,6 +73,7 @@ public class IpAddress {
             e.printStackTrace();
             System.out.println("读取文件失败_readBytes");
         }
+
         return ret;
     }
 
@@ -86,6 +87,7 @@ public class IpAddress {
         } catch (IOException e) {
             System.out.println("读取文件失败_readBytes");
         }
+
         return ret;
     }
 
@@ -94,6 +96,7 @@ public class IpAddress {
         for (int i = 0; i < b.length; i++) {
             ret = (long) ((b[i] << 8) * (i & 255L) * Math.pow(256.0D, i));
         }
+
         return ret;
     }
 
@@ -104,6 +107,7 @@ public class IpAddress {
             sb.append(".");
         }
         sb.deleteCharAt(sb.length() - 1);
+
         return sb.toString();
     }
 
@@ -115,6 +119,7 @@ public class IpAddress {
                    Long.valueOf(arr[3]).longValue();
         } catch (Exception e) {
         }
+
         return -1L;
     }
 
@@ -138,6 +143,7 @@ public class IpAddress {
             }
         }
         System.out.println("没有找到ip");
+
         return -1L;
     }
 
@@ -149,6 +155,7 @@ public class IpAddress {
 
             return readString(areaOffset);
         }
+
         return readString(offset);
     }
 
@@ -184,6 +191,7 @@ public class IpAddress {
             return this.country;
         } catch (IOException e) {
         }
+
         return null;
     }
 
@@ -192,6 +200,7 @@ public class IpAddress {
         Matcher shopNamMatcher = shopNumberPattern.matcher(result);
         if (shopNamMatcher.find())
             return shopNamMatcher.group(1);
+
         return "";
     }
 
@@ -208,6 +217,7 @@ public class IpAddress {
         } catch (IOException e) {
             System.out.println("读取文件失败_readString");
         }
+
         return "";
     }
 
@@ -232,6 +242,7 @@ public class IpAddress {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
         return ret;
     }
 
@@ -242,6 +253,7 @@ public class IpAddress {
     public String IpStringToAddress(String ip) {
         long ipOffset = seekIp(ip);
         String ret = seekCountryArea(ipOffset);
+
         return ret;
     }
 

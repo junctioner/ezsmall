@@ -17,6 +17,7 @@ public class AppendMessage {
         } catch (Exception e) {
             throw e;
         }
+
         return strBuilder.toString();
     }
 
@@ -31,6 +32,7 @@ public class AppendMessage {
         } catch (Exception e) {
             throw e;
         }
+
         return strBuilder.toString();
     }
 
@@ -45,6 +47,7 @@ public class AppendMessage {
         } catch (Exception e) {
             throw e;
         }
+
         return strBuilder.toString();
     }
 }

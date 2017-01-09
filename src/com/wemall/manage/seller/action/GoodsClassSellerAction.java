@@ -65,6 +65,7 @@ public class GoodsClassSellerAction {
         IPageList pList = this.usergoodsclassService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url +
                                             "/seller/usergoodsclass_list.htm", "", params, pList, mv);
+
         return mv;
     }
 
@@ -92,6 +93,7 @@ public class GoodsClassSellerAction {
             ret = this.usergoodsclassService.save(usergoodsclass);
         else
             ret = this.usergoodsclassService.update(usergoodsclass);
+
         return "redirect:usergoodsclass_list.htm";
     }
 
@@ -106,6 +108,7 @@ public class GoodsClassSellerAction {
                 this.usergoodsclassService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:usergoodsclass_list.htm";
     }
 
@@ -131,6 +134,7 @@ public class GoodsClassSellerAction {
         }
         mv.addObject("ugcs", ugcs);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -150,6 +154,7 @@ public class GoodsClassSellerAction {
         mv.addObject("obj", obj);
         mv.addObject("ugcs", ugcs);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 }

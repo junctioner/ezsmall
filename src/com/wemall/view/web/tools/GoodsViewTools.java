@@ -68,6 +68,7 @@ public class GoodsViewTools {
                    .query("select obj from UserGoodsClass obj where obj.parent.id=:pid and obj.user.id = :uid order by obj.sequence asc",
                           params, -1, -1);
         }
+
         return list;
     }
 
@@ -84,6 +85,7 @@ public class GoodsViewTools {
                    .query("select obj from Goods obj where obj.gc.id in (:ids) and obj.goods_status=:goods_status order by obj.goods_click desc",
                           params, 0, count);
         }
+
         return list;
     }
 
@@ -97,6 +99,7 @@ public class GoodsViewTools {
             }
             ids.add(child.getId());
         }
+
         return ids;
     }
 
@@ -108,6 +111,7 @@ public class GoodsViewTools {
         list = this.goodsService
                .query("select obj from Goods obj where obj.goods_store.id=:store_id and obj.goods_status=:goods_status order by obj.goods_salenum desc",
                       params, 0, count);
+
         return list;
     }
 
@@ -119,6 +123,7 @@ public class GoodsViewTools {
         list = this.goodsService
                .query("select obj from Goods obj where obj.goods_store.id=:store_id and obj.goods_status=:goods_status order by obj.goods_collect desc",
                       params, 0, count);
+
         return list;
     }
 

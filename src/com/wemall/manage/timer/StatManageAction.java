@@ -617,6 +617,7 @@ public class StatManageAction {
             boolean ret = this.msgTools.sendEmail(email, subject, content);
             return ret;
         }
+
         return false;
     }
 
@@ -651,6 +652,7 @@ public class StatManageAction {
             boolean ret = this.msgTools.sendSMS(mobile, content);
             return ret;
         }
+
         return false;
     }
 }

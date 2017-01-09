@@ -68,6 +68,7 @@ public class ReportBuyerAction {
                                 SecurityUserHolder.getCurrentUser().getId()), "=");
         IPageList pList = this.reportService.list(rqo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -194,6 +195,7 @@ public class ReportBuyerAction {
         this.reportService.save(report);
         mv.addObject("op_title", "举报商品成功");
         mv.addObject("url", CommUtil.getURL(request) + "/buyer/report.htm");
+
         return mv;
     }
 
@@ -206,6 +208,7 @@ public class ReportBuyerAction {
             this.userConfigService.getUserConfig(), 0, request, response);
         Report obj = this.reportService.getObjById(CommUtil.null2Long(id));
         mv.addObject("obj", obj);
+
         return mv;
     }
 
@@ -215,6 +218,7 @@ public class ReportBuyerAction {
         Report obj = this.reportService.getObjById(CommUtil.null2Long(id));
         obj.setStatus(-1);
         this.reportService.update(obj);
+
         return "redirect:report.htm?currentPage=" + currentPage;
     }
 

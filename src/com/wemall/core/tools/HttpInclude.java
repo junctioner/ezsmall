@@ -43,6 +43,7 @@ public class HttpInclude {
     public String include(String includePath) {
         StringWriter sw = new StringWriter(8192);
         include(includePath, sw);
+
         return sw.toString();
     }
 
@@ -133,6 +134,7 @@ public class HttpInclude {
             sb.append(sessionIdKey).append("=").append(sessionId).append(
                 "; ");
         }
+
         return sb.toString();
     }
 

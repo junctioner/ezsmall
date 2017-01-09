@@ -75,6 +75,7 @@ public class IntegralLogManageAction {
         CommUtil.saveIPageList2ModelAndView(
             url + "/admin/integrallog_list.htm", "", "&userName=" +
             CommUtil.null2String(userName), pList, mv);
+
         return mv;
     }
 
@@ -168,6 +169,7 @@ public class IntegralLogManageAction {
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/user_integral.htm");
         mv.addObject("op_title", "操作用户积分成功");
+
         return mv;
     }
 }

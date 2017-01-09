@@ -26,6 +26,7 @@ public class AreaViewTools {
                 area_info = info + area_info;
             }
         }
+
         return area_info;
     }
 }

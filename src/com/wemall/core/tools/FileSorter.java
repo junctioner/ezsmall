@@ -63,6 +63,7 @@ public class FileSorter
         if (d1 == d2) {
             return 0;
         }
+
         return d1 < d2 ? 1 : -1;
     }
 
@@ -73,6 +74,7 @@ public class FileSorter
         if (d1 == d2) {
             return 0;
         }
+
         return d1 > d2 ? 1 : -1;
     }
 
@@ -92,6 +94,7 @@ public class FileSorter
         if (s1 == s2) {
             return 0;
         }
+
         return s1 < s2 ? 1 : -1;
     }
 
@@ -112,6 +115,7 @@ public class FileSorter
         if (s1 == s2) {
             return 0;
         }
+
         return s1 > s2 ? 1 : -1;
     }
 
@@ -129,6 +133,7 @@ public class FileSorter
         if ((object1.isFile()) && (object2.isDirectory())) {
             return 1;
         }
+
         return compareByName(object1, object2);
     }
 

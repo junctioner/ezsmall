@@ -62,6 +62,7 @@ public class StorePartnerManageAction {
         IPageList pList = this.storepartnerService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url + "/seller/store_partner.htm",
                                             "", params, pList, mv);
+
         return mv;
     }
 
@@ -73,6 +74,7 @@ public class StorePartnerManageAction {
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -121,6 +123,7 @@ public class StorePartnerManageAction {
         mv.addObject("url", CommUtil.getURL(request) +
                      "/seller/store_partner.htm");
         mv.addObject("op_title", "保存友情链接成功");
+
         return mv;
     }
 
@@ -135,6 +138,7 @@ public class StorePartnerManageAction {
                 this.storepartnerService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:store_partner.htm?currentPage=" + currentPage;
     }
 }

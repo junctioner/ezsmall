@@ -246,6 +246,7 @@ public class GroupViewAction {
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("time", time);
         mv.addObject("groupViewTools", this.groupViewTools);
+
         return mv;
     }
 }

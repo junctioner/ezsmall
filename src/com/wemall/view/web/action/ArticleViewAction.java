@@ -81,6 +81,7 @@ public class ArticleViewAction {
         mv.addObject("ac", ac);
         mv.addObject("articles", articles);
         mv.addObject("acs", acs);
+
         return mv;
     }
 
@@ -108,6 +109,7 @@ public class ArticleViewAction {
         mv.addObject("acs", acs);
         mv.addObject("obj", obj);
         mv.addObject("articleTools", this.articleTools);
+
         return mv;
     }
 }

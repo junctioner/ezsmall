@@ -374,7 +374,7 @@ function inventory_type(){
 	jQuery(":checkbox[id^=spec_]:checked").each(function(){
 		goods_spec_ids=jQuery(this).val()+","+goods_spec_ids;
 	});
-	  alert(goods_spec_ids);
+
 	jQuery.post("$!webPath/seller/goods_inventory.htm",{"goods_spec_ids":goods_spec_ids},function(data){
 		jQuery("#inventory_detail_content").append(data);
 		jQuery("#inventory_detail").show();
@@ -501,7 +501,7 @@ function ajaxPage(url,currentPage,obj){
   }
 }
 function saveForm(){
-  editor.sync();//同步编辑器的数据到texterea
+  editor.sync();//同步编辑器的数据到textarea
   var image_ids="";
   for(var i=2;i<=5;i++){
 	var image_id=jQuery("#goods_image_"+i).attr("image_id");
@@ -531,14 +531,14 @@ function saveForm(){
 	}
   });
   jQuery("#goods_properties").val(goods_properties);
-  var intentory_details="";
+  var inventory_details="";
   jQuery("input[id^=inventory_details_count_]").each(function(){
 	 var id=jQuery(this).attr("name");
 	 var count=jQuery(this).val();
 	 var price=jQuery("#inventory_details_price_"+id).val();
-	 intentory_details=id+","+count+","+price+";"+intentory_details;
+	 inventory_details=id+","+count+","+price+";"+inventory_details;
   });
-  jQuery("#intentory_details").val(intentory_details);
+  jQuery("#inventory_details").val(inventory_details);
   jQuery("#theForm").submit();
 }
 </script>
@@ -564,7 +564,7 @@ $!httpInclude.include("/top.htm")
             <input name="user_class_ids" type="hidden" id="user_class_ids" />
             <input name="goods_spec_ids" type="hidden" id="goods_spec_ids" />
             <input name="goods_properties" type="hidden" id="goods_properties" />
-            <input type="hidden" name="intentory_details" id="intentory_details" />
+            <input type="hidden" name="inventory_details" id="inventory_details" />
             <input name="edit_class" type="button" id="edit_class" value="编辑" style="cursor:pointer;" onclick="window.location.href='$!webPath/seller/add_goods_first.htm?id=$!{obj.id}'" />
             </span></td>
         </tr>
@@ -862,17 +862,9 @@ $!httpInclude.include("/top.htm")
           <td align="right" valign="top">$!{property.name}：</td>
           <td><select name="property_$!{property.id}" id="property_$!{property.id}">
               <option value="">请选择...</option>
-
-
  			  #foreach($info in $CommUtil.splitByChar("$!property.value",","))
-
-
               <option value="$!info">$!info</option>
-
-
 			  #end
-
-
             </select></td>
         </tr>
         #end
@@ -914,59 +906,23 @@ $!httpInclude.include("/top.htm")
           <td><span> <span id="ugc_info"> #if(!$!obj||$!{obj.goods_ugcs.size()}==0)
             <select name="ugc_id_1" id="ugc_id_1">
               <option value="">请选择...</option>
-
-
-
 			  #foreach($ugc in $ugcs)
-
-
-
               <option value="$!ugc.id">$!ugc.className</option>
-
-
-
 			  #foreach($c_ugc in $ugc.childs)
-
-
-
               <option value="$!c_ugc.id">&nbsp;&nbsp;$!c_ugc.className</option>
-
-
-
 			  #end
 			  #end
-
-
-
             </select>
             #else
             #foreach($goods_ugc in $obj.goods_ugcs)
             <select name="ugc_id_$!{velocityCount}" id="ugc_id_$!{velocityCount}">
               <option value="">请选择本店分类...</option>
-
-
-
 			  #foreach($ugc in $ugcs)
-
-
-
               <option value="$!ugc.id">$!ugc.className</option>
-
-
-
 			  #foreach($c_ugc in $ugc.childs)
-
-
-
               <option value="$!c_ugc.id">&nbsp;&nbsp;$!c_ugc.className</option>
-
-
-
 			  #end
 			  #end
-
-
-
             </select>
             #end
             #end </span> </span><a class="button_common" href="javascript:void(0);" onclick="add_goods_class();">新增分类</a> <span class="hui2 tableli">

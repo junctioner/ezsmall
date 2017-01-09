@@ -81,6 +81,7 @@ public class GoodsFloorManageAction {
         IPageList pList = this.goodsfloorService.list(qo);
         CommUtil.saveIPageList2ModelAndView(
             url + "/admin/goods_floor_list.htm", "", params, pList, mv);
+
         return mv;
     }
 
@@ -105,6 +106,7 @@ public class GoodsFloorManageAction {
             obj.setGf_level(parent.getGf_level() + 1);
         obj.setGf_display(true);
         mv.addObject("obj", obj);
+
         return mv;
     }
 
@@ -177,6 +179,7 @@ public class GoodsFloorManageAction {
                 this.goodsfloorService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:goods_floor_list.htm?currentPage=" + currentPage;
     }
 
@@ -231,6 +234,7 @@ public class GoodsFloorManageAction {
                        map, -1, -1);
         mv.addObject("gfs", gfs);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -248,6 +252,7 @@ public class GoodsFloorManageAction {
         mv.addObject("currentPage", currentPage);
         mv.addObject("tab", tab);
         mv.addObject("url", CommUtil.getURL(request));
+
         return mv;
     }
 
@@ -267,6 +272,7 @@ public class GoodsFloorManageAction {
         mv.addObject("obj", obj);
         mv.addObject("gf_tools", this.gf_tools);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -280,6 +286,7 @@ public class GoodsFloorManageAction {
         GoodsClass gc = this.goodsClassService.getObjById(
                             CommUtil.null2Long(gc_id));
         mv.addObject("gc", gc);
+
         return mv;
     }
 
@@ -309,6 +316,7 @@ public class GoodsFloorManageAction {
         }
         obj.setGf_gc_list(Json.toJson(gf_gc_list, JsonFormat.compact()));
         this.goodsfloorService.update(obj);
+
         return "redirect:goods_floor_template.htm?id=" + id;
     }
 
@@ -328,6 +336,7 @@ public class GoodsFloorManageAction {
         mv.addObject("obj", obj);
         mv.addObject("gf_tools", this.gf_tools);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -347,6 +356,7 @@ public class GoodsFloorManageAction {
 
         obj.setGf_gc_goods(Json.toJson(map, JsonFormat.compact()));
         this.goodsfloorService.update(obj);
+
         return "redirect:goods_floor_template.htm?id=" +
                obj.getParent().getId() + "&tab=" + id;
     }
@@ -367,6 +377,7 @@ public class GoodsFloorManageAction {
         mv.addObject("obj", obj);
         mv.addObject("gf_tools", this.gf_tools);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -386,6 +397,7 @@ public class GoodsFloorManageAction {
 
         obj.setGf_list_goods(Json.toJson(map, JsonFormat.compact()));
         this.goodsfloorService.update(obj);
+
         return "redirect:goods_floor_template.htm?id=" + obj.getId();
     }
 
@@ -408,6 +420,7 @@ public class GoodsFloorManageAction {
         mv.addObject("aps", aps);
         mv.addObject("obj", obj);
         mv.addObject("gf_tools", this.gf_tools);
+
         return mv;
     }
 
@@ -456,6 +469,7 @@ public class GoodsFloorManageAction {
             obj.setGf_left_adv(Json.toJson(json_map, JsonFormat.compact()));
         }
         this.goodsfloorService.update(obj);
+
         return "redirect:goods_floor_template.htm?id=" + obj.getId();
     }
 
@@ -478,6 +492,7 @@ public class GoodsFloorManageAction {
         mv.addObject("aps", aps);
         mv.addObject("obj", obj);
         mv.addObject("gf_tools", this.gf_tools);
+
         return mv;
     }
 
@@ -526,6 +541,7 @@ public class GoodsFloorManageAction {
             obj.setGf_right_adv(Json.toJson(json_map, JsonFormat.compact()));
         }
         this.goodsfloorService.update(obj);
+
         return "redirect:goods_floor_template.htm?id=" + obj.getId();
     }
 
@@ -546,6 +562,7 @@ public class GoodsFloorManageAction {
                                             "/admin/goods_floor_brand_load.htm", "", "", pList, mv);
         mv.addObject("obj", obj);
         mv.addObject("gf_tools", this.gf_tools);
+
         return mv;
     }
 
@@ -564,6 +581,7 @@ public class GoodsFloorManageAction {
         System.out.println(Json.toJson(map, JsonFormat.compact()));
         obj.setGf_brand_list(Json.toJson(map, JsonFormat.compact()));
         this.goodsfloorService.update(obj);
+
         return "redirect:goods_floor_template.htm?id=" + obj.getId();
     }
 
@@ -585,6 +603,7 @@ public class GoodsFloorManageAction {
         CommUtil.saveIPageList2ModelAndView(CommUtil.getURL(request) +
                                             "/admin/goods_floor_brand_load.htm", "",
                                             "&name=" + CommUtil.null2String(name), pList, mv);
+
         return mv;
     }
 
@@ -614,6 +633,7 @@ public class GoodsFloorManageAction {
         CommUtil.saveIPageList2ModelAndView(CommUtil.getURL(request) +
                                             "/admin/goods_floor_list_goods_load.htm", "", "&gc_id=" +
                                             gc_id + "&goods_name=" + goods_name, pList, mv);
+
         return mv;
     }
 
@@ -627,6 +647,7 @@ public class GoodsFloorManageAction {
             }
             ids.add(child.getId());
         }
+
         return ids;
     }
 }

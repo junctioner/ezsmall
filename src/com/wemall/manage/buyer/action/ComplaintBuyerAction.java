@@ -73,6 +73,7 @@ public class ComplaintBuyerAction {
         IPageList pList = this.complaintService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("status", status);
+
         return mv;
     }
 
@@ -136,6 +137,7 @@ public class ComplaintBuyerAction {
             mv.addObject("op_title", "该订单已经超过投诉有效期，不能投诉");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/order.htm");
         }
+
         return (ModelAndView)mv;
     }
 
@@ -228,6 +230,7 @@ public class ComplaintBuyerAction {
         this.complaintService.save(obj);
         mv.addObject("op_title", "投诉提交成功");
         mv.addObject("url", CommUtil.getURL(request) + "/buyer/complaint.htm");
+
         return (ModelAndView)mv;
     }
 
@@ -281,6 +284,7 @@ public class ComplaintBuyerAction {
                         .getObjById(CommUtil.null2Long(id));
         mv.addObject("type", type);
         mv.addObject("obj", obj);
+
         return mv;
     }
 
@@ -352,6 +356,7 @@ public class ComplaintBuyerAction {
         mv.addObject("op_title", "申诉提交仲裁成功");
         mv.addObject("url", CommUtil.getURL(request) +
                      "/buyer/complaint_seller.htm");
+
         return mv;
     }
 }

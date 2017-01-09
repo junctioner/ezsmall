@@ -83,6 +83,7 @@ public class PartnerManageAction {
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -182,6 +183,7 @@ public class PartnerManageAction {
                 this.partnerService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:partner_list.htm";
     }
 }

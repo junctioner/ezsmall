@@ -77,6 +77,7 @@ public class SpareGoodsSellerAction {
         qo.setPageSize(Integer.valueOf(15));
         IPageList pList = this.sparegoodsService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -104,6 +105,7 @@ public class SpareGoodsSellerAction {
                                          .getImageSuffix()));
         mv.addObject("areas", areas);
         mv.addObject("level2", level2);
+
         return mv;
     }
 
@@ -303,6 +305,7 @@ public class SpareGoodsSellerAction {
             mv.addObject("op_title", "禁止重复发布商品!");
         }
         request.getSession(false).removeAttribute("spare_goods_session");
+
         return mv;
     }
 

@@ -77,6 +77,7 @@ public class GoodsReturnSellerAction {
         mv.addObject("data", data);
         mv.addObject("beginTime", beginTime);
         mv.addObject("endTime", endTime);
+
         return mv;
     }
 
@@ -90,6 +91,7 @@ public class GoodsReturnSellerAction {
         GoodsReturn obj = this.goodsReturnService.getObjById(
                               CommUtil.null2Long(id));
         mv.addObject("obj", obj);
+
         return mv;
     }
 }

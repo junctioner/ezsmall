@@ -29,6 +29,7 @@ public class DynamicServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class DynamicServiceImpl
         if (dynamic != null) {
             return dynamic;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class DynamicServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class DynamicServiceImpl
         for (Serializable id : dynamicIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class DynamicServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class DynamicServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

@@ -37,6 +37,7 @@ public class FileUtil {
             flag = false;
             e.printStackTrace();
         }
+
         return flag;
     }
 
@@ -76,6 +77,7 @@ public class FileUtil {
         if (distFile.isDirectory()) {
             return FileUtils.sizeOfDirectory(distFile);
         }
+
         return -1L;
     }
 
@@ -89,6 +91,7 @@ public class FileUtil {
             DirectoryFileFilter.INSTANCE);
         FilenameFilter filenameFilter = new AndFileFilter(fileFilter1,
                 fileFilter2);
+
         return new File(folder).list(filenameFilter);
     }
 }

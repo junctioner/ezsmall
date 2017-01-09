@@ -29,6 +29,7 @@ public class StorePartnerServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class StorePartnerServiceImpl
         if (storePartner != null) {
             return storePartner;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class StorePartnerServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class StorePartnerServiceImpl
         for (Serializable id : storePartnerIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class StorePartnerServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class StorePartnerServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

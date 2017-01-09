@@ -115,6 +115,7 @@ public class LuceneUtil {
             searcher.close();
             reader.close();
         }
+
         return list;
     }
 
@@ -290,6 +291,7 @@ public class LuceneUtil {
         indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
         IndexWriter writer = new IndexWriter(FSDirectory.open(index_file), indexWriterConfig);
         writer.setMaxBufferedDocs(100);
+
         return writer;
     }
 
@@ -312,6 +314,7 @@ public class LuceneUtil {
         document.add(store_price);
         document.add(add_time);
         document.add(goods_salenum);
+
         return document;
     }
 

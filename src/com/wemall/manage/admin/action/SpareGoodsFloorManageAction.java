@@ -69,6 +69,7 @@ public class SpareGoodsFloorManageAction {
         qo.setOrderType("asc");
         IPageList pList = this.sparegoodsfloorService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", null, pList, mv);
+
         return mv;
     }
 
@@ -93,6 +94,7 @@ public class SpareGoodsFloorManageAction {
                                   params, -1, -1);
         mv.addObject("advertposition", advertposition);
         mv.addObject("sgcs", sgcs);
+
         return mv;
     }
 
@@ -124,6 +126,7 @@ public class SpareGoodsFloorManageAction {
                                   params, -1, -1);
         mv.addObject("advertposition", advertposition);
         mv.addObject("sgcs", sgcs);
+
         return mv;
     }
 
@@ -262,6 +265,7 @@ public class SpareGoodsFloorManageAction {
                 this.sparegoodsfloorService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:sparegoodsfloor_list.htm?currentPage=" + currentPage;
     }
 
@@ -287,6 +291,7 @@ public class SpareGoodsFloorManageAction {
         IPageList pList = this.sparegoodsclassService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", null, pList, mv);
         mv.addObject("fid", fid);
+
         return mv;
     }
 
@@ -352,6 +357,7 @@ public class SpareGoodsFloorManageAction {
                 this.sparegoodsclassService.update(sgc);
             }
         }
+
         return "redirect:sparegoodsfloor_setclass.htm?currentPage=" +
                currentPage + "&fid=" + fid;
     }
@@ -413,6 +419,7 @@ public class SpareGoodsFloorManageAction {
                 this.sparegoodsService.update(sg);
             }
         }
+
         return "redirect:sparegoodsfloor_setgoods.htm?currentPage=" +
                currentPage + "&fid=" + fid;
     }
@@ -429,6 +436,7 @@ public class SpareGoodsFloorManageAction {
                 ids.add(child.getId());
             }
         }
+
         return ids;
     }
 }

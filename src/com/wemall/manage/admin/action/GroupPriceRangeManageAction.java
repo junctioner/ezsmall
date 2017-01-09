@@ -51,6 +51,7 @@ public class GroupPriceRangeManageAction {
         IPageList pList = this.grouppricerangeService.list(qo);
         CommUtil.saveIPageList2ModelAndView(
             url + "/admin/group_range_list.htm", "", params, pList, mv);
+
         return mv;
     }
 
@@ -61,6 +62,7 @@ public class GroupPriceRangeManageAction {
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -107,6 +109,7 @@ public class GroupPriceRangeManageAction {
         mv.addObject("op_title", "保存价格区间成功");
         mv.addObject("add_url", CommUtil.getURL(request) +
                      "/admin/group_price_add.htm" + "?currentPage=" + currentPage);
+
         return mv;
     }
 
@@ -121,6 +124,7 @@ public class GroupPriceRangeManageAction {
                 this.grouppricerangeService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:group_price_list.htm?currentPage=" + currentPage;
     }
 }

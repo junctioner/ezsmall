@@ -41,6 +41,7 @@ public class MySecureProtocolSocketFactory
         } catch (KeyManagementException e) {
             e.printStackTrace();
         }
+
         return sslcontext;
     }
 
@@ -48,6 +49,7 @@ public class MySecureProtocolSocketFactory
         if (this.sslcontext == null) {
             this.sslcontext = createSSLContext();
         }
+
         return this.sslcontext;
     }
 
@@ -82,6 +84,7 @@ public class MySecureProtocolSocketFactory
         SocketAddress remoteaddr = new InetSocketAddress(host, port);
         socket.bind(localaddr);
         socket.connect(remoteaddr, timeout);
+
         return socket;
     }
 

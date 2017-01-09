@@ -67,6 +67,7 @@ public class AdvertSellerAction {
         qo.setPageSize(Integer.valueOf(30));
         IPageList pList = this.advertPositionService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -245,6 +246,7 @@ public class AdvertSellerAction {
         mv.addObject("obj", obj);
         mv.addObject("user", this.userService.getObjById(
                          SecurityUserHolder.getCurrentUser().getId()));
+
         return mv;
     }
 
@@ -262,6 +264,7 @@ public class AdvertSellerAction {
                                SecurityUserHolder.getCurrentUser().getId()), "=");
         IPageList pList = this.advertService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 

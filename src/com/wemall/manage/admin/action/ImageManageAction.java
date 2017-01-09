@@ -57,6 +57,7 @@ public class ImageManageAction {
         qo.setPageSize(Integer.valueOf(15));
         IPageList pList = this.albumService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -84,6 +85,7 @@ public class ImageManageAction {
         }
         String url = "redirect:/admin/user_photo_list.htm?currentPage=" +
                      currentPage;
+
         return url;
     }
 
@@ -102,6 +104,7 @@ public class ImageManageAction {
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         Album album = this.albumService.getObjById(CommUtil.null2Long(aid));
         mv.addObject("album", album);
+
         return mv;
     }
 
@@ -120,6 +123,7 @@ public class ImageManageAction {
         }
         String url = "redirect:/admin/user_pic_list.htm?currentPage=" +
                      currentPage + "&aid=" + aid;
+
         return url;
     }
 }

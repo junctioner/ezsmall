@@ -110,6 +110,7 @@ public class LoginViewAction {
                                    this.userConfigService.getUserConfig(), 1, request, response);
         }
         request.getSession(false).removeAttribute("verify_code");
+
         return mv;
     }
 
@@ -259,6 +260,7 @@ public class LoginViewAction {
         }
         mv.addObject("op_title", "登录成功");
         mv.addObject("url", url);
+
         return mv;
     }
     /**
@@ -271,6 +273,7 @@ public class LoginViewAction {
     public ModelAndView user_dialog_login(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new JModelAndView("user_dialog_login.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
+
         return mv;
     }
 

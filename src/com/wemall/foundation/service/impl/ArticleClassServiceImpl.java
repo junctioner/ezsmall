@@ -29,6 +29,7 @@ public class ArticleClassServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class ArticleClassServiceImpl
         if (articleClass != null) {
             return articleClass;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class ArticleClassServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class ArticleClassServiceImpl
         for (Serializable id : articleClassIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class ArticleClassServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class ArticleClassServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

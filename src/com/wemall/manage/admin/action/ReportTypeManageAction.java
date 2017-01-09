@@ -52,6 +52,7 @@ public class ReportTypeManageAction {
         IPageList pList = this.reporttypeService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url + "/admin/reporttype_list.htm",
                                             "", params, pList, mv);
+
         return mv;
     }
 
@@ -62,6 +63,7 @@ public class ReportTypeManageAction {
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -123,6 +125,7 @@ public class ReportTypeManageAction {
                 this.reporttypeService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:reporttype_list.htm?currentPage=" + currentPage;
     }
 }

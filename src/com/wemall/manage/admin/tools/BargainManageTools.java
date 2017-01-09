@@ -40,6 +40,7 @@ public class BargainManageTools {
         else {
             bd = this.configService.getSysConfig().getBargain_rebate();
         }
+
         return bd;
     }
 
@@ -55,6 +56,7 @@ public class BargainManageTools {
         else {
             bd = this.configService.getSysConfig().getBargain_maximum();
         }
+
         return bd;
     }
 
@@ -70,6 +72,7 @@ public class BargainManageTools {
                 bd++;
             }
         }
+
         return bd;
     }
 
@@ -79,6 +82,7 @@ public class BargainManageTools {
         List bargainGoods = this.bargainGoodsService.query(
                                 "select obj from BargainGoods obj where obj.bg_time =:bt",
                                 params, -1, -1);
+
         return bargainGoods.size();
     }
 }

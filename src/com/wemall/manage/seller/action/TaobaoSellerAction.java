@@ -235,6 +235,7 @@ public class TaobaoSellerAction {
         }
         mv.addObject("already_import_count", Integer.valueOf(already_import_count));
         mv.addObject("no_import_count", Integer.valueOf(no_import_count));
+
         return mv;
     }
 
@@ -417,6 +418,7 @@ public class TaobaoSellerAction {
         request.getSession(false).removeAttribute("taobao_goods_list");
         request.getSession(false).removeAttribute("already_import_count");
         request.getSession(false).removeAttribute("no_import_count");
+
         return mv;
     }
 

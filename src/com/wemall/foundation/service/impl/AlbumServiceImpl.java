@@ -34,6 +34,7 @@ public class AlbumServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -42,6 +43,7 @@ public class AlbumServiceImpl
         if (album != null) {
             return album;
         }
+
         return null;
     }
 
@@ -52,6 +54,7 @@ public class AlbumServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -59,6 +62,7 @@ public class AlbumServiceImpl
         for (Serializable id : albumIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -79,6 +83,7 @@ public class AlbumServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -89,6 +94,7 @@ public class AlbumServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -121,6 +127,7 @@ public class AlbumServiceImpl
         if (list.size() > 0) {
             return (Album)list.get(0);
         }
+
         return null;
     }
 }

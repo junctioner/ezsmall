@@ -95,6 +95,7 @@ public class ComplaintManageAction {
         mv.addObject("title", title);
         mv.addObject("beginTime", beginTime);
         mv.addObject("endTime", endTime);
+
         return mv;
     }
 
@@ -105,6 +106,7 @@ public class ComplaintManageAction {
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         mv.addObject("config", this.configService.getSysConfig());
+
         return mv;
     }
 
@@ -126,6 +128,7 @@ public class ComplaintManageAction {
         mv.addObject("op_title", "投诉设置成功");
         mv.addObject("url", CommUtil.getURL(request) +
                      "/admin/complaint_set.htm");
+
         return mv;
     }
 
@@ -138,6 +141,7 @@ public class ComplaintManageAction {
         Complaint obj = this.complaintService
                         .getObjById(CommUtil.null2Long(id));
         mv.addObject("obj", obj);
+
         return mv;
     }
 
@@ -151,6 +155,7 @@ public class ComplaintManageAction {
                         .getObjById(CommUtil.null2Long(id));
         mv.addObject("obj", obj);
         mv.addObject("type", type);
+
         return mv;
     }
 
@@ -167,6 +172,7 @@ public class ComplaintManageAction {
         mv.addObject("op_title", "审核投诉成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/complaint_list.htm");
+
         return mv;
     }
 
@@ -185,6 +191,7 @@ public class ComplaintManageAction {
         mv.addObject("op_title", "关闭投诉成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/complaint_list.htm");
+
         return mv;
     }
 
@@ -247,6 +254,7 @@ public class ComplaintManageAction {
         mv.addObject("op_title", "投诉仲裁成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/complaint_list.htm");
+
         return mv;
     }
 }

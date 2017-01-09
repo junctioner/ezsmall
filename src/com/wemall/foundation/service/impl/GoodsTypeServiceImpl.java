@@ -29,6 +29,7 @@ public class GoodsTypeServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class GoodsTypeServiceImpl
         if (goodsType != null) {
             return goodsType;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class GoodsTypeServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class GoodsTypeServiceImpl
         for (Serializable id : goodsTypeIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class GoodsTypeServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class GoodsTypeServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

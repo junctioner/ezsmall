@@ -55,6 +55,7 @@ public class SpareGoodsViewAction {
         ModelAndView mv = new JModelAndView("sparegoods_head.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 1, request, response);
+
         return mv;
     }
 
@@ -106,6 +107,7 @@ public class SpareGoodsViewAction {
                         "select obj from Navigation obj where obj.type=:type and obj.display=:display order by sequence asc",
                         map, -1, -1);
         mv.addObject("navs", navs);
+
         return mv;
     }
 
@@ -157,6 +159,7 @@ public class SpareGoodsViewAction {
                         "select obj from Navigation obj where obj.type=:type and obj.display=:display order by sequence asc",
                         map, -1, -1);
         mv.addObject("navs", navs);
+
         return mv;
     }
 
@@ -178,6 +181,7 @@ public class SpareGoodsViewAction {
         mv.addObject("sgcs", sgcs);
         mv.addObject("floors", floors);
         mv.addObject("SpareGoodsTools", this.SpareGoodsTools);
+
         return mv;
     }
 
@@ -283,6 +287,7 @@ public class SpareGoodsViewAction {
         mv.addObject("price_end", price_end);
         mv.addObject("allCount", Integer.valueOf(pList.getRowCount()));
         mv.addObject("SpareGoodsTools", this.SpareGoodsTools);
+
         return mv;
     }
 
@@ -296,6 +301,7 @@ public class SpareGoodsViewAction {
             }
             ids.add(child.getId());
         }
+
         return ids;
     }
 }

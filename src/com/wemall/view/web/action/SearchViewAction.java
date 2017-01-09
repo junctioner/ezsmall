@@ -332,6 +332,7 @@ public class SearchViewAction {
                 ids.add(cid);
             }
         }
+
         return ids;
     }
 
@@ -345,6 +346,7 @@ public class SearchViewAction {
                 ids.add(cid);
             }
         }
+
         return ids;
     }
 }

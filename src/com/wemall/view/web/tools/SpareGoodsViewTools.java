@@ -28,6 +28,7 @@ public class SpareGoodsViewTools {
                 list.add(c);
             }
         }
+
         return list;
     }
 
@@ -75,6 +76,7 @@ public class SpareGoodsViewTools {
         } catch (Exception e) {
             System.err.println("Html2Text: " + e.getMessage());
         }
+
         return textStr;
     }
 }

@@ -31,6 +31,7 @@ public class StoreTools {
         if (!val.equals("")) {
             return val.substring(1);
         }
+
         return "";
     }
 
@@ -65,6 +66,7 @@ public class StoreTools {
                    CommUtil.formatTime("dd", new Date());
         }
         CommUtil.createFolder(path);
+
         return path;
     }
 
@@ -90,6 +92,7 @@ public class StoreTools {
                    CommUtil.formatTime("MM", new Date()) + "/" +
                    CommUtil.formatTime("dd", new Date());
         }
+
         return path;
     }
 
@@ -98,6 +101,7 @@ public class StoreTools {
             String goods_class_info = generic_the_goods_class_info(gc);
             return goods_class_info.substring(0, goods_class_info.length() - 1);
         }
+
         return "";
     }
 
@@ -110,6 +114,7 @@ public class StoreTools {
             }
             return goods_class_info;
         }
+
         return "";
     }
 
@@ -119,6 +124,7 @@ public class StoreTools {
                       CommUtil.null2Long(user_id));
         if (store != null)
             status = 1;
+
         return status;
     }
 }

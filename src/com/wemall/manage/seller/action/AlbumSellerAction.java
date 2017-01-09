@@ -82,6 +82,7 @@ public class AlbumSellerAction {
         CommUtil.saveIPageList2ModelAndView(url + "/seller/album.htm", "", "",
                                             pList, mv);
         mv.addObject("albumViewTools", this.albumViewTools);
+
         return mv;
     }
 
@@ -93,6 +94,7 @@ public class AlbumSellerAction {
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -106,6 +108,7 @@ public class AlbumSellerAction {
         Album obj = this.albumService.getObjById(CommUtil.null2Long(id));
         mv.addObject("obj", obj);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -127,6 +130,7 @@ public class AlbumSellerAction {
             ret = this.albumService.save(album);
         else
             ret = this.albumService.update(album);
+
         return "redirect:album.htm?currentPage=" + currentPage;
     }
 
@@ -144,6 +148,7 @@ public class AlbumSellerAction {
                            params, -1, -1);
         mv.addObject("objs", objs);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -164,6 +169,7 @@ public class AlbumSellerAction {
                 this.albumService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:album.htm";
     }
 
@@ -175,6 +181,7 @@ public class AlbumSellerAction {
         Album album = this.albumService.getObjById(Long.valueOf(Long.parseLong(album_id)));
         album.setAlbum_cover(album_cover);
         this.albumService.update(album);
+
         return "redirect:album_image.htm?id=" + album_id + "&currentPage=" +
                currentPage;
     }
@@ -195,6 +202,7 @@ public class AlbumSellerAction {
         mv.addObject("currentPage", currentPage);
         mv.addObject("album_id", album_id);
         mv.addObject("mulitId", id);
+
         return mv;
     }
 
@@ -212,6 +220,7 @@ public class AlbumSellerAction {
                 this.accessoryService.update(acc);
             }
         }
+
         return "redirect:album_image.htm?id=" + album_id + "&currentPage=" +
                currentPage;
     }
@@ -250,6 +259,7 @@ public class AlbumSellerAction {
                              params, -1, -1);
         mv.addObject("albums", albums);
         mv.addObject("album", album);
+
         return mv;
     }
 
@@ -266,6 +276,7 @@ public class AlbumSellerAction {
         Accessory current_img = this.accessoryService.getObjById(
                                     CommUtil.null2Long(id));
         mv.addObject("current_img", current_img);
+
         return mv;
     }
 
@@ -293,6 +304,7 @@ public class AlbumSellerAction {
                 this.accessoryService.delete(acc.getId());
             }
         }
+
         return "redirect:album_image.htm?id=" + album_id + "&currentPage=" +
                currentPage;
     }
@@ -342,6 +354,7 @@ public class AlbumSellerAction {
                 }
             }
         }
+
         return "redirect:album_image.htm?id=" + album_id + "&currentPage=" +
                currentPage;
     }

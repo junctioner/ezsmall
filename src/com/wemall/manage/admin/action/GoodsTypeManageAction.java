@@ -73,6 +73,7 @@ public class GoodsTypeManageAction {
         qo.setOrderType("asc");
         IPageList pList = this.goodsTypeService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -92,6 +93,7 @@ public class GoodsTypeManageAction {
         mv.addObject("gss", gss);
         mv.addObject("gbcs", gbcs);
         mv.addObject("shopTools", this.shopTools);
+
         return mv;
     }
 
@@ -167,6 +169,7 @@ public class GoodsTypeManageAction {
         if (add_url != null) {
             ((ModelAndView)mv).addObject("add_url", add_url);
         }
+
         return (ModelAndView)mv;
     }
 
@@ -221,6 +224,7 @@ public class GoodsTypeManageAction {
                 this.goodsTypeService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:goods_type_list.htm?currentPage=" + currentPage;
     }
 

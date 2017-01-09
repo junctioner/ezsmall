@@ -24,6 +24,7 @@ public class TestComposite {
         for (int i = 0; i < result.length; i++) {
             System.out.println(result[i]);
         }
+
         return res;
     }
 
@@ -50,6 +51,7 @@ public class TestComposite {
             newArray[0] = temp;
             return doExchange(newArray);
         }
+
         return doubleArrays;
     }
 }

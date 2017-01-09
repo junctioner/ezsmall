@@ -28,6 +28,7 @@ public class ResService
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -38,6 +39,7 @@ public class ResService
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -48,6 +50,7 @@ public class ResService
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -76,6 +79,7 @@ public class ResService
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 }

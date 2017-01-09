@@ -50,6 +50,7 @@ public class QueryObject
         if (this.currentPage == null) {
             this.currentPage = Integer.valueOf(-1);
         }
+
         return this.currentPage;
     }
 
@@ -65,6 +66,7 @@ public class QueryObject
         if (this.pageSize == null) {
             this.pageSize = Integer.valueOf(-1);
         }
+
         return this.pageSize;
     }
 
@@ -120,11 +122,13 @@ public class QueryObject
         if ((this.currentPage == null) || (this.currentPage.intValue() <= 0)) {
             pageObj.setCurrentPage(Integer.valueOf(1));
         }
+
         return pageObj;
     }
 
     public String getQuery() {
         customizeQuery();
+
         return this.queryString + orderString();
     }
 
@@ -136,6 +140,7 @@ public class QueryObject
         if ((getOrderType() != null) && (!"".equals(getOrderType()))) {
             orderString = orderString + " " + getOrderType();
         }
+
         return orderString;
     }
 
@@ -148,6 +153,7 @@ public class QueryObject
             this.queryString = (this.queryString + " and " + field + " " + handleExpression(expression) + ":" + para.getKey().toString());
             this.params.put(para.getKey(), para.getValue());
         }
+
         return this;
     }
 
@@ -159,6 +165,7 @@ public class QueryObject
                  para.getKey().toString());
             this.params.put(para.getKey(), para.getValue());
         }
+
         return this;
     }
 
@@ -176,6 +183,7 @@ public class QueryObject
                 }
             }
         }
+
         return this;
     }
 
@@ -184,6 +192,7 @@ public class QueryObject
             this.queryString = (this.queryString + " and :" + para + " " + expression + " " + field);
             this.params.put(para, obj);
         }
+
         return this;
     }
 
@@ -194,6 +203,7 @@ public class QueryObject
                  field);
             this.params.put(para, obj);
         }
+
         return this;
     }
 
@@ -201,6 +211,7 @@ public class QueryObject
         if (expression == null) {
             return "=";
         }
+
         return expression;
     }
 

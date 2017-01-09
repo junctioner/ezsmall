@@ -66,6 +66,7 @@ public class BargainSellerAction {
         }
         mv.addObject("dates", dates);
         mv.addObject("bargainSellerTools", this.bargainSellerTools);
+
         return mv;
     }
 
@@ -116,6 +117,7 @@ public class BargainSellerAction {
                      .getState() : this.configService.getSysConfig()
                      .getBargain_state());
         mv.addObject("bargain_time", bargain_time);
+
         return mv;
     }
 
@@ -192,6 +194,7 @@ public class BargainSellerAction {
             return "redirect:bargain_apply_success.htm?bargain_time=" +
                    bargain_time;
         }
+
         return "redirect:bargain_apply_error.htm";
     }
 
@@ -206,6 +209,7 @@ public class BargainSellerAction {
         .addObject("url", CommUtil.getURL(request) +
                    "/seller/bargain_goods_list.htm?bargain_time=" +
                    bargain_time);
+
         return mv;
     }
 
@@ -217,6 +221,7 @@ public class BargainSellerAction {
                                             request, response);
         mv.addObject("op_title", "至少选择一件商品");
         mv.addObject("url", CommUtil.getURL(request) + "/seller/bargain.htm");
+
         return mv;
     }
 
@@ -239,6 +244,7 @@ public class BargainSellerAction {
         IPageList pList = this.bargainGoodsService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("bargain_time", bargain_time);
+
         return mv;
     }
 }

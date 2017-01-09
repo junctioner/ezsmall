@@ -88,6 +88,7 @@ public class BaseSellerAction {
         mv.addObject("storeViewTools", this.storeViewTools);
         mv.addObject("orderViewTools", this.orderViewTools);
         mv.addObject("areaViewTools", this.areaViewTools);
+
         return mv;
     }
 
@@ -105,6 +106,7 @@ public class BaseSellerAction {
         mv.addObject("op", op);
         mv.addObject("store_status", Integer.valueOf(store_status));
         mv.addObject("user", this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId()));
+
         return mv;
     }
 
@@ -120,6 +122,7 @@ public class BaseSellerAction {
         mv.addObject("menuTools", this.menuTools);
         mv.addObject("user", this.userService.getObjById(
                          SecurityUserHolder.getCurrentUser().getId()));
+
         return mv;
     }
 
@@ -130,6 +133,7 @@ public class BaseSellerAction {
             "user/default/usercenter/store_quick_menu.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -157,6 +161,7 @@ public class BaseSellerAction {
             .getUserConfig(), 0, request, response);
         mv.addObject("user", user);
         mv.addObject("menuTools", this.menuTools);
+
         return mv;
     }
 }

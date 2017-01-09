@@ -23,6 +23,7 @@ public class AreaManageTools {
                 area_info = info + area_info;
             }
         }
+
         return area_info;
     }
 }

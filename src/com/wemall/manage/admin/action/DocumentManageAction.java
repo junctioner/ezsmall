@@ -57,6 +57,7 @@ public class DocumentManageAction {
         IPageList pList = this.documentService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url + "/admin/document_list.htm",
                                             "", params, pList, mv);
+
         return mv;
     }
 
@@ -67,6 +68,7 @@ public class DocumentManageAction {
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -127,6 +129,7 @@ public class DocumentManageAction {
                 this.documentService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:document_list.htm";
     }
 

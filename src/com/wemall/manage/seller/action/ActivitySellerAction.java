@@ -63,6 +63,7 @@ public class ActivitySellerAction {
                     ">=");
         IPageList pList = this.activityService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -79,6 +80,7 @@ public class ActivitySellerAction {
         mv.addObject("activity_session", activity_session);
         request.getSession(false).setAttribute("activity_session",
                                                activity_session);
+
         return mv;
     }
 
@@ -189,6 +191,7 @@ public class ActivitySellerAction {
         qo.setPageSize(Integer.valueOf(30));
         IPageList pList = this.activityGoodsService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 }

@@ -237,6 +237,7 @@ public class IndexViewAction {
         }
         mv.addObject( "total_price", Float.valueOf( total_price ) );
         mv.addObject( "cart", list );
+
         return (ModelAndView)mv;
     }
     /**
@@ -255,6 +256,7 @@ public class IndexViewAction {
         List gcs = this.goodsClassService.query( "select obj from GoodsClass obj where obj.parent.id is null and obj.display=:display order by obj.sequence asc", params, 0, 14 );
         List childs = ((GoodsClass)gcs.get(0)).getChilds();
         mv.addObject( "gcs", gcs );
+
         return mv;
     }
 
@@ -266,6 +268,7 @@ public class IndexViewAction {
         List gcs = this.goodsClassService.query( "select obj from GoodsClass obj where obj.parent.id is null and obj.display=:display order by obj.sequence asc", params, 0, 14 );
         mv.addObject( "gcs", gcs );
         mv.addObject( "navTools", this.navTools );
+
         return mv;
     }
 
@@ -274,12 +277,14 @@ public class IndexViewAction {
         ModelAndView mv = new JModelAndView( "head.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response );
         String type = CommUtil.null2String( request.getAttribute( "type" ) );
         mv.addObject( "type", type.equals( "" ) ? "goods" : type );
+
         return mv;
     }
 
     @RequestMapping( { "/login_head.htm" } )
     public ModelAndView login_head( HttpServletRequest request, HttpServletResponse response ) {
         ModelAndView mv = new JModelAndView( "login_head.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response );
+
         return mv;
     }
 
@@ -292,6 +297,7 @@ public class IndexViewAction {
         mv.addObject( "floors", floors );
         mv.addObject( "gf_tools", this.gf_tools );
         mv.addObject( "url", CommUtil.getURL( request ) );
+
         return mv;
     }
 
@@ -323,6 +329,7 @@ public class IndexViewAction {
             mv = new JModelAndView( "wap/footer.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response );
         }
         mv.addObject( "navTools", this.navTools );
+
         return mv;
     }
 
@@ -494,6 +501,7 @@ public class IndexViewAction {
         params.put( "display", Boolean.valueOf( true ) );
         List gcs = this.goodsClassService.query( "select obj from GoodsClass obj where obj.parent.id is null and obj.display=:display order by obj.sequence asc", params, -1, -1 );
         mv.addObject( "gcs", gcs );
+
         return mv;
     }
 
@@ -584,6 +592,7 @@ public class IndexViewAction {
             }
         }
         mv.addObject( "store_reommend_goods", store_reommend_goods );
+
         return mv;
     }
 

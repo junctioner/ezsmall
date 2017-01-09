@@ -33,6 +33,7 @@ public class CglibBean {
         if ((property != null) && (!property.equals(""))) {
             return this.beanMap.get(property);
         }
+
         return "";
     }
 
@@ -48,6 +49,7 @@ public class CglibBean {
             String key = (String)i.next();
             generator.addProperty(key, (Class)propertyMap.get(key));
         }
+
         return generator.create();
     }
 }

@@ -74,6 +74,7 @@ public class ImageScale {
         CalContrib();
         BufferedImage pbOut = HorizontalFiltering(srcBufferImage, w);
         BufferedImage pbFinalOut = VerticalFiltering(pbOut, h);
+
         return pbFinalOut;
     }
 
@@ -84,6 +85,7 @@ public class ImageScale {
         if ((scaleH >= 1.0D) && (scaleV >= 1.0D)) {
             return 1;
         }
+
         return 0;
     }
 
@@ -143,11 +145,13 @@ public class ImageScale {
 
     private int GetRedValue(int rgbValue) {
         int temp = rgbValue & 0xFF0000;
+
         return temp >> 16;
     }
 
     private int GetGreenValue(int rgbValue) {
         int temp = rgbValue & 0xFF00;
+
         return temp >> 8;
     }
 
@@ -178,6 +182,7 @@ public class ImageScale {
 
         valueRGB = ComRGB(Clip((int)valueRed), Clip((int)valueGreen),
                           Clip((int)valueBlue));
+
         return valueRGB;
     }
 
@@ -305,6 +310,7 @@ public class ImageScale {
             return 0;
         if (x > 255)
             return 255;
+
         return x;
     }
 }

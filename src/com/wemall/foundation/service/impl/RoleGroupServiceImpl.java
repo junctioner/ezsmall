@@ -29,6 +29,7 @@ public class RoleGroupServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class RoleGroupServiceImpl
         if (roleGroup != null) {
             return roleGroup;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class RoleGroupServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class RoleGroupServiceImpl
         for (Serializable id : roleGroupIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class RoleGroupServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class RoleGroupServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

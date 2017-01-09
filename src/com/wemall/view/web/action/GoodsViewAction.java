@@ -174,6 +174,7 @@ public class GoodsViewAction {
                                             response);
         mv.addObject("op_title", "请求参数错误");
         mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
+
         return mv;
     }
 
@@ -187,6 +188,7 @@ public class GoodsViewAction {
             }
             ids.add(child.getId());
         }
+
         return ids;
     }
 
@@ -563,6 +565,7 @@ public class GoodsViewAction {
         }
         mv.addObject("goods_view", goods_view);
         mv.addObject("all_property_status", all_property_status);
+
         return mv;
     }
 
@@ -577,6 +580,7 @@ public class GoodsViewAction {
                 }
             }
         }
+
         return ids;
     }
 
@@ -601,6 +605,7 @@ public class GoodsViewAction {
         mv.addObject("goods_view", goods_view);
         mv.addObject("user_viewed_goods", request.getSession(false)
                      .getAttribute("user_viewed_goods"));
+
         return mv;
     }
 
@@ -613,6 +618,7 @@ public class GoodsViewAction {
                 ids.add(cid);
             }
         }
+
         return ids;
     }
 
@@ -640,6 +646,7 @@ public class GoodsViewAction {
                 list.add(gsps);
             }
         }
+
         return list;
     }
 
@@ -671,6 +678,7 @@ public class GoodsViewAction {
         Goods goods = this.goodsService
                       .getObjById(CommUtil.null2Long(goods_id));
         mv.addObject("goods", goods);
+
         return mv;
     }
 
@@ -689,6 +697,7 @@ public class GoodsViewAction {
         mv.addObject("obj", goods);
         generic_evaluate(goods.getGoods_store(), mv);
         this.userTools.query_user();
+
         return mv;
     }
 
@@ -712,6 +721,7 @@ public class GoodsViewAction {
         CommUtil.saveIPageList2ModelAndView(CommUtil.getURL(request) +
                                             "/goods_order.htm", "", "", pList, mv);
         mv.addObject("storeViewTools", this.storeViewTools);
+
         return mv;
     }
 
@@ -734,6 +744,7 @@ public class GoodsViewAction {
                                             "/goods_consult.htm", "", "", pList, mv);
         mv.addObject("storeViewTools", this.storeViewTools);
         mv.addObject("goods_id", goods_id);
+
         return mv;
     }
 
@@ -783,6 +794,7 @@ public class GoodsViewAction {
         }
         mv.addObject("url", CommUtil.getURL(request) + "/goods_" + goods_id +
                      ".htm");
+
         return mv;
     }
 
@@ -885,6 +897,7 @@ public class GoodsViewAction {
         Goods goods = this.goodsService
                       .getObjById(CommUtil.null2Long(goods_id));
         mv.addObject("obj", goods);
+
         return mv;
     }
 
@@ -898,6 +911,7 @@ public class GoodsViewAction {
             }
             ids.add(child.getId());
         }
+
         return ids;
     }
 

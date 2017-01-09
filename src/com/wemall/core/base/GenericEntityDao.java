@@ -20,6 +20,7 @@ public class GenericEntityDao extends JpaDaoSupport {
     public Object get(Class clazz, Serializable id) {
         if (id == null)
             return null;
+
         return getJpaTemplate().find(clazz, id);
     }
 
@@ -60,6 +61,7 @@ public class GenericEntityDao extends JpaDaoSupport {
         if ((ret != null) && (ret.size() >= 0)) {
             return ret;
         }
+
         return new ArrayList();
     }
 
@@ -84,6 +86,7 @@ public class GenericEntityDao extends JpaDaoSupport {
         if ((list != null) && (list.size() > 0)) {
             return list;
         }
+
         return new ArrayList();
     }
 
@@ -125,6 +128,7 @@ public class GenericEntityDao extends JpaDaoSupport {
         if ((ret != null) && (ret.size() > 1)) {
             throw new IllegalStateException("worning  --more than one object find!!");
         }
+
         return null;
     }
 
@@ -149,6 +153,7 @@ public class GenericEntityDao extends JpaDaoSupport {
         if ((ret != null) && (ret.size() >= 0)) {
             return ret;
         }
+
         return new ArrayList();
     }
 
@@ -163,6 +168,7 @@ public class GenericEntityDao extends JpaDaoSupport {
                 return query.getResultList();
             }
         });
+
         return (List)ret;
     }
 
@@ -189,6 +195,7 @@ public class GenericEntityDao extends JpaDaoSupport {
         if ((ret != null) && (ret.size() >= 0)) {
             return ret;
         }
+
         return new ArrayList();
     }
 
@@ -213,6 +220,7 @@ public class GenericEntityDao extends JpaDaoSupport {
         if ((ret != null) && (ret.size() >= 0)) {
             return ret;
         }
+
         return new ArrayList();
     }
 
@@ -224,6 +232,7 @@ public class GenericEntityDao extends JpaDaoSupport {
                 return Integer.valueOf(query.executeUpdate());
             }
         });
+
         return ((Integer)ret).intValue();
     }
 
@@ -241,6 +250,7 @@ public class GenericEntityDao extends JpaDaoSupport {
                 return Integer.valueOf(query.executeUpdate());
             }
         });
+
         return ((Integer)ret).intValue();
     }
 

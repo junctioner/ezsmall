@@ -29,6 +29,7 @@ public class WaterMarkServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class WaterMarkServiceImpl
         if (waterMark != null) {
             return waterMark;
         }
+
         return null;
     }
 
@@ -47,6 +49,7 @@ public class WaterMarkServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -54,6 +57,7 @@ public class WaterMarkServiceImpl
         for (Serializable id : waterMarkIds) {
             delete((Long)id);
         }
+
         return true;
     }
 
@@ -74,6 +78,7 @@ public class WaterMarkServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -84,6 +89,7 @@ public class WaterMarkServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 

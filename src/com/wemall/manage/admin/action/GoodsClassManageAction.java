@@ -94,6 +94,7 @@ public class GoodsClassManageAction {
         }
         mv.addObject("gcs", gcs);
         mv.addObject("gts", gts);
+
         return mv;
     }
 
@@ -225,6 +226,7 @@ public class GoodsClassManageAction {
                        map, -1, -1);
         mv.addObject("gcs", gcs);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -276,6 +278,7 @@ public class GoodsClassManageAction {
             }
             ids.add(child.getId());
         }
+
         return ids;
     }
 
@@ -291,6 +294,7 @@ public class GoodsClassManageAction {
                 this.goodsClassService.update(gc);
             }
         }
+
         return "redirect:goods_class_list.htm?currentPage=" + currentPage;
     }
 
@@ -325,6 +329,7 @@ public class GoodsClassManageAction {
                 }
             }
         }
+
         return "redirect:goods_class_list.htm?currentPage=" + currentPage;
     }
 

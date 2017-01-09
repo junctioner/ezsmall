@@ -21,6 +21,7 @@ public class TemplateEngine {
         } catch (VelocityException e) {
             e.printStackTrace();
         }
+
         return "";
     }
 
@@ -33,6 +34,7 @@ public class TemplateEngine {
         } catch (VelocityException e) {
             e.printStackTrace();
         }
+
         return "";
     }
 }

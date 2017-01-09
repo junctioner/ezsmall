@@ -70,6 +70,7 @@ public class NavigationManageAction {
         CommUtil.saveIPageList2ModelAndView(url + "/admin/navigation_list.htm",
                                             "", params, pList, mv);
         mv.addObject("title", title);
+
         return mv;
     }
 
@@ -99,6 +100,7 @@ public class NavigationManageAction {
         mv.addObject("gcs", gcs);
         mv.addObject("acs", acs);
         mv.addObject("activitys", activitys);
+
         return mv;
     }
 
@@ -189,6 +191,7 @@ public class NavigationManageAction {
                 this.navigationService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:navigation_list.htm";
     }
 

@@ -58,6 +58,7 @@ public class StoreClassManageAction {
         IPageList pList = this.storeclassService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url + "/admin/storeclass_list.htm",
                                             "", params, pList, mv);
+
         return mv;
     }
 
@@ -150,6 +151,7 @@ public class StoreClassManageAction {
             }
             ids.add(child.getId());
         }
+
         return ids;
     }
 
@@ -173,6 +175,7 @@ public class StoreClassManageAction {
                 }
             }
         }
+
         return "redirect:storeclass_list.htm?currentPage=" + currentPage;
     }
 
@@ -251,6 +254,7 @@ public class StoreClassManageAction {
                        map, -1, -1);
         mv.addObject("gcs", gcs);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 }

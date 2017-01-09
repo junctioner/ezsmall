@@ -104,6 +104,7 @@ public class GoodsManageAction {
                        null, -1, -1);
         mv.addObject("gcs", gcs);
         mv.addObject("gbs", gbs);
+
         return mv;
     }
 
@@ -135,6 +136,7 @@ public class GoodsManageAction {
                        null, -1, -1);
         mv.addObject("gcs", gcs);
         mv.addObject("gbs", gbs);
+
         return mv;
     }
 
@@ -145,6 +147,7 @@ public class GoodsManageAction {
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -241,6 +244,7 @@ public class GoodsManageAction {
                               .getGoods_store().getUser(), goods, "商城存在违规");
             }
         }
+
         return "redirect:goods_list.htm";
     }
 

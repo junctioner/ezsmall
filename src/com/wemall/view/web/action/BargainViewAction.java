@@ -76,6 +76,7 @@ public class BargainViewAction {
         }
         mv.addObject("dates", dates);
         mv.addObject("bg_time", bg_time);
+
         return mv;
     }
 }

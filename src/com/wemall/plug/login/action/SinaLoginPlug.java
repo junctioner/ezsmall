@@ -173,6 +173,7 @@ public class SinaLoginPlug {
                         SecurityUserHolder.getCurrentUser().getId());
         user.setSina_openid(sina_openid);
         this.userService.update(user);
+
         return "redirect:" + CommUtil.getURL(request) +
                "/buyer/account_bind.htm";
     }
@@ -213,6 +214,7 @@ public class SinaLoginPlug {
         }
         request.getSession(false).removeAttribute("verify_code");
         request.getSession(false).removeAttribute("bind");
+
         return url;
     }
 
@@ -228,6 +230,7 @@ public class SinaLoginPlug {
                 }
             }
         }
+
         return name;
     }
 

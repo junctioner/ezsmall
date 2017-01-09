@@ -70,6 +70,7 @@ public class ConsultSellerAction {
         IPageList pList = this.consultService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("reply", CommUtil.null2String(reply));
+
         return mv;
     }
 
@@ -83,6 +84,7 @@ public class ConsultSellerAction {
         Consult obj = this.consultService.getObjById(CommUtil.null2Long(id));
         mv.addObject("obj", obj);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -96,6 +98,7 @@ public class ConsultSellerAction {
         obj.setReply(true);
         this.consultService.update(obj);
         send_email(request, obj, "email_tobuyer_cousult_reply_notify");
+
         return "redirect:consult.htm?currentPage=" + currentPage;
     }
 
@@ -108,6 +111,7 @@ public class ConsultSellerAction {
                 this.consultService.delete(CommUtil.null2Long(id));
             }
         }
+
         return "redirect:consult.htm?currentPage=" + currentPage;
     }
 

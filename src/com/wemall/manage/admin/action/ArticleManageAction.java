@@ -64,6 +64,7 @@ public class ArticleManageAction {
         IPageList pList = this.articleService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url + "/admin/article_list.htm",
                                             "", params, pList, mv);
+
         return mv;
     }
 
@@ -84,6 +85,7 @@ public class ArticleManageAction {
         mv.addObject("obj", obj);
         mv.addObject("acs", acs);
         mv.addObject("currentPage", currentPage);
+
         return mv;
     }
 
@@ -151,6 +153,7 @@ public class ArticleManageAction {
                 this.articleService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:article_list.htm";
     }
 

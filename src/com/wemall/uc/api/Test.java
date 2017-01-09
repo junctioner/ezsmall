@@ -79,6 +79,7 @@ public class Test {
         UCClient uc = new UCClient();
         String ret = uc.uc_get_user(username, 0);
         System.out.println(ret);
+
         return ret;
     }
 }

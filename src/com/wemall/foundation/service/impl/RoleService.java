@@ -28,6 +28,7 @@ public class RoleService
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -46,6 +47,7 @@ public class RoleService
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -56,6 +58,7 @@ public class RoleService
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -76,6 +79,7 @@ public class RoleService
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 

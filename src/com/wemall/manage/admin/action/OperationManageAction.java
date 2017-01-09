@@ -42,6 +42,7 @@ public class OperationManageAction {
             "admin/blue/operation_base_setting.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -127,6 +128,7 @@ public class OperationManageAction {
         mv.addObject("op_title", "保存基本设置成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/operation_base_set.htm");
+
         return mv;
     }
 
@@ -143,6 +145,7 @@ public class OperationManageAction {
             "admin/blue/operation_integral_rule.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -178,6 +181,7 @@ public class OperationManageAction {
         mv.addObject("op_title", "保存积分设置成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/operation_integral_rule.htm");
+
         return mv;
     }
 }

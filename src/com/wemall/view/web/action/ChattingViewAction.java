@@ -95,6 +95,7 @@ public class ChattingViewAction {
             ((List)list).add(Integer.valueOf(i));
         }
         mv.addObject("emoticons", list);
+
         return (ModelAndView)mv;
     }
 
@@ -249,6 +250,7 @@ public class ChattingViewAction {
                         "select obj from ChattingLog obj where obj.chatting.id=:chat_id  and obj.user.id=:uid order by addTime desc",
                         map, 0, 1);
         mv.addObject("logs", logs);
+
         return mv;
     }
 }

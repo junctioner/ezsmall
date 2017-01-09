@@ -25,6 +25,7 @@ public abstract class StringUtils {
         String[] newArr = new String[array.length + 1];
         System.arraycopy(array, 0, newArr, 0, array.length);
         newArr[array.length] = str;
+
         return newArr;
     }
 
@@ -36,6 +37,7 @@ public abstract class StringUtils {
                 newPath = newPath + "/";
             return newPath + relativePath;
         }
+
         return relativePath;
     }
 
@@ -53,6 +55,7 @@ public abstract class StringUtils {
                 sb.append(delim);
             sb.append(arr[i]);
         }
+
         return sb.toString();
     }
 
@@ -69,6 +72,7 @@ public abstract class StringUtils {
         else
             buf.append(Character.toLowerCase(str.charAt(0)));
         buf.append(str.substring(1));
+
         return buf.toString();
     }
 
@@ -102,6 +106,7 @@ public abstract class StringUtils {
         for (int i = 0; i < tops; i++) {
             pathElements.add(0, "..");
         }
+
         return prefix +
                collectionToDelimitedString(pathElements, "/");
     }
@@ -127,6 +132,7 @@ public abstract class StringUtils {
             sb.append(prefix).append(it.next()).append(suffix);
             i++;
         }
+
         return sb.toString();
     }
 
@@ -135,6 +141,7 @@ public abstract class StringUtils {
         String[] tokens = commaDelimitedListToStringArray(str);
         for (String element : tokens)
             set.add(element);
+
         return set;
     }
 
@@ -153,6 +160,7 @@ public abstract class StringUtils {
             count++;
             pos = idx + sub.length();
         }
+
         return count;
     }
 
@@ -169,6 +177,7 @@ public abstract class StringUtils {
             if (charsToDelete.indexOf(c) == -1)
                 out.append(c);
         }
+
         return out.toString();
     }
 
@@ -193,6 +202,7 @@ public abstract class StringUtils {
                 result.add(str.substring(pos));
             }
         }
+
         return toStringArray(result);
     }
 
@@ -207,6 +217,7 @@ public abstract class StringUtils {
         String lcStr = str.substring(str.length() - suffix.length())
                        .toLowerCase();
         String lcSuffix = suffix.toLowerCase();
+
         return lcStr.equals(lcSuffix);
     }
 
@@ -214,6 +225,7 @@ public abstract class StringUtils {
         if (path == null)
             return null;
         int separatorIndex = path.lastIndexOf("/");
+
         return separatorIndex != -1 ? path.substring(separatorIndex + 1) :
                path;
     }
@@ -222,6 +234,7 @@ public abstract class StringUtils {
         if (path == null)
             return null;
         int sepIndex = path.lastIndexOf('.');
+
         return sepIndex != -1 ? path.substring(sepIndex + 1) : null;
     }
 
@@ -238,6 +251,7 @@ public abstract class StringUtils {
         for (int i = 0; i < strLen; i++)
             if (!Character.isWhitespace(str.charAt(i)))
                 return true;
+
         return false;
     }
 
@@ -246,6 +260,7 @@ public abstract class StringUtils {
         String language = parts.length > 0 ? parts[0] : "";
         String country = parts.length > 1 ? parts[1] : "";
         String variant = parts.length > 2 ? parts[2] : "";
+
         return language.length() > 0 ? new Locale(language, country, variant) :
                null;
     }
@@ -272,6 +287,7 @@ public abstract class StringUtils {
             String element = arrayOfString[i];
             set.add(element);
         }
+
         return toStringArray(set);
     }
 
@@ -302,6 +318,7 @@ public abstract class StringUtils {
         if ((array == null) || (array.length < 0))
             return new String[0];
         Arrays.sort(array);
+
         return array;
     }
 
@@ -313,6 +330,7 @@ public abstract class StringUtils {
             return null;
         String beforeDelimiter = toSplit.substring(0, offset);
         String afterDelimiter = toSplit.substring(offset + delimiter.length());
+
         return new String[] { beforeDelimiter, afterDelimiter };
     }
 
@@ -337,6 +355,7 @@ public abstract class StringUtils {
             result.setProperty(splittedElement[0].trim(), splittedElement[1]
                                .trim());
         }
+
         return result;
     }
 
@@ -349,6 +368,7 @@ public abstract class StringUtils {
             return false;
         String lcStr = str.substring(0, prefix.length()).toLowerCase();
         String lcPrefix = prefix.toLowerCase();
+
         return lcStr.equals(lcPrefix);
     }
 
@@ -356,6 +376,7 @@ public abstract class StringUtils {
         if (path == null)
             return null;
         int sepIndex = path.lastIndexOf('.');
+
         return sepIndex != -1 ? path.substring(0, sepIndex) : path;
     }
 
@@ -375,12 +396,14 @@ public abstract class StringUtils {
             if ((!ignoreEmptyTokens) || (token.length() > 0))
                 tokens.add(token);
         }
+
         return toStringArray(tokens);
     }
 
     public static String[] toStringArray(Collection collection) {
         if (collection == null)
             return null;
+
         return (String[])collection.toArray(new String[collection.size()]);
     }
 
@@ -390,6 +413,7 @@ public abstract class StringUtils {
         StringBuffer buf = new StringBuffer(str);
         while ((buf.length() > 0) && (Character.isWhitespace(buf.charAt(0))))
             buf.deleteCharAt(0);
+
         return buf.toString();
     }
 
@@ -400,6 +424,7 @@ public abstract class StringUtils {
         while ((buf.length() > 0) &&
                 (Character.isWhitespace(buf.charAt(buf.length() - 1))))
             buf.deleteCharAt(buf.length() - 1);
+
         return buf.toString();
     }
 
@@ -416,6 +441,7 @@ public abstract class StringUtils {
         while ((buf.length() > 0) &&
                 (Character.isWhitespace(buf.charAt(buf.length() - 1))))
             buf.deleteCharAt(buf.length() - 1);
+
         return buf.toString();
     }
 

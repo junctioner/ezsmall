@@ -72,6 +72,7 @@ public class GoodsSpecificationManageAction {
         IPageList pList = this.goodsSpecService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("shopTools", this.shopTools);
+
         return mv;
     }
 
@@ -81,6 +82,7 @@ public class GoodsSpecificationManageAction {
         ModelAndView mv = new JModelAndView("admin/blue/goods_spec_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -230,6 +232,7 @@ public class GoodsSpecificationManageAction {
                 this.goodsSpecService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:goods_spec_list.htm?currentPage=" + currentPage;
     }
 

@@ -54,6 +54,7 @@ public class ExpressCompanyManageAction {
         ModelAndView mv = new JModelAndView("admin/blue/set_kuaidi.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -81,6 +82,7 @@ public class ExpressCompanyManageAction {
         mv.addObject("op_title", "快递设置成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/set_kuaidi.htm");
+
         return mv;
     }
 
@@ -101,6 +103,7 @@ public class ExpressCompanyManageAction {
         IPageList pList = this.expresscompanyService.list(qo);
         CommUtil.saveIPageList2ModelAndView(url +
                                             "/admin/expresscompany_list.htm", "", params, pList, mv);
+
         return mv;
     }
 
@@ -111,6 +114,7 @@ public class ExpressCompanyManageAction {
             "admin/blue/express_company_add.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -157,6 +161,7 @@ public class ExpressCompanyManageAction {
         mv.addObject("op_title", "保存快递公司成功");
         mv.addObject("add_url", CommUtil.getURL(request) +
                      "/admin/express_company_add.htm?currentPage=" + currentPage);
+
         return mv;
     }
 
@@ -175,6 +180,7 @@ public class ExpressCompanyManageAction {
                 this.expresscompanyService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
+
         return "redirect:express_company_list.htm?currentPage=" + currentPage;
     }
 

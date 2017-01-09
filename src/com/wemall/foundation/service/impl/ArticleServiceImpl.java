@@ -30,6 +30,7 @@ public class ArticleServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -38,6 +39,7 @@ public class ArticleServiceImpl
         if (article != null) {
             return article;
         }
+
         return null;
     }
 
@@ -48,6 +50,7 @@ public class ArticleServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -55,6 +58,7 @@ public class ArticleServiceImpl
         for (Serializable id : articleIds) {
             delete((Long) id);
         }
+
         return true;
     }
 
@@ -75,6 +79,7 @@ public class ArticleServiceImpl
         } else {
             pList.doList(0, -1);
         }
+
         return pList;
     }
 
@@ -85,6 +90,7 @@ public class ArticleServiceImpl
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -100,6 +106,7 @@ public class ArticleServiceImpl
             obj = new Article();
             obj.setTitle("文章错误");
         }
+
         return obj;
     }
 }

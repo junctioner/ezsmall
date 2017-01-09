@@ -26,6 +26,7 @@ public abstract class PHPFunctions {
             return null;
         }
         // MessageDigest md;
+
         return byte2hex(md.digest(input.getBytes()));
     }
 
@@ -61,6 +62,7 @@ public abstract class PHPFunctions {
             else
                 hs.append(stmp);
         }
+
         return hs.toString();
     }
 
@@ -72,6 +74,7 @@ public abstract class PHPFunctions {
         if (begin > 0) {
             return input.substring(begin);
         }
+
         return input.substring(input.length() + begin);
     }
 
@@ -85,6 +88,7 @@ public abstract class PHPFunctions {
 
     protected String sprintf(String format, long input) {
         String temp = "0000000000" + input;
+
         return temp.substring(temp.length() - 10);
     }
 
@@ -95,6 +99,7 @@ public abstract class PHPFunctions {
         if ("uc_api_post".equals(function)) {
             return uc_api_post(model, action, args);
         }
+
         return "";
     }
 

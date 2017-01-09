@@ -38,6 +38,7 @@ public class AlbumViewTools {
                        "select obj from Accessory obj where obj.album.id is null",
                        null, -1, -1);
         }
+
         return list;
     }
 }

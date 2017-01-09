@@ -60,6 +60,7 @@ public class PaymentManageAction {
             }
         }
         mv.addObject("paymentTools", this.paymentTools);
+
         return mv;
     }
 
@@ -132,6 +133,7 @@ public class PaymentManageAction {
                      "/admin/payment_list.htm?type=" + type);
         mv.addObject("op_title", "设置支付方式成功");
         mv.addObject("paymentTools", this.paymentTools);
+
         return mv;
     }
 
@@ -154,6 +156,7 @@ public class PaymentManageAction {
         }
         mv.addObject("obj", obj);
         mv.addObject("edit", Boolean.valueOf(true));
+
         return mv;
     }
 
@@ -185,6 +188,7 @@ public class PaymentManageAction {
         }
         mv.addObject("op_title", "保存支付方式成功");
         mv.addObject("list_url", list_url);
+
         return mv;
     }
 
@@ -212,6 +216,7 @@ public class PaymentManageAction {
         mv.addObject("op_title", "设置统一支付成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/payment_list.htm");
+
         return mv;
     }
 }

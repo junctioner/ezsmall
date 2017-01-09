@@ -32,6 +32,7 @@ public class GroupViewTools {
                .query(
                    "select obj from GroupGoods obj where obj.group.id=:group_id order by obj.addTime desc",
                    params, 0, count);
+
         return list;
     }
 }

@@ -53,6 +53,7 @@ public class ConsultBuyerAction {
         IPageList pList = this.consultService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         mv.addObject("reply", CommUtil.null2String(reply));
+
         return mv;
     }
 }

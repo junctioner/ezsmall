@@ -69,6 +69,7 @@ public class SpareGoodsManageAction {
         qo.setOrderType("desc");
         IPageList pList = this.sparegoodsService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -85,6 +86,7 @@ public class SpareGoodsManageAction {
             }
             this.sparegoodsService.update(sg);
         }
+
         return "redirect:sparegoods_list.htm?currentPage=" + currentPage + (
                    type != null ? "&type=" + type : "");
     }
@@ -96,6 +98,7 @@ public class SpareGoodsManageAction {
         for (String id : ids) {
             this.sparegoodsService.delete(CommUtil.null2Long(id));
         }
+
         return "redirect:sparegoods_list.htm?currentPage=" + currentPage;
     }
 
@@ -151,6 +154,7 @@ public class SpareGoodsManageAction {
         qo.addQuery("obj.parent.id is null", null);
         IPageList pList = this.sparegoodsclassService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
+
         return mv;
     }
 
@@ -196,6 +200,7 @@ public class SpareGoodsManageAction {
                                    "select obj from SpareGoodsClass obj where obj.parent.id is null",
                                    null, -1, -1);
         mv.addObject("sgcs", sparegoodsClass);
+
         return mv;
     }
 
@@ -265,6 +270,7 @@ public class SpareGoodsManageAction {
                 }
             }
         }
+
         return "redirect:sparegoods_class_list.htm?currentPage=" + currentPage;
     }
 
@@ -278,6 +284,7 @@ public class SpareGoodsManageAction {
             }
             ids.add(child.getId());
         }
+
         return ids;
     }
 
@@ -334,6 +341,7 @@ public class SpareGoodsManageAction {
                        "select obj from SpareGoodsClass obj where obj.parent.id =:pid",
                        map, -1, -1);
         mv.addObject("gcs", gcs);
+
         return mv;
     }
 

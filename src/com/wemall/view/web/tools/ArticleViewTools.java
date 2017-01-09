@@ -44,6 +44,7 @@ public class ArticleViewTools {
 
         Article obj = new Article();
         obj.setTitle("没有了");
+
         return obj;
     }
 }

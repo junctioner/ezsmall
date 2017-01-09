@@ -50,6 +50,7 @@ public class ZtcManageAction {
         ModelAndView mv = new JModelAndView("admin/blue/ztc_set.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
+
         return mv;
     }
 
@@ -71,6 +72,7 @@ public class ZtcManageAction {
         mv.addObject("op_title", "直通车设置成功");
         mv.addObject("list_url", CommUtil.getURL(request) +
                      "/admin/ztc_set.htm");
+
         return mv;
     }
 

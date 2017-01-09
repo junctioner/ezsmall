@@ -31,6 +31,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 通用工具
+ */
 public class CommUtil {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat(
         "yyyy-MM-dd");
@@ -62,12 +65,14 @@ public class CommUtil {
     public static String first2low(String str) {
         String s = "";
         s = str.substring(0, 1).toLowerCase() + str.substring(1);
+
         return s;
     }
 
     public static String first2upper(String str) {
         String s = "";
         s = str.substring(0, 1).toUpperCase() + str.substring(1);
+
         return s;
     }
 
@@ -82,6 +87,7 @@ public class CommUtil {
                 list.add(aline);
             }
         }
+
         return list;
     }
 
@@ -91,6 +97,7 @@ public class CommUtil {
             d = dateFormat.parse(s);
         } catch (Exception localException) {
         }
+
         return d;
     }
 
@@ -101,6 +108,7 @@ public class CommUtil {
             d = dFormat.parse(s);
         } catch (Exception localException) {
         }
+
         return d;
     }
 
@@ -110,6 +118,7 @@ public class CommUtil {
         if (v.equals(""))
             return "";
         SimpleDateFormat df = new SimpleDateFormat(format);
+
         return df.format(v);
     }
 
@@ -117,6 +126,7 @@ public class CommUtil {
         if ((v == null) || (v.equals("")))
             return "";
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         return df.format(v);
     }
 
@@ -124,6 +134,7 @@ public class CommUtil {
         if (v == null)
             return null;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
         return df.format(v);
     }
 
@@ -134,6 +145,7 @@ public class CommUtil {
             ret = URLDecoder.decode(s.trim(), "UTF-8");
         } catch (Exception localException) {
         }
+
         return ret;
     }
 
@@ -144,6 +156,7 @@ public class CommUtil {
             ret = URLEncoder.encode(s.trim(), "UTF-8");
         } catch (Exception localException) {
         }
+
         return ret;
     }
 
@@ -155,9 +168,20 @@ public class CommUtil {
             } catch (Exception e) {
                 return newStr;
             }
+
         return newStr;
     }
 
+    /**
+     * 保存文件到服务器
+     * @param request
+     * @param filePath
+     * @param saveFilePathName
+     * @param saveFileName
+     * @param extendes
+     * @return
+     * @throws IOException
+     */
     public static Map saveFileToServer(HttpServletRequest request, String filePath, String saveFilePathName, String saveFileName, String[] extendes)
     throws IOException {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request;
@@ -176,8 +200,9 @@ public class CommUtil {
             boolean flag = true;
             if (extendes != null) {
                 for (String s : extendes) {
-                    if (extend.toLowerCase().equals(s))
+                    if (extend.toLowerCase().equals(s)) {
                         flag = true;
+                    }
                 }
             }
             if (flag) {
@@ -232,6 +257,7 @@ public class CommUtil {
             map.put("fileSize", Float.valueOf(0.0F));
             map.put("oldName", "");
         }
+
         return map;
     }
 
@@ -248,6 +274,7 @@ public class CommUtil {
             if (s.equals(extend))
                 ret = true;
         }
+
         return ret;
     }
 
@@ -327,6 +354,7 @@ public class CommUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -345,6 +373,7 @@ public class CommUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -416,6 +445,7 @@ public class CommUtil {
         } catch (Exception e) {
             return false;
         }
+
         return true;
     }
 
@@ -432,6 +462,7 @@ public class CommUtil {
             System.out.println("创建文件夹出错");
             ret = false;
         }
+
         return ret;
     }
 
@@ -448,6 +479,7 @@ public class CommUtil {
                     cList.add(list.get(i + j));
             l.add(cList);
         }
+
         return l;
     }
 
@@ -460,6 +492,7 @@ public class CommUtil {
         for (int i = begin; i < end; i++) {
             l.add(list.get(i));
         }
+
         return l;
     }
 
@@ -500,6 +533,7 @@ public class CommUtil {
         if (file.isFile()) {
             return deleteFile(path);
         }
+
         return deleteDirectory(path);
     }
 
@@ -511,6 +545,7 @@ public class CommUtil {
             file.delete();
             flag = true;
         }
+
         return flag;
     }
 
@@ -578,6 +613,7 @@ public class CommUtil {
                 s = s + "<a href='" + url + "_" + pages + ".htm'>末页</a> ";
             }
         }
+
         return s;
     }
 
@@ -712,7 +748,6 @@ public class CommUtil {
     }
 
     public static String showBrandGoodsAjaxHtml(List<Object> lists, Map<String, Object> map) {
-
         StringBuffer s = new StringBuffer(300);
 
         String img = null;
@@ -721,19 +756,15 @@ public class CommUtil {
         String goods_url = null;
 
         if (lists != null && lists.size() > 0) {
-
             for(int i = 0; i < lists.size(); i++) {
-
                 Goods goods = (Goods)lists.get(i);
-
                 img = null;
 
-                if(goods.getGoods_main_photo() != null)
-
+                if(goods.getGoods_main_photo() != null) {
                     img = map.get("imageWebServer") + "/" + goods.getGoods_main_photo().getPath() + "/" + goods.getGoods_main_photo().getName() + "_small." + goods.getGoods_main_photo().getExt();
-
-                else
+                } else {
                     img = map.get("imageWebServer") + "/" + map.get("goodsImagePath") + "/" + map.get("goodsImageName");
+                }
 
                 goods_url = map.get("webPath") + "/goods_" + goods.getId() + ".htm";
 
@@ -765,7 +796,6 @@ public class CommUtil {
                 s.append("<span>描述相符：<i style=\"color:#F00\">").append(CommUtil.null2Double(goods.getDescription_evaluate())).append("</i> 分， </span>");
                 s.append("<span>累计评价：<i style=\"color:#f60\">").append(goods.getEvaluates().size()).append("，</i></span>");
                 s.append("<span>已售出<strong class=\"orange\">").append(goods.getGoods_salenum()).append("</strong>笔</span>").append("</em></dd></dl></a>");
-
             }
         }
 
@@ -773,7 +803,6 @@ public class CommUtil {
     }
 
     public static String showLoadGoodsAjaxHtml(List<Goods> lists, Map<String, Object> map) {
-
         StringBuffer s = new StringBuffer(300);
 
         String img = null;
@@ -782,19 +811,14 @@ public class CommUtil {
         String goods_url = null;
 
         if (lists != null && lists.size() > 0) {
-
             for(int i = 0; i < lists.size(); i++) {
-
                 Goods goods = (Goods)lists.get(i);
-
                 img = null;
-
-                if(goods.getGoods_main_photo() != null)
-
+                if(goods.getGoods_main_photo() != null) {
                     img = map.get("imageWebServer") + "/" + goods.getGoods_main_photo().getPath() + "/" + goods.getGoods_main_photo().getName() + "_small." + goods.getGoods_main_photo().getExt();
-
-                else
+                } else {
                     img = map.get("imageWebServer") + "/" + map.get("goodsImagePath") + "/" + map.get("goodsImageName");
+                }
 
                 goods_url = map.get("webPath") + "/goods_" + goods.getId() + ".htm";
 
@@ -826,7 +850,6 @@ public class CommUtil {
                 s.append("<span>描述相符：<i style=\"color:#F00\">").append(CommUtil.null2Double(goods.getDescription_evaluate())).append("</i> 分， </span>");
                 s.append("<span>累计评价：<i style=\"color:#f60\">").append(goods.getEvaluates().size()).append("，</i></span>");
                 s.append("<span>已售出<strong class=\"orange\">").append(goods.getGoods_salenum()).append("</strong>笔</span>").append("</em></dd></dl></a>");
-
             }
         }
 
@@ -834,7 +857,6 @@ public class CommUtil {
     }
 
     public static String showOrdersAjaxHtml(List<Object> lists, Map<String, Object> map) {
-
         StringBuffer s = new StringBuffer(300);
 
         String img = null;
@@ -842,9 +864,7 @@ public class CommUtil {
         String goods_url = null;
 
         if (lists != null && lists.size() > 0) {
-
             for(int i = 0; i < lists.size(); i++) {
-
                 OrderForm obj = (OrderForm)lists.get(i);
 
                 s.append("<div class='order_page_box'><h1><span class='fl'>订单号：");
@@ -865,11 +885,11 @@ public class CommUtil {
                 s.append("</span></h1>");
 
                 for(GoodsCart gc : obj.getGcs()) {
-
-                    if(gc.getGoods().getGoods_main_photo() != null)
+                    if(gc.getGoods().getGoods_main_photo() != null) {
                         img = map.get("imageWebServer") + "/" + gc.getGoods().getGoods_main_photo().getPath() + "/" + gc.getGoods().getGoods_main_photo().getName() + "_small." + gc.getGoods().getGoods_main_photo().getExt();
-                    else
+                    } else {
                         img = map.get("imageWebServer") + "/" + map.get("goodsImagePath") + "/" + map.get("goodsImageName");
+                    }
 
                     goods_url = map.get("webPath") + "/goods_" + gc.getGoods().getId() + ".htm";
 
@@ -881,7 +901,6 @@ public class CommUtil {
                     s.append("<img src='").append(img).append("' width='50' height='50'></a></div>");
                     s.append("<div style='float: left;'>").append("<a href='").append(goods_url).append("' >");
                     s.append("<span style='line-height: 24px'>").append(gc.getGoods().getGoods_name()).append("</span></a><br></div></div>");
-
                 }
                 s.append("<div class='order_total'> 实付：<b>￥").append(obj.getTotalPrice()).append("&nbsp;").append("<i style='color:#59cfff'>(含运费:￥");
                 s.append(CommUtil.null2Float(obj.getShip_price())).append(")</i></b></div>");
@@ -942,15 +961,14 @@ public class CommUtil {
         }
         map.put("domainPath", CommUtil.generic_domain(request));
         map.put("webPath", webPath);
-        if ((config.getImageWebServer() != null) && (!config.getImageWebServer().equals("")))
+        if ((config.getImageWebServer() != null) && (!config.getImageWebServer().equals(""))) {
             map.put("imageWebServer", config.getImageWebServer());
-        else {
+        } else {
             map.put("imageWebServer", webPath);
         }
         map.put("goodsImagePath", config.getGoodsImage().getPath());
         map.put("goodsImageName", config.getGoodsImage().getName());
         map.put("IsSecondDomainOpen", config.isSecond_domain_open());
-
     }
 
     public static void saveLucene2Map(String type, LuceneResult pList, Map<String, Object> map) {
@@ -990,7 +1008,6 @@ public class CommUtil {
             } else if("orders".equalsIgnoreCase(String.valueOf(map.get("show")))) {
                 map.put("ajaxLoadHtml", showOrdersAjaxHtml(pList.getResult(), map));
             }
-
         }
     }
 
@@ -1019,11 +1036,13 @@ public class CommUtil {
         if (index < 0) {
             index = 0;
         }
+
         return chars[index];
     }
 
     public static String[] splitByChar(String s, String c) {
         String[] list = s.split(c);
+
         return list;
     }
 
@@ -1031,6 +1050,7 @@ public class CommUtil {
         if (!request.getParameter(param).equals("")) {
             return request.getParameter(param);
         }
+
         return null;
     }
 
@@ -1040,12 +1060,14 @@ public class CommUtil {
         if (s.length() <= maxLength) {
             return s;
         }
+
         return s.substring(0, maxLength) + "...";
     }
 
     public static String substringfrom(String s, String from) {
         if (s.indexOf(from) < 0)
             return "";
+
         return s.substring(s.indexOf(from) + from.length());
     }
 
@@ -1056,6 +1078,7 @@ public class CommUtil {
                 v = Integer.parseInt(s.toString());
             } catch (Exception localException) {
             }
+
         return v;
     }
 
@@ -1066,6 +1089,7 @@ public class CommUtil {
                 v = Float.parseFloat(s.toString());
             } catch (Exception localException) {
             }
+
         return v;
     }
 
@@ -1076,6 +1100,7 @@ public class CommUtil {
                 v = Double.parseDouble(null2String(s));
             } catch (Exception localException) {
             }
+
         return v;
     }
 
@@ -1086,6 +1111,7 @@ public class CommUtil {
                 v = Boolean.parseBoolean(s.toString());
             } catch (Exception localException) {
             }
+
         return v;
     }
 
@@ -1100,6 +1126,7 @@ public class CommUtil {
                 v = Long.valueOf(Long.parseLong(s.toString()));
             } catch (Exception localException) {
             }
+
         return v;
     }
 
@@ -1118,6 +1145,7 @@ public class CommUtil {
             ret = ret + "零";
         if (seconds > 0)
             ret = ret + seconds + "秒";
+
         return ret;
     }
 
@@ -1132,6 +1160,7 @@ public class CommUtil {
         if ((ip == null) || (ip.length() == 0) || ("unknown".equalsIgnoreCase(ip))) {
             ip = request.getRemoteAddr();
         }
+
         return ip;
     }
 
@@ -1151,6 +1180,7 @@ public class CommUtil {
         map.put("hour", Long.valueOf(hour));
         map.put("min", Long.valueOf(min));
         map.put("second", Long.valueOf(second));
+
         return map;
     }
 
@@ -1165,6 +1195,7 @@ public class CommUtil {
         for (int i = 0; i < randBuffer.length; i++) {
             randBuffer[i] = numbersAndLetters[randGen.nextInt(71)];
         }
+
         return new String(randBuffer);
     }
 
@@ -1179,6 +1210,7 @@ public class CommUtil {
         for (int i = 0; i < randBuffer.length; i++) {
             randBuffer[i] = numbersAndLetters[randGen.nextInt(10)];
         }
+
         return new String(randBuffer);
     }
 
@@ -1193,6 +1225,7 @@ public class CommUtil {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         return quot;
     }
 
@@ -1205,6 +1238,7 @@ public class CommUtil {
                 ret = e.divide(f, 3, 1).doubleValue();
         }
         DecimalFormat df = new DecimalFormat("0.00");
+
         return Double.valueOf(df.format(ret)).doubleValue();
     }
 
@@ -1214,6 +1248,7 @@ public class CommUtil {
         BigDecimal f = new BigDecimal(null2Double(b));
         ret = e.subtract(f).doubleValue();
         DecimalFormat df = new DecimalFormat("0.00");
+
         return Double.valueOf(df.format(ret)).doubleValue();
     }
 
@@ -1223,6 +1258,7 @@ public class CommUtil {
         BigDecimal f = new BigDecimal(null2Double(b));
         ret = e.add(f).doubleValue();
         DecimalFormat df = new DecimalFormat("0.00");
+
         return Double.valueOf(df.format(ret)).doubleValue();
     }
 
@@ -1231,16 +1267,19 @@ public class CommUtil {
         BigDecimal f = new BigDecimal(null2Double(b));
         double ret = e.multiply(f).doubleValue();
         DecimalFormat df = new DecimalFormat("0.00");
+
         return Double.valueOf(df.format(ret)).doubleValue();
     }
 
     public static double formatMoney(Object money) {
         DecimalFormat df = new DecimalFormat("0.00");
+
         return Double.valueOf(df.format(money)).doubleValue();
     }
 
     public static int M2byte(float m) {
         float a = m * 1024.0F * 1024.0F;
+
         return (int)a;
     }
 
@@ -1258,8 +1297,8 @@ public class CommUtil {
         else {
             url = url + contextPath;
         }
-        return url;
 
+        return url;
     }
 
     public static String getURL(HttpServletRequest request, SysConfig config) {
@@ -1278,13 +1317,14 @@ public class CommUtil {
             else
                 url = config.getSite_url();
         }
-        return url;
 
+        return url;
     }
 
     public static String filterHTML(String content) {
         Whitelist whiteList = new Whitelist();
         String s = Jsoup.clean(content, user_content_filter);
+
         return s;
     }
 
@@ -1309,6 +1349,7 @@ public class CommUtil {
         if (type.equals("s")) {
             return cal.get(13);
         }
+
         return 0;
     }
 
@@ -1363,6 +1404,7 @@ public class CommUtil {
         } else {
             a = null;
         }
+
         return a;
     }
 
@@ -1377,11 +1419,13 @@ public class CommUtil {
             ret = deleteFile(path);
             ret1 = deleteFile(small_path);
         }
+
         return (ret) && (ret1);
     }
 
     public static boolean fileExist(String path) {
         File file = new File(path);
+
         return file.exists();
     }
 
@@ -1390,6 +1434,7 @@ public class CommUtil {
         if (!s.trim().equals("")) {
             v = s.split(c).length;
         }
+
         return v;
     }
 
@@ -1406,6 +1451,7 @@ public class CommUtil {
                 foldersize += filelist[i].length();
             }
         }
+
         return div(Long.valueOf(foldersize), Integer.valueOf(1024));
     }
 
@@ -1426,6 +1472,7 @@ public class CommUtil {
                 fileCount += fileCount(file);
             }
         }
+
         return fileCount;
     }
 
@@ -1435,6 +1482,7 @@ public class CommUtil {
                 (!request.getQueryString().equals(""))) {
             query_url = query_url + "?" + request.getQueryString();
         }
+
         return query_url;
     }
 
@@ -1451,6 +1499,7 @@ public class CommUtil {
             return new Color(r, g, b);
         } catch (NumberFormatException nfe) {
         }
+
         return null;
     }
 
@@ -1465,6 +1514,7 @@ public class CommUtil {
             int b = random.nextInt(a);
             list.add(Integer.valueOf(b));
         }
+
         return list;
     }
 
@@ -1475,6 +1525,7 @@ public class CommUtil {
             format = format + "0";
         }
         DecimalFormat df = new DecimalFormat(format);
+
         return Double.valueOf(df.format(obj));
     }
 
@@ -1519,6 +1570,7 @@ public class CommUtil {
         while (IP.endsWith(" ")) {
             IP = IP.substring(0, IP.length() - 1).trim();
         }
+
         return IP;
     }
 
@@ -1533,6 +1585,7 @@ public class CommUtil {
                     (Integer.parseInt(s[3]) < 255))
                 b = true;
         }
+
         return b;
     }
 
