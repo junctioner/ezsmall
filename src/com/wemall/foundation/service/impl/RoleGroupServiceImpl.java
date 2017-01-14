@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class RoleGroupServiceImpl
     implements IRoleGroupService {
-
     @Resource(name = "roleGroupDAO")
     private IGenericDAO<RoleGroup> roleGroupDao;
 

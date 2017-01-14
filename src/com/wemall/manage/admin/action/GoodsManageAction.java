@@ -33,7 +33,6 @@ import java.util.*;
  */
 @Controller
 public class GoodsManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

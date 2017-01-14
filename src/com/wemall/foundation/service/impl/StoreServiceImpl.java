@@ -19,7 +19,6 @@ import java.util.Map;
 @Transactional
 public class StoreServiceImpl
     implements IStoreService {
-
     @Resource(name = "storeDAO")
     private IGenericDAO<Store> storeDao;
 

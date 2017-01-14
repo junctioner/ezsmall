@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class SinaLoginPlug {
-
     @Autowired
     private ISysConfigService configService;
 

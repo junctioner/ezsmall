@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class TemplateServiceImpl
     implements ITemplateService {
-
     @Resource(name = "templateDAO")
     private IGenericDAO<Template> templateDao;
 

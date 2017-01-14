@@ -26,17 +26,13 @@ function order_pay(){
   var payType = jQuery('#selectpay input[name="payType"]:checked ').val();
   var orderId = jQuery("#order_id").val();
   
-  if(payType=="wxcodepay"){
+  if(payType=="wxcodepay"){// 微信扫码支付
   	var html = '';
   	jQuery.get("$!webPath/wechat/wxcodepay.htm",{"order_id":orderId},function(data){
   		html += data;
 		jQuery(html).appendTo("#wxPayCode");
 		jQuery("#wxcodepay_overlay").show();
   	},"text");
-  	/* jQuery.ajax({type:'POST',url:"$!webPath/wechat/wxcodepay.htm",async:false,data:{"order_id":orderId},success:function(html){
-		jQuery("#wxPayCode").html(html);
-		jQuery("#wxcodepay_overlay").show();
-	}}); */ 
   } else {
   	jQuery('#pay_overlay').show();
   	jQuery('#theForm').submit();
@@ -86,11 +82,12 @@ $!httpInclude.include("/top.htm")
           </div>
           <div id="selectpay" class="bankcar">
             #set($paym=$!config.getConfig_payment_type())
-                
+              <!-- 平台支付 -->
               #if($!paym==1)
               <ul>
                 <li>
                   <h1>在线支付</h1>
+                  <!-- 支付宝支付 -->
                   #set($install=$!paymentTools.queryShopPayment("alipay").get("install"))
                   #set($content=$!paymentTools.queryShopPayment("alipay").get("content"))
                   #if($!install==true)
@@ -101,6 +98,7 @@ $!httpInclude.include("/top.htm")
                     <span class="bank_txt">$!content</span> 
                   </div>
                   #end
+                  <!-- 贝宝支付 -->
                   #set($install=$!paymentTools.queryShopPayment("paypal").get("install"))
                   #set($content=$!paymentTools.queryShopPayment("paypal").get("content"))
                   #if($!install==true)
@@ -111,6 +109,7 @@ $!httpInclude.include("/top.htm")
 	                <span class="bank_txt">$!content</span>
                   </div>
                   #end
+                  <!-- 财付通支付 -->
                   #set($install=$!paymentTools.queryShopPayment("tenpay").get("install"))
                   #set($content=$!paymentTools.queryShopPayment("tenpay").get("content"))
                   #if($!install==true)
@@ -121,7 +120,7 @@ $!httpInclude.include("/top.htm")
                     <span class="bank_txt">$!content</span> 
                   </div>
                   #end
-                  
+                  <!-- 微信扫码支付 -->
                   #set($install=$!paymentTools.queryShopPayment("wxcodepay").get("install"))
                   #set($content=$!paymentTools.queryShopPayment("wxcodepay").get("content"))
                   #if($!install==true)
@@ -129,10 +128,10 @@ $!httpInclude.include("/top.htm")
                   	<span class="banksp">
                     <input name="payType" type="radio" value="wxcodepay" />
                     </span> <span class="bankimg"><img src="$!imageWebServer/resources/style/common/images/payment/weixin.png" width="125" height="47" /></span> 
-                    <span class="bank_txt">$!content</span> 
+                    <span class="bank_txt">$!content</span>
                   </div>
                   #end
-                  
+                  <!-- 网银在线支付 -->
                   #set($install=$!paymentTools.queryShopPayment("chinabank").get("install"))
                   #set($content=$!paymentTools.queryShopPayment("chinabank").get("content"))
                   #if($!install==true)
@@ -143,6 +142,7 @@ $!httpInclude.include("/top.htm")
                     <span class="bank_txt">$!content</span> 
                   </div>
                   #end
+                  <!-- 快钱支付 -->
                   #set($install=$!paymentTools.queryShopPayment("bill").get("install"))
                   #set($content=$!paymentTools.queryShopPayment("bill").get("content"))
                   #if($!install==true)
@@ -197,12 +197,12 @@ $!httpInclude.include("/top.htm")
                   #end 
                 </li>
               </ul>
-              
+              <!-- 店铺支付 -->
               #else
-              
               <ul>
                 <li>
                   <h1>在线支付</h1>
+                  <!-- 支付宝支付 -->
                   #set($install=$!paymentTools.queryStorePayment("alipay","$!{of.store.id}").get("install"))
                   #set($content=$!paymentTools.queryStorePayment("alipay","$!{of.store.id}").get("content"))
                   #if($!install==true)
@@ -210,7 +210,8 @@ $!httpInclude.include("/top.htm")
                     <input name="payType" type="radio" value="alipay" checked="checked" />
                     </span> <span class="bankimg"><img src="$!imageWebServer/resources/style/common/images/payment/alipay.jpg" width="125" height="47" /></span> <span class="bank_txt">$!content</span> </div>
                   #end
-                   #set($install=$!paymentTools.queryStorePayment("paypal","$!{of.store.id}").get("install"))
+                  <!-- 贝宝支付 -->
+                  #set($install=$!paymentTools.queryStorePayment("paypal","$!{of.store.id}").get("install"))
                   #set($content=$!paymentTools.queryStorePayment("paypal","$!{of.store.id}").get("content"))
                   #if($!install==true)
                 <div class="bankone">
@@ -220,6 +221,7 @@ $!httpInclude.include("/top.htm")
                <span class="bank_txt">$!content</span>
                 </div>
                   #end
+                  <!-- 财付通支付 -->
                   #set($install=$!paymentTools.queryStorePayment("tenpay","$!{of.store.id}").get("install"))
                   #set($content=$!paymentTools.queryStorePayment("tenpay","$!{of.store.id}").get("content"))
                   #if($!install==true)
@@ -227,7 +229,7 @@ $!httpInclude.include("/top.htm")
                     <input name="payType" type="radio" value="tenpay" />
                     </span> <span class="bankimg"><img src="$!imageWebServer/resources/style/common/images/payment/tenpay.jpg" width="125" height="47" /></span> <span class="bank_txt">$!content</span> </div>
                   #end
-                  
+                  <!-- 微信扫码支付 -->
                   #set($install=$!paymentTools.queryStorePayment("wxcodepay","$!{of.store.id}").get("install"))
                   #set($content=$!paymentTools.queryStorePayment("wxcodepay","$!{of.store.id}").get("content"))
                   #if($!install==true)
@@ -238,8 +240,7 @@ $!httpInclude.include("/top.htm")
                     <span class="bank_txt">$!content</span> 
                   </div>
                   #end
-                  
-                  
+                  <!-- 网银在线支付 -->
                   #set($install=$!paymentTools.queryStorePayment("chinabank","$!{of.store.id}").get("install"))
                   #set($content=$!paymentTools.queryStorePayment("chinabank","$!{of.store.id}").get("content"))
                   #if($!install==true)
@@ -247,6 +248,7 @@ $!httpInclude.include("/top.htm")
                     <input name="payType" type="radio" value="chinabank" />
                     </span> <span class="bankimg"><img src="$!imageWebServer/resources/style/common/images/payment/chinabank.jpg" width="125" height="47" /></span> <span class="bank_txt">$!content</span> </div>
                   #end
+                  <!-- 快钱支付 -->
                   #set($install=$!paymentTools.queryStorePayment("bill","$!{of.store.id}").get("install"))
                   #set($content=$!paymentTools.queryStorePayment("bill","$!{of.store.id}").get("content"))
                   #if($!install==true)
@@ -322,7 +324,7 @@ $!httpInclude.include("/top.htm")
         <dt id="wxPayCode"></dt>
         <dd>
           <div class="payf"><a href="$!webPath/order_finish.htm?order_id=$!{of.id}">完成支付！</a></div>
-          <div class="payf"><a href="javascript:void(0);"  onclick="javascript:jQuery('#wxcodepay_overlay').hide();" >支付出现问题！</a></div>
+          <div class="payf"><a href="javascript:void(0);" onclick="javascript:jQuery('#wxcodepay_overlay').hide();" >支付出现问题！</a></div>
         </dd>
       </dl>
     </div>

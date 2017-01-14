@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ChattingServiceImpl
     implements IChattingService {
-
     @Resource(name = "chattingDAO")
     private IGenericDAO<Chatting> chattingDao;
 

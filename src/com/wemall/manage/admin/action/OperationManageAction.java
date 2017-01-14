@@ -25,7 +25,6 @@ import java.util.Map;
  */
 @Controller
 public class OperationManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

@@ -21,7 +21,6 @@ public abstract class PHPFunctions {
         try {
             md = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
-
             e.printStackTrace();
             return null;
         }

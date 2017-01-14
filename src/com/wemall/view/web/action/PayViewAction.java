@@ -39,7 +39,6 @@ import java.util.*;
  */
 @Controller
 public class PayViewAction {
-
     @Autowired
     private ISysConfigService configService;
 
@@ -90,8 +89,15 @@ public class PayViewAction {
 
     private static Logger logger = LoggerFactory.getLogger(PayViewAction.class);
 
-    @RequestMapping( {"/aplipay_return.htm"})
-    public ModelAndView aplipay_return(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * 支付宝支付回调
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping( {"/alipay_return.htm"})
+    public ModelAndView alipay_return(HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         ModelAndView mv = new JModelAndView("order_finish.html",
                                             this.configService.getSysConfig(),
@@ -166,7 +172,7 @@ public class PayViewAction {
             config.setSeller_email(((Payment)payments.get(0)).getSeller_email());
         }
         config.setNotify_url(CommUtil.getURL(request) + "/alipay_notify.htm");
-        config.setReturn_url(CommUtil.getURL(request) + "/aplipay_return.htm");
+        config.setReturn_url(CommUtil.getURL(request) + "/alipay_return.htm");
         boolean verify_result = AlipayNotify.verify(config, params);
         if (verify_result) {
             if ((type.equals("goods")) && (
@@ -308,6 +314,12 @@ public class PayViewAction {
         return mv;
     }
 
+    /**
+     * 支付宝支付通知
+     * @param request
+     * @param response
+     * @throws Exception
+     */
     @RequestMapping( {"/alipay_notify.htm"})
     public void alipay_notify(HttpServletRequest request, HttpServletResponse response)
     throws Exception {
@@ -381,7 +393,7 @@ public class PayViewAction {
             config.setSeller_email(((Payment)payments.get(0)).getSeller_email());
         }
         config.setNotify_url(CommUtil.getURL(request) + "/alipay_notify.htm");
-        config.setReturn_url(CommUtil.getURL(request) + "/aplipay_return.htm");
+        config.setReturn_url(CommUtil.getURL(request) + "/alipay_return.htm");
         boolean verify_result = AlipayNotify.verify(config, params);
         if (verify_result) {
             if ((type.equals("goods")) &&
@@ -512,6 +524,13 @@ public class PayViewAction {
         }
     }
 
+    /**
+     * 快钱支付回调
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping( {"/bill_return.htm"})
     public ModelAndView bill_return(HttpServletRequest request, HttpServletResponse response)
     throws Exception {
@@ -772,6 +791,15 @@ public class PayViewAction {
         return returnStr;
     }
 
+    /**
+     * 财付通支付
+     * @param request
+     * @param response
+     * @param id
+     * @param type
+     * @param payment_id
+     * @throws IOException
+     */
     @RequestMapping( {"/tenpay.htm"})
     public void tenpay(HttpServletRequest request, HttpServletResponse response, String id, String type, String payment_id)
     throws IOException {
@@ -917,6 +945,13 @@ public class PayViewAction {
         response.sendRedirect(requestUrl);
     }
 
+    /**
+     * 财付通支付回调
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping( {"/tenpay_return.htm"})
     public ModelAndView tenpay_return(HttpServletRequest request, HttpServletResponse response)
     throws Exception {
@@ -1226,6 +1261,13 @@ public class PayViewAction {
         return mv;
     }
 
+    /**
+     * 网银在线支付回调
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping( {"/chinabank_return.htm"})
     public ModelAndView chinabank_return(HttpServletRequest request, HttpServletResponse response)
     throws Exception {
@@ -1405,6 +1447,13 @@ public class PayViewAction {
         return mv;
     }
 
+    /**
+     * 贝宝支付回调
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping( {"/paypal_return.htm"})
     public ModelAndView paypal_return(HttpServletRequest request, HttpServletResponse response)
     throws Exception {
@@ -1567,20 +1616,17 @@ public class PayViewAction {
     }
 
     /***
-     * 付款成功回调处理，你必须要返回SUCCESS信息给微信服务器，告诉微信服务器我已经收到支付成功的后台通知了。
+     * 微信支付付款成功回调处理，你必须要返回SUCCESS信息给微信服务器，告诉微信服务器我已经收到支付成功的后台通知了。
      * 不然的话，微信会一直调用该回调地址，当达到8次的时候还是没有收到SUCCESS的返回，微信服务器则认为此订单支付失败。
      *
      * 该回调地址是异步的。 这里可以处理数据库中的订单状态。
-     *
-     * 作者: YUKE 日期：2016年1月14日 上午9:25:29
      *
      * @param response
      * @throws IOException
      * @throws JDOMException
      */
     @RequestMapping( {"/wechat/paynotify.htm"})
-    public String notify_success(HttpServletRequest request, HttpServletResponse response) throws IOException, JDOMException {
-
+    public String notify_success(HttpServletRequest request, HttpServletResponse response) throws IOException, JDOMException, Exception {
         InputStream inStream = request.getInputStream();
         ByteArrayOutputStream outSteam = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
@@ -1602,7 +1648,6 @@ public class PayViewAction {
         }
         //支付签名验证
         /*if (verifyNotify(notifyMethod, request)) {
-
         }*/
         String order_no = map.get("out_trade_no");
         OrderForm order = null;
@@ -1623,26 +1668,20 @@ public class PayViewAction {
             this.orderFormLogService.save(ofl);
 
             // 邮件和短信通知,根据情况使用
-            /*if (this.configService.getSysConfig().isEmailEnable()) {
-              send_order_email(request, order, order.getUser().getEmail(),
-                "email_tobuyer_online_pay_ok_notify");
-              send_order_email(request, order, order
-                .getStore().getUser().getEmail(),
-                "email_toseller_online_pay_ok_notify");
+            if (this.configService.getSysConfig().isEmailEnable()) {
+                send_order_email(request, order, order.getUser().getEmail(), "email_tobuyer_online_pay_ok_notify");
+                send_order_email(request, order, order.getStore().getUser().getEmail(), "email_toseller_online_pay_ok_notify");
             }
             if (this.configService.getSysConfig().isSmsEnbale()) {
-              send_order_sms(request, order, order.getUser().getMobile(),
-                "sms_tobuyer_online_pay_ok_notify");
-              send_order_sms(request, order, order
-                .getStore().getUser().getMobile(),
-                "sms_toseller_online_pay_ok_notify");
-            }*/
+                send_order_sms(request, order, order.getUser().getMobile(), "sms_tobuyer_online_pay_ok_notify");
+                send_order_sms(request, order, order.getStore().getUser().getMobile(), "sms_toseller_online_pay_ok_notify");
+            }
 
             // 告诉微信服务器，我收到信息了，不要在调用回调方法(/pay)了
             logger.info("-------------" + WxCommonUtil.setXML("SUCCESS", "OK"));
             response.getWriter().write(WxCommonUtil.setXML("SUCCESS", "OK"));
         } else {
-            logger.info("------微信异步回调失败-------");
+            logger.error("------微信异步回调失败-------");
         }
 
         return "";
@@ -1706,7 +1745,7 @@ public class PayViewAction {
         config.setTransport("https");
 
         config.setNotify_url(CommUtil.getURL(request, this.configService.getSysConfig()) + "/alipay_notify.htm");
-        config.setReturn_url(CommUtil.getURL(request, this.configService.getSysConfig()) + "/aplipay_return.htm");
+        config.setReturn_url(CommUtil.getURL(request, this.configService.getSysConfig()) + "/alipay_return.htm");
 
         boolean check = AlipayNotify.verifyWap(config, params);
         check = true;
@@ -1758,9 +1797,9 @@ public class PayViewAction {
     /**
      * 支付宝前台回调
      */
-    @SecurityMapping(display = false, rsequence = 0, title = "支付宝前台回调", value = "/alipay_retrun.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")
-    @RequestMapping( { "/alipay/alipay_retrun.htm" })
-    public void alipayRetrun(HttpServletRequest request, HttpServletResponse respons) {
+    @SecurityMapping(display = false, rsequence = 0, title = "支付宝前台回调", value = "/alipay_return.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")
+    @RequestMapping( { "/alipay/alipay_return.htm" })
+    public void alipayReturn(HttpServletRequest request, HttpServletResponse respons) {
         // 获取支付宝GET过来反馈信息
         Map<String, String> params = new HashMap<String, String>();
         Map requestParams = request.getParameterMap();
@@ -1802,7 +1841,7 @@ public class PayViewAction {
 
 
         config.setNotify_url(CommUtil.getURL(request, this.configService.getSysConfig()) + "/alipay/alipay_notify.htm");
-        config.setReturn_url(CommUtil.getURL(request, this.configService.getSysConfig()) + "/alipay/aplipay_return.htm");
+        config.setReturn_url(CommUtil.getURL(request, this.configService.getSysConfig()) + "/alipay/alipay_return.htm");
 
 
         // 计算得出通知验证结果
@@ -1810,17 +1849,14 @@ public class PayViewAction {
         boolean verify_result = true;
 
         if (verify_result) { // 验证成功
-
             if (trade_status.equals("TRADE_FINISHED")
                     || trade_status.equals("TRADE_SUCCESS")) {
-
                 try {
                     respons.sendRedirect(CommUtil.getURL(request, this.configService.getSysConfig()) + "/alipay/paysuccess.htm");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-
         } else {
             // 该页面可做页面美工编辑
             try {
@@ -1838,7 +1874,7 @@ public class PayViewAction {
     * @param response
     * @return
     */
-    @SecurityMapping(display = false, rsequence = 0, title = "微信前台回调", value = "/alipay/paysuccess.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")
+    @SecurityMapping(display = false, rsequence = 0, title = "支付宝前台回调", value = "/alipay/paysuccess.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")
     @RequestMapping( {"/alipay/paysuccess.htm"})
     public ModelAndView account_password(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new JModelAndView("alipaysuccess.html", this.configService.getSysConfig(),
@@ -1848,6 +1884,10 @@ public class PayViewAction {
         return mv;
     }
 
+    /**
+     * 更新商品库存数量
+     * @param order
+     */
     private void update_goods_inventory(OrderForm order) {
         for (GoodsCart gc : order.getGcs()) {
             Goods goods = gc.getGoods();
@@ -1902,6 +1942,14 @@ public class PayViewAction {
         }
     }
 
+    /**
+     * 发送电子邮件
+     * @param request
+     * @param order
+     * @param email
+     * @param mark
+     * @throws Exception
+     */
     private void send_order_email(HttpServletRequest request, OrderForm order, String email, String mark) throws Exception {
         com.wemall.foundation.domain.Template template = this.templateService.getObjByProperty("mark", mark);
         if ((template != null) && (template.isOpen())) {
@@ -1936,6 +1984,14 @@ public class PayViewAction {
         }
     }
 
+    /**
+     * 发送短信
+     * @param request
+     * @param order
+     * @param mobile
+     * @param mark
+     * @throws Exception
+     */
     private void send_order_sms(HttpServletRequest request, OrderForm order, String mobile, String mark) throws Exception {
         com.wemall.foundation.domain.Template template = this.templateService.getObjByProperty("mark", mark);
         if ((template != null) && (template.isOpen())) {

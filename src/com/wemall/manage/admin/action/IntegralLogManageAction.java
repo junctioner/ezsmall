@@ -30,7 +30,6 @@ import java.util.Date;
  */
 @Controller
 public class IntegralLogManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

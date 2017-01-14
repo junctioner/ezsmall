@@ -29,7 +29,6 @@ import java.util.*;
  */
 @Controller
 public class IndexViewAction {
-
     @Autowired
     private ISysConfigService configService;
 
@@ -507,7 +506,6 @@ public class IndexViewAction {
 
     @RequestMapping( { "/goodsclass.htm" } )
     public ModelAndView goodsclass( HttpServletRequest request, HttpServletResponse response ) {
-
         ModelAndView mv = new JModelAndView( "goodsclass.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response );
         String wemall_view_type = CommUtil.null2String( request.getSession( false ).getAttribute( "wemall_view_type" ) );
         if( (wemall_view_type != null) && (!wemall_view_type.equals( "" )) && (wemall_view_type.equals( "wap" )) ) {
@@ -810,7 +808,6 @@ public class IndexViewAction {
 
 
     public String showLoadFloorAjaxHtml(List lists, int i, String url, Map<String, Object> map) {
-
         String img = null;
         String loadimg = map.get("imageWebServer") + "/resources/style/common/images/loader.gif";
         String errorimg = map.get("webPath") + "/" + map.get("goodsImagePath") + "/" + map.get("goodsImageName");
@@ -857,7 +854,6 @@ public class IndexViewAction {
         int count = 0;
 
         for(GoodsFloor info : floor.getChilds()) {
-
             count++;
             sb.append("<div id='").append(info.getId()).append("' store_gc='").append(floor.getId()).append("' class='ftab'");
             if(count > 1) {

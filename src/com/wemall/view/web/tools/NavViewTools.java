@@ -18,7 +18,6 @@ import java.util.Map;
  */
 @Component
 public class NavViewTools {
-
     @Autowired
     private INavigationService navService;
 

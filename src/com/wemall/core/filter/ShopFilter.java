@@ -23,7 +23,6 @@ import com.wemall.foundation.service.ISysConfigService;
 
 @Component
 public class ShopFilter implements Filter {
-
     @Autowired
     private ISysConfigService configService;
 

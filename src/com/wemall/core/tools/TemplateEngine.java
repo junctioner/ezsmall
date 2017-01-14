@@ -10,7 +10,6 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 
 @Component
 public class TemplateEngine {
-
     @Autowired
     private VelocityEngine velocityEngine;
 

@@ -18,7 +18,6 @@ import java.util.Properties;
  */
 @Component
 public class MsgTools {
-
     @Autowired
     private ISysConfigService configService;
 

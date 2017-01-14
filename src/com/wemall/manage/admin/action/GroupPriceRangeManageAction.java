@@ -24,7 +24,6 @@ import java.util.Date;
  */
 @Controller
 public class GroupPriceRangeManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

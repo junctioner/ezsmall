@@ -32,7 +32,6 @@ import java.util.*;
  */
 @Controller
 public class AccountBuyerAction {
-
     @Autowired
     private ISysConfigService configService;
 

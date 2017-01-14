@@ -29,7 +29,6 @@ import java.util.*;
  */
 @Controller
 public class BaseBuyerAction {
-
     @Autowired
     private ISysConfigService configService;
 

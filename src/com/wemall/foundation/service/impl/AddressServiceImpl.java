@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AddressServiceImpl
     implements IAddressService {
-
     @Resource(name = "addressDAO")
     private IGenericDAO<Address> addressDao;
 

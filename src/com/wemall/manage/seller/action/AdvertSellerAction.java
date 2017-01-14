@@ -31,7 +31,6 @@ import java.util.Map;
  */
 @Controller
 public class AdvertSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

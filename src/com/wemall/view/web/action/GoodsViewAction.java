@@ -36,7 +36,6 @@ import java.util.*;
  */
 @Controller
 public class GoodsViewAction {
-
     @Autowired
     private ISysConfigService configService;
 

@@ -31,7 +31,6 @@ import java.util.*;
  */
 @Controller
 public class ActivitySellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class DynamicServiceImpl
     implements IDynamicService {
-
     @Resource(name = "dynamicDAO")
     private IGenericDAO<Dynamic> dynamicDao;
 

@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class NavigationServiceImpl
     implements INavigationService {
-
     @Resource(name = "navigationDAO")
     private IGenericDAO<Navigation> navigationDao;
 

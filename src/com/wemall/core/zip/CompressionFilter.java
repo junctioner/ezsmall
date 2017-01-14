@@ -16,13 +16,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CompressionFilter implements Filter {
-
     protected Logger log = LoggerFactory.getLogger(CompressionFilter.class);
 
     @SuppressWarnings("rawtypes")
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
     throws IOException, ServletException {
-
         boolean compress = false;
         if ((request instanceof HttpServletRequest)) {
             HttpServletRequest httpRequest = (HttpServletRequest)request;

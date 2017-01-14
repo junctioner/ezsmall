@@ -38,7 +38,6 @@ import java.util.*;
  */
 @Controller
 public class OrderSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

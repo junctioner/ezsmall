@@ -35,7 +35,6 @@ import java.util.*;
  */
 @Controller
 public class OrderBuyerAction {
-
     @Autowired
     private ISysConfigService configService;
 
@@ -258,7 +257,6 @@ public class OrderBuyerAction {
     @SecurityMapping(display = false, rsequence = 0, title = "订单取消确认", value = "/buyer/order_cancel_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/buyer/order_cancel_save.htm"})
     public String order_cancel_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String state_info, String other_state_info) throws Exception {
-
         OrderForm obj = this.orderFormService.getObjById(CommUtil.null2Long(id));
 
         if (obj.getUser().getId().equals(SecurityUserHolder.getCurrentUser().getId())) {

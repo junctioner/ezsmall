@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class RefundLogServiceImpl
     implements IRefundLogService {
-
     @Resource(name = "refundLogDAO")
     private IGenericDAO<RefundLog> refundLogDao;
 

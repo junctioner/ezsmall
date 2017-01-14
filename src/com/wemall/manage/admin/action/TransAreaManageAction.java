@@ -34,7 +34,6 @@ import java.util.*;
  */
 @Controller
 public class TransAreaManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

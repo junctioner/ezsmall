@@ -27,7 +27,6 @@ import java.util.List;
  */
 @Controller
 public class ReportSubjectManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

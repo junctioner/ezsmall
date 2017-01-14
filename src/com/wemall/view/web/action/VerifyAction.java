@@ -27,7 +27,6 @@ import java.util.Random;
  */
 @Controller
 public class VerifyAction {
-
     @Autowired
     private IUserService userService;
 

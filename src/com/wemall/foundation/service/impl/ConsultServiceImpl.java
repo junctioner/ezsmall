@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ConsultServiceImpl
     implements IConsultService {
-
     @Resource(name = "consultDAO")
     private IGenericDAO<Consult> consultDao;
 

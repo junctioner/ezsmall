@@ -22,7 +22,6 @@ import java.util.*;
  */
 @Controller
 public class BargainViewAction {
-
     @Autowired
     private ISysConfigService configService;
 

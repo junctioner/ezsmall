@@ -33,7 +33,6 @@ import java.util.Map;
  */
 @Controller
 public class GoodsBrandSellerAction extends IdEntity {
-
     @Autowired
     private ISysConfigService configService;
 

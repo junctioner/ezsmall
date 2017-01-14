@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class IntegralLogServiceImpl
     implements IIntegralLogService {
-
     @Resource(name = "integralLogDAO")
     private IGenericDAO<IntegralLog> integralLogDao;
 

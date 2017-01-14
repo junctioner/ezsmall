@@ -33,7 +33,6 @@ import java.util.Map;
  */
 @Controller
 public class ArticleManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

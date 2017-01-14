@@ -21,7 +21,6 @@ import org.apache.poi.hssf.util.CellRangeAddress;
  * @author Kanine
  */
 public class ExcelWriter {
-
     private HSSFWorkbook workbook;
 
     private HSSFSheet sheet;

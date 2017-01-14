@@ -59,7 +59,6 @@ import com.wemall.uc.api.UCClient;
  */
 @Controller
 public class BaseManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

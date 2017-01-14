@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * UCenter¿Í»§¶Ë
+ */
 public class UCClient extends PHPFunctions {
     public static boolean IN_UC = true;
     public static String UC_IP = "127.0.0.1";

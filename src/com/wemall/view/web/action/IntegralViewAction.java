@@ -30,7 +30,6 @@ import java.util.*;
  */
 @Controller
 public class IntegralViewAction {
-
     @Autowired
     private ISysConfigService configService;
 

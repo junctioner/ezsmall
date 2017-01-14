@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserServiceImpl
     implements IUserService {
-
     @Resource(name = "userDAO")
     private IGenericDAO<User> userDAO;
 

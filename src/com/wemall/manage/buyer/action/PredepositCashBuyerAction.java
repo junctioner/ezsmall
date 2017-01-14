@@ -26,7 +26,6 @@ import java.util.Date;
  */
 @Controller
 public class PredepositCashBuyerAction {
-
     @Autowired
     private ISysConfigService configService;
 

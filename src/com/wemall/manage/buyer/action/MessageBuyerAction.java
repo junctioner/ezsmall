@@ -34,7 +34,6 @@ import java.util.Map;
  */
 @Controller
 public class MessageBuyerAction {
-
     @Autowired
     private ISysConfigService configService;
 

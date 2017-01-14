@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ExpressCompanyServiceImpl
     implements IExpressCompanyService {
-
     @Resource(name = "expressCompanyDAO")
     private IGenericDAO<ExpressCompany> expressCompanyDao;
 

@@ -17,7 +17,6 @@ import java.util.Map;
  */
 @Component
 public class AlbumViewTools {
-
     @Autowired
     private IAlbumService albumService;
 

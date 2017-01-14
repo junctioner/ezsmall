@@ -36,7 +36,6 @@ import com.wemall.foundation.service.IUserService;
 
 @Controller
 public class QQLoginPlug {
-
     @Autowired
     private ISysConfigService configService;
 

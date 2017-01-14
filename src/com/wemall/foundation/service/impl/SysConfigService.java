@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SysConfigService
     implements ISysConfigService {
-
     @Resource(name = "sysConfigDAO")
     private IGenericDAO<SysConfig> sysConfigDAO;
 

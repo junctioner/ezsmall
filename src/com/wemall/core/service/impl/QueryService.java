@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class QueryService
     implements IQueryService {
-
     @Autowired
     @Qualifier("genericEntityDao")
     private GenericEntityDao geDao;

@@ -30,7 +30,6 @@ import java.util.List;
  */
 @Controller
 public class DatabaseManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class IntegralGoodsCartServiceImpl
     implements IIntegralGoodsCartService {
-
     @Resource(name = "integralGoodsCartDAO")
     private IGenericDAO<IntegralGoodsCart> integralGoodsCartDao;
 

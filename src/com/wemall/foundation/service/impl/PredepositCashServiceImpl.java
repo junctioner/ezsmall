@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PredepositCashServiceImpl
     implements IPredepositCashService {
-
     @Resource(name = "predepositCashDAO")
     private IGenericDAO<PredepositCash> predepositCashDao;
 

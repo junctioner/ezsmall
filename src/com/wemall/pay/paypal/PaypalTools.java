@@ -1,10 +1,13 @@
 package com.wemall.pay.paypal;
 
-import java.util.List;
-
 import com.wemall.core.domain.virtual.SysMap;
 import com.wemall.core.tools.CommUtil;
 
+import java.util.List;
+
+/**
+ * ±´±¦Ö§¸¶¹¤¾ß
+ */
 public class PaypalTools {
     public static String buildForm(List<SysMap> list) {
         StringBuffer sb = new StringBuffer();

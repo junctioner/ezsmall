@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class DocumentServiceImpl
     implements IDocumentService {
-
     @Resource(name = "documentDAO")
     private IGenericDAO<Document> documentDao;
 

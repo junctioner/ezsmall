@@ -22,7 +22,6 @@ import java.util.Date;
  */
 @Controller
 public class DeliveryViewAction {
-
     @Autowired
     private ISysConfigService configService;
 

@@ -35,7 +35,6 @@ import java.util.Map;
  */
 @Controller
 public class ExpressCompanyManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

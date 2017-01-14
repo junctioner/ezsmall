@@ -28,7 +28,6 @@ import com.wemall.foundation.service.IUserService;
 @Aspect
 @Component
 public class SystemLogAdvice {
-
     @Autowired
     private ISysLogService sysLogService;
 

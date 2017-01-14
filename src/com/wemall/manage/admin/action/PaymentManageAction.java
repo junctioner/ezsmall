@@ -26,7 +26,6 @@ import java.util.*;
  */
 @Controller
 public class PaymentManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class AreaViewTools {
-
     @Autowired
     private IAreaService areaService;
 

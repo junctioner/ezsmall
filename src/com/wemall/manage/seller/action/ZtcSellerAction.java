@@ -31,7 +31,6 @@ import java.util.*;
  */
 @Controller
 public class ZtcSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

@@ -29,7 +29,6 @@ import java.util.*;
  */
 @Controller
 public class TransportSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

@@ -25,7 +25,6 @@ import java.util.List;
  */
 @Controller
 public class ImageManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

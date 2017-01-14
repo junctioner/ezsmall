@@ -29,7 +29,6 @@ import java.util.*;
  */
 @Controller
 public class UserManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

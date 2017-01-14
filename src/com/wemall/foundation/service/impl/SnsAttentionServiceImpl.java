@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SnsAttentionServiceImpl
     implements ISnsAttentionService {
-
     @Resource(name = "homeAttentionDAO")
     private IGenericDAO<SnsAttention> homeAttentionDao;
 

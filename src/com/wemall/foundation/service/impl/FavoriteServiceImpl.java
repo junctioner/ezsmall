@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class FavoriteServiceImpl
     implements IFavoriteService {
-
     @Resource(name = "favoriteDAO")
     private IGenericDAO<Favorite> favoriteDao;
 

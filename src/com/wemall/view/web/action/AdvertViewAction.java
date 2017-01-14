@@ -23,7 +23,6 @@ import java.util.*;
  */
 @Controller
 public class AdvertViewAction {
-
     @Autowired
     private ISysConfigService configService;
 

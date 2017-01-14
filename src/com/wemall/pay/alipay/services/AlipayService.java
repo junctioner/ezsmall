@@ -1,18 +1,21 @@
 package com.wemall.pay.alipay.services;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-import java.util.Map;
+import com.wemall.pay.alipay.config.AlipayConfig;
+import com.wemall.pay.alipay.util.AlipaySubmit;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 
-import com.wemall.pay.alipay.config.AlipayConfig;
-import com.wemall.pay.alipay.util.AlipaySubmit;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * 支付宝支付服务
+ */
 public class AlipayService {
     private static final String ALIPAY_GATEWAY_NEW = "https://mapi.alipay.com/gateway.do?";
 

@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class OrderFormLogServiceImpl
     implements IOrderFormLogService {
-
     @Resource(name = "orderFormLogDAO")
     private IGenericDAO<OrderFormLog> orderFormLogDao;
 

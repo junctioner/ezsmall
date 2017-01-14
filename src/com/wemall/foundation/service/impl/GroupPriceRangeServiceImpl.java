@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class GroupPriceRangeServiceImpl
     implements IGroupPriceRangeService {
-
     @Resource(name = "groupPriceRangeDAO")
     private IGenericDAO<GroupPriceRange> groupPriceRangeDao;
 

@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class UcenterManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

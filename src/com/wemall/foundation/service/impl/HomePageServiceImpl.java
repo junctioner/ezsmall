@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class HomePageServiceImpl
     implements IHomePageService {
-
     @Resource(name = "homePageDAO")
     private IGenericDAO<HomePage> homePageDao;
 

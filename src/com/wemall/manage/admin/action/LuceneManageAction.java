@@ -28,7 +28,6 @@ import java.util.*;
  */
 @Controller
 public class LuceneManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

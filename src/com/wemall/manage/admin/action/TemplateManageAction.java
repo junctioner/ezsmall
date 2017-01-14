@@ -33,7 +33,6 @@ import java.util.Map;
  */
 @Controller
 public class TemplateManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

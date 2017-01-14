@@ -22,7 +22,6 @@ import java.util.Map;
  */
 @Controller
 public class LoadAction {
-
     @Autowired
     private IAreaService areaService;
 

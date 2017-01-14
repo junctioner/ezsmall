@@ -29,7 +29,6 @@ import java.util.*;
  */
 @Controller
 public class ArticleClassManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

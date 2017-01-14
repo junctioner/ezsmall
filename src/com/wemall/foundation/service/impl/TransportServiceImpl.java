@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class TransportServiceImpl
     implements ITransportService {
-
     @Resource(name = "transportDAO")
     private IGenericDAO<Transport> transportDao;
 

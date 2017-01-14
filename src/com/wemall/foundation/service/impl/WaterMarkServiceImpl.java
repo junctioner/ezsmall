@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class WaterMarkServiceImpl
     implements IWaterMarkService {
-
     @Resource(name = "waterMarkDAO")
     private IGenericDAO<WaterMark> waterMarkDao;
 

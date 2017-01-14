@@ -31,7 +31,6 @@ import java.util.*;
  */
 @Controller
 public class BargainSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

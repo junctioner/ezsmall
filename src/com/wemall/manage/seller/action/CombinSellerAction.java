@@ -27,7 +27,6 @@ import java.util.Map;
  */
 @Controller
 public class CombinSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

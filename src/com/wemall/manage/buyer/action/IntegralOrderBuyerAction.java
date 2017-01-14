@@ -23,7 +23,6 @@ import java.util.Date;
  */
 @Controller
 public class IntegralOrderBuyerAction {
-
     @Autowired
     private ISysConfigService configService;
 

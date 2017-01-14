@@ -35,7 +35,6 @@ import java.util.regex.Pattern;
  */
 @Controller
 public class SubAccountSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

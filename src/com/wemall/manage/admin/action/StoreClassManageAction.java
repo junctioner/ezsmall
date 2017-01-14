@@ -29,7 +29,6 @@ import java.util.*;
  */
 @Controller
 public class StoreClassManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

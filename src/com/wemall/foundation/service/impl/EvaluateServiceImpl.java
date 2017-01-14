@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class EvaluateServiceImpl
     implements IEvaluateService {
-
     @Resource(name = "evaluateDAO")
     private IGenericDAO<Evaluate> evaluateDao;
 

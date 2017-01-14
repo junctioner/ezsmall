@@ -28,7 +28,6 @@ import java.util.Date;
  */
 @Controller
 public class ZtcManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

@@ -18,7 +18,6 @@ import java.util.Map;
  */
 @Component
 public class BargainSellerTools {
-
     @Autowired
     private IBargainGoodsService bargainGoodsService;
 

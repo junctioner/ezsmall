@@ -29,7 +29,6 @@ import java.util.Date;
  */
 @Controller
 public class DocumentManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

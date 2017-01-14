@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ArticleViewTools {
-
     @Autowired
     private IArticleService articleService;
 

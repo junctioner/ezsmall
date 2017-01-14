@@ -29,7 +29,6 @@ import java.util.Map;
  */
 @Controller
 public class GroupManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

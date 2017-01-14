@@ -26,7 +26,6 @@ import java.util.*;
  */
 @Controller
 public class GroupViewAction {
-
     @Autowired
     private ISysConfigService configService;
 

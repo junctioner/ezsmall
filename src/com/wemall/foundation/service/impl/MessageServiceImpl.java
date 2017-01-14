@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class MessageServiceImpl
     implements IMessageService {
-
     @Resource(name = "messageDAO")
     private IGenericDAO<Message> messageDao;
 

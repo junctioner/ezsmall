@@ -28,7 +28,6 @@ import java.util.Map;
  */
 @Controller
 public class DeliverySellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

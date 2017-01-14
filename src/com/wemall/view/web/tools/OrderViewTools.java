@@ -14,7 +14,6 @@ import java.util.Map;
  */
 @Component
 public class OrderViewTools {
-
     @Autowired
     private IOrderFormService orderFormService;
 

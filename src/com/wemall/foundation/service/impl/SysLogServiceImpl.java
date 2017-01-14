@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SysLogServiceImpl
     implements ISysLogService {
-
     @Resource(name = "sysLogDAO")
     private IGenericDAO<SysLog> sysLogDao;
 

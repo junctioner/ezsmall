@@ -31,7 +31,6 @@ import java.util.Map;
  */
 @Controller
 public class LoginViewAction {
-
     @Autowired
     private ISysConfigService configService;
 
@@ -282,7 +281,6 @@ public class LoginViewAction {
 
     @RequestMapping( { "/user/wap/login.htm" })
     public ModelAndView waplogin(HttpServletRequest request, HttpServletResponse response, String url) {
-
         ModelAndView mv = new JModelAndView("wap/login.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
         request.getSession(false).removeAttribute("verify_code");

@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ResService
     implements IResService {
-
     @Resource(name = "resDAO")
     private IGenericDAO<Res> resDAO;
 

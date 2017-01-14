@@ -24,7 +24,6 @@ import java.util.Date;
  */
 @Controller
 public class ComplaintSubjectManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

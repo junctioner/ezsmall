@@ -10,7 +10,6 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class IdEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(unique = true, nullable = false)

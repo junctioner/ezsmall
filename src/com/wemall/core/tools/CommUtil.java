@@ -1288,7 +1288,6 @@ public class CommUtil {
     }
 
     public static String getURL(HttpServletRequest request) {
-
         String contextPath = request.getContextPath().equals("/") ? "" : request.getContextPath();
 
         String url = "http://" + request.getServerName();
@@ -1302,7 +1301,6 @@ public class CommUtil {
     }
 
     public static String getURL(HttpServletRequest request, SysConfig config) {
-
         String contextPath = request.getContextPath().equals("/") ? "" : request.getContextPath();
 
         String url = "http://" + request.getServerName();

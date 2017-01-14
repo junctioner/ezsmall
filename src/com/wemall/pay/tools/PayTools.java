@@ -1,33 +1,11 @@
 package com.wemall.pay.tools;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.wemall.core.domain.virtual.SysMap;
 import com.wemall.core.security.support.SecurityUserHolder;
 import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.Md5Encrypt;
-import com.wemall.foundation.domain.GoldRecord;
-import com.wemall.foundation.domain.IntegralGoodsOrder;
-import com.wemall.foundation.domain.OrderForm;
-import com.wemall.foundation.domain.Payment;
-import com.wemall.foundation.domain.Predeposit;
-import com.wemall.foundation.domain.SysConfig;
-import com.wemall.foundation.service.IGoldRecordService;
-import com.wemall.foundation.service.IIntegralGoodsOrderService;
-import com.wemall.foundation.service.IOrderFormService;
-import com.wemall.foundation.service.IPaymentService;
-import com.wemall.foundation.service.IPredepositService;
-import com.wemall.foundation.service.ISysConfigService;
+import com.wemall.foundation.domain.*;
+import com.wemall.foundation.service.*;
 import com.wemall.pay.alipay.config.AlipayConfig;
 import com.wemall.pay.alipay.services.AlipayService;
 import com.wemall.pay.alipay.util.AlipaySubmit;
@@ -38,10 +16,19 @@ import com.wemall.pay.bill.util.BillCore;
 import com.wemall.pay.bill.util.MD5Util;
 import com.wemall.pay.chinabank.util.ChinaBankSubmit;
 import com.wemall.pay.paypal.PaypalTools;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+/**
+ * 在线支付工具组件
+ */
 @Component
 public class PayTools {
-
     @Autowired
     private IPaymentService paymentService;
 
@@ -60,6 +47,14 @@ public class PayTools {
     @Autowired
     private ISysConfigService configService;
 
+    /**
+     * 支付宝支付pc版
+     * @param url
+     * @param payment_id
+     * @param type
+     * @param id
+     * @return
+     */
     public String genericAlipay(String url, String payment_id, String type, String id) {
         String result = "";
         OrderForm of = null;
@@ -84,7 +79,7 @@ public class PayTools {
         if (payment == null)
             payment = new Payment();
 
-        int interfaceType = payment.getInterfaceType();
+        int interfaceType = payment.getInterfaceType();// 支付接口类型 0：即时到账；1：担保交易；2：标注双接口
 
         AlipayConfig config = new AlipayConfig();
         Map params = new HashMap();
@@ -108,13 +103,13 @@ public class PayTools {
         }
         config.setSeller_email(payment.getSeller_email());
         config.setNotify_url(url + "/alipay_notify.htm");
-        config.setReturn_url(url + "/aplipay_return.htm");
+        config.setReturn_url(url + "/alipay_return.htm");
 
         SysConfig sys_config = this.configService.getSysConfig();
         if (sys_config.getAlipay_fenrun() == 1) {
             interfaceType = 0;
         }
-        if (interfaceType == 0) {
+        if (interfaceType == 0) {// 即时到账
             if (sys_config.getAlipay_fenrun() == 1) {
                 config.setKey(shop_payment.getSafeKey());
                 config.setPartner(shop_payment.getPartner());
@@ -165,28 +160,20 @@ public class PayTools {
             }
 
             String paymethod = "";
-
             String defaultbank = "";
-
             String anti_phishing_key = "";
-
             String exter_invoke_ip = "";
-
             String extra_common_param = type;
-
             String buyer_email = "";
-
             String show_url = "";
-
             String royalty_type = "10";
-
             String royalty_parameters = "";
             if ((type.equals("goods")) && (sys_config.getAlipay_fenrun() == 1)) {
                 double fenrun_rate = CommUtil.null2Double(shop_payment.getAlipay_divide_rate());
-                double apliay_rate = CommUtil.null2Double(shop_payment.getAlipay_rate()) / 100.0D;
-                double shop_fee = CommUtil.null2Double(total_fee) * (1.0D - apliay_rate);
+                double alipay_rate = CommUtil.null2Double(shop_payment.getAlipay_rate()) / 100.0D;
+                double shop_fee = CommUtil.null2Double(total_fee) * (1.0D - alipay_rate);
                 shop_fee *= fenrun_rate;
-                double seller_fee = CommUtil.null2Double(total_fee) * (1.0D - apliay_rate) - shop_fee;
+                double seller_fee = CommUtil.null2Double(total_fee) * (1.0D - alipay_rate) - shop_fee;
                 royalty_parameters = payment.getSeller_email() + "^" + String.format("%.2f", new Object[] { Double.valueOf(seller_fee) }) + "^商家";
             }
 
@@ -210,7 +197,7 @@ public class PayTools {
 
             result = AlipayService.create_direct_pay_by_user(config, sParaTemp);
         }
-        if (interfaceType == 1) {
+        if (interfaceType == 1) {// 担保交易
             String out_trade_no = "";
             if (type.equals("goods")) {
                 out_trade_no = of.getId().toString();
@@ -256,23 +243,16 @@ public class PayTools {
             }
 
             String price = String.valueOf(total_fee);
-
             String logistics_fee = "0.00";
-
             String logistics_type = "EXPRESS";
-
             String logistics_payment = "SELLER_PAY";
-
             String quantity = "1";
-
             String extra_common_param = "";
-
             String receive_name = "";
             String receive_address = "";
             String receive_zip = "";
             String receive_phone = "";
             String receive_mobile = "";
-
             String show_url = "";
 
             Map sParaTemp = new HashMap();
@@ -293,10 +273,9 @@ public class PayTools {
             sParaTemp.put("receive_phone", receive_phone);
             sParaTemp.put("receive_mobile", receive_mobile);
 
-            result = AlipayService.create_partner_trade_by_buyer(config,
-                     sParaTemp);
+            result = AlipayService.create_partner_trade_by_buyer(config, sParaTemp);
         }
-        if (interfaceType == 2) {
+        if (interfaceType == 2) {// 标注双接口
             String out_trade_no = "";
             if (type.equals("goods")) {
                 out_trade_no = of.getId().toString();
@@ -342,23 +321,16 @@ public class PayTools {
             }
 
             String price = String.valueOf(total_fee);
-
             String logistics_fee = "0.00";
-
             String logistics_type = "EXPRESS";
-
             String logistics_payment = "SELLER_PAY";
-
             String quantity = "1";
-
             String extra_common_param = "";
-
             String receive_name = "";
             String receive_address = "";
             String receive_zip = "";
             String receive_phone = "";
             String receive_mobile = "";
-
             String show_url = "";
 
             Map sParaTemp = new HashMap();
@@ -381,9 +353,19 @@ public class PayTools {
 
             result = AlipayService.trade_create_by_buyer(config, sParaTemp);
         }
+
         return result;
     }
 
+    /**
+     * 快钱支付pc版
+     * @param url
+     * @param payment_id
+     * @param type
+     * @param id
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     public String generic99Bill(String url, String payment_id, String type, String id)
     throws UnsupportedEncodingException {
         String result = "";
@@ -418,13 +400,9 @@ public class PayTools {
         String version = "v2.0";
         String language = "1";
         String signType = "1";
-
         String payerName = SecurityUserHolder.getCurrentUser().getUserName();
-
         String payerContactType = "1";
-
         String payerContact = "";
-
         String orderId = "";
         if (type.equals("goods")) {
             orderId = of.getOrder_id();
@@ -475,11 +453,8 @@ public class PayTools {
         }
 
         String productNum = "1";
-
         String productId = "";
-
         String productDesc = "";
-
         String ext1 = "";
         if (type.equals("goods")) {
             ext1 = of.getId().toString();
@@ -495,16 +470,12 @@ public class PayTools {
         }
 
         String ext2 = type;
-
         String payType = "00";
-
         String redoFlag = "0";
-
         String pid = "";
         if (config.getPid() != null) {
             pid = config.getPid();
         }
-
         String signMsgVal = "";
         signMsgVal = BillCore.appendParam(signMsgVal, "inputCharset",
                                           inputCharset);
@@ -566,6 +537,14 @@ public class PayTools {
         return result;
     }
 
+    /**
+     * 网银在线支付pc版
+     * @param url
+     * @param payment_id
+     * @param type
+     * @param id
+     * @return
+     */
     public String genericChinaBank(String url, String payment_id, String type, String id) {
         OrderForm of = null;
         Predeposit obj = null;
@@ -655,6 +634,14 @@ public class PayTools {
         return ret;
     }
 
+    /**
+     * 贝宝支付pc版
+     * @param url
+     * @param payment_id
+     * @param type
+     * @param id
+     * @return
+     */
     public String genericPaypal(String url, String payment_id, String type, String id) {
         OrderForm of = null;
         Predeposit obj = null;
@@ -681,7 +668,7 @@ public class PayTools {
         String business = payment.getPaypal_userId();
         sms.add(new SysMap("business", business));
         String return_url = url + "/paypal_return.htm";
-        String notify_url = url + "/paypal_return.htm";
+        String notify_url = url + "/paypal_notify.htm";
         sms.add(new SysMap("return", return_url));
         String item_name = "";
         if (type.equals("goods")) {
@@ -740,6 +727,15 @@ public class PayTools {
         return ret;
     }
 
+    /**
+     * 支付宝支付手机wap版
+     * @param url
+     * @param payment_id
+     * @param type
+     * @param id
+     * @return
+     * @throws Exception
+     */
     public String genericAlipayWap(String url, String payment_id, String type, String id)
     throws Exception {
         String result = "";
@@ -787,19 +783,12 @@ public class PayTools {
         config.setSeller_email(payment.getSeller_email());
 
         String format = "xml";
-
         String v = "2.0";
-
         String req_id = UtilDate.getOrderNum();
-
-        String notify_url = url + "/weixin/alipay_notify.htm";
-
-        String call_back_url = url + "/weixin/alipay_return.htm";
-
-        String merchant_url = url + "/weixin/index.htm";
-
+        String notify_url = url + "/alipay/alipay_notify.htm";
+        String call_back_url = url + "/alipay/alipay_return.htm";
+        String merchant_url = url + "/alipay/index.htm";
         String seller_email = payment.getSeller_email();
-
         String out_trade_no = "";
 
         if (type.equals("goods")) {
@@ -864,11 +853,8 @@ public class PayTools {
         sParaTempToken.put("req_data", req_dataToken);
 
         String sHtmlTextToken = AlipaySubmit.buildRequest(config, "wap", sParaTempToken, "", "");
-
         sHtmlTextToken = URLDecoder.decode(sHtmlTextToken, config.getInput_charset());
-
         String request_token = AlipaySubmit.getRequestToken(config, sHtmlTextToken);
-
         String req_data = "<auth_and_execute_req><request_token>" +
                           request_token + "</request_token></auth_and_execute_req>";
 
@@ -887,6 +873,15 @@ public class PayTools {
         return result;
     }
 
+    /**
+     * 快钱支付手机wap版
+     * @param url
+     * @param payment_id
+     * @param type
+     * @param id
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     public String generic99BillWap(String url, String payment_id, String type, String id)
     throws UnsupportedEncodingException {
         String result = "";
@@ -1069,6 +1064,14 @@ public class PayTools {
         return result;
     }
 
+    /**
+     * 网银在线支付手机wap版
+     * @param url
+     * @param payment_id
+     * @param type
+     * @param id
+     * @return
+     */
     public String genericChinaBankWap(String url, String payment_id, String type, String id) {
         OrderForm of = null;
         Predeposit obj = null;
@@ -1158,6 +1161,14 @@ public class PayTools {
         return ret;
     }
 
+    /**
+     * 贝宝支付手机wap版
+     * @param url
+     * @param payment_id
+     * @param type
+     * @param id
+     * @return
+     */
     public String genericPaypalWap(String url, String payment_id, String type, String id) {
         OrderForm of = null;
         Predeposit obj = null;

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class DbConnection {
-
     @Autowired
     private DataSource dataSource;
     public static final ThreadLocal<Connection> thread = new ThreadLocal();

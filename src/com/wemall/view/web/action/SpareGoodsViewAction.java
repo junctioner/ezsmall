@@ -25,7 +25,6 @@ import java.util.*;
  */
 @Controller
 public class SpareGoodsViewAction {
-
     @Autowired
     private ISysConfigService configService;
 

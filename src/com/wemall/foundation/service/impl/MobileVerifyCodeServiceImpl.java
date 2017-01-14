@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class MobileVerifyCodeServiceImpl
     implements IMobileVerifyCodeService {
-
     @Resource(name = "mobileVerifyCodeDAO")
     private IGenericDAO<MobileVerifyCode> mobileVerifyCodeDao;
 

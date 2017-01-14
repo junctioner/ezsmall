@@ -32,7 +32,6 @@ import java.util.*;
  */
 @Controller
 public class SpareGoodsManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

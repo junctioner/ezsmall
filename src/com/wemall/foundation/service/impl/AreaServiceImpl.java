@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AreaServiceImpl
     implements IAreaService {
-
     @Resource(name = "areaDAO")
     private IGenericDAO<Area> areaDao;
 

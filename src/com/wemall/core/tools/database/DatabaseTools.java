@@ -22,7 +22,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DatabaseTools
     implements IBackup {
-
     @Autowired
     private PublicMethod publicMethod;
 

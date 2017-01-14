@@ -30,7 +30,6 @@ import java.util.*;
  */
 @Controller
 public class GroupSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

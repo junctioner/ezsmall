@@ -31,7 +31,6 @@ import java.util.Map;
  */
 @Controller
 public class PredepositBuyerAction {
-
     @Autowired
     private ISysConfigService configService;
 

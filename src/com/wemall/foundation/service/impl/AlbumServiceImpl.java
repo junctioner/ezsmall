@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AlbumServiceImpl
     implements IAlbumService {
-
     @Resource(name = "albumDAO")
     private IGenericDAO<Album> albumDao;
 

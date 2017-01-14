@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SnsFriendServiceImpl
     implements ISnsFriendService {
-
     @Resource(name = "snsFriendDAO")
     private IGenericDAO<SnsFriend> snsFriendDao;
 

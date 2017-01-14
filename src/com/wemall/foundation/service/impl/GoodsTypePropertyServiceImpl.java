@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class GoodsTypePropertyServiceImpl
     implements IGoodsTypePropertyService {
-
     @Resource(name = "goodsTypePropertyDAO")
     private IGenericDAO<GoodsTypeProperty> goodsTypePropertyDao;
 

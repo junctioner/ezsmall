@@ -30,7 +30,6 @@ import java.util.Map;
  */
 @Controller
 public class GoldSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

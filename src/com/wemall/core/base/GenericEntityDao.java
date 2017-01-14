@@ -40,7 +40,6 @@ public class GenericEntityDao extends JpaDaoSupport {
             	this.max =max;
             }*/
             public Object doInJpa(EntityManager em) throws PersistenceException {
-
                 String clazzName = claz.getName();
                 StringBuffer sb = new StringBuffer("select obj from ");
                 sb.append(clazzName).append(" obj").append(" where ")

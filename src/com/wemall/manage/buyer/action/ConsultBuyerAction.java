@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class ConsultBuyerAction {
-
     @Autowired
     private ISysConfigService configService;
 

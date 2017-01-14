@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class RefundSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

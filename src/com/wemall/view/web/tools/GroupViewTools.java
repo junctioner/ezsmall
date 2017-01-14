@@ -17,7 +17,6 @@ import java.util.Map;
  */
 @Component
 public class GroupViewTools {
-
     @Autowired
     private IGroupService groupService;
 

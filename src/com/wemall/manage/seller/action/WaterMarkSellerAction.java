@@ -27,7 +27,6 @@ import java.util.Map;
  */
 @Controller
 public class WaterMarkSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

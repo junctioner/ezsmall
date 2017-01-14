@@ -2,16 +2,19 @@ package com.wemall.uc.api;
 
 import com.wemall.foundation.domain.SysConfig;
 import com.wemall.foundation.service.ISysConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
+/**
+ * UCenter¹¤¾ß
+ */
 @Component
 public class UCTools {
-
     @Autowired
     private ISysConfigService configService;
     public static final ThreadLocal<Connection> thread = new ThreadLocal();

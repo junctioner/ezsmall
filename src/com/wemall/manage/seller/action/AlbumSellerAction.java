@@ -32,7 +32,6 @@ import java.util.Map;
  */
 @Controller
 public class AlbumSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

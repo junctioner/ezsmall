@@ -1,7 +1,6 @@
 package com.wemall.pay.alipay.util;
 
 public final class Base64Wap {
-
     static private final int     BASELENGTH           = 128;
     static private final int     LOOKUPLENGTH         = 64;
     static private final int     TWENTYFOURBITGROUP   = 24;
@@ -67,7 +66,6 @@ public final class Base64Wap {
      * @return Encoded Base64 array
      */
     public static String encode(byte[] binaryData) {
-
         if (binaryData == null) {
             return null;
         }
@@ -158,7 +156,6 @@ public final class Base64Wap {
      * @return Array containind decoded data.
      */
     public static byte[] decode(String encoded) {
-
         if (encoded == null) {
             return null;
         }
@@ -187,7 +184,6 @@ public final class Base64Wap {
         decodedData = new byte[(numberQuadruple) * 3];
 
         for (; i < numberQuadruple - 1; i++) {
-
             if (!isData((d1 = base64Data[dataIndex++])) || !isData((d2 = base64Data[dataIndex++]))
                     || !isData((d3 = base64Data[dataIndex++]))
                     || !isData((d4 = base64Data[dataIndex++]))) {

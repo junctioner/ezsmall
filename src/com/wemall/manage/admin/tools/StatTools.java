@@ -13,7 +13,6 @@ import java.util.*;
  */
 @Component
 public class StatTools {
-
     @Autowired
     private IStoreService storeService;
 

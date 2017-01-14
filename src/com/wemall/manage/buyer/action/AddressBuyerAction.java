@@ -30,7 +30,6 @@ import java.util.List;
  */
 @Controller
 public class AddressBuyerAction {
-
     @Autowired
     private ISysConfigService configService;
 

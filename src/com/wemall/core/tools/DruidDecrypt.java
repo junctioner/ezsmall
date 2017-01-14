@@ -4,7 +4,6 @@ import com.alibaba.druid.filter.config.ConfigTools;
 
 @SuppressWarnings("all")
 public class DruidDecrypt {
-
 	public static void main(String[] args) {
 		try {
 			ConfigTools configTools = new ConfigTools ();

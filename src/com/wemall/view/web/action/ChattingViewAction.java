@@ -23,7 +23,6 @@ import java.util.*;
  */
 @Controller
 public class ChattingViewAction {
-
     @Autowired
     private ISysConfigService configService;
 

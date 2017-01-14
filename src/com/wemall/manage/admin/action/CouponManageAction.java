@@ -42,7 +42,6 @@ import java.util.List;
  */
 @Controller
 public class CouponManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

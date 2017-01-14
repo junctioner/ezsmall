@@ -28,7 +28,6 @@ import java.util.*;
  */
 @Controller
 public class GoodsClassManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

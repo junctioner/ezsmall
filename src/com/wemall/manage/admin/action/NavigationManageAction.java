@@ -29,7 +29,6 @@ import java.util.List;
  */
 @Controller
 public class NavigationManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

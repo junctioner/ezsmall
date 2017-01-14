@@ -26,7 +26,6 @@ import java.util.Date;
  */
 @Controller
 public class ReportManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

@@ -29,7 +29,6 @@ import java.util.Properties;
  */
 @Controller
 public class ConsultSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

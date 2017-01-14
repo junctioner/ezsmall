@@ -22,7 +22,6 @@ import java.util.Map;
  */
 @Component
 public class TransportTools {
-
     @Autowired
     private ITransportService transportService;
 

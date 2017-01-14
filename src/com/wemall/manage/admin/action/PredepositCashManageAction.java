@@ -28,7 +28,6 @@ import java.math.BigDecimal;
  */
 @Controller
 public class PredepositCashManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

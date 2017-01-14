@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class GoodsReturnSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

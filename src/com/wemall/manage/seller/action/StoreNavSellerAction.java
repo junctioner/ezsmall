@@ -28,7 +28,6 @@ import java.util.Date;
  */
 @Controller
 public class StoreNavSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PaymentServiceImpl
     implements IPaymentService {
-
     @Resource(name = "paymentDAO")
     private IGenericDAO<Payment> paymentDao;
 

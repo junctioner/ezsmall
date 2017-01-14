@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ReportServiceImpl
     implements IReportService {
-
     @Resource(name = "reportDAO")
     private IGenericDAO<Report> reportDao;
 

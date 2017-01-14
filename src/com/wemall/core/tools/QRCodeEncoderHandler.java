@@ -114,7 +114,6 @@ public class QRCodeEncoderHandler {
     * @param type
     */
     public static void saveImage(byte[] data, String fileName, String type) {
-
         BufferedImage image = new BufferedImage(300, 300, BufferedImage.TYPE_BYTE_BINARY);
         ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
         try {

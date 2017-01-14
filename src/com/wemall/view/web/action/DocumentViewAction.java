@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class DocumentViewAction {
-
     @Autowired
     private ISysConfigService configService;
 

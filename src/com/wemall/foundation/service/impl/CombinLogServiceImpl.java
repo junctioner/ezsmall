@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CombinLogServiceImpl
     implements ICombinLogService {
-
     @Resource(name = "combinLogDAO")
     private IGenericDAO<CombinLog> combinLogDao;
 

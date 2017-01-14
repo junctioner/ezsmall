@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ComplaintServiceImpl
     implements IComplaintService {
-
     @Resource(name = "complaintDAO")
     private IGenericDAO<Complaint> complaintDao;
 

@@ -14,7 +14,6 @@ import java.util.*;
  */
 @Component
 public class GoodsFloorViewTools {
-
     @Autowired
     private IGoodsFloorService goodsFloorService;
 

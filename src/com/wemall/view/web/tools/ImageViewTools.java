@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 **/
 @Component
 public class ImageViewTools {
-
     @Autowired
     private ISysConfigService configService;
 

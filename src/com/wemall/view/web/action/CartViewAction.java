@@ -46,7 +46,6 @@ import java.util.*;
  */
 @Controller
 public class CartViewAction {
-
     @Autowired
     private ISysConfigService configService;
 
@@ -655,7 +654,6 @@ public class CartViewAction {
         Object map = new HashMap();
         ((Map) map).put("count", count);
         for (StoreCart ssscart : cart) {
-
             if (ssscart.getStore().getId().equals(CommUtil.null2Long(store_id))) {
                 ((Map) map).put("sc_total_price", Float.valueOf(CommUtil.null2Float(ssscart.getTotal_price())));
             }
@@ -826,6 +824,17 @@ public class CartViewAction {
         return mv;
     }
 
+    /**
+     * 生成订单
+     * @param request
+     * @param response
+     * @param cart_session
+     * @param store_id
+     * @param addr_id
+     * @param coupon_id
+     * @return
+     * @throws Exception
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "完成订单提交进入支付", value = "/goods_cart3.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")
     @RequestMapping( { "/goods_cart3.htm" })
     public ModelAndView goods_cart3(HttpServletRequest request, HttpServletResponse response, String cart_session,
@@ -879,7 +888,6 @@ public class CartViewAction {
                 }
                 Cookie[] cookies = request.getCookies();
                 if (cookies != null) {
-
                     for (int i = 0; i < cookies.length; i++) {
                         Cookie cookie = cookies[i];
                         if (cookie.getName().equals("cart_session_id")) {
@@ -901,8 +909,9 @@ public class CartViewAction {
                 if (this.configService.getSysConfig().isEmailEnable()) {
                     send_email(request, of, of.getUser().getEmail(), "email_tobuyer_order_submit_ok_notify");
                 }
-                if (this.configService.getSysConfig().isSmsEnbale())
+                if (this.configService.getSysConfig().isSmsEnbale()) {
                     send_sms(request, of, of.getUser().getMobile(), "sms_tobuyer_order_submit_ok_notify");
+                }
             } else {
                 mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request, response);
@@ -927,10 +936,16 @@ public class CartViewAction {
         return mv;
     }
 
+    /**
+     * 买家选择付款方式
+     * @param request
+     * @param response
+     * @param id
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "订单支付详情", value = "/order_pay_view.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")
     @RequestMapping( { "/order_pay_view.htm" })
     public ModelAndView order_pay_view(HttpServletRequest request, HttpServletResponse response, String id) {
-
         ModelAndView mv = new JModelAndView("order_pay.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
 
@@ -963,6 +978,14 @@ public class CartViewAction {
         return mv;
     }
 
+    /**
+     * 跳转第三方支付页面，进行支付
+     * @param request
+     * @param response
+     * @param payType
+     * @param order_id
+     * @return
+     */
     @SecurityMapping(display = false, rsequence = 0, title = "订单支付", value = "/order_pay.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")
     @RequestMapping( { "/order_pay.htm" })
     public ModelAndView order_pay(HttpServletRequest request, HttpServletResponse response, String payType, String order_id) {
@@ -996,10 +1019,10 @@ public class CartViewAction {
                 }
                 of.setPayment((Payment) payments.get(0));
                 this.orderFormService.update(of);
-                if (payType.equals("balance")) {
+                if (payType.equals("balance")) {// 余额支付
                     mv = new JModelAndView("balance_pay.html", this.configService.getSysConfig(),
                                            this.userConfigService.getUserConfig(), 1, request, response);
-                } else if (payType.equals("outline")) {
+                } else if (payType.equals("outline")) {// 线下支付
                     mv = new JModelAndView("outline_pay.html", this.configService.getSysConfig(),
                                            this.userConfigService.getUserConfig(), 1, request, response);
                     String pay_session = CommUtil.randomString(32);
@@ -1008,7 +1031,7 @@ public class CartViewAction {
                     mv.addObject("store_id",
                                  this.orderFormService.getObjById(CommUtil.null2Long(order_id)).getStore().getId());
                     mv.addObject("pay_session", pay_session);
-                } else if (payType.equals("payafter")) {
+                } else if (payType.equals("payafter")) {// 货到付款
                     mv = new JModelAndView("payafter_pay.html", this.configService.getSysConfig(),
                                            this.userConfigService.getUserConfig(), 1, request, response);
                     String pay_session = CommUtil.randomString(32);
@@ -1017,7 +1040,7 @@ public class CartViewAction {
                     mv.addObject("store_id",
                                  this.orderFormService.getObjById(CommUtil.null2Long(order_id)).getStore().getId());
                     mv.addObject("pay_session", pay_session);
-                } else {
+                } else {// 在线支付
                     mv = new JModelAndView("line_pay.html", this.configService.getSysConfig(),
                                            this.userConfigService.getUserConfig(), 1, request, response);
                     mv.addObject("payType", payType);
@@ -1048,11 +1071,9 @@ public class CartViewAction {
     @RequestMapping( { "/pay_submit.htm" })
     public String paymentSubmit(HttpServletRequest request,
                                 HttpServletResponse response, String payType, String order_id) {
-
         OrderForm of = this.orderFormService.getObjById(CommUtil.null2Long(order_id));
 
         if (of != null && of.getOrder_status() == 10) {
-
             List payments = new ArrayList();
             Map params = new HashMap();
             // 1为平台支付:
@@ -1060,20 +1081,17 @@ public class CartViewAction {
                 params.put("mark", payType);
                 params.put("type", "admin");
                 payments = this.paymentService.query("select obj from Payment obj where obj.mark=:mark and obj.type=:type", params, -1, -1);
-            } else {
+            } else {// 店铺支付
                 params.put("store_id", of.getStore().getId());
                 params.put("mark", payType);
                 payments = this.paymentService.query("select obj from Payment obj where obj.mark=:mark and obj.store.id=:store_id", params, -1, -1);
             }
             // 支付方式已经配置:wap支持支付宝wap支付以及微信公众号支付
             if (payments.size() > 0) {
-
                 of.setPayment((Payment) payments.get(0));
-
                 this.orderFormService.update(of);
                 // 微信公众号支付
                 if (payType.equals("weixin_wap")) {
-
                     String APPID = of.getPayment().getWeixin_appId();
                     String siteURL = CommUtil.getURL(request);
                     String out_trade_no = of.getId().toString();
@@ -1085,10 +1103,7 @@ public class CartViewAction {
                            + "/wechat/oauthCode.htm?sn="
                            + out_trade_no
                            + "&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
-
                 } else if (payType.equals("alipay_wap")) {
-
-                    // ////////////////////////////////////////////////////////////////////////////////
                     String siteURL = CommUtil.getURL(request);
                     AlipayConfig config = new AlipayConfig();
 
@@ -1109,7 +1124,7 @@ public class CartViewAction {
                     sParaTemp.put("payment_type", "1");
 
                     sParaTemp.put("notify_url", siteURL + "/alipay/alipay_notify.htm");
-                    sParaTemp.put("return_url", siteURL + "/alipay/alipay_retrun.htm");
+                    sParaTemp.put("return_url", siteURL + "/alipay/alipay_return.htm");
                     sParaTemp.put("out_trade_no", of.getId().toString());
                     sParaTemp.put("subject", "订单号为" + of.getOrder_id());
                     // 价格测试改为1分钱
@@ -1128,22 +1143,17 @@ public class CartViewAction {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
                 } else {
                     // 支付方式错误
                     return "redirect:" + CommUtil.getURL(request) + "/index.htm?payMethodError";
                 }
-
             } else {
                 // 支付方式未配置
                 return "redirect:" + CommUtil.getURL(request) + "/index.htm?noPayMethod";
             }
-
         } else {
             // 该订单状态不正确，不能进行付款！
-            return "redirect:"
-                   + CommUtil.getURL(request)
-                   + "/index.htm?orderError";
+            return "redirect:" + CommUtil.getURL(request) + "/index.htm?orderError";
         }
 
         return null;
@@ -1164,14 +1174,12 @@ public class CartViewAction {
         String scode = (String)session.getAttribute("wxcode");
 
         if(code != null && code.equalsIgnoreCase(scode)) {
-
         } else {
             session.setAttribute("wxcode", code);
         }
         String openId = null;
         // 用户同意授权
         if (null != code && !"".equals(code) && !"authdeny".equals(code)) {
-
             OrderForm of = this.orderFormService.getObjById(CommUtil.null2Long(sn));
 
             // 获取网页授权access_token
@@ -1203,7 +1211,6 @@ public class CartViewAction {
 
     /**
      * 生成微信订单数据以及微信支付需要的签名等信息，传输到前端，发起调用JSAPI支付
-     * 作者: YUKE 日期：2016年1月14日 上午10:39:49
      *
      * @param
      * @return
@@ -1211,7 +1218,6 @@ public class CartViewAction {
      */
     @RequestMapping( {"/wechat/wxpay.htm"})
     public void wxpay(HttpServletRequest request, HttpServletResponse response, String openId, String sn, String productName, String totalPrice, String clientUrl) throws Exception {
-
         String APPID = null;
         String APP_SECRET = null;
         String MCH_ID = null;
@@ -1365,12 +1371,10 @@ public class CartViewAction {
      */
     @RequestMapping( {"/wechat/wxcodepay.htm"})
     public void wxcodepay(HttpServletRequest request, HttpServletResponse response, String order_id) {
-
         String UNI_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
         OrderForm of = this.orderFormService.getObjById(CommUtil.null2Long(order_id));
         String returnhtml = null;
         if (of.getOrder_status() == 10) {
-
             List payments = new ArrayList();
             Map params = new HashMap();
             //判断是否平台支付
@@ -1398,14 +1402,11 @@ public class CartViewAction {
             parameters.put("body", "在线购物");// 商品描述
             parameters.put("out_trade_no", order_id);// 商户订单号
             parameters.put("total_fee", of.getTotalPrice().multiply(new BigDecimal(100)).setScale(0).toString());// 总金额
-            //parameters.put("total_fee", "1");
             parameters.put("spbill_create_ip", WxCommonUtil.localIp());// 终端IP.Native支付填调用微信支付API的机器IP。
             // 支付成功后回调的action，与JSAPI相同
-            //parameters.put("notify_url", basePath + NOTIFY_URL);// 支付成功后回调的action
             parameters.put("notify_url", CommUtil.getURL(request) + "/wechat/paynotify.htm"); //支付成功后回调的action，与JSAPI相同
             parameters.put("trade_type", "NATIVE");// 交易类型
             parameters.put("product_id", order_id);// 商品ID。商品号要唯一,trade_type=NATIVE，此参数必传。此id为二维码中包含的商品ID，商户自行定义
-            //String sign = WxPayUtil.createSign2("UTF-8", parameters, API_KEY);
             String sign = WxCommonUtil.createSignMD5("UTF-8", parameters, payment.getWeixin_paySignKey());
             parameters.put("sign", sign);// 签名
             String requestXML = WxCommonUtil.getRequestXml(parameters);
@@ -1444,7 +1445,6 @@ public class CartViewAction {
                 logger.info("图片的网路路径imgurl={}", imgUrl);
 
                 returnhtml = "<img src='" + imgUrl + "' style='width:200px;height:200px;'/>";
-
             } else {
                 returnhtml = "支付状态不正确";
             }
@@ -1682,7 +1682,6 @@ public class CartViewAction {
     @SecurityMapping(display = false, rsequence = 0, title = "地址新增", value = "/cart_address.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")
     @RequestMapping( { "/cart_address.htm" })
     public ModelAndView cart_address(HttpServletRequest request, HttpServletResponse response, String id, String store_id) {
-
         ModelAndView mv = new JModelAndView("cart_address.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
         String wemall_view_type = CommUtil.null2String( request.getSession().getAttribute( "wemall_view_type" ) );
@@ -1775,7 +1774,6 @@ public class CartViewAction {
     @SecurityMapping(display = false, rsequence = 0, title = "修改收货地址", value = "/address_edit.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping( {"/address_edit.htm"})
     public ModelAndView address_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String store_id) {
-
         ModelAndView mv = new JModelAndView("cart_address.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
         String wemall_view_type = CommUtil.null2String( request.getSession().getAttribute( "wemall_view_type" ) );

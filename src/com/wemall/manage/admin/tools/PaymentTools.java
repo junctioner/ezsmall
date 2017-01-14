@@ -17,13 +17,18 @@ import java.util.Map;
  */
 @Component
 public class PaymentTools {
-
     @Autowired
     private IPaymentService paymentService;
 
     @Autowired
     private IUserService userService;
 
+    /**
+     * 查询支付方式
+     * @param mark
+     * @param type
+     * @return
+     */
     public boolean queryPayment(String mark, String type) {
         Map params = new HashMap();
         params.put("mark", mark);
@@ -39,6 +44,11 @@ public class PaymentTools {
         return false;
     }
 
+    /**
+     * 查询支付方式
+     * @param mark
+     * @return
+     */
     public Map queryPayment(String mark) {
         Map params = new HashMap();
         params.put("mark", mark);
@@ -63,6 +73,12 @@ public class PaymentTools {
         return ret;
     }
 
+    /**
+     * 查询店铺支付方式
+     * @param mark
+     * @param store_id
+     * @return 安装状态和支付说明
+     */
     public Map queryStorePayment(String mark, String store_id) {
         Map ret = new HashMap();
         Map params = new HashMap();
@@ -82,6 +98,11 @@ public class PaymentTools {
         return ret;
     }
 
+    /**
+     * 查询平台支付方式
+     * @param mark
+     * @return 安装状态和支付说明
+     */
     public Map queryShopPayment(String mark) {
         Map ret = new HashMap();
         Map params = new HashMap();

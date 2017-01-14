@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CouponServiceImpl
     implements ICouponService {
-
     @Resource(name = "couponDAO")
     private IGenericDAO<Coupon> couponDao;
 

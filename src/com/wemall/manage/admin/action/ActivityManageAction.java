@@ -36,7 +36,6 @@ import java.util.Map;
  */
 @Controller
 public class ActivityManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

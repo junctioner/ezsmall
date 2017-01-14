@@ -33,7 +33,6 @@ import java.util.*;
  */
 @Controller
 public class AreaManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

@@ -30,7 +30,6 @@ import java.util.Date;
  */
 @Controller
 public class StoreGradeManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

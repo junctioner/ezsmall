@@ -18,7 +18,6 @@ import org.springframework.security.ui.logout.LogoutFilter;
 import org.springframework.security.ui.logout.LogoutHandler;
 
 public class NorLogoutFilter extends LogoutFilter {
-
     @Autowired
     private ISysLogService sysLogService;
 

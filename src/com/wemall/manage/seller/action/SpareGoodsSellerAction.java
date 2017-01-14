@@ -35,7 +35,6 @@ import java.util.Map;
  */
 @Controller
 public class SpareGoodsSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

@@ -30,7 +30,6 @@ import java.util.Map;
  */
 @Controller
 public class BrandViewAction {
-
     @Autowired
     private ISysConfigService configService;
 

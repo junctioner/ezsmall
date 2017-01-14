@@ -26,7 +26,6 @@ import java.util.Date;
  */
 @Controller
 public class CombinManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

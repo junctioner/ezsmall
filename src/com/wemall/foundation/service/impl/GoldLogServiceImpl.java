@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class GoldLogServiceImpl
     implements IGoldLogService {
-
     @Resource(name = "goldLogDAO")
     private IGenericDAO<GoldLog> goldLogDao;
 

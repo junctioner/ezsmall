@@ -19,7 +19,6 @@ import java.util.Map;
 @Transactional
 public class ArticleServiceImpl
     implements IArticleService {
-
     @Resource(name = "articleDAO")
     private IGenericDAO<Article> articleDao;
 

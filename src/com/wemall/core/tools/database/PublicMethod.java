@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class PublicMethod {
-
     @Autowired
     private DbConnection dbConnectoin;
     private static Connection conn = null;

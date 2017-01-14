@@ -37,7 +37,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ComplaintSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

@@ -36,7 +36,6 @@ import java.util.*;
  */
 @Controller
 public class SearchViewAction {
-
     @Autowired
     private ISysConfigService configService;
 

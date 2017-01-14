@@ -27,7 +27,6 @@ import java.util.Date;
  */
 @Controller
 public class GoldRecordManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

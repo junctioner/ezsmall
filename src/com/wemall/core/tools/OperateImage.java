@@ -34,7 +34,6 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
  * 创建日期 2015-10-16
  */
 public class OperateImage {
-
     public OperateImage() {
         super();
     }

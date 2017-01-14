@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserConfigServiceImpl
     implements IUserConfigService {
-
     @Resource(name = "userConfigDAO")
     private IGenericDAO<UserConfig> userConfigDao;
 

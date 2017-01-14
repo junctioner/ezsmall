@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class FavoriteBuyerAction {
-
     @Autowired
     private ISysConfigService configService;
 

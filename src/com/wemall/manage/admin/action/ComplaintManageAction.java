@@ -30,7 +30,6 @@ import java.util.*;
  */
 @Controller
 public class ComplaintManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

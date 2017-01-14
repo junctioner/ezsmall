@@ -16,7 +16,6 @@ import java.util.Date;
  */
 @Component
 public class StoreTools {
-
     @Autowired
     private IGoodsClassService goodsClassService;
 

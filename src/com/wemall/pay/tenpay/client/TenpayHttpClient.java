@@ -1,13 +1,11 @@
 package com.wemall.pay.tenpay.client;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import com.wemall.pay.tenpay.util.HttpClientUtil;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -15,12 +13,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
 
-import com.wemall.pay.tenpay.util.HttpClientUtil;
-
+/**
+ * ²Æ¸¶Í¨Ö§¸¶
+ */
 public class TenpayHttpClient {
     private static final String USER_AGENT_VALUE = "Mozilla/4.0 (compatible; MSIE 6.0; Windows XP)";
     private static final String JKS_CA_FILENAME = "tenpay_cacert.jks";

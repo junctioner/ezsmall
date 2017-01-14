@@ -32,7 +32,6 @@ import java.util.Map;
  */
 @Controller
 public class GroupAreaManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

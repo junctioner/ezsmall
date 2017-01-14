@@ -34,7 +34,6 @@ import java.util.Date;
  */
 @Controller
 public class OrderManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

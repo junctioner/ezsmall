@@ -34,7 +34,6 @@ import java.util.Map;
  */
 @Controller
 public class GroupClassManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

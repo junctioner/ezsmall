@@ -14,7 +14,6 @@ import java.util.*;
  */
 @Component
 public class StoreViewTools {
-
     @Autowired
     private IStoreService storeService;
 

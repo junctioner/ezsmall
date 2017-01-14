@@ -16,7 +16,6 @@ import java.util.*;
  */
 @Component
 public class GoodsViewTools {
-
     @Autowired
     private IGoodsService goodsService;
 

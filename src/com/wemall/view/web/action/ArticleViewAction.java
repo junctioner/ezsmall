@@ -26,7 +26,6 @@ import java.util.List;
  */
 @Controller
 public class ArticleViewAction {
-
     @Autowired
     private ISysConfigService configService;
 

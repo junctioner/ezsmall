@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class DeliveryLogServiceImpl
     implements IDeliveryLogService {
-
     @Resource(name = "deliveryLogDAO")
     private IGenericDAO<DeliveryLog> deliveryLogDao;
 

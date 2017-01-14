@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class PredepositLogManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

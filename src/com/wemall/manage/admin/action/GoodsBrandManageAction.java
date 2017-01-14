@@ -40,7 +40,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class GoodsBrandManageAction {
-
     @Autowired
     private ISysConfigService configService;
 

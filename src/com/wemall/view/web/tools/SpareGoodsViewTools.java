@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
  */
 @Component
 public class SpareGoodsViewTools {
-
     @Autowired
     private ISpareGoodsClassService sgcService;
 

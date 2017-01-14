@@ -47,7 +47,6 @@ import java.util.regex.Pattern;
  */
 @Controller
 public class GoodsSellerAction {
-
     @Autowired
     private ISysConfigService configService;
 

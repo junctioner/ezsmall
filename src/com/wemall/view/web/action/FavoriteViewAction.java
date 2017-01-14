@@ -23,7 +23,6 @@ import java.util.Map;
  */
 @Controller
 public class FavoriteViewAction {
-
     @Autowired
     private ISysConfigService configService;
 

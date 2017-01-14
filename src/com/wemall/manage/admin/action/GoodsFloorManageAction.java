@@ -36,7 +36,6 @@ import java.util.*;
  */
 @Controller
 public class GoodsFloorManageAction {
-
     @Autowired
     private ISysConfigService configService;
 
