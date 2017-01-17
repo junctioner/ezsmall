@@ -19,14 +19,14 @@ public class LoginUrlEntryPoint implements AuthenticationEntryPoint {
         HttpServletResponse response = (HttpServletResponse)res;
         String url = request.getRequestURI();
         if ((request.getQueryString() != null) &&
-                (!request.getQueryString().equals(""))) {
+                (!request.getQueryString().equals(""))){
             url = url + "?" + request.getQueryString();
         }
         request.getSession(false).setAttribute("refererUrl", url);
 
         if (url.indexOf("/admin/") >= 0)
             targetUrl = request.getContextPath() + "/admin/login.htm";
-        else {
+       else{
             targetUrl = request.getContextPath() + "/user/login.htm";
         }
         response.sendRedirect(targetUrl);

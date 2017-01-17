@@ -24,27 +24,27 @@ public class StoreSlide extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Store store;
 
-    public Store getStore() {
+    public Store getStore(){
         return this.store;
     }
 
-    public void setStore(Store store) {
+    public void setStore(Store store){
         this.store = store;
     }
 
-    public String getUrl() {
+    public String getUrl(){
         return this.url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(String url){
         this.url = url;
     }
 
-    public Accessory getAcc() {
+    public Accessory getAcc(){
         return this.acc;
     }
 
-    public void setAcc(Accessory acc) {
+    public void setAcc(Accessory acc){
         this.acc = acc;
     }
 }

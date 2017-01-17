@@ -81,12 +81,12 @@ public class SearchViewAction {
      * @param goods_view
      * @return
      */
-    @RequestMapping( {"/search.htm"})
-    public ModelAndView search(HttpServletRequest request, HttpServletResponse response, String type, String keyword, String currentPage, String orderBy, String orderType, String store_price_begin, String store_price_end, String view_type, String sc_id, String storeGrade_id, String checkbox_id, String storepoint, String area_id, String area_name, String goods_view) {
+    @RequestMapping({"/search.htm"})
+    public ModelAndView search(HttpServletRequest request, HttpServletResponse response, String type, String keyword, String currentPage, String orderBy, String orderType, String store_price_begin, String store_price_end, String view_type, String sc_id, String storeGrade_id, String checkbox_id, String storepoint, String area_id, String area_name, String goods_view){
         ModelAndView mv = new JModelAndView("search_goods_list.html",
                                             this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
         // 默认搜索商品
-        if ((type == null) || (type.equals(""))) {
+        if ((type == null) || (type.equals(""))){
             type = "goods";
         }
 
@@ -94,26 +94,26 @@ public class SearchViewAction {
 
         String wemall_view_type = CommUtil.null2String(request.getSession(false).getAttribute("wemall_view_type"));
 
-        if ((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))) {
+        if ((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))){
             mv = new JModelAndView("wap/search.html",
                                    this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
         }
 
         // 搜索店铺
-        if (type.equals("store")) {
+        if (type.equals("store")){
             mv = new JModelAndView("store_list.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request, response);
 
-            if ((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))) {
+            if ((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))){
                 mv = new JModelAndView("wap/store_list.html",
                                        this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
             }
             StoreQueryObject sqo = new StoreQueryObject(currentPage, mv, "addTime", "desc");
-            if ((keyword != null) && (!keyword.equals(""))) {
+            if ((keyword != null) && (!keyword.equals(""))){
                 sqo.addQuery("obj.store_name", new SysMap("store_name", "%" + keyword + "%"), "like");
                 mv.addObject("store_name", keyword);
             }
-            if ((sc_id != null) && (!sc_id.equals(""))) {
+            if ((sc_id != null) && (!sc_id.equals(""))){
                 StoreClass storeclass = this.storeClassService.getObjById(CommUtil.null2Long(sc_id));
                 Set ids = getStoreClassChildIds(storeclass);
                 Map map = new HashMap();
@@ -121,30 +121,30 @@ public class SearchViewAction {
                 sqo.addQuery("obj.sc.id in (:ids)", map);
                 mv.addObject("sc_id", sc_id);
             }
-            if ((storeGrade_id != null) && (!storeGrade_id.equals(""))) {
+            if ((storeGrade_id != null) && (!storeGrade_id.equals(""))){
                 sqo.addQuery("obj.grade.id", new SysMap("grade_id", CommUtil.null2Long(storeGrade_id)), "=");
                 mv.addObject("storeGrade_id", storeGrade_id);
             }
-            if ((orderBy != null) && (!orderBy.equals(""))) {
+            if ((orderBy != null) && (!orderBy.equals(""))){
                 sqo.setOrderBy(orderBy);
                 if (orderBy.equals("addTime"))
                     orderType = "asc";
-                else {
+               else{
                     orderType = "desc";
                 }
                 sqo.setOrderType(orderType);
                 mv.addObject("orderBy", orderBy);
                 mv.addObject("orderType", orderType);
             }
-            if ((checkbox_id != null) && (!checkbox_id.equals(""))) {
+            if ((checkbox_id != null) && (!checkbox_id.equals(""))){
                 sqo.addQuery("obj." + checkbox_id, new SysMap("obj_checkbox_id", Boolean.valueOf(true)), "=");
                 mv.addObject("checkbox_id", checkbox_id);
             }
-            if ((storepoint != null) && (!storepoint.equals(""))) {
+            if ((storepoint != null) && (!storepoint.equals(""))){
                 sqo.addQuery("obj.sp.store_evaluate1", new SysMap("sp_store_evaluate1", new BigDecimal(storepoint)), ">=");
                 mv.addObject("storepoint", storepoint);
             }
-            if ((area_id != null) && (!area_id.equals(""))) {
+            if ((area_id != null) && (!area_id.equals(""))){
                 mv.addObject("area_id", area_id);
                 Area area = this.areaService.getObjById(CommUtil.null2Long(area_id));
                 Set area_ids = getAreaChildIds(area);
@@ -152,7 +152,7 @@ public class SearchViewAction {
                 params.put("ids", area_ids);
                 sqo.addQuery("obj.area.id in (:ids)", params);
             }
-            if ((area_name != null) && (!area_name.equals(""))) {
+            if ((area_name != null) && (!area_name.equals(""))){
                 mv.addObject("area_name", area_name);
                 sqo.addQuery("obj.area.areaName", new SysMap("areaName", "%" + area_name.trim() + "%"), "like");
                 sqo.addQuery("obj.area.parent.areaName", new SysMap("areaName", "%" + area_name.trim() + "%"), "like", "or");
@@ -175,32 +175,32 @@ public class SearchViewAction {
         }
 
         // 搜索商品
-        if ((type.equals("goods")) && (!CommUtil.null2String(keyword).equals(""))) {
+        if ((type.equals("goods")) && (!CommUtil.null2String(keyword).equals(""))){
             String path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
             LuceneUtil lucene = LuceneUtil.instance();
             LuceneUtil.setIndex_path(path);
             boolean order_type = true;
             String order_by = "";
-            if (CommUtil.null2String(orderType).equals("asc")) {
+            if (CommUtil.null2String(orderType).equals("asc")){
                 order_type = false;
             }
-            if (CommUtil.null2String(orderType).equals("")) {
+            if (CommUtil.null2String(orderType).equals("")){
                 orderType = "desc";
             }
-            if (CommUtil.null2String(orderBy).equals("store_price")) {
+            if (CommUtil.null2String(orderBy).equals("store_price")){
                 order_by = "store_price";
             }
-            if (CommUtil.null2String(orderBy).equals("goods_salenum")) {
+            if (CommUtil.null2String(orderBy).equals("goods_salenum")){
                 order_by = "goods_salenum";
             }
-            if (CommUtil.null2String(orderBy).equals("goods_collect")) {
+            if (CommUtil.null2String(orderBy).equals("goods_collect")){
                 order_by = "goods_collect";
             }
-            if (CommUtil.null2String(orderBy).equals("goods_addTime")) {
+            if (CommUtil.null2String(orderBy).equals("goods_addTime")){
                 order_by = "addTime";
             }
             Sort sort = null;
-            if (!CommUtil.null2String(order_by).equals("")) {
+            if (!CommUtil.null2String(order_by).equals("")){
                 sort = new Sort(new SortField(order_by, 7, order_type));
             }
 
@@ -211,7 +211,7 @@ public class SearchViewAction {
                                                CommUtil.null2Int(store_price_end), null, sort);
 
             // 根据lucene检索结果的商品id，重新查询最新商品资料，并填入luncene检索结果中
-            for (LuceneVo vo : pList.getVo_list()) {
+            for (LuceneVo vo : pList.getVo_list()){
                 Goods goods = this.goodsService.getObjById(vo.getVo_id());
                 pList.getGoods_list().add(goods);
             }
@@ -226,11 +226,11 @@ public class SearchViewAction {
             mv.addObject("orderType", orderType);
             if (CommUtil.null2String(goods_view).equals("list"))
                 goods_view = "list";
-            else {
+           else{
                 goods_view = "thumb";
             }
 
-            if (this.configService.getSysConfig().isZtc_status()) {
+            if (this.configService.getSysConfig().isZtc_status()){
                 Object ztc_map = new HashMap();
                 ((Map)ztc_map).put("ztc_status", Integer.valueOf(3));
                 ((Map)ztc_map).put("now_date", new Date());
@@ -242,7 +242,7 @@ public class SearchViewAction {
             mv.addObject("goods_view", goods_view);
         }
 
-        if (CommUtil.null2String(view_type).equals("")) {
+        if (CommUtil.null2String(view_type).equals("")){
             view_type = "list";
         }
         mv.addObject("view_type", view_type);
@@ -251,8 +251,8 @@ public class SearchViewAction {
         return (ModelAndView)mv;
     }
 
-    @RequestMapping( {"/search_ajax.htm"})
-    public void searchAjax(HttpServletRequest request, HttpServletResponse response, String keyword, String currentPage, String orderBy, String orderType, String store_price_begin, String store_price_end, String view_type, String sc_id, String storeGrade_id, String checkbox_id, String storepoint) {
+    @RequestMapping({"/search_ajax.htm"})
+    public void searchAjax(HttpServletRequest request, HttpServletResponse response, String keyword, String currentPage, String orderBy, String orderType, String store_price_begin, String store_price_end, String view_type, String sc_id, String storeGrade_id, String checkbox_id, String storepoint){
         Map<String, Object> map = new HashMap<String, Object>();
 
         keyword = CommUtil.decode(keyword);
@@ -262,35 +262,35 @@ public class SearchViewAction {
         LuceneUtil.setIndex_path(path);
         boolean order_type = true;
         String order_by = "";
-        if (CommUtil.null2String(orderType).equals("asc")) {
+        if (CommUtil.null2String(orderType).equals("asc")){
             order_type = false;
         }
-        if (CommUtil.null2String(orderType).equals("")) {
+        if (CommUtil.null2String(orderType).equals("")){
             orderType = "desc";
         }
-        if (CommUtil.null2String(orderBy).equals("store_price")) {
+        if (CommUtil.null2String(orderBy).equals("store_price")){
             order_by = "store_price";
         }
-        if (CommUtil.null2String(orderBy).equals("goods_salenum")) {
+        if (CommUtil.null2String(orderBy).equals("goods_salenum")){
             order_by = "goods_salenum";
         }
-        if (CommUtil.null2String(orderBy).equals("goods_collect")) {
+        if (CommUtil.null2String(orderBy).equals("goods_collect")){
             order_by = "goods_collect";
         }
-        if (CommUtil.null2String(orderBy).equals("goods_addTime")) {
+        if (CommUtil.null2String(orderBy).equals("goods_addTime")){
             order_by = "addTime";
         }
 
         Sort sort = null;
 
-        if (!CommUtil.null2String(order_by).equals("")) {
+        if (!CommUtil.null2String(order_by).equals("")){
             sort = new Sort(new SortField(order_by, 7, order_type));
         }
 
         LuceneResult pList = lucene.search(keyword, CommUtil.null2Int(currentPage),
                                            CommUtil.null2Int(store_price_begin), CommUtil.null2Int(store_price_end), null, sort);
 
-        for (LuceneVo vo : pList.getVo_list()) {
+        for (LuceneVo vo : pList.getVo_list()){
             Goods goods = this.goodsService.getObjById(vo.getVo_id());
             pList.getGoods_list().add(goods);
         }
@@ -304,7 +304,7 @@ public class SearchViewAction {
 
         CommUtil.saveLucene2Map("goods", pList, map);
 
-        if (CommUtil.null2String(view_type).equals("")) {
+        if (CommUtil.null2String(view_type).equals("")){
             view_type = "list";
         }
         map.put("view_type", view_type);
@@ -316,18 +316,18 @@ public class SearchViewAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     // 递归查询店铺下级分类
-    private Set<Long> getStoreClassChildIds(StoreClass sc) {
+    private Set<Long> getStoreClassChildIds(StoreClass sc){
         Set ids = new HashSet();
         ids.add(sc.getId());
-        for (StoreClass storeclass : sc.getChilds()) {
+        for (StoreClass storeclass : sc.getChilds()){
             Set<Long> cids = getStoreClassChildIds(storeclass);
-            for (Long cid : cids) {
+            for (Long cid : cids){
                 ids.add(cid);
             }
         }
@@ -336,12 +336,12 @@ public class SearchViewAction {
     }
 
     // 递归查询区域下级区域
-    private Set<Long> getAreaChildIds(Area area) {
+    private Set<Long> getAreaChildIds(Area area){
         Set ids = new HashSet();
         ids.add(area.getId());
-        for (Area are : area.getChilds()) {
+        for (Area are : area.getChilds()){
             Set<Long> cids = getAreaChildIds(are);
-            for (Long cid : cids) {
+            for (Long cid : cids){
                 ids.add(cid);
             }
         }

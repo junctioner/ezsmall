@@ -49,67 +49,67 @@ public class SpareGoodsClass extends IdEntity {
     @OneToMany(mappedBy = "spareGoodsClass")
     private List<SpareGoods> sgs = new ArrayList();
 
-    public List<SpareGoods> getSgs() {
+    public List<SpareGoods> getSgs(){
         return this.sgs;
     }
 
-    public void setSgs(List<SpareGoods> sgs) {
+    public void setSgs(List<SpareGoods> sgs){
         this.sgs = sgs;
     }
 
-    public boolean isViewInFloor() {
+    public boolean isViewInFloor(){
         return this.viewInFloor;
     }
 
-    public void setViewInFloor(boolean viewInFloor) {
+    public void setViewInFloor(boolean viewInFloor){
         this.viewInFloor = viewInFloor;
     }
 
-    public String getClassName() {
+    public String getClassName(){
         return this.className;
     }
 
-    public void setClassName(String className) {
+    public void setClassName(String className){
         this.className = className;
     }
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public int getLevel() {
+    public int getLevel(){
         return this.level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(int level){
         this.level = level;
     }
 
-    public List<SpareGoodsClass> getChilds() {
+    public List<SpareGoodsClass> getChilds(){
         return this.childs;
     }
 
-    public void setChilds(List<SpareGoodsClass> childs) {
+    public void setChilds(List<SpareGoodsClass> childs){
         this.childs = childs;
     }
 
-    public SpareGoodsClass getParent() {
+    public SpareGoodsClass getParent(){
         return this.parent;
     }
 
-    public void setParent(SpareGoodsClass parent) {
+    public void setParent(SpareGoodsClass parent){
         this.parent = parent;
     }
 
-    public SpareGoodsFloor getFloor() {
+    public SpareGoodsFloor getFloor(){
         return this.floor;
     }
 
-    public void setFloor(SpareGoodsFloor floor) {
+    public void setFloor(SpareGoodsFloor floor){
         this.floor = floor;
     }
 }

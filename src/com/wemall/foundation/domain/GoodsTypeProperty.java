@@ -26,43 +26,43 @@ public class GoodsTypeProperty extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private GoodsType goodsType;
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public String getName() {
+    public String getName(){
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-    public String getValue() {
+    public String getValue(){
         return this.value;
     }
 
-    public void setValue(String value) {
+    public void setValue(String value){
         this.value = value;
     }
 
-    public GoodsType getGoodsType() {
+    public GoodsType getGoodsType(){
         return this.goodsType;
     }
 
-    public void setGoodsType(GoodsType goodsType) {
+    public void setGoodsType(GoodsType goodsType){
         this.goodsType = goodsType;
     }
 
-    public boolean isDisplay() {
+    public boolean isDisplay(){
         return this.display;
     }
 
-    public void setDisplay(boolean display) {
+    public void setDisplay(boolean display){
         this.display = display;
     }
 }

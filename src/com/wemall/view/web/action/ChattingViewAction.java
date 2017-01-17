@@ -47,8 +47,8 @@ public class ChattingViewAction {
     @Autowired
     private IChattingService chattingService;
 
-    @RequestMapping( {"/chatting.htm"})
-    public ModelAndView chatting(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/chatting.htm"})
+    public ModelAndView chatting(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("chatting.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -61,12 +61,12 @@ public class ChattingViewAction {
         mv.addObject("Friends", Friends);
         mv.addObject("userTools", this.userTools);
 
-        if (Friends.size() > 0) {
+        if (Friends.size() > 0){
             int count = 0;
-            for (SnsFriend friend : Friends) {
+            for (SnsFriend friend : Friends){
                 boolean flag = this.userTools.userOnLine(friend.getToUser()
                                .getUserName());
-                if (flag) {
+                if (flag){
                     count++;
                 }
                 mv.addObject("OnlineCount", Integer.valueOf(count));
@@ -90,7 +90,7 @@ public class ChattingViewAction {
                            params, -1, -1);
         mv.addObject("unreads", unreads);
         Object list = new ArrayList();
-        for (int i = 1; i <= 60; i++) {
+        for (int i = 1; i <= 60; i++){
             ((List)list).add(Integer.valueOf(i));
         }
         mv.addObject("emoticons", list);
@@ -98,15 +98,15 @@ public class ChattingViewAction {
         return (ModelAndView)mv;
     }
 
-    @RequestMapping( {"/chatting_refresh.htm"})
-    public ModelAndView chatting_refresh(HttpServletRequest request, HttpServletResponse response, String user_id) {
+    @RequestMapping({"/chatting_refresh.htm"})
+    public ModelAndView chatting_refresh(HttpServletRequest request, HttpServletResponse response, String user_id){
         ModelAndView mv = new JModelAndView("chatting_logs.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
         Chatting chatting = null;
         User user = this.userService.getObjById(CommUtil.null2Long(user_id));
         if ((SecurityUserHolder.getCurrentUser() != null) &&
-                (!SecurityUserHolder.getCurrentUser().equals(""))) {
+                (!SecurityUserHolder.getCurrentUser().equals(""))){
             Map map = new HashMap();
             map.put("uid", SecurityUserHolder.getCurrentUser().getId());
             map.put("user_id", CommUtil.null2Long(user_id));
@@ -114,7 +114,7 @@ public class ChattingViewAction {
                              .query(
                                  "select obj from Chatting obj where obj.user1.id=:uid and obj.user2.id=:user_id or obj.user1.id=:user_id and obj.user2.id=:uid",
                                  map, -1, -1);
-            if (chattings.size() > 0) {
+            if (chattings.size() > 0){
                 chatting = (Chatting)chattings.get(0);
 
                 map.clear();
@@ -126,7 +126,7 @@ public class ChattingViewAction {
                                              "select obj from ChattingLog obj where obj.chatting.id=:chat_id and obj.mark=:mark and obj.user.id=:user_id order by addTime asc",
                                              map, -1, -1);
                 mv.addObject("logs", logs);
-                for (ChattingLog log : logs) {
+                for (ChattingLog log : logs){
                     if (log.getUser().getId() ==
                             SecurityUserHolder.getCurrentUser().getId()) continue;
                     log.setMark(1);
@@ -140,14 +140,14 @@ public class ChattingViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/chatting_ShowHistory.htm"})
-    public ModelAndView chatting_ShowHistory(HttpServletRequest request, HttpServletResponse response, String user_id, String currentPage) {
+    @RequestMapping({"/chatting_ShowHistory.htm"})
+    public ModelAndView chatting_ShowHistory(HttpServletRequest request, HttpServletResponse response, String user_id, String currentPage){
         ModelAndView mv = new JModelAndView("chatting_logs.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
         Chatting chatting = null;
         if ((SecurityUserHolder.getCurrentUser() != null) &&
-                (!SecurityUserHolder.getCurrentUser().equals(""))) {
+                (!SecurityUserHolder.getCurrentUser().equals(""))){
             Map map = new HashMap();
             map.put("uid", SecurityUserHolder.getCurrentUser().getId());
             map.put("user_id", CommUtil.null2Long(user_id));
@@ -155,7 +155,7 @@ public class ChattingViewAction {
                              .query(
                                  "select obj from Chatting obj where obj.user1.id=:uid and obj.user2.id=:user_id or obj.user1.id=:user_id and obj.user2.id=:uid",
                                  map, -1, -1);
-            if (chattings.size() > 0) {
+            if (chattings.size() > 0){
                 chatting = (Chatting)chattings.get(0);
 
                 ChattingLogQueryObject qo = new ChattingLogQueryObject(
@@ -181,8 +181,8 @@ public class ChattingViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/chatting_save.htm"})
-    public ModelAndView chatting_save(HttpServletRequest request, HttpServletResponse response, String user_id, String content) {
+    @RequestMapping({"/chatting_save.htm"})
+    public ModelAndView chatting_save(HttpServletRequest request, HttpServletResponse response, String user_id, String content){
         ModelAndView mv = new JModelAndView("chatting_logs.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -195,9 +195,9 @@ public class ChattingViewAction {
                          .query(
                              "select obj from Chatting obj where obj.user1.id=:uid and obj.user2.id=:user_id or obj.user1.id=:user_id and obj.user2.id=:uid",
                              map, -1, -1);
-        if (chattings.size() > 0) {
+        if (chattings.size() > 0){
             chatting = (Chatting)chattings.get(0);
-        } else {
+        }else{
             chatting = new Chatting();
             chatting.setAddTime(new Date());
             chatting.setUser1(SecurityUserHolder.getCurrentUser());
@@ -218,7 +218,7 @@ public class ChattingViewAction {
                                .query(
                                    "select obj from ChattingFriend obj where obj.user.id=:uid and obj.friendUser.id=:user_id",
                                    map, -1, -1);
-        if (ChattingFriends.size() == 0) {
+        if (ChattingFriends.size() == 0){
             ChattingFriend contact = new ChattingFriend();
             contact.setAddTime(new Date());
             contact.setUser(SecurityUserHolder.getCurrentUser());
@@ -233,7 +233,7 @@ public class ChattingViewAction {
                                 .query(
                                     "select obj from ChattingFriend obj where obj.user.id=:uid and obj.friendUser.id=:user_id",
                                     map, -1, -1);
-        if (ChattingFriends2.size() == 0) {
+        if (ChattingFriends2.size() == 0){
             ChattingFriend contact = new ChattingFriend();
             contact.setAddTime(new Date());
             contact.setUser(user);

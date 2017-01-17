@@ -27,7 +27,7 @@ public class SecurityManagerSupport implements UserDetailsService, SecurityManag
         String[] list = data.split(",");
         String userName = list[0];
         String loginRole = "user";
-        if (list.length == 2) {
+        if (list.length == 2){
             loginRole = list[1];
         }
         Map params = new HashMap();
@@ -35,21 +35,21 @@ public class SecurityManagerSupport implements UserDetailsService, SecurityManag
         List users = this.userService.query(
                          "select obj from User obj where obj.userName =:userName ",
                          params, -1, -1);
-        if (users.isEmpty()) {
+        if (users.isEmpty()){
             throw new UsernameNotFoundException("User " + userName +
                                                 " has no GrantedAuthority");
         }
         User user = (User)users.get(0);
         Set authorities = new HashSet();
-        if ((!user.getRoles().isEmpty()) && (user.getRoles() != null)) {
+        if ((!user.getRoles().isEmpty()) && (user.getRoles() != null)){
             Iterator roleIterator = user.getRoles().iterator();
-            while (roleIterator.hasNext()) {
+            while (roleIterator.hasNext()){
                 Role role = (Role)roleIterator.next();
-                if (loginRole.equalsIgnoreCase("ADMIN")) {
+                if (loginRole.equalsIgnoreCase("ADMIN")){
                     GrantedAuthority grantedAuthority = new GrantedAuthorityImpl(
                         role.getRoleCode().toUpperCase());
                     authorities.add(grantedAuthority);
-                } else if (!role.getType().equals("ADMIN")) {
+                }else if (!role.getType().equals("ADMIN")){
                     GrantedAuthority grantedAuthority = new GrantedAuthorityImpl(
                         role.getRoleCode().toUpperCase());
                     authorities.add(grantedAuthority);
@@ -63,14 +63,14 @@ public class SecurityManagerSupport implements UserDetailsService, SecurityManag
         return user;
     }
 
-    public Map<String, String> loadUrlAuthorities() {
+    public Map<String, String> loadUrlAuthorities(){
         Map<String, String> urlAuthorities = new HashMap<String, String>();
         Map<String, String> params = new HashMap<String, String>();
         params.put("type", "URL");
         List<Res> urlResources = this.resService.query(
                                      "select obj from Res obj where obj.type = :type", params, -1,
                                      -1);
-        for (Res res : urlResources) {
+        for (Res res : urlResources){
             urlAuthorities.put(res.getValue(), res.getRoleAuthorities());
         }
 

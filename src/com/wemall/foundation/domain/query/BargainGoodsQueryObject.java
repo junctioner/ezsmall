@@ -5,11 +5,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.wemall.core.query.QueryObject;
 
 public class BargainGoodsQueryObject extends QueryObject {
-    public BargainGoodsQueryObject(String currentPage, ModelAndView mv, String orderBy, String orderType) {
+    public BargainGoodsQueryObject(String currentPage, ModelAndView mv, String orderBy, String orderType){
         super(currentPage, mv, orderBy, orderType);
     }
 
-    public BargainGoodsQueryObject() {
+    public BargainGoodsQueryObject(){
     }
 }
 

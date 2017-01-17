@@ -19,7 +19,7 @@ public abstract class StringUtils {
     private static final String CURRENT_PATH = ".";
     private static final char EXTENSION_SEPARATOR = '.';
 
-    public static String[] addStringToArray(String[] array, String str) {
+    public static String[] addStringToArray(String[] array, String str){
         if ((array == null) || (array.length < 0))
             return new String[] { str };
         String[] newArr = new String[array.length + 1];
@@ -29,9 +29,9 @@ public abstract class StringUtils {
         return newArr;
     }
 
-    public static String applyRelativePath(String path, String relativePath) {
+    public static String applyRelativePath(String path, String relativePath){
         int separatorIndex = path.lastIndexOf("/");
-        if (separatorIndex != -1) {
+        if (separatorIndex != -1){
             String newPath = path.substring(0, separatorIndex);
             if (!relativePath.startsWith("/"))
                 newPath = newPath + "/";
@@ -41,16 +41,16 @@ public abstract class StringUtils {
         return relativePath;
     }
 
-    public static String arrayToCommaDelimitedString(Object[] arr) {
+    public static String arrayToCommaDelimitedString(Object[] arr){
         return arrayToDelimitedString(arr, ",");
     }
 
-    public static String arrayToDelimitedString(Object[] arr, String delim) {
-        if (arr == null) {
+    public static String arrayToDelimitedString(Object[] arr, String delim){
+        if (arr == null){
             return "";
         }
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++){
             if (i > 0)
                 sb.append(delim);
             sb.append(arr[i]);
@@ -59,11 +59,11 @@ public abstract class StringUtils {
         return sb.toString();
     }
 
-    public static String capitalize(String str) {
+    public static String capitalize(String str){
         return changeFirstCharacterCase(str, true);
     }
 
-    private static String changeFirstCharacterCase(String str, boolean capitalize) {
+    private static String changeFirstCharacterCase(String str, boolean capitalize){
         if ((str == null) || (str.length() == 0))
             return str;
         StringBuffer buf = new StringBuffer(str.length());
@@ -76,13 +76,13 @@ public abstract class StringUtils {
         return buf.toString();
     }
 
-    public static String cleanPath(String path) {
+    public static String cleanPath(String path){
         String pathToUse = replace(path, "\\",
                                    "/");
 
         int prefixIndex = pathToUse.indexOf(":");
         String prefix = "";
-        if (prefixIndex != -1) {
+        if (prefixIndex != -1){
             prefix = pathToUse.substring(0, prefixIndex + 1);
             pathToUse = pathToUse.substring(prefixIndex + 1);
         }
@@ -92,18 +92,18 @@ public abstract class StringUtils {
         List pathElements = new LinkedList();
         int tops = 0;
 
-        for (int i = pathArray.length - 1; i >= 0; i--) {
+        for (int i = pathArray.length - 1; i >= 0; i--){
             if (".".equals(pathArray[i]))
                 continue;
-            if ("..".equals(pathArray[i])) {
+            if ("..".equals(pathArray[i])){
                 tops++;
-            } else if (tops > 0) {
+            }else if (tops > 0){
                 tops--;
-            } else {
+            }else{
                 pathElements.add(0, pathArray[i]);
             }
         }
-        for (int i = 0; i < tops; i++) {
+        for (int i = 0; i < tops; i++){
             pathElements.add(0, "..");
         }
 
@@ -111,22 +111,22 @@ public abstract class StringUtils {
                collectionToDelimitedString(pathElements, "/");
     }
 
-    public static String collectionToCommaDelimitedString(Collection coll) {
+    public static String collectionToCommaDelimitedString(Collection coll){
         return collectionToDelimitedString(coll, ",");
     }
 
-    public static String collectionToDelimitedString(Collection coll, String delim) {
+    public static String collectionToDelimitedString(Collection coll, String delim){
         return collectionToDelimitedString(coll, delim, "", "");
     }
 
-    public static String collectionToDelimitedString(Collection coll, String delim, String prefix, String suffix) {
-        if (coll == null) {
+    public static String collectionToDelimitedString(Collection coll, String delim, String prefix, String suffix){
+        if (coll == null){
             return "";
         }
         StringBuffer sb = new StringBuffer();
         Iterator it = coll.iterator();
         int i = 0;
-        while (it.hasNext()) {
+        while (it.hasNext()){
             if (i > 0)
                 sb.append(delim);
             sb.append(prefix).append(it.next()).append(suffix);
@@ -136,7 +136,7 @@ public abstract class StringUtils {
         return sb.toString();
     }
 
-    public static Set commaDelimitedListToSet(String str) {
+    public static Set commaDelimitedListToSet(String str){
         Set set = new TreeSet();
         String[] tokens = commaDelimitedListToStringArray(str);
         for (String element : tokens)
@@ -145,18 +145,18 @@ public abstract class StringUtils {
         return set;
     }
 
-    public static String[] commaDelimitedListToStringArray(String str) {
+    public static String[] commaDelimitedListToStringArray(String str){
         return delimitedListToStringArray(str, ",");
     }
 
-    public static int countOccurrencesOf(String str, String sub) {
+    public static int countOccurrencesOf(String str, String sub){
         if ((str == null) || (sub == null) || (str.length() == 0) ||
                 (sub.length() == 0))
             return 0;
         int count = 0;
         int pos = 0;
         int idx = 0;
-        while ((idx = str.indexOf(sub, pos)) != -1) {
+        while ((idx = str.indexOf(sub, pos)) != -1){
             count++;
             pos = idx + sub.length();
         }
@@ -164,15 +164,15 @@ public abstract class StringUtils {
         return count;
     }
 
-    public static String delete(String inString, String pattern) {
+    public static String delete(String inString, String pattern){
         return replace(inString, pattern, "");
     }
 
-    public static String deleteAny(String inString, String charsToDelete) {
+    public static String deleteAny(String inString, String charsToDelete){
         if ((inString == null) || (charsToDelete == null))
             return inString;
         StringBuffer out = new StringBuffer();
-        for (int i = 0; i < inString.length(); i++) {
+        for (int i = 0; i < inString.length(); i++){
             char c = inString.charAt(i);
             if (charsToDelete.indexOf(c) == -1)
                 out.append(c);
@@ -181,24 +181,24 @@ public abstract class StringUtils {
         return out.toString();
     }
 
-    public static String[] delimitedListToStringArray(String str, String delimiter) {
+    public static String[] delimitedListToStringArray(String str, String delimiter){
         if (str == null)
             return new String[0];
-        if (delimiter == null) {
+        if (delimiter == null){
             return new String[] { str };
         }
         List result = new ArrayList();
-        if ("".equals(delimiter)) {
+        if ("".equals(delimiter)){
             for (int i = 0; i < str.length(); i++)
                 result.add(str.substring(i, i + 1));
-        } else {
+        }else{
             int pos = 0;
             int delPos = 0;
-            while ((delPos = str.indexOf(delimiter, pos)) != -1) {
+            while ((delPos = str.indexOf(delimiter, pos)) != -1){
                 result.add(str.substring(pos, delPos));
                 pos = delPos + delimiter.length();
             }
-            if ((str.length() > 0) && (pos <= str.length())) {
+            if ((str.length() > 0) && (pos <= str.length())){
                 result.add(str.substring(pos));
             }
         }
@@ -206,12 +206,12 @@ public abstract class StringUtils {
         return toStringArray(result);
     }
 
-    public static boolean endsWithIgnoreCase(String str, String suffix) {
+    public static boolean endsWithIgnoreCase(String str, String suffix){
         if ((str == null) || (suffix == null))
             return false;
         if (str.endsWith(suffix))
             return true;
-        if (str.length() < suffix.length()) {
+        if (str.length() < suffix.length()){
             return false;
         }
         String lcStr = str.substring(str.length() - suffix.length())
@@ -221,7 +221,7 @@ public abstract class StringUtils {
         return lcStr.equals(lcSuffix);
     }
 
-    public static String getFilename(String path) {
+    public static String getFilename(String path){
         if (path == null)
             return null;
         int separatorIndex = path.lastIndexOf("/");
@@ -230,7 +230,7 @@ public abstract class StringUtils {
                path;
     }
 
-    public static String getFilenameExtension(String path) {
+    public static String getFilenameExtension(String path){
         if (path == null)
             return null;
         int sepIndex = path.lastIndexOf('.');
@@ -238,11 +238,11 @@ public abstract class StringUtils {
         return sepIndex != -1 ? path.substring(sepIndex + 1) : null;
     }
 
-    public static boolean hasLength(String str) {
+    public static boolean hasLength(String str){
         return (str != null) && (str.length() > 0);
     }
 
-    public static boolean hasText(String str) {
+    public static boolean hasText(String str){
         int strLen;
         if ((str == null) || ((strLen = str.length()) == 0))
             return false;
@@ -255,7 +255,7 @@ public abstract class StringUtils {
         return false;
     }
 
-    public static Locale parseLocaleString(String localeString) {
+    public static Locale parseLocaleString(String localeString){
         String[] parts = tokenizeToStringArray(localeString, "_ ", false, false);
         String language = parts.length > 0 ? parts[0] : "";
         String country = parts.length > 1 ? parts[1] : "";
@@ -265,25 +265,25 @@ public abstract class StringUtils {
                null;
     }
 
-    public static boolean pathEquals(String path1, String path2) {
+    public static boolean pathEquals(String path1, String path2){
         return cleanPath(path1).equals(cleanPath(path2));
     }
 
-    public static String quote(String str) {
+    public static String quote(String str){
         return str != null ? "'" + str + "'" : null;
     }
 
-    public static Object quoteIfString(Object obj) {
+    public static Object quoteIfString(Object obj){
         return (obj instanceof String) ? quote((String)obj) : obj;
     }
 
-    public static String[] removeDuplicateStrings(String[] array) {
+    public static String[] removeDuplicateStrings(String[] array){
         if ((array == null) || (array.length < 0))
             return array;
         Set set = new TreeSet();
         String[] arrayOfString = array;
         int j = array.length;
-        for (int i = 0; i < j; i++) {
+        for (int i = 0; i < j; i++){
             String element = arrayOfString[i];
             set.add(element);
         }
@@ -291,10 +291,10 @@ public abstract class StringUtils {
         return toStringArray(set);
     }
 
-    public static String replace(String inString, String oldPattern, String newPattern) {
+    public static String replace(String inString, String oldPattern, String newPattern){
         if (inString == null)
             return null;
-        if ((oldPattern == null) || (newPattern == null)) {
+        if ((oldPattern == null) || (newPattern == null)){
             return inString;
         }
         StringBuffer sbuf = new StringBuffer();
@@ -303,7 +303,7 @@ public abstract class StringUtils {
         int index = inString.indexOf(oldPattern);
 
         int patLen = oldPattern.length();
-        while (index >= 0) {
+        while (index >= 0){
             sbuf.append(inString.substring(pos, index));
             sbuf.append(newPattern);
             pos = index + patLen;
@@ -314,7 +314,7 @@ public abstract class StringUtils {
         return sbuf.toString();
     }
 
-    public static String[] sortStringArray(String[] array) {
+    public static String[] sortStringArray(String[] array){
         if ((array == null) || (array.length < 0))
             return new String[0];
         Arrays.sort(array);
@@ -322,7 +322,7 @@ public abstract class StringUtils {
         return array;
     }
 
-    public static String[] split(String toSplit, String delimiter) {
+    public static String[] split(String toSplit, String delimiter){
         if ((!hasLength(toSplit)) || (!hasLength(delimiter)))
             return null;
         int offset = toSplit.indexOf(delimiter);
@@ -334,18 +334,18 @@ public abstract class StringUtils {
         return new String[] { beforeDelimiter, afterDelimiter };
     }
 
-    public static Properties splitArrayElementsIntoProperties(String[] array, String delimiter) {
+    public static Properties splitArrayElementsIntoProperties(String[] array, String delimiter){
         return splitArrayElementsIntoProperties(array, delimiter, null);
     }
 
-    public static Properties splitArrayElementsIntoProperties(String[] array, String delimiter, String charsToDelete) {
-        if ((array == null) || (array.length == 0)) {
+    public static Properties splitArrayElementsIntoProperties(String[] array, String delimiter, String charsToDelete){
+        if ((array == null) || (array.length == 0)){
             return null;
         }
         Properties result = new Properties();
         String[] arrayOfString1 = array;
         int j = array.length;
-        for (int i = 0; i < j; i++) {
+        for (int i = 0; i < j; i++){
             String element = arrayOfString1[i];
             if (charsToDelete != null)
                 element = deleteAny(element, charsToDelete);
@@ -359,7 +359,7 @@ public abstract class StringUtils {
         return result;
     }
 
-    public static boolean startsWithIgnoreCase(String str, String prefix) {
+    public static boolean startsWithIgnoreCase(String str, String prefix){
         if ((str == null) || (prefix == null))
             return false;
         if (str.startsWith(prefix))
@@ -372,7 +372,7 @@ public abstract class StringUtils {
         return lcStr.equals(lcPrefix);
     }
 
-    public static String stripFilenameExtension(String path) {
+    public static String stripFilenameExtension(String path){
         if (path == null)
             return null;
         int sepIndex = path.lastIndexOf('.');
@@ -380,16 +380,16 @@ public abstract class StringUtils {
         return sepIndex != -1 ? path.substring(0, sepIndex) : path;
     }
 
-    public static String[] tokenizeToStringArray(String str, String delimiters) {
+    public static String[] tokenizeToStringArray(String str, String delimiters){
         return tokenizeToStringArray(str, delimiters, true, true);
     }
 
-    public static String[] tokenizeToStringArray(String str, String delimiters, boolean trimTokens, boolean ignoreEmptyTokens) {
+    public static String[] tokenizeToStringArray(String str, String delimiters, boolean trimTokens, boolean ignoreEmptyTokens){
         if (str == null)
             return new String[0];
         StringTokenizer st = new StringTokenizer(str, delimiters);
         List tokens = new ArrayList();
-        while (st.hasMoreTokens()) {
+        while (st.hasMoreTokens()){
             String token = st.nextToken();
             if (trimTokens)
                 token = token.trim();
@@ -400,14 +400,14 @@ public abstract class StringUtils {
         return toStringArray(tokens);
     }
 
-    public static String[] toStringArray(Collection collection) {
+    public static String[] toStringArray(Collection collection){
         if (collection == null)
             return null;
 
         return (String[])collection.toArray(new String[collection.size()]);
     }
 
-    public static String trimLeadingWhitespace(String str) {
+    public static String trimLeadingWhitespace(String str){
         if (!hasLength(str))
             return str;
         StringBuffer buf = new StringBuffer(str);
@@ -417,7 +417,7 @@ public abstract class StringUtils {
         return buf.toString();
     }
 
-    public static String trimTrailingWhitespace(String str) {
+    public static String trimTrailingWhitespace(String str){
         if (!hasLength(str))
             return str;
         StringBuffer buf = new StringBuffer(str);
@@ -428,7 +428,7 @@ public abstract class StringUtils {
         return buf.toString();
     }
 
-    public static String trimWhitespace(String str) {
+    public static String trimWhitespace(String str){
         if (!hasLength(str))
             return str;
         StringBuffer buf = new StringBuffer(str);
@@ -445,15 +445,15 @@ public abstract class StringUtils {
         return buf.toString();
     }
 
-    public static String uncapitalize(String str) {
+    public static String uncapitalize(String str){
         return changeFirstCharacterCase(str, false);
     }
 
-    public static String unqualify(String qualifiedName) {
+    public static String unqualify(String qualifiedName){
         return unqualify(qualifiedName, '.');
     }
 
-    public static String unqualify(String qualifiedName, char separator) {
+    public static String unqualify(String qualifiedName, char separator){
         return qualifiedName
                .substring(qualifiedName.lastIndexOf(separator) + 1);
     }

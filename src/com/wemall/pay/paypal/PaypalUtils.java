@@ -8,7 +8,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
 
 public class PaypalUtils {
-    public static final String getPath(HttpServletRequest request, String path) {
+    public static final String getPath(HttpServletRequest request, String path){
         StringBuffer url = new StringBuffer();
         String s = request.getProtocol();
         url.append(s.substring(0, s.indexOf('/')).toLowerCase());
@@ -17,17 +17,17 @@ public class PaypalUtils {
         url.append(":");
         url.append(request.getServerPort());
         url.append(request.getContextPath());
-        if (path.charAt(0) != '/') {
+        if (path.charAt(0) != '/'){
             url.append("/");
         }
         url.append(path);
         return url.toString();
     }
 
-    public static final String encode(String value) {
+    public static final String encode(String value){
         try {
             value = URLEncoder.encode(value, "UTF-8");
-        } catch (UnsupportedEncodingException localUnsupportedEncodingException) {
+        } catch (UnsupportedEncodingException localUnsupportedEncodingException){
         }
         return value;
     }
@@ -37,7 +37,7 @@ public class PaypalUtils {
             Properties props = new Properties();
             HttpClient client = new HttpClient();
             int statusCode = client.executeMethod(post);
-            if ((statusCode < 200) || (statusCode >= 300)) {
+            if ((statusCode < 200) || (statusCode >= 300)){
                 throw new Exception(
                     "HTTP request failed: response status code '" +
                     statusCode + "' received where 2xx expected");

@@ -63,8 +63,8 @@ public class AccountBuyerAction {
     public static final String OPERATE_RESULT_CODE_FAIL = "400";
 
     @SecurityMapping(display = false, rsequence = 0, title = "个人信息导航", value = "/buyer/account_nav.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account_nav.htm"})
-    public ModelAndView account_nav(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/buyer/account_nav.htm"})
+    public ModelAndView account_nav(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/account_nav.html", this.configService
             .getSysConfig(),
@@ -78,8 +78,8 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "个人信息", value = "/buyer/account.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account.htm"})
-    public ModelAndView account(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/buyer/account.htm"})
+    public ModelAndView account(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/account.html", this.configService
             .getSysConfig(),
@@ -95,14 +95,14 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "个人信息获取下级地区ajax", value = "/buyer/account_getAreaChilds.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account_getAreaChilds.htm"})
-    public ModelAndView account_getAreaChilds(HttpServletRequest request, HttpServletResponse response, String parent_id) {
+    @RequestMapping({"/buyer/account_getAreaChilds.htm"})
+    public ModelAndView account_getAreaChilds(HttpServletRequest request, HttpServletResponse response, String parent_id){
         ModelAndView mv = new JModelAndView("user/default/usercenter/account_area_chlids.html",
                                             this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
         Map map = new HashMap();
         map.put("parent_id", CommUtil.null2Long(parent_id));
         List childs = this.areaService.query("select obj from Area obj where obj.parent.id=:parent_id", map, -1, -1);
-        if (childs.size() > 0) {
+        if (childs.size() > 0){
             mv.addObject("childs", childs);
         }
 
@@ -110,17 +110,17 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "个人信息保存", value = "/buyer/account_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account_save.htm"})
-    public ModelAndView account_save(HttpServletRequest request, HttpServletResponse response, String area_id, String birthday) {
+    @RequestMapping({"/buyer/account_save.htm"})
+    public ModelAndView account_save(HttpServletRequest request, HttpServletResponse response, String area_id, String birthday){
         ModelAndView mv = new JModelAndView("success.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
         WebForm wf = new WebForm();
         User u = SecurityUserHolder.getCurrentUser();
         User user = (User)wf.toPo(request, u);
-        if ((area_id != null) && (!area_id.equals(""))) {
+        if ((area_id != null) && (!area_id.equals(""))){
             Area area = this.areaService.getObjById(CommUtil.null2Long(area_id));
             user.setArea(area);
         }
-        if ((birthday != null) && (!birthday.equals(""))) {
+        if ((birthday != null) && (!birthday.equals(""))){
             String[] y = birthday.split("-");
             Calendar calendar = new GregorianCalendar();
             int years = calendar.get(1) - CommUtil.null2Int(y[0]);
@@ -134,12 +134,12 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "密码修改", value = "/buyer/account_password.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account_password.htm"})
-    public ModelAndView account_password(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/buyer/account_password.htm"})
+    public ModelAndView account_password(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("user/default/usercenter/account_password.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
-        String wemall_view_type = CommUtil.null2String( request.getSession().getAttribute( "wemall_view_type" ) );
-        if( (wemall_view_type != null) && (!wemall_view_type.equals( "" )) && (wemall_view_type.equals( "wap" )) ) {
+        String wemall_view_type = CommUtil.null2String(request.getSession().getAttribute("wemall_view_type"));
+        if((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))){
             mv = new JModelAndView("wap/account_password.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
         }
 
@@ -147,21 +147,21 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "密码修改保存", value = "/buyer/account_password_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account_password_save.htm"})
+    @RequestMapping({"/buyer/account_password_save.htm"})
     public ModelAndView account_password_save(HttpServletRequest request, HttpServletResponse response, String old_password, String new_password) throws Exception {
         ModelAndView mv = new JModelAndView("success.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
-        String wemall_view_type = CommUtil.null2String( request.getSession().getAttribute( "wemall_view_type" ) );
-        if( (wemall_view_type != null) && (!wemall_view_type.equals( "" )) && (wemall_view_type.equals( "wap" )) ) {
+        String wemall_view_type = CommUtil.null2String(request.getSession().getAttribute("wemall_view_type"));
+        if((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))){
             mv = new JModelAndView("wap/success.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
         }
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
 
         if (user.getPassword().equals(
-                    Md5Encrypt.md5(old_password).toLowerCase())) {
+                    Md5Encrypt.md5(old_password).toLowerCase())){
             user.setPassword(Md5Encrypt.md5(new_password).toLowerCase());
             boolean ret = this.userService.update(user);
-            if ((ret) && (this.configService.getSysConfig().isUc_bbs())) {
+            if ((ret) && (this.configService.getSysConfig().isUc_bbs())){
                 UCClient uc = new UCClient();
                 String str = uc.uc_user_edit(user.getUsername(),
                                              CommUtil.null2String(old_password),
@@ -171,9 +171,9 @@ public class AccountBuyerAction {
 
             mv.addObject("op_title", "密码修改成功");
             send_sms(request, "sms_tobuyer_pws_modify_notify");
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
-            if( (wemall_view_type != null) && (!wemall_view_type.equals( "" )) && (wemall_view_type.equals( "wap" )) ) {
+            if((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))){
                 mv = new JModelAndView("wap/error.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
             }
             mv.addObject("op_title", "原始密码输入错误，修改失败");
@@ -184,8 +184,8 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "邮箱修改", value = "/buyer/account_email.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account_email.htm"})
-    public ModelAndView account_email(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/buyer/account_email.htm"})
+    public ModelAndView account_email(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/account_email.html", this.configService
             .getSysConfig(),
@@ -195,19 +195,19 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "邮箱修改保存", value = "/buyer/account_email_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account_email_save.htm"})
-    public ModelAndView account_email_save(HttpServletRequest request, HttpServletResponse response, String password, String email) {
+    @RequestMapping({"/buyer/account_email_save.htm"})
+    public ModelAndView account_email_save(HttpServletRequest request, HttpServletResponse response, String password, String email){
         ModelAndView mv = new JModelAndView("success.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
         WebForm wf = new WebForm();
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
-        if (user.getPassword().equals(Md5Encrypt.md5(password).toLowerCase())) {
+        if (user.getPassword().equals(Md5Encrypt.md5(password).toLowerCase())){
             user.setEmail(email);
             this.userService.update(user);
             mv.addObject("op_title", "邮箱修改成功");
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -220,8 +220,8 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "图像修改", value = "/buyer/account_avatar.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account_avatar.htm"})
-    public ModelAndView account_avatar(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/buyer/account_avatar.htm"})
+    public ModelAndView account_avatar(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/account_avatar.html", this.configService
             .getSysConfig(),
@@ -234,7 +234,7 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "图像上传", value = "/buyer/upload_avatar.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/upload_avatar.htm"})
+    @RequestMapping({"/buyer/upload_avatar.htm"})
     public void upload_avatar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setHeader("Pragma", "No-cache");
@@ -243,13 +243,13 @@ public class AccountBuyerAction {
         try {
             String filePath = request.getSession().getServletContext().getRealPath("") + "/upload/avatar";
             File uploadDir = new File(filePath);
-            if (!uploadDir.exists()) {
+            if (!uploadDir.exists()){
                 uploadDir.mkdirs();
             }
 
             String customParams = CommUtil.null2String(request.getParameter("custom_params"));
             String imageType = CommUtil.null2String(request.getParameter("image_type"));
-            if ("".equals(imageType)) {
+            if ("".equals(imageType)){
                 imageType = ".jpg";
             }
 
@@ -259,9 +259,9 @@ public class AccountBuyerAction {
 
             saveImage(filePath, imageType, bigAvatarContent, bigAvatarName);
             Accessory photo = new Accessory();
-            if (user.getPhoto() != null) {
+            if (user.getPhoto() != null){
                 photo = user.getPhoto();
-            } else {
+            }else{
                 photo.setAddTime(new Date());
                 photo.setWidth(132);
                 photo.setHeight(132);
@@ -271,7 +271,7 @@ public class AccountBuyerAction {
             photo.setPath(this.configService.getSysConfig().getUploadFilePath() + "/avatar");
             if (user.getPhoto() == null)
                 this.accessoryService.save(photo);
-            else {
+           else{
                 this.accessoryService.update(photo);
             }
             user.setPhoto(photo);
@@ -280,7 +280,7 @@ public class AccountBuyerAction {
             response.setContentType("text/xml");
 
             response.getWriter().write("200");
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
             response.setContentType("text/xml");
 
@@ -291,11 +291,11 @@ public class AccountBuyerAction {
     private void saveImage(String filePath, String imageType, String avatarContent, String avatarName)
     throws IOException {
         avatarContent = CommUtil.null2String(avatarContent);
-        if (!"".equals(avatarContent)) {
+        if (!"".equals(avatarContent)){
             if ("".equals(avatarName))
                 avatarName = UUID.randomUUID().toString() +
                              ".jpg";
-            else {
+           else{
                 avatarName = avatarName + imageType;
             }
             //byte[] data = _decoder.decodeBuffer(avatarContent);
@@ -309,8 +309,8 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "手机号码修改", value = "/buyer/account_mobile.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account_mobile.htm"})
-    public ModelAndView account_mobile(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/buyer/account_mobile.htm"})
+    public ModelAndView account_mobile(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/account_mobile.html", this.configService
             .getSysConfig(),
@@ -321,7 +321,7 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "手机号码保存", value = "/buyer/account_mobile_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account_mobile_save.htm"})
+    @RequestMapping({"/buyer/account_mobile_save.htm"})
     public ModelAndView account_mobile_save(HttpServletRequest request, HttpServletResponse response, String mobile_verify_code, String mobile) throws Exception {
         ModelAndView mv = new JModelAndView("success.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
@@ -331,7 +331,7 @@ public class AccountBuyerAction {
                         SecurityUserHolder.getCurrentUser().getId());
         MobileVerifyCode mvc = this.mobileverifycodeService.getObjByProperty(
                                    "mobile", mobile);
-        if ((mvc != null) && (mvc.getCode().equalsIgnoreCase(mobile_verify_code))) {
+        if ((mvc != null) && (mvc.getCode().equalsIgnoreCase(mobile_verify_code))){
             user.setMobile(mobile);
             this.userService.update(user);
             this.mobileverifycodeService.delete(mvc.getId());
@@ -341,7 +341,7 @@ public class AccountBuyerAction {
             mv
             .addObject("url", CommUtil.getURL(request) +
                        "/buyer/account.htm");
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -354,11 +354,11 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "手机短信发送", value = "/buyer/account_mobile_sms.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account_mobile_sms.htm"})
+    @RequestMapping({"/buyer/account_mobile_sms.htm"})
     public void account_mobile_sms(HttpServletRequest request, HttpServletResponse response, String type, String mobile)
     throws UnsupportedEncodingException {
         String ret = "100";
-        if (type.equals("mobile_vetify_code")) {
+        if (type.equals("mobile_vetify_code")){
             String code = CommUtil.randomString(4).toUpperCase();
             String content = "尊敬的" +
                              SecurityUserHolder.getCurrentUser().getUserName() +
@@ -366,22 +366,22 @@ public class AccountBuyerAction {
                              this.configService.getSysConfig().getWebsiteName() +
                              "用户绑定手机，手机验证码为：" + code + "。[" +
                              this.configService.getSysConfig().getTitle() + "]";
-            if (this.configService.getSysConfig().isSmsEnbale()) {
+            if (this.configService.getSysConfig().isSmsEnbale()){
                 boolean ret1 = this.msgTools.sendSMS(mobile, content);
-                if (ret1) {
+                if (ret1){
                     MobileVerifyCode mvc = this.mobileverifycodeService
                                            .getObjByProperty("mobile", mobile);
-                    if (mvc == null) {
+                    if (mvc == null){
                         mvc = new MobileVerifyCode();
                     }
                     mvc.setAddTime(new Date());
                     mvc.setCode(code);
                     mvc.setMobile(mobile);
                     this.mobileverifycodeService.update(mvc);
-                } else {
+                }else{
                     ret = "200";
                 }
-            } else {
+            }else{
                 ret = "300";
             }
             response.setContentType("text/plain");
@@ -390,15 +390,15 @@ public class AccountBuyerAction {
             try {
                 PrintWriter writer = response.getWriter();
                 writer.print(ret);
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "好友管理", value = "/buyer/friend.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/friend.htm"})
-    public ModelAndView account_friend(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/buyer/friend.htm"})
+    public ModelAndView account_friend(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/account_friend.html", this.configService
             .getSysConfig(),
@@ -415,8 +415,8 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "好友添加", value = "/buyer/friend_add.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/friend_add.htm"})
-    public ModelAndView friend_add(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/buyer/friend_add.htm"})
+    public ModelAndView friend_add(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/account_friend_search.html",
             this.configService.getSysConfig(), this.userConfigService
@@ -430,8 +430,8 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "搜索用户", value = "/buyer/account_friend_search.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account_friend_search.htm"})
-    public ModelAndView friend_search(HttpServletRequest request, HttpServletResponse response, String userName, String area_id, String sex, String years, String currentPage) {
+    @RequestMapping({"/buyer/account_friend_search.htm"})
+    public ModelAndView friend_search(HttpServletRequest request, HttpServletResponse response, String userName, String area_id, String sex, String years, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/account_friend_search.html",
             this.configService.getSysConfig(), this.userConfigService
@@ -439,25 +439,25 @@ public class AccountBuyerAction {
         UserQueryObject qo = new UserQueryObject(currentPage, mv, "addTime",
                 "desc");
         qo.addQuery("obj.userRole", new SysMap("userRole", "ADMIN"), "!=");
-        if ((userName != null) && (!userName.equals(""))) {
+        if ((userName != null) && (!userName.equals(""))){
             mv.addObject("userName", userName);
             qo.addQuery("obj.userName",
                         new SysMap("userName", "%" + userName +
                                    "%"), "like");
         }
-        if ((years != null) && (!years.equals(""))) {
+        if ((years != null) && (!years.equals(""))){
             mv.addObject("years", years);
-            if (years.equals("18")) {
+            if (years.equals("18")){
                 qo.addQuery("obj.years",
                             new SysMap("years",
                                        Integer.valueOf(CommUtil.null2Int(years))), "<=");
             }
-            if (years.equals("50")) {
+            if (years.equals("50")){
                 qo.addQuery("obj.years",
                             new SysMap("years",
                                        Integer.valueOf(CommUtil.null2Int(years))), ">=");
             }
-            if ((!years.equals("18")) && (!years.equals("50"))) {
+            if ((!years.equals("18")) && (!years.equals("50"))){
                 String[] y = years.split("~");
                 qo.addQuery("obj.years",
                             new SysMap("years",
@@ -467,12 +467,12 @@ public class AccountBuyerAction {
                                        Integer.valueOf(CommUtil.null2Int(y[1]))), "<=");
             }
         }
-        if ((sex != null) && (!sex.equals(""))) {
+        if ((sex != null) && (!sex.equals(""))){
             mv.addObject("sex", sex);
             qo.addQuery("obj.sex", new SysMap("sex", Integer.valueOf(CommUtil.null2Int(sex))),
                         "=");
         }
-        if ((area_id != null) && (!area_id.equals(""))) {
+        if ((area_id != null) && (!area_id.equals(""))){
             Area area = this.areaService
                         .getObjById(CommUtil.null2Long(area_id));
             mv.addObject("area", area);
@@ -495,8 +495,8 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "好友添加", value = "/buyer/friend_add_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/friend_add_save.htm"})
-    public void friend_add_save(HttpServletRequest request, HttpServletResponse response, String user_id) {
+    @RequestMapping({"/buyer/friend_add_save.htm"})
+    public void friend_add_save(HttpServletRequest request, HttpServletResponse response, String user_id){
         boolean flag = false;
         Map params = new HashMap();
         params.put("user_id", CommUtil.null2Long(user_id));
@@ -505,7 +505,7 @@ public class AccountBuyerAction {
                    .query(
                        "select obj from SnsFriend obj where obj.fromUser.id=:uid and obj.toUser.id=:user_id",
                        params, -1, -1);
-        if (sfs.size() == 0) {
+        if (sfs.size() == 0){
             SnsFriend friend = new SnsFriend();
             friend.setAddTime(new Date());
             friend.setFromUser(SecurityUserHolder.getCurrentUser());
@@ -519,14 +519,14 @@ public class AccountBuyerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(flag);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "好友删除", value = "/buyer/friend_del.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/friend_del.htm"})
-    public void friend_del(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/buyer/friend_del.htm"})
+    public void friend_del(HttpServletRequest request, HttpServletResponse response, String id){
         this.sndFriendService.delete(CommUtil.null2Long(id));
         response.setContentType("text/plain");
         response.setHeader("Cache-Control", "no-cache");
@@ -534,14 +534,14 @@ public class AccountBuyerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(true);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "账号绑定", value = "/buyer/account_bind.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account_bind.htm"})
-    public ModelAndView account_bind(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/buyer/account_bind.htm"})
+    public ModelAndView account_bind(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/account_bind.html", this.configService
             .getSysConfig(),
@@ -554,18 +554,18 @@ public class AccountBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "账号解除绑定", value = "/buyer/account_bind_cancel.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/account_bind_cancel.htm"})
-    public String account_bind_cancel(HttpServletRequest request, HttpServletResponse response, String account) {
+    @RequestMapping({"/buyer/account_bind_cancel.htm"})
+    public String account_bind_cancel(HttpServletRequest request, HttpServletResponse response, String account){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/account_bind.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
-        if (CommUtil.null2String(account).equals("qq")) {
+        if (CommUtil.null2String(account).equals("qq")){
             user.setQq_openid(null);
         }
-        if (CommUtil.null2String(account).equals("sina")) {
+        if (CommUtil.null2String(account).equals("sina")){
             user.setSina_openid(null);
         }
         this.userService.update(user);
@@ -575,11 +575,11 @@ public class AccountBuyerAction {
 
     private void send_sms(HttpServletRequest request, String mark) throws Exception {
         com.wemall.foundation.domain.Template template = this.templateService.getObjByProperty("mark", mark);
-        if ((template != null) && (template.isOpen())) {
+        if ((template != null) && (template.isOpen())){
             User user = this.userService.getObjById(
                             SecurityUserHolder.getCurrentUser().getId());
             String mobile = user.getMobile();
-            if ((mobile != null) && (!mobile.equals(""))) {
+            if ((mobile != null) && (!mobile.equals(""))){
                 String path = request.getSession().getServletContext()
                               .getRealPath("/") +
                               "/vm/";

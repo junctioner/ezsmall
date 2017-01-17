@@ -32,35 +32,35 @@ public class CombinLog extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Store store;
 
-    public Date getBegin_time() {
+    public Date getBegin_time(){
         return this.begin_time;
     }
 
-    public void setBegin_time(Date begin_time) {
+    public void setBegin_time(Date begin_time){
         this.begin_time = begin_time;
     }
 
-    public Date getEnd_time() {
+    public Date getEnd_time(){
         return this.end_time;
     }
 
-    public void setEnd_time(Date end_time) {
+    public void setEnd_time(Date end_time){
         this.end_time = end_time;
     }
 
-    public int getGold() {
+    public int getGold(){
         return this.gold;
     }
 
-    public void setGold(int gold) {
+    public void setGold(int gold){
         this.gold = gold;
     }
 
-    public Store getStore() {
+    public Store getStore(){
         return this.store;
     }
 
-    public void setStore(Store store) {
+    public void setStore(Store store){
         this.store = store;
     }
 }

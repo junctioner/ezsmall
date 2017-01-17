@@ -5,11 +5,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.wemall.core.query.QueryObject;
 
 public class StorePointQueryObject extends QueryObject {
-    public StorePointQueryObject(String currentPage, ModelAndView mv, String orderBy, String orderType) {
+    public StorePointQueryObject(String currentPage, ModelAndView mv, String orderBy, String orderType){
         super(currentPage, mv, orderBy, orderType);
     }
 
-    public StorePointQueryObject() {
+    public StorePointQueryObject(){
     }
 }
 

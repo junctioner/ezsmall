@@ -42,13 +42,13 @@ public class IntegralOrderBuyerAction {
     private IIntegralLogService integralLogService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家订单列表", value = "/buyer/integral_order_list.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/integral_order_list.htm"})
-    public ModelAndView integral_order_list(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/buyer/integral_order_list.htm"})
+    public ModelAndView integral_order_list(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/integral_order_list.html",
             this.configService.getSysConfig(), this.userConfigService
             .getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isIntegralStore()) {
+        if (this.configService.getSysConfig().isIntegralStore()){
             IntegralGoodsOrderQueryObject qo = new IntegralGoodsOrderQueryObject(
                 currentPage, mv, "addTime", "desc");
             qo.addQuery("obj.igo_user.id",
@@ -56,7 +56,7 @@ public class IntegralOrderBuyerAction {
                                    SecurityUserHolder.getCurrentUser().getId()), "=");
             IPageList pList = this.integralGoodsOrderService.list(qo);
             CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -68,19 +68,19 @@ public class IntegralOrderBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "取消订单", value = "/buyer/integral_order_cancel.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/integral_order_cancel.htm"})
-    public ModelAndView integral_order_cancel(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/buyer/integral_order_cancel.htm"})
+    public ModelAndView integral_order_cancel(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("success.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
         IntegralGoodsOrder obj = this.integralGoodsOrderService
                                  .getObjById(CommUtil.null2Long(id));
-        if (obj != null) {
+        if (obj != null){
             if (obj.getIgo_user().getId().equals(
-                        SecurityUserHolder.getCurrentUser().getId())) {
+                        SecurityUserHolder.getCurrentUser().getId())){
                 obj.setIgo_status(-1);
                 this.integralGoodsOrderService.update(obj);
-                for (IntegralGoodsCart igc : obj.getIgo_gcs()) {
+                for (IntegralGoodsCart igc : obj.getIgo_gcs()){
                     IntegralGoods goods = igc.getGoods();
                     goods.setIg_goods_count(goods.getIg_goods_count() +
                                             igc.getCount());
@@ -113,17 +113,17 @@ public class IntegralOrderBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "积分订单详情", value = "/buyer/integral_order_view.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/integral_order_view.htm"})
-    public ModelAndView integral_order_view(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/buyer/integral_order_view.htm"})
+    public ModelAndView integral_order_view(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/integral_order_view.html",
             this.configService.getSysConfig(), this.userConfigService
             .getUserConfig(), 0, request, response);
         IntegralGoodsOrder obj = this.integralGoodsOrderService
                                  .getObjById(CommUtil.null2Long(id));
-        if (obj != null) {
+        if (obj != null){
             if (obj.getIgo_user().getId().equals(
-                        SecurityUserHolder.getCurrentUser().getId())) {
+                        SecurityUserHolder.getCurrentUser().getId())){
                 mv.addObject("obj", obj);
                 mv.addObject("currentPage", currentPage);
             }
@@ -139,17 +139,17 @@ public class IntegralOrderBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "确认收货", value = "/buyer/integral_order_cofirm.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/integral_order_cofirm.htm"})
-    public ModelAndView integral_order_cofirm(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/buyer/integral_order_cofirm.htm"})
+    public ModelAndView integral_order_cofirm(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/integral_order_cofirm.html",
             this.configService.getSysConfig(), this.userConfigService
             .getUserConfig(), 0, request, response);
         IntegralGoodsOrder obj = this.integralGoodsOrderService
                                  .getObjById(CommUtil.null2Long(id));
-        if (obj != null) {
+        if (obj != null){
             if (obj.getIgo_user().getId().equals(
-                        SecurityUserHolder.getCurrentUser().getId())) {
+                        SecurityUserHolder.getCurrentUser().getId())){
                 mv.addObject("obj", obj);
             }
         }
@@ -164,16 +164,16 @@ public class IntegralOrderBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "确认收货保存", value = "/buyer/integral_order_cofirm_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/integral_order_cofirm_save.htm"})
-    public ModelAndView integral_order_cofirm_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/buyer/integral_order_cofirm_save.htm"})
+    public ModelAndView integral_order_cofirm_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("success.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
         IntegralGoodsOrder obj = this.integralGoodsOrderService
                                  .getObjById(CommUtil.null2Long(id));
-        if (obj != null) {
+        if (obj != null){
             if (obj.getIgo_user().getId().equals(
-                        SecurityUserHolder.getCurrentUser().getId())) {
+                        SecurityUserHolder.getCurrentUser().getId())){
                 obj.setIgo_status(40);
                 this.integralGoodsOrderService.update(obj);
                 mv.addObject("op_title", "确认收货成功");

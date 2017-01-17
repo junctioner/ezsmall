@@ -21,78 +21,78 @@ public class ChattingLogServiceImpl
     @Resource(name = "chattingLogDAO")
     private IGenericDAO<ChattingLog> chattingLogDao;
 
-    public boolean save(ChattingLog chattingLog) {
+    public boolean save(ChattingLog chattingLog){
         try {
             this.chattingLogDao.save(chattingLog);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public ChattingLog getObjById(Long id) {
+    public ChattingLog getObjById(Long id){
         ChattingLog chattingLog = (ChattingLog)this.chattingLogDao.get(id);
-        if (chattingLog != null) {
+        if (chattingLog != null){
             return chattingLog;
         }
 
         return null;
     }
 
-    public boolean delete(Long id) {
+    public boolean delete(Long id){
         try {
             this.chattingLogDao.remove(id);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public boolean batchDelete(List<Serializable> chattingLogIds) {
-        for (Serializable id : chattingLogIds) {
+    public boolean batchDelete(List<Serializable> chattingLogIds){
+        for (Serializable id : chattingLogIds){
             delete((Long)id);
         }
 
         return true;
     }
 
-    public IPageList list(IQueryObject properties) {
-        if (properties == null) {
+    public IPageList list(IQueryObject properties){
+        if (properties == null){
             return null;
         }
         String query = properties.getQuery();
         Map params = properties.getParameters();
         GenericPageList pList = new GenericPageList(ChattingLog.class, query,
                 params, this.chattingLogDao);
-        if (properties != null) {
+        if (properties != null){
             PageObject pageObj = properties.getPageObj();
             if (pageObj != null)
                 pList.doList(pageObj.getCurrentPage() == null ? 0 : pageObj
                              .getCurrentPage().intValue(), pageObj.getPageSize() == null ? 0 :
                              pageObj.getPageSize().intValue());
-        } else {
+        }else{
             pList.doList(0, -1);
         }
 
         return pList;
     }
 
-    public boolean update(ChattingLog chattingLog) {
+    public boolean update(ChattingLog chattingLog){
         try {
             this.chattingLogDao.update(chattingLog);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public List<ChattingLog> query(String query, Map params, int begin, int max) {
+    public List<ChattingLog> query(String query, Map params, int begin, int max){
         return this.chattingLogDao.query(query, params, begin, max);
     }
 }

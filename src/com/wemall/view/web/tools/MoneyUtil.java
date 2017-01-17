@@ -9,11 +9,11 @@ import com.wemall.core.tools.CommUtil;
  * 货币（钱）工具
  */
 public class MoneyUtil {
-    public String getFormatMoney(Object money, int scale, double divisor) {
-        if (divisor == 0.0D) {
+    public String getFormatMoney(Object money, int scale, double divisor){
+        if (divisor == 0.0D){
             return "0.00";
         }
-        if (scale < 0) {
+        if (scale < 0){
             return "0.00";
         }
         BigDecimal moneyBD = new BigDecimal(CommUtil.null2Double(money));
@@ -23,21 +23,21 @@ public class MoneyUtil {
                .toString();
     }
 
-    public String getAccountantMoney(Object money, int scale, double divisor) {
+    public String getAccountantMoney(Object money, int scale, double divisor){
         String disposeMoneyStr = getFormatMoney(money, scale, divisor);
 
         int dotPosition = disposeMoneyStr.indexOf(".");
         String exceptDotMoeny = null;
         String dotMeony = null;
-        if (dotPosition > 0) {
+        if (dotPosition > 0){
             exceptDotMoeny = disposeMoneyStr.substring(0, dotPosition);
             dotMeony = disposeMoneyStr.substring(dotPosition);
-        } else {
+        }else{
             exceptDotMoeny = disposeMoneyStr;
         }
 
         int negativePosition = exceptDotMoeny.indexOf("-");
-        if (negativePosition == 0) {
+        if (negativePosition == 0){
             exceptDotMoeny = exceptDotMoeny.substring(1);
         }
         StringBuffer reverseExceptDotMoney = new StringBuffer(exceptDotMoeny);
@@ -45,8 +45,8 @@ public class MoneyUtil {
 
         char[] moneyChar = reverseExceptDotMoney.toString().toCharArray();
         StringBuffer returnMeony = new StringBuffer();
-        for (int i = 0; i < moneyChar.length; i++) {
-            if ((i != 0) && (i % 3 == 0)) {
+        for (int i = 0; i < moneyChar.length; i++){
+            if ((i != 0) && (i % 3 == 0)){
                 returnMeony.append(",");
             }
             returnMeony.append(moneyChar[i]);
@@ -54,17 +54,17 @@ public class MoneyUtil {
 
         returnMeony.reverse();
 
-        if (dotPosition > 0) {
+        if (dotPosition > 0){
             returnMeony.append(dotMeony);
         }
-        if (negativePosition == 0) {
+        if (negativePosition == 0){
             return "-" + returnMeony.toString();
         }
 
         return returnMeony.toString();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         BigDecimal money = BigDecimal.valueOf(8000.8000000000002D);
         int scale = 2;
         double divisor = 10000.0D;

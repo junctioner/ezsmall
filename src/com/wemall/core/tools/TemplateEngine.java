@@ -13,24 +13,24 @@ public class TemplateEngine {
     @Autowired
     private VelocityEngine velocityEngine;
 
-    public String generateWithTemplate(String templateName, Map map) {
+    public String generateWithTemplate(String templateName, Map map){
         try {
             return VelocityEngineUtils.mergeTemplateIntoString(
                        this.velocityEngine, templateName, "UTF-8", map);
-        } catch (VelocityException e) {
+        } catch (VelocityException e){
             e.printStackTrace();
         }
 
         return "";
     }
 
-    public String generateWithString(String content, Map map) {
+    public String generateWithString(String content, Map map){
         try {
             StringWriter writer = new StringWriter();
             VelocityEngineUtils.mergeTemplate(this.velocityEngine, content,
                                               map, writer);
             return writer.toString();
-        } catch (VelocityException e) {
+        } catch (VelocityException e){
             e.printStackTrace();
         }
 

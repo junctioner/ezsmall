@@ -39,18 +39,18 @@ public class EvaluateManageAction {
     private IStoreService storeService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品评价列表", value = "/admin/evaluate_list.htm*", rtype = "admin", rname = "商品评价", rcode = "evaluate_admin", rgroup = "交易")
-    @RequestMapping( {"/admin/evaluate_list.htm"})
-    public ModelAndView evaluate_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String goods_name, String userName) {
+    @RequestMapping({"/admin/evaluate_list.htm"})
+    public ModelAndView evaluate_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String goods_name, String userName){
         ModelAndView mv = new JModelAndView("admin/blue/evaluate_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         EvaluateQueryObject qo = new EvaluateQueryObject(currentPage, mv,
                 orderBy, orderType);
-        if (!CommUtil.null2String(goods_name).equals("")) {
+        if (!CommUtil.null2String(goods_name).equals("")){
             qo.addQuery("obj.evaluate_goods.goods_name",
                         new SysMap("goods_name", "%" + goods_name + "%"), "like");
         }
-        if (!CommUtil.null2String(userName).equals("")) {
+        if (!CommUtil.null2String(userName).equals("")){
             qo.addQuery("obj.evaluate_user.userName",
                         new SysMap("evaluate_user", userName), "=");
         }
@@ -63,8 +63,8 @@ public class EvaluateManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品评价编辑", value = "/admin/evaluate_edit.htm*", rtype = "admin", rname = "商品评价", rcode = "evaluate_admin", rgroup = "交易")
-    @RequestMapping( {"/admin/evaluate_edit.htm"})
-    public ModelAndView evaluate_edit(HttpServletRequest request, HttpServletResponse response, String currentPage, String id) {
+    @RequestMapping({"/admin/evaluate_edit.htm"})
+    public ModelAndView evaluate_edit(HttpServletRequest request, HttpServletResponse response, String currentPage, String id){
         ModelAndView mv = new JModelAndView("admin/blue/evaluate_edit.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -75,8 +75,8 @@ public class EvaluateManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品评价编辑", value = "/admin/evaluate_save.htm*", rtype = "admin", rname = "商品评价", rcode = "evaluate_admin", rgroup = "交易")
-    @RequestMapping( {"/admin/evaluate_save.htm"})
-    public ModelAndView evaluate_save(HttpServletRequest request, HttpServletResponse response, String currentPage, String id, String evaluate_status, String evaluate_admin_info, String list_url, String edit) {
+    @RequestMapping({"/admin/evaluate_save.htm"})
+    public ModelAndView evaluate_save(HttpServletRequest request, HttpServletResponse response, String currentPage, String id, String evaluate_status, String evaluate_admin_info, String list_url, String edit){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -84,7 +84,7 @@ public class EvaluateManageAction {
         obj.setEvaluate_admin_info(evaluate_admin_info);
         obj.setEvaluate_status(CommUtil.null2Int(evaluate_status));
         this.evaluateService.update(obj);
-        if ((CommUtil.null2Boolean(edit)) && (obj.getEvaluate_status() == 2)) {
+        if ((CommUtil.null2Boolean(edit)) && (obj.getEvaluate_status() == 2)){
             User user = obj.getEvaluate_user();
             Store store = obj.getEvaluate_seller_user().getStore();
             user.setUser_credit(user.getUser_credit() -

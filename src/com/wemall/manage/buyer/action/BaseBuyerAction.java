@@ -66,17 +66,17 @@ public class BaseBuyerAction {
     private IHomePageGoodsClassService HomeGoodsClassService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家中心", value = "/buyer/index.htm*", rtype = "buyer", rname = "买家中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/index.htm"})
-    public ModelAndView index(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String type) {
+    @RequestMapping({"/buyer/index.htm"})
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String type){
         ModelAndView mv = new JModelAndView("user/default/usercenter/buyer_index.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
-        String wemall_view_type = CommUtil.null2String( request.getSession().getAttribute( "wemall_view_type" ) );
-        if( (wemall_view_type != null) && (!wemall_view_type.equals( "" )) && (wemall_view_type.equals( "wap" )) ) {
+        String wemall_view_type = CommUtil.null2String(request.getSession().getAttribute("wemall_view_type"));
+        if((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))){
             mv = new JModelAndView("wap/buyer_index.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request, response);
         }
         List msgs = new ArrayList();
-        if (SecurityUserHolder.getCurrentUser() != null) {
+        if (SecurityUserHolder.getCurrentUser() != null){
             Map params = new HashMap();
             params.put("status", Integer.valueOf(0));
             params.put("user_id", SecurityUserHolder.getCurrentUser().getId());
@@ -90,15 +90,15 @@ public class BaseBuyerAction {
         DynamicQueryObject qo = new DynamicQueryObject(currentPage, mv,
                 orderBy, orderType);
         qo.addQuery("obj.display", new SysMap("display", Boolean.valueOf(true)), "=");
-        if ((type == null) || (type.equals(""))) {
+        if ((type == null) || (type.equals(""))){
             type = "2";
         }
-        if (type.equals("1")) {
+        if (type.equals("1")){
             qo.addQuery("obj.user.id",
                         new SysMap("uid",
                                    SecurityUserHolder.getCurrentUser().getId()), "=");
         }
-        if (type.equals("2")) {
+        if (type.equals("2")){
             Map map = new HashMap();
             map.put("f_uid", SecurityUserHolder.getCurrentUser().getId());
             List myFriends = this.snsFriendService
@@ -108,12 +108,12 @@ public class BaseBuyerAction {
             Set ids = getSnsFriendToUserIds(myFriends);
             Map paras = new HashMap();
             paras.put("ids", null);
-            if (myFriends.size() > 0) {
+            if (myFriends.size() > 0){
                 paras.put("ids", ids);
             }
             qo.addQuery("obj.user.id in (:ids)", paras);
         }
-        if (type.equals("3")) {
+        if (type.equals("3")){
             Map params = new HashMap();
             params.put("uid", SecurityUserHolder.getCurrentUser().getId());
             List SnsAttentions = this.SnsAttentionService
@@ -123,11 +123,11 @@ public class BaseBuyerAction {
             Set ids = getSnsAttentionToUserIds(SnsAttentions);
             params.clear();
             params.put("ids", ids);
-            if ((ids != null) && (ids.size() > 0)) {
+            if ((ids != null) && (ids.size() > 0)){
                 qo.addQuery("obj.user.id in (:ids)", params);
             }
         }
-        if (type.equals("4")) {
+        if (type.equals("4")){
             qo.addQuery("obj.user.id",
                         new SysMap("uid",
                                    SecurityUserHolder.getCurrentUser().getId()), "=");
@@ -141,7 +141,7 @@ public class BaseBuyerAction {
         IPageList pList = this.dynamicService.list(qo);
         CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
         List list = new ArrayList();
-        for (int i = 1; i <= 120; i++) {
+        for (int i = 1; i <= 120; i++){
             list.add(Integer.valueOf(i));
         }
         mv.addObject("type", type);
@@ -150,9 +150,9 @@ public class BaseBuyerAction {
         return mv;
     }
 
-    private Set<Long> getSnsAttentionToUserIds(List<SnsAttention> SnsAttentions) {
+    private Set<Long> getSnsAttentionToUserIds(List<SnsAttention> SnsAttentions){
         Set ids = new HashSet();
-        for (SnsAttention attention : SnsAttentions) {
+        for (SnsAttention attention : SnsAttentions){
             ids.add(attention.getToUser().getId());
         }
 
@@ -160,8 +160,8 @@ public class BaseBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家中心导航", value = "/buyer/nav.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/nav.htm"})
-    public ModelAndView nav(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/buyer/nav.htm"})
+    public ModelAndView nav(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/buyer_nav.html", this.configService
             .getSysConfig(),
@@ -173,8 +173,8 @@ public class BaseBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家中心导航", value = "/buyer/head.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/head.htm"})
-    public ModelAndView head(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/buyer/head.htm"})
+    public ModelAndView head(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/buyer_head.html", this.configService
             .getSysConfig(),
@@ -183,8 +183,8 @@ public class BaseBuyerAction {
         return mv;
     }
 
-    @RequestMapping( {"/buyer/authority.htm"})
-    public ModelAndView authority(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/buyer/authority.htm"})
+    public ModelAndView authority(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("error.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -194,10 +194,10 @@ public class BaseBuyerAction {
         return mv;
     }
 
-    private Set<Long> getSnsFriendToUserIds(List<SnsFriend> myfriends) {
+    private Set<Long> getSnsFriendToUserIds(List<SnsFriend> myfriends){
         Set ids = new HashSet();
-        if (myfriends.size() > 0) {
-            for (SnsFriend friend : myfriends) {
+        if (myfriends.size() > 0){
+            for (SnsFriend friend : myfriends){
                 ids.add(friend.getToUser().getId());
             }
         }
@@ -206,8 +206,8 @@ public class BaseBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "动态发布保存", value = "/buyer/dynamic_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/dynamic_save.htm"})
-    public ModelAndView dynamic_save(HttpServletRequest request, HttpServletResponse response, String content, String currentPage, String orderBy, String orderType, String store_id, String goods_id) {
+    @RequestMapping({"/buyer/dynamic_save.htm"})
+    public ModelAndView dynamic_save(HttpServletRequest request, HttpServletResponse response, String content, String currentPage, String orderBy, String orderType, String store_id, String goods_id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/dynamic_list.html", this.configService
             .getSysConfig(),
@@ -218,12 +218,12 @@ public class BaseBuyerAction {
         dynamic.setUser(SecurityUserHolder.getCurrentUser());
         dynamic.setContent(content);
         dynamic.setDisplay(true);
-        if ((store_id != null) && (!store_id.equals(""))) {
+        if ((store_id != null) && (!store_id.equals(""))){
             Store store = this.storeService.getObjById(
                               CommUtil.null2Long(store_id));
             dynamic.setStore(store);
         }
-        if ((goods_id != null) && (!goods_id.equals(""))) {
+        if ((goods_id != null) && (!goods_id.equals(""))){
             Goods goods = this.goodsService.getObjById(
                               CommUtil.null2Long(goods_id));
             dynamic.setGoods(goods);
@@ -235,7 +235,7 @@ public class BaseBuyerAction {
                         .query(
                             "select obj from HomePageGoodsClass obj where obj.user.id=:uid and obj.gc.id=:gc_id",
                             params, -1, -1);
-            if (hgcs.size() == 0) {
+            if (hgcs.size() == 0){
                 Map map = new HashMap();
                 map.put("uid", SecurityUserHolder.getCurrentUser().getId());
                 HomePageGoodsClass hpgc = new HomePageGoodsClass();
@@ -260,9 +260,9 @@ public class BaseBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "删除动态", value = "/buyer/dynamic_del.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/dynamic_del.htm"})
-    public ModelAndView dynamic_ajax_del(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String orderBy, String orderType) {
-        if (!id.equals("")) {
+    @RequestMapping({"/buyer/dynamic_del.htm"})
+    public ModelAndView dynamic_ajax_del(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String orderBy, String orderType){
+        if (!id.equals("")){
             Dynamic dynamic = this.dynamicService
                               .getObjById(Long.valueOf(Long.parseLong(id)));
             this.dynamicService.delete(Long.valueOf(Long.parseLong(id)));
@@ -285,7 +285,7 @@ public class BaseBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "ajax回复保存方法", value = "/buyer/dynamic_ajax_reply.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/dynamic_ajax_reply.htm"})
+    @RequestMapping({"/buyer/dynamic_ajax_reply.htm"})
     public ModelAndView dynamic_ajax_reply(HttpServletRequest request, HttpServletResponse response, String parent_id, String fieldName, String reply_content)
     throws ClassNotFoundException {
         ModelAndView mv = new JModelAndView(
@@ -295,7 +295,7 @@ public class BaseBuyerAction {
         WebForm wf = new WebForm();
         Dynamic dynamic = (Dynamic)wf.toPo(request, Dynamic.class);
         Dynamic parent = null;
-        if ((parent_id != null) && (!parent_id.equals(""))) {
+        if ((parent_id != null) && (!parent_id.equals(""))){
             parent = this.dynamicService.getObjById(Long.valueOf(Long.parseLong(parent_id)));
             dynamic.setDissParent(parent);
             this.dynamicService.update(parent);
@@ -311,7 +311,7 @@ public class BaseBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "ajax赞动态方法", value = "/buyer/dynamic_ajax_praise.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/dynamic_ajax_praise.htm"})
+    @RequestMapping({"/buyer/dynamic_ajax_praise.htm"})
     public void dynamic_ajax_praise(HttpServletRequest request, HttpServletResponse response, String dynamic_id)
     throws ClassNotFoundException {
         Dynamic dynamic = this.dynamicService.getObjById(
@@ -324,13 +324,13 @@ public class BaseBuyerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(dynamic.getPraiseNum());
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "ajax转发动态保存方法", value = "/buyer/dynamic_ajax_turn.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/dynamic_ajax_turn.htm"})
+    @RequestMapping({"/buyer/dynamic_ajax_turn.htm"})
     public ModelAndView dynamic_ajax_turn(HttpServletRequest request, HttpServletResponse response, String dynamic_id, String content, String currentPage, String orderType, String orderBy)
     throws ClassNotFoundException {
         ModelAndView mv = new JModelAndView(
@@ -361,9 +361,9 @@ public class BaseBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "删除动态下方自己发布的评论", value = "/buyer/dynamic_reply_del.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/dynamic_reply_del.htm"})
-    public ModelAndView dynamic_reply_del(HttpServletRequest request, HttpServletResponse response, String id, String parent_id) {
-        if (!id.equals("")) {
+    @RequestMapping({"/buyer/dynamic_reply_del.htm"})
+    public ModelAndView dynamic_reply_del(HttpServletRequest request, HttpServletResponse response, String id, String parent_id){
+        if (!id.equals("")){
             Dynamic dynamic = this.dynamicService
                               .getObjById(Long.valueOf(Long.parseLong(id)));
             this.dynamicService.delete(Long.valueOf(Long.parseLong(id)));
@@ -373,7 +373,7 @@ public class BaseBuyerAction {
             "user/default/usercenter/dynamic_childs_list.html",
             this.configService.getSysConfig(), this.userConfigService
             .getUserConfig(), 0, request, response);
-        if ((parent_id != null) && (!parent_id.equals(""))) {
+        if ((parent_id != null) && (!parent_id.equals(""))){
             Dynamic obj = this.dynamicService.getObjById(
                               CommUtil.null2Long(parent_id));
             mv.addObject("obj", obj);
@@ -383,8 +383,8 @@ public class BaseBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "用户分享收藏店铺列表", value = "/buyer/fav_store_list.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/fav_store_list.htm"})
-    public ModelAndView fav_store_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/buyer/fav_store_list.htm"})
+    public ModelAndView fav_store_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/fav_store_list.html", this.configService
             .getSysConfig(),
@@ -407,8 +407,8 @@ public class BaseBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "用户分享收藏店铺ajax列表", value = "/buyer/fav_store_list_ajax.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/fav_store_list_ajax.htm"})
-    public ModelAndView fav_store_list_ajax(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/buyer/fav_store_list_ajax.htm"})
+    public ModelAndView fav_store_list_ajax(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/fav_store_list_ajax.html",
             this.configService.getSysConfig(), this.userConfigService
@@ -431,8 +431,8 @@ public class BaseBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "用户分享收藏商品列表", value = "/buyer/fav_goods_list.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/fav_goods_list.htm"})
-    public ModelAndView fav_goods_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/buyer/fav_goods_list.htm"})
+    public ModelAndView fav_goods_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/fav_goods_list.html", this.configService
             .getSysConfig(),
@@ -455,8 +455,8 @@ public class BaseBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "用户分享收藏商品ajax列表", value = "/buyer/fav_goods_list_ajax.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/fav_goods_list_ajax.htm"})
-    public ModelAndView fav_goods_list_ajax(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/buyer/fav_goods_list_ajax.htm"})
+    public ModelAndView fav_goods_list_ajax(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/fav_goods_list_ajax.html",
             this.configService.getSysConfig(), this.userConfigService

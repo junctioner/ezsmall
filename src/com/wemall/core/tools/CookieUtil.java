@@ -24,7 +24,7 @@ public class CookieUtil {
      * @param maxAge
      *            cookie生命周期 以秒为单位
      */
-    public static void addCookie(HttpServletResponse response, String path, String name, String value, int maxAge) {
+    public static void addCookie(HttpServletResponse response, String path, String name, String value, int maxAge){
         Cookie cookie = new Cookie(name, value);
         cookie.setPath(path);
         if (maxAge > 0)
@@ -40,13 +40,13 @@ public class CookieUtil {
      *            cookie名字
      * @return
      */
-    public static Cookie getCookieByName(HttpServletRequest request, String name) {
+    public static Cookie getCookieByName(HttpServletRequest request, String name){
         Map<String, Cookie> cookieMap = ReadCookieMap(request);
-        if (cookieMap.containsKey(name)) {
+        if (cookieMap.containsKey(name)){
             Cookie cookie = (Cookie) cookieMap.get(name);
 
             return cookie;
-        } else {
+        }else{
             return null;
         }
     }
@@ -57,11 +57,11 @@ public class CookieUtil {
      * @param request
      * @return
      */
-    private static Map<String, Cookie> ReadCookieMap(HttpServletRequest request) {
+    private static Map<String, Cookie> ReadCookieMap(HttpServletRequest request){
         Map<String, Cookie> cookieMap = new HashMap<String, Cookie>();
         Cookie[] cookies = request.getCookies();
-        if (null != cookies) {
-            for (Cookie cookie : cookies) {
+        if (null != cookies){
+            for (Cookie cookie : cookies){
                 cookieMap.put(cookie.getName(), cookie);
             }
         }

@@ -53,8 +53,8 @@ public class DeliverySellerAction {
     private IDeliveryLogService deliveryLogService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "买就送", value = "/seller/delivery.htm*", rtype = "seller", rname = "买就送", rcode = "delivery_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/delivery.htm"})
-    public ModelAndView delivery(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/seller/delivery.htm"})
+    public ModelAndView delivery(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/delivery.html", this.configService
             .getSysConfig(),
@@ -73,8 +73,8 @@ public class DeliverySellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买就送套餐购买日志", value = "/seller/delivery_log.htm*", rtype = "seller", rname = "买就送", rcode = "delivery_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/delivery_log.htm"})
-    public ModelAndView delivery_log(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/seller/delivery_log.htm"})
+    public ModelAndView delivery_log(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/delivery_log.html", this.configService
             .getSysConfig(),
@@ -93,8 +93,8 @@ public class DeliverySellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买就送套餐购买", value = "/seller/delivery_buy.htm*", rtype = "seller", rname = "买就送", rcode = "delivery_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/delivery_buy.htm"})
-    public ModelAndView delivery_buy(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/delivery_buy.htm"})
+    public ModelAndView delivery_buy(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/delivery_buy.html", this.configService
             .getSysConfig(),
@@ -107,14 +107,14 @@ public class DeliverySellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买就送套餐购买保存", value = "/seller/delivery_buy_save.htm*", rtype = "seller", rname = "买就送", rcode = "delivery_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/delivery_buy_save.htm"})
-    public String delivery_buy_save(HttpServletRequest request, HttpServletResponse response, String count) {
+    @RequestMapping({"/seller/delivery_buy_save.htm"})
+    public String delivery_buy_save(HttpServletRequest request, HttpServletResponse response, String count){
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
         int gold = user.getGold();
         int delivery_gold = CommUtil.null2Int(count) *
                             this.configService.getSysConfig().getDelivery_amount();
-        if (gold > delivery_gold) {
+        if (gold > delivery_gold){
             user.setGold(gold - delivery_gold);
             this.userService.update(user);
 
@@ -127,11 +127,11 @@ public class DeliverySellerAction {
             this.goldLogService.save(log);
 
             Store store = user.getStore();
-            if (store.getDelivery_begin_time() == null) {
+            if (store.getDelivery_begin_time() == null){
                 store.setDelivery_begin_time(new Date());
             }
             Calendar cal = Calendar.getInstance();
-            if (store.getDelivery_end_time() != null) {
+            if (store.getDelivery_end_time() != null){
                 cal.setTime(store.getDelivery_end_time());
             }
             cal.add(2, CommUtil.null2Int(count));
@@ -152,8 +152,8 @@ public class DeliverySellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买就送套餐购买成功", value = "/seller/delivery_buy_success.htm*", rtype = "seller", rname = "买就送", rcode = "delivery_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/delivery_buy_success.htm"})
-    public ModelAndView delivery_buy_success(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/delivery_buy_success.htm"})
+    public ModelAndView delivery_buy_success(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("success.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -164,8 +164,8 @@ public class DeliverySellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买就送套餐购买失败", value = "/seller/delivery_buy_error.htm*", rtype = "seller", rname = "买就送", rcode = "delivery_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/delivery_buy_error.htm"})
-    public ModelAndView delivery_buy_error(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/delivery_buy_error.htm"})
+    public ModelAndView delivery_buy_error(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("error.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -176,8 +176,8 @@ public class DeliverySellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "申请买就送", value = "/seller/delivery_apply.htm*", rtype = "seller", rname = "买就送", rcode = "delivery_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/delivery_apply.htm"})
-    public ModelAndView delivery_apply(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/delivery_apply.htm"})
+    public ModelAndView delivery_apply(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/delivery_apply.html", this.configService
             .getSysConfig(),
@@ -185,7 +185,7 @@ public class DeliverySellerAction {
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
         Store store = user.getStore();
-        if (store.getDelivery_end_time() == null) {
+        if (store.getDelivery_end_time() == null){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -194,7 +194,7 @@ public class DeliverySellerAction {
                          "/seller/delivery_buy.htm");
             return mv;
         }
-        if (store.getDelivery_end_time().before(new Date())) {
+        if (store.getDelivery_end_time().before(new Date())){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -217,7 +217,7 @@ public class DeliverySellerAction {
         mv.addObject("delivery_session", delivery_session);
         request.getSession(false).setAttribute("delivery_session",
                                                delivery_session);
-        if (!CommUtil.null2String(id).equals("")) {
+        if (!CommUtil.null2String(id).equals("")){
             DeliveryGoods obj = this.deliveryGoodsService.getObjById(
                                     CommUtil.null2Long(id));
             mv.addObject("obj", obj);
@@ -227,8 +227,8 @@ public class DeliverySellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "加载买就送商品", value = "/seller/delivery_goods.htm*", rtype = "seller", rname = "买就送", rcode = "delivery_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/delivery_goods.htm"})
-    public ModelAndView delivery_goods(HttpServletRequest request, HttpServletResponse response, String goods_name, String currentPage, String node_id) {
+    @RequestMapping({"/seller/delivery_goods.htm"})
+    public ModelAndView delivery_goods(HttpServletRequest request, HttpServletResponse response, String goods_name, String currentPage, String node_id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/delivery_goods.html", this.configService
             .getSysConfig(),
@@ -238,7 +238,7 @@ public class DeliverySellerAction {
         Store store = user.getStore();
         GoodsQueryObject qo = new GoodsQueryObject();
         qo.setCurrentPage(Integer.valueOf(CommUtil.null2Int(currentPage)));
-        if (!CommUtil.null2String(goods_name).equals("")) {
+        if (!CommUtil.null2String(goods_name).equals("")){
             qo.addQuery("obj.goods_name",
                         new SysMap("goods_name", "%" +
                                    CommUtil.null2String(goods_name) + "%"), "like");
@@ -263,15 +263,15 @@ public class DeliverySellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买就送商品保存", value = "/seller/delivery_apply_save.htm*", rtype = "seller", rname = "买就送", rcode = "delivery_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/delivery_apply_save.htm"})
-    public ModelAndView delivery_apply_save(HttpServletRequest request, HttpServletResponse response, String main_goods_id, String give_goods_id, String delivery_session) {
+    @RequestMapping({"/seller/delivery_apply_save.htm"})
+    public ModelAndView delivery_apply_save(HttpServletRequest request, HttpServletResponse response, String main_goods_id, String give_goods_id, String delivery_session){
         ModelAndView mv = new JModelAndView("success.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
         String delivery_session1 = CommUtil.null2String(request.getSession(
                                        false).getAttribute("delivery_session"));
         if ((!delivery_session1.equals("")) &&
-                (delivery_session1.equals(delivery_session))) {
+                (delivery_session1.equals(delivery_session))){
             request.getSession(false).removeAttribute("delivery_session");
             WebForm wf = new WebForm();
             DeliveryGoods obj = (DeliveryGoods)wf.toPo(request, DeliveryGoods.class);
@@ -288,7 +288,7 @@ public class DeliverySellerAction {
             mv.addObject("op_title", "买就送申请成功");
             mv.addObject("url", CommUtil.getURL(request) +
                          "/seller/delivery.htm");
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -301,13 +301,13 @@ public class DeliverySellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买就送删除", value = "/seller/delivery_del.htm*", rtype = "seller", rname = "买就送", rcode = "delivery_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/delivery_del.htm"})
-    public String delivery_del(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId) {
-        for (String id : mulitId.split(",")) {
-            if (!CommUtil.null2String(id).equals("")) {
+    @RequestMapping({"/seller/delivery_del.htm"})
+    public String delivery_del(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId){
+        for (String id : mulitId.split(",")){
+            if (!CommUtil.null2String(id).equals("")){
                 DeliveryGoods obj = this.deliveryGoodsService
                                     .getObjById(CommUtil.null2Long(id));
-                if (obj.getD_status() != 1) {
+                if (obj.getD_status() != 1){
                     this.deliveryGoodsService.delete(obj.getId());
                     Goods goods = obj.getD_goods();
                     goods.setDelivery_status(0);

@@ -13,7 +13,7 @@ import jcifs.smb.SmbFileInputStream;
 import jcifs.smb.SmbFileOutputStream;
 
 public class Smbtest {
-    public static void smbGet(String remoteUrl, String localDir) {
+    public static void smbGet(String remoteUrl, String localDir){
         InputStream in = null;
         OutputStream out = null;
         try {
@@ -23,29 +23,29 @@ public class Smbtest {
             in = new BufferedInputStream(new SmbFileInputStream(smbFile));
             out = new BufferedOutputStream(new FileOutputStream(localFile));
             byte[] buffer = new byte[1024];
-            while (in.read(buffer) != -1) {
+            while (in.read(buffer) != -1){
                 out.write(buffer);
                 buffer = new byte[1024];
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
             try {
                 out.close();
                 in.close();
-            } catch (IOException e1) {
+            } catch (IOException e1){
                 e1.printStackTrace();
             }
         } finally {
             try {
                 out.close();
                 in.close();
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
         }
     }
 
-    public static void smbPut(String remoteUrl, String localFilePath) {
+    public static void smbPut(String remoteUrl, String localFilePath){
         InputStream in = null;
         OutputStream out = null;
         try {
@@ -55,29 +55,29 @@ public class Smbtest {
             in = new BufferedInputStream(new FileInputStream(localFile));
             out = new BufferedOutputStream(new SmbFileOutputStream(remoteFile));
             byte[] buffer = new byte[1024];
-            while (in.read(buffer) != -1) {
+            while (in.read(buffer) != -1){
                 out.write(buffer);
                 buffer = new byte[1024];
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
             try {
                 out.close();
                 in.close();
-            } catch (IOException e1) {
+            } catch (IOException e1){
                 e1.printStackTrace();
             }
         } finally {
             try {
                 out.close();
                 in.close();
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         smbPut("smb://administrator:123456@192.168.1.102/smb", "E:/公司资料/Com.zip");
     }
 }

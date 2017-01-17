@@ -15,7 +15,7 @@ import org.apache.commons.io.filefilter.NotFileFilter;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 
 public class FileUtil {
-    public static boolean string2File(String res, String filePath) {
+    public static boolean string2File(String res, String filePath){
         boolean flag = true;
         BufferedReader bufferedReader = null;
         BufferedWriter bufferedWriter = null;
@@ -27,13 +27,13 @@ public class FileUtil {
             bufferedWriter = new BufferedWriter(new FileWriter(distFile));
             char[] buf = new char[1024];
             int len;
-            while ((len = bufferedReader.read(buf)) != -1) {
+            while ((len = bufferedReader.read(buf)) != -1){
                 bufferedWriter.write(buf, 0, len);
             }
             bufferedWriter.flush();
             bufferedReader.close();
             bufferedWriter.close();
-        } catch (IOException e) {
+        } catch (IOException e){
             flag = false;
             e.printStackTrace();
         }
@@ -47,7 +47,7 @@ public class FileUtil {
         File distFile = new File(distFolder);
         if (resFile.isDirectory())
             FileUtils.copyDirectoryToDirectory(resFile, distFile);
-        else if (resFile.isFile())
+       else if (resFile.isFile())
             FileUtils.copyFileToDirectory(resFile, distFile, true);
     }
 
@@ -56,7 +56,7 @@ public class FileUtil {
         File targetFile = new File(targetPath);
         if (targetFile.isDirectory())
             FileUtils.deleteDirectory(targetFile);
-        else if (targetFile.isFile())
+       else if (targetFile.isFile())
             targetFile.delete();
     }
 
@@ -66,26 +66,26 @@ public class FileUtil {
         File distFile = new File(distFolder);
         if (resFile.isDirectory())
             FileUtils.copyDirectory(resFile, distFile, true);
-        else if (resFile.isFile())
+       else if (resFile.isFile())
             FileUtils.copyDirectory(resFile, distFile, true);
     }
 
-    public static long genFileSize(String distFilePath) {
+    public static long genFileSize(String distFilePath){
         File distFile = new File(distFilePath);
         if (distFile.isFile())
             return distFile.length();
-        if (distFile.isDirectory()) {
+        if (distFile.isDirectory()){
             return FileUtils.sizeOfDirectory(distFile);
         }
 
         return -1L;
     }
 
-    public static boolean isExist(String filePath) {
+    public static boolean isExist(String filePath){
         return new File(filePath).exists();
     }
 
-    public static String[] listFilebySuffix(String folder, String suffix) {
+    public static String[] listFilebySuffix(String folder, String suffix){
         IOFileFilter fileFilter1 = new SuffixFileFilter(suffix);
         IOFileFilter fileFilter2 = new NotFileFilter(
             DirectoryFileFilter.INSTANCE);

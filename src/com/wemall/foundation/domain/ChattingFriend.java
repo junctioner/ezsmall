@@ -31,19 +31,19 @@ public class ChattingFriend extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private User friendUser;
 
-    public User getUser() {
+    public User getUser(){
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 
-    public User getFriendUser() {
+    public User getFriendUser(){
         return this.friendUser;
     }
 
-    public void setFriendUser(User friendUser) {
+    public void setFriendUser(User friendUser){
         this.friendUser = friendUser;
     }
 }

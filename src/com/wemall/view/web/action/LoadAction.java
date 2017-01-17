@@ -25,15 +25,15 @@ public class LoadAction {
     @Autowired
     private IAreaService areaService;
 
-    @RequestMapping( {"/load_area.htm"})
-    public void load_area(HttpServletRequest request, HttpServletResponse response, String pid) {
+    @RequestMapping({"/load_area.htm"})
+    public void load_area(HttpServletRequest request, HttpServletResponse response, String pid){
         Map params = new HashMap();
         params.put("pid", Long.valueOf(Long.parseLong(pid)));
         List<Area> areas = this.areaService.query(
                                "select obj from Area obj where obj.parent.id=:pid", params,
                                -1, -1);
         List list = new ArrayList();
-        for (Area area : areas) {
+        for (Area area : areas){
             Map map = new HashMap();
             map.put("id", area.getId());
             map.put("areaName", area.getAreaName());
@@ -46,7 +46,7 @@ public class LoadAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(temp);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

@@ -56,7 +56,7 @@ public class SinaLoginPlug {
     private String sina_token_url = "https://api.weibo.com/oauth2/access_token";
     private String sina_token_info_url = "https://api.weibo.com/oauth2/get_token_info";
 
-    @RequestMapping( {"/sina_login_api.htm"})
+    @RequestMapping({"/sina_login_api.htm"})
     public void sina_login_api(HttpServletRequest request, HttpServletResponse response)
     throws IOException {
         SysConfig config = this.configService.getSysConfig();
@@ -66,7 +66,7 @@ public class SinaLoginPlug {
         response.sendRedirect(url);
     }
 
-    @RequestMapping( {"/sina_login_bind.htm"})
+    @RequestMapping({"/sina_login_bind.htm"})
     public String sina_login_bind(HttpServletRequest request, HttpServletResponse response, String code)
     throws HttpException, IOException {
         String sina_openid = "-1";
@@ -89,7 +89,7 @@ public class SinaLoginPlug {
         Protocol.registerProtocol("https", myhttps);
         PostMethod method = new PostMethod(token_url);
         int status = client.executeMethod(method);
-        if (status == 200) {
+        if (status == 200){
             Map map = (Map)Json.fromJson(HashMap.class, method
                                          .getResponseBodyAsString());
             String access_token = CommUtil.null2String(map.get("access_token"));
@@ -97,7 +97,7 @@ public class SinaLoginPlug {
             method = new PostMethod(token_info_url);
             method.addParameter("access_token", access_token);
             status = client.executeMethod(method);
-            if (status == 200) {
+            if (status == 200){
                 map = (Map)Json.fromJson(HashMap.class, method
                                          .getResponseBodyAsString());
                 sina_openid = CommUtil.null2String(map.get("uid"));
@@ -105,7 +105,7 @@ public class SinaLoginPlug {
                                        access_token + "&uid=" + sina_openid;
                 GetMethod get = new GetMethod(user_info_url);
                 status = client.executeMethod(get);
-                if (status == 200) {
+                if (status == 200){
                     map = (Map)Json.fromJson(HashMap.class, get
                                              .getResponseBodyAsString());
                     userName = CommUtil.null2String(map.get("name"));
@@ -113,10 +113,10 @@ public class SinaLoginPlug {
                 }
             }
         }
-        if (SecurityUserHolder.getCurrentUser() == null) {
+        if (SecurityUserHolder.getCurrentUser() == null){
             User user = this.userService.getObjByProperty("sina_openid",
                         sina_openid);
-            if (user == null) {
+            if (user == null){
                 user = new User();
                 user.setUserName(userName);
                 user.setUserRole("BUYER");
@@ -129,7 +129,7 @@ public class SinaLoginPlug {
                                  "select obj from Role obj where obj.type=:type",
                                  params, -1, -1);
                 user.getRoles().addAll(roles);
-                if (this.configService.getSysConfig().isIntegral()) {
+                if (this.configService.getSysConfig().isIntegral()){
                     user.setIntegral(this.configService.getSysConfig()
                                      .getMemberRegister());
                     this.userService.save(user);
@@ -143,7 +143,7 @@ public class SinaLoginPlug {
                     log.setIntegral_user(user);
                     log.setType("reg");
                     this.integralLogService.save(log);
-                } else {
+                }else{
                     this.userService.save(user);
                 }
 
@@ -177,17 +177,17 @@ public class SinaLoginPlug {
                "/buyer/account_bind.htm";
     }
 
-    @RequestMapping( {"/sina_login_bind_finish.htm"})
-    public String sina_login_bind_finish(HttpServletRequest request, HttpServletResponse response, String userName, String password, String bind_already) {
+    @RequestMapping({"/sina_login_bind_finish.htm"})
+    public String sina_login_bind_finish(HttpServletRequest request, HttpServletResponse response, String userName, String password, String bind_already){
         String url = "redirect:" + CommUtil.getURL(request) + "/index.htm";
-        if (!CommUtil.null2String(bind_already).equals("")) {
+        if (!CommUtil.null2String(bind_already).equals("")){
             User user = this.userService.getObjByProperty("userName", userName);
-            if (user == null) {
+            if (user == null){
                 request.getSession(false).setAttribute("op_title", "用户绑定失败");
                 request.getSession(false).setAttribute("url", url);
                 url = "redirect:" + CommUtil.getURL(request) + "/error.htm";
-            } else if (Md5Encrypt.md5(password).toLowerCase().equals(
-                           user.getPassword())) {
+            }else if (Md5Encrypt.md5(password).toLowerCase().equals(
+                           user.getPassword())){
                 user.setQq_openid(SecurityUserHolder.getCurrentUser()
                                   .getQq_openid());
                 request.getSession(false).removeAttribute("verify_code");
@@ -198,14 +198,14 @@ public class SinaLoginPlug {
                       "/wemall_login.htm?username=" +
                       CommUtil.encode(user.getUsername()) +
                       "&password=" + password;
-            } else {
+            }else{
                 request.getSession(false)
                 .setAttribute("op_title", "用户绑定失败");
                 request.getSession(false).setAttribute("url",
                                                        CommUtil.getURL(request) + "/index.htm");
                 url = "redirect:" + CommUtil.getURL(request) + "/error.htm";
             }
-        } else {
+        }else{
             User user = SecurityUserHolder.getCurrentUser();
             user.setUserName(userName);
             user.setPassword(Md5Encrypt.md5(password).toLowerCase());
@@ -217,14 +217,14 @@ public class SinaLoginPlug {
         return url;
     }
 
-    private String generic_username(String userName) {
+    private String generic_username(String userName){
         String name = userName;
         User user = this.userService.getObjByProperty("userName", name);
-        if (user != null) {
-            for (int i = 1; i < 1000000; i++) {
+        if (user != null){
+            for (int i = 1; i < 1000000; i++){
                 name = name + i;
                 user = this.userService.getObjByProperty("userName", name);
-                if (user == null) {
+                if (user == null){
                     break;
                 }
             }
@@ -258,7 +258,7 @@ public class SinaLoginPlug {
         Protocol.registerProtocol("https", myhttps);
         PostMethod method = new PostMethod(token_url);
         int status = client.executeMethod(method);
-        if (status == 200) {
+        if (status == 200){
             Map map = (Map)Json.fromJson(HashMap.class, method
                                          .getResponseBodyAsString());
             String access_token = CommUtil.null2String(map.get("access_token"));
@@ -267,7 +267,7 @@ public class SinaLoginPlug {
             method = new PostMethod(token_info_url);
             method.addParameter("access_token", access_token);
             status = client.executeMethod(method);
-            if (status == 200) {
+            if (status == 200){
                 map = (Map)Json.fromJson(HashMap.class, method
                                          .getResponseBodyAsString());
                 String uid = CommUtil.null2String(map.get("uid"));
@@ -276,7 +276,7 @@ public class SinaLoginPlug {
                                        access_token + "&uid=" + uid;
                 GetMethod get = new GetMethod(user_info_url);
                 status = client.executeMethod(get);
-                if (status == 200) {
+                if (status == 200){
                     map = (Map)Json.fromJson(HashMap.class, get
                                              .getResponseBodyAsString());
                     System.out.println(method.getResponseBodyAsString());

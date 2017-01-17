@@ -39,14 +39,14 @@ public class GoodsClassSellerAction {
     private IUserGoodsClassService usergoodsclassService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家商品分类列表", value = "/seller/usergoodsclass_list.htm*", rtype = "seller", rname = "商品分类", rcode = "usergoodsclass_seller", rgroup = "商品管理")
-    @RequestMapping( {"/seller/usergoodsclass_list.htm"})
-    public ModelAndView usergoodsclass_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/seller/usergoodsclass_list.htm"})
+    public ModelAndView usergoodsclass_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/usergoodsclass_list.html",
             this.configService.getSysConfig(), this.userConfigService
             .getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -69,20 +69,20 @@ public class GoodsClassSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家商品分类保存", value = "/seller/usergoodsclass_save.htm*", rtype = "seller", rname = "商品分类", rcode = "usergoodsclass_seller", rgroup = "商品管理")
-    @RequestMapping( {"/seller/usergoodsclass_save.htm"})
-    public String usergoodsclass_save(HttpServletRequest request, HttpServletResponse response, String id, String pid) {
+    @RequestMapping({"/seller/usergoodsclass_save.htm"})
+    public String usergoodsclass_save(HttpServletRequest request, HttpServletResponse response, String id, String pid){
         WebForm wf = new WebForm();
         UserGoodsClass usergoodsclass = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             usergoodsclass = (UserGoodsClass)wf.toPo(request, UserGoodsClass.class);
             usergoodsclass.setAddTime(new Date());
-        } else {
+        }else{
             UserGoodsClass obj = this.usergoodsclassService.getObjById(
                                      Long.valueOf(Long.parseLong(id)));
             usergoodsclass = (UserGoodsClass)wf.toPo(request, obj);
         }
         usergoodsclass.setUser(SecurityUserHolder.getCurrentUser());
-        if (!pid.equals("")) {
+        if (!pid.equals("")){
             UserGoodsClass parent = this.usergoodsclassService.getObjById(
                                         Long.valueOf(Long.parseLong(pid)));
             usergoodsclass.setParent(parent);
@@ -97,11 +97,11 @@ public class GoodsClassSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家商品分类删除", value = "/seller/usergoodsclass_del.htm*", rtype = "seller", rname = "商品分类", rcode = "usergoodsclass_seller", rgroup = "商品管理")
-    @RequestMapping( {"/seller/usergoodsclass_del.htm"})
-    public String usergoodsclass_del(HttpServletRequest request, String mulitId) {
+    @RequestMapping({"/seller/usergoodsclass_del.htm"})
+    public String usergoodsclass_del(HttpServletRequest request, String mulitId){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 UserGoodsClass usergoodsclass = this.usergoodsclassService
                                                 .getObjById(Long.valueOf(Long.parseLong(id)));
                 this.usergoodsclassService.delete(Long.valueOf(Long.parseLong(id)));
@@ -112,8 +112,8 @@ public class GoodsClassSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "新增卖家商品分类", value = "/seller/address_add.htm*", rtype = "seller", rname = "商品分类", rcode = "usergoodsclass_seller", rgroup = "商品管理")
-    @RequestMapping( {"/seller/usergoodsclass_add.htm"})
-    public ModelAndView usergoodsclass_add(HttpServletRequest request, HttpServletResponse response, String currentPage, String pid) {
+    @RequestMapping({"/seller/usergoodsclass_add.htm"})
+    public ModelAndView usergoodsclass_add(HttpServletRequest request, HttpServletResponse response, String currentPage, String pid){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/usergoodsclass_add.html",
             this.configService.getSysConfig(), this.userConfigService
@@ -124,7 +124,7 @@ public class GoodsClassSellerAction {
                     .query(
                         "select obj from UserGoodsClass obj where obj.parent.id is null and obj.user.id = :uid order by obj.sequence asc",
                         map, -1, -1);
-        if (!CommUtil.null2String(pid).equals("")) {
+        if (!CommUtil.null2String(pid).equals("")){
             UserGoodsClass parent = this.usergoodsclassService
                                     .getObjById(CommUtil.null2Long(pid));
             UserGoodsClass obj = new UserGoodsClass();
@@ -138,8 +138,8 @@ public class GoodsClassSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "编辑卖家商品分类", value = "/seller/usergoodsclass_edit.htm*", rtype = "seller", rname = "商品分类", rcode = "usergoodsclass_seller", rgroup = "商品管理")
-    @RequestMapping( {"/seller/usergoodsclass_edit.htm"})
-    public ModelAndView usergoodsclass_edit(HttpServletRequest request, HttpServletResponse response, String currentPage, String id) {
+    @RequestMapping({"/seller/usergoodsclass_edit.htm"})
+    public ModelAndView usergoodsclass_edit(HttpServletRequest request, HttpServletResponse response, String currentPage, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/usergoodsclass_add.html",
             this.configService.getSysConfig(), this.userConfigService

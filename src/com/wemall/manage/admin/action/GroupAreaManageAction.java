@@ -42,13 +42,13 @@ public class GroupAreaManageAction {
     private IGroupAreaService groupareaService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "团购区域列表", value = "/admin/group_area_list.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/group_area_list.htm"})
-    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/admin/group_area_list.htm"})
+    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView("admin/blue/group_area_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -63,8 +63,8 @@ public class GroupAreaManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "团购区域增加", value = "/admin/group_area_add.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/group_area_add.htm"})
-    public ModelAndView add(HttpServletRequest request, HttpServletResponse response, String currentPage, String pid) {
+    @RequestMapping({"/admin/group_area_add.htm"})
+    public ModelAndView add(HttpServletRequest request, HttpServletResponse response, String currentPage, String pid){
         ModelAndView mv = new JModelAndView("admin/blue/group_area_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -83,12 +83,12 @@ public class GroupAreaManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "团购区域编辑", value = "/admin/group_area_edit.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/group_area_edit.htm"})
-    public ModelAndView edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/group_area_edit.htm"})
+    public ModelAndView edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/group_area_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             GroupArea grouparea = this.groupareaService.getObjById(
                                       Long.valueOf(Long.parseLong(id)));
             List gas = this.groupareaService
@@ -105,21 +105,21 @@ public class GroupAreaManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "团购区域保存", value = "/admin/group_area_save.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/group_area_save.htm"})
-    public ModelAndView save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String pid) {
+    @RequestMapping({"/admin/group_area_save.htm"})
+    public ModelAndView save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String pid){
         WebForm wf = new WebForm();
         GroupArea grouparea = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             grouparea = (GroupArea)wf.toPo(request, GroupArea.class);
             grouparea.setAddTime(new Date());
-        } else {
+        }else{
             GroupArea obj = this.groupareaService
                             .getObjById(Long.valueOf(Long.parseLong(id)));
             grouparea = (GroupArea)wf.toPo(request, obj);
         }
         GroupArea parent = this.groupareaService.getObjById(
                                CommUtil.null2Long(pid));
-        if (parent != null) {
+        if (parent != null){
             grouparea.setParent(parent);
             grouparea.setGa_level(parent.getGa_level() + 1);
         }
@@ -140,11 +140,11 @@ public class GroupAreaManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "团购区域删除", value = "/admin/group_area_del.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/group_area_del.htm"})
-    public String delete(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
+    @RequestMapping({"/admin/group_area_del.htm"})
+    public String delete(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 GroupArea grouparea = this.groupareaService.getObjById(
                                           Long.valueOf(Long.parseLong(id)));
                 this.groupareaService.delete(Long.valueOf(Long.parseLong(id)));
@@ -155,24 +155,24 @@ public class GroupAreaManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "团购区域Ajax更新", value = "/admin/group_area_ajax.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/group_area_ajax.htm"})
+    @RequestMapping({"/admin/group_area_ajax.htm"})
     public void ajax(HttpServletRequest request, HttpServletResponse response, String id, String fieldName, String value) throws ClassNotFoundException {
         GroupArea obj = this.groupareaService.getObjById(Long.valueOf(Long.parseLong(id)));
         Field[] fields = GroupArea.class.getDeclaredFields();
         BeanWrapper wrapper = new BeanWrapper(obj);
         Object val = null;
-        for (Field field : fields) {
-            if (field.getName().equals(fieldName)) {
+        for (Field field : fields){
+            if (field.getName().equals(fieldName)){
                 Class clz = Class.forName("java.lang.String");
-                if (field.getType().getName().equals("int")) {
+                if (field.getType().getName().equals("int")){
                     clz = Class.forName("java.lang.Integer");
                 }
-                if (field.getType().getName().equals("boolean")) {
+                if (field.getType().getName().equals("boolean")){
                     clz = Class.forName("java.lang.Boolean");
                 }
                 if (!value.equals(""))
                     val = BeanUtils.convertType(value, clz);
-                else {
+               else{
                     val = Boolean.valueOf(
                               !CommUtil.null2Boolean(wrapper
                                                      .getPropertyValue(fieldName)));
@@ -187,14 +187,14 @@ public class GroupAreaManageAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(val.toString());
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "团购区域下级加载", value = "/admin/group_area_data.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
-    @RequestMapping( {"/admin/group_area_data.htm"})
-    public ModelAndView group_area_data(HttpServletRequest request, HttpServletResponse response, String pid, String currentPage) {
+    @RequestMapping({"/admin/group_area_data.htm"})
+    public ModelAndView group_area_data(HttpServletRequest request, HttpServletResponse response, String pid, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/group_area_data.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -209,8 +209,8 @@ public class GroupAreaManageAction {
         return mv;
     }
 
-    @RequestMapping( {"/admin/group_area_verify.htm"})
-    public void group_area_verify(HttpServletRequest request, HttpServletResponse response, String ga_name, String id, String pid) {
+    @RequestMapping({"/admin/group_area_verify.htm"})
+    public void group_area_verify(HttpServletRequest request, HttpServletResponse response, String ga_name, String id, String pid){
         boolean ret = true;
         Map params = new HashMap();
         params.put("ga_name", ga_name);
@@ -220,7 +220,7 @@ public class GroupAreaManageAction {
                    .query(
                        "select obj from GroupArea obj where obj.ga_name=:ga_name and obj.id!=:id and obj.parent.id =:pid",
                        params, -1, -1);
-        if ((gcs != null) && (gcs.size() > 0)) {
+        if ((gcs != null) && (gcs.size() > 0)){
             ret = false;
         }
         response.setContentType("text/plain");
@@ -229,7 +229,7 @@ public class GroupAreaManageAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

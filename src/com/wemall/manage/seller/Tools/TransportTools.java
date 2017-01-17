@@ -31,12 +31,12 @@ public class TransportTools {
     @Autowired
     private IGoodsService goodsService;
 
-    public String query_transprot(String json, String mark) {
+    public String query_transprot(String json, String mark){
         String ret = "";
         List<Map> list = (List)Json.fromJson(ArrayList.class, json);
-        if ((list != null) && (list.size() > 0)) {
-            for (Map map : list) {
-                if (CommUtil.null2String(map.get("city_id")).equals("-1")) {
+        if ((list != null) && (list.size() > 0)){
+            for (Map map : list){
+                if (CommUtil.null2String(map.get("city_id")).equals("-1")){
                     ret = CommUtil.null2String(map.get(mark));
                 }
             }
@@ -49,9 +49,9 @@ public class TransportTools {
     throws ClassNotFoundException {
         List cbs = new ArrayList();
         List<Map> list = (List)Json.fromJson(ArrayList.class, json);
-        if ((list != null) && (list.size() > 0)) {
-            if (type == 0) {
-                for (Map map : list) {
+        if ((list != null) && (list.size() > 0)){
+            if (type == 0){
+                for (Map map : list){
                     HashMap propertyMap = new HashMap();
                     propertyMap.put("city_id",
                                     Class.forName("java.lang.String"));
@@ -81,9 +81,9 @@ public class TransportTools {
                     cbs.add(cb);
                 }
             }
-            if (type == 1) {
-                for (Map map : list) {
-                    if (!CommUtil.null2String(map.get("city_id")).equals("-1")) {
+            if (type == 1){
+                for (Map map : list){
+                    if (!CommUtil.null2String(map.get("city_id")).equals("-1")){
                         HashMap propertyMap = new HashMap();
                         propertyMap.put("city_id",
                                         Class.forName("java.lang.String"));
@@ -119,27 +119,27 @@ public class TransportTools {
         return cbs;
     }
 
-    public float cal_goods_trans_fee(String trans_id, String type, String weight, String volume, String city_name) {
+    public float cal_goods_trans_fee(String trans_id, String type, String weight, String volume, String city_name){
         Transport trans = this.transportService.getObjById(
                               CommUtil.null2Long(trans_id));
         String json = "";
-        if (type.equals("mail")) {
+        if (type.equals("mail")){
             json = trans.getTrans_mail_info();
         }
-        if (type.equals("express")) {
+        if (type.equals("express")){
             json = trans.getTrans_express_info();
         }
-        if (type.equals("ems")) {
+        if (type.equals("ems")){
             json = trans.getTrans_ems_info();
         }
         float fee = 0.0F;
         boolean cal_flag = false;
         List<Map> list = (List)Json.fromJson(ArrayList.class, json);
-        if ((list != null) && (list.size() > 0)) {
-            for (Map map : list) {
+        if ((list != null) && (list.size() > 0)){
+            for (Map map : list){
                 String[] city_list = CommUtil.null2String(map.get("city_name")).split("、");
-                for (String city : city_list) {
-                    if (city.equals(city_name)) {
+                for (String city : city_list){
+                    if (city.equals(city_name)){
                         cal_flag = true;
                         float trans_weight = CommUtil.null2Float(map
                                              .get("trans_weight"));
@@ -149,15 +149,15 @@ public class TransportTools {
                                                  .get("trans_add_weight"));
                         float trans_add_fee = CommUtil.null2Float(map
                                               .get("trans_add_fee"));
-                        if (trans.getTrans_type() == 0) {
+                        if (trans.getTrans_type() == 0){
                             fee = trans_fee;
                         }
-                        if (trans.getTrans_type() == 1) {
+                        if (trans.getTrans_type() == 1){
                             float goods_weight = CommUtil.null2Float(weight);
-                            if (goods_weight > 0.0F) {
+                            if (goods_weight > 0.0F){
                                 fee = trans_fee;
                                 float other_price = 0.0F;
-                                if (trans_add_weight > 0.0F) {
+                                if (trans_add_weight > 0.0F){
                                     other_price = trans_add_fee *
                                                   (float)Math.round(Math.ceil(
                                                                         CommUtil.subtract(Float.valueOf(goods_weight),
@@ -172,7 +172,7 @@ public class TransportTools {
                         if (goods_volume <= 0.0F) break;
                         fee = trans_fee;
                         float other_price = 0.0F;
-                        if (trans_add_weight > 0.0F) {
+                        if (trans_add_weight > 0.0F){
                             other_price = trans_add_fee *
                                           (float)Math.round(Math.ceil(
                                                                 CommUtil.subtract(Float.valueOf(goods_volume),
@@ -185,12 +185,12 @@ public class TransportTools {
                     }
                 }
             }
-            if (!cal_flag) {
-                for (Map map : list) {
+            if (!cal_flag){
+                for (Map map : list){
                     String[] city_list = CommUtil.null2String(
                                              map.get("city_name")).split("、");
-                    for (String city : city_list) {
-                        if (city.equals("全国")) {
+                    for (String city : city_list){
+                        if (city.equals("全国")){
                             float trans_weight = CommUtil.null2Float(map
                                                  .get("trans_weight"));
                             float trans_fee = CommUtil.null2Float(map
@@ -199,16 +199,16 @@ public class TransportTools {
                                                      .get("trans_add_weight"));
                             float trans_add_fee = CommUtil.null2Float(map
                                                   .get("trans_add_fee"));
-                            if (trans.getTrans_type() == 0) {
+                            if (trans.getTrans_type() == 0){
                                 fee = trans_fee;
                             }
-                            if (trans.getTrans_type() == 1) {
+                            if (trans.getTrans_type() == 1){
                                 float goods_weight =
                                     CommUtil.null2Float(weight);
-                                if (goods_weight > 0.0F) {
+                                if (goods_weight > 0.0F){
                                     fee = trans_fee;
                                     float other_price = 0.0F;
-                                    if (trans_add_weight > 0.0F) {
+                                    if (trans_add_weight > 0.0F){
                                         other_price = trans_add_fee *
                                                       (float)Math.round(Math.ceil(
                                                                             CommUtil.subtract(Float.valueOf(goods_weight),
@@ -224,7 +224,7 @@ public class TransportTools {
                             if (goods_volume <= 0.0F) break;
                             fee = trans_fee;
                             float other_price = 0.0F;
-                            if (trans_add_weight > 0.0F) {
+                            if (trans_add_weight > 0.0F){
                                 other_price = trans_add_fee *
                                               (float)Math.round(Math.ceil(
                                                                     CommUtil.subtract(Float.valueOf(goods_volume),
@@ -243,9 +243,9 @@ public class TransportTools {
         return fee;
     }
 
-    public List<SysMap> query_cart_trans(StoreCart sc, String area_id) {
+    public List<SysMap> query_cart_trans(StoreCart sc, String area_id){
         List sms = new ArrayList();
-        if ((area_id != null) && (!area_id.equals(""))) {
+        if ((area_id != null) && (!area_id.equals(""))){
             Area area = this.areaService
                         .getObjById(CommUtil.null2Long(area_id)).getParent();
             String city_name = area.getAreaName();
@@ -253,11 +253,11 @@ public class TransportTools {
             float mail_fee = 0.0F;
             float express_fee = 0.0F;
             float ems_fee = 0.0F;
-            for (GoodsCart gc : sc.getGcs()) {
+            for (GoodsCart gc : sc.getGcs()){
                 Goods goods = this.goodsService.getObjById(gc.getGoods()
                               .getId());
-                if (goods.getGoods_transfee() == 0) {
-                    if (goods.getTransport() != null) {
+                if (goods.getGoods_transfee() == 0){
+                    if (goods.getTransport() != null){
                         mail_fee = mail_fee +
                                    cal_order_trans(goods.getTransport()
                                                    .getTrans_mail_info(), goods
@@ -278,7 +278,7 @@ public class TransportTools {
                                                   .getTransport().getTrans_type(), goods
                                                   .getGoods_weight(), goods
                                                   .getGoods_volume(), city_name);
-                    } else {
+                    }else{
                         mail_fee = mail_fee +
                                    CommUtil.null2Float(goods.getMail_trans_fee());
 
@@ -291,9 +291,9 @@ public class TransportTools {
                     }
                 }
             }
-            if ((mail_fee == 0.0F) && (express_fee == 0.0F) && (ems_fee == 0.0F)) {
+            if ((mail_fee == 0.0F) && (express_fee == 0.0F) && (ems_fee == 0.0F)){
                 sms.add(new SysMap("卖家承担", Integer.valueOf(0)));
-            } else {
+            }else{
                 sms.add(new SysMap("平邮[" + mail_fee + "元]", Float.valueOf(mail_fee)));
                 sms.add(new SysMap("快递[" + express_fee + "元]", Float.valueOf(express_fee)));
                 sms.add(new SysMap("EMS[" + ems_fee + "元]", Float.valueOf(ems_fee)));
@@ -303,16 +303,16 @@ public class TransportTools {
         return sms;
     }
 
-    private float cal_order_trans(String trans_json, int trans_type, Object goods_weight, Object goods_volume, String city_name) {
+    private float cal_order_trans(String trans_json, int trans_type, Object goods_weight, Object goods_volume, String city_name){
         float fee = 0.0F;
         boolean cal_flag = false;
         List<Map> list = (List)Json.fromJson(ArrayList.class, trans_json);
-        if ((list != null) && (list.size() > 0)) {
-            for (Map map : list) {
+        if ((list != null) && (list.size() > 0)){
+            for (Map map : list){
                 String[] city_list = CommUtil.null2String(map.get("city_name"))
                                      .split("、");
-                for (String city : city_list) {
-                    if ((city.equals(city_name)) || (city_name.indexOf(city) == 0)) {
+                for (String city : city_list){
+                    if ((city.equals(city_name)) || (city_name.indexOf(city) == 0)){
                         cal_flag = true;
                         float trans_weight = CommUtil.null2Float(map
                                              .get("trans_weight"));
@@ -322,14 +322,14 @@ public class TransportTools {
                                                  .get("trans_add_weight"));
                         float trans_add_fee = CommUtil.null2Float(map
                                               .get("trans_add_fee"));
-                        if (trans_type == 0) {
+                        if (trans_type == 0){
                             fee = trans_fee;
                         }
                         if ((trans_type == 1) &&
-                                (CommUtil.null2Float(goods_weight) > 0.0F)) {
+                                (CommUtil.null2Float(goods_weight) > 0.0F)){
                             fee = trans_fee;
                             float other_price = 0.0F;
-                            if (trans_add_weight > 0.0F) {
+                            if (trans_add_weight > 0.0F){
                                 other_price = trans_add_fee *
                                               (float)Math.round(Math.ceil(
                                                                     CommUtil.subtract(goods_weight,
@@ -343,7 +343,7 @@ public class TransportTools {
                                 (CommUtil.null2Float(goods_volume) <= 0.0F)) break;
                         fee = trans_fee;
                         float other_price = 0.0F;
-                        if (trans_add_weight > 0.0F) {
+                        if (trans_add_weight > 0.0F){
                             other_price = trans_add_fee *
                                           (float)Math.round(Math.ceil(
                                                                 CommUtil.subtract(goods_volume,
@@ -356,12 +356,12 @@ public class TransportTools {
                     }
                 }
             }
-            if (!cal_flag) {
-                for (Map map : list) {
+            if (!cal_flag){
+                for (Map map : list){
                     String[] city_list = CommUtil.null2String(
                                              map.get("city_name")).split("、");
-                    for (String city : city_list) {
-                        if (city.equals("全国")) {
+                    for (String city : city_list){
+                        if (city.equals("全国")){
                             float trans_weight = CommUtil.null2Float(map
                                                  .get("trans_weight"));
                             float trans_fee = CommUtil.null2Float(map
@@ -370,14 +370,14 @@ public class TransportTools {
                                                      .get("trans_add_weight"));
                             float trans_add_fee = CommUtil.null2Float(map
                                                   .get("trans_add_fee"));
-                            if (trans_type == 0) {
+                            if (trans_type == 0){
                                 fee = trans_fee;
                             }
                             if ((trans_type == 1) &&
-                                    (CommUtil.null2Float(goods_weight) > 0.0F)) {
+                                    (CommUtil.null2Float(goods_weight) > 0.0F)){
                                 fee = trans_fee;
                                 float other_price = 0.0F;
-                                if (trans_add_weight > 0.0F) {
+                                if (trans_add_weight > 0.0F){
                                     other_price = trans_add_fee *
                                                   (float)Math.round(Math.ceil(
                                                                         CommUtil.subtract(goods_weight,
@@ -391,7 +391,7 @@ public class TransportTools {
                                     (CommUtil.null2Float(goods_volume) <= 0.0F)) break;
                             fee = trans_fee;
                             float other_price = 0.0F;
-                            if (trans_add_weight > 0.0F) {
+                            if (trans_add_weight > 0.0F){
                                 other_price = trans_add_fee *
                                               (float)Math.round(Math.ceil(
                                                                     CommUtil.subtract(goods_volume,

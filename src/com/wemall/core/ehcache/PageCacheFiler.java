@@ -28,21 +28,21 @@ public class PageCacheFiler extends SimplePageFragmentCachingFilter {
 
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
     throws AlreadyGzippedException, AlreadyCommittedException, FilterNonReentrantException, LockTimeoutException, Exception {
-        if (cacheURLs == null) {
+        if (cacheURLs == null){
             init();
         }
         String url = request.getRequestURI();
         String include_url = CommUtil.null2String(request
                              .getAttribute("javax.servlet.include.request_uri"));
         boolean flag = false;
-        if ((cacheURLs != null) && (cacheURLs.length > 0)) {
-            for (String cacheURL : cacheURLs) {
-                if (include_url.trim().equals("")) {
-                    if (url.contains(cacheURL.trim())) {
+        if ((cacheURLs != null) && (cacheURLs.length > 0)){
+            for (String cacheURL : cacheURLs){
+                if (include_url.trim().equals("")){
+                    if (url.contains(cacheURL.trim())){
                         flag = true;
                         break;
                     }
-                } else if (include_url.contains(cacheURL.trim())) {
+                }else if (include_url.contains(cacheURL.trim())){
                     flag = true;
                     break;
                 }
@@ -57,12 +57,12 @@ public class PageCacheFiler extends SimplePageFragmentCachingFilter {
             chain.doFilter(request, response);
     }
 
-    private boolean headerContains(HttpServletRequest request, String header, String value) {
+    private boolean headerContains(HttpServletRequest request, String header, String value){
         logRequestHeaders(request);
         Enumeration accepted = request.getHeaders(header);
-        while (accepted.hasMoreElements()) {
+        while (accepted.hasMoreElements()){
             String headerValue = (String)accepted.nextElement();
-            if (headerValue.indexOf(value) != -1) {
+            if (headerValue.indexOf(value) != -1){
                 return true;
             }
         }
@@ -70,19 +70,19 @@ public class PageCacheFiler extends SimplePageFragmentCachingFilter {
         return false;
     }
 
-    protected boolean acceptsGzipEncoding(HttpServletRequest request) {
+    protected boolean acceptsGzipEncoding(HttpServletRequest request){
         boolean ie6 = headerContains(request, "User-Agent", "MSIE 6.0");
         boolean ie7 = headerContains(request, "User-Agent", "MSIE 7.0");
 
         return (acceptsEncoding(request, "gzip")) || (ie6) || (ie7);
     }
 
-    protected String calculateKey(HttpServletRequest httpRequest) {
+    protected String calculateKey(HttpServletRequest httpRequest){
         String url = httpRequest.getRequestURI();
         String include_url = CommUtil.null2String(httpRequest
                              .getAttribute("javax.servlet.include.request_uri"));
         StringBuffer stringBuffer = new StringBuffer();
-        if (include_url.equals("")) {
+        if (include_url.equals("")){
             stringBuffer.append(httpRequest.getRequestURI()).append(
                 httpRequest.getQueryString());
             String key = stringBuffer.toString();

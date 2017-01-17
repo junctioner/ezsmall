@@ -36,18 +36,18 @@ public class VerifyAction {
     @Autowired
     private IGroupService groupService;
 
-    @RequestMapping( {"/verify_code.htm"})
-    public void validate_code(HttpServletRequest request, HttpServletResponse response, String code, String code_name) {
+    @RequestMapping({"/verify_code.htm"})
+    public void validate_code(HttpServletRequest request, HttpServletResponse response, String code, String code_name){
         HttpSession session = request.getSession(false);
         String verify_code = "";
         if (CommUtil.null2String(code_name).equals(""))
             verify_code = (String)session.getAttribute("verify_code");
-        else {
+       else{
             verify_code = (String)session.getAttribute(code_name);
         }
         boolean ret = true;
         if ((verify_code != null) && (!verify_code.equals("")) &&
-                (!CommUtil.null2String(code.toUpperCase()).equals(verify_code))) {
+                (!CommUtil.null2String(code.toUpperCase()).equals(verify_code))){
             ret = false;
         }
 
@@ -57,13 +57,13 @@ public class VerifyAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    @RequestMapping( {"/verify_username.htm"})
-    public void verify_username(HttpServletRequest request, HttpServletResponse response, String userName, String id) {
+    @RequestMapping({"/verify_username.htm"})
+    public void verify_username(HttpServletRequest request, HttpServletResponse response, String userName, String id){
         boolean ret = true;
         Map params = new HashMap();
         params.put("userName", userName);
@@ -71,7 +71,7 @@ public class VerifyAction {
         List users = this.userService
                      .query("select obj from User obj where obj.userName=:userName and obj.id!=:id",
                             params, -1, -1);
-        if ((users != null) && (users.size() > 0)) {
+        if ((users != null) && (users.size() > 0)){
             ret = false;
         }
         response.setContentType("text/plain");
@@ -80,13 +80,13 @@ public class VerifyAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    @RequestMapping( {"/verify_email.htm"})
-    public void verify_email(HttpServletRequest request, HttpServletResponse response, String email, String id) {
+    @RequestMapping({"/verify_email.htm"})
+    public void verify_email(HttpServletRequest request, HttpServletResponse response, String email, String id){
         boolean ret = true;
         Map params = new HashMap();
         params.put("email", email);
@@ -94,7 +94,7 @@ public class VerifyAction {
         List users = this.userService
                      .query("select obj from User obj where obj.email=:email and obj.id!=:id",
                             params, -1, -1);
-        if ((users != null) && (users.size() > 0)) {
+        if ((users != null) && (users.size() > 0)){
             ret = false;
         }
         response.setContentType("text/plain");
@@ -103,13 +103,13 @@ public class VerifyAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    @RequestMapping( {"/verify_storename.htm"})
-    public void verify_storename(HttpServletRequest request, HttpServletResponse response, String store_name, String id) {
+    @RequestMapping({"/verify_storename.htm"})
+    public void verify_storename(HttpServletRequest request, HttpServletResponse response, String store_name, String id){
         boolean ret = true;
         Map params = new HashMap();
         params.put("store_name", store_name);
@@ -117,7 +117,7 @@ public class VerifyAction {
         List users = this.storeService
                      .query("select obj from Store obj where obj.store_name=:store_name and obj.id!=:id",
                             params, -1, -1);
-        if ((users != null) && (users.size() > 0)) {
+        if ((users != null) && (users.size() > 0)){
             ret = false;
         }
         response.setContentType("text/plain");
@@ -126,13 +126,13 @@ public class VerifyAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    @RequestMapping( {"/verify_mobile.htm"})
-    public void verify_mobile(HttpServletRequest request, HttpServletResponse response, String mobile, String id) {
+    @RequestMapping({"/verify_mobile.htm"})
+    public void verify_mobile(HttpServletRequest request, HttpServletResponse response, String mobile, String id){
         boolean ret = true;
         Map params = new HashMap();
         params.put("mobile", mobile);
@@ -140,7 +140,7 @@ public class VerifyAction {
         List users = this.userService
                      .query("select obj from User obj where obj.mobile=:mobile and obj.id!=:id",
                             params, -1, -1);
-        if ((users != null) && (users.size() > 0)) {
+        if ((users != null) && (users.size() > 0)){
             ret = false;
         }
         response.setContentType("text/plain");
@@ -149,12 +149,12 @@ public class VerifyAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    @RequestMapping( {"/verify.htm"})
+    @RequestMapping({"/verify.htm"})
     public void verify(HttpServletRequest request, HttpServletResponse response, String name)
     throws IOException {
         response.setContentType("image/jpeg");
@@ -178,7 +178,7 @@ public class VerifyAction {
         g.setFont(new Font("Times New Roman", 0, 24));
 
         g.setColor(getRandColor(160, 200));
-        for (int i = 0; i < 155; i++) {
+        for (int i = 0; i < 155; i++){
             int x = random.nextInt(width);
             int y = random.nextInt(height);
             int xl = random.nextInt(12);
@@ -187,7 +187,7 @@ public class VerifyAction {
         }
 
         String sRand = "";
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++){
             String rand = CommUtil.randomInt(1).toUpperCase();
             sRand = sRand + rand;
 
@@ -199,7 +199,7 @@ public class VerifyAction {
 
         if (CommUtil.null2String(name).equals(""))
             session.setAttribute("verify_code", sRand);
-        else {
+       else{
             session.setAttribute(name, sRand);
         }
 
@@ -212,7 +212,7 @@ public class VerifyAction {
         responseOutputStream.close();
     }
 
-    private Color getRandColor(int fc, int bc) {
+    private Color getRandColor(int fc, int bc){
         Random random = new Random();
         if (fc > 255)
             fc = 255;

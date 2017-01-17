@@ -9,15 +9,15 @@ import java.util.*;
  * «©√˚÷˙ ÷∑µªÿ
  */
 public class SignatureHelper_return {
-    public static String sign(Map params, String privateKey) {
+    public static String sign(Map params, String privateKey){
         Properties properties = new Properties();
 
-        for (Iterator iter = params.keySet().iterator(); iter.hasNext(); ) {
+        for (Iterator iter = params.keySet().iterator(); iter.hasNext();){
             String name = (String)iter.next();
             Object value = params.get(name);
 
             if ((name == null) || (name.equalsIgnoreCase("sign")) ||
-                    (name.equalsIgnoreCase("sign_type"))) {
+                    (name.equalsIgnoreCase("sign_type"))){
                 continue;
             }
             properties.setProperty(name, value.toString());
@@ -27,12 +27,12 @@ public class SignatureHelper_return {
         return sign(content, privateKey);
     }
 
-    public static String getSignatureContent(Properties properties) {
+    public static String getSignatureContent(Properties properties){
         StringBuffer content = new StringBuffer();
         List keys = new ArrayList(properties.keySet());
         Collections.sort(keys);
 
-        for (int i = 0; i < keys.size(); i++) {
+        for (int i = 0; i < keys.size(); i++){
             String key = (String)keys.get(i);
             String value = properties.getProperty(key);
 
@@ -42,8 +42,8 @@ public class SignatureHelper_return {
         return content.toString();
     }
 
-    public static String sign(String content, String privateKey) {
-        if (privateKey == null) {
+    public static String sign(String content, String privateKey){
+        if (privateKey == null){
             return null;
         }
         String signBefore = content + privateKey;
@@ -52,7 +52,7 @@ public class SignatureHelper_return {
                                                System.currentTimeMillis() + ".txt");
             writer.write(signBefore);
             writer.close();
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 

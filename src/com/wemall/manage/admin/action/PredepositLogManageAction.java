@@ -32,21 +32,21 @@ public class PredepositLogManageAction {
     private IPredepositLogService predepositlogService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "预存款明细列表", value = "/admin/predepositlog_list.htm*", rtype = "admin", rname = "预存款明细", rcode = "predeposit", rgroup = "会员")
-    @RequestMapping( {"/admin/predepositlog_list.htm"})
-    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String userName) {
+    @RequestMapping({"/admin/predepositlog_list.htm"})
+    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String userName){
         ModelAndView mv = new JModelAndView(
             "admin/blue/predepositlog_list.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isDeposit()) {
+        if (this.configService.getSysConfig().isDeposit()){
             String url = this.configService.getSysConfig().getAddress();
-            if ((url == null) || (url.equals(""))) {
+            if ((url == null) || (url.equals(""))){
                 url = CommUtil.getURL(request);
             }
             String params = "";
             PredepositLogQueryObject qo = new PredepositLogQueryObject(
                 currentPage, mv, orderBy, orderType);
-            if (!CommUtil.null2String(userName).equals("")) {
+            if (!CommUtil.null2String(userName).equals("")){
                 qo.addQuery("obj.pd_log_user.userName",
                             new SysMap("userName",
                                        userName), "=");
@@ -55,7 +55,7 @@ public class PredepositLogManageAction {
             CommUtil.saveIPageList2ModelAndView(url +
                                                 "/admin/predepositlog_list.htm", "", params, pList, mv);
             mv.addObject("userName", userName);
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);

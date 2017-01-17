@@ -55,22 +55,22 @@ public class PayTools {
      * @param id
      * @return
      */
-    public String genericAlipay(String url, String payment_id, String type, String id) {
+    public String genericAlipay(String url, String payment_id, String type, String id){
         String result = "";
         OrderForm of = null;
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             of = this.orderFormService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             obj = this.predepositService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             gold = this.goldRecordService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(CommUtil.null2Long(id));
         }
 
@@ -90,14 +90,14 @@ public class PayTools {
 
         Payment shop_payment = new Payment();
 
-        if (payments.size() > 0) {
+        if (payments.size() > 0){
             shop_payment = (Payment)payments.get(0);
         }
         if ((!CommUtil.null2String(payment.getSafeKey()).equals("")) &&
-                (!CommUtil.null2String(payment.getPartner()).equals(""))) {
+                (!CommUtil.null2String(payment.getPartner()).equals(""))){
             config.setKey(payment.getSafeKey());
             config.setPartner(payment.getPartner());
-        } else {
+        }else{
             config.setKey(shop_payment.getSafeKey());
             config.setPartner(shop_payment.getPartner());
         }
@@ -106,56 +106,56 @@ public class PayTools {
         config.setReturn_url(url + "/alipay_return.htm");
 
         SysConfig sys_config = this.configService.getSysConfig();
-        if (sys_config.getAlipay_fenrun() == 1) {
+        if (sys_config.getAlipay_fenrun() == 1){
             interfaceType = 0;
         }
-        if (interfaceType == 0) {// 即时到账
-            if (sys_config.getAlipay_fenrun() == 1) {
+        if (interfaceType == 0){// 即时到账
+            if (sys_config.getAlipay_fenrun() == 1){
                 config.setKey(shop_payment.getSafeKey());
                 config.setPartner(shop_payment.getPartner());
                 config.setSeller_email(shop_payment.getSeller_email());
             }
             String out_trade_no = "";
-            if (type.equals("goods")) {
+            if (type.equals("goods")){
                 out_trade_no = of.getId().toString();
             }
-            if (type.equals("cash")) {
+            if (type.equals("cash")){
                 out_trade_no = obj.getId().toString();
             }
-            if (type.equals("gold")) {
+            if (type.equals("gold")){
                 out_trade_no = gold.getId().toString();
             }
-            if (type.equals("integral")) {
+            if (type.equals("integral")){
                 out_trade_no = ig_order.getId().toString();
             }
 
             String subject = "";
-            if (type.equals("goods")) {
+            if (type.equals("goods")){
                 subject = of.getOrder_id();
             }
-            if (type.equals("cash")) {
+            if (type.equals("cash")){
                 subject = obj.getPd_sn();
             }
-            if (type.equals("gold")) {
+            if (type.equals("gold")){
                 subject = gold.getGold_sn();
             }
-            if (type.equals("integral")) {
+            if (type.equals("integral")){
                 subject = ig_order.getIgo_order_sn();
             }
 
             String body = type;
 
             String total_fee = "";
-            if (type.equals("goods")) {
+            if (type.equals("goods")){
                 total_fee = CommUtil.null2String(of.getTotalPrice());
             }
-            if (type.equals("cash")) {
+            if (type.equals("cash")){
                 total_fee = CommUtil.null2String(obj.getPd_amount());
             }
-            if (type.equals("gold")) {
+            if (type.equals("gold")){
                 total_fee = CommUtil.null2String(Integer.valueOf(gold.getGold_money()));
             }
-            if (type.equals("integral")) {
+            if (type.equals("integral")){
                 total_fee = CommUtil.null2String(ig_order.getIgo_trans_fee());
             }
 
@@ -168,7 +168,7 @@ public class PayTools {
             String show_url = "";
             String royalty_type = "10";
             String royalty_parameters = "";
-            if ((type.equals("goods")) && (sys_config.getAlipay_fenrun() == 1)) {
+            if ((type.equals("goods")) && (sys_config.getAlipay_fenrun() == 1)){
                 double fenrun_rate = CommUtil.null2Double(shop_payment.getAlipay_divide_rate());
                 double alipay_rate = CommUtil.null2Double(shop_payment.getAlipay_rate()) / 100.0D;
                 double shop_fee = CommUtil.null2Double(total_fee) * (1.0D - alipay_rate);
@@ -190,55 +190,55 @@ public class PayTools {
             sParaTemp.put("exter_invoke_ip", exter_invoke_ip);
             sParaTemp.put("extra_common_param", extra_common_param);
             sParaTemp.put("buyer_email", buyer_email);
-            if ((type.equals("goods")) && (sys_config.getAlipay_fenrun() == 1)) {
+            if ((type.equals("goods")) && (sys_config.getAlipay_fenrun() == 1)){
                 sParaTemp.put("royalty_type", royalty_type);
                 sParaTemp.put("royalty_parameters", royalty_parameters);
             }
 
             result = AlipayService.create_direct_pay_by_user(config, sParaTemp);
         }
-        if (interfaceType == 1) {// 担保交易
+        if (interfaceType == 1){// 担保交易
             String out_trade_no = "";
-            if (type.equals("goods")) {
+            if (type.equals("goods")){
                 out_trade_no = of.getId().toString();
             }
-            if (type.equals("cash")) {
+            if (type.equals("cash")){
                 out_trade_no = obj.getId().toString();
             }
-            if (type.equals("gold")) {
+            if (type.equals("gold")){
                 out_trade_no = gold.getId().toString();
             }
-            if (type.equals("integral")) {
+            if (type.equals("integral")){
                 out_trade_no = ig_order.getId().toString();
             }
 
             String subject = "";
-            if (type.equals("goods")) {
+            if (type.equals("goods")){
                 subject = of.getOrder_id();
             }
-            if (type.equals("cash")) {
+            if (type.equals("cash")){
                 subject = obj.getPd_sn();
             }
-            if (type.equals("gold")) {
+            if (type.equals("gold")){
                 subject = gold.getGold_sn();
             }
-            if (type.equals("integral")) {
+            if (type.equals("integral")){
                 subject = ig_order.getIgo_order_sn();
             }
 
             String body = type;
 
             String total_fee = "";
-            if (type.equals("goods")) {
+            if (type.equals("goods")){
                 total_fee = CommUtil.null2String(of.getTotalPrice());
             }
-            if (type.equals("cash")) {
+            if (type.equals("cash")){
                 total_fee = CommUtil.null2String(obj.getPd_amount());
             }
-            if (type.equals("gold")) {
+            if (type.equals("gold")){
                 total_fee = CommUtil.null2String(Integer.valueOf(gold.getGold_money()));
             }
-            if (type.equals("integral")) {
+            if (type.equals("integral")){
                 total_fee = CommUtil.null2String(ig_order.getIgo_trans_fee());
             }
 
@@ -275,48 +275,48 @@ public class PayTools {
 
             result = AlipayService.create_partner_trade_by_buyer(config, sParaTemp);
         }
-        if (interfaceType == 2) {// 标注双接口
+        if (interfaceType == 2){// 标注双接口
             String out_trade_no = "";
-            if (type.equals("goods")) {
+            if (type.equals("goods")){
                 out_trade_no = of.getId().toString();
             }
-            if (type.equals("cash")) {
+            if (type.equals("cash")){
                 out_trade_no = obj.getId().toString();
             }
-            if (type.equals("gold")) {
+            if (type.equals("gold")){
                 out_trade_no = gold.getId().toString();
             }
-            if (type.equals("integral")) {
+            if (type.equals("integral")){
                 out_trade_no = ig_order.getId().toString();
             }
 
             String subject = "";
-            if (type.equals("goods")) {
+            if (type.equals("goods")){
                 subject = of.getOrder_id();
             }
-            if (type.equals("cash")) {
+            if (type.equals("cash")){
                 subject = obj.getPd_sn();
             }
-            if (type.equals("gold")) {
+            if (type.equals("gold")){
                 subject = gold.getGold_sn();
             }
-            if (type.equals("integral")) {
+            if (type.equals("integral")){
                 subject = ig_order.getIgo_order_sn();
             }
 
             String body = type;
 
             String total_fee = "";
-            if (type.equals("goods")) {
+            if (type.equals("goods")){
                 total_fee = CommUtil.null2String(of.getTotalPrice());
             }
-            if (type.equals("cash")) {
+            if (type.equals("cash")){
                 total_fee = CommUtil.null2String(obj.getPd_amount());
             }
-            if (type.equals("gold")) {
+            if (type.equals("gold")){
                 total_fee = CommUtil.null2String(Integer.valueOf(gold.getGold_money()));
             }
-            if (type.equals("integral")) {
+            if (type.equals("integral")){
                 total_fee = CommUtil.null2String(ig_order.getIgo_trans_fee());
             }
 
@@ -373,16 +373,16 @@ public class PayTools {
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             of = this.orderFormService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             obj = this.predepositService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             gold = this.goldRecordService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(
                            CommUtil.null2Long(id));
         }
@@ -404,33 +404,33 @@ public class PayTools {
         String payerContactType = "1";
         String payerContact = "";
         String orderId = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             orderId = of.getOrder_id();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             orderId = obj.getPd_sn();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             orderId = gold.getGold_sn();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             orderId = ig_order.getIgo_order_sn();
         }
 
         String orderAmount = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             orderAmount = String.valueOf((int)Math.floor(
                                              CommUtil.null2Double(of.getTotalPrice()) * 100.0D));
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             orderAmount = String.valueOf((int)Math.floor(
                                              CommUtil.null2Double(obj.getPd_amount()) * 100.0D));
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             orderAmount = String.valueOf((int)Math.floor(
                                              CommUtil.null2Double(Integer.valueOf(gold.getGold_money())) * 100.0D));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             orderAmount = String.valueOf((int)Math.floor(
                                              CommUtil.null2Double(ig_order.getIgo_trans_fee()) * 100.0D));
         }
@@ -439,16 +439,16 @@ public class PayTools {
         .format(new Date());
 
         String productName = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             productName = of.getOrder_id();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             productName = obj.getPd_sn();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             productName = gold.getGold_sn();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             productName = ig_order.getIgo_order_sn();
         }
 
@@ -456,16 +456,16 @@ public class PayTools {
         String productId = "";
         String productDesc = "";
         String ext1 = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             ext1 = of.getId().toString();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             ext1 = obj.getId().toString();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             ext1 = gold.getId().toString();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             ext1 = ig_order.getId().toString();
         }
 
@@ -473,7 +473,7 @@ public class PayTools {
         String payType = "00";
         String redoFlag = "0";
         String pid = "";
-        if (config.getPid() != null) {
+        if (config.getPid() != null){
             pid = config.getPid();
         }
         String signMsgVal = "";
@@ -545,21 +545,21 @@ public class PayTools {
      * @param id
      * @return
      */
-    public String genericChinaBank(String url, String payment_id, String type, String id) {
+    public String genericChinaBank(String url, String payment_id, String type, String id){
         OrderForm of = null;
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             of = this.orderFormService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             obj = this.predepositService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             gold = this.goldRecordService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(
                            CommUtil.null2Long(id));
         }
@@ -575,30 +575,30 @@ public class PayTools {
         String v_url = url + "/chinabank_return.htm";
         list.add(new SysMap("v_url", v_url));
         String v_oid = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             v_oid = of.getOrder_id();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             v_oid = obj.getPd_sn();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             v_oid = gold.getGold_sn();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             v_oid = ig_order.getIgo_order_sn();
         }
         list.add(new SysMap("v_oid", v_oid));
         String v_amount = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             v_amount = CommUtil.null2String(of.getTotalPrice());
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             v_amount = CommUtil.null2String(obj.getPd_amount());
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             v_amount = CommUtil.null2String(Integer.valueOf(gold.getGold_money()));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             v_amount = CommUtil.null2String(ig_order.getIgo_trans_fee());
         }
         list.add(new SysMap("v_amount", v_amount));
@@ -615,16 +615,16 @@ public class PayTools {
         String v_rcvemail = "";
         String v_rcvmobile = "";
         String remark1 = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             remark1 = of.getId().toString();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             remark1 = obj.getId().toString();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             remark1 = gold.getId().toString();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             remark1 = ig_order.getId().toString();
         }
         list.add(new SysMap("remark1", remark1));
@@ -642,21 +642,21 @@ public class PayTools {
      * @param id
      * @return
      */
-    public String genericPaypal(String url, String payment_id, String type, String id) {
+    public String genericPaypal(String url, String payment_id, String type, String id){
         OrderForm of = null;
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             of = this.orderFormService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             obj = this.predepositService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             gold = this.goldRecordService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(
                            CommUtil.null2Long(id));
         }
@@ -671,34 +671,34 @@ public class PayTools {
         String notify_url = url + "/paypal_notify.htm";
         sms.add(new SysMap("return", return_url));
         String item_name = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             item_name = of.getOrder_id();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             item_name = obj.getPd_sn();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             item_name = gold.getGold_sn();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             item_name = ig_order.getIgo_order_sn();
         }
         sms.add(new SysMap("item_name", item_name));
         String amount = "";
         String item_number = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             amount = CommUtil.null2String(of.getTotalPrice());
             item_number = of.getOrder_id();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             amount = CommUtil.null2String(obj.getPd_amount());
             item_number = obj.getPd_sn();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             amount = CommUtil.null2String(Integer.valueOf(gold.getGold_money()));
             item_number = gold.getGold_sn();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             amount = CommUtil.null2String(ig_order.getIgo_trans_fee());
             item_number = ig_order.getIgo_order_sn();
         }
@@ -709,16 +709,16 @@ public class PayTools {
         sms.add(new SysMap("item_number", item_number));
 
         String custom = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             custom = of.getId().toString();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             custom = obj.getId().toString();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             custom = gold.getId().toString();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             custom = ig_order.getId().toString();
         }
         custom = custom + "," + type;
@@ -743,16 +743,16 @@ public class PayTools {
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             of = this.orderFormService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             obj = this.predepositService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             gold = this.goldRecordService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(
                            CommUtil.null2Long(id));
         }
@@ -769,14 +769,14 @@ public class PayTools {
                         .query("select obj from Payment obj where obj.type=:type and obj.mark=:mark",
                                params, -1, -1);
         Payment shop_payment = new Payment();
-        if (payments.size() > 0) {
+        if (payments.size() > 0){
             shop_payment = (Payment)payments.get(0);
         }
         if ((!CommUtil.null2String(payment.getSafeKey()).equals("")) &&
-                (!CommUtil.null2String(payment.getPartner()).equals(""))) {
+                (!CommUtil.null2String(payment.getPartner()).equals(""))){
             config.setKey(payment.getSafeKey());
             config.setPartner(payment.getPartner());
-        } else {
+        }else{
             config.setKey(shop_payment.getSafeKey());
             config.setPartner(shop_payment.getPartner());
         }
@@ -791,44 +791,44 @@ public class PayTools {
         String seller_email = payment.getSeller_email();
         String out_trade_no = "";
 
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             out_trade_no = of.getId().toString();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             out_trade_no = obj.getId().toString();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             out_trade_no = gold.getId().toString();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             out_trade_no = ig_order.getId().toString();
         }
 
         String subject = "goods";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             subject = of.getOrder_id();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             subject = obj.getPd_sn();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             subject = gold.getGold_sn();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             subject = ig_order.getIgo_order_sn();
         }
 
         String total_fee = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             total_fee = CommUtil.null2String(of.getTotalPrice());
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             total_fee = CommUtil.null2String(obj.getPd_amount());
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             total_fee = CommUtil.null2String(Integer.valueOf(gold.getGold_money()));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             total_fee = CommUtil.null2String(ig_order.getIgo_trans_fee());
         }
 
@@ -889,16 +889,16 @@ public class PayTools {
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             of = this.orderFormService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             obj = this.predepositService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             gold = this.goldRecordService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(
                            CommUtil.null2Long(id));
         }
@@ -924,33 +924,33 @@ public class PayTools {
         String payerContact = "";
 
         String orderId = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             orderId = of.getOrder_id();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             orderId = obj.getPd_sn();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             orderId = gold.getGold_sn();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             orderId = ig_order.getIgo_order_sn();
         }
 
         String orderAmount = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             orderAmount = String.valueOf((int)Math.floor(
                                              CommUtil.null2Double(of.getTotalPrice()) * 100.0D));
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             orderAmount = String.valueOf((int)Math.floor(
                                              CommUtil.null2Double(obj.getPd_amount()) * 100.0D));
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             orderAmount = String.valueOf((int)Math.floor(
                                              CommUtil.null2Double(Integer.valueOf(gold.getGold_money())) * 100.0D));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             orderAmount = String.valueOf((int)Math.floor(
                                              CommUtil.null2Double(ig_order.getIgo_trans_fee()) * 100.0D));
         }
@@ -959,16 +959,16 @@ public class PayTools {
         .format(new Date());
 
         String productName = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             productName = of.getOrder_id();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             productName = obj.getPd_sn();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             productName = gold.getGold_sn();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             productName = ig_order.getIgo_order_sn();
         }
 
@@ -979,16 +979,16 @@ public class PayTools {
         String productDesc = "";
 
         String ext1 = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             ext1 = of.getId().toString();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             ext1 = obj.getId().toString();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             ext1 = gold.getId().toString();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             ext1 = ig_order.getId().toString();
         }
 
@@ -999,7 +999,7 @@ public class PayTools {
         String redoFlag = "0";
 
         String pid = "";
-        if (config.getPid() != null) {
+        if (config.getPid() != null){
             pid = config.getPid();
         }
 
@@ -1072,21 +1072,21 @@ public class PayTools {
      * @param id
      * @return
      */
-    public String genericChinaBankWap(String url, String payment_id, String type, String id) {
+    public String genericChinaBankWap(String url, String payment_id, String type, String id){
         OrderForm of = null;
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             of = this.orderFormService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             obj = this.predepositService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             gold = this.goldRecordService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(
                            CommUtil.null2Long(id));
         }
@@ -1102,30 +1102,30 @@ public class PayTools {
         String v_url = url + "/weixin/chinabank_return.htm";
         list.add(new SysMap("v_url", v_url));
         String v_oid = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             v_oid = of.getOrder_id();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             v_oid = obj.getPd_sn();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             v_oid = gold.getGold_sn();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             v_oid = ig_order.getIgo_order_sn();
         }
         list.add(new SysMap("v_oid", v_oid));
         String v_amount = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             v_amount = CommUtil.null2String(of.getTotalPrice());
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             v_amount = CommUtil.null2String(obj.getPd_amount());
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             v_amount = CommUtil.null2String(Integer.valueOf(gold.getGold_money()));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             v_amount = CommUtil.null2String(ig_order.getIgo_trans_fee());
         }
         list.add(new SysMap("v_amount", v_amount));
@@ -1142,16 +1142,16 @@ public class PayTools {
         String v_rcvemail = "";
         String v_rcvmobile = "";
         String remark1 = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             remark1 = of.getId().toString();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             remark1 = obj.getId().toString();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             remark1 = gold.getId().toString();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             remark1 = ig_order.getId().toString();
         }
         list.add(new SysMap("remark1", remark1));
@@ -1169,21 +1169,21 @@ public class PayTools {
      * @param id
      * @return
      */
-    public String genericPaypalWap(String url, String payment_id, String type, String id) {
+    public String genericPaypalWap(String url, String payment_id, String type, String id){
         OrderForm of = null;
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             of = this.orderFormService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             obj = this.predepositService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             gold = this.goldRecordService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(
                            CommUtil.null2Long(id));
         }
@@ -1198,34 +1198,34 @@ public class PayTools {
         String notify_url = url + "/weixin/paypal_return.htm";
         sms.add(new SysMap("return", return_url));
         String item_name = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             item_name = of.getOrder_id();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             item_name = obj.getPd_sn();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             item_name = gold.getGold_sn();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             item_name = ig_order.getIgo_order_sn();
         }
         sms.add(new SysMap("item_name", item_name));
         String amount = "";
         String item_number = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             amount = CommUtil.null2String(of.getTotalPrice());
             item_number = of.getOrder_id();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             amount = CommUtil.null2String(obj.getPd_amount());
             item_number = obj.getPd_sn();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             amount = CommUtil.null2String(Integer.valueOf(gold.getGold_money()));
             item_number = gold.getGold_sn();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             amount = CommUtil.null2String(ig_order.getIgo_trans_fee());
             item_number = ig_order.getIgo_order_sn();
         }
@@ -1236,16 +1236,16 @@ public class PayTools {
         sms.add(new SysMap("item_number", item_number));
 
         String custom = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             custom = of.getId().toString();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             custom = obj.getId().toString();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             custom = gold.getId().toString();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             custom = ig_order.getId().toString();
         }
         custom = custom + "," + type;

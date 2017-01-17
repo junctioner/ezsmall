@@ -10,18 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
 public class JModelAndView extends ModelAndView {
-    public JModelAndView(String viewName) {
+    public JModelAndView(String viewName){
         super.setViewName(viewName);
     }
 
-    public JModelAndView(String viewName, SysConfig config, UserConfig uconfig, HttpServletRequest request, HttpServletResponse response) {
+    public JModelAndView(String viewName, SysConfig config, UserConfig uconfig, HttpServletRequest request, HttpServletResponse response){
         String contextPath = request.getContextPath().equals("/") ? "" :
                              request.getContextPath();
         String webPath = CommUtil.getURL(request);
         String port = ":" +
                       CommUtil.null2Int(Integer.valueOf(request.getServerPort()));
         if ((config.isSecond_domain_open()) &&
-                (!CommUtil.generic_domain(request).equals("localhost"))) {
+                (!CommUtil.generic_domain(request).equals("localhost"))){
             webPath = "http://www." + CommUtil.generic_domain(request) + port +
                       contextPath;
         }
@@ -30,7 +30,7 @@ public class JModelAndView extends ModelAndView {
         if ((config.getImageWebServer() != null) &&
                 (!config.getImageWebServer().equals("")))
             super.addObject("imageWebServer", config.getImageWebServer());
-        else {
+       else{
             super.addObject("imageWebServer", webPath);
         }
         super.addObject("webPath", webPath);
@@ -40,7 +40,7 @@ public class JModelAndView extends ModelAndView {
         super.addObject("httpInclude", new HttpInclude(request, response));
         String query_url = "";
         if ((request.getQueryString() != null) &&
-                (!request.getQueryString().equals(""))) {
+                (!request.getQueryString().equals(""))){
             query_url = "?" + request.getQueryString();
         }
         super.addObject("current_url", request.getRequestURI() + query_url);
@@ -50,7 +50,7 @@ public class JModelAndView extends ModelAndView {
         if ((serverName.indexOf("www.") < 0) && (serverName.indexOf(".") >= 0) &&
                 //(serverName.indexOf("localhost") < 0) && !serverName.startsWith("1") &&
                 (serverName.indexOf(".") != serverName.lastIndexOf(".")) &&
-                (config.isSecond_domain_open())) {
+                (config.isSecond_domain_open())){
             String secondDomain = serverName.substring(0, serverName.indexOf("."));
             second_domain_view = true;
             super.addObject("secondDomain", secondDomain);
@@ -58,30 +58,30 @@ public class JModelAndView extends ModelAndView {
         super.addObject("second_domain_view", Boolean.valueOf(second_domain_view));
     }
 
-    public JModelAndView(String viewName, SysConfig config, UserConfig uconfig, int type, HttpServletRequest request, HttpServletResponse response) {
-        if (config.getSysLanguage() != null) {
-            if (config.getSysLanguage().equals("zh_cn")) {
-                if (type == 0) {
+    public JModelAndView(String viewName, SysConfig config, UserConfig uconfig, int type, HttpServletRequest request, HttpServletResponse response){
+        if (config.getSysLanguage() != null){
+            if (config.getSysLanguage().equals("zh_cn")){
+                if (type == 0){
                     super.setViewName("WEB-INF/templates/zh_cn/system/" + viewName);
                 }
-                if (type == 1) {
+                if (type == 1){
                     super.setViewName("WEB-INF/templates/zh_cn/shop/" + viewName);
                 }
                 if (type > 1)
                     super.setViewName(viewName);
-            } else {
-                if (type == 0) {
+            }else{
+                if (type == 0){
                     super.setViewName("WEB-INF/templates/" +
                                       config.getSysLanguage() + "/system/" + viewName);
                 }
-                if (type == 1) {
+                if (type == 1){
                     super.setViewName("WEB-INF/templates/" +
                                       config.getSysLanguage() + "/shop/" + viewName);
                 }
                 if (type > 1)
                     super.setViewName(viewName);
             }
-        } else {
+        }else{
             super.setViewName(viewName);
         }
         super.addObject("CommUtil", new CommUtil());
@@ -91,7 +91,7 @@ public class JModelAndView extends ModelAndView {
         String port = ":" +
                       CommUtil.null2Int(Integer.valueOf(request.getServerPort()));
         if ((config.isSecond_domain_open()) &&
-                (!CommUtil.generic_domain(request).equals("localhost"))) {
+                (!CommUtil.generic_domain(request).equals("localhost"))){
             webPath = "http://www." + CommUtil.generic_domain(request) + port +
                       contextPath;
         }
@@ -100,7 +100,7 @@ public class JModelAndView extends ModelAndView {
         if ((config.getImageWebServer() != null) &&
                 (!config.getImageWebServer().equals("")))
             super.addObject("imageWebServer", config.getImageWebServer());
-        else {
+       else{
             super.addObject("imageWebServer", webPath);
         }
         super.addObject("config", config);
@@ -109,7 +109,7 @@ public class JModelAndView extends ModelAndView {
         super.addObject("httpInclude", new HttpInclude(request, response));
         String query_url = "";
         if ((request.getQueryString() != null) &&
-                (!request.getQueryString().equals(""))) {
+                (!request.getQueryString().equals(""))){
             query_url = "?" + request.getQueryString();
         }
         super.addObject("current_url", request.getRequestURI() + query_url);
@@ -119,7 +119,7 @@ public class JModelAndView extends ModelAndView {
         if ((serverName.indexOf("www.") < 0) && (serverName.indexOf(".") >= 0) &&
                 //(serverName.indexOf("localhost") < 0) && !serverName.startsWith("1") &&
                 (serverName.indexOf(".") != serverName.lastIndexOf(".")) &&
-                (config.isSecond_domain_open())) {
+                (config.isSecond_domain_open())){
             String secondDomain = serverName.substring(0, serverName.indexOf("."));
             second_domain_view = true;
             super.addObject("secondDomain", secondDomain);

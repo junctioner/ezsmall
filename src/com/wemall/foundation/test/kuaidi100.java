@@ -8,7 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class kuaidi100 {
-    public static void main(String[] agrs) {
+    public static void main(String[] agrs){
         try {
             URL url = new URL(
                 "http://api.kuaidi100.com/api?id=4c68365adbe58d72&com=shunfeng&nu=024410226400&show=0&muti=1&order=desc");
@@ -17,11 +17,11 @@ public class kuaidi100 {
             InputStream urlStream = url.openStream();
             String type = URLConnection.guessContentTypeFromStream(urlStream);
             String charSet = null;
-            if (type == null) {
+            if (type == null){
                 type = con.getContentType();
             }
             if ((type == null) || (type.trim().length() == 0) ||
-                    (type.trim().indexOf("text/html") < 0)) {
+                    (type.trim().indexOf("text/html") < 0)){
                 return;
             }
             if (type.indexOf("charset=") > 0)
@@ -30,7 +30,7 @@ public class kuaidi100 {
             byte[] b = new byte[10000];
             int numRead = urlStream.read(b);
             String content = new String(b, 0, numRead, charSet);
-            while (numRead != -1) {
+            while (numRead != -1){
                 numRead = urlStream.read(b);
                 if (numRead == -1)
                     continue;
@@ -40,9 +40,9 @@ public class kuaidi100 {
 
             System.out.println("content:" + content);
             urlStream.close();
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException e){
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

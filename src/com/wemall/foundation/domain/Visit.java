@@ -26,27 +26,27 @@ public class Visit extends IdEntity {
     //浏览时间
     private Date visitTime;
 
-    public HomePage getHomepage() {
+    public HomePage getHomepage(){
         return this.homepage;
     }
 
-    public void setHomepage(HomePage homepage) {
+    public void setHomepage(HomePage homepage){
         this.homepage = homepage;
     }
 
-    public User getUser() {
+    public User getUser(){
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 
-    public Date getVisitTime() {
+    public Date getVisitTime(){
         return this.visitTime;
     }
 
-    public void setVisitTime(Date visitTime) {
+    public void setVisitTime(Date visitTime){
         this.visitTime = visitTime;
     }
 }

@@ -72,8 +72,8 @@ public class UserManageAction {
     private StoreTools storeTools;
 
     @SecurityMapping(display = false, rsequence = 0, title = "会员添加", value = "/admin/user_add.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
-    @RequestMapping( {"/admin/user_add.htm"})
-    public ModelAndView user_add(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/admin/user_add.htm"})
+    public ModelAndView user_add(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("admin/blue/user_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -90,8 +90,8 @@ public class UserManageAction {
      * @return
      */
     @SecurityMapping(display = false, rsequence = 0, title = "会员编辑", value = "/admin/user_edit.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
-    @RequestMapping( {"/admin/user_edit.htm"})
-    public ModelAndView user_edit(HttpServletRequest request, HttpServletResponse response, String id, String op) {
+    @RequestMapping({"/admin/user_edit.htm"})
+    public ModelAndView user_edit(HttpServletRequest request, HttpServletResponse response, String id, String op){
         ModelAndView mv = new JModelAndView("admin/blue/user_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -102,8 +102,8 @@ public class UserManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "会员列表", value = "/admin/user_list.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
-    @RequestMapping( {"/admin/user_list.htm"})
-    public ModelAndView user_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String condition, String value) {
+    @RequestMapping({"/admin/user_list.htm"})
+    public ModelAndView user_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String condition, String value){
         ModelAndView mv = new JModelAndView("admin/blue/user_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -112,16 +112,16 @@ public class UserManageAction {
         WebForm wf = new WebForm();
         wf.toQueryPo(request, uqo, User.class, mv);
         uqo.addQuery("obj.userRole", new SysMap("userRole", "ADMIN"), "!=");
-        if (condition != null) {
-            if (condition.equals("userName")) {
+        if (condition != null){
+            if (condition.equals("userName")){
                 uqo
                 .addQuery("obj.userName",
                           new SysMap("userName", value), "=");
             }
-            if (condition.equals("email")) {
+            if (condition.equals("email")){
                 uqo.addQuery("obj.email", new SysMap("email", value), "=");
             }
-            if (condition.equals("trueName")) {
+            if (condition.equals("trueName")){
                 uqo
                 .addQuery("obj.trueName",
                           new SysMap("trueName", value), "=");
@@ -130,7 +130,7 @@ public class UserManageAction {
         uqo.addQuery("obj.parent.id is null", null);
         IPageList pList = this.userService.list(uqo);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         CommUtil.saveIPageList2ModelAndView(url + "/admin/user_list.htm", "",
@@ -153,21 +153,21 @@ public class UserManageAction {
      * @return
      */
     @SecurityMapping(display = false, rsequence = 0, title = "会员保存", value = "/admin/user_save.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
-    @RequestMapping( {"/admin/user_save.htm"})
-    public ModelAndView user_save(HttpServletRequest request, HttpServletResponse response, String id, String role_ids, String list_url, String add_url, String password) {
+    @RequestMapping({"/admin/user_save.htm"})
+    public ModelAndView user_save(HttpServletRequest request, HttpServletResponse response, String id, String role_ids, String list_url, String add_url, String password){
         WebForm wf = new WebForm();
         User user = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             user = (User)wf.toPo(request, User.class);
             user.setAddTime(new Date());
-        } else {
+        }else{
             User u = this.userService.getObjById(Long.valueOf(Long.parseLong(id)));
             user = (User)wf.toPo(request, u);
         }
-        if ((password != null) && (!password.equals(""))) {
+        if ((password != null) && (!password.equals(""))){
             user.setPassword(Md5Encrypt.md5(password).toLowerCase());
         }
-        if (id.equals("")) {// 新增会员
+        if (id.equals("")){// 新增会员
             user.setUserRole("BUYER");
             user.getRoles().clear();
             Map params = new HashMap();
@@ -185,7 +185,7 @@ public class UserManageAction {
             album.setAlbum_sequence(-10000);
             album.setUser(user);
             this.albumService.save(album);
-        } else {// 修改会员资料
+        }else{// 修改会员资料
             this.userService.update(user);
         }
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
@@ -193,7 +193,7 @@ public class UserManageAction {
                                             .getUserConfig(), 0, request, response);
         mv.addObject("list_url", list_url);
         mv.addObject("op_title", "保存用户成功");
-        if (add_url != null) {
+        if (add_url != null){
             mv.addObject("add_url", add_url);
         }
 
@@ -208,18 +208,18 @@ public class UserManageAction {
      * @return
      */
     @SecurityMapping(display = false, rsequence = 0, title = "会员删除", value = "/admin/user_del.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
-    @RequestMapping( {"/admin/user_del.htm"})
-    public String user_del(HttpServletRequest request, String mulitId, String currentPage) {
+    @RequestMapping({"/admin/user_del.htm"})
+    public String user_del(HttpServletRequest request, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 User parent = this.userService.getObjById(Long.valueOf(Long.parseLong(id)));
-                if (!parent.getUsername().equals("admin")) {
+                if (!parent.getUsername().equals("admin")){
                     Long ofid;
-                    for (User user : parent.getChilds()) {
+                    for (User user : parent.getChilds()){
                         user.getRoles().clear();
-                        if (user.getStore() != null) {
-                            for (Goods goods : user.getStore().getGoods_list()) {
+                        if (user.getStore() != null){
+                            for (Goods goods : user.getStore().getGoods_list()){
                                 Map map = new HashMap();
                                 map.put("gid", goods.getId());
                                 List<GoodsCart> goodCarts = this.goodsCartService
@@ -228,7 +228,7 @@ public class UserManageAction {
                                                                 map, -1, -1);
                                 ofid = null;
                                 Map map2;
-                                for (GoodsCart gc : goodCarts) {
+                                for (GoodsCart gc : goodCarts){
                                     ofid = gc.getOf().getId();
                                     this.goodsCartService.delete(gc.getId());
                                     map2 = new HashMap();
@@ -237,13 +237,13 @@ public class UserManageAction {
                                                       .query(
                                                           "select obj from GoodsCart obj where obj.of.id = :ofid",
                                                           map2, -1, -1);
-                                    if (goodCarts2.size() == 0) {
+                                    if (goodCarts2.size() == 0){
                                         this.orderFormService.delete(ofid);
                                     }
                                 }
 
                                 List<Evaluate> evaluates = goods.getEvaluates();
-                                for (Evaluate e : evaluates) {
+                                for (Evaluate e : evaluates){
                                     this.evaluateService.delete(e.getId());
                                 }
                                 goods.getGoods_ugcs().clear();
@@ -253,8 +253,8 @@ public class UserManageAction {
                         this.userService.delete(user.getId());
                     }
                     parent.getRoles().clear();
-                    if (parent.getStore() != null) {
-                        for (Goods goods : parent.getStore().getGoods_list()) {
+                    if (parent.getStore() != null){
+                        for (Goods goods : parent.getStore().getGoods_list()){
                             Map map = new HashMap();
                             map.put("gid", goods.getId());
                             List<GoodsCart> goodCarts = this.goodsCartService
@@ -263,7 +263,7 @@ public class UserManageAction {
                                                             map, -1, -1);
                             Long ofid1 = null;
                             Map map2;
-                            for (GoodsCart gc : goodCarts) {
+                            for (GoodsCart gc : goodCarts){
                                 ofid1 = gc.getOf().getId();
                                 this.goodsCartService.delete(gc.getId());
                                 map2 = new HashMap();
@@ -272,13 +272,13 @@ public class UserManageAction {
                                                   .query(
                                                       "select obj from GoodsCart obj where obj.of.id = :ofid",
                                                       map2, -1, -1);
-                                if (goodCarts2.size() == 0) {
+                                if (goodCarts2.size() == 0){
                                     this.orderFormService.delete(ofid1);
                                 }
                             }
 
                             List<Evaluate> evaluates = goods.getEvaluates();
-                            for (Evaluate e : evaluates) {
+                            for (Evaluate e : evaluates){
                                 this.evaluateService.delete(e.getId());
                             }
                             goods.getGoods_ugcs().clear();
@@ -294,8 +294,8 @@ public class UserManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "会员通知", value = "/admin/user_msg.htm*", rtype = "admin", rname = "会员通知", rcode = "user_msg", rgroup = "会员")
-    @RequestMapping( {"/admin/user_msg.htm"})
-    public ModelAndView user_msg(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/admin/user_msg.htm"})
+    public ModelAndView user_msg(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("admin/blue/user_msg.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -308,13 +308,13 @@ public class UserManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "会员通知发送", value = "/admin/user_msg_send.htm*", rtype = "admin", rname = "会员通知", rcode = "user_msg", rgroup = "会员")
-    @RequestMapping( {"/admin/user_msg_send.htm"})
+    @RequestMapping({"/admin/user_msg_send.htm"})
     public ModelAndView user_msg_send(HttpServletRequest request, HttpServletResponse response, String type, String list_url, String users, String grades, String content) throws IOException {
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         List<User> user_list = new ArrayList();
-        if (type.equals("all_user")) {
+        if (type.equals("all_user")){
             Map params = new HashMap();
             params.put("userRole", "ADMIN");
             user_list = this.userService
@@ -323,9 +323,9 @@ public class UserManageAction {
                             params, -1, -1);
         }
         User user;
-        if (type.equals("the_user")) {
+        if (type.equals("the_user")){
             List<String> user_names = CommUtil.str2list(users);
-            for (String user_name : user_names) {
+            for (String user_name : user_names){
                 user = this.userService.getObjByProperty("userName",
                         user_name);
                 user_list.add(user);
@@ -337,12 +337,12 @@ public class UserManageAction {
                             "select obj from User obj where obj.store.id is not null order by obj.addTime desc",
                             null, -1, -1);
         Set store_ids;
-        if (type.equals("the_store")) {
+        if (type.equals("the_store")){
             Map params = new HashMap();
             store_ids = new TreeSet();
             String[] arrayOfString = grades.split(",");
             int localUser1 = arrayOfString.length;
-            for (int i = 0; i < localUser1; i++) {
+            for (int i = 0; i < localUser1; i++){
                 String grade = arrayOfString[i];
                 store_ids.add(Long.valueOf(Long.parseLong(grade)));
             }
@@ -352,7 +352,7 @@ public class UserManageAction {
                             "select obj from User obj where obj.store.id in(:store_ids)",
                             params, -1, -1);
         }
-        for (User user1 : user_list) {
+        for (User user1 : user_list){
             Message msg = new Message();
             msg.setAddTime(new Date());
             msg.setContent(content);
@@ -367,8 +367,8 @@ public class UserManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "会员信用", value = "/admin/user_creditrule.htm*", rtype = "admin", rname = "会员信用", rcode = "user_creditrule", rgroup = "会员")
-    @RequestMapping( {"/admin/user_creditrule.htm"})
-    public ModelAndView user_creditrule(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/admin/user_creditrule.htm"})
+    public ModelAndView user_creditrule(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("admin/blue/user_creditrule.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -377,14 +377,14 @@ public class UserManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家信用保存", value = "/admin/user_creditrule_save.htm*", rtype = "admin", rname = "会员信用", rcode = "user_creditrule", rgroup = "会员")
-    @RequestMapping( {"/admin/user_creditrule_save.htm"})
-    public ModelAndView user_creditrule_save(HttpServletRequest request, HttpServletResponse response, String id, String list_url) {
+    @RequestMapping({"/admin/user_creditrule_save.htm"})
+    public ModelAndView user_creditrule_save(HttpServletRequest request, HttpServletResponse response, String id, String list_url){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         SysConfig sc = this.configService.getSysConfig();
         Map map = new HashMap();
-        for (int i = 0; i <= 29; i++) {
+        for (int i = 0; i <= 29; i++){
             map.put("creditrule" + i, Integer.valueOf(CommUtil.null2Int(request
                     .getParameter("creditrule" + i))));
         }

@@ -69,86 +69,86 @@ public class UCViewAction {
     @Autowired
     private IAlbumService albumService;
 
-    @RequestMapping( {"/api/uc_login.htm"})
+    @RequestMapping({"/api/uc_login.htm"})
     public void uc_login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String result = uc_answer(request, response);
         response.getWriter().print(result);
     }
 
-    private String uc_answer(HttpServletRequest request, HttpServletResponse response) {
+    private String uc_answer(HttpServletRequest request, HttpServletResponse response){
         String code = request.getParameter("code");
         if (code == null)
             return API_RETURN_FAILED;
         Map get = new HashMap();
         code = new UCClient().uc_authcode(code, "DECODE");
         parse_str(code, get);
-        if (get.isEmpty()) {
+        if (get.isEmpty()){
             return "Invalid Request";
         }
-        if (time() - tolong(get.get("time")) > 3600L) {
+        if (time() - tolong(get.get("time")) > 3600L){
             return "Authracation has expiried";
         }
         String action = (String)get.get("action");
         if (action == null)
             return API_RETURN_FAILED;
-        if (action.equals("test")) {
+        if (action.equals("test")){
             return API_RETURN_SUCCEED;
         }
         if (action.equals("deleteuser"))
             return API_RETURN_SUCCEED;
         if (action.equals("renameuser"))
             return API_RETURN_SUCCEED;
-        if (action.equals("gettag")) {
-            if (!API_GETTAG) {
+        if (action.equals("gettag")){
+            if (!API_GETTAG){
                 return API_RETURN_FORBIDDEN;
             }
             return API_RETURN_SUCCEED;
         }
-        if (action.equals("synlogin")) {
+        if (action.equals("synlogin")){
             if (!API_SYNLOGIN)
                 return API_RETURN_FORBIDDEN;
             wemall_login(request, response, get);
-        } else if (action.equals("synlogout")) {
+        }else if (action.equals("synlogout")){
             if (!API_SYNLOGOUT)
                 return API_RETURN_FORBIDDEN;
             wemall_logout(request, response, get);
-        } else {
-            if (action.equals("updateclient")) {
-                if (!API_UPDATECLIENT) {
+        }else{
+            if (action.equals("updateclient")){
+                if (!API_UPDATECLIENT){
                     return API_RETURN_FORBIDDEN;
                 }
                 return API_RETURN_SUCCEED;
             }
-            if (action.equals("updatepw")) {
+            if (action.equals("updatepw")){
                 if (!API_UPDATEPW)
                     return API_RETURN_FORBIDDEN;
                 wemall_update_pws(request, response, get);
                 return API_RETURN_SUCCEED;
             }
-            if (action.equals("updatebadwords")) {
-                if (!API_UPDATEBADWORDS) {
+            if (action.equals("updatebadwords")){
+                if (!API_UPDATEBADWORDS){
                     return API_RETURN_FORBIDDEN;
                 }
                 return API_RETURN_SUCCEED;
             }
-            if (action.equals("updatehosts")) {
+            if (action.equals("updatehosts")){
                 if (!API_UPDATEHOSTS)
                     return API_RETURN_FORBIDDEN;
                 return API_RETURN_SUCCEED;
             }
-            if (action.equals("updateapps")) {
+            if (action.equals("updateapps")){
                 if (!API_UPDATEAPPS)
                     return API_RETURN_FORBIDDEN;
                 return API_RETURN_SUCCEED;
             }
-            if (action.equals("updatecredit")) {
+            if (action.equals("updatecredit")){
                 return API_RETURN_SUCCEED;
             }
-            if (action.equals("getcreditsettings")) {
+            if (action.equals("getcreditsettings")){
                 return "";
             }
-            if (action.equals("updatecreditsettings")) {
-                if (!API_UPDATECREDITSETTINGS) {
+            if (action.equals("updatecreditsettings")){
+                if (!API_UPDATECREDITSETTINGS){
                     return API_RETURN_FORBIDDEN;
                 }
                 return API_RETURN_SUCCEED;
@@ -159,27 +159,27 @@ public class UCViewAction {
         return "";
     }
 
-    private void parse_str(String str, Map<String, String> sets) {
+    private void parse_str(String str, Map<String, String> sets){
         if ((str == null) || (str.length() < 1))
             return;
         String[] ps = str.split("&");
-        for (int i = 0; i < ps.length; i++) {
+        for (int i = 0; i < ps.length; i++){
             String[] items = ps[i].split("=");
             if (items.length == 2)
                 sets.put(items[0], items[1]);
-            else if (items.length == 1)
+           else if (items.length == 1)
                 sets.put(items[0], "");
         }
     }
 
-    protected long time() {
+    protected long time(){
         return System.currentTimeMillis() / 1000L;
     }
 
-    private static long tolong(Object s) {
-        if (s != null) {
+    private static long tolong(Object s){
+        if (s != null){
             String ss = s.toString().trim();
-            if (ss.length() == 0) {
+            if (ss.length() == 0){
                 return 0L;
             }
             return Long.parseLong(ss);
@@ -188,16 +188,16 @@ public class UCViewAction {
         return 0L;
     }
 
-    protected void wemall_login(HttpServletRequest request, HttpServletResponse response, Map<String, String> args) {
+    protected void wemall_login(HttpServletRequest request, HttpServletResponse response, Map<String, String> args){
         boolean admin_login = CommUtil.null2Boolean(request.getSession(false)
                               .getAttribute("admin_login"));
-        if (!admin_login) {
+        if (!admin_login){
             String userName = (String)args.get("username");
             String password = "";
             User user = this.userService.getObjByProperty("userName", userName);
-            if (user != null) {
+            if (user != null){
                 password = user.getPassword();
-            } else {
+            }else{
                 user = new User();
                 user.setUserName(userName);
                 user.setUserRole("BUYER");
@@ -210,7 +210,7 @@ public class UCViewAction {
                                  "select obj from Role obj where obj.type=:type",
                                  params, -1, -1);
                 user.getRoles().addAll(roles);
-                if (this.configService.getSysConfig().isIntegral()) {
+                if (this.configService.getSysConfig().isIntegral()){
                     user.setIntegral(this.configService.getSysConfig()
                                      .getMemberRegister());
                     this.userService.save(user);
@@ -224,7 +224,7 @@ public class UCViewAction {
                     log.setIntegral_user(user);
                     log.setType("reg");
                     this.integralLogService.save(log);
-                } else {
+                }else{
                     this.userService.save(user);
                 }
 
@@ -242,22 +242,22 @@ public class UCViewAction {
                          "wemall_thid_login_" + password + "&encode=true";
             try {
                 response.sendRedirect(url);
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
         }
     }
 
-    protected void wemall_logout(HttpServletRequest request, HttpServletResponse response, Map<String, String> args) {
+    protected void wemall_logout(HttpServletRequest request, HttpServletResponse response, Map<String, String> args){
         String url = CommUtil.getURL(request) + "/wemall_logout.htm";
         try {
             response.sendRedirect(url);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    protected void wemall_update_pws(HttpServletRequest request, HttpServletResponse response, Map<String, String> args) {
+    protected void wemall_update_pws(HttpServletRequest request, HttpServletResponse response, Map<String, String> args){
         User user = SecurityUserHolder.getCurrentUser();
     }
 }

@@ -48,75 +48,75 @@ public class Message extends IdEntity {
     //信息类型
     private int type;
 
-    public int getType() {
+    public int getType(){
         return this.type;
     }
 
-    public void setType(int type) {
+    public void setType(int type){
         this.type = type;
     }
 
-    public User getFromUser() {
+    public User getFromUser(){
         return this.fromUser;
     }
 
-    public void setFromUser(User fromUser) {
+    public void setFromUser(User fromUser){
         this.fromUser = fromUser;
     }
 
-    public User getToUser() {
+    public User getToUser(){
         return this.toUser;
     }
 
-    public void setToUser(User toUser) {
+    public void setToUser(User toUser){
         this.toUser = toUser;
     }
 
-    public int getStatus() {
+    public int getStatus(){
         return this.status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(int status){
         this.status = status;
     }
 
-    public String getContent() {
+    public String getContent(){
         return this.content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String content){
         this.content = content;
     }
 
-    public Message getParent() {
+    public Message getParent(){
         return this.parent;
     }
 
-    public void setParent(Message parent) {
+    public void setParent(Message parent){
         this.parent = parent;
     }
 
-    public List<Message> getReplys() {
+    public List<Message> getReplys(){
         return this.replys;
     }
 
-    public void setReplys(List<Message> replys) {
+    public void setReplys(List<Message> replys){
         this.replys = replys;
     }
 
-    public String getTitle() {
+    public String getTitle(){
         return this.title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title){
         this.title = title;
     }
 
-    public int getReply_status() {
+    public int getReply_status(){
         return this.reply_status;
     }
 
-    public void setReply_status(int reply_status) {
+    public void setReply_status(int reply_status){
         this.reply_status = reply_status;
     }
 }

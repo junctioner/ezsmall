@@ -62,14 +62,14 @@ public class TaobaoSellerAction {
 
     @SecurityMapping(display = false, rsequence = 0, title = "导入淘宝CSV", value = "/seller/taobao.htm*", rtype = "seller", rname = "淘宝导入", rcode = "taobao_seller", rgroup = "淘宝管理")
     @RequestMapping({"/seller/taobao.htm"})
-    public ModelAndView taobao(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView taobao(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
                 "user/default/usercenter/taobao.html",
                 this.configService.getSysConfig(),
                 this.userConfigService.getUserConfig(), 0, request, response);
         String taobao_upload_status = CommUtil.null2String(request.getSession(
                 false).getAttribute("taobao_upload_status"));
-        if (taobao_upload_status.equals("")) {
+        if (taobao_upload_status.equals("")){
             Map params = new HashMap();
             params.put("user_id", SecurityUserHolder.getCurrentUser().getId());
             params.put("display", Boolean.valueOf(true));
@@ -84,7 +84,7 @@ public class TaobaoSellerAction {
             mv.addObject("gcs", gcs);
             mv.addObject("ugcs", ugcs);
         }
-        if (taobao_upload_status.equals("upload_img")) {
+        if (taobao_upload_status.equals("upload_img")){
             mv = new JModelAndView(
                     "user/default/usercenter/taobao_import_img.html",
                     this.configService.getSysConfig(),
@@ -102,7 +102,7 @@ public class TaobaoSellerAction {
                     .getAttribute("no_import_count"));
             mv.addObject("jsessionid", request.getSession().getId());
         }
-        if (taobao_upload_status.equals("upload_finish")) {
+        if (taobao_upload_status.equals("upload_finish")){
             mv = new JModelAndView(
                     "user/default/usercenter/taobao_import_finish.html",
                     this.configService.getSysConfig(),
@@ -115,7 +115,7 @@ public class TaobaoSellerAction {
 
     @SecurityMapping(display = false, rsequence = 0, title = "导入淘宝CSV", value = "/seller/taobao_import_csv.htm*", rtype = "seller", rname = "淘宝导入", rcode = "taobao_seller", rgroup = "淘宝管理")
     @RequestMapping({"/seller/taobao_import_csv.htm"})
-    public ModelAndView taobao_import_csv(HttpServletRequest request, HttpServletResponse response, String gc_id3, String ugc_ids) {
+    public ModelAndView taobao_import_csv(HttpServletRequest request, HttpServletResponse response, String gc_id3, String ugc_ids){
         ModelAndView mv = new JModelAndView(
                 "user/default/usercenter/taobao_import_img.html",
                 this.configService.getSysConfig(),
@@ -130,7 +130,7 @@ public class TaobaoSellerAction {
         try {
             Map map = CommUtil.saveFileToServer(request, "taobao_cvs", path,
                     "taobao.cvs", null);
-            if (!map.get("fileName").equals("")) {
+            if (!map.get("fileName").equals("")){
                 String csvFilePath = path + File.separator + "taobao.cvs";
                 CsvReader reader = new CsvReader(csvFilePath, '\t',
                         Charset.forName("UTF-16LE"));
@@ -146,7 +146,7 @@ public class TaobaoSellerAction {
                 int goods_photo_pos = 28;// 新图片
                 User user = SecurityUserHolder.getCurrentUser();
                 Album album = this.albumService.getDefaultAlbum(user.getId());
-                if (album == null) {
+                if (album == null){
                     album = new Album();
                     album.setAddTime(new Date());
                     album.setAlbum_name("默认相册");
@@ -157,13 +157,13 @@ public class TaobaoSellerAction {
                 String img_path = this.storeTools.createUserFolderURL(this.configService.getSysConfig(), user.getStore());
                 reader.readRecord();// 跳过英文标题
                 reader.readRecord();// 跳过中文标题
-                while (reader.readRecord()) {
+                while (reader.readRecord()){
                     Store store = this.userService.getObjById(user.getId())
                             .getStore();
                     StoreGrade grade = store.getGrade();
                     if ((grade.getGoodsCount() == 0) ||
                             (store.getGoods_list().size() < grade
-                                    .getGoodsCount())) {
+                                    .getGoodsCount())){
                         Goods goods = new Goods();
                         goods.setGoods_name(reader.get(goods_name_pos));
                         goods.setStore_price(BigDecimal.valueOf(
@@ -189,7 +189,7 @@ public class TaobaoSellerAction {
                                 .getObjById(CommUtil.null2Long(gc_id3));
                         goods.setGc(gc);
                         String[] ugc_id_list = ugc_ids.split(",");
-                        for (String ugc_id : ugc_id_list) {
+                        for (String ugc_id : ugc_id_list){
                             UserGoodsClass ugc = this.userGoodsClassService
                                     .getObjById(CommUtil.null2Long(ugc_id));
                             goods.getGoods_ugcs().add(ugc);
@@ -197,7 +197,7 @@ public class TaobaoSellerAction {
                         this.goodsService.save(goods);
                         taobao_goods_list.add(goods);
                         already_import_count++;
-                    } else {
+                    }else{
                         no_import_count++;
                         mv = new JModelAndView("error.html",
                                 this.configService.getSysConfig(),
@@ -212,10 +212,10 @@ public class TaobaoSellerAction {
                 }
                 reader.close();
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
-        if (already_import_count > 0) {
+        if (already_import_count > 0){
             HashMap params = new HashMap();
             params.put("user_id", SecurityUserHolder.getCurrentUser().getId());
             List alubms = this.albumService.query(
@@ -240,7 +240,7 @@ public class TaobaoSellerAction {
 
     @SecurityMapping(display = false, rsequence = 0, title = "上传淘宝图片", value = "/seller/taobao_img_upload.htm*", rtype = "seller", rname = "淘宝导入", rcode = "taobao_seller", rgroup = "淘宝管理")
     @RequestMapping({"/seller/taobao_img_upload.htm"})
-    public void taobao_img_upload(HttpServletRequest request, HttpServletResponse response, String user_id, String album_id) {
+    public void taobao_img_upload(HttpServletRequest request, HttpServletResponse response, String user_id, String album_id){
         String csv_path = request.getSession().getServletContext()
                 .getRealPath("") +
                 File.separator + "csv";
@@ -272,7 +272,7 @@ public class TaobaoSellerAction {
             double remainSpace = 0.0D;
             if (user.getStore().getGrade().getSpaceSize() != 0.0F)
                 remainSpace = (user.getStore().getGrade().getSpaceSize() * 1024.0F - csize) * 1024.0D;
-            else {
+           else{
                 remainSpace = 10000000.0D;
             }
             Map json_map = new HashMap();
@@ -282,13 +282,13 @@ public class TaobaoSellerAction {
             System.out.println(SecurityUserHolder.getCurrentUser());
             Goods goods = new Goods();
             String[] photo_list = new String[0];
-            while (reader.readRecord()) {
-                if (reader.get(goods_photo_pos).indexOf(upload_img_name) >= 0) {
+            while (reader.readRecord()){
+                if (reader.get(goods_photo_pos).indexOf(upload_img_name) >= 0){
                     String goods_name = reader.get(goods_name_pos);
                     double goods_price = CommUtil.null2Double(reader
                             .get(goods_price_pos));
                     photo_list = reader.get(goods_photo_pos).split(";");
-                    for (Goods temp_goods : goods_list) {
+                    for (Goods temp_goods : goods_list){
                         if ((!temp_goods.getGoods_name().equals(goods_name)) ||
                                 (CommUtil.null2Double(temp_goods
                                         .getGoods_price()) != goods_price)) continue;
@@ -298,8 +298,8 @@ public class TaobaoSellerAction {
             }
 
             reader.close();
-            if (goods != null) {
-                if (remainSpace > fileSize) {
+            if (goods != null){
+                if (remainSpace > fileSize){
                     try {
                         Map map = CommUtil.saveFileToServer(request, "imgFile",
                                 photo_path, upload_img_name + ".tbi", null);
@@ -308,9 +308,9 @@ public class TaobaoSellerAction {
                         List wms = this.waterMarkService
                                 .query("select obj from WaterMark obj where obj.store.id=:store_id",
                                         params, -1, -1);
-                        if (wms.size() > 0) {
+                        if (wms.size() > 0){
                             WaterMark mark = (WaterMark) wms.get(0);
-                            if (mark.isWm_image_open()) {
+                            if (mark.isWm_image_open()){
                                 String pressImg = request.getSession()
                                         .getServletContext().getRealPath("") +
                                         File.separator +
@@ -324,7 +324,7 @@ public class TaobaoSellerAction {
                                 CommUtil.waterMarkWithImage(pressImg,
                                         targetImg, pos, alpha);
                             }
-                            if (mark.isWm_text_open()) {
+                            if (mark.isWm_text_open()){
                                 String targetImg = photo_path + File.separator +
                                         map.get("fileName");
                                 int pos = mark.getWm_text_pos();
@@ -351,13 +351,13 @@ public class TaobaoSellerAction {
                         image.setName(CommUtil.null2String(map.get("fileName")));
                         image.setUser(user);
                         Album album = null;
-                        if ((album_id != null) && (!album_id.equals(""))) {
+                        if ((album_id != null) && (!album_id.equals(""))){
                             album = this.albumService.getObjById(
                                     CommUtil.null2Long(album_id));
-                        } else {
+                        }else{
                             album = this.albumService.getDefaultAlbum(
                                     CommUtil.null2Long(user_id));
-                            if (album == null) {
+                            if (album == null){
                                 album = new Album();
                                 album.setAddTime(new Date());
                                 album.setAlbum_name("默认相册");
@@ -389,17 +389,17 @@ public class TaobaoSellerAction {
                                         .getSysConfig().getSmallWidth(),
                                 this.configService.getSysConfig()
                                         .getSmallHeight());
-                    } catch (IOException e) {
+                    } catch (IOException e){
                         e.printStackTrace();
                     }
-                } else {
+                }else{
                     json_map.put("url", "");
                     json_map.put("id", "");
                     json_map.put("remainSpace", Integer.valueOf(0));
                 }
             }
 
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
         request.getSession(false).setAttribute("taobao_upload_status",
@@ -408,7 +408,7 @@ public class TaobaoSellerAction {
 
     @SecurityMapping(display = false, rsequence = 0, title = "淘宝导入完成", value = "/seller/taobao_import_finish.htm*", rtype = "seller", rname = "淘宝导入", rcode = "taobao_seller", rgroup = "淘宝管理")
     @RequestMapping({"/seller/taobao_import_finish.htm"})
-    public ModelAndView taobao_import_finish(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView taobao_import_finish(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
                 "user/default/usercenter/taobao_import_finish.html",
                 this.configService.getSysConfig(),
@@ -422,7 +422,7 @@ public class TaobaoSellerAction {
     }
 
     @RequestMapping({"/seller/taobao_authorize.htm"})
-    public ModelAndView taobao_authorize(HttpServletRequest request, HttpServletResponse response, String code, String state) {
+    public ModelAndView taobao_authorize(HttpServletRequest request, HttpServletResponse response, String code, String state){
         ModelAndView mv = new JModelAndView(
                 "user/default/usercenter/taobao_import_finish.html",
                 this.configService.getSysConfig(),

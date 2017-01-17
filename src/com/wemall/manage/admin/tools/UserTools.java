@@ -21,10 +21,10 @@ public class UserTools {
     @Autowired
     private IUserService userSerivce;
 
-    public List<User> query_user() {
+    public List<User> query_user(){
         List users = new ArrayList();
         Object[] objs = this.sessionRegistry.getAllPrincipals();
-        for (int i = 0; i < objs.length; i++) {
+        for (int i = 0; i < objs.length; i++){
             User user = this.userSerivce.getObjByProperty("userName",
                         CommUtil.null2String(objs[i]));
 
@@ -34,11 +34,11 @@ public class UserTools {
         return users;
     }
 
-    public boolean userOnLine(String userName) {
+    public boolean userOnLine(String userName){
         boolean ret = false;
         List<User> users = query_user();
-        for (User user : users) {
-            if ((user != null) && (user.getUsername().equals(userName.trim()))) {
+        for (User user : users){
+            if ((user != null) && (user.getUsername().equals(userName.trim()))){
                 ret = true;
             }
         }

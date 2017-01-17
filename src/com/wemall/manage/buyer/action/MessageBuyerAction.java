@@ -47,15 +47,15 @@ public class MessageBuyerAction {
     private IUserService userService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "站内短信", value = "/buyer/message.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/message.htm"})
-    public ModelAndView message(HttpServletRequest request, HttpServletResponse response, String type, String from_user_id, String currentPage) {
+    @RequestMapping({"/buyer/message.htm"})
+    public ModelAndView message(HttpServletRequest request, HttpServletResponse response, String type, String from_user_id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/message.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         MessageQueryObject qo = new MessageQueryObject();
-        if ((from_user_id == null) || (from_user_id.equals(""))) {
-            if ((type == null) || (type.equals(""))) {
+        if ((from_user_id == null) || (from_user_id.equals(""))){
+            if ((type == null) || (type.equals(""))){
                 type = "1";
             }
             qo.addQuery("obj.type",
@@ -63,7 +63,7 @@ public class MessageBuyerAction {
             qo.addQuery("obj.toUser.id",
                         new SysMap("user_id",
                                    SecurityUserHolder.getCurrentUser().getId()), "=");
-        } else {
+        }else{
             qo.addQuery("obj.fromUser.id",
                         new SysMap("user_id",
                                    SecurityUserHolder.getCurrentUser().getId()), "=");
@@ -75,7 +75,7 @@ public class MessageBuyerAction {
         qo.setCurrentPage(Integer.valueOf(CommUtil.null2Int(currentPage)));
         IPageList pList = this.messageService.list(qo);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         CommUtil.saveIPageList2ModelAndView(url + "/buyer/message.htm", "", "",
@@ -88,15 +88,15 @@ public class MessageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "站内短信删除", value = "/buyer/message_del.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/message_del.htm"})
-    public String message_del(HttpServletRequest request, HttpServletResponse response, String type, String from_user_id, String mulitId) {
+    @RequestMapping({"/buyer/message_del.htm"})
+    public String message_del(HttpServletRequest request, HttpServletResponse response, String type, String from_user_id, String mulitId){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 this.messageService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
-        if (CommUtil.null2String(from_user_id).equals("")) {
+        if (CommUtil.null2String(from_user_id).equals("")){
             return "redirect:message.htm?type=" + type;
         }
 
@@ -104,8 +104,8 @@ public class MessageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "站内短信查看", value = "/buyer/message_info.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/message_info.htm"})
-    public ModelAndView message_info(HttpServletRequest request, HttpServletResponse response, String id, String type) {
+    @RequestMapping({"/buyer/message_info.htm"})
+    public ModelAndView message_info(HttpServletRequest request, HttpServletResponse response, String id, String type){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/message_info.html", this.configService
             .getSysConfig(),
@@ -113,13 +113,13 @@ public class MessageBuyerAction {
         Message obj = this.messageService.getObjById(Long.valueOf(Long.parseLong(id)));
 
         if (obj.getToUser().getId().equals(
-                    SecurityUserHolder.getCurrentUser().getId())) {
+                    SecurityUserHolder.getCurrentUser().getId())){
             obj.setStatus(1);
             this.messageService.update(obj);
         }
 
         if (obj.getFromUser().getId().equals(
-                    SecurityUserHolder.getCurrentUser().getId())) {
+                    SecurityUserHolder.getCurrentUser().getId())){
             obj.setReply_status(0);
             this.messageService.update(obj);
         }
@@ -131,14 +131,14 @@ public class MessageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "站内短信发送", value = "/buyer/message_send.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/message_send.htm"})
-    public ModelAndView message_send(HttpServletRequest request, HttpServletResponse response, String id, String userName) {
+    @RequestMapping({"/buyer/message_send.htm"})
+    public ModelAndView message_send(HttpServletRequest request, HttpServletResponse response, String id, String userName){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/message_send.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         cal_msg_info(mv);
-        if ((userName != null) && (!userName.equals(""))) {
+        if ((userName != null) && (!userName.equals(""))){
             mv.addObject("userName", userName);
         }
 
@@ -146,13 +146,13 @@ public class MessageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "站内短信保存", value = "/buyer/message_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/message_save.htm"})
-    public void message_save(HttpServletRequest request, HttpServletResponse response, String users, String content) {
+    @RequestMapping({"/buyer/message_save.htm"})
+    public void message_save(HttpServletRequest request, HttpServletResponse response, String users, String content){
         String[] userNames = users.split(",");
-        for (String userName : userNames) {
+        for (String userName : userNames){
             User toUser = this.userService.getObjByProperty("userName",
                           userName);
-            if (toUser != null) {
+            if (toUser != null){
                 Message msg = new Message();
                 msg.setAddTime(new Date());
                 Whitelist whiteList = new Whitelist();
@@ -171,13 +171,13 @@ public class MessageBuyerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(true);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    @RequestMapping( {"/buyer/message_success.htm"})
-    public ModelAndView message_success(HttpServletRequest request, HttpServletResponse response, String users, String content) {
+    @RequestMapping({"/buyer/message_success.htm"})
+    public ModelAndView message_success(HttpServletRequest request, HttpServletResponse response, String users, String content){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/success.html", this.configService
             .getSysConfig(),
@@ -189,8 +189,8 @@ public class MessageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "站内短信回复", value = "/buyer/message_reply.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/message_reply.htm"})
-    public ModelAndView message_reply(HttpServletRequest request, HttpServletResponse response, String pid, String type, String content) {
+    @RequestMapping({"/buyer/message_reply.htm"})
+    public ModelAndView message_reply(HttpServletRequest request, HttpServletResponse response, String pid, String type, String content){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/success.html", this.configService
             .getSysConfig(),
@@ -206,7 +206,7 @@ public class MessageBuyerAction {
         this.messageService.save(reply);
 
         if (!parent.getFromUser().getId().equals(
-                    SecurityUserHolder.getCurrentUser().getId())) {
+                    SecurityUserHolder.getCurrentUser().getId())){
             parent.setReply_status(1);
         }
         this.messageService.update(parent);
@@ -217,20 +217,20 @@ public class MessageBuyerAction {
         return mv;
     }
 
-    @RequestMapping( {"/message_validate_user.htm"})
-    public void message_validate_user(HttpServletRequest request, HttpServletResponse response, String users) {
+    @RequestMapping({"/message_validate_user.htm"})
+    public void message_validate_user(HttpServletRequest request, HttpServletResponse response, String users){
         String[] userNames = users.trim().split(",");
         String ret = "";
-        for (String userName : userNames) {
-            if (!userName.trim().equals("")) {
+        for (String userName : userNames){
+            if (!userName.trim().equals("")){
                 User user = this.userService.getObjByProperty("userName",
                             userName.trim());
-                if (user == null) {
+                if (user == null){
                     ret = userName.trim() + "," + ret;
                 }
             }
         }
-        if (ret.indexOf(",") >= 0) {
+        if (ret.indexOf(",") >= 0){
             ret = ret.substring(0, ret.length() - 1);
         }
         response.setContentType("text/plain");
@@ -239,12 +239,12 @@ public class MessageBuyerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    private void cal_msg_info(ModelAndView mv) {
+    private void cal_msg_info(ModelAndView mv){
         Map params = new HashMap();
         params.put("status", Integer.valueOf(0));
         params.put("status1", Integer.valueOf(3));

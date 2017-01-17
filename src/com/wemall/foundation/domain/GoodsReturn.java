@@ -37,43 +37,43 @@ public class GoodsReturn extends IdEntity {
     @Column(columnDefinition = "LongText")
     private String return_info;
 
-    public OrderForm getOf() {
+    public OrderForm getOf(){
         return this.of;
     }
 
-    public void setOf(OrderForm of) {
+    public void setOf(OrderForm of){
         this.of = of;
     }
 
-    public List<GoodsReturnItem> getItems() {
+    public List<GoodsReturnItem> getItems(){
         return this.items;
     }
 
-    public void setItems(List<GoodsReturnItem> items) {
+    public void setItems(List<GoodsReturnItem> items){
         this.items = items;
     }
 
-    public User getUser() {
+    public User getUser(){
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 
-    public String getReturn_id() {
+    public String getReturn_id(){
         return this.return_id;
     }
 
-    public void setReturn_id(String return_id) {
+    public void setReturn_id(String return_id){
         this.return_id = return_id;
     }
 
-    public String getReturn_info() {
+    public String getReturn_info(){
         return this.return_info;
     }
 
-    public void setReturn_info(String return_info) {
+    public void setReturn_info(String return_info){
         this.return_info = return_info;
     }
 }

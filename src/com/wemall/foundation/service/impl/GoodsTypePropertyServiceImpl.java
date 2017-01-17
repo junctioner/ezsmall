@@ -21,78 +21,78 @@ public class GoodsTypePropertyServiceImpl
     @Resource(name = "goodsTypePropertyDAO")
     private IGenericDAO<GoodsTypeProperty> goodsTypePropertyDao;
 
-    public boolean save(GoodsTypeProperty goodsTypeProperty) {
+    public boolean save(GoodsTypeProperty goodsTypeProperty){
         try {
             this.goodsTypePropertyDao.save(goodsTypeProperty);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public GoodsTypeProperty getObjById(Long id) {
+    public GoodsTypeProperty getObjById(Long id){
         GoodsTypeProperty goodsTypeProperty = (GoodsTypeProperty)this.goodsTypePropertyDao.get(id);
-        if (goodsTypeProperty != null) {
+        if (goodsTypeProperty != null){
             return goodsTypeProperty;
         }
 
         return null;
     }
 
-    public boolean delete(Long id) {
+    public boolean delete(Long id){
         try {
             this.goodsTypePropertyDao.remove(id);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public boolean batchDelete(List<Serializable> goodsTypePropertyIds) {
-        for (Serializable id : goodsTypePropertyIds) {
+    public boolean batchDelete(List<Serializable> goodsTypePropertyIds){
+        for (Serializable id : goodsTypePropertyIds){
             delete((Long)id);
         }
 
         return true;
     }
 
-    public IPageList list(IQueryObject properties) {
-        if (properties == null) {
+    public IPageList list(IQueryObject properties){
+        if (properties == null){
             return null;
         }
         String query = properties.getQuery();
         Map params = properties.getParameters();
         GenericPageList pList = new GenericPageList(GoodsTypeProperty.class, query,
                 params, this.goodsTypePropertyDao);
-        if (properties != null) {
+        if (properties != null){
             PageObject pageObj = properties.getPageObj();
             if (pageObj != null)
                 pList.doList(pageObj.getCurrentPage() == null ? 0 : pageObj
                              .getCurrentPage().intValue(), pageObj.getPageSize() == null ? 0 :
                              pageObj.getPageSize().intValue());
-        } else {
+        }else{
             pList.doList(0, -1);
         }
 
         return pList;
     }
 
-    public boolean update(GoodsTypeProperty goodsTypeProperty) {
+    public boolean update(GoodsTypeProperty goodsTypeProperty){
         try {
             this.goodsTypePropertyDao.update(goodsTypeProperty);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public List<GoodsTypeProperty> query(String query, Map params, int begin, int max) {
+    public List<GoodsTypeProperty> query(String query, Map params, int begin, int max){
         return this.goodsTypePropertyDao.query(query, params, begin, max);
     }
 }

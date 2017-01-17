@@ -47,15 +47,15 @@ public class PaymentSellerAction {
     private PaymentTools paymentTools;
 
     @SecurityMapping(display = false, rsequence = 0, title = "支付方式列表", value = "/seller/payment.htm*", rtype = "seller", rname = "支付方式", rcode = "payment_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/payment.htm"})
-    public ModelAndView payment(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/payment.htm"})
+    public ModelAndView payment(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = mv = new JModelAndView(
             "user/default/usercenter/payment.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         String store_payment = this.configService.getSysConfig()
                                .getStore_payment();
-        if ((store_payment != null) && (!store_payment.equals(""))) {
+        if ((store_payment != null) && (!store_payment.equals(""))){
             Map map = (Map)Json.fromJson(HashMap.class, store_payment);
             mv.addObject("map", map);
             mv.addObject("paymentTools", this.paymentTools);
@@ -65,8 +65,8 @@ public class PaymentSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "支付方式安装", value = "/seller/payment_install.htm*", rtype = "seller", rname = "支付方式", rcode = "payment_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/payment_install.htm"})
-    public ModelAndView payment_install(HttpServletRequest request, HttpServletResponse response, String mark) {
+    @RequestMapping({"/seller/payment_install.htm"})
+    public ModelAndView payment_install(HttpServletRequest request, HttpServletResponse response, String mark){
         ModelAndView mv = mv = new JModelAndView(
             "user/default/usercenter/payment/" + mark + ".html",
             this.configService.getSysConfig(),
@@ -74,13 +74,13 @@ public class PaymentSellerAction {
         Map map = new HashMap();
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
-        if ((mark != null) && (!mark.equals(""))) {
+        if ((mark != null) && (!mark.equals(""))){
             map.put("store_id", user.getStore().getId());
             map.put("mark", mark);
             List objs = this.paymentService
                         .query("select obj from Payment obj where obj.store.id=:store_id and obj.mark=:mark",
                                map, -1, -1);
-            if (objs.size() > 0) {
+            if (objs.size() > 0){
                 mv.addObject("obj", objs.get(0));
             }
         }
@@ -89,8 +89,8 @@ public class PaymentSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "支付方式卸载", value = "/seller/payment_uninstall.htm*", rtype = "seller", rname = "支付方式", rcode = "payment_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/payment_uninstall.htm"})
-    public ModelAndView payment_uninstall(HttpServletRequest request, HttpServletResponse response, String mark) {
+    @RequestMapping({"/seller/payment_uninstall.htm"})
+    public ModelAndView payment_uninstall(HttpServletRequest request, HttpServletResponse response, String mark){
         ModelAndView mv = mv = new JModelAndView(
             "user/default/usercenter/success.html",
             this.configService.getSysConfig(),
@@ -103,8 +103,8 @@ public class PaymentSellerAction {
         List objs = this.paymentService
                     .query("select obj from Payment obj where obj.mark=:mark and obj.store.id=:store_id",
                            params, -1, -1);
-        if (objs.size() > 0) {
-            for (OrderForm of : ((Payment)objs.get(0)).getOfs()) {
+        if (objs.size() > 0){
+            for (OrderForm of : ((Payment)objs.get(0)).getOfs()){
                 of.setPayment(null);
                 this.orderFormService.update(of);
             }
@@ -117,8 +117,8 @@ public class PaymentSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "支付方式编辑", value = "/seller/payment_edit.htm*", rtype = "seller", rname = "支付方式", rcode = "payment_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/payment_edit.htm"})
-    public ModelAndView payment_edit(HttpServletRequest request, HttpServletResponse response, String mark) {
+    @RequestMapping({"/seller/payment_edit.htm"})
+    public ModelAndView payment_edit(HttpServletRequest request, HttpServletResponse response, String mark){
         ModelAndView mv = mv = new JModelAndView(
             "user/default/usercenter/payment/" + mark + ".html",
             this.configService.getSysConfig(),
@@ -138,19 +138,19 @@ public class PaymentSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "支付方式保存", value = "/seller/payment_save.htm*", rtype = "seller", rname = "支付方式", rcode = "payment_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/payment_save.htm"})
-    public ModelAndView payment_save(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/payment_save.htm"})
+    public ModelAndView payment_save(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = mv = new JModelAndView(
             "user/default/usercenter/success.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         WebForm wf = new WebForm();
-        if (!id.equals("")) {
+        if (!id.equals("")){
             Payment obj = this.paymentService
                           .getObjById(CommUtil.null2Long(id));
             Payment payment = (Payment)wf.toPo(request, obj);
             this.paymentService.update(payment);
-        } else {
+        }else{
             Payment payment = (Payment)wf.toPo(request, Payment.class);
             payment.setAddTime(new Date());
             payment.setType("user");

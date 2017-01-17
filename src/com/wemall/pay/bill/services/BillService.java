@@ -12,7 +12,7 @@ import java.util.Map;
 public class BillService {
     private static final String BILL_GATEWAY_NEW = "https://www.99bill.com/gateway/recvMerchantInfoAction.htm";
 
-    public static String buildForm(BillConfig config, Map<String, String> sParaTemp, String strMethod, String strButtonName) {
+    public static String buildForm(BillConfig config, Map<String, String> sParaTemp, String strMethod, String strButtonName){
         List keys = new ArrayList(sParaTemp.keySet());
 
         StringBuffer sbHtml = new StringBuffer();
@@ -21,7 +21,7 @@ public class BillService {
         .append("<form id=\"99billsubmit\" name=\"99billsubmit\" action=\"https://www.99bill.com/gateway/recvMerchantInfoAction.htm\" method=\"" +
                 strMethod + "\">");
 
-        for (int i = 0; i < keys.size(); i++) {
+        for (int i = 0; i < keys.size(); i++){
             String name = (String)keys.get(i);
             String value = (String)sParaTemp.get(name);
 

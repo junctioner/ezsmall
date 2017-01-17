@@ -21,82 +21,82 @@ public class WaterMarkServiceImpl
     @Resource(name = "waterMarkDAO")
     private IGenericDAO<WaterMark> waterMarkDao;
 
-    public boolean save(WaterMark waterMark) {
+    public boolean save(WaterMark waterMark){
         try {
             this.waterMarkDao.save(waterMark);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public WaterMark getObjById(Long id) {
+    public WaterMark getObjById(Long id){
         WaterMark waterMark = (WaterMark)this.waterMarkDao.get(id);
-        if (waterMark != null) {
+        if (waterMark != null){
             return waterMark;
         }
 
         return null;
     }
 
-    public boolean delete(Long id) {
+    public boolean delete(Long id){
         try {
             this.waterMarkDao.remove(id);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public boolean batchDelete(List<Serializable> waterMarkIds) {
-        for (Serializable id : waterMarkIds) {
+    public boolean batchDelete(List<Serializable> waterMarkIds){
+        for (Serializable id : waterMarkIds){
             delete((Long)id);
         }
 
         return true;
     }
 
-    public IPageList list(IQueryObject properties) {
-        if (properties == null) {
+    public IPageList list(IQueryObject properties){
+        if (properties == null){
             return null;
         }
         String query = properties.getQuery();
         Map params = properties.getParameters();
         GenericPageList pList = new GenericPageList(WaterMark.class, query,
                 params, this.waterMarkDao);
-        if (properties != null) {
+        if (properties != null){
             PageObject pageObj = properties.getPageObj();
             if (pageObj != null)
                 pList.doList(pageObj.getCurrentPage() == null ? 0 : pageObj
                              .getCurrentPage().intValue(), pageObj.getPageSize() == null ? 0 :
                              pageObj.getPageSize().intValue());
-        } else {
+        }else{
             pList.doList(0, -1);
         }
 
         return pList;
     }
 
-    public boolean update(WaterMark waterMark) {
+    public boolean update(WaterMark waterMark){
         try {
             this.waterMarkDao.update(waterMark);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public List<WaterMark> query(String query, Map params, int begin, int max) {
+    public List<WaterMark> query(String query, Map params, int begin, int max){
         return this.waterMarkDao.query(query, params, begin, max);
     }
 
-    public WaterMark getObjByProperty(String propertyName, Object value) {
+    public WaterMark getObjByProperty(String propertyName, Object value){
         return (WaterMark)this.waterMarkDao.getBy(propertyName, value);
     }
 }

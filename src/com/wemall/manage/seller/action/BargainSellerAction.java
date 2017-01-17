@@ -50,15 +50,15 @@ public class BargainSellerAction {
     private BargainSellerTools bargainSellerTools;
 
     @SecurityMapping(display = false, rsequence = 0, title = "今日特价", value = "/seller/bargain.htm*", rtype = "seller", rname = "今日特价", rcode = "bargain_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/bargain.htm"})
-    public ModelAndView bargain(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/bargain.htm"})
+    public ModelAndView bargain(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/bargain.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         int day_count = this.configService.getSysConfig().getBargain_validity();
         List dates = new ArrayList();
-        for (int i = 0; i < day_count; i++) {
+        for (int i = 0; i < day_count; i++){
             Calendar cal = Calendar.getInstance();
             cal.add(6, i + 1);
             dates.add(cal.getTime());
@@ -70,13 +70,13 @@ public class BargainSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "申请今日特价", value = "/seller/bargain_apply.htm*", rtype = "seller", rname = "今日特价", rcode = "bargain_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/bargain_apply.htm"})
-    public ModelAndView bargain_apply(HttpServletRequest request, HttpServletResponse response, String bargain_time) {
+    @RequestMapping({"/seller/bargain_apply.htm"})
+    public ModelAndView bargain_apply(HttpServletRequest request, HttpServletResponse response, String bargain_time){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/bargain_apply.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (CommUtil.null2String(bargain_time).equals("")) {
+        if (CommUtil.null2String(bargain_time).equals("")){
             Calendar cal = Calendar.getInstance();
             cal.add(6, 1);
             bargain_time = CommUtil.formatShortDate(cal.getTime());
@@ -84,7 +84,7 @@ public class BargainSellerAction {
         Calendar cal = Calendar.getInstance();
         cal.add(6, this.configService.getSysConfig()
                 .getBargain_validity());
-        if (CommUtil.formatDate(bargain_time).after(cal.getTime())) {
+        if (CommUtil.formatDate(bargain_time).after(cal.getTime())){
             cal = Calendar.getInstance();
             cal.add(6, 1);
             bargain_time = CommUtil.formatShortDate(cal.getTime());
@@ -98,10 +98,10 @@ public class BargainSellerAction {
                           .query_bargain_audit(bargain_time);
         int bargain_count = this.configService.getSysConfig()
                             .getBargain_maximum();
-        if (bargain.size() > 0) {
+        if (bargain.size() > 0){
             bargain_count = ((Bargain)bargain.get(0)).getMaximum();
         }
-        if (audit_count >= bargain_count) {
+        if (audit_count >= bargain_count){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -121,8 +121,8 @@ public class BargainSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "添加商品", value = "/seller/bargain_goods.htm*", rtype = "seller", rname = "今日特价", rcode = "bargain_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/bargain_goods.htm"})
-    public void bargain_goods(HttpServletRequest request, HttpServletResponse response, String goods_name) {
+    @RequestMapping({"/seller/bargain_goods.htm"})
+    public void bargain_goods(HttpServletRequest request, HttpServletResponse response, String goods_name){
         Map params = new HashMap();
         params.put("goods_name", "%" + goods_name.trim() + "%");
         params.put("goods_status", Integer.valueOf(0));
@@ -135,7 +135,7 @@ public class BargainSellerAction {
                                      "select obj from Goods obj where obj.goods_name like :goods_name and obj.goods_status=:goods_status and obj.goods_store.user.id=:user_id and obj.group_buy =:group_buy and obj.activity_status =:activity_status and obj.bargain_status =:bargain_status order by obj.addTime desc",
                                      params, -1, -1);
         List maps = new ArrayList();
-        for (Goods goods : goods_list) {
+        for (Goods goods : goods_list){
             Map map = new HashMap();
             map.put("goods_name", goods.getGoods_name());
             map.put("goods_id", goods.getId());
@@ -147,18 +147,18 @@ public class BargainSellerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(Json.toJson(maps, JsonFormat.compact()));
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品保存", value = "/seller/bargain_apply_save.htm*", rtype = "seller", rname = "今日特价", rcode = "bargain_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/bargain_apply_save.htm"})
-    public String bargain_apply_save(HttpServletRequest request, HttpServletResponse response, String goods_ids, String bargain_time, String bg_rebate) {
-        if ((goods_ids != null) && (!goods_ids.equals(""))) {
+    @RequestMapping({"/seller/bargain_apply_save.htm"})
+    public String bargain_apply_save(HttpServletRequest request, HttpServletResponse response, String goods_ids, String bargain_time, String bg_rebate){
+        if ((goods_ids != null) && (!goods_ids.equals(""))){
             String[] ids = goods_ids.split(",");
-            for (String id : ids) {
-                if (!id.equals("")) {
+            for (String id : ids){
+                if (!id.equals("")){
                     BargainGoods bg = new BargainGoods();
                     bg.setAddTime(new Date());
                     bg.setBg_status(0);
@@ -198,8 +198,8 @@ public class BargainSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品保存成功", value = "/seller/bargain_apply_success.htm*", rtype = "seller", rname = "今日特价", rcode = "bargain_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/bargain_apply_success.htm"})
-    public ModelAndView bargain_apply_success(HttpServletRequest request, HttpServletResponse response, String bargain_time) {
+    @RequestMapping({"/seller/bargain_apply_success.htm"})
+    public ModelAndView bargain_apply_success(HttpServletRequest request, HttpServletResponse response, String bargain_time){
         ModelAndView mv = new JModelAndView("success.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -213,8 +213,8 @@ public class BargainSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品保存失败", value = "/seller/bargain_apply_error.htm*", rtype = "seller", rname = "今日特价", rcode = "bargain_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/bargain_apply_error.htm"})
-    public ModelAndView bargain_apply_error(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/bargain_apply_error.htm"})
+    public ModelAndView bargain_apply_error(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("error.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -225,8 +225,8 @@ public class BargainSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "特价商品列表", value = "/seller/bargain_goods_list.htm*", rtype = "seller", rname = "今日特价", rcode = "bargain_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/bargain_goods_list.htm"})
-    public ModelAndView bargain_goods_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String bargain_time) {
+    @RequestMapping({"/seller/bargain_goods_list.htm"})
+    public ModelAndView bargain_goods_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String bargain_time){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/bargain_goods_list.html",
             this.configService.getSysConfig(), this.userConfigService

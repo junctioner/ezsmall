@@ -133,9 +133,9 @@ public class GoodsSellerAction {
      * @return
      */
     @SecurityMapping(display = false, rsequence = 0, title = "发布商品第一步", value = "/seller/add_goods_first.htm*", rtype = "seller", rname = "商品发布", rcode = "goods_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/add_goods_first.htm" })
+    @RequestMapping({ "/seller/add_goods_first.htm" })
     public ModelAndView add_goods_first(HttpServletRequest request,
-                                        HttpServletResponse response, String id) {
+                                        HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView("error.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
@@ -143,20 +143,20 @@ public class GoodsSellerAction {
                                                 .getCurrentUser().getId());
         List payments = new ArrayList();
         Map params = new HashMap();
-        if (this.configService.getSysConfig().getConfig_payment_type() == 1) {
+        if (this.configService.getSysConfig().getConfig_payment_type() == 1){
             params.put("type", "admin");
             params.put("install", Boolean.valueOf(true));
             payments = this.paymentService
                        .query("select obj from Payment obj where obj.type=:type and obj.install=:install",
                               params, -1, -1);
-        } else {
+        }else{
             params.put("store_id", user.getStore().getId());
             params.put("install", Boolean.valueOf(true));
             payments = this.paymentService
                        .query("select obj from Payment obj where obj.store.id=:store_id and obj.install=:install",
                               params, -1, -1);
         }
-        if (payments.size() == 0) {
+        if (payments.size() == 0){
             mv.addObject("op_title", "请至少开通一种支付方式");
             mv.addObject("url", CommUtil.getURL(request)
                          + "/seller/payment.htm");
@@ -165,11 +165,11 @@ public class GoodsSellerAction {
         request.getSession(false).removeAttribute("goods_class_info");
         int store_status = user.getStore() == null ? 0 : user.getStore()
                            .getStore_status();
-        if (store_status == 2) {
+        if (store_status == 2){
             StoreGrade grade = user.getStore().getGrade();
             int user_goods_count = user.getStore().getGoods_list().size();
             if ((grade.getGoodsCount() == 0)
-                    || (user_goods_count < grade.getGoodsCount())) {
+                    || (user_goods_count < grade.getGoodsCount())){
                 List gcs = this.goodsClassService
                            .query("select obj from GoodsClass obj where obj.parent.id is null order by obj.sequence asc",
                                   null, -1, -1);
@@ -186,22 +186,22 @@ public class GoodsSellerAction {
                 mv.addObject("staples", staples);
                 mv.addObject("gcs", gcs);
                 mv.addObject("id", CommUtil.null2String(id));
-            } else {
+            }else{
                 mv.addObject("op_title", "您的店铺等级只允许上传" + grade.getGoodsCount()
                              + "件商品!");
                 mv.addObject("url", CommUtil.getURL(request)
                              + "/seller/store_grade.htm");
             }
         }
-        if (store_status == 0) {
+        if (store_status == 0){
             mv.addObject("op_title", "您尚未开通店铺，不能发布商品");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
         }
-        if (store_status == 1) {
+        if (store_status == 1){
             mv.addObject("op_title", "您的店铺在审核中，不能发布商品");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
         }
-        if (store_status == 3) {
+        if (store_status == 3){
             mv.addObject("op_title", "您的店铺已被关闭，不能发布商品");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
         }
@@ -210,15 +210,15 @@ public class GoodsSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品运费模板分页显示", value = "/seller/goods_transport.htm*", rtype = "seller", rname = "商品发布", rcode = "goods_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/goods_transport.htm" })
+    @RequestMapping({ "/seller/goods_transport.htm" })
     public ModelAndView goods_transport(HttpServletRequest request,
                                         HttpServletResponse response, String currentPage, String orderBy,
-                                        String orderType, String ajax) {
+                                        String orderType, String ajax){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/goods_transport.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (CommUtil.null2Boolean(ajax)) {
+        if (CommUtil.null2Boolean(ajax)){
             mv = new JModelAndView(
                 "user/default/usercenter/goods_transport_list.html",
                 this.configService.getSysConfig(),
@@ -226,7 +226,7 @@ public class GoodsSellerAction {
                 response);
         }
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -245,18 +245,18 @@ public class GoodsSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "发布商品第二步", value = "/seller/add_goods_second.htm*", rtype = "seller", rname = "商品发布", rcode = "goods_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/add_goods_second.htm" })
-    public ModelAndView add_goods_second(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({ "/seller/add_goods_second.htm" })
+    public ModelAndView add_goods_second(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("error.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
         User user = this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId());
         int store_status = this.storeService.getObjByProperty("user.id", user.getId()).getStore_status();
-        if (store_status == 2) {
+        if (store_status == 2){
             mv = new JModelAndView(
                 "user/default/usercenter/add_goods_second.html",
                 this.configService.getSysConfig(),
                 this.userConfigService.getUserConfig(), 0, request,
                 response);
-            if (request.getSession(false).getAttribute("goods_class_info") != null) {
+            if (request.getSession(false).getAttribute("goods_class_info") != null){
                 GoodsClass gc = (GoodsClass) request.getSession(false)
                                 .getAttribute("goods_class_info");
                 gc = this.goodsClassService.getObjById(gc.getId());
@@ -275,7 +275,7 @@ public class GoodsSellerAction {
                           + "store"
                           + File.separator + user.getStore().getId();
             double img_remain_size = 0.0D;
-            if (user.getStore().getGrade().getSpaceSize() > 0.0F) {
+            if (user.getStore().getGrade().getSpaceSize() > 0.0F){
                 img_remain_size = user.getStore().getGrade().getSpaceSize()
                                   - CommUtil.div(Double.valueOf(CommUtil
                                                  .fileSize(new File(path))), Integer
@@ -301,15 +301,15 @@ public class GoodsSellerAction {
             request.getSession(false).setAttribute("goods_session",
                                                    goods_session);
         }
-        if (store_status == 0) {
+        if (store_status == 0){
             mv.addObject("op_title", "您尚未开通店铺，不能发布商品");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
         }
-        if (store_status == 1) {
+        if (store_status == 1){
             mv.addObject("op_title", "您的店铺在审核中，不能发布商品");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
         }
-        if (store_status == 3) {
+        if (store_status == 3){
             mv.addObject("op_title", "您的店铺已被关闭，不能发布商品");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
         }
@@ -318,9 +318,9 @@ public class GoodsSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "产品规格显示", value = "/seller/goods_inventory.htm*", rtype = "seller", rname = "商品发布", rcode = "goods_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/goods_inventory.htm" })
+    @RequestMapping({ "/seller/goods_inventory.htm" })
     public ModelAndView goods_inventory(HttpServletRequest request,
-                                        HttpServletResponse response, String goods_spec_ids) {
+                                        HttpServletResponse response, String goods_spec_ids){
         ModelAndView mv = mv = new JModelAndView(
             "user/default/usercenter/goods_inventory.html",
             this.configService.getSysConfig(),
@@ -328,32 +328,32 @@ public class GoodsSellerAction {
         String[] spec_ids = goods_spec_ids.split(",");
         List<GoodsSpecProperty> gsps = new ArrayList();
         // GoodsSpecProperty gsp;
-        for (String spec_id : spec_ids) {
-            if (!spec_id.equals("")) {
+        for (String spec_id : spec_ids){
+            if (!spec_id.equals("")){
                 GoodsSpecProperty gsp = this.specPropertyService
                                         .getObjById(Long.valueOf(Long.parseLong(spec_id)));
                 gsps.add(gsp);
             }
         }
         Set<GoodsSpecification> specs = new HashSet<GoodsSpecification>();
-        for (GoodsSpecProperty gsp : gsps) {
+        for (GoodsSpecProperty gsp : gsps){
             specs.add(gsp.getSpec());
         }
-        for (GoodsSpecification spec : specs) {
+        for (GoodsSpecification spec : specs){
             spec.getProperties().clear();
-            for (GoodsSpecProperty gsp : gsps) {
-                if (gsp.getSpec().getId().equals(spec.getId())) {
+            for (GoodsSpecProperty gsp : gsps){
+                if (gsp.getSpec().getId().equals(spec.getId())){
                     spec.getProperties().add(gsp);
                 }
             }
         }
         GoodsSpecification[] spec_list = (GoodsSpecification[]) specs
                                          .toArray(new GoodsSpecification[specs.size()]);
-        Arrays.sort(spec_list, new Comparator() {
-            public int compare(Object obj1, Object obj2) {
+        Arrays.sort(spec_list, new Comparator(){
+            public int compare(Object obj1, Object obj2){
                 GoodsSpecification a = (GoodsSpecification) obj1;
                 GoodsSpecification b = (GoodsSpecification) obj2;
-                if (a.getSequence() == b.getSequence()) {
+                if (a.getSequence() == b.getSequence()){
                     return 0;
                 }
                 return a.getSequence() > b.getSequence() ? 1 : -1;
@@ -367,9 +367,9 @@ public class GoodsSellerAction {
     }
 
     public static GoodsSpecProperty[][] list2group(
-        List<List<GoodsSpecProperty>> list) {
+        List<List<GoodsSpecProperty>> list){
         GoodsSpecProperty[][] gps = new GoodsSpecProperty[list.size()][];
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++){
             gps[i] = ((GoodsSpecProperty[]) ((List) list.get(i))
                       .toArray(new GoodsSpecProperty[((List) list.get(i)).size()]));
         }
@@ -378,32 +378,32 @@ public class GoodsSellerAction {
     }
 
     private List<List<GoodsSpecProperty>> generic_spec_property(
-        Set<GoodsSpecification> specs) {
+        Set<GoodsSpecification> specs){
         List result_list = new ArrayList();
         List list = new ArrayList();
         int max = 1;
-        for (GoodsSpecification spec : specs) {
+        for (GoodsSpecification spec : specs){
             list.add(spec.getProperties());
         }
 
         GoodsSpecProperty[][] gsps = list2group(list);
-        for (int i = 0; i < gsps.length; i++) {
+        for (int i = 0; i < gsps.length; i++){
             max *= gsps[i].length;
         }
-        for (int i = 0; i < max; i++) {
+        for (int i = 0; i < max; i++){
             List temp_list = new ArrayList();
             int temp = 1;
-            for (int j = 0; j < gsps.length; j++) {
+            for (int j = 0; j < gsps.length; j++){
                 temp *= gsps[j].length;
                 temp_list.add(j, gsps[j][(i / (max / temp) % gsps[j].length)]);
             }
             GoodsSpecProperty[] temp_gsps = (GoodsSpecProperty[]) temp_list
                                             .toArray(new GoodsSpecProperty[temp_list.size()]);
-            Arrays.sort(temp_gsps, new Comparator() {
-                public int compare(Object obj1, Object obj2) {
+            Arrays.sort(temp_gsps, new Comparator(){
+                public int compare(Object obj1, Object obj2){
                     GoodsSpecProperty a = (GoodsSpecProperty) obj1;
                     GoodsSpecProperty b = (GoodsSpecProperty) obj2;
-                    if (a.getSpec().getSequence() == b.getSpec().getSequence()) {
+                    if (a.getSpec().getSequence() == b.getSpec().getSequence()){
                         return 0;
                     }
                     return a.getSpec().getSequence() > b.getSpec()
@@ -416,9 +416,9 @@ public class GoodsSellerAction {
         return result_list;
     }
 
-    @RequestMapping( { "/seller/swf_upload.htm" })
+    @RequestMapping({ "/seller/swf_upload.htm" })
     public void swf_upload(HttpServletRequest request,
-                           HttpServletResponse response, String user_id, String album_id) {
+                           HttpServletResponse response, String user_id, String album_id){
         User user = this.userService.getObjById(CommUtil.null2Long(user_id));
         String path = this.storeTools.createUserFolder(request, this.configService.getSysConfig(), user.getStore());
         String url = this.storeTools.createUserFolderURL(this.configService.getSysConfig(), user.getStore());
@@ -431,20 +431,20 @@ public class GoodsSellerAction {
         double remainSpace = 0.0D;
         if (user.getStore().getGrade().getSpaceSize() != 0.0F)
             remainSpace = (user.getStore().getGrade().getSpaceSize() * 1024.0F - csize) * 1024.0D;
-        else {
+       else{
             remainSpace = 10000000.0D;
         }
         Map json_map = new HashMap();
-        if (remainSpace > fileSize) {
+        if (remainSpace > fileSize){
             try {
                 Map map = CommUtil.saveFileToServer(request, "imgFile", path, null, null);
                 Map params = new HashMap();
                 params.put("store_id", user.getStore().getId());
                 List wms = this.waterMarkService
                            .query("select obj from WaterMark obj where obj.store.id=:store_id", params, -1, -1);
-                if (wms.size() > 0) {
+                if (wms.size() > 0){
                     WaterMark mark = (WaterMark) wms.get(0);
-                    if (mark.isWm_image_open()) {
+                    if (mark.isWm_image_open()){
                         String pressImg = request.getSession().getServletContext().getRealPath("")
                                           + File.separator + mark.getWm_image().getPath()
                                           + File.separator + mark.getWm_image().getName();
@@ -453,7 +453,7 @@ public class GoodsSellerAction {
                         float alpha = mark.getWm_image_alpha();
                         CommUtil.waterMarkWithImage(pressImg, targetImg, pos, alpha);
                     }
-                    if (mark.isWm_text_open()) {
+                    if (mark.isWm_text_open()){
                         String targetImg = path + File.separator + map.get("fileName");
                         int pos = mark.getWm_text_pos();
                         String text = mark.getWm_text();
@@ -472,11 +472,11 @@ public class GoodsSellerAction {
                 image.setName(CommUtil.null2String(map.get("fileName")));
                 image.setUser(user);
                 Album album = null;
-                if ((album_id != null) && (!album_id.equals(""))) {
+                if ((album_id != null) && (!album_id.equals(""))){
                     album = this.albumService.getObjById(CommUtil.null2Long(album_id));
-                } else {
+                }else{
                     album = this.albumService.getDefaultAlbum(CommUtil.null2Long(user_id));
-                    if (album == null) {
+                    if (album == null){
                         album = new Album();
                         album.setAddTime(new Date());
                         album.setAlbum_name("默认相册");
@@ -504,10 +504,10 @@ public class GoodsSellerAction {
                 CommUtil.createSmall(source, midtarget, this.configService
                                      .getSysConfig().getMiddleWidth(), this.configService
                                      .getSysConfig().getMiddleHeight());
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
-        } else {
+        }else{
             json_map.put("url", "");
             json_map.put("id", "");
             json_map.put("remainSpace", Integer.valueOf(0));
@@ -519,12 +519,12 @@ public class GoodsSellerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(Json.toJson(json_map));
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    @RequestMapping( {"/seller/upload.htm"})
+    @RequestMapping({"/seller/upload.htm"})
     public void upload(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException {
         Store store = SecurityUserHolder.getCurrentUser().getStore();
 
@@ -535,7 +535,7 @@ public class GoodsSellerAction {
         String webPath = request.getContextPath().equals("/") ? "" : request.getContextPath();
 
         if ((this.configService.getSysConfig().getAddress() != null) &&
-                (!this.configService.getSysConfig().getAddress().equals(""))) {
+                (!this.configService.getSysConfig().getAddress().equals(""))){
             webPath = this.configService.getSysConfig().getAddress() + webPath;
         }
         JSONObject obj = new JSONObject();
@@ -544,7 +544,7 @@ public class GoodsSellerAction {
             url = CommUtil.getURL(request) + "/" + url + "/" + map.get("fileName");
             obj.put("error", Integer.valueOf(0));
             obj.put("url", url);
-        } catch (IOException e) {
+        } catch (IOException e){
             obj.put("error", Integer.valueOf(1));
             obj.put("message", e.getMessage());
             e.printStackTrace();
@@ -555,15 +555,15 @@ public class GoodsSellerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(obj.toJSONString());
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品图片删除", value = "/seller/goods_image_del.htm*", rtype = "seller", rname = "商品发布", rcode = "goods_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/goods_image_del.htm" })
+    @RequestMapping({ "/seller/goods_image_del.htm" })
     public void goods_image_del(HttpServletRequest request,
-                                HttpServletResponse response, String image_id) {
+                                HttpServletResponse response, String image_id){
         User user = this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId());
         String path = this.storeTools.createUserFolder(request, this.configService.getSysConfig(), user.getStore());
         response.setContentType("text/plain");
@@ -572,21 +572,21 @@ public class GoodsSellerAction {
         try {
             Map map = new HashMap();
             Accessory img = this.accessoryService.getObjById(CommUtil.null2Long(image_id));
-            for (Goods goods : img.getGoods_main_list()) {
+            for (Goods goods : img.getGoods_main_list()){
                 goods.setGoods_main_photo(null);
                 this.goodsService.update(goods);
             }
-            for (Goods goods1 : img.getGoods_list()) {
+            for (Goods goods1 : img.getGoods_list()){
                 goods1.getGoods_photos().remove(img);
                 this.goodsService.update(goods1);
             }
             boolean ret = this.accessoryService.delete(img.getId());
-            if (ret) {
+            if (ret){
                 CommUtil.del_acc(request, img);
             }
             double csize = CommUtil.fileSize(new File(path));
             double remainSpace = 10000.0D;
-            if (user.getStore().getGrade().getSpaceSize() != 0.0F) {
+            if (user.getStore().getGrade().getSpaceSize() != 0.0F){
                 remainSpace = CommUtil.div(Double.valueOf(user.getStore().getGrade().getSpaceSize()
                                            * 1024.0F - csize), Integer.valueOf(1024));
             }
@@ -594,12 +594,12 @@ public class GoodsSellerAction {
             map.put("remainSpace", Double.valueOf(remainSpace));
             PrintWriter writer = response.getWriter();
             writer.print(Json.toJson(map));
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    private String clearContent(String inputString) {
+    private String clearContent(String inputString){
         String htmlStr = inputString;
         String textStr = "";
         try {
@@ -624,7 +624,7 @@ public class GoodsSellerAction {
             htmlStr = m_html1.replaceAll("");
 
             textStr = htmlStr;
-        } catch (Exception e) {
+        } catch (Exception e){
             System.err.println("Html2Text: " + e.getMessage());
         }
 
@@ -632,25 +632,25 @@ public class GoodsSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "发布商品第三步", value = "/seller/add_goods_finish.htm*", rtype = "seller", rname = "商品发布", rcode = "goods_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/add_goods_finish.htm" })
+    @RequestMapping({ "/seller/add_goods_finish.htm" })
     public ModelAndView add_goods_finish(HttpServletRequest request,
                                          HttpServletResponse response, String id, String goods_class_id,
                                          String image_ids, String goods_main_img_id, String user_class_ids,
                                          String goods_brand_id, String goods_spec_ids,
                                          String goods_properties, String inventory_details,
-                                         String goods_session, String transport_type, String transport_id) {
+                                         String goods_session, String transport_type, String transport_id){
         ModelAndView mv = null;
         String goods_session1 = CommUtil.null2String(request.getSession(false).getAttribute("goods_session"));
-        if (goods_session1.equals("")) {
+        if (goods_session1.equals("")){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request, response);
             mv.addObject("op_title", "禁止重复提交表单");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
-        } else if (goods_session1.equals(goods_session)) {
-            if ((id == null) || (id.equals(""))) {
+        }else if (goods_session1.equals(goods_session)){
+            if ((id == null) || (id.equals(""))){
                 mv = new JModelAndView("user/default/usercenter/add_goods_finish.html", this.configService.getSysConfig(),
                                        this.userConfigService.getUserConfig(), 0, request, response);
-            } else {
+            }else{
                 mv = new JModelAndView("success.html", this.configService.getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request, response);
                 mv.addObject("op_title", "商品编辑成功");
@@ -658,35 +658,35 @@ public class GoodsSellerAction {
             }
             WebForm wf = new WebForm();
             Goods goods = null;
-            if (id.equals("")) {
+            if (id.equals("")){
                 goods = (Goods) wf.toPo(request, Goods.class);
                 goods.setAddTime(new Date());
                 User user = this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId());
                 goods.setGoods_store(user.getStore());
-            } else {
+            }else{
                 Goods obj = this.goodsService.getObjById(Long.valueOf(Long.parseLong(id)));
                 goods = (Goods) wf.toPo(request, obj);
             }
             if ((goods.getCombin_status() != 2)
                     && (goods.getDelivery_status() != 2)
                     && (goods.getBargain_status() != 2)
-                    && (goods.getActivity_status() != 2)) {
+                    && (goods.getActivity_status() != 2)){
                 goods.setGoods_current_price(goods.getStore_price());
             }
             goods.setGoods_name(clearContent(goods.getGoods_name()));
             GoodsClass gc = this.goodsClassService.getObjById(Long.valueOf(Long.parseLong(goods_class_id)));
             goods.setGc(gc);
             Accessory main_img = null;
-            if ((goods_main_img_id != null) && (!goods_main_img_id.equals(""))) {
+            if ((goods_main_img_id != null) && (!goods_main_img_id.equals(""))){
                 main_img = this.accessoryService.getObjById(Long.valueOf(Long.parseLong(goods_main_img_id)));
             }
             goods.setGoods_main_photo(main_img);
             goods.getGoods_ugcs().clear();
             String[] ugc_ids = user_class_ids.split(",");
 
-            for (int i = 0; i < ugc_ids.length; i++) {
+            for (int i = 0; i < ugc_ids.length; i++){
                 String ugc_id = ugc_ids[i];
-                if (!ugc_id.equals("")) {
+                if (!ugc_id.equals("")){
                     UserGoodsClass ugc = this.userGoodsClassService
                                          .getObjById(Long.valueOf(Long.parseLong(ugc_id)));
                     goods.getGoods_ugcs().add(ugc);
@@ -695,23 +695,23 @@ public class GoodsSellerAction {
             String[] img_ids = image_ids.split(",");
             goods.getGoods_photos().clear();
 
-            for (int i = 0; i < img_ids.length; i++) {
+            for (int i = 0; i < img_ids.length; i++){
                 String img_id = img_ids[i];
-                if (!img_id.equals("")) {
+                if (!img_id.equals("")){
                     Accessory img = this.accessoryService.getObjById(Long.valueOf(Long.parseLong(img_id)));
                     goods.getGoods_photos().add(img);
                 }
             }
-            if ((goods_brand_id != null) && (!goods_brand_id.equals(""))) {
+            if ((goods_brand_id != null) && (!goods_brand_id.equals(""))){
                 GoodsBrand goods_brand = this.goodsBrandService.getObjById(Long.valueOf(Long.parseLong(goods_brand_id)));
                 goods.setGoods_brand(goods_brand);
             }
             goods.getGoods_specs().clear();
             String[] spec_ids = goods_spec_ids.split(",");
 
-            for (int i = 0; i < spec_ids.length; i++) {
+            for (int i = 0; i < spec_ids.length; i++){
                 String spec_id = spec_ids[i];
-                if (!spec_id.equals("")) {
+                if (!spec_id.equals("")){
                     GoodsSpecProperty gsp = this.specPropertyService.getObjById(Long.valueOf(Long.parseLong(spec_id)));
                     goods.getGoods_specs().add(gsp);
                 }
@@ -720,12 +720,12 @@ public class GoodsSellerAction {
             List maps = new ArrayList();
 
             // 组装商品属性
-            if(org.apache.commons.lang.StringUtils.isNotEmpty(goods_properties)) {
+            if(org.apache.commons.lang.StringUtils.isNotEmpty(goods_properties)){
                 String[] properties = goods_properties.split(";");
                 String[] list;
-                for (int i = 0; i < properties.length; i++) {
+                for (int i = 0; i < properties.length; i++){
                     String property = properties[i];
-                    if (StringUtils.isNotEmpty(property)) {
+                    if (StringUtils.isNotEmpty(property)){
                         list = property.split(",");
                         Map map = new HashMap();
                         map.put("id", list[0]);
@@ -740,11 +740,11 @@ public class GoodsSellerAction {
             maps.clear();
 
             // 组装商品多规格库存和价格
-            if(org.apache.commons.lang.StringUtils.isNotEmpty(inventory_details)) {
+            if(org.apache.commons.lang.StringUtils.isNotEmpty(inventory_details)){
                 String[] inventory_list = inventory_details.split(";");
-                for (int i = 0; i < inventory_list.length; i++) {
+                for (int i = 0; i < inventory_list.length; i++){
                     String inventory = inventory_list[i];
-                    if (org.apache.commons.lang.StringUtils.isNotEmpty(inventory)) {
+                    if (org.apache.commons.lang.StringUtils.isNotEmpty(inventory)){
                         String[] list1 = inventory.split(",");
                         Map map = new HashMap();
                         map.put("id", list1[0]);
@@ -756,19 +756,19 @@ public class GoodsSellerAction {
                 goods.setGoods_inventory_detail(Json.toJson(maps, JsonFormat.compact()));
             }
 
-            if (CommUtil.null2Int(transport_type) == 0) {
+            if (CommUtil.null2Int(transport_type) == 0){
                 Transport trans = this.transportService.getObjById(CommUtil.null2Long(transport_id));
                 goods.setTransport(trans);
             }
-            if (CommUtil.null2Int(transport_type) == 1) {
+            if (CommUtil.null2Int(transport_type) == 1){
                 goods.setTransport(null);
             }
-            if (id.equals("")) {
+            if (id.equals("")){
                 this.goodsService.save(goods);
 
                 String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
                 File file = new File(goods_lucene_path);
-                if (!file.exists()) {
+                if (!file.exists()){
                     CommUtil.createFolder(goods_lucene_path);
                 }
                 LuceneVo vo = new LuceneVo();
@@ -782,12 +782,12 @@ public class GoodsSellerAction {
                 LuceneUtil lucene = LuceneUtil.instance();
                 LuceneUtil.setIndex_path(goods_lucene_path);
                 lucene.writeIndex(vo);
-            } else {
+            }else{
                 this.goodsService.update(goods);
 
                 String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
                 File file = new File(goods_lucene_path);
-                if (!file.exists()) {
+                if (!file.exists()){
                     CommUtil.createFolder(goods_lucene_path);
                 }
                 LuceneVo vo = new LuceneVo();
@@ -804,7 +804,7 @@ public class GoodsSellerAction {
             }
             mv.addObject("obj", goods);
             request.getSession(false).removeAttribute("goods_session");
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request, response);
             mv.addObject("op_title", "参数错误");
@@ -815,19 +815,19 @@ public class GoodsSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "加载商品分类", value = "/seller/load_goods_class.htm*", rtype = "seller", rname = "商品发布", rcode = "goods_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/load_goods_class.htm" })
+    @RequestMapping({ "/seller/load_goods_class.htm" })
     public void load_goods_class(HttpServletRequest request,
-                                 HttpServletResponse response, String pid, String session) {
+                                 HttpServletResponse response, String pid, String session){
         GoodsClass obj = this.goodsClassService.getObjById(CommUtil.null2Long(pid));
         List list = new ArrayList();
-        if (obj != null) {
-            for (GoodsClass gc : obj.getChilds()) {
+        if (obj != null){
+            for (GoodsClass gc : obj.getChilds()){
                 Map map = new HashMap();
                 map.put("id", gc.getId());
                 map.put("className", gc.getClassName());
                 list.add(map);
             }
-            if (CommUtil.null2Boolean(session)) {
+            if (CommUtil.null2Boolean(session)){
                 request.getSession(false).setAttribute("goods_class_info", obj);
             }
         }
@@ -837,17 +837,17 @@ public class GoodsSellerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(Json.toJson(list));
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "添加用户常用商品分类", value = "/seller/load_goods_class.htm*", rtype = "seller", rname = "商品发布", rcode = "goods_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/add_goods_class_staple.htm" })
+    @RequestMapping({ "/seller/add_goods_class_staple.htm" })
     public void add_goods_class_staple(HttpServletRequest request,
-                                       HttpServletResponse response) {
+                                       HttpServletResponse response){
         String ret = "error";
-        if (request.getSession(false).getAttribute("goods_class_info") != null) {
+        if (request.getSession(false).getAttribute("goods_class_info") != null){
             GoodsClass gc = (GoodsClass) request.getSession(false)
                             .getAttribute("goods_class_info");
             Map params = new HashMap();
@@ -858,7 +858,7 @@ public class GoodsSellerAction {
             List gcs = this.goodsclassstapleService
                        .query("select obj from GoodsClassStaple obj where obj.store.id=:store_id and obj.gc.id=:gc_id",
                               params, -1, -1);
-            if (gcs.size() == 0) {
+            if (gcs.size() == 0){
                 GoodsClassStaple staple = new GoodsClassStaple();
                 staple.setAddTime(new Date());
                 staple.setGc(gc);
@@ -866,7 +866,7 @@ public class GoodsSellerAction {
                 staple.setName(name.substring(0, name.length() - 1));
                 staple.setStore(user.getStore());
                 boolean flag = this.goodsclassstapleService.save(staple);
-                if (flag) {
+                if (flag){
                     Map map = new HashMap();
                     map.put("name", staple.getName());
                     map.put("id", staple.getId());
@@ -880,15 +880,15 @@ public class GoodsSellerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "删除用户常用商品分类", value = "/seller/del_goods_class_staple.htm*", rtype = "seller", rname = "商品发布", rcode = "goods_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/del_goods_class_staple.htm" })
+    @RequestMapping({ "/seller/del_goods_class_staple.htm" })
     public void del_goods_class_staple(HttpServletRequest request,
-                                       HttpServletResponse response, String id) {
+                                       HttpServletResponse response, String id){
         boolean ret = this.goodsclassstapleService.delete(Long.valueOf(Long
                       .parseLong(id)));
         response.setContentType("text/plain");
@@ -897,33 +897,33 @@ public class GoodsSellerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "根据用户常用商品分类加载分类信息", value = "/seller/del_goods_class_staple.htm*", rtype = "seller", rname = "商品发布", rcode = "goods_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/load_goods_class_staple.htm" })
+    @RequestMapping({ "/seller/load_goods_class_staple.htm" })
     public void load_goods_class_staple(HttpServletRequest request,
-                                        HttpServletResponse response, String id, String name) {
+                                        HttpServletResponse response, String id, String name){
         GoodsClass obj = null;
         if ((id != null) && (!id.equals("")))
             obj = this.goodsclassstapleService.getObjById(Long.valueOf(Long.parseLong(id))).getGc();
         if ((name != null) && (!name.equals("")))
             obj = this.goodsClassService.getObjByProperty("className", name);
         List list = new ArrayList();
-        if (obj != null) {
+        if (obj != null){
             request.getSession(false).setAttribute("goods_class_info", obj);
             Map params = new HashMap();
             List second_list = new ArrayList();
             List third_list = new ArrayList();
             List other_list = new ArrayList();
             Object gc;
-            if (obj.getLevel() == 2) {
+            if (obj.getLevel() == 2){
                 params.put("pid", obj.getParent().getParent().getId());
                 List<GoodsClass> second_gcs = this.goodsClassService
                                               .query("select obj from GoodsClass obj where obj.parent.id=:pid order by obj.sequence asc", params, -1, -1);
-                for (GoodsClass gc1 : second_gcs) {
+                for (GoodsClass gc1 : second_gcs){
                     Map map = new HashMap();
                     map.put("id", gc1.getId());
                     map.put("className", gc1.getClassName());
@@ -933,7 +933,7 @@ public class GoodsSellerAction {
                 params.put("pid", obj.getParent().getId());
                 List<GoodsClass> third_gcs = this.goodsClassService
                                              .query("select obj from GoodsClass obj where obj.parent.id=:pid order by obj.sequence asc", params, -1, -1);
-                for (GoodsClass gc1 : third_gcs) { // gc = (GoodsClass)map.next();
+                for (GoodsClass gc1 : third_gcs){ // gc = (GoodsClass)map.next();
                     Map map = new HashMap();
                     map.put("id", ((GoodsClass) gc1).getId());
                     map.put("className", ((GoodsClass) gc1).getClassName());
@@ -941,12 +941,12 @@ public class GoodsSellerAction {
                 }
             }
 
-            if (obj.getLevel() == 1) {
+            if (obj.getLevel() == 1){
                 params.clear();
                 params.put("pid", obj.getParent().getId());
                 List<GoodsClass> third_gcs = this.goodsClassService
                                              .query("select obj from GoodsClass obj where obj.parent.id=:pid order by obj.sequence asc", params, -1, -1);
-                for (GoodsClass gc1 : third_gcs) {
+                for (GoodsClass gc1 : third_gcs){
                     // GoodsClass gc = (GoodsClass)((Iterator)gc).next();
                     Map map = new HashMap();
                     map.put("id", gc1.getId());
@@ -970,14 +970,14 @@ public class GoodsSellerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(Json.toJson(list, JsonFormat.compact()));
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    private String generic_goods_class_info(GoodsClass gc) {
+    private String generic_goods_class_info(GoodsClass gc){
         String goods_class_info = gc.getClassName() + ">";
-        if (gc.getParent() != null) {
+        if (gc.getParent() != null){
             String class_info = generic_goods_class_info(gc.getParent());
             goods_class_info = class_info + goods_class_info;
         }
@@ -997,16 +997,16 @@ public class GoodsSellerAction {
      * @return
      */
     @SecurityMapping(display = false, rsequence = 0, title = "出售中的商品列表", value = "/seller/goods.htm*", rtype = "seller", rname = "出售中的商品", rcode = "goods_list_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/goods.htm" })
+    @RequestMapping({ "/seller/goods.htm" })
     public ModelAndView goods(HttpServletRequest request,
                               HttpServletResponse response, String currentPage, String orderBy,
-                              String orderType, String goods_name, String user_class_id) {
+                              String orderType, String goods_name, String user_class_id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/goods.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         User user = this.userService.getObjById(SecurityUserHolder
@@ -1020,11 +1020,11 @@ public class GoodsSellerAction {
                     .getStore().getId()), "=");
         qo.setOrderBy("addTime");
         qo.setOrderType("desc");
-        if (org.apache.commons.lang.StringUtils.isNotEmpty(goods_name)) {
+        if (org.apache.commons.lang.StringUtils.isNotEmpty(goods_name)){
             qo.addQuery("obj.goods_name", new SysMap("goods_name", "%"
                         + goods_name + "%"), "like");
         }
-        if (org.apache.commons.lang.StringUtils.isNotEmpty(user_class_id)) {
+        if (org.apache.commons.lang.StringUtils.isNotEmpty(user_class_id)){
             UserGoodsClass ugc = this.userGoodsClassService.getObjById(Long
                                  .valueOf(Long.parseLong(user_class_id)));
             qo.addQuery("ugc", ugc, "obj.goods_ugcs", "member of");
@@ -1039,16 +1039,16 @@ public class GoodsSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "仓库中的商品列表", value = "/seller/goods_storage.htm*", rtype = "seller", rname = "仓库中的商品", rcode = "goods_storage_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/goods_storage.htm" })
+    @RequestMapping({ "/seller/goods_storage.htm" })
     public ModelAndView goods_storage(HttpServletRequest request,
                                       HttpServletResponse response, String currentPage, String orderBy,
-                                      String orderType, String goods_name, String user_class_id) {
+                                      String orderType, String goods_name, String user_class_id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/goods_storage.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if (org.apache.commons.lang.StringUtils.isEmpty(url)) {
+        if (org.apache.commons.lang.StringUtils.isEmpty(url)){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -1062,11 +1062,11 @@ public class GoodsSellerAction {
                     .getStore().getId()), "=");
         qo.setOrderBy("goods_seller_time");
         qo.setOrderType("desc");
-        if (org.apache.commons.lang.StringUtils.isNotEmpty(goods_name)) {
+        if (org.apache.commons.lang.StringUtils.isNotEmpty(goods_name)){
             qo.addQuery("obj.goods_name", new SysMap("goods_name", "%"
                         + goods_name + "%"), "like");
         }
-        if (org.apache.commons.lang.StringUtils.isNotEmpty(user_class_id)) {
+        if (org.apache.commons.lang.StringUtils.isNotEmpty(user_class_id)){
             UserGoodsClass ugc = this.userGoodsClassService.getObjById(Long
                                  .valueOf(Long.parseLong(user_class_id)));
             qo.addQuery("ugc", ugc, "obj.goods_ugcs", "member of");
@@ -1081,16 +1081,16 @@ public class GoodsSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "违规下架商品", value = "/seller/goods_out.htm*", rtype = "seller", rname = "违规下架商品", rcode = "goods_out_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/goods_out.htm" })
+    @RequestMapping({ "/seller/goods_out.htm" })
     public ModelAndView goods_out(HttpServletRequest request,
                                   HttpServletResponse response, String currentPage, String orderBy,
-                                  String orderType, String goods_name, String user_class_id) {
+                                  String orderType, String goods_name, String user_class_id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/goods_out.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         User user = this.userService.getObjById(SecurityUserHolder
@@ -1104,11 +1104,11 @@ public class GoodsSellerAction {
                     .getStore().getId()), "=");
         qo.setOrderBy("goods_seller_time");
         qo.setOrderType("desc");
-        if (org.apache.commons.lang.StringUtils.isNotEmpty(goods_name)) {
+        if (org.apache.commons.lang.StringUtils.isNotEmpty(goods_name)){
             qo.addQuery("obj.goods_name", new SysMap("goods_name", "%"
                         + goods_name + "%"), "like");
         }
-        if (org.apache.commons.lang.StringUtils.isNotEmpty(user_class_id)) {
+        if (org.apache.commons.lang.StringUtils.isNotEmpty(user_class_id)){
             UserGoodsClass ugc = this.userGoodsClassService.getObjById(Long
                                  .valueOf(Long.parseLong(user_class_id)));
             qo.addQuery("ugc", ugc, "obj.goods_ugcs", "member of");
@@ -1123,9 +1123,9 @@ public class GoodsSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品编辑", value = "/seller/goods_edit.htm*", rtype = "seller", rname = "商品编辑", rcode = "goods_edit_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/goods_edit.htm" })
+    @RequestMapping({ "/seller/goods_edit.htm" })
     public ModelAndView goods_edit(HttpServletRequest request,
-                                   HttpServletResponse response, String id) {
+                                   HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/add_goods_second.html",
             this.configService.getSysConfig(),
@@ -1134,7 +1134,7 @@ public class GoodsSellerAction {
                     .parseLong(id)));
 
         if (obj.getGoods_store().getUser().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getId())){
             User user = this.userService.getObjById(SecurityUserHolder
                                                     .getCurrentUser().getId());
             String path = request.getSession().getServletContext()
@@ -1175,7 +1175,7 @@ public class GoodsSellerAction {
             mv.addObject("ugcs", ugcs);
             mv.addObject("img_remain_size", Double.valueOf(img_remain_size));
             mv.addObject("obj", obj);
-            if (request.getSession(false).getAttribute("goods_class_info") != null) {
+            if (request.getSession(false).getAttribute("goods_class_info") != null){
                 GoodsClass session_gc = (GoodsClass) request.getSession(false)
                                         .getAttribute("goods_class_info");
                 GoodsClass gc = this.goodsClassService.getObjById(session_gc
@@ -1184,7 +1184,7 @@ public class GoodsSellerAction {
                              this.storeTools.generic_goods_class_info(gc));
                 mv.addObject("goods_class", gc);
                 request.getSession(false).removeAttribute("goods_class_info");
-            } else if (obj.getGc() != null) {
+            }else if (obj.getGc() != null){
                 mv.addObject("goods_class_info",
                              this.storeTools.generic_goods_class_info(obj.getGc()));
                 mv.addObject("goods_class", obj.getGc());
@@ -1197,7 +1197,7 @@ public class GoodsSellerAction {
             mv.addObject("imageSuffix", this.storeViewTools
                          .genericImageSuffix(this.configService.getSysConfig()
                                              .getImageSuffix()));
-        } else {
+        }else{
             mv = new JModelAndView("error.html",
                                    this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
@@ -1217,28 +1217,28 @@ public class GoodsSellerAction {
      * @return
      */
     @SecurityMapping(display = false, rsequence = 0, title = "商品上下架", value = "/seller/goods_sale.htm*", rtype = "seller", rname = "商品上下架", rcode = "goods_sale_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/goods_sale.htm" })
+    @RequestMapping({ "/seller/goods_sale.htm" })
     public String goods_sale(HttpServletRequest request,
-                             HttpServletResponse response, String mulitId) {
+                             HttpServletResponse response, String mulitId){
         String url = "/seller/goods.htm";
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 Goods goods = this.goodsService.getObjById(Long.valueOf(Long
                               .parseLong(id)));
 
                 if (goods.getGoods_store().getUser().getId()
-                        .equals(SecurityUserHolder.getCurrentUser().getId())) {
+                        .equals(SecurityUserHolder.getCurrentUser().getId())){
                     int goods_status = goods.getGoods_status() == 0 ? 1 : 0;
                     goods.setGoods_status(goods_status);
                     this.goodsService.update(goods);// 更新商品资料
-                    if (goods_status == 0) {
+                    if (goods_status == 0){
                         url = "/seller/goods_storage.htm";
 
                         // 更新全文检索
                         String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
                         File file = new File(goods_lucene_path);
-                        if (!file.exists()) {
+                        if (!file.exists()){
                             CommUtil.createFolder(goods_lucene_path);
                         }
 
@@ -1254,10 +1254,10 @@ public class GoodsSellerAction {
                         LuceneUtil lucene = LuceneUtil.instance();
                         LuceneUtil.setIndex_path(goods_lucene_path);
                         lucene.update(CommUtil.null2String(goods.getId()), vo);
-                    } else {
+                    }else{
                         String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
                         File file = new File(goods_lucene_path);
-                        if (!file.exists()) {
+                        if (!file.exists()){
                             CommUtil.createFolder(goods_lucene_path);
                         }
                         LuceneUtil lucene = LuceneUtil.instance();
@@ -1271,24 +1271,24 @@ public class GoodsSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品删除", value = "/seller/goods_del.htm*", rtype = "seller", rname = "商品删除", rcode = "goods_del_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/goods_del.htm" })
+    @RequestMapping({ "/seller/goods_del.htm" })
     public String goods_del(HttpServletRequest request,
-                            HttpServletResponse response, String mulitId, String op) {
+                            HttpServletResponse response, String mulitId, String op){
         String url = "/seller/goods.htm";
-        if (CommUtil.null2String(op).equals("storage")) {
+        if (CommUtil.null2String(op).equals("storage")){
             url = "/seller/goods_storage.htm";
         }
-        if (CommUtil.null2String(op).equals("out")) {
+        if (CommUtil.null2String(op).equals("out")){
             url = "/seller/goods_out.htm";
         }
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 Goods goods = this.goodsService.getObjById(CommUtil
                               .null2Long(id));
 
                 if (goods.getGoods_store().getUser().getId()
-                        .equals(SecurityUserHolder.getCurrentUser().getId())) {
+                        .equals(SecurityUserHolder.getCurrentUser().getId())){
                     Map map = new HashMap();
                     map.put("gid", goods.getId());
                     List<GoodsCart> goodCarts = this.goodsCartService
@@ -1296,17 +1296,17 @@ public class GoodsSellerAction {
                                                        map, -1, -1);
                     Long ofid = null;
                     Long of_id;
-                    for (GoodsCart gc : goodCarts) {
+                    for (GoodsCart gc : goodCarts){
                         of_id = gc.getOf().getId();
                         this.goodsCartService.delete(gc.getId());
                         OrderForm of = this.orderFormService.getObjById(of_id);
-                        if (of.getGcs().size() == 0) {
+                        if (of.getGcs().size() == 0){
                             this.orderFormService.delete(of_id);
                         }
                     }
 
                     List<Evaluate> evaluates = goods.getEvaluates();
-                    for (Evaluate e : evaluates) {
+                    for (Evaluate e : evaluates){
                         this.evaluateService.delete(e.getId());
                     }
                     goods.getGoods_ugcs().clear();
@@ -1318,7 +1318,7 @@ public class GoodsSellerAction {
 
                     String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
                     File file = new File(goods_lucene_path);
-                    if (!file.exists()) {
+                    if (!file.exists()){
                         CommUtil.createFolder(goods_lucene_path);
                     }
                     LuceneUtil lucene = LuceneUtil.instance();
@@ -1332,10 +1332,10 @@ public class GoodsSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "被举报禁售商品", value = "/seller/goods_report.htm*", rtype = "seller", rname = "被举报禁售商品", rcode = "goods_report_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/goods_report.htm" })
+    @RequestMapping({ "/seller/goods_report.htm" })
     public ModelAndView goods_report(HttpServletRequest request,
                                      HttpServletResponse response, String currentPage, String orderBy,
-                                     String orderType) {
+                                     String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/goods_report.html",
             this.configService.getSysConfig(),
@@ -1352,9 +1352,9 @@ public class GoodsSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "举报图片查看", value = "/seller/report_img.htm*", rtype = "seller", rname = "被举报禁售商品", rcode = "goods_report_seller", rgroup = "商品管理")
-    @RequestMapping( { "/seller/report_img.htm" })
+    @RequestMapping({ "/seller/report_img.htm" })
     public ModelAndView report_img(HttpServletRequest request,
-                                   HttpServletResponse response, String id) {
+                                   HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/report_img.html",
             this.configService.getSysConfig(),
@@ -1365,9 +1365,9 @@ public class GoodsSellerAction {
         return mv;
     }
 
-    @RequestMapping( { "/seller/goods_img_album.htm" })
+    @RequestMapping({ "/seller/goods_img_album.htm" })
     public ModelAndView goods_img_album(HttpServletRequest request,
-                                        HttpServletResponse response, String currentPage, String type) {
+                                        HttpServletResponse response, String currentPage, String type){
         ModelAndView mv = new JModelAndView("user/default/usercenter/" + type
                                             + ".html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);

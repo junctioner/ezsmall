@@ -7,7 +7,7 @@
 <meta name="apple-wap-web-app-status-bar-style" content="black-translucent">
 <title>$!config.title</title>
 	
-<script>	
+<script>
 #set($group=0)
 #set($current_price=$!obj.goods_current_price)
 #if($!{obj.group_buy}==2)
@@ -37,9 +37,7 @@
 	<script src="$!webPath/resources/style/system/front/wap/js/jquery.validate.min.js"></script>
 	<script>
 		var goods_cod = "0";
-		//var store_price = "0.00";
 		jQuery(document).ready(function() {
-
 			//初始化数据
 			var data='$!obj.goods_property';
 			if(data!=""){
@@ -90,12 +88,6 @@
 			<!--商品中自定义的规格值赋值结束-->
 		});
 		jQuery(function() {
-
-			/* if (goods_cod == "0") {
-				jQuery("#show_count").html("x" + jQuery("#count").val() + "&nbsp&nbsp");
-			} else {
-				jQuery("#show_count").html("x" + jQuery("#count").val());
-			} */
 			jQuery("#show_spec").click(function(e) {
 				if (jQuery("#spec_select").css("display") == "block") {
 					jQuery("#img_spec").attr("src", "$!webPath/resources/style/system/front/wap/images/details_right.gif");
@@ -163,7 +155,7 @@
 				goods_spec_set(th);
 			});
 			//商品收藏
-			/* jQuery(".details_star").click(function() {
+			jQuery(".details_star").click(function() {
 					if (jQuery(".details_star img").attr("mark") == 0) {
 						jQuery.post("/add_goods_favorite.htm",
 							{"id" : "53"},
@@ -179,18 +171,16 @@
 
 							}, "text");
 					}
-				}); */
+				});
 		});
 		<!--end-->
 		
 		//添加购物车
 		function add_cart() {
-			
-			
 			#if($!user.id==$!obj.goods_store.user.id)
 				 alert("不能购买自己的商品！");
 			#else
-				 var add=true
+				 var add=true;
 				 var gsp="";
 				 if(jQuery(".colordate").length==0){
 				    add=true;
@@ -213,12 +203,10 @@
 				    add=false;
 					alert("商品库存为0,不能购买!");
 					return;
-				 }  
+				 }
 				 if(add){
 					var count = jQuery("#count").val() - 0;
-					
 					var goods_inventory = jQuery("#goods_inventory").attr("inventory") - 0;
-					
 					if (goods_inventory != 0) {
 						if (goods_inventory < count) {
 							count = goods_inventory;
@@ -236,17 +224,17 @@
 										var result=eval("("+data+")");  
 										if("false"==result.flag){
 											alert("多个卖家的商品无法同时加入购物车结算");
-										} 
+										}else{
+											window.location.href = "$!webPath/goods_cart1.htm";
+										}
 										jQuery("#cart_goods_count").html(result.count);
-										 //jQuery("#cart_goods_totalprice").html(data.total_price);
-										 //jQuery(".goodscar").fadeIn();
-									     //time_id=window.setInterval(cart_fadeOut,1000);
+										jQuery("#cart_goods_totalprice").html(data.total_price);
+										jQuery(".goodscar").fadeIn();
+									    time_id=window.setInterval(cart_fadeOut,1000);
 									}
 						});
 					}
 				 }else{
-				    //jQuery("#goods_spec_info").removeClass().addClass("detailsbottom detailsbottom_hover");  
-					//jQuery("#goods_spec_info_close").show();
 					jQuery("#spec_select").show();
 					jQuery("#goods_spec_chose").show();
 				 }
@@ -254,7 +242,6 @@
 		}
 		//直接购买
 		function buy_goods() {
-			
 			#if($!user.id==$!obj.goods_store.user.id)
 				 alert("不能购买自己的商品！");
 			#else
@@ -310,46 +297,12 @@
 								}
 							});
 						}
-					/* jQuery.post("$!webPath/add_goods_cart.htm",{"id":"$!obj.id","count":count,"price":store_price,"gsp":gsp,"buy_type":buy_type},function(data){
-					     jQuery("#cart_goods_count").html(data.count);
-						 jQuery("#cart_goods_totalprice").html(data.total_price);
-						 window.location.href="$!webPath/goods_cart1.htm";
-					},"json"); */
 				  }else{
-					//jQuery("#goods_spec_info").removeClass().addClass("detailsbottom detailsbottom_hover");  
-					//jQuery("#goods_spec_info_close").show();
 					jQuery("#spec_select").show();
 					jQuery("#goods_spec_chose").show();
 				  }
 			#end  
 		}
-		/* function f_cart() {
-			var add = true
-			var gsp = "";
-			jQuery("li[mark^=spec_]").each(function() {
-				if (jQuery(this).find("a[class=this]").length == 0)
-					add = false;
-			});
-			if (add) {
-				jQuery("li[mark^=spec_]").each(
-						function() {
-							gsp = jQuery(this).find("a[class=this]").attr("gsp") + "," + gsp;
-						});
-			}
-			if (add) {
-				var count = jQuery("#count").val() - 0;
-				var goods_inventory = jQuery("#goods_inventory").attr("inventory") - 0;
-				if (goods_inventory != 0) {
-					if (goods_inventory < count) {
-						count = goods_inventory;
-					}
-					window.location.href = "$!webPath/f_code_cart.htm?goods_id=53&gsp=" + gsp;
-				}
-			} else {
-				alert("请选择规格！")
-			}
-		} */
-		
 	</script>
 </head>
 
@@ -363,7 +316,6 @@
 				<div class="deta_photo">
 					<div class="tempWrap" style="overflow: hidden; position: relative;">
 						<ul style="width: 230px; position: relative; overflow: hidden; padding: 0px; margin: 0px; transition-duration: 200ms; transform: translate(0px, 0px) translateZ(0px);">
-							
 				            #if($!obj.goods_main_photo)
 				            	#set($small_img="$!imageWebServer/$!{obj.goods_main_photo.path}/$!{obj.goods_main_photo.name}_small.$!{obj.goods_main_photo.ext}")
 				            	#set($big_img="$!imageWebServer/$!{obj.goods_main_photo.path}/$!{obj.goods_main_photo.name}")
@@ -426,15 +378,12 @@
                     	 load=false;
 	             });
 			  if(load){
-				//jQuery("#goods_spec_info").removeClass().addClass("detailsbottom");  
-	            //jQuery("#goods_spec_info_close").hide();    
 				jQuery("#goods_spec_chose").hide();
 				jQuery.post("$!webPath/load_goods_gsp.htm",{"id":"$!obj.id","gsp":gsp},function(data){
 				   goods_inventory=data.count;
 				   store_price=data.price;
 				   jQuery("#goods_inventory").html(goods_inventory);
 				   jQuery("#store_price").html("¥"+store_price);
-				   //jQuery("#rest").html("¥"+(goods_price-store_price));
 				  },"json");
 			    }
 			 }
@@ -640,59 +589,7 @@
 					</div>
 				</dd>
 		    </dl>
-		    
-		    <!-- 咨询信息 -->
-		    <!-- 
-		    <dl class="stand">
-		    	<dt><a href="/wap/consult.htm?id=1103"><span class="fl">咨询信息<span class="gray">(0)</span></span><span class="fr"><img src="/details_right.gif" height="18" width="9"></span></a></dt>
-		    </dl>
-		     -->
-		     
-		    <!-- 
-		    <dl class="send">
-		    	<dt>
-		        	<ul class="eva">
-		            	<li><a href="$!webPath/goods_order.htm?goods_id=$!{obj.id}&id=$!{store.id}">成交记录<span class="gray"></span></a></li>
-		                <li><a href="$!webPath/goods_evaluation.htm?goods_id=$!{obj.id}&id=$!{store.id}">商品评价<span class="gray"></span></a></li>
-		            </ul>
-		        </dt>
-		    </dl>
-		     -->
-		    
-			
 		</div>
-		
-		<!--评价等--> 
-		<!-- <div class="evaluation_top">
-		    <div class="evaluation_top_box"><b>好评度：</b><span><i style="width:0.0%"></i></span><strong>0.0%</strong></div>
-		    <ul>
-		      <li class="this"><span>好评：<br>
-		        <i>0.0%</i></span></li>
-		      <li><span>中评：<br>
-		        <i>0.0%</i></span></li>
-		      <li><span>差评：<br>
-		        <i>0.0%</i></span></li>
-		    </ul>
-		</div>
-		<div class="evaluation_box"> 
-		    <ul>
-		        <li class="details_eli" style="border-bottom:0px;"><a href=""><b><i><em><img src="/resources/style/system/front/wap/images/evel_star.png"></em><em><img src="/resources/style/system/front/wap/images/evel_star.png"></em><em><img src="/resources/style/system/front/wap/images/evel_star.png"></em><em><img src="/resources/style/system/front/wap/images/evel_star.png"></em><em><img src="/resources/style/system/front/wap/images/evel_star_bg.png"></em></i>100%&nbsp;(2)</b><span>评价</span></a>
-		        </li>
-		      </ul> 
-		        <div style="line-height:40px; text-align:center"> 还没有评价内容 </div>
-		</div>
-		<div class="loading" id="loading" style="display:none">
-		    <ul>
-		      <li><img src="/loading.gif" height="16" width="16"></li>
-		      <li>正在加载....</li>
-		    </ul>
-		</div>
-		<div class="loading" id="loading_none" style="display:none">
-		    <ul>
-		      <li>没有更多了....</li>
-		    </ul>
-		</div> -->
-  
 		<div style="height: 10px;"></div>
 		<div class="details_total">
 			<a href="$!webPath/goods_cart1.htm" class="details_enjoy">
@@ -702,8 +599,5 @@
 			<a href="javascript:void(0)" onclick="buy_goods()" class="atonce">立即购买</a>
 		</div>
 	</div>
-
-
-
 </body>
 </html>

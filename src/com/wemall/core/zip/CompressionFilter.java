@@ -22,25 +22,25 @@ public class CompressionFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
     throws IOException, ServletException {
         boolean compress = false;
-        if ((request instanceof HttpServletRequest)) {
+        if ((request instanceof HttpServletRequest)){
             HttpServletRequest httpRequest = (HttpServletRequest)request;
             Enumeration headers = httpRequest.getHeaders("Accept-Encoding");
-            while (headers.hasMoreElements()) {
+            while (headers.hasMoreElements()){
                 String value = (String)headers.nextElement();
-                if (value.indexOf("gzip") != -1) {
+                if (value.indexOf("gzip") != -1){
                     compress = true;
                 }
             }
         }
 
-        if (compress) {
+        if (compress){
             HttpServletResponse httpResponse = (HttpServletResponse)response;
             httpResponse.addHeader("Content-Encoding", "gzip");
             CompressionResponse compressionResponse = new CompressionResponse(
                 httpResponse);
             chain.doFilter(request, compressionResponse);
             compressionResponse.close();
-        } else {
+        }else{
             chain.doFilter(request, response);
         }
     }
@@ -49,6 +49,6 @@ public class CompressionFilter implements Filter {
     throws ServletException {
     }
 
-    public void destroy() {
+    public void destroy(){
     }
 }

@@ -27,91 +27,91 @@ public class AlipayConfig {
     public static String ali_public_key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDUlhNeh7cemPZ7kq3IvtT8L4zjY5UECuQTjLhjp7/SDPOR31+oGqJgMF8GiZZ7wSNOSiTsPmz2hHOxKpyp5elspwbi2pW7x/MT57AqeDZeJXwM5dYwL3ld5UDSJGurCw3PhbI/dJWcD22BHOd9iFncxdpxrQ2c3XlM0fDtAo+dAwIDAQAB";
 
 
-    public static String getPrivate_key() {
+    public static String getPrivate_key(){
         return private_key;
     }
 
-    public static void setPrivate_key(String private_key) {
+    public static void setPrivate_key(String private_key){
         private_key = private_key;
     }
 
-    public static String getAli_public_key() {
+    public static String getAli_public_key(){
         return ali_public_key;
     }
 
-    public static void setAli_public_key(String ali_public_key) {
+    public static void setAli_public_key(String ali_public_key){
         ali_public_key = ali_public_key;
     }
 
-    public String getPartner() {
+    public String getPartner(){
         return this.partner;
     }
 
-    public void setPartner(String partner) {
+    public void setPartner(String partner){
         this.partner = partner;
     }
 
-    public String getKey() {
+    public String getKey(){
         return this.key;
     }
 
-    public void setKey(String key) {
+    public void setKey(String key){
         this.key = key;
     }
 
-    public String getSeller_email() {
+    public String getSeller_email(){
         return this.seller_email;
     }
 
-    public void setSeller_email(String seller_email) {
+    public void setSeller_email(String seller_email){
         this.seller_email = seller_email;
     }
 
-    public String getNotify_url() {
+    public String getNotify_url(){
         return this.notify_url;
     }
 
-    public void setNotify_url(String notify_url) {
+    public void setNotify_url(String notify_url){
         this.notify_url = notify_url;
     }
 
-    public String getReturn_url() {
+    public String getReturn_url(){
         return this.return_url;
     }
 
-    public void setReturn_url(String return_url) {
+    public void setReturn_url(String return_url){
         this.return_url = return_url;
     }
 
-    public String getLog_path() {
+    public String getLog_path(){
         return this.log_path;
     }
 
-    public void setLog_path(String log_path) {
+    public void setLog_path(String log_path){
         this.log_path = log_path;
     }
 
-    public String getInput_charset() {
+    public String getInput_charset(){
         return this.input_charset;
     }
 
-    public void setInput_charset(String input_charset) {
+    public void setInput_charset(String input_charset){
         this.input_charset = input_charset;
     }
 
-    public String getSign_type() {
+    public String getSign_type(){
         return this.sign_type;
     }
 
-    public void setSign_type(String sign_type) {
+    public void setSign_type(String sign_type){
         this.sign_type = sign_type;
     }
 
-    public String getTransport() {
+    public String getTransport(){
         return this.transport;
     }
 
-    public void setTransport(String transport) {
+    public void setTransport(String transport){
         this.transport = transport;
     }
 }

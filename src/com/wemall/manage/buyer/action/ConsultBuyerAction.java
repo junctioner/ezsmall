@@ -33,15 +33,15 @@ public class ConsultBuyerAction {
     private IConsultService consultService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家咨询列表", value = "/buyer/consult.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/consult.htm"})
-    public ModelAndView consult(HttpServletRequest request, HttpServletResponse response, String reply, String currentPage) {
+    @RequestMapping({"/buyer/consult.htm"})
+    public ModelAndView consult(HttpServletRequest request, HttpServletResponse response, String reply, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/buyer_consult.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         ConsultQueryObject qo = new ConsultQueryObject(currentPage, mv,
                 "addTime", "desc");
-        if (!CommUtil.null2String(reply).equals("")) {
+        if (!CommUtil.null2String(reply).equals("")){
             qo.addQuery("obj.reply",
                         new SysMap("reply",
                                    Boolean.valueOf(CommUtil.null2Boolean(reply))), "=");

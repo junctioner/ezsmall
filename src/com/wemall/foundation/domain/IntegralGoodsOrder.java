@@ -58,115 +58,115 @@ public class IntegralGoodsOrder extends IdEntity {
     @Column(columnDefinition = "LongText")
     private String igo_ship_content;
 
-    public String getIgo_ship_content() {
+    public String getIgo_ship_content(){
         return this.igo_ship_content;
     }
 
-    public void setIgo_ship_content(String igo_ship_content) {
+    public void setIgo_ship_content(String igo_ship_content){
         this.igo_ship_content = igo_ship_content;
     }
 
-    public String getIgo_ship_code() {
+    public String getIgo_ship_code(){
         return this.igo_ship_code;
     }
 
-    public void setIgo_ship_code(String igo_ship_code) {
+    public void setIgo_ship_code(String igo_ship_code){
         this.igo_ship_code = igo_ship_code;
     }
 
-    public Date getIgo_ship_time() {
+    public Date getIgo_ship_time(){
         return this.igo_ship_time;
     }
 
-    public void setIgo_ship_time(Date igo_ship_time) {
+    public void setIgo_ship_time(Date igo_ship_time){
         this.igo_ship_time = igo_ship_time;
     }
 
-    public Date getIgo_pay_time() {
+    public Date getIgo_pay_time(){
         return this.igo_pay_time;
     }
 
-    public void setIgo_pay_time(Date igo_pay_time) {
+    public void setIgo_pay_time(Date igo_pay_time){
         this.igo_pay_time = igo_pay_time;
     }
 
-    public String getIgo_order_sn() {
+    public String getIgo_order_sn(){
         return this.igo_order_sn;
     }
 
-    public void setIgo_order_sn(String igo_order_sn) {
+    public void setIgo_order_sn(String igo_order_sn){
         this.igo_order_sn = igo_order_sn;
     }
 
-    public Address getIgo_addr() {
+    public Address getIgo_addr(){
         return this.igo_addr;
     }
 
-    public void setIgo_addr(Address igo_addr) {
+    public void setIgo_addr(Address igo_addr){
         this.igo_addr = igo_addr;
     }
 
-    public User getIgo_user() {
+    public User getIgo_user(){
         return this.igo_user;
     }
 
-    public void setIgo_user(User igo_user) {
+    public void setIgo_user(User igo_user){
         this.igo_user = igo_user;
     }
 
-    public List<IntegralGoodsCart> getIgo_gcs() {
+    public List<IntegralGoodsCart> getIgo_gcs(){
         return this.igo_gcs;
     }
 
-    public void setIgo_gcs(List<IntegralGoodsCart> igo_gcs) {
+    public void setIgo_gcs(List<IntegralGoodsCart> igo_gcs){
         this.igo_gcs = igo_gcs;
     }
 
-    public BigDecimal getIgo_trans_fee() {
+    public BigDecimal getIgo_trans_fee(){
         return this.igo_trans_fee;
     }
 
-    public void setIgo_trans_fee(BigDecimal igo_trans_fee) {
+    public void setIgo_trans_fee(BigDecimal igo_trans_fee){
         this.igo_trans_fee = igo_trans_fee;
     }
 
-    public int getIgo_status() {
+    public int getIgo_status(){
         return this.igo_status;
     }
 
-    public void setIgo_status(int igo_status) {
+    public void setIgo_status(int igo_status){
         this.igo_status = igo_status;
     }
 
-    public int getIgo_total_integral() {
+    public int getIgo_total_integral(){
         return this.igo_total_integral;
     }
 
-    public void setIgo_total_integral(int igo_total_integral) {
+    public void setIgo_total_integral(int igo_total_integral){
         this.igo_total_integral = igo_total_integral;
     }
 
-    public String getIgo_msg() {
+    public String getIgo_msg(){
         return this.igo_msg;
     }
 
-    public void setIgo_msg(String igo_msg) {
+    public void setIgo_msg(String igo_msg){
         this.igo_msg = igo_msg;
     }
 
-    public String getIgo_payment() {
+    public String getIgo_payment(){
         return this.igo_payment;
     }
 
-    public void setIgo_payment(String igo_payment) {
+    public void setIgo_payment(String igo_payment){
         this.igo_payment = igo_payment;
     }
 
-    public String getIgo_pay_msg() {
+    public String getIgo_pay_msg(){
         return this.igo_pay_msg;
     }
 
-    public void setIgo_pay_msg(String igo_pay_msg) {
+    public void setIgo_pay_msg(String igo_pay_msg){
         this.igo_pay_msg = igo_pay_msg;
     }
 }

@@ -27,7 +27,7 @@ public class BargainSellerTools {
     @Autowired
     private ISysConfigService configService;
 
-    public BigDecimal query_bargain_rebate(Object bargain_time) {
+    public BigDecimal query_bargain_rebate(Object bargain_time){
         Map params = new HashMap();
         params.put("bt", CommUtil.formatDate(
                        CommUtil.null2String(bargain_time), "yyyy-MM-dd"));
@@ -37,14 +37,14 @@ public class BargainSellerTools {
         BigDecimal bd = null;
         if (bargain.size() > 0)
             bd = ((Bargain)bargain.get(0)).getRebate();
-        else {
+       else{
             bd = this.configService.getSysConfig().getBargain_rebate();
         }
 
         return bd;
     }
 
-    public int query_bargain_maximum(Object bargain_time) {
+    public int query_bargain_maximum(Object bargain_time){
         Map params = new HashMap();
         params.put("bt", CommUtil.formatDate(
                        CommUtil.null2String(bargain_time), "yyyy-MM-dd"));
@@ -54,14 +54,14 @@ public class BargainSellerTools {
         int bd = 0;
         if (bargain.size() > 0)
             bd = ((Bargain)bargain.get(0)).getMaximum();
-        else {
+       else{
             bd = this.configService.getSysConfig().getBargain_maximum();
         }
 
         return bd;
     }
 
-    public int query_bargain_audit(Object bargain_time) {
+    public int query_bargain_audit(Object bargain_time){
         Map params = new HashMap();
         params.put("bg_time", CommUtil.formatDate(
                        CommUtil.null2String(bargain_time), "yyyy-MM-dd"));

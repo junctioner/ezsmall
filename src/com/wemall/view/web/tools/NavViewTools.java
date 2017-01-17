@@ -30,7 +30,7 @@ public class NavViewTools {
     @Autowired
     private IGoodsClassService goodsClassService;
 
-    public List<Navigation> queryNav(int location, int count) {
+    public List<Navigation> queryNav(int location, int count){
         List navs = new ArrayList();
         Map params = new HashMap();
         params.put("display", Boolean.valueOf(true));

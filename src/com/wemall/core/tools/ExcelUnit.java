@@ -22,7 +22,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 public class ExcelUnit {
-    public static void exportExcel(String title, String[] headers, Collection<T> dataset, OutputStream out, String pattern) {
+    public static void exportExcel(String title, String[] headers, Collection<T> dataset, OutputStream out, String pattern){
         HSSFWorkbook workbook = new HSSFWorkbook();
 
         HSSFSheet sheet = workbook.createSheet(title);
@@ -72,7 +72,7 @@ public class ExcelUnit {
         comment.setAuthor("erikchang");
 
         HSSFRow row = sheet.createRow(0);
-        for (int i = 0; i < headers.length; i++) {
+        for (int i = 0; i < headers.length; i++){
             HSSFCell cell = row.createCell(i);
             cell.setCellStyle(style);
             cell.setCellValue(new HSSFRichTextString(headers[i]));
@@ -80,13 +80,13 @@ public class ExcelUnit {
 
         Iterator it = dataset.iterator();
         int index = 0;
-        while (it.hasNext()) {
+        while (it.hasNext()){
             index++;
             row = sheet.createRow(index);
             T t = (T)it.next();
 
             Field[] fields = t.getClass().getDeclaredFields();
-            for (int i = 0; i < fields.length; i++) {
+            for (int i = 0; i < fields.length; i++){
                 HSSFCell cell = row.createCell(i);
                 cell.setCellStyle(style);
                 Field field = fields[i];
@@ -101,16 +101,16 @@ public class ExcelUnit {
                     Object value = getMethod.invoke(t, new Object[0]);
 
                     String textValue = null;
-                    if ((value instanceof Boolean)) {
+                    if ((value instanceof Boolean)){
                         boolean bValue = ((Boolean)value).booleanValue();
                         textValue = "男";
                         if (!bValue)
                             textValue = "女";
-                    } else if ((value instanceof Date)) {
+                    }else if ((value instanceof Date)){
                         Date date = (Date)value;
                         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
                         textValue = sdf.format(date);
-                    } else if ((value instanceof byte[])) {
+                    }else if ((value instanceof byte[])){
                         row.setHeightInPoints(60.0F);
 
                         sheet.setColumnWidth(i, 2856);
@@ -119,16 +119,16 @@ public class ExcelUnit {
                         anchor.setAnchorType(2);
                         patriarch.createPicture(anchor, workbook.addPicture(
                                                     bsValue, 5));
-                    } else {
+                    }else{
                         textValue = value.toString();
                     }
 
-                    if (textValue != null) {
+                    if (textValue != null){
                         Pattern p = Pattern.compile("^\\d+(\\.\\d+)?$");
                         Matcher matcher = p.matcher(textValue);
-                        if (matcher.matches()) {
+                        if (matcher.matches()){
                             cell.setCellValue(Double.parseDouble(textValue));
-                        } else {
+                        }else{
                             HSSFRichTextString richString = new HSSFRichTextString(
                                 textValue);
                             HSSFFont _font = workbook.createFont();
@@ -137,19 +137,19 @@ public class ExcelUnit {
                             cell.setCellValue(richString);
                         }
                     }
-                } catch (Exception e) {
+                } catch (Exception e){
                     e.printStackTrace();
                 }
             }
         }
         try {
             workbook.write(out);
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public static void exportTable2Excel(String title, String[] headers, Collection dataset, OutputStream out, String pattern) {
+    public static void exportTable2Excel(String title, String[] headers, Collection dataset, OutputStream out, String pattern){
         HSSFWorkbook workbook = new HSSFWorkbook();
 
         HSSFSheet sheet = workbook.createSheet(title);
@@ -193,21 +193,21 @@ public class ExcelUnit {
         style_.setFont(font_);
 
         HSSFRow row = sheet.createRow(0);
-        for (int i = 0; i < headers.length; i++) {
+        for (int i = 0; i < headers.length; i++){
             HSSFCell cell = row.createCell(i);
             cell.setCellStyle(style);
             cell.setCellValue(new HSSFRichTextString(headers[i]));
         }
 
         int index = 0;
-        for (Iterator localIterator = dataset.iterator(); localIterator.hasNext(); ) {
+        for (Iterator localIterator = dataset.iterator(); localIterator.hasNext();){
             Object obj = localIterator.next();
             index++;
             row = sheet.createRow(index);
             Object[] list = (Object[])obj;
             int rowIndex = 0;
             for (Object o : list)
-                if (o != null) {
+                if (o != null){
                     HSSFCell cell = row.createCell(rowIndex);
                     cell.setCellStyle(style_);
                     cell.setCellValue(o.toString());
@@ -218,7 +218,7 @@ public class ExcelUnit {
             workbook.write(out);
             out.flush();
             out.close();
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

@@ -46,17 +46,17 @@ public class AddressBuyerAction {
     private DatabaseTools databaseTools;
 
     @SecurityMapping(display = false, rsequence = 0, title = "收货地址列表", value = "/buyer/address.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/address.htm"})
-    public ModelAndView address(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/buyer/address.htm"})
+    public ModelAndView address(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView("user/default/usercenter/address.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
-        String wemall_view_type = CommUtil.null2String( request.getSession( false ).getAttribute( "wemall_view_type" ) );
-        if( (wemall_view_type != null) && (!wemall_view_type.equals( "" )) && (wemall_view_type.equals( "wap" )) ) {
+        String wemall_view_type = CommUtil.null2String(request.getSession(false).getAttribute("wemall_view_type"));
+        if((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))){
             mv = new JModelAndView("wap/address.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request, response);
         }
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -77,12 +77,12 @@ public class AddressBuyerAction {
      * @return
      */
     @SecurityMapping(display = false, rsequence = 0, title = "新增收货地址", value = "/buyer/address_add.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/address_add.htm"})
-    public ModelAndView address_add(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/buyer/address_add.htm"})
+    public ModelAndView address_add(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView("user/default/usercenter/address_add.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
-        String wemall_view_type = CommUtil.null2String( request.getSession().getAttribute( "wemall_view_type" ) );
-        if( (wemall_view_type != null) && (!wemall_view_type.equals( "" )) && (wemall_view_type.equals( "wap" )) ) {
+        String wemall_view_type = CommUtil.null2String(request.getSession().getAttribute("wemall_view_type"));
+        if((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))){
             mv = new JModelAndView("wap/address_add.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request, response);
         }
@@ -94,12 +94,12 @@ public class AddressBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "新增收货地址", value = "/buyer/address_edit.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/address_edit.htm"})
-    public ModelAndView address_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/buyer/address_edit.htm"})
+    public ModelAndView address_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("user/default/usercenter/address_add.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
-        String wemall_view_type = CommUtil.null2String( request.getSession().getAttribute( "wemall_view_type" ) );
-        if( (wemall_view_type != null) && (!wemall_view_type.equals( "" )) && (wemall_view_type.equals( "wap" )) ) {
+        String wemall_view_type = CommUtil.null2String(request.getSession().getAttribute("wemall_view_type"));
+        if((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))){
             mv = new JModelAndView("wap/address_add.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request, response);
         }
@@ -113,14 +113,14 @@ public class AddressBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "收货地址保存", value = "/buyer/address_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/address_save.htm"})
-    public String address_save(HttpServletRequest request, HttpServletResponse response, String id, String area_id, String currentPage) {
+    @RequestMapping({"/buyer/address_save.htm"})
+    public String address_save(HttpServletRequest request, HttpServletResponse response, String id, String area_id, String currentPage){
         WebForm wf = new WebForm();
         Address address = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             address = (Address)wf.toPo(request, Address.class);
             address.setAddTime(new Date());
-        } else {
+        }else{
             Address obj = this.addressService.getObjById(Long.valueOf(Long.parseLong(id)));
             address = (Address)wf.toPo(request, obj);
         }
@@ -136,11 +136,11 @@ public class AddressBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "收货地址删除", value = "/buyer/address_del.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/address_del.htm"})
-    public String address_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
+    @RequestMapping({"/buyer/address_del.htm"})
+    public String address_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 Address address = this.addressService.getObjById(
                                       Long.valueOf(Long.parseLong(id)));
                 this.addressService.delete(Long.valueOf(Long.parseLong(id)));

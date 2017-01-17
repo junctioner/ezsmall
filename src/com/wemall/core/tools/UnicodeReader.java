@@ -44,7 +44,7 @@ public class UnicodeReader extends Reader {
         this.internalIn.close();
     }
 
-    public String getEncoding() {
+    public String getEncoding(){
         return this.encoding;
     }
 
@@ -57,31 +57,31 @@ public class UnicodeReader extends Reader {
         int n = tempIn.read(bom, 0, bom.length);
         int unread;
         if ((bom[0] == 0) && (bom[1] == 0) &&
-                (bom[2] == -2) && (bom[3] == -1)) {
+                (bom[2] == -2) && (bom[3] == -1)){
             this.encoding = "UTF-32BE";
             unread = n - 4;
-        } else {
-            if (n == 4) {
+        }else{
+            if (n == 4){
                 if ((bom[0] == -1) && (bom[1] == -2) &&
-                        (bom[2] == 0) && (bom[3] == 0)) {
+                        (bom[2] == 0) && (bom[3] == 0)){
                     this.encoding = "UTF-32LE";
                     unread = n - 4;
                     //break label240;
                 }
             }
             if ((bom[0] == -17) && (bom[1] == -69) &&
-                    (bom[2] == -65)) {
+                    (bom[2] == -65)){
                 this.encoding = "UTF-8";
                 unread = n - 3;
-            } else {
-                if ((bom[0] == -2) && (bom[1] == -1)) {
+            }else{
+                if ((bom[0] == -2) && (bom[1] == -1)){
                     this.encoding = "UTF-16BE";
                     unread = n - 2;
-                } else {
-                    if ((bom[0] == -1) && (bom[1] == -2)) {
+                }else{
+                    if ((bom[0] == -1) && (bom[1] == -2)){
                         this.encoding = "UTF-16LE";
                         unread = n - 2;
-                    } else {
+                    }else{
                         this.encoding = defaultEncoding;
                         unread = n;
                     }
@@ -90,14 +90,14 @@ public class UnicodeReader extends Reader {
         }
         if (unread > 0)
             tempIn.unread(bom, n - unread, unread);
-        else if (unread < -1) {
+       else if (unread < -1){
             tempIn.unread(bom, 0, 0);
         }
 
-        if (this.encoding == null) {
+        if (this.encoding == null){
             this.internalIn = new InputStreamReader(tempIn);
             this.encoding = this.internalIn.getEncoding();
-        } else {
+        }else{
             this.internalIn = new InputStreamReader(tempIn, this.encoding);
         }
     }

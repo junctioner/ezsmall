@@ -19,7 +19,7 @@ import java.util.Map;
 public class AlipayService {
     private static final String ALIPAY_GATEWAY_NEW = "https://mapi.alipay.com/gateway.do?";
 
-    public static String create_direct_pay_by_user(AlipayConfig config, Map<String, String> sParaTemp) {
+    public static String create_direct_pay_by_user(AlipayConfig config, Map<String, String> sParaTemp){
         sParaTemp.put("service", "create_direct_pay_by_user");
         sParaTemp.put("partner", config.getPartner());
         sParaTemp.put("return_url", config.getReturn_url());
@@ -44,13 +44,13 @@ public class AlipayService {
 
         List<Node> nodeList = doc.selectNodes("//alipay/*");
 
-        for (Node node : nodeList) {
+        for (Node node : nodeList){
             if ((!node.getName().equals("is_success")) ||
                     (!node.getText().equals("T")))
                 continue;
             List<Node> nodeList1 = doc
                                    .selectNodes("//response/timestamp/*");
-            for (Node node1 : nodeList1) {
+            for (Node node1 : nodeList1){
                 result.append(node1.getText());
             }
 
@@ -59,7 +59,7 @@ public class AlipayService {
         return result.toString();
     }
 
-    public static String create_partner_trade_by_buyer(AlipayConfig config, Map<String, String> sParaTemp) {
+    public static String create_partner_trade_by_buyer(AlipayConfig config, Map<String, String> sParaTemp){
         sParaTemp.put("service", "create_partner_trade_by_buyer");
         sParaTemp.put("partner", config.getPartner());
         sParaTemp.put("return_url", config.getReturn_url());
@@ -73,7 +73,7 @@ public class AlipayService {
                                       "get", strButtonName);
     }
 
-    public static String trade_create_by_buyer(AlipayConfig config, Map<String, String> sParaTemp) {
+    public static String trade_create_by_buyer(AlipayConfig config, Map<String, String> sParaTemp){
         sParaTemp.put("service", "trade_create_by_buyer");
         sParaTemp.put("partner", config.getPartner());
         sParaTemp.put("return_url", config.getReturn_url());

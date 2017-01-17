@@ -63,107 +63,107 @@ public class Accessory extends IdEntity {
     @ManyToMany(mappedBy = "goods_photos")
     private List<Goods> goods_list = new ArrayList<Goods>();
 
-    public List<Goods> getGoods_main_list() {
+    public List<Goods> getGoods_main_list(){
         return this.goods_main_list;
     }
 
-    public void setGoods_main_list(List<Goods> goods_main_list) {
+    public void setGoods_main_list(List<Goods> goods_main_list){
         this.goods_main_list = goods_main_list;
     }
 
-    public List<Goods> getGoods_list() {
+    public List<Goods> getGoods_list(){
         return this.goods_list;
     }
 
-    public void setGoods_list(List<Goods> goods_list) {
+    public void setGoods_list(List<Goods> goods_list){
         this.goods_list = goods_list;
     }
 
-    public User getUser() {
+    public User getUser(){
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 
-    public String getInfo() {
+    public String getInfo(){
         return this.info;
     }
 
-    public void setInfo(String info) {
+    public void setInfo(String info){
         this.info = info;
     }
 
-    public String getName() {
+    public String getName(){
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-    public String getPath() {
+    public String getPath(){
         return this.path;
     }
 
-    public void setPath(String path) {
+    public void setPath(String path){
         this.path = path;
     }
 
-    public float getSize() {
+    public float getSize(){
         return this.size;
     }
 
-    public void setSize(float size) {
+    public void setSize(float size){
         this.size = size;
     }
 
-    public int getWidth() {
+    public int getWidth(){
         return this.width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(int width){
         this.width = width;
     }
 
-    public int getHeight() {
+    public int getHeight(){
         return this.height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(int height){
         this.height = height;
     }
 
-    public String getExt() {
+    public String getExt(){
         return this.ext;
     }
 
-    public void setExt(String ext) {
+    public void setExt(String ext){
         this.ext = ext;
     }
 
-    public Album getAlbum() {
+    public Album getAlbum(){
         return this.album;
     }
 
-    public void setAlbum(Album album) {
+    public void setAlbum(Album album){
         this.album = album;
     }
 
-    public Album getCover_album() {
+    public Album getCover_album(){
         return this.cover_album;
     }
 
-    public void setCover_album(Album cover_album) {
+    public void setCover_album(Album cover_album){
         this.cover_album = cover_album;
     }
 
-    public SysConfig getConfig() {
+    public SysConfig getConfig(){
         return this.config;
     }
 
-    public void setConfig(SysConfig config) {
+    public void setConfig(SysConfig config){
         this.config = config;
     }
 }

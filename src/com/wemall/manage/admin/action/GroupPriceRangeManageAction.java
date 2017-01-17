@@ -34,13 +34,13 @@ public class GroupPriceRangeManageAction {
     private IGroupPriceRangeService grouppricerangeService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "团购价格区间列表", value = "/admin/group_price_list.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/group_price_list.htm"})
-    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/admin/group_price_list.htm"})
+    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView("admin/blue/group_price_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -55,8 +55,8 @@ public class GroupPriceRangeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "团购价格区间列表", value = "/admin/group_price_add.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/group_price_add.htm"})
-    public ModelAndView add(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/admin/group_price_add.htm"})
+    public ModelAndView add(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/group_price_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -66,12 +66,12 @@ public class GroupPriceRangeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "团购价格区间列表", value = "/admin/group_price_edit.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/group_price_edit.htm"})
-    public ModelAndView edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/group_price_edit.htm"})
+    public ModelAndView edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/group_price_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             GroupPriceRange grouppricerange = this.grouppricerangeService
                                               .getObjById(Long.valueOf(Long.parseLong(id)));
             mv.addObject("obj", grouppricerange);
@@ -83,14 +83,14 @@ public class GroupPriceRangeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "团购价格区间保存", value = "/admin/group_price_save.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/group_price_save.htm"})
-    public ModelAndView save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd) {
+    @RequestMapping({"/admin/group_price_save.htm"})
+    public ModelAndView save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd){
         WebForm wf = new WebForm();
         GroupPriceRange grouppricerange = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             grouppricerange = (GroupPriceRange)wf.toPo(request, GroupPriceRange.class);
             grouppricerange.setAddTime(new Date());
-        } else {
+        }else{
             GroupPriceRange obj = this.grouppricerangeService.getObjById(
                                       Long.valueOf(Long.parseLong(id)));
             grouppricerange = (GroupPriceRange)wf.toPo(request, obj);
@@ -113,11 +113,11 @@ public class GroupPriceRangeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "团购价格区间删除", value = "/admin/group_price_del.htm*", rtype = "admin", rname = "团购管理", rcode = "group_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/group_price_del.htm"})
-    public String delete(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
+    @RequestMapping({"/admin/group_price_del.htm"})
+    public String delete(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 GroupPriceRange grouppricerange = this.grouppricerangeService
                                                   .getObjById(Long.valueOf(Long.parseLong(id)));
                 this.grouppricerangeService.delete(Long.valueOf(Long.parseLong(id)));

@@ -19,11 +19,11 @@ public class SpareGoodsViewTools {
     @Autowired
     private ISpareGoodsClassService sgcService;
 
-    public List<SpareGoodsClass> query_childclass(SpareGoodsClass sgc) {
+    public List<SpareGoodsClass> query_childclass(SpareGoodsClass sgc){
         List list = new ArrayList();
-        for (SpareGoodsClass child : sgc.getChilds()) {
+        for (SpareGoodsClass child : sgc.getChilds()){
             list.add(child);
-            for (SpareGoodsClass c : child.getChilds()) {
+            for (SpareGoodsClass c : child.getChilds()){
                 list.add(c);
             }
         }
@@ -31,14 +31,14 @@ public class SpareGoodsViewTools {
         return list;
     }
 
-    public List<SpareGoodsClass> query_floorClass(SpareGoodsFloor sgf) {
+    public List<SpareGoodsClass> query_floorClass(SpareGoodsFloor sgf){
         List list = new ArrayList();
-        for (SpareGoodsClass child : sgf.getSgc().getChilds()) {
-            if (child.isViewInFloor()) {
+        for (SpareGoodsClass child : sgf.getSgc().getChilds()){
+            if (child.isViewInFloor()){
                 list.add(child);
             }
-            for (SpareGoodsClass c : child.getChilds()) {
-                if (c.isViewInFloor()) {
+            for (SpareGoodsClass c : child.getChilds()){
+                if (c.isViewInFloor()){
                     list.add(c);
                 }
             }
@@ -47,7 +47,7 @@ public class SpareGoodsViewTools {
         return list;
     }
 
-    public String ClearContent(String inputString) {
+    public String ClearContent(String inputString){
         String htmlStr = inputString;
         String textStr = "";
         try {
@@ -72,7 +72,7 @@ public class SpareGoodsViewTools {
             htmlStr = m_html1.replaceAll("");
 
             textStr = htmlStr;
-        } catch (Exception e) {
+        } catch (Exception e){
             System.err.println("Html2Text: " + e.getMessage());
         }
 

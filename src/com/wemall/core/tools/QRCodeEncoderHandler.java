@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 import com.swetake.util.Qrcode;
 
 public class QRCodeEncoderHandler {
-    public void encoderQRCode(String content, String imgPath) {
+    public void encoderQRCode(String content, String imgPath){
         try {
             Qrcode qrcodeHandler = new Qrcode();
             qrcodeHandler.setQrcodeErrorCorrect('M');
@@ -35,14 +35,14 @@ public class QRCodeEncoderHandler {
 
             int pixoff = 2;
 
-            if ((contentBytes.length > 0) && (contentBytes.length < 120)) {
+            if ((contentBytes.length > 0) && (contentBytes.length < 120)){
                 boolean[][] codeOut = qrcodeHandler.calQrcode(contentBytes);
-                for (int i = 0; i < codeOut.length; i++) {
+                for (int i = 0; i < codeOut.length; i++){
                     for (int j = 0; j < codeOut.length; j++)
                         if (codeOut[j][i])
                             gs.fillRect(j * 3 + pixoff, i * 3 + pixoff, 3, 3);
                 }
-            } else {
+            }else{
                 System.err.println("QRCode content bytes length = " +
                                    contentBytes.length + " not in [ 0,120 ]. ");
             }
@@ -53,7 +53,7 @@ public class QRCodeEncoderHandler {
             File imgFile = new File(imgPath);
 
             ImageIO.write(bufImg, "png", imgFile);
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -63,7 +63,7 @@ public class QRCodeEncoderHandler {
     * @param content
     * @return
     */
-    public static byte[] createQRCode(String content) {
+    public static byte[] createQRCode(String content){
         byte[] result = null;
         try {
             Qrcode qrcodeHandler = new Qrcode();
@@ -80,16 +80,16 @@ public class QRCodeEncoderHandler {
             graphics2D.clearRect(0, 0, 200, 200);
             graphics2D.setColor(Color.BLACK);
             int pixoff = 10;
-            if (contentBytes.length > 0 && contentBytes.length < 120) {
+            if (contentBytes.length > 0 && contentBytes.length < 120){
                 boolean[][] matrix = qrcodeHandler.calQrcode(contentBytes);
-                for (int i = 0; i < matrix.length; i++) {
-                    for (int j = 0; j < matrix.length; j++) {
-                        if (matrix[j][i]) {
+                for (int i = 0; i < matrix.length; i++){
+                    for (int j = 0; j < matrix.length; j++){
+                        if (matrix[j][i]){
                             graphics2D.fillRect(j * 4 + pixoff, i * 4 + pixoff, 4, 4);
                         }
                     }
                 }
-            } else {
+            }else{
                 //
             }
             graphics2D.dispose();
@@ -101,7 +101,7 @@ public class QRCodeEncoderHandler {
             result = output.toByteArray();
             output.close();
 
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
@@ -113,7 +113,7 @@ public class QRCodeEncoderHandler {
     * @param fileName
     * @param type
     */
-    public static void saveImage(byte[] data, String fileName, String type) {
+    public static void saveImage(byte[] data, String fileName, String type){
         BufferedImage image = new BufferedImage(300, 300, BufferedImage.TYPE_BYTE_BINARY);
         ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
         try {
@@ -124,12 +124,12 @@ public class QRCodeEncoderHandler {
             RandomAccessFile file = new RandomAccessFile(fileName, "rw");
             file.write(bytes);
             file.close();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         String imgPath = "D:/code.png";
 
         String content = "http://localhost/store_1.htm";

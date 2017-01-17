@@ -23,67 +23,67 @@ public class SNSUserInfo {
     // 用户特权信息
     private List<String> privilegeList;
 
-    public String getOpenId() {
+    public String getOpenId(){
         return openId;
     }
 
-    public void setOpenId(String openId) {
+    public void setOpenId(String openId){
         this.openId = openId;
     }
 
-    public String getNickname() {
+    public String getNickname(){
         return nickname;
     }
 
-    public void setNickname(String nickname) {
+    public void setNickname(String nickname){
         this.nickname = nickname;
     }
 
-    public int getSex() {
+    public int getSex(){
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(int sex){
         this.sex = sex;
     }
 
-    public String getCountry() {
+    public String getCountry(){
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(String country){
         this.country = country;
     }
 
-    public String getProvince() {
+    public String getProvince(){
         return province;
     }
 
-    public void setProvince(String province) {
+    public void setProvince(String province){
         this.province = province;
     }
 
-    public String getCity() {
+    public String getCity(){
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(String city){
         this.city = city;
     }
 
-    public String getHeadImgUrl() {
+    public String getHeadImgUrl(){
         return headImgUrl;
     }
 
-    public void setHeadImgUrl(String headImgUrl) {
+    public void setHeadImgUrl(String headImgUrl){
         this.headImgUrl = headImgUrl;
     }
 
-    public List<String> getPrivilegeList() {
+    public List<String> getPrivilegeList(){
         return privilegeList;
     }
 
-    public void setPrivilegeList(List<String> privilegeList) {
+    public void setPrivilegeList(List<String> privilegeList){
         this.privilegeList = privilegeList;
     }
 }

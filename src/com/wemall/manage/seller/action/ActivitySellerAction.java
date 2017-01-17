@@ -47,8 +47,8 @@ public class ActivitySellerAction {
     private IGoodsService goodsService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "活动列表", value = "/seller/activity.htm*", rtype = "seller", rname = "活动管理", rcode = "activity_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/activity.htm"})
-    public ModelAndView activity(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/seller/activity.htm"})
+    public ModelAndView activity(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/activity.html", this.configService
             .getSysConfig(),
@@ -67,8 +67,8 @@ public class ActivitySellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "申请参加活动", value = "/seller/activity_apply.htm*", rtype = "seller", rname = "活动管理", rcode = "activity_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/activity_apply.htm"})
-    public ModelAndView activity_apply(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/activity_apply.htm"})
+    public ModelAndView activity_apply(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/activity_apply.html", this.configService
             .getSysConfig(),
@@ -84,8 +84,8 @@ public class ActivitySellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "活动商品加载", value = "/seller/activity_goods.htm*", rtype = "seller", rname = "活动管理", rcode = "activity_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/activity_goods.htm"})
-    public void activity_goods(HttpServletRequest request, HttpServletResponse response, String goods_name) {
+    @RequestMapping({"/seller/activity_goods.htm"})
+    public void activity_goods(HttpServletRequest request, HttpServletResponse response, String goods_name){
         Map params = new HashMap();
         params.put("goods_name", "%" + goods_name.trim() + "%");
         params.put("goods_status", Integer.valueOf(0));
@@ -99,7 +99,7 @@ public class ActivitySellerAction {
                                      "select obj from Goods obj where obj.goods_name like :goods_name and obj.goods_status=:goods_status and obj.goods_store.user.id=:user_id and obj.group_buy =:group_buy and obj.activity_status =:activity_status and obj.delivery_status=:delivery_status and obj.combin_status=:combin_status order by obj.addTime desc",
                                      params, -1, -1);
         List maps = new ArrayList();
-        for (Goods goods : goods_list) {
+        for (Goods goods : goods_list){
             Map map = new HashMap();
             map.put("goods_name", goods.getGoods_name());
             map.put("goods_id", goods.getId());
@@ -111,30 +111,30 @@ public class ActivitySellerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(Json.toJson(maps, JsonFormat.compact()));
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "申请参加活动", value = "/seller/activity_apply_save.htm*", rtype = "seller", rname = "活动管理", rcode = "activity_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/activity_apply_save.htm"})
-    public ModelAndView activity_apply_save(HttpServletRequest request, HttpServletResponse response, String goods_ids, String act_id, String activity_session) {
+    @RequestMapping({"/seller/activity_apply_save.htm"})
+    public ModelAndView activity_apply_save(HttpServletRequest request, HttpServletResponse response, String goods_ids, String act_id, String activity_session){
         ModelAndView mv = new JModelAndView("success.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
-        if ((goods_ids != null) && (!goods_ids.equals(""))) {
+        if ((goods_ids != null) && (!goods_ids.equals(""))){
             String activity_session1 = CommUtil.null2String(request.getSession(
                                            false).getAttribute("activity_session"));
             if ((!activity_session1.equals("")) &&
-                    (activity_session1.equals(activity_session))) {
+                    (activity_session1.equals(activity_session))){
                 request.getSession(false).removeAttribute("activity_session");
                 Activity act = this.activityService.getObjById(
                                    CommUtil.null2Long(act_id));
 
                 BigDecimal num = BigDecimal.valueOf(0.1D);
                 String[] ids = goods_ids.split(",");
-                for (String id : ids) {
-                    if (!id.equals("")) {
+                for (String id : ids){
+                    if (!id.equals("")){
                         ActivityGoods ag = new ActivityGoods();
                         ag.setAddTime(new Date());
                         Goods goods = this.goodsService.getObjById(
@@ -154,7 +154,7 @@ public class ActivitySellerAction {
                 mv.addObject("op_title", "申请参加活动成功");
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/seller/activity_goods_list.htm");
-            } else {
+            }else{
                 mv = new JModelAndView("error.html", this.configService
                                        .getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
@@ -163,7 +163,7 @@ public class ActivitySellerAction {
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/seller/activity.htm");
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -176,8 +176,8 @@ public class ActivitySellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "活动商品列表", value = "/seller/activity_goods_list.htm*", rtype = "seller", rname = "活动管理", rcode = "activity_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/activity_goods_list.htm"})
-    public ModelAndView activity_goods_list(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/seller/activity_goods_list.htm"})
+    public ModelAndView activity_goods_list(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/activity_goods_list.html",
             this.configService.getSysConfig(), this.userConfigService

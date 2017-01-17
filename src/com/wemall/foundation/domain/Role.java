@@ -42,75 +42,75 @@ public class Role extends IdEntity
     @JoinTable(name = "wemall_role_res", joinColumns = {@javax.persistence.JoinColumn(name = "role_id")}, inverseJoinColumns = {@javax.persistence.JoinColumn(name = "res_id")})
     private List<Res> reses = new ArrayList();
 
-    public String getRoleName() {
+    public String getRoleName(){
         return this.roleName;
     }
 
-    public void setRoleName(String roleName) {
+    public void setRoleName(String roleName){
         this.roleName = roleName;
     }
 
-    public String getRoleCode() {
+    public String getRoleCode(){
         return this.roleCode;
     }
 
-    public void setRoleCode(String roleCode) {
+    public void setRoleCode(String roleCode){
         this.roleCode = roleCode;
     }
 
-    public String getInfo() {
+    public String getInfo(){
         return this.info;
     }
 
-    public void setInfo(String info) {
+    public void setInfo(String info){
         this.info = info;
     }
 
-    public List<Res> getReses() {
+    public List<Res> getReses(){
         return this.reses;
     }
 
-    public void setReses(List<Res> reses) {
+    public void setReses(List<Res> reses){
         this.reses = reses;
     }
 
-    public int compareTo(Object obj) {
+    public int compareTo(Object obj){
         Role role = (Role)obj;
-        if (super.getId().equals(role.getId())) {
+        if (super.getId().equals(role.getId())){
             return 0;
         }
         return 1;
     }
 
-    public String getType() {
+    public String getType(){
         return this.type;
     }
 
-    public void setType(String type) {
+    public void setType(String type){
         this.type = type;
     }
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public RoleGroup getRg() {
+    public RoleGroup getRg(){
         return this.rg;
     }
 
-    public void setRg(RoleGroup rg) {
+    public void setRg(RoleGroup rg){
         this.rg = rg;
     }
 
-    public boolean isDisplay() {
+    public boolean isDisplay(){
         return this.display;
     }
 
-    public void setDisplay(boolean display) {
+    public void setDisplay(boolean display){
         this.display = display;
     }
 }

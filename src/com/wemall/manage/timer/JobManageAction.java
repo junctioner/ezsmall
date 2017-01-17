@@ -48,14 +48,14 @@ public class JobManageAction {
     @Autowired
     private IGoodsCartService goodsCartService;
 
-    public void execute() {
+    public void execute(){
         Map params = new HashMap();
         params.put("ztc_status", Integer.valueOf(2));
         List<Goods> goods_audit_list = this.goodsService.query(
                                            "select obj from Goods obj where obj.ztc_status=:ztc_status",
                                            params, -1, -1);
-        for (Goods goods : goods_audit_list) {
-            if (goods.getZtc_begin_time().before(new Date())) {
+        for (Goods goods : goods_audit_list){
+            if (goods.getZtc_begin_time().before(new Date())){
                 goods.setZtc_dredge_price(goods.getZtc_price());
                 goods.setZtc_status(3);
                 this.goodsService.update(goods);
@@ -67,8 +67,8 @@ public class JobManageAction {
                                "select obj from Goods obj where obj.ztc_status=:ztc_status",
                                params, -1, -1);
         ZTCGoldLog log;
-        for (Goods goods : goods_audit_list) {
-            if (goods.getZtc_gold() > goods.getZtc_price()) {
+        for (Goods goods : goods_audit_list){
+            if (goods.getZtc_gold() > goods.getZtc_price()){
                 goods.setZtc_gold(goods.getZtc_gold() - goods.getZtc_price());
                 goods.setZtc_dredge_price(goods.getZtc_price());
                 this.goodsService.update(goods);
@@ -79,7 +79,7 @@ public class JobManageAction {
                 log.setZgl_goods(goods);
                 log.setZgl_type(1);
                 this.ztcGoldLogService.save(log);
-            } else {
+            }else{
                 goods.setZtc_status(0);
                 goods.setZtc_dredge_price(0);
                 goods.setZtc_pay_status(0);
@@ -92,13 +92,13 @@ public class JobManageAction {
                                  "select obj from Store obj where obj.validity is not null",
                                  null, -1, -1);
         Message msg;
-        for (Store store : stores) {
-            if (store.getValidity().before(new Date())) {
+        for (Store store : stores){
+            if (store.getValidity().before(new Date())){
                 store.setStore_status(4);
                 this.storeService.update(store);
                 Template template = this.templateService.getObjByProperty(
                                         "mark", "msg_toseller_store_auto_closed_notify");
-                if ((template != null) && (template.isOpen())) {
+                if ((template != null) && (template.isOpen())){
                     msg = new Message();
                     msg.setAddTime(new Date());
                     msg.setContent(template.getContent());
@@ -120,7 +120,7 @@ public class JobManageAction {
                                      "select obj from Goods obj where obj.goods_status=:goods_status",
                                      params, -1, -1);
         List goods_vo_list = new ArrayList();
-        for (Goods goods : goods_list) {
+        for (Goods goods : goods_list){
             LuceneVo vo = new LuceneVo();
             vo.setVo_id(goods.getId());
             vo.setVo_title(goods.getGoods_name());
@@ -133,7 +133,7 @@ public class JobManageAction {
         }
         String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
         File file = new File(goods_lucene_path);
-        if (!file.exists()) {
+        if (!file.exists()){
             CommUtil.createFolder(goods_lucene_path);
         }
         LuceneThread goods_thread = new LuceneThread(goods_lucene_path,
@@ -151,7 +151,7 @@ public class JobManageAction {
         List<BargainGoods> bgs = this.bargainGoodsService.query(
                                      "select obj from BargainGoods obj where obj.bg_time=:bg_time",
                                      params, -1, -1);
-        for (BargainGoods bg : bgs) {
+        for (BargainGoods bg : bgs){
             bg.setBg_status(-2);
             this.bargainGoodsService.update(bg);
             Goods goods = bg.getBg_goods();
@@ -169,7 +169,7 @@ public class JobManageAction {
                   "select obj from BargainGoods obj where obj.bg_time=:bg_time and obj.bg_status=:bg_status",
                   params, -1, -1);
         Goods goods;
-        for (BargainGoods bg : bgs) {
+        for (BargainGoods bg : bgs){
             goods = bg.getBg_goods();
             goods.setBargain_status(2);
             goods.setGoods_current_price(bg.getBg_price());
@@ -185,8 +185,8 @@ public class JobManageAction {
                                     .query(
                                         "select obj from StoreCart obj where obj.user.id is null and obj.addTime<=:addTime and obj.sc_status=:sc_status",
                                         params, -1, -1);
-        for (StoreCart cart : cart_list) {
-            for (GoodsCart gc : cart.getGcs()) {
+        for (StoreCart cart : cart_list){
+            for (GoodsCart gc : cart.getGcs()){
                 gc.getGsps().clear();
                 this.goodsCartService.delete(gc.getId());
             }
@@ -202,8 +202,8 @@ public class JobManageAction {
                     .query(
                         "select obj from StoreCart obj where obj.user.id is not null and obj.addTime<=:addTime and obj.sc_status=:sc_status",
                         params, -1, -1);
-        for (StoreCart cart : cart_list) {
-            for (GoodsCart gc : cart.getGcs()) {
+        for (StoreCart cart : cart_list){
+            for (GoodsCart gc : cart.getGcs()){
                 gc.getGsps().clear();
                 this.goodsCartService.delete(gc.getId());
             }

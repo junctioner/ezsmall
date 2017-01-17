@@ -14,7 +14,7 @@ import org.jdom.input.SAXBuilder;
 public class XMLUtil {
     public static Map doXMLParse(String strxml)
     throws JDOMException, IOException {
-        if ((strxml == null) || ("".equals(strxml))) {
+        if ((strxml == null) || ("".equals(strxml))){
             return null;
         }
 
@@ -25,14 +25,14 @@ public class XMLUtil {
         Element root = doc.getRootElement();
         List list = root.getChildren();
         Iterator it = list.iterator();
-        while (it.hasNext()) {
+        while (it.hasNext()){
             Element e = (Element)it.next();
             String k = e.getName();
             String v = "";
             List children = e.getChildren();
             if (children.isEmpty())
                 v = e.getTextNormalize();
-            else {
+           else{
                 v = getChildrenText(children);
             }
 
@@ -44,17 +44,17 @@ public class XMLUtil {
         return m;
     }
 
-    public static String getChildrenText(List children) {
+    public static String getChildrenText(List children){
         StringBuffer sb = new StringBuffer();
-        if (!children.isEmpty()) {
+        if (!children.isEmpty()){
             Iterator it = children.iterator();
-            while (it.hasNext()) {
+            while (it.hasNext()){
                 Element e = (Element)it.next();
                 String name = e.getName();
                 String value = e.getTextNormalize();
                 List list = e.getChildren();
                 sb.append("<" + name + ">");
-                if (!list.isEmpty()) {
+                if (!list.isEmpty()){
                     sb.append(getChildrenText(list));
                 }
                 sb.append(value);

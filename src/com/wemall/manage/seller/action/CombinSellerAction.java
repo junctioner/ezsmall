@@ -49,8 +49,8 @@ public class CombinSellerAction {
     private IGoodsService goodsService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "组合销售", value = "/seller/combin.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/combin.htm"})
-    public ModelAndView combin(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/seller/combin.htm"})
+    public ModelAndView combin(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/combin.html", this.configService
             .getSysConfig(),
@@ -71,8 +71,8 @@ public class CombinSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "组合销售购买日志", value = "/seller/combin_log.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/combin_log.htm"})
-    public ModelAndView combin_log(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/seller/combin_log.htm"})
+    public ModelAndView combin_log(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/combin_log.html", this.configService
             .getSysConfig(),
@@ -91,8 +91,8 @@ public class CombinSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "申请组合销售", value = "/seller/combin_apply.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/combin_apply.htm"})
-    public ModelAndView combin_apply(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/combin_apply.htm"})
+    public ModelAndView combin_apply(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/combin_apply.html", this.configService
             .getSysConfig(),
@@ -100,7 +100,7 @@ public class CombinSellerAction {
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
         Store store = user.getStore();
-        if (store.getCombin_end_time() == null) {
+        if (store.getCombin_end_time() == null){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -109,7 +109,7 @@ public class CombinSellerAction {
                          "/seller/combin_buy.htm");
             return mv;
         }
-        if (store.getCombin_end_time().before(new Date())) {
+        if (store.getCombin_end_time().before(new Date())){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -137,8 +137,8 @@ public class CombinSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "销售组合编辑", value = "/seller/combin_edit.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/combin_edit.htm"})
-    public ModelAndView combin_edit(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/combin_edit.htm"})
+    public ModelAndView combin_edit(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/combin_apply.html", this.configService
             .getSysConfig(),
@@ -146,7 +146,7 @@ public class CombinSellerAction {
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
         Store store = user.getStore();
-        if (store.getCombin_end_time() == null) {
+        if (store.getCombin_end_time() == null){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -155,7 +155,7 @@ public class CombinSellerAction {
                          "/seller/combin_buy.htm");
             return mv;
         }
-        if (store.getCombin_end_time().before(new Date())) {
+        if (store.getCombin_end_time().before(new Date())){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -185,14 +185,14 @@ public class CombinSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "组合销售保存", value = "/seller/combin_save.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/combin_save.htm"})
-    public ModelAndView combin_save(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String combin_session, String combin_begin_time, String combin_end_time, String combin_main_goods_id, String combin_goods_ids, String combin_price, String id) {
+    @RequestMapping({"/seller/combin_save.htm"})
+    public ModelAndView combin_save(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String combin_session, String combin_begin_time, String combin_end_time, String combin_main_goods_id, String combin_goods_ids, String combin_price, String id){
         ModelAndView mv = new JModelAndView("success.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
         String combin_session1 = CommUtil.null2String(request.getSession(false)
                                  .getAttribute("combin_session"));
-        if (combin_session1.equals("")) {
+        if (combin_session1.equals("")){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -202,7 +202,7 @@ public class CombinSellerAction {
                        "/seller/combin.htm");
             return mv;
         }
-        if (combin_session1.equals(combin_session)) {
+        if (combin_session1.equals(combin_session)){
             request.getSession(false).removeAttribute("combin_session");
             Goods goods = this.goodsService.getObjById(
                               CommUtil.null2Long(combin_main_goods_id));
@@ -211,14 +211,14 @@ public class CombinSellerAction {
             goods.setCombin_status(1);
             goods.setCombin_price(BigDecimal.valueOf(
                                       CommUtil.null2Float(combin_price)));
-            for (String goods_id : combin_goods_ids.split(",")) {
+            for (String goods_id : combin_goods_ids.split(",")){
                 Goods combin_goods = this.goodsService.getObjById(
                                          CommUtil.null2Long(goods_id));
                 goods.getCombin_goods().add(combin_goods);
             }
             this.goodsService.update(goods);
             if ((id != null) && (!id.equals("")) &&
-                    (!goods.getId().equals(CommUtil.null2Long(id)))) {
+                    (!goods.getId().equals(CommUtil.null2Long(id)))){
                 goods = this.goodsService
                         .getObjById(CommUtil.null2Long(id));
                 goods.setCombin_begin_time(null);
@@ -238,15 +238,15 @@ public class CombinSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "组合销售删除", value = "/seller/combin_del.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/combin_del.htm"})
-    public String delivery_del(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId) {
-        for (String id : mulitId.split(",")) {
-            if (!CommUtil.null2String(id).equals("")) {
+    @RequestMapping({"/seller/combin_del.htm"})
+    public String delivery_del(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId){
+        for (String id : mulitId.split(",")){
+            if (!CommUtil.null2String(id).equals("")){
                 Goods goods = this.goodsService.getObjById(
                                   CommUtil.null2Long(id));
                 User user = this.userService.getObjById(
                                 SecurityUserHolder.getCurrentUser().getId());
-                if (user.getStore().getId() == goods.getGoods_store().getId()) {
+                if (user.getStore().getId() == goods.getGoods_store().getId()){
                     goods.setCombin_begin_time(null);
                     goods.setCombin_end_time(null);
                     goods.setCombin_price(null);
@@ -261,8 +261,8 @@ public class CombinSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "组合销售套餐购买", value = "/seller/combin_buy.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/combin_buy.htm"})
-    public ModelAndView combin_buy(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/combin_buy.htm"})
+    public ModelAndView combin_buy(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/combin_buy.html", this.configService
             .getSysConfig(),
@@ -275,14 +275,14 @@ public class CombinSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "组合销售套餐购买保存", value = "/seller/combin_buy_save.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/combin_buy_save.htm"})
-    public String combin_buy_save(HttpServletRequest request, HttpServletResponse response, String count) {
+    @RequestMapping({"/seller/combin_buy_save.htm"})
+    public String combin_buy_save(HttpServletRequest request, HttpServletResponse response, String count){
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
         int gold = user.getGold();
         int combin_gold = CommUtil.null2Int(count) *
                           this.configService.getSysConfig().getCombin_amount();
-        if (gold > combin_gold) {
+        if (gold > combin_gold){
             user.setGold(gold - combin_gold);
             this.userService.update(user);
 
@@ -295,11 +295,11 @@ public class CombinSellerAction {
             this.goldLogService.save(log);
 
             Store store = user.getStore();
-            if (store.getCombin_begin_time() == null) {
+            if (store.getCombin_begin_time() == null){
                 store.setCombin_begin_time(new Date());
             }
             Calendar cal = Calendar.getInstance();
-            if (store.getCombin_end_time() != null) {
+            if (store.getCombin_end_time() != null){
                 cal.setTime(store.getCombin_end_time());
             }
             cal.add(2, CommUtil.null2Int(count));
@@ -320,8 +320,8 @@ public class CombinSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "组合销售套餐购买成功", value = "/seller/combin_buy_success.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/combin_buy_success.htm"})
-    public ModelAndView combin_buy_success(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/combin_buy_success.htm"})
+    public ModelAndView combin_buy_success(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("success.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -332,8 +332,8 @@ public class CombinSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "组合销售套餐购买失败", value = "/seller/combin_buy_error.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/combin_buy_error.htm"})
-    public ModelAndView combin_buy_error(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/combin_buy_error.htm"})
+    public ModelAndView combin_buy_error(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("error.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -344,16 +344,16 @@ public class CombinSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "加载商品", value = "/seller/combin_goods.htm*", rtype = "seller", rname = "组合销售", rcode = "combin_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/combin_goods.htm"})
-    public ModelAndView combin_goods(HttpServletRequest request, HttpServletResponse response, String goods_name, String currentPage, String target_id, String goods_type) {
+    @RequestMapping({"/seller/combin_goods.htm"})
+    public ModelAndView combin_goods(HttpServletRequest request, HttpServletResponse response, String goods_name, String currentPage, String target_id, String goods_type){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/combin_goods.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (target_id.equals("main_goods_list")) {
+        if (target_id.equals("main_goods_list")){
             goods_type = "main";
         }
-        if (CommUtil.null2String(goods_type).equals("main")) {
+        if (CommUtil.null2String(goods_type).equals("main")){
             mv = new JModelAndView(
                 "user/default/usercenter/combin_main_goods.html",
                 this.configService.getSysConfig(), this.userConfigService
@@ -364,7 +364,7 @@ public class CombinSellerAction {
         Store store = user.getStore();
         GoodsQueryObject qo = new GoodsQueryObject();
         qo.setCurrentPage(Integer.valueOf(CommUtil.null2Int(currentPage)));
-        if (!CommUtil.null2String(goods_name).equals("")) {
+        if (!CommUtil.null2String(goods_name).equals("")){
             qo.addQuery("obj.goods_name",
                         new SysMap("goods_name", "%" +
                                    CommUtil.null2String(goods_name) + "%"), "like");

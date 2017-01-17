@@ -44,13 +44,13 @@ public class ZtcSellerAction {
     private IUserService userService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "直通车申请", value = "/seller/ztc_apply.htm*", rtype = "seller", rname = "竞价直通车", rcode = "ztc_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/ztc_apply.htm"})
-    public ModelAndView ztc_apply(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/ztc_apply.htm"})
+    public ModelAndView ztc_apply(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/ztc_apply.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (!this.configService.getSysConfig().isZtc_status()) {
+        if (!this.configService.getSysConfig().isZtc_status()){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -68,8 +68,8 @@ public class ZtcSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "直通车商品加载", value = "/seller/ztc_goods.htm*", rtype = "seller", rname = "竞价直通车", rcode = "ztc_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/ztc_goods.htm"})
-    public void ztc_goods(HttpServletRequest request, HttpServletResponse response, String goods_name) {
+    @RequestMapping({"/seller/ztc_goods.htm"})
+    public void ztc_goods(HttpServletRequest request, HttpServletResponse response, String goods_name){
         Map params = new HashMap();
         params.put("goods_name", "%" + goods_name.trim() + "%");
         params.put("goods_status", Integer.valueOf(0));
@@ -80,7 +80,7 @@ public class ZtcSellerAction {
                                      "select obj from Goods obj where obj.goods_name like :goods_name and obj.goods_store.user.id=:user_id and obj.ztc_status=:ztc_status and obj.goods_status=:goods_status  order by obj.addTime desc",
                                      params, -1, -1);
         List maps = new ArrayList();
-        for (Goods goods : goods_list) {
+        for (Goods goods : goods_list){
             Map map = new HashMap();
             map.put("goods_name", goods.getGoods_name());
             map.put("goods_id", goods.getId());
@@ -92,29 +92,29 @@ public class ZtcSellerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(Json.toJson(maps, JsonFormat.compact()));
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "直通车申请保存", value = "/seller/ztc_apply_save.htm*", rtype = "seller", rname = "竞价直通车", rcode = "ztc_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/ztc_apply_save.htm"})
-    public ModelAndView ztc_apply_save(HttpServletRequest request, HttpServletResponse response, String goods_id, String ztc_price, String ztc_begin_time, String ztc_gold, String ztc_session) {
+    @RequestMapping({"/seller/ztc_apply_save.htm"})
+    public ModelAndView ztc_apply_save(HttpServletRequest request, HttpServletResponse response, String goods_id, String ztc_price, String ztc_begin_time, String ztc_gold, String ztc_session){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/success.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (!this.configService.getSysConfig().isZtc_status()) {
+        if (!this.configService.getSysConfig().isZtc_status()){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "系统未开启直通车");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
-        } else {
+        }else{
             String ztc_session1 = CommUtil.null2String(request
                                   .getSession(false).getAttribute("ztc_session"));
             if ((!ztc_session1.equals("")) &&
-                    (ztc_session1.equals(CommUtil.null2String(ztc_session)))) {
+                    (ztc_session1.equals(CommUtil.null2String(ztc_session)))){
                 request.getSession(false).removeAttribute("ztc_session");
                 Goods goods = this.goodsService.getObjById(
                                   CommUtil.null2Long(goods_id));
@@ -128,7 +128,7 @@ public class ZtcSellerAction {
                 mv.addObject("op_title", "直通车申请成功,等待审核");
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/seller/ztc_list.htm");
-            } else {
+            }else{
                 mv = new JModelAndView("error.html", this.configService
                                        .getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
@@ -143,26 +143,26 @@ public class ZtcSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "直通车申请列表", value = "/seller/ztc_apply_list.htm*", rtype = "seller", rname = "竞价直通车", rcode = "ztc_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/ztc_apply_list.htm"})
-    public ModelAndView ztc_apply_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String goods_name) {
+    @RequestMapping({"/seller/ztc_apply_list.htm"})
+    public ModelAndView ztc_apply_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String goods_name){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/ztc_apply_list.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (!this.configService.getSysConfig().isZtc_status()) {
+        if (!this.configService.getSysConfig().isZtc_status()){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "系统未开启直通车");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
-        } else {
+        }else{
             GoodsQueryObject qo = new GoodsQueryObject(currentPage, mv,
                     "ztc_begin_time", "desc");
             qo.addQuery("obj.goods_store.user.id",
                         new SysMap("user_id",
                                    SecurityUserHolder.getCurrentUser().getId()), "=");
             qo.addQuery("obj.ztc_status", new SysMap("ztc_status", Integer.valueOf(1)), "=");
-            if (!CommUtil.null2String(goods_name).equals("")) {
+            if (!CommUtil.null2String(goods_name).equals("")){
                 qo.addQuery("obj.goods_name",
                             new SysMap("goods_name", "%" +
                                        goods_name.trim() + "%"), "like");
@@ -176,19 +176,19 @@ public class ZtcSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "直通车商品列表", value = "/seller/ztc_list.htm*", rtype = "seller", rname = "竞价直通车", rcode = "ztc_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/ztc_list.htm"})
-    public ModelAndView ztc_list(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/seller/ztc_list.htm"})
+    public ModelAndView ztc_list(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/ztc_list.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (!this.configService.getSysConfig().isZtc_status()) {
+        if (!this.configService.getSysConfig().isZtc_status()){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "系统未开启直通车");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
-        } else {
+        }else{
             GoodsQueryObject qo = new GoodsQueryObject(currentPage, mv,
                     "ztc_apply_time", "desc");
             qo.addQuery("obj.goods_store.user.id",
@@ -203,25 +203,25 @@ public class ZtcSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "直通车申请查看", value = "/seller/ztc_apply_view.htm*", rtype = "seller", rname = "竞价直通车", rcode = "ztc_seller", rgroup = "促销管理")
-    @RequestMapping( {"/seller/ztc_apply_view.htm"})
-    public ModelAndView ztc_apply_view(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/ztc_apply_view.htm"})
+    public ModelAndView ztc_apply_view(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/ztc_apply_view.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (!this.configService.getSysConfig().isZtc_status()) {
+        if (!this.configService.getSysConfig().isZtc_status()){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "系统未开启直通车");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
-        } else {
+        }else{
             Goods obj = this.goodsService.getObjById(CommUtil.null2Long(id));
 
             if (obj.getGoods_store().getUser().getId().equals(
-                        SecurityUserHolder.getCurrentUser().getId())) {
+                        SecurityUserHolder.getCurrentUser().getId())){
                 mv.addObject("obj", obj);
-            } else {
+            }else{
                 mv = new JModelAndView("error.html", this.configService
                                        .getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,

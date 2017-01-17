@@ -5,11 +5,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.wemall.core.query.QueryObject;
 
 public class RefundLogQueryObject extends QueryObject {
-    public RefundLogQueryObject(String currentPage, ModelAndView mv, String orderBy, String orderType) {
+    public RefundLogQueryObject(String currentPage, ModelAndView mv, String orderBy, String orderType){
         super(currentPage, mv, orderBy, orderType);
     }
 
-    public RefundLogQueryObject() {
+    public RefundLogQueryObject(){
     }
 }
 

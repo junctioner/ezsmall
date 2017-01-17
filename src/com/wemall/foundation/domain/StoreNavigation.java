@@ -33,59 +33,59 @@ public class StoreNavigation extends IdEntity {
     @Column(columnDefinition = "LongText")
     private String content;
 
-    public String getTitle() {
+    public String getTitle(){
         return this.title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title){
         this.title = title;
     }
 
-    public String getUrl() {
+    public String getUrl(){
         return this.url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(String url){
         this.url = url;
     }
 
-    public String getSequence() {
+    public String getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(String sequence) {
+    public void setSequence(String sequence){
         this.sequence = sequence;
     }
 
-    public String getWin_type() {
+    public String getWin_type(){
         return this.win_type;
     }
 
-    public void setWin_type(String win_type) {
+    public void setWin_type(String win_type){
         this.win_type = win_type;
     }
 
-    public boolean isDisplay() {
+    public boolean isDisplay(){
         return this.display;
     }
 
-    public void setDisplay(boolean display) {
+    public void setDisplay(boolean display){
         this.display = display;
     }
 
-    public String getContent() {
+    public String getContent(){
         return this.content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String content){
         this.content = content;
     }
 
-    public Store getStore() {
+    public Store getStore(){
         return this.store;
     }
 
-    public void setStore(Store store) {
+    public void setStore(Store store){
         this.store = store;
     }
 }

@@ -32,14 +32,14 @@ public class MsgTools {
         String password = this.configService.getSysConfig().getSmsPassword();
         SmsBase sb = new SmsBase("http://service.winic.org/sys_port/gateway/", userName, password);
         String ret = sb.SendSms(mobile, content);
-        if (!ret.substring(0, 3).equals("000")) {
+        if (!ret.substring(0, 3).equals("000")){
             result = false;
         }
 
         return result;
     }
 
-    public boolean sendEmail(String email, String subject, String content) {
+    public boolean sendEmail(String email, String subject, String content){
         boolean ret = true;
         String username = "";
         String password = "";
@@ -53,7 +53,7 @@ public class MsgTools {
         if ((username != null) && (password != null) && (!username.equals("")) &&
                 (!password.equals("")) && (smtp_server != null) &&
                 (!smtp_server.equals("")) && (to_mail_address != null) &&
-                (!to_mail_address.trim().equals(""))) {
+                (!to_mail_address.trim().equals(""))){
             Authenticator auth = new PopupAuthenticator(username, password);
             Properties mailProps = new Properties();
             mailProps.put("mail.smtp.auth", "true");
@@ -78,14 +78,14 @@ public class MsgTools {
                 message.saveChanges();
                 Transport.send(message);
                 ret = true;
-            } catch (AddressException e) {
+            } catch (AddressException e){
                 ret = false;
                 e.printStackTrace();
-            } catch (MessagingException e) {
+            } catch (MessagingException e){
                 ret = false;
                 e.printStackTrace();
             }
-        } else {
+        }else{
             ret = false;
         }
 

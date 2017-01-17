@@ -70,29 +70,29 @@ public class CouponManageAction {
     private IQueryService queryService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "优惠券列表", value = "/admin/coupon_list.htm*", rtype = "admin", rname = "优惠券管理", rcode = "coupon_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/coupon_list.htm"})
-    public ModelAndView coupon_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String coupon_name, String coupon_begin_time, String coupon_end_time) {
+    @RequestMapping({"/admin/coupon_list.htm"})
+    public ModelAndView coupon_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String coupon_name, String coupon_begin_time, String coupon_end_time){
         ModelAndView mv = new JModelAndView("admin/blue/coupon_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
         CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
                 orderType);
-        if (!CommUtil.null2String(coupon_name).equals("")) {
+        if (!CommUtil.null2String(coupon_name).equals("")){
             qo.addQuery("obj.coupon_name",
                         new SysMap("coupon_name", "%" +
                                    coupon_name + "%"), "like");
         }
-        if (!CommUtil.null2String(coupon_begin_time).equals("")) {
+        if (!CommUtil.null2String(coupon_begin_time).equals("")){
             qo.addQuery("obj.coupon_begin_time",
                         new SysMap("coupon_begin_time",
                                    CommUtil.formatDate(coupon_begin_time)), ">=");
         }
-        if (!CommUtil.null2String(coupon_end_time).equals("")) {
+        if (!CommUtil.null2String(coupon_end_time).equals("")){
             qo.addQuery("obj.coupon_end_time",
                         new SysMap("coupon_end_time",
                                    CommUtil.formatDate(coupon_end_time)), "<=");
@@ -105,8 +105,8 @@ public class CouponManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "优惠券添加", value = "/admin/coupon_add.htm*", rtype = "admin", rname = "优惠券管理", rcode = "coupon_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/coupon_add.htm"})
-    public ModelAndView coupon_add(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/admin/coupon_add.htm"})
+    public ModelAndView coupon_add(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/coupon_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -116,8 +116,8 @@ public class CouponManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "优惠券保存", value = "/admin/coupon_save.htm*", rtype = "admin", rname = "优惠券管理", rcode = "coupon_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/coupon_save.htm"})
-    public String coupon_save(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/admin/coupon_save.htm"})
+    public String coupon_save(HttpServletRequest request, HttpServletResponse response, String currentPage){
         WebForm wf = new WebForm();
         Coupon coupon = (Coupon)wf.toPo(request, Coupon.class);
         coupon.setAddTime(new Date());
@@ -130,7 +130,7 @@ public class CouponManageAction {
         try {
             map = CommUtil.saveFileToServer(request, "coupon_img",
                                             saveFilePathName, null, null);
-            if (map.get("fileName") != "") {
+            if (map.get("fileName") != ""){
                 Accessory coupon_acc = new Accessory();
                 coupon_acc.setName(CommUtil.null2String(map.get("fileName")));
                 coupon_acc.setExt((String)map.get("mime"));
@@ -156,10 +156,10 @@ public class CouponManageAction {
                     waterMarkWithText(targetImg, targetImg, "满 " +
                                       coupon.getCoupon_order_amount() + " 减",
                                       "#726960", font, 95, 90, 1.0F);
-                } catch (Exception localException) {
+                } catch (Exception localException){
                 }
                 coupon.setCoupon_acc(coupon_acc);
-            } else {
+            }else{
                 String pressImg = request.getSession().getServletContext()
                                   .getRealPath("") +
                                   File.separator +
@@ -176,7 +176,7 @@ public class CouponManageAction {
                                        uploadFilePath +
                                        File.separator +
                                        "coupon" + File.separator;
-                if (!CommUtil.fileExist(targetImgPath)) {
+                if (!CommUtil.fileExist(targetImgPath)){
                     CommUtil.createFolder(targetImgPath);
                 }
                 String targetImgName = UUID.randomUUID().toString() + ".jpg";
@@ -192,7 +192,7 @@ public class CouponManageAction {
                                       targetImgPath + targetImgName, "满 " +
                                       coupon.getCoupon_order_amount() + " 减",
                                       "#726960", font, 95, 90, 1.0F);
-                } catch (Exception localException1) {
+                } catch (Exception localException1){
                 }
                 Accessory coupon_acc = new Accessory();
                 coupon_acc.setName(targetImgName);
@@ -202,7 +202,7 @@ public class CouponManageAction {
                 this.accessoryService.save(coupon_acc);
                 coupon.setCoupon_acc(coupon_acc);
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
         this.couponService.save(coupon);
@@ -211,8 +211,8 @@ public class CouponManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "优惠券保存成功", value = "/admin/coupon_success.htm*", rtype = "admin", rname = "优惠券管理", rcode = "coupon_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/coupon_success.htm"})
-    public ModelAndView coupon_success(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/admin/coupon_success.htm"})
+    public ModelAndView coupon_success(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -226,8 +226,8 @@ public class CouponManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "优惠券发放", value = "/admin/coupon_send.htm*", rtype = "admin", rname = "优惠券管理", rcode = "coupon_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/coupon_send.htm"})
-    public ModelAndView coupon_send(HttpServletRequest request, HttpServletResponse response, String currentPage, String id) {
+    @RequestMapping({"/admin/coupon_send.htm"})
+    public ModelAndView coupon_send(HttpServletRequest request, HttpServletResponse response, String currentPage, String id){
         ModelAndView mv = new JModelAndView("admin/blue/coupon_send.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -243,13 +243,13 @@ public class CouponManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "优惠券发放保存", value = "/admin/coupon_send_save.htm*", rtype = "admin", rname = "优惠券管理", rcode = "coupon_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/coupon_send_save.htm"})
+    @RequestMapping({"/admin/coupon_send_save.htm"})
     public ModelAndView coupon_send_save(HttpServletRequest request, HttpServletResponse response, String id, String type, String users, String grades, String order_amount) throws IOException {
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         List user_list = new ArrayList();
-        if (type.equals("all_user")) {
+        if (type.equals("all_user")){
             Map params = new HashMap();
             params.put("userRole", "ADMIN");
             user_list = this.userService
@@ -258,27 +258,27 @@ public class CouponManageAction {
                             params, -1, -1);
         }
         User user;
-        if (type.equals("the_user")) {
+        if (type.equals("the_user")){
             List<String> user_names = CommUtil.str2list(users);
-            for (String user_name : user_names) {
+            for (String user_name : user_names){
                 user = this.userService.getObjByProperty("userName",
                         user_name);
                 user_list.add(user);
             }
         }
-        if (type.equals("all_store")) {
+        if (type.equals("all_store")){
             user_list = this.userService
                         .query(
                             "select obj from User obj where obj.store.id is not null order by obj.addTime desc",
                             null, -1, -1);
         }
-        if (type.equals("the_store")) {
+        if (type.equals("the_store")){
             Map params = new HashMap();
             Set store_ids = new TreeSet();
             //String[] arrayOfString;
             //User localUser1 = (arrayOfString = grades.split(",")).length;
             String[] arrayOfString = grades.split(",");
-            for (int i = 0; i < arrayOfString.length; i++) {
+            for (int i = 0; i < arrayOfString.length; i++){
                 String grade = arrayOfString[i];
                 store_ids.add(Long.valueOf(Long.parseLong(grade)));
             }
@@ -288,7 +288,7 @@ public class CouponManageAction {
                             "select obj from User obj where obj.store.id in(:store_ids)",
                             params, -1, -1);
         }
-        if (type.equals("the_order")) {
+        if (type.equals("the_order")){
             Map params = new HashMap();
             params.put("order_status", Integer.valueOf(50));
             List ofs = this.orderFormService
@@ -300,19 +300,19 @@ public class CouponManageAction {
                             "select obj.user.id,sum(obj.totalPrice) from OrderForm obj where obj.order_status>=:order_status group by obj.user.id",
                             params, -1, -1);
 
-            for (int i = 0; i < list.size(); i++) {
+            for (int i = 0; i < list.size(); i++){
                 Object[] list1 = (Object[])list.get(i);
                 Long user_id = CommUtil.null2Long(list1[0]);
                 double order_total_amount = CommUtil.null2Double(list1[1]);
-                if (order_total_amount > CommUtil.null2Double(order_amount)) {
+                if (order_total_amount > CommUtil.null2Double(order_amount)){
                     User user2 = this.userService.getObjById(user_id);
                     user_list.add(user2);
                 }
             }
         }
         Coupon coupon = this.couponService.getObjById(CommUtil.null2Long(id));
-        for (int i = 0; i < user_list.size(); i++) {
-            if (coupon.getCoupon_count() > 0) {
+        for (int i = 0; i < user_list.size(); i++){
+            if (coupon.getCoupon_count() > 0){
                 if (i >= coupon.getCoupon_count()) break;
                 CouponInfo info = new CouponInfo();
                 info.setAddTime(new Date());
@@ -320,7 +320,7 @@ public class CouponManageAction {
                 info.setCoupon_sn(UUID.randomUUID().toString());
                 info.setUser((User)user_list.get(i));
                 this.couponinfoService.save(info);
-            } else {
+            }else{
                 CouponInfo info = new CouponInfo();
                 info.setAddTime(new Date());
                 info.setCoupon(coupon);
@@ -337,24 +337,24 @@ public class CouponManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "优惠券AJAX更新", value = "/admin/coupon_ajax.htm*", rtype = "admin", rname = "优惠券管理", rcode = "coupon_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/coupon_ajax.htm"})
+    @RequestMapping({"/admin/coupon_ajax.htm"})
     public void coupon_ajax(HttpServletRequest request, HttpServletResponse response, String id, String fieldName, String value) throws ClassNotFoundException {
         Coupon obj = this.couponService.getObjById(Long.valueOf(Long.parseLong(id)));
         Field[] fields = Coupon.class.getDeclaredFields();
         BeanWrapper wrapper = new BeanWrapper(obj);
         Object val = null;
-        for (Field field : fields) {
-            if (field.getName().equals(fieldName)) {
+        for (Field field : fields){
+            if (field.getName().equals(fieldName)){
                 Class clz = Class.forName("java.lang.String");
-                if (field.getType().getName().equals("int")) {
+                if (field.getType().getName().equals("int")){
                     clz = Class.forName("java.lang.Integer");
                 }
-                if (field.getType().getName().equals("boolean")) {
+                if (field.getType().getName().equals("boolean")){
                     clz = Class.forName("java.lang.Boolean");
                 }
                 if (!value.equals(""))
                     val = BeanUtils.convertType(value, clz);
-                else {
+               else{
                     val = Boolean.valueOf(
                               !CommUtil.null2Boolean(wrapper
                                                      .getPropertyValue(fieldName)));
@@ -369,19 +369,19 @@ public class CouponManageAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(val.toString());
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "优惠券详细信息", value = "/admin/coupon_ajax.htm*", rtype = "admin", rname = "优惠券管理", rcode = "coupon_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/coupon_info_list.htm"})
-    public ModelAndView coupon_info_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String coupon_id) {
+    @RequestMapping({"/admin/coupon_info_list.htm"})
+    public ModelAndView coupon_info_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String coupon_id){
         ModelAndView mv = new JModelAndView("admin/blue/coupon_info_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -397,7 +397,7 @@ public class CouponManageAction {
         return mv;
     }
 
-    private static boolean waterMarkWithText(String filePath, String outPath, String text, String markContentColor, Font font, int left, int top, float qualNum) {
+    private static boolean waterMarkWithText(String filePath, String outPath, String text, String markContentColor, Font font, int left, int top, float qualNum){
         ImageIcon imgIcon = new ImageIcon(filePath);
         Image theImg = imgIcon.getImage();
         int width = theImg.getWidth(null);
@@ -405,17 +405,17 @@ public class CouponManageAction {
         BufferedImage bimage = new BufferedImage(width, height,
                 1);
         Graphics2D g = bimage.createGraphics();
-        if (font == null) {
+        if (font == null){
             font = new Font("宋体", 1, 20);
             g.setFont(font);
-        } else {
+        }else{
             g.setFont(font);
         }
         g.setColor(CommUtil.getColor(markContentColor));
         g.setComposite(
             AlphaComposite.getInstance(10, 1.0F));
         g.drawImage(theImg, 0, 0, null);
-        FontMetrics metrics = new FontMetrics(font) {
+        FontMetrics metrics = new FontMetrics(font){
         };
         g.drawString(text, left, top);
         g.dispose();
@@ -426,7 +426,7 @@ public class CouponManageAction {
             param.setQuality(qualNum, true);
             encoder.encode(bimage, param);
             out.close();
-        } catch (Exception e) {
+        } catch (Exception e){
             return false;
         }
 

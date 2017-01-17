@@ -67,8 +67,8 @@ public class HomePageBuyerAction {
     private IHomePageGoodsClassService HomeGoodsClassService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "个人主页头部", value = "/buyer/homepage_head.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage_head.htm"})
-    public ModelAndView homepage_head(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/buyer/homepage_head.htm"})
+    public ModelAndView homepage_head(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/homepage_head.html", this.configService
             .getSysConfig(),
@@ -77,7 +77,7 @@ public class HomePageBuyerAction {
         User user = new User();
         if ((uid != null) && (!uid.equals("")))
             user = this.userService.getObjById(CommUtil.null2Long(uid));
-        else {
+       else{
             user = SecurityUserHolder.getCurrentUser();
         }
         mv.addObject("owner", user);
@@ -86,7 +86,7 @@ public class HomePageBuyerAction {
         List HomePages = this.homePageService.query(
                              "select obj from HomePage obj where obj.owner.id=:uid", map,
                              -1, -1);
-        if (HomePages.size() > 0) {
+        if (HomePages.size() > 0){
             mv.addObject("homePage", HomePages.get(0));
         }
         map.clear();
@@ -106,8 +106,8 @@ public class HomePageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "个人主页", value = "/buyer/homepage.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage.htm"})
-    public ModelAndView homepage(HttpServletRequest request, HttpServletResponse response, String type, String currentPage, String orderBy, String orderType, String uid, String goodclass_id) {
+    @RequestMapping({"/buyer/homepage.htm"})
+    public ModelAndView homepage(HttpServletRequest request, HttpServletResponse response, String type, String currentPage, String orderBy, String orderType, String uid, String goodclass_id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/homepage.html", this.configService
             .getSysConfig(),
@@ -116,7 +116,7 @@ public class HomePageBuyerAction {
         User user = new User();
         if ((uid != null) && (!uid.equals("")))
             user = this.userService.getObjById(CommUtil.null2Long(uid));
-        else {
+       else{
             user = SecurityUserHolder.getCurrentUser();
         }
         mv.addObject("owner", user);
@@ -125,9 +125,9 @@ public class HomePageBuyerAction {
         List homePages = this.homePageService.query(
                              "select obj from HomePage obj where obj.owner.id=:uid", map,
                              -1, -1);
-        if (homePages.size() > 0) {
+        if (homePages.size() > 0){
             home = (HomePage)homePages.get(0);
-        } else {
+        }else{
             home.setOwner(SecurityUserHolder.getCurrentUser());
             home.setAddTime(new Date());
             this.homePageService.save(home);
@@ -136,9 +136,9 @@ public class HomePageBuyerAction {
         DynamicQueryObject qo = new DynamicQueryObject(currentPage, mv,
                 orderBy, orderType);
         qo.addQuery("obj.display", new SysMap("display", Boolean.valueOf(true)), "=");
-        if ((type != null) && (!type.equals(""))) {
+        if ((type != null) && (!type.equals(""))){
             mv.addObject("type", type);
-            if (type.equals("1")) {
+            if (type.equals("1")){
                 qo.addQuery("obj.user.id",
                             new SysMap("uid", home.getOwner()
                                        .getId()), "=");
@@ -149,11 +149,11 @@ public class HomePageBuyerAction {
                                 .query(
                                     "select obj from Dynamic obj where obj.store.id is not null and obj.user.id=:uid",
                                     params, -1, -1);
-                if (dynamics.size() > 0) {
+                if (dynamics.size() > 0){
                     mv.addObject("allNum", Integer.valueOf(CommUtil.null2Int(Integer.valueOf(dynamics.size()))));
                 }
             }
-            if (type.equals("2")) {
+            if (type.equals("2")){
                 qo.addQuery("obj.user.id",
                             new SysMap("uid", home.getOwner()
                                        .getId()), "=");
@@ -169,7 +169,7 @@ public class HomePageBuyerAction {
                 if (dynamics.size() > 0)
                     mv.addObject("allNum", Integer.valueOf(CommUtil.null2Int(Integer.valueOf(dynamics.size()))));
             }
-        } else {
+        }else{
             qo.addQuery("obj.user.id",
                         new SysMap("uid", home.getOwner()
                                    .getId()), "=");
@@ -181,10 +181,10 @@ public class HomePageBuyerAction {
                             .query(
                                 "select obj from Dynamic obj where obj.goods.id is not null and obj.user.id=:uid",
                                 params, -1, -1);
-            if (dynamics.size() > 0) {
+            if (dynamics.size() > 0){
                 mv.addObject("allNum", Integer.valueOf(CommUtil.null2Int(Integer.valueOf(dynamics.size()))));
             }
-            if ((goodclass_id != null) && (!goodclass_id.equals(""))) {
+            if ((goodclass_id != null) && (!goodclass_id.equals(""))){
                 mv.addObject("goodclass_id", goodclass_id);
                 qo.addQuery("obj.goods.gc.id",
                             new SysMap("goodClass_id",
@@ -201,16 +201,16 @@ public class HomePageBuyerAction {
             mv.addObject("hgcs", hgcs);
         }
 
-        if ((uid != null) && (!uid.equals(""))) {
+        if ((uid != null) && (!uid.equals(""))){
             List custs = home.getCustomers();
 
-            if (custs.size() == 0) {
+            if (custs.size() == 0){
                 Visit visit = new Visit();
                 visit.setAddTime(new Date());
                 visit.setHomepage(home);
                 visit.setUser(SecurityUserHolder.getCurrentUser());
                 this.visitService.save(visit);
-            } else {
+            }else{
                 map.clear();
                 map.put("home_owner_id", home.getOwner().getId());
                 map.put("uid", SecurityUserHolder.getCurrentUser().getId());
@@ -218,10 +218,10 @@ public class HomePageBuyerAction {
                               .query(
                                   "select obj from Visit obj where obj.user.id=:uid and obj.homepage.owner.id=:home_owner_id",
                                   map, -1, -1);
-                if (visits.size() > 0) {
+                if (visits.size() > 0){
                     ((Visit)visits.get(0)).setAddTime(new Date());
                     this.visitService.update((Visit)visits.get(0));
-                } else {
+                }else{
                     Visit visit = new Visit();
                     visit.setAddTime(new Date());
                     visit.setHomepage(home);
@@ -244,10 +244,10 @@ public class HomePageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "个人主页删除动态", value = "/buyer/homepage_dynamic_del.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage_dynamic_del.htm"})
-    public void homepage_dynamic_del(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String orderBy, String orderType, String type) {
+    @RequestMapping({"/buyer/homepage_dynamic_del.htm"})
+    public void homepage_dynamic_del(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String orderBy, String orderType, String type){
         boolean flag = false;
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             Dynamic dynamic = this.dynamicService
                               .getObjById(Long.valueOf(Long.parseLong(id)));
             flag = this.dynamicService.delete(Long.valueOf(Long.parseLong(id)));
@@ -258,20 +258,20 @@ public class HomePageBuyerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(flag);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "个人主页新鲜事加密", value = "/buyer/homepage_dynamic_lock.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage_dynamic_lock.htm"})
-    public void homepage_dynamic_lock(HttpServletRequest request, HttpServletResponse response, String dynamic_id) {
+    @RequestMapping({"/buyer/homepage_dynamic_lock.htm"})
+    public void homepage_dynamic_lock(HttpServletRequest request, HttpServletResponse response, String dynamic_id){
         Dynamic dynamic = this.dynamicService.getObjById(
                               CommUtil.null2Long(dynamic_id));
         boolean locked = dynamic.isLocked();
         if (!locked)
             dynamic.setLocked(true);
-        else {
+       else{
             dynamic.setLocked(false);
         }
         this.dynamicService.update(dynamic);
@@ -281,14 +281,14 @@ public class HomePageBuyerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(dynamic.isLocked());
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "个人主页添加关注", value = "/buyer/homepage_add_attention.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage_add_attention.htm"})
-    public void homepage_add_attention(HttpServletRequest request, HttpServletResponse response, String user_id) {
+    @RequestMapping({"/buyer/homepage_add_attention.htm"})
+    public void homepage_add_attention(HttpServletRequest request, HttpServletResponse response, String user_id){
         boolean flag = false;
         Map params = new HashMap();
         params.put("uid", SecurityUserHolder.getCurrentUser().getId());
@@ -297,7 +297,7 @@ public class HomePageBuyerAction {
                              .query(
                                  "select obj from SnsAttention obj where obj.fromUser.id=:uid and obj.toUser.id=:user_id ",
                                  params, -1, -1);
-        if (SnsAttentions.size() == 0) {
+        if (SnsAttentions.size() == 0){
             User atted = this.userService.getObjById(
                              CommUtil.null2Long(user_id));
             SnsAttention attention = new SnsAttention();
@@ -312,14 +312,14 @@ public class HomePageBuyerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(flag);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "个人主页添加关注", value = "/buyer/homepage_remove_attention.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage_remove_attention.htm"})
-    public void homepage_remove_attention(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/buyer/homepage_remove_attention.htm"})
+    public void homepage_remove_attention(HttpServletRequest request, HttpServletResponse response, String id){
         boolean flag = false;
         flag = this.attentionService.delete(CommUtil.null2Long(id));
         response.setContentType("text/plain");
@@ -328,14 +328,14 @@ public class HomePageBuyerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(flag);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "好友列表", value = "/buyer/homepage/myfriends.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage/myfriends.htm"})
-    public ModelAndView homepage_myfriends(HttpServletRequest request, HttpServletResponse response, String uid, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/buyer/homepage/myfriends.htm"})
+    public ModelAndView homepage_myfriends(HttpServletRequest request, HttpServletResponse response, String uid, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/homepage_myfriends.html",
             this.configService.getSysConfig(), this.userConfigService
@@ -345,7 +345,7 @@ public class HomePageBuyerAction {
         User user = new User();
         if ((uid != null) && (!uid.equals("")))
             user = this.userService.getObjById(CommUtil.null2Long(uid));
-        else {
+       else{
             user = SecurityUserHolder.getCurrentUser();
         }
         mv.addObject("owner", user);
@@ -358,8 +358,8 @@ public class HomePageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "关注列表", value = "/buyer/homepage/myattention.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage/myattention.htm"})
-    public ModelAndView homepage_myattention(HttpServletRequest request, HttpServletResponse response, String uid, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/buyer/homepage/myattention.htm"})
+    public ModelAndView homepage_myattention(HttpServletRequest request, HttpServletResponse response, String uid, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/homepage_myattention.html",
             this.configService.getSysConfig(), this.userConfigService
@@ -369,7 +369,7 @@ public class HomePageBuyerAction {
         User user = new User();
         if ((uid != null) && (!uid.equals("")))
             user = this.userService.getObjById(CommUtil.null2Long(uid));
-        else {
+       else{
             user = SecurityUserHolder.getCurrentUser();
         }
         mv.addObject("owner", user);
@@ -383,8 +383,8 @@ public class HomePageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "关注列表", value = "/buyer/homepage/myfans.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage/myfans.htm"})
-    public ModelAndView homepage_myfans(HttpServletRequest request, HttpServletResponse response, String uid, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/buyer/homepage/myfans.htm"})
+    public ModelAndView homepage_myfans(HttpServletRequest request, HttpServletResponse response, String uid, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/homepage_myfans.html", this.configService
             .getSysConfig(),
@@ -394,7 +394,7 @@ public class HomePageBuyerAction {
         User user = new User();
         if ((uid != null) && (!uid.equals("")))
             user = this.userService.getObjById(CommUtil.null2Long(uid));
-        else {
+       else{
             user = SecurityUserHolder.getCurrentUser();
         }
         mv.addObject("owner", user);
@@ -406,8 +406,8 @@ public class HomePageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "最近访客", value = "/buyer/homepage_visit.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage_visit.htm"})
-    public ModelAndView homepage_visit(HttpServletRequest request, HttpServletResponse response, String orderBy, String orderType, String currentPage) {
+    @RequestMapping({"/buyer/homepage_visit.htm"})
+    public ModelAndView homepage_visit(HttpServletRequest request, HttpServletResponse response, String orderBy, String orderType, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/homepage_visit.html", this.configService
             .getSysConfig(),
@@ -416,7 +416,7 @@ public class HomePageBuyerAction {
         User user = new User();
         if ((uid != null) && (!uid.equals("")))
             user = this.userService.getObjById(CommUtil.null2Long(uid));
-        else {
+       else{
             user = SecurityUserHolder.getCurrentUser();
         }
         mv.addObject("owner", user);
@@ -432,8 +432,8 @@ public class HomePageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "删除访客ajax", value = "/buyer/homepage_visit_dele.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage_visit_dele.htm"})
-    public void homepage_visit_dele(HttpServletRequest request, HttpServletResponse response, String visit_id) {
+    @RequestMapping({"/buyer/homepage_visit_dele.htm"})
+    public void homepage_visit_dele(HttpServletRequest request, HttpServletResponse response, String visit_id){
         boolean flag = false;
         Map params = new HashMap();
         params.put("custom_id", CommUtil.null2Long(visit_id));
@@ -442,7 +442,7 @@ public class HomePageBuyerAction {
                         .query(
                             "select obj from Visit obj where obj.user.id=:custom_id and obj.homepage.owner.id=:uid",
                             params, -1, -1);
-        if (customer.size() > 0) {
+        if (customer.size() > 0){
             flag = this.visitService.delete(((Visit)customer.get(0)).getId());
         }
         response.setContentType("text/plain");
@@ -451,14 +451,14 @@ public class HomePageBuyerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(flag);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "查询已经购买宝贝和已经收藏宝贝", value = "/buyer/homepage_query_goods.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage_query_goods.htm"})
-    public ModelAndView homepage_query_goods(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/buyer/homepage_query_goods.htm"})
+    public ModelAndView homepage_query_goods(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/homepage_query_goods.html",
             this.configService.getSysConfig(), this.userConfigService
@@ -504,14 +504,14 @@ public class HomePageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "查询收藏宝贝ajax分页", value = "/buyer/homepage_query_goods_favorite_ajax.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage_query_goods_favorite_ajax.htm"})
-    public ModelAndView homepage_query_goods_favorite_ajax(HttpServletRequest request, HttpServletResponse response, String fcurrentCount) {
+    @RequestMapping({"/buyer/homepage_query_goods_favorite_ajax.htm"})
+    public ModelAndView homepage_query_goods_favorite_ajax(HttpServletRequest request, HttpServletResponse response, String fcurrentCount){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/homepage_query_goods_favorite_ajax.html",
             this.configService.getSysConfig(), this.userConfigService
             .getUserConfig(), 0, request, response);
         int fcount = 0;
-        if ((fcurrentCount != null) && (!fcurrentCount.equals(""))) {
+        if ((fcurrentCount != null) && (!fcurrentCount.equals(""))){
             fcount = CommUtil.null2Int(fcurrentCount);
         }
         Map map = new HashMap();
@@ -528,14 +528,14 @@ public class HomePageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "查询已经购买宝贝ajax分页", value = "/buyer/homepage_query_goods_order_ajax.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage_query_goods_order_ajax.htm"})
-    public ModelAndView homepage_query_goods_order_ajax(HttpServletRequest request, HttpServletResponse response, String ocurrentCount) {
+    @RequestMapping({"/buyer/homepage_query_goods_order_ajax.htm"})
+    public ModelAndView homepage_query_goods_order_ajax(HttpServletRequest request, HttpServletResponse response, String ocurrentCount){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/homepage_query_goods_order_ajax.html",
             this.configService.getSysConfig(), this.userConfigService
             .getUserConfig(), 0, request, response);
         int ocount = 0;
-        if ((ocurrentCount != null) && (!ocurrentCount.equals(""))) {
+        if ((ocurrentCount != null) && (!ocurrentCount.equals(""))){
             ocount = CommUtil.null2Int(ocurrentCount);
         }
         Map map = new HashMap();
@@ -552,8 +552,8 @@ public class HomePageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "查询已经收藏店铺", value = "/buyer/homepage_query_stores.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage_query_stores.htm"})
-    public ModelAndView homepage_query_stores(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/buyer/homepage_query_stores.htm"})
+    public ModelAndView homepage_query_stores(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/homepage_query_stores.html",
             this.configService.getSysConfig(), this.userConfigService
@@ -581,14 +581,14 @@ public class HomePageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "查询已关注店铺ajax分页", value = "/buyer/homepage_query_stores_ajax.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage_query_stores_ajax.htm"})
-    public ModelAndView homepage_query_stores_ajax(HttpServletRequest request, HttpServletResponse response, String currentCount) {
+    @RequestMapping({"/buyer/homepage_query_stores_ajax.htm"})
+    public ModelAndView homepage_query_stores_ajax(HttpServletRequest request, HttpServletResponse response, String currentCount){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/homepage_query_stores_ajax.html",
             this.configService.getSysConfig(), this.userConfigService
             .getUserConfig(), 0, request, response);
         int count = 0;
-        if ((currentCount != null) && (!currentCount.equals(""))) {
+        if ((currentCount != null) && (!currentCount.equals(""))){
             count = CommUtil.null2Int(currentCount);
         }
         Map map = new HashMap();
@@ -605,29 +605,29 @@ public class HomePageBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "个人主页添加关注", value = "/buyer/homepage_goods_url_add.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/homepage_goods_url_add.htm"})
-    public void homepage_goods_url_add(HttpServletRequest request, HttpServletResponse response, String url) {
+    @RequestMapping({"/buyer/homepage_goods_url_add.htm"})
+    public void homepage_goods_url_add(HttpServletRequest request, HttpServletResponse response, String url){
         boolean flag = true;
         Goods goods = null;
         String str = null;
         String address = CommUtil.getURL(request) + "/goods";
         String[] urls = url.split("_");
-        if (urls.length == 2) {
-            if (!address.equals(urls[0])) {
+        if (urls.length == 2){
+            if (!address.equals(urls[0])){
                 flag = false;
             }
             String[] ids = urls[1].split("\\.");
-            if (ids.length == 2) {
-                if (!ids[1].equals("htm")) {
+            if (ids.length == 2){
+                if (!ids[1].equals("htm")){
                     flag = false;
                 }
-                if (flag) {
+                if (flag){
                     goods = this.goodsService.getObjById(
                                 CommUtil.null2Long(ids[0]));
                 }
             }
         }
-        if (goods != null) {
+        if (goods != null){
             String img_url = CommUtil.getURL(request) + "/" +
                              goods.getGoods_main_photo().getPath() + "/" +
                              goods.getGoods_main_photo().getName() + "_small" + "." +
@@ -640,7 +640,7 @@ public class HomePageBuyerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(str);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

@@ -47,10 +47,10 @@ public class HttpClientUtil {
         return httpsURLConnection;
     }
 
-    public static String getURL(String strUrl) {
-        if (strUrl != null) {
+    public static String getURL(String strUrl){
+        if (strUrl != null){
             int indexOf = strUrl.indexOf("?");
-            if (-1 != indexOf) {
+            if (-1 != indexOf){
                 return strUrl.substring(0, indexOf);
             }
 
@@ -60,10 +60,10 @@ public class HttpClientUtil {
         return strUrl;
     }
 
-    public static String getQueryString(String strUrl) {
-        if (strUrl != null) {
+    public static String getQueryString(String strUrl){
+        if (strUrl != null){
             int indexOf = strUrl.indexOf("?");
-            if (-1 != indexOf) {
+            if (-1 != indexOf){
                 return strUrl.substring(indexOf + 1, strUrl.length());
             }
 
@@ -73,14 +73,14 @@ public class HttpClientUtil {
         return strUrl;
     }
 
-    public static Map queryString2Map(String queryString) {
-        if ((queryString == null) || ("".equals(queryString))) {
+    public static Map queryString2Map(String queryString){
+        if ((queryString == null) || ("".equals(queryString))){
             return null;
         }
 
         Map m = new HashMap();
         String[] strArray = queryString.split("&");
-        for (int index = 0; index < strArray.length; index++) {
+        for (int index = 0; index < strArray.length; index++){
             String pair = strArray[index];
             putMapByPair(pair, m);
         }
@@ -88,18 +88,18 @@ public class HttpClientUtil {
         return m;
     }
 
-    public static void putMapByPair(String pair, Map m) {
-        if ((pair == null) || ("".equals(pair))) {
+    public static void putMapByPair(String pair, Map m){
+        if ((pair == null) || ("".equals(pair))){
             return;
         }
 
         int indexOf = pair.indexOf("=");
-        if (-1 != indexOf) {
+        if (-1 != indexOf){
             String k = pair.substring(0, indexOf);
             String v = pair.substring(indexOf + 1, pair.length());
             if ((k != null) && (!"".equals(k)))
                 m.put(k, v);
-        } else {
+        }else{
             m.put(pair, "");
         }
     }
@@ -108,7 +108,7 @@ public class HttpClientUtil {
     throws IOException {
         StringBuffer buf = new StringBuffer();
         String line = null;
-        while ((line = reader.readLine()) != null) {
+        while ((line = reader.readLine()) != null){
             buf.append(line);
             buf.append("\r\n");
         }
@@ -120,10 +120,10 @@ public class HttpClientUtil {
     throws IOException {
         int dataLen = data.length;
         int off = 0;
-        while (off < dataLen) {
+        while (off < dataLen){
             if (len >= dataLen)
                 out.write(data, off, dataLen);
-            else {
+           else{
                 out.write(data, off, len);
             }
 
@@ -167,8 +167,8 @@ public class HttpClientUtil {
         return cert;
     }
 
-    public static char[] str2CharArray(String str) {
-        if (str == null) {
+    public static char[] str2CharArray(String str){
+        if (str == null){
             return null;
         }
         return str.toCharArray();
@@ -185,7 +185,7 @@ public class HttpClientUtil {
         ks.store(out, str2CharArray(password));
     }
 
-    public static InputStream String2Inputstream(String str) {
+    public static InputStream String2Inputstream(String str){
         return new ByteArrayInputStream(str.getBytes());
     }
 }

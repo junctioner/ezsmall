@@ -11,7 +11,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class XMLHelper {
-    public static LinkedList<String> uc_unserialize(String input) {
+    public static LinkedList<String> uc_unserialize(String input){
         LinkedList result = new LinkedList();
 
         DOMParser parser = new DOMParser();
@@ -23,9 +23,9 @@ public class XMLHelper {
             for (int i = 0; i < length; i++)
                 if (nl.item(i).getNodeType() == 1)
                     result.add(nl.item(i).getTextContent());
-        } catch (SAXException e) {
+        } catch (SAXException e){
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
 

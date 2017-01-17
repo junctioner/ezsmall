@@ -21,19 +21,19 @@ public class ReportType extends IdEntity {
     @Column(columnDefinition = "LongText")
     private String content;
 
-    public String getName() {
+    public String getName(){
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-    public String getContent() {
+    public String getContent(){
         return this.content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String content){
         this.content = content;
     }
 }

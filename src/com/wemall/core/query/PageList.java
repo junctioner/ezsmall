@@ -14,39 +14,39 @@ public class PageList
     private List result;
     private IQuery query;
 
-    public PageList() {
+    public PageList(){
     }
 
-    public PageList(IQuery q) {
+    public PageList(IQuery q){
         this.query = q;
     }
 
-    public void setQuery(IQuery q) {
+    public void setQuery(IQuery q){
         this.query = q;
     }
 
-    public List getResult() {
+    public List getResult(){
         return this.result;
     }
 
-    public void doList(int pageSize, int pageNo, String totalSQL, String queryHQL) {
+    public void doList(int pageSize, int pageNo, String totalSQL, String queryHQL){
         doList(pageSize, pageNo, totalSQL, queryHQL, null);
     }
 
-    public void doList(int pageSize, int pageNo, String totalSQL, String queryHQL, Map params) {
+    public void doList(int pageSize, int pageNo, String totalSQL, String queryHQL, Map params){
         List rs = null;
         this.pageSize = pageSize;
         if (params != null) this.query.setParaValues(params);
         int total = this.query.getRows(totalSQL);
 
-        if (total > 0) {
+        if (total > 0){
             this.rowCount = total;
             this.pages = ((this.rowCount + pageSize - 1) / pageSize);
             int intPageNo = pageNo > this.pages ? this.pages : pageNo;
             if (intPageNo < 1)
                 intPageNo = 1;
             this.currentPage = intPageNo;
-            if (pageSize > 0) {
+            if (pageSize > 0){
                 this.query.setFirstResult((intPageNo - 1) * pageSize);
                 this.query.setMaxResults(pageSize);
             }
@@ -55,30 +55,30 @@ public class PageList
         this.result = rs;
     }
 
-    public int getPages() {
+    public int getPages(){
         return this.pages;
     }
 
-    public int getRowCount() {
+    public int getRowCount(){
         return this.rowCount;
     }
 
-    public int getCurrentPage() {
+    public int getCurrentPage(){
         return this.currentPage;
     }
 
-    public int getPageSize() {
+    public int getPageSize(){
         return this.pageSize;
     }
 
-    public int getNextPage() {
+    public int getNextPage(){
         int p = this.currentPage + 1;
         if (p > this.pages) p = this.pages;
 
         return p;
     }
 
-    public int getPreviousPage() {
+    public int getPreviousPage(){
         int p = this.currentPage - 1;
         if (p < 1) p = 1;
 

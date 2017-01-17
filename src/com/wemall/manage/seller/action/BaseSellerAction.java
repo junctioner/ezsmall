@@ -61,8 +61,8 @@ public class BaseSellerAction {
     private MenuTools menuTools;
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家中心", value = "/seller/index.htm*", rtype = "buyer", rname = "卖家中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/seller/index.htm"})
-    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/index.htm"})
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/seller_index.html", this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
@@ -92,13 +92,13 @@ public class BaseSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家中心导航", value = "/seller/nav.htm*", rtype = "buyer", rname = "卖家中心导航", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/seller/nav.htm"})
-    public ModelAndView nav(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/nav.htm"})
+    public ModelAndView nav(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("user/default/usercenter/seller_nav.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
         int store_status = 0;
         Store store = this.storeService.getObjByProperty("user.id", SecurityUserHolder.getCurrentUser().getId());
-        if (store != null) {
+        if (store != null){
             store_status = store.getStore_status();
         }
         String op = CommUtil.null2String(request.getAttribute("op"));
@@ -110,8 +110,8 @@ public class BaseSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家中心导航", value = "/seller/head.htm*", rtype = "buyer", rname = "卖家中心导航", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/seller/nav_head.htm"})
-    public ModelAndView nav_head(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/nav_head.htm"})
+    public ModelAndView nav_head(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/seller_head.html", this.configService
             .getSysConfig(),
@@ -126,8 +126,8 @@ public class BaseSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家中心快捷功能设置", value = "/seller/store_quick_menu.htm*", rtype = "seller", rname = "用户中心", rcode = "user_center_seller", rgroup = "用户中心")
-    @RequestMapping( {"/seller/store_quick_menu.htm"})
-    public ModelAndView store_quick_menu(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/store_quick_menu.htm"})
+    public ModelAndView store_quick_menu(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/store_quick_menu.html", this.configService
             .getSysConfig(),
@@ -137,14 +137,14 @@ public class BaseSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家中心快捷功能设置保存", value = "/seller/store_quick_menu_save.htm*", rtype = "seller", rname = "用户中心", rcode = "user_center_seller", rgroup = "用户中心")
-    @RequestMapping( {"/seller/store_quick_menu_save.htm"})
-    public ModelAndView store_quick_menu_save(HttpServletRequest request, HttpServletResponse response, String menus) {
+    @RequestMapping({"/seller/store_quick_menu_save.htm"})
+    public ModelAndView store_quick_menu_save(HttpServletRequest request, HttpServletResponse response, String menus){
         String[] menu_navs = menus.split(",");
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
         List list = new ArrayList();
-        for (String menu_nav : menu_navs) {
-            if (!menu_nav.equals("")) {
+        for (String menu_nav : menu_navs){
+            if (!menu_nav.equals("")){
                 String[] infos = menu_nav.split("\\|");
                 Map map = new HashMap();
                 map.put("menu_url", infos[0]);

@@ -32,13 +32,13 @@ public class ShopAccessDeniedHandlerImpl
         Authentication auth = SecurityContextHolder.getContext()
                               .getAuthentication();
         GrantedAuthority[] current_authorities = auth.getAuthorities();
-        if (user.getUserRole().indexOf("ADMIN") < 0) {
+        if (user.getUserRole().indexOf("ADMIN") < 0){
             this.errorPage = "/buyer/authority.htm";
-        } else if (all_authorities.length != current_authorities.length) {
+        }else if (all_authorities.length != current_authorities.length){
             this.errorPage = "/admin/login.htm";
         }
 
-        if (this.errorPage != null) {
+        if (this.errorPage != null){
             ((HttpServletRequest)request).setAttribute(
                 "SPRING_SECURITY_403_EXCEPTION", accessDeniedException);
 
@@ -51,8 +51,8 @@ public class ShopAccessDeniedHandlerImpl
                     accessDeniedException.getMessage());
     }
 
-    public void setErrorPage(String errorPage) {
-        if ((errorPage != null) && (!errorPage.startsWith("/"))) {
+    public void setErrorPage(String errorPage){
+        if ((errorPage != null) && (!errorPage.startsWith("/"))){
             throw new IllegalArgumentException("errorPage must begin with '/'");
         }
 

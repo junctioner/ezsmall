@@ -23,7 +23,7 @@ public class GroupViewTools {
     @Autowired
     private IGroupGoodsService groupGoodsService;
 
-    public List<GroupGoods> query_goods(String group_id, int count) {
+    public List<GroupGoods> query_goods(String group_id, int count){
         List list = new ArrayList();
         Map params = new HashMap();
         params.put("group_id", CommUtil.null2Long(group_id));

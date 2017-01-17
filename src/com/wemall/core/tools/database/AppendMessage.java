@@ -14,7 +14,7 @@ public class AppendMessage {
             .append("Author: wemall\n").append(
                 "company:xxx\n").append(
                     "Date: " + smf.format(new Date()) + "\n").append("\n");
-        } catch (Exception e) {
+        } catch (Exception e){
             throw e;
         }
 
@@ -29,7 +29,7 @@ public class AppendMessage {
             strBuilder.append("-- ----------------------------\n").append(
                 "-- Create Table " + tableName + "\n").append(
                     "-- ----------------------------");
-        } catch (Exception e) {
+        } catch (Exception e){
             throw e;
         }
 
@@ -44,7 +44,7 @@ public class AppendMessage {
             strBuilder.append("-- ----------------------------\n").append(
                 "-- Create Datas  \n").append(
                     "-- ----------------------------");
-        } catch (Exception e) {
+        } catch (Exception e){
             throw e;
         }
 

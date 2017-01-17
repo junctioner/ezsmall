@@ -53,13 +53,13 @@ public class SystemLogAdvice {
 
         String description = SecurityUserHolder.getCurrentUser().getTrueName() +
                              "于" + CommUtil.formatTime("yyyy-MM-dd HH:mm:ss", new Date());
-        if (annotation.type().equals(LogType.LOGIN)) {
+        if (annotation.type().equals(LogType.LOGIN)){
             description = description + "登录系统";
         }
-        if (annotation.type().equals(LogType.LIST)) {
+        if (annotation.type().equals(LogType.LIST)){
             description = description + "查阅" + annotation.entityName();
         }
-        if (annotation.type().equals(LogType.REMOVE)) {
+        if (annotation.type().equals(LogType.REMOVE)){
             String mulitId = request.getParameter("mulitId");
             String[] ids = mulitId.split(",");
             if (ids.length > 1)
@@ -69,33 +69,33 @@ public class SystemLogAdvice {
                 description = description + "删除Id为：" + mulitId + "的" +
                               annotation.entityName();
         }
-        if (annotation.type().equals(LogType.SAVE)) {
+        if (annotation.type().equals(LogType.SAVE)){
             String id = request.getParameter("id");
             if (id.equals(""))
                 description = description + "新建并保存" + annotation.entityName();
-            else {
+           else{
                 description = description + "修改并更新Id为：" + id + "的" +
                               annotation.entityName();
             }
         }
-        if (annotation.type().equals(LogType.VIEW)) {
+        if (annotation.type().equals(LogType.VIEW)){
             String id = request.getParameter("id");
             description = description + "查阅Id为:" + id + "的" +
                           annotation.entityName();
         }
-        if (annotation.type().equals(LogType.RESTORE)) {
+        if (annotation.type().equals(LogType.RESTORE)){
             String id = request.getParameter("id");
             description = description + "还原系统数据为Id是" + id + "的备份数据";
         }
-        if (annotation.type().equals(LogType.IMPORT)) {
+        if (annotation.type().equals(LogType.IMPORT)){
             description = description + "从本地导入数据覆盖系统数据库";
         }
-        if (annotation.type().equals(LogType.UPDATEPWS)) {
+        if (annotation.type().equals(LogType.UPDATEPWS)){
             String id = request.getParameter("id");
             String pws = request.getParameter("pws");
             description = description + "修改密码为" + pws.substring(0, 1) + "*****";
         }
-        if (annotation.type().equals(LogType.SEND)) {
+        if (annotation.type().equals(LogType.SEND)){
             String toUser = request.getParameter("toUser");
             description = description + "向" + toUser + "发送站内短信息";
         }
@@ -111,14 +111,14 @@ public class SystemLogAdvice {
     }
 
     @AfterThrowing(value = "execution(* com.wonders.manage..*.*(..))&&args(request,..) ", throwing = "exception")
-    public void exceptionLog(HttpServletRequest request, Throwable exception) {
+    public void exceptionLog(HttpServletRequest request, Throwable exception){
     }
 
-    public void loginLog() {
+    public void loginLog(){
         System.out.println("用户登录");
     }
 
-    private Method getMethod(ProceedingJoinPoint joinPoint) {
+    private Method getMethod(ProceedingJoinPoint joinPoint){
         MethodSignature joinPointObject = (MethodSignature)joinPoint
                                           .getSignature();
 
@@ -130,10 +130,10 @@ public class SystemLogAdvice {
         Object target = joinPoint.getTarget();
         try {
             method = target.getClass().getMethod(name, parameterTypes);
-        } catch (SecurityException e) {
+        } catch (SecurityException e){
             method = null;
             e.printStackTrace();
-        } catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException e){
             e.printStackTrace();
         }
 
@@ -142,7 +142,7 @@ public class SystemLogAdvice {
 
     public String adminOptionContent(Object[] args, String mName)
     throws Exception {
-        if (args == null) {
+        if (args == null){
             return null;
         }
         StringBuffer rs = new StringBuffer();
@@ -150,32 +150,32 @@ public class SystemLogAdvice {
         String className = null;
         int index = 1;
 
-        for (Object info : args) {
+        for (Object info : args){
             className = info.getClass().getName();
             className = className.substring(className.lastIndexOf(".") + 1);
             boolean cal = false;
             LogFieldType[] types = LogFieldType.values();
-            for (LogFieldType type : types) {
-                if (type.toString().equals(className)) {
+            for (LogFieldType type : types){
+                if (type.toString().equals(className)){
                     cal = true;
                 }
             }
-            if (cal) {
+            if (cal){
                 rs.append("[参数" + index + "，类型：" + className + "，值：");
 
                 Method[] methods = info.getClass().getDeclaredMethods();
 
-                for (Method method : methods) {
+                for (Method method : methods){
                     String methodName = method.getName();
 
-                    if (methodName.indexOf("get") == -1) {
+                    if (methodName.indexOf("get") == -1){
                         continue;
                     }
                     Object rsValue = null;
                     try {
                         rsValue = method.invoke(info, new Object[0]);
                         if (rsValue != null);
-                    } catch (Exception e) {
+                    } catch (Exception e){
                     }
                     rs.append("(" + methodName + " : " + rsValue.toString() +
                               ")");

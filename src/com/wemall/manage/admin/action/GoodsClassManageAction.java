@@ -50,8 +50,8 @@ public class GoodsClassManageAction {
     private IAccessoryService accessoryService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品分类列表", value = "/admin/goods_class_list.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_class_list.htm"})
-    public ModelAndView goods_class_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/admin/goods_class_list.htm"})
+    public ModelAndView goods_class_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView("admin/blue/goods_class_list.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
@@ -62,7 +62,7 @@ public class GoodsClassManageAction {
         wf.toQueryPo(request, qo, GoodsClass.class, mv);
         IPageList pList = this.goodsClassService.list(qo);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         CommUtil.saveIPageList2ModelAndView(
@@ -72,8 +72,8 @@ public class GoodsClassManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品分类添加", value = "/admin/goods_class_add.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_class_add.htm"})
-    public ModelAndView goods_class_add(HttpServletRequest request, HttpServletResponse response, String pid) {
+    @RequestMapping({"/admin/goods_class_add.htm"})
+    public ModelAndView goods_class_add(HttpServletRequest request, HttpServletResponse response, String pid){
         ModelAndView mv = new JModelAndView("admin/blue/goods_class_add.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
@@ -82,7 +82,7 @@ public class GoodsClassManageAction {
                        null, -1, -1);
         List gts = this.goodsTypeService.query(
                        "select obj from GoodsType obj", null, -1, -1);
-        if ((pid != null) && (!pid.equals(""))) {
+        if ((pid != null) && (!pid.equals(""))){
             GoodsClass obj = new GoodsClass();
             GoodsClass parent = this.goodsClassService.getObjById(
                                     Long.valueOf(Long.parseLong(pid)));
@@ -98,12 +98,12 @@ public class GoodsClassManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品分类编辑", value = "/admin/goods_class_edit.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_class_edit.htm"})
-    public ModelAndView goods_class_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/goods_class_edit.htm"})
+    public ModelAndView goods_class_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/goods_class_add.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             GoodsClass goodsClass = this.goodsClassService.getObjById(
                                         Long.valueOf(Long.parseLong(id)));
             mv.addObject("obj", goodsClass);
@@ -122,21 +122,21 @@ public class GoodsClassManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品分类保存", value = "/admin/goods_class_save.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_class_save.htm"})
-    public ModelAndView goods_class_save(HttpServletRequest request, HttpServletResponse response, String id, String pid, String goodsTypeId, String currentPage, String list_url, String add_url, String child_link) {
+    @RequestMapping({"/admin/goods_class_save.htm"})
+    public ModelAndView goods_class_save(HttpServletRequest request, HttpServletResponse response, String id, String pid, String goodsTypeId, String currentPage, String list_url, String add_url, String child_link){
         WebForm wf = new WebForm();
         GoodsClass goodsClass = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             goodsClass = (GoodsClass)wf.toPo(request, GoodsClass.class);
             goodsClass.setAddTime(new Date());
-        } else {
+        }else{
             GoodsClass obj = this.goodsClassService.getObjById(
                                  Long.valueOf(Long.parseLong(id)));
             goodsClass = (GoodsClass)wf.toPo(request, obj);
         }
         GoodsClass parent = this.goodsClassService.getObjById(
                                 CommUtil.null2Long(pid));
-        if (parent != null) {
+        if (parent != null){
             goodsClass.setParent(parent);
             goodsClass.setLevel(parent.getLevel() + 1);
         }
@@ -145,9 +145,9 @@ public class GoodsClassManageAction {
         goodsClass.setGoodsType(goodsType);
         Set<Long> ids = genericIds(goodsClass);
 
-        if (CommUtil.null2Boolean(child_link)) {
-            for (Long gc_id : ids) {
-                if (gc_id != null) {
+        if (CommUtil.null2Boolean(child_link)){
+            for (Long gc_id : ids){
+                if (gc_id != null){
                     GoodsClass gc = this.goodsClassService.getObjById(gc_id);
                     gc.setGoodsType(goodsType);
                     this.goodsClassService.update(gc);
@@ -167,8 +167,8 @@ public class GoodsClassManageAction {
                               goodsClass.getIcon_acc().getName();
             map = CommUtil.saveFileToServer(request, "icon_acc",
                                             saveFilePathName, fileName, null);
-            if (fileName.equals("")) {
-                if (map.get("fileName") != "") {
+            if (fileName.equals("")){
+                if (map.get("fileName") != ""){
                     Accessory photo = new Accessory();
                     photo.setName(CommUtil.null2String(map.get("fileName")));
                     photo.setExt(CommUtil.null2String(map.get("mime")));
@@ -180,7 +180,7 @@ public class GoodsClassManageAction {
                     this.accessoryService.save(photo);
                     goodsClass.setIcon_acc(photo);
                 }
-            } else if (map.get("fileName") != "") {
+            }else if (map.get("fileName") != ""){
                 Accessory photo = goodsClass.getIcon_acc();
                 photo.setName(CommUtil.null2String(map.get("fileName")));
                 photo.setExt(CommUtil.null2String(map.get("mime")));
@@ -192,12 +192,12 @@ public class GoodsClassManageAction {
                 this.accessoryService.update(photo);
             }
 
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
         if (id.equals(""))
             this.goodsClassService.save(goodsClass);
-        else {
+       else{
             this.goodsClassService.update(goodsClass);
         }
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
@@ -205,7 +205,7 @@ public class GoodsClassManageAction {
                                             this.userConfigService.getUserConfig(), 0, request, response);
         mv.addObject("op_title", "保存商品分类成功");
         mv.addObject("list_url", list_url);
-        if (add_url != null) {
+        if (add_url != null){
             mv.addObject("add_url", add_url + "?pid=" + pid);
         }
 
@@ -213,8 +213,8 @@ public class GoodsClassManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品分类下级加载", value = "/admin/goods_class_data.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_class_data.htm"})
-    public ModelAndView goods_class_data(HttpServletRequest request, HttpServletResponse response, String pid, String currentPage) {
+    @RequestMapping({"/admin/goods_class_data.htm"})
+    public ModelAndView goods_class_data(HttpServletRequest request, HttpServletResponse response, String pid, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/goods_class_data.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
@@ -230,24 +230,24 @@ public class GoodsClassManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品分类Ajax更新", value = "/admin/goods_class_ajax.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_class_ajax.htm"})
+    @RequestMapping({"/admin/goods_class_ajax.htm"})
     public void goods_class_ajax(HttpServletRequest request, HttpServletResponse response, String id, String fieldName, String value) throws ClassNotFoundException {
         GoodsClass gc = this.goodsClassService.getObjById(Long.valueOf(Long.parseLong(id)));
         Field[] fields = GoodsClass.class.getDeclaredFields();
         BeanWrapper wrapper = new BeanWrapper(gc);
         Object val = null;
-        for (Field field : fields) {
-            if (field.getName().equals(fieldName)) {
+        for (Field field : fields){
+            if (field.getName().equals(fieldName)){
                 Class clz = Class.forName("java.lang.String");
-                if (field.getType().getName().equals("int")) {
+                if (field.getType().getName().equals("int")){
                     clz = Class.forName("java.lang.Integer");
                 }
-                if (field.getType().getName().equals("boolean")) {
+                if (field.getType().getName().equals("boolean")){
                     clz = Class.forName("java.lang.Boolean");
                 }
                 if (!value.equals(""))
                     val = BeanUtils.convertType(value, clz);
-                else {
+               else{
                     val = Boolean.valueOf(
                               !CommUtil.null2Boolean(wrapper
                                                      .getPropertyValue(fieldName)));
@@ -262,17 +262,17 @@ public class GoodsClassManageAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(val.toString());
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    private Set<Long> genericIds(GoodsClass gc) {
+    private Set<Long> genericIds(GoodsClass gc){
         Set<Long> ids = new HashSet<Long>();
         ids.add(gc.getId());
-        for (GoodsClass child : gc.getChilds()) {
+        for (GoodsClass child : gc.getChilds()){
             Set<Long> cids = genericIds(child);
-            for (Long cid : cids) {
+            for (Long cid : cids){
                 ids.add(cid);
             }
             ids.add(child.getId());
@@ -282,11 +282,11 @@ public class GoodsClassManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品分类批量推荐", value = "/admin/goods_class_recommend.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_class_recommend.htm"})
-    public String goods_class_recommend(HttpServletRequest request, String mulitId, String currentPage) {
+    @RequestMapping({"/admin/goods_class_recommend.htm"})
+    public String goods_class_recommend(HttpServletRequest request, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 GoodsClass gc = this.goodsClassService.getObjById(
                                     Long.valueOf(Long.parseLong(id)));
                 gc.setRecommend(true);
@@ -298,11 +298,11 @@ public class GoodsClassManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品分类批量删除", value = "/admin/goods_class_del.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_class_del.htm"})
-    public String goods_class_del(HttpServletRequest request, String mulitId, String currentPage) {
+    @RequestMapping({"/admin/goods_class_del.htm"})
+    public String goods_class_del(HttpServletRequest request, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 Set list = genericIds(this.goodsClassService
                                       .getObjById(Long.valueOf(Long.parseLong(id))));
                 Map params = new HashMap();
@@ -310,16 +310,16 @@ public class GoodsClassManageAction {
                 List<GoodsClass> gcs = this.goodsClassService
                                        .query("select obj from GoodsClass obj where obj.id in (:ids) order by obj.level desc",
                                               params, -1, -1);
-                for (GoodsClass gc : gcs) {
-                    for (Goods goods : gc.getGoods_list()) {
+                for (GoodsClass gc : gcs){
+                    for (Goods goods : gc.getGoods_list()){
                         goods.setGc(null);
                         this.goodsService.update(goods);
                     }
-                    for (GoodsClassStaple gsc : gc.getGcss()) {
+                    for (GoodsClassStaple gsc : gc.getGcss()){
                         this.goodsClassStapleService.delete(gsc.getId());
                     }
                     GoodsType type = gc.getGoodsType();
-                    if (type != null) {
+                    if (type != null){
                         type.getGcs().remove(gc);
                         this.goodsTypeService.update(type);
                     }
@@ -332,8 +332,8 @@ public class GoodsClassManageAction {
         return "redirect:goods_class_list.htm?currentPage=" + currentPage;
     }
 
-    @RequestMapping( {"/admin/goods_class_verify.htm"})
-    public void goods_class_verify(HttpServletRequest request, HttpServletResponse response, String className, String id, String pid) {
+    @RequestMapping({"/admin/goods_class_verify.htm"})
+    public void goods_class_verify(HttpServletRequest request, HttpServletResponse response, String className, String id, String pid){
         boolean ret = true;
         Map params = new HashMap();
         params.put("className", className);
@@ -342,7 +342,7 @@ public class GoodsClassManageAction {
         List gcs = this.goodsClassService
                    .query("select obj from GoodsClass obj where obj.className=:className and obj.id!=:id and obj.parent.id !=:pid",
                           params, -1, -1);
-        if ((gcs != null) && (gcs.size() > 0)) {
+        if ((gcs != null) && (gcs.size() > 0)){
             ret = false;
         }
         response.setContentType("text/plain");
@@ -351,7 +351,7 @@ public class GoodsClassManageAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

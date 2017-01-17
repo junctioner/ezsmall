@@ -43,35 +43,35 @@ public class Chatting extends IdEntity {
     @OneToMany(mappedBy = "chatting", cascade = { javax.persistence.CascadeType.REMOVE })
     private List<ChattingLog> logs = new ArrayList<ChattingLog>();
 
-    public int getType() {
+    public int getType(){
         return this.type;
     }
 
-    public void setType(int type) {
+    public void setType(int type){
         this.type = type;
     }
 
-    public User getUser1() {
+    public User getUser1(){
         return this.user1;
     }
 
-    public void setUser1(User user1) {
+    public void setUser1(User user1){
         this.user1 = user1;
     }
 
-    public User getUser2() {
+    public User getUser2(){
         return this.user2;
     }
 
-    public void setUser2(User user2) {
+    public void setUser2(User user2){
         this.user2 = user2;
     }
 
-    public List<ChattingLog> getLogs() {
+    public List<ChattingLog> getLogs(){
         return this.logs;
     }
 
-    public void setLogs(List<ChattingLog> logs) {
+    public void setLogs(List<ChattingLog> logs){
         this.logs = logs;
     }
 }

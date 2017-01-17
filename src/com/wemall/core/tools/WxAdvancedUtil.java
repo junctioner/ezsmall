@@ -30,7 +30,7 @@ public class WxAdvancedUtil {
      * @param content 文本消息内容
      * @return
      */
-    public static String makeTextCustomMessage(String openId, String content) {
+    public static String makeTextCustomMessage(String openId, String content){
         // 对消息内容中的双引号进行转义
         content = content.replace("\"", "\\\"");
         String jsonMsg = "{\"touser\":\"%s\",\"msgtype\":\"text\",\"text\":{\"content\":\"%s\"}}";
@@ -44,7 +44,7 @@ public class WxAdvancedUtil {
      * @param mediaId 媒体文件id
      * @return
      */
-    public static String makeImageCustomMessage(String openId, String mediaId) {
+    public static String makeImageCustomMessage(String openId, String mediaId){
         String jsonMsg = "{\"touser\":\"%s\",\"msgtype\":\"image\",\"image\":{\"media_id\":\"%s\"}}";
         return String.format(jsonMsg, openId, mediaId);
     }
@@ -56,7 +56,7 @@ public class WxAdvancedUtil {
      * @param mediaId 媒体文件id
      * @return
      */
-    public static String makeVoiceCustomMessage(String openId, String mediaId) {
+    public static String makeVoiceCustomMessage(String openId, String mediaId){
         String jsonMsg = "{\"touser\":\"%s\",\"msgtype\":\"voice\",\"voice\":{\"media_id\":\"%s\"}}";
         return String.format(jsonMsg, openId, mediaId);
     }
@@ -69,7 +69,7 @@ public class WxAdvancedUtil {
      * @param thumbMediaId 视频消息缩略图的媒体id
      * @return
      */
-    public static String makeVideoCustomMessage(String openId, String mediaId, String thumbMediaId) {
+    public static String makeVideoCustomMessage(String openId, String mediaId, String thumbMediaId){
         String jsonMsg = "{\"touser\":\"%s\",\"msgtype\":\"video\",\"video\":{\"media_id\":\"%s\",\"thumb_media_id\":\"%s\"}}";
         return String.format(jsonMsg, openId, mediaId, thumbMediaId);
     }
@@ -81,7 +81,7 @@ public class WxAdvancedUtil {
      * @param music 音乐对象
      * @return
      */
-    /*public static String makeMusicCustomMessage(String openId, Music music) {
+    /*public static String makeMusicCustomMessage(String openId, Music music){
         String jsonMsg = "{\"touser\":\"%s\",\"msgtype\":\"music\",\"music\":%s}";
         jsonMsg = String.format(jsonMsg, openId, JSONObject.fromObject(music).toString());
         // 将jsonMsg中的thumbmediaid替换为thumb_media_id
@@ -96,7 +96,7 @@ public class WxAdvancedUtil {
      * @param articleList 图文消息列表
      * @return
      */
-    /*public static String makeNewsCustomMessage(String openId, List<Article> articleList) {
+    /*public static String makeNewsCustomMessage(String openId, List<Article> articleList){
         String jsonMsg = "{\"touser\":\"%s\",\"msgtype\":\"news\",\"news\":{\"articles\":%s}}";
         jsonMsg = String.format(jsonMsg, openId, JSONArray.fromObject(articleList).toString().replaceAll("\"", "\\\""));
         // 将jsonMsg中的picUrl替换为picurl
@@ -111,7 +111,7 @@ public class WxAdvancedUtil {
      * @param jsonMsg json格式的客服消息（包括touser、msgtype和消息内容）
      * @return true | false
      */
-    public static boolean sendCustomMessage(String accessToken, String jsonMsg) {
+    public static boolean sendCustomMessage(String accessToken, String jsonMsg){
         log.info("消息内容：{}", jsonMsg);
         boolean result = false;
         // 拼接请求地址
@@ -120,13 +120,13 @@ public class WxAdvancedUtil {
         // 发送客服消息
         JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "POST", jsonMsg);
 
-        if (null != jsonObject) {
+        if (null != jsonObject){
             int errorCode = jsonObject.getInt("errcode");
             String errorMsg = jsonObject.getString("errmsg");
-            if (0 == errorCode) {
+            if (0 == errorCode){
                 result = true;
                 log.info("客服消息发送成功 errcode:{} errmsg:{}", errorCode, errorMsg);
-            } else {
+            }else{
                 log.error("客服消息发送失败 errcode:{} errmsg:{}", errorCode, errorMsg);
             }
         }
@@ -141,7 +141,7 @@ public class WxAdvancedUtil {
      * @param scope snsapi_base和snsapi_userinfo
      * @return String
      */
-    public static String getWxCodeRequestURL(String appId, String redirectURL, String scope) {
+    public static String getWxCodeRequestURL(String appId, String redirectURL, String scope){
         // 拼接请求地址
         String requestUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPES&state=STATE#wechat_redirect";
         requestUrl = requestUrl.replace("APPID", appId);
@@ -159,7 +159,7 @@ public class WxAdvancedUtil {
      * @param code
      * @return WxAouth2Token
      */
-    public static WxOauth2Token getOauth2AccessToken(String appId, String appSecret, String code) {
+    public static WxOauth2Token getOauth2AccessToken(String appId, String appSecret, String code){
         WxOauth2Token wat = null;
         // 拼接请求地址
         String requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
@@ -168,7 +168,7 @@ public class WxAdvancedUtil {
         requestUrl = requestUrl.replace("CODE", code);
         // 获取网页授权凭证
         JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "GET", null);
-        if (null != jsonObject) {
+        if (null != jsonObject){
             try {
                 wat = new WxOauth2Token();
                 wat.setAccessToken(jsonObject.getString("access_token"));
@@ -176,7 +176,7 @@ public class WxAdvancedUtil {
                 wat.setRefreshToken(jsonObject.getString("refresh_token"));
                 wat.setOpenId(jsonObject.getString("openid"));
                 wat.setScope(jsonObject.getString("scope"));
-            } catch (Exception e) {
+            } catch (Exception e){
                 wat = null;
                 int errorCode = jsonObject.getInt("errcode");
                 String errorMsg = jsonObject.getString("errmsg");
@@ -193,7 +193,7 @@ public class WxAdvancedUtil {
      * @param refreshToken
      * @return WeixinAouth2Token
      */
-    public static WxOauth2Token refreshOauth2AccessToken(String appId, String refreshToken) {
+    public static WxOauth2Token refreshOauth2AccessToken(String appId, String refreshToken){
         WxOauth2Token wat = null;
         // 拼接请求地址
         String requestUrl = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN";
@@ -201,7 +201,7 @@ public class WxAdvancedUtil {
         requestUrl = requestUrl.replace("REFRESH_TOKEN", refreshToken);
         // 刷新网页授权凭证
         JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "GET", null);
-        if (null != jsonObject) {
+        if (null != jsonObject){
             try {
                 wat = new WxOauth2Token();
                 wat.setAccessToken(jsonObject.getString("access_token"));
@@ -209,7 +209,7 @@ public class WxAdvancedUtil {
                 wat.setRefreshToken(jsonObject.getString("refresh_token"));
                 wat.setOpenId(jsonObject.getString("openid"));
                 wat.setScope(jsonObject.getString("scope"));
-            } catch (Exception e) {
+            } catch (Exception e){
                 wat = null;
                 int errorCode = jsonObject.getInt("errcode");
                 String errorMsg = jsonObject.getString("errmsg");
@@ -226,8 +226,8 @@ public class WxAdvancedUtil {
      * @param openId 用户标识
      * @return SNSUserInfo
      */
-    /*@SuppressWarnings( { "deprecation", "unchecked" })
-    public static SNSUserInfo getSNSUserInfo(String accessToken, String openId) {
+    /*@SuppressWarnings({ "deprecation", "unchecked" })
+    public static SNSUserInfo getSNSUserInfo(String accessToken, String openId){
         SNSUserInfo snsUserInfo = null;
         // 拼接请求地址
         String requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
@@ -235,7 +235,7 @@ public class WxAdvancedUtil {
         // 通过网页授权获取用户信息
         JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "GET", null);
 
-        if (null != jsonObject) {
+        if (null != jsonObject){
             try {
                 snsUserInfo = new SNSUserInfo();
                 // 用户的标识
@@ -254,7 +254,7 @@ public class WxAdvancedUtil {
                 snsUserInfo.setHeadImgUrl(jsonObject.getString("headimgurl"));
                 // 用户特权信息
                 snsUserInfo.setPrivilegeList(JSONArray.toList(jsonObject.getJSONArray("privilege"), List.class));
-            } catch (Exception e) {
+            } catch (Exception e){
                 snsUserInfo = null;
                 int errorCode = jsonObject.getInt("errcode");
                 String errorMsg = jsonObject.getString("errmsg");
@@ -272,7 +272,7 @@ public class WxAdvancedUtil {
 * @param sceneId 场景ID
 * @return WeixinQRCode
 *//*
-public static WxQRCode createTemporaryQRCode(String accessToken, int expireSeconds, int sceneId) {
+public static WxQRCode createTemporaryQRCode(String accessToken, int expireSeconds, int sceneId){
 WxQRCode weixinQRCode = null;
 // 拼接请求地址
 String requestUrl = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=ACCESS_TOKEN";
@@ -282,13 +282,13 @@ String jsonMsg = "{\"expire_seconds\": %d, \"action_name\": \"QR_SCENE\", \"acti
 // 创建临时带参二维码
 JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "POST", String.format(jsonMsg, expireSeconds, sceneId));
 
-if (null != jsonObject) {
+if (null != jsonObject){
     try {
         weixinQRCode = new WxQRCode();
         weixinQRCode.setTicket(jsonObject.getString("ticket"));
         weixinQRCode.setExpireSeconds(jsonObject.getInt("expire_seconds"));
         log.info("创建临时带参二维码成功 ticket:{} expire_seconds:{}", weixinQRCode.getTicket(), weixinQRCode.getExpireSeconds());
-    } catch (Exception e) {
+    } catch (Exception e){
         weixinQRCode = null;
         int errorCode = jsonObject.getInt("errcode");
         String errorMsg = jsonObject.getString("errmsg");
@@ -305,7 +305,7 @@ return weixinQRCode;
 * @param sceneId 场景ID
 * @return ticket
 *//*
-public static String createPermanentQRCode(String accessToken, int sceneId) {
+public static String createPermanentQRCode(String accessToken, int sceneId){
 String ticket = null;
 // 拼接请求地址
 String requestUrl = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=ACCESS_TOKEN";
@@ -315,11 +315,11 @@ String jsonMsg = "{\"action_name\": \"QR_LIMIT_SCENE\", \"action_info\": {\"scen
 // 创建永久带参二维码
 JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "POST", String.format(jsonMsg, sceneId));
 
-if (null != jsonObject) {
+if (null != jsonObject){
     try {
         ticket = jsonObject.getString("ticket");
         log.info("创建永久带参二维码成功 ticket:{}", ticket);
-    } catch (Exception e) {
+    } catch (Exception e){
         int errorCode = jsonObject.getInt("errcode");
         String errorMsg = jsonObject.getString("errmsg");
         log.error("创建永久带参二维码失败 errcode:{} errmsg:{}", errorCode, errorMsg);
@@ -334,7 +334,7 @@ return ticket;
      * @param ticket 二维码ticket
      * @param savePath 保存路径
      */
-    public static String getQRCode(String ticket, String savePath) {
+    public static String getQRCode(String ticket, String savePath){
         String filePath = null;
         // 拼接请求地址
         String requestUrl = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=TICKET";
@@ -345,7 +345,7 @@ return ticket;
             conn.setDoInput(true);
             conn.setRequestMethod("GET");
 
-            if (!savePath.endsWith("/")) {
+            if (!savePath.endsWith("/")){
                 savePath += "/";
             }
             // 将ticket作为文件名
@@ -363,7 +363,7 @@ return ticket;
 
             conn.disconnect();
             log.info("根据ticket换取二维码成功，filePath=" + filePath);
-        } catch (Exception e) {
+        } catch (Exception e){
             filePath = null;
             log.error("根据ticket换取二维码失败：{}", e);
         }
@@ -377,7 +377,7 @@ return ticket;
      * @param openId 用户标识
      * @return WxUserInfo
      */
-    public static WxUserInfo getUserInfo(String accessToken, String openId) {
+    public static WxUserInfo getUserInfo(String accessToken, String openId){
         WxUserInfo WxUserInfo = null;
         // 拼接请求地址
         String requestUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID";
@@ -385,7 +385,7 @@ return ticket;
         // 获取用户信息
         JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "GET", null);
 
-        if (null != jsonObject) {
+        if (null != jsonObject){
             try {
                 WxUserInfo = new WxUserInfo();
                 // 用户的标识
@@ -408,10 +408,10 @@ return ticket;
                 WxUserInfo.setLanguage(jsonObject.getString("language"));
                 // 用户头像
                 WxUserInfo.setHeadImgUrl(jsonObject.getString("headimgurl"));
-            } catch (Exception e) {
-                if (0 == WxUserInfo.getSubscribe()) {
+            } catch (Exception e){
+                if (0 == WxUserInfo.getSubscribe()){
                     log.error("用户{}已取消关注", WxUserInfo.getOpenId());
-                } else {
+                }else{
                     int errorCode = jsonObject.getInt("errcode");
                     String errorMsg = jsonObject.getString("errmsg");
                     log.error("获取用户信息失败 errcode:{} errmsg:{}", errorCode, errorMsg);
@@ -428,8 +428,8 @@ return ticket;
      * @param nextOpenId 第一个拉取的openId，不填默认从头开始拉取
      * @return WeixinUserList
      */
-    /*@SuppressWarnings( { "unchecked", "deprecation" })
-    public static WeixinUserList getUserList(String accessToken, String nextOpenId) {
+    /*@SuppressWarnings({ "unchecked", "deprecation" })
+    public static WeixinUserList getUserList(String accessToken, String nextOpenId){
         WeixinUserList weixinUserList = null;
 
         if (null == nextOpenId)
@@ -441,7 +441,7 @@ return ticket;
         // 获取关注者列表
         JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "GET", null);
         // 如果请求成功
-        if (null != jsonObject) {
+        if (null != jsonObject){
             try {
                 weixinUserList = new WeixinUserList();
                 weixinUserList.setTotal(jsonObject.getInt("total"));
@@ -449,7 +449,7 @@ return ticket;
                 weixinUserList.setNextOpenId(jsonObject.getString("next_openid"));
                 JSONObject dataObject = (JSONObject) jsonObject.get("data");
                 weixinUserList.setOpenIdList(JSONArray.toList(dataObject.getJSONArray("openid"), List.class));
-            } catch (JSONException e) {
+            } catch (JSONException e){
                 weixinUserList = null;
                 int errorCode = jsonObject.getInt("errcode");
                 String errorMsg = jsonObject.getString("errmsg");
@@ -464,8 +464,8 @@ return ticket;
      *
      * @param accessToken 调用接口凭证
      */
-    /*@SuppressWarnings( { "unchecked", "deprecation" })
-    public static List<WeixinGroup> getGroups(String accessToken) {
+    /*@SuppressWarnings({ "unchecked", "deprecation" })
+    public static List<WeixinGroup> getGroups(String accessToken){
         List<WeixinGroup> weixinGroupList = null;
         // 拼接请求地址
         String requestUrl = "https://api.weixin.qq.com/cgi-bin/groups/get?access_token=ACCESS_TOKEN";
@@ -473,10 +473,10 @@ return ticket;
         // 查询分组
         JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "GET", null);
 
-        if (null != jsonObject) {
+        if (null != jsonObject){
             try {
                 weixinGroupList = JSONArray.toList(jsonObject.getJSONArray("groups"), WeixinGroup.class);
-            } catch (JSONException e) {
+            } catch (JSONException e){
                 weixinGroupList = null;
                 int errorCode = jsonObject.getInt("errcode");
                 String errorMsg = jsonObject.getString("errmsg");
@@ -493,7 +493,7 @@ return ticket;
      * @param groupName 分组名称
      * @return
      */
-    /*public static WeixinGroup createGroup(String accessToken, String groupName) {
+    /*public static WeixinGroup createGroup(String accessToken, String groupName){
         WeixinGroup weixinGroup = null;
         // 拼接请求地址
         String requestUrl = "https://api.weixin.qq.com/cgi-bin/groups/create?access_token=ACCESS_TOKEN";
@@ -503,12 +503,12 @@ return ticket;
         // 创建分组
         JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "POST", String.format(jsonData, groupName));
 
-        if (null != jsonObject) {
+        if (null != jsonObject){
             try {
                 weixinGroup = new WeixinGroup();
                 weixinGroup.setId(jsonObject.getJSONObject("group").getInt("id"));
                 weixinGroup.setName(jsonObject.getJSONObject("group").getString("name"));
-            } catch (JSONException e) {
+            } catch (JSONException e){
                 weixinGroup = null;
                 int errorCode = jsonObject.getInt("errcode");
                 String errorMsg = jsonObject.getString("errmsg");
@@ -526,7 +526,7 @@ return ticket;
      * @param groupName 修改后的分组名
      * @return true | false
      */
-    /*public static boolean updateGroup(String accessToken, int groupId, String groupName) {
+    /*public static boolean updateGroup(String accessToken, int groupId, String groupName){
         boolean result = false;
         // 拼接请求地址
         String requestUrl = "https://api.weixin.qq.com/cgi-bin/groups/update?access_token=ACCESS_TOKEN";
@@ -536,13 +536,13 @@ return ticket;
         // 修改分组名
         JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "POST", String.format(jsonData, groupId, groupName));
 
-        if (null != jsonObject) {
+        if (null != jsonObject){
             int errorCode = jsonObject.getInt("errcode");
             String errorMsg = jsonObject.getString("errmsg");
-            if (0 == errorCode) {
+            if (0 == errorCode){
                 result = true;
                 log.info("修改分组名成功 errcode:{} errmsg:{}", errorCode, errorMsg);
-            } else {
+            }else{
                 log.error("修改分组名失败 errcode:{} errmsg:{}", errorCode, errorMsg);
             }
         }
@@ -557,7 +557,7 @@ return ticket;
      * @param groupId 分组id
      * @return true | false
      */
-    /*public static boolean updateMemberGroup(String accessToken, String openId, int groupId) {
+    /*public static boolean updateMemberGroup(String accessToken, String openId, int groupId){
         boolean result = false;
         // 拼接请求地址
         String requestUrl = "https://api.weixin.qq.com/cgi-bin/groups/members/update?access_token=ACCESS_TOKEN";
@@ -567,13 +567,13 @@ return ticket;
         // 移动用户分组
         JSONObject jsonObject = WxCommonUtil.httpsRequest(requestUrl, "POST", String.format(jsonData, openId, groupId));
 
-        if (null != jsonObject) {
+        if (null != jsonObject){
             int errorCode = jsonObject.getInt("errcode");
             String errorMsg = jsonObject.getString("errmsg");
-            if (0 == errorCode) {
+            if (0 == errorCode){
                 result = true;
                 log.info("移动用户分组成功 errcode:{} errmsg:{}", errorCode, errorMsg);
-            } else {
+            }else{
                 log.error("移动用户分组失败 errcode:{} errmsg:{}", errorCode, errorMsg);
             }
         }
@@ -587,7 +587,7 @@ return ticket;
      * @param type 媒体文件类型（image、voice、video和thumb）
      * @param mediaFileUrl 媒体文件的url
      */
-    /*public static WeixinMedia uploadMedia(String accessToken, String type, String mediaFileUrl) {
+    /*public static WeixinMedia uploadMedia(String accessToken, String type, String mediaFileUrl){
         WeixinMedia weixinMedia = null;
         // 拼装请求地址
         String uploadMediaUrl = "http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
@@ -624,7 +624,7 @@ return ticket;
             BufferedInputStream bis = new BufferedInputStream(meidaConn.getInputStream());
             byte[] buf = new byte[8096];
             int size = 0;
-            while ((size = bis.read(buf)) != -1) {
+            while ((size = bis.read(buf)) != -1){
                 // 将媒体文件写到输出流（往微信服务器写数据）
                 outputStream.write(buf, 0, size);
             }
@@ -640,7 +640,7 @@ return ticket;
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer buffer = new StringBuffer();
             String str = null;
-            while ((str = bufferedReader.readLine()) != null) {
+            while ((str = bufferedReader.readLine()) != null){
                 buffer.append(str);
             }
             bufferedReader.close();
@@ -660,7 +660,7 @@ return ticket;
             else
                 weixinMedia.setMediaId(jsonObject.getString("media_id"));
             weixinMedia.setCreatedAt(jsonObject.getInt("created_at"));
-        } catch (Exception e) {
+        } catch (Exception e){
             weixinMedia = null;
             log.error("上传媒体文件失败：{}", e);
         }
@@ -670,7 +670,7 @@ return ticket;
     /**
      * 下载媒体文件
      */
-    /*public static String getMedia(String accessToken, String mediaId, String savePath) {
+    /*public static String getMedia(String accessToken, String mediaId, String savePath){
         String filePath = null;
         // 拼接请求地址
         String requestUrl = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=ACCESS_TOKEN&media_id=MEDIA_ID";
@@ -682,7 +682,7 @@ return ticket;
             conn.setDoInput(true);
             conn.setRequestMethod("GET");
 
-            if (!savePath.endsWith("/")) {
+            if (!savePath.endsWith("/")){
                 savePath += "/";
             }
             // 根据内容类型获取扩展名
@@ -701,14 +701,14 @@ return ticket;
 
             conn.disconnect();
             log.info("下载媒体文件成功，filePath=" + filePath);
-        } catch (Exception e) {
+        } catch (Exception e){
             filePath = null;
             log.error("下载媒体文件失败：{}", e);
         }
         return filePath;
     }*/
 
-    public static void main(String args[]) {
+    public static void main(String args[]){
         // 获取接口访问凭证
         String accessToken = WxCommonUtil.getToken("APPID", "APPSECRET").getAccessToken();
 
@@ -787,7 +787,7 @@ return ticket;
          */
         /*List<WeixinGroup> groupList = getGroups(accessToken);
         // 循环输出各分组信息
-        for (WeixinGroup group : groupList) {
+        for (WeixinGroup group : groupList){
             System.out.println(String.format("ID：%d 名称：%s 用户数：%d", group.getId(), group.getName(), group.getCount()));
         }*/
 

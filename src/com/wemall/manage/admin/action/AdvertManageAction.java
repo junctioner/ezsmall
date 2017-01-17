@@ -52,14 +52,14 @@ public class AdvertManageAction {
     private IGoldLogService goldLogService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告列表", value = "/admin/advert_list.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/advert_list.htm"})
-    public ModelAndView advert_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String ad_title) {
+    @RequestMapping({"/admin/advert_list.htm"})
+    public ModelAndView advert_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String ad_title){
         ModelAndView mv = new JModelAndView("admin/blue/advert_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         AdvertQueryObject qo = new AdvertQueryObject(currentPage, mv, orderBy,
                 orderType);
-        if (!CommUtil.null2String(ad_title).equals("")) {
+        if (!CommUtil.null2String(ad_title).equals("")){
             qo.addQuery("obj.ad_title",
                         new SysMap("ad_title", "%" +
                                    ad_title.trim() + "%"), "like");
@@ -72,15 +72,15 @@ public class AdvertManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "待审批广告列表", value = "/admin/advert_list_audit.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/advert_list_audit.htm"})
-    public ModelAndView advert_list_audit(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String ad_title) {
+    @RequestMapping({"/admin/advert_list_audit.htm"})
+    public ModelAndView advert_list_audit(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String ad_title){
         ModelAndView mv = new JModelAndView(
             "admin/blue/advert_list_audit.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         AdvertQueryObject qo = new AdvertQueryObject(currentPage, mv, orderBy,
                 orderType);
-        if (!CommUtil.null2String(ad_title).equals("")) {
+        if (!CommUtil.null2String(ad_title).equals("")){
             qo.addQuery("obj.ad_title",
                         new SysMap("ad_title", "%" +
                                    ad_title.trim() + "%"), "like");
@@ -94,8 +94,8 @@ public class AdvertManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告增加", value = "/admin/advert_add.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/advert_add.htm"})
-    public ModelAndView advert_add(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/admin/advert_add.htm"})
+    public ModelAndView advert_add(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/advert_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -108,12 +108,12 @@ public class AdvertManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告编辑", value = "/admin/advert_edit.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/advert_edit.htm"})
-    public ModelAndView advert_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/advert_edit.htm"})
+    public ModelAndView advert_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/advert_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             Advert advert = this.advertService.getObjById(Long.valueOf(Long.parseLong(id)));
             List aps = this.advertPositionService.query(
                            "select obj from AdvertPosition obj", null, -1, -1);
@@ -127,12 +127,12 @@ public class AdvertManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告查看", value = "/admin/advert_view.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/advert_view.htm"})
-    public ModelAndView advert_view(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/advert_view.htm"})
+    public ModelAndView advert_view(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/advert_view.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             Advert advert = this.advertService.getObjById(Long.valueOf(Long.parseLong(id)));
             mv.addObject("obj", advert);
             mv.addObject("currentPage", currentPage);
@@ -142,20 +142,20 @@ public class AdvertManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告审核", value = "/admin/advert_audit.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/advert_audit.htm"})
-    public ModelAndView advert_audit(HttpServletRequest request, HttpServletResponse response, String id, String ad_status, String currentPage) {
+    @RequestMapping({"/admin/advert_audit.htm"})
+    public ModelAndView advert_audit(HttpServletRequest request, HttpServletResponse response, String id, String ad_status, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         Advert obj = this.advertService.getObjById(CommUtil.null2Long(id));
         obj.setAd_status(CommUtil.null2Int(ad_status));
         this.advertService.update(obj);
-        if ((obj.getAd_status() == 1) && (obj.getAd_ap().getAp_show_type() == 0)) {
+        if ((obj.getAd_status() == 1) && (obj.getAd_ap().getAp_show_type() == 0)){
             AdvertPosition ap = obj.getAd_ap();
             ap.setAp_use_status(1);
             this.advertPositionService.update(ap);
         }
-        if (obj.getAd_status() == -1) {
+        if (obj.getAd_status() == -1){
             User user = obj.getAd_user();
             user.setGold(user.getGold() + obj.getAd_gold());
             this.userService.update(user);
@@ -175,15 +175,15 @@ public class AdvertManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告保存", value = "/admin/advert_save.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/advert_save.htm"})
-    public ModelAndView advert_save(HttpServletRequest request, HttpServletResponse response, String id, String ad_ap_id, String currentPage, String ad_begin_time, String ad_end_time) {
+    @RequestMapping({"/admin/advert_save.htm"})
+    public ModelAndView advert_save(HttpServletRequest request, HttpServletResponse response, String id, String ad_ap_id, String currentPage, String ad_begin_time, String ad_end_time){
         WebForm wf = new WebForm();
         Advert advert = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             advert = (Advert)wf.toPo(request, Advert.class);
             advert.setAddTime(new Date());
             advert.setAd_user(SecurityUserHolder.getCurrentUser());
-        } else {
+        }else{
             Advert obj = this.advertService.getObjById(Long.valueOf(Long.parseLong(id)));
             advert = (Advert)wf.toPo(request, obj);
         }
@@ -205,8 +205,8 @@ public class AdvertManageAction {
             map = CommUtil.saveFileToServer(request, "acc", saveFilePathName,
                                             fileName, null);
             Accessory acc = null;
-            if (fileName.equals("")) {
-                if (map.get("fileName") != "") {
+            if (fileName.equals("")){
+                if (map.get("fileName") != ""){
                     acc = new Accessory();
                     acc.setName(CommUtil.null2String(map.get("fileName")));
                     acc.setExt(CommUtil.null2String(map.get("mime")));
@@ -218,7 +218,7 @@ public class AdvertManageAction {
                     this.accessoryService.save(acc);
                     advert.setAd_acc(acc);
                 }
-            } else if (map.get("fileName") != "") {
+            }else if (map.get("fileName") != ""){
                 acc = advert.getAd_acc();
                 acc.setName(CommUtil.null2String(map.get("fileName")));
                 acc.setExt(CommUtil.null2String(map.get("mime")));
@@ -229,7 +229,7 @@ public class AdvertManageAction {
                 acc.setAddTime(new Date());
                 this.accessoryService.update(acc);
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
         if (id.equals(""))
@@ -249,14 +249,14 @@ public class AdvertManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告删除", value = "/admin/advert_del.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/advert_del.htm"})
-    public String advert_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
+    @RequestMapping({"/admin/advert_del.htm"})
+    public String advert_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 Advert advert = this.advertService.getObjById(
                                     Long.valueOf(Long.parseLong(id)));
-                if (advert.getAd_status() != 1) {
+                if (advert.getAd_status() != 1){
                     CommUtil.del_acc(request, advert.getAd_acc());
                     this.advertService.delete(Long.valueOf(Long.parseLong(id)));
                 }
@@ -267,8 +267,8 @@ public class AdvertManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告位添加", value = "/admin/adv_pos_add.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/adv_pos_add.htm"})
-    public ModelAndView adv_pos_add(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/adv_pos_add.htm"})
+    public ModelAndView adv_pos_add(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/adv_pos_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -280,14 +280,14 @@ public class AdvertManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告位保存", value = "/admin/adv_pos_save.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/adv_pos_save.htm"})
-    public ModelAndView adv_pos_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String list_url, String add_url) {
+    @RequestMapping({"/admin/adv_pos_save.htm"})
+    public ModelAndView adv_pos_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String list_url, String add_url){
         WebForm wf = new WebForm();
         AdvertPosition ap = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             ap = (AdvertPosition)wf.toPo(request, AdvertPosition.class);
             ap.setAddTime(new Date());
-        } else {
+        }else{
             AdvertPosition obj = this.advertPositionService.getObjById(
                                      Long.valueOf(Long.parseLong(id)));
             ap = (AdvertPosition)wf.toPo(request, obj);
@@ -305,8 +305,8 @@ public class AdvertManageAction {
             map = CommUtil.saveFileToServer(request, "acc", saveFilePathName,
                                             fileName, null);
             Accessory acc = null;
-            if (fileName.equals("")) {
-                if (map.get("fileName") != "") {
+            if (fileName.equals("")){
+                if (map.get("fileName") != ""){
                     acc = new Accessory();
                     acc.setName(CommUtil.null2String(map.get("fileName")));
                     acc.setExt(CommUtil.null2String(map.get("mime")));
@@ -318,7 +318,7 @@ public class AdvertManageAction {
                     this.accessoryService.save(acc);
                     ap.setAp_acc(acc);
                 }
-            } else if (map.get("fileName") != "") {
+            }else if (map.get("fileName") != ""){
                 acc = ap.getAp_acc();
                 acc.setName(CommUtil.null2String(map.get("fileName")));
                 acc.setExt(CommUtil.null2String(map.get("mime")));
@@ -329,7 +329,7 @@ public class AdvertManageAction {
                 acc.setAddTime(new Date());
                 this.accessoryService.update(acc);
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
         if (id.equals(""))
@@ -341,7 +341,7 @@ public class AdvertManageAction {
                                             .getUserConfig(), 0, request, response);
         mv.addObject("list_url", list_url);
         mv.addObject("op_title", "保存广告位成功");
-        if (add_url != null) {
+        if (add_url != null){
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
 
@@ -349,14 +349,14 @@ public class AdvertManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告位列表", value = "/admin/adv_pos_list.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/adv_pos_list.htm"})
-    public ModelAndView adv_pos_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String ap_title) {
+    @RequestMapping({"/admin/adv_pos_list.htm"})
+    public ModelAndView adv_pos_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String ap_title){
         ModelAndView mv = new JModelAndView("admin/blue/adv_pos_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         AdvertPositionQueryObject qo = new AdvertPositionQueryObject(
             currentPage, mv, orderBy, orderType);
-        if (!CommUtil.null2String(ap_title).equals("")) {
+        if (!CommUtil.null2String(ap_title).equals("")){
             qo.addQuery("obj.ap_title",
                         new SysMap("ap_title", "%" + ap_title +
                                    "%"), "like");
@@ -369,12 +369,12 @@ public class AdvertManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告位编辑", value = "/admin/adv_pos_edit.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/adv_pos_edit.htm"})
-    public ModelAndView adv_pos_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/adv_pos_edit.htm"})
+    public ModelAndView adv_pos_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/adv_pos_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             AdvertPosition obj = this.advertPositionService.getObjById(
                                      Long.valueOf(Long.parseLong(id)));
             mv.addObject("obj", obj);
@@ -386,14 +386,14 @@ public class AdvertManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告位删除", value = "/admin/adv_pos_del.htm*", rtype = "admin", rname = "广告管理", rcode = "advert_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/adv_pos_del.htm"})
-    public String adv_pos_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
+    @RequestMapping({"/admin/adv_pos_del.htm"})
+    public String adv_pos_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 AdvertPosition ap = this.advertPositionService.getObjById(
                                         Long.valueOf(Long.parseLong(id)));
-                if (ap.getAp_sys_type() != 0) {
+                if (ap.getAp_sys_type() != 0){
                     CommUtil.del_acc(request, ap.getAp_acc());
                     this.advertPositionService.delete(Long.valueOf(Long.parseLong(id)));
                 }

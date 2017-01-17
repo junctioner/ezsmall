@@ -59,75 +59,75 @@ public class Activity extends IdEntity {
     @Column(precision = 3, scale = 2)
     private BigDecimal ac_rebate;
 
-    public List<ActivityGoods> getAgs() {
+    public List<ActivityGoods> getAgs(){
         return this.ags;
     }
 
-    public void setAgs(List<ActivityGoods> ags) {
+    public void setAgs(List<ActivityGoods> ags){
         this.ags = ags;
     }
 
-    public String getAc_title() {
+    public String getAc_title(){
         return this.ac_title;
     }
 
-    public void setAc_title(String ac_title) {
+    public void setAc_title(String ac_title){
         this.ac_title = ac_title;
     }
 
-    public Date getAc_begin_time() {
+    public Date getAc_begin_time(){
         return this.ac_begin_time;
     }
 
-    public void setAc_begin_time(Date ac_begin_time) {
+    public void setAc_begin_time(Date ac_begin_time){
         this.ac_begin_time = ac_begin_time;
     }
 
-    public Date getAc_end_time() {
+    public Date getAc_end_time(){
         return this.ac_end_time;
     }
 
-    public void setAc_end_time(Date ac_end_time) {
+    public void setAc_end_time(Date ac_end_time){
         this.ac_end_time = ac_end_time;
     }
 
-    public Accessory getAc_acc() {
+    public Accessory getAc_acc(){
         return this.ac_acc;
     }
 
-    public void setAc_acc(Accessory ac_acc) {
+    public void setAc_acc(Accessory ac_acc){
         this.ac_acc = ac_acc;
     }
 
-    public int getAc_sequence() {
+    public int getAc_sequence(){
         return this.ac_sequence;
     }
 
-    public void setAc_sequence(int ac_sequence) {
+    public void setAc_sequence(int ac_sequence){
         this.ac_sequence = ac_sequence;
     }
 
-    public int getAc_status() {
+    public int getAc_status(){
         return this.ac_status;
     }
 
-    public void setAc_status(int ac_status) {
+    public void setAc_status(int ac_status){
         this.ac_status = ac_status;
     }
 
-    public String getAc_content() {
+    public String getAc_content(){
         return this.ac_content;
     }
 
-    public void setAc_content(String ac_content) {
+    public void setAc_content(String ac_content){
         this.ac_content = ac_content;
     }
 
-    public BigDecimal getAc_rebate() {
+    public BigDecimal getAc_rebate(){
         return this.ac_rebate;
     }
 
-    public void setAc_rebate(BigDecimal ac_rebate) {
+    public void setAc_rebate(BigDecimal ac_rebate){
         this.ac_rebate = ac_rebate;
     }
 }

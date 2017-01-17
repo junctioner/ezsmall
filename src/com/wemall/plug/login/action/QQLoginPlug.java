@@ -56,7 +56,7 @@ public class QQLoginPlug {
     private String qq_login_url = "https://graph.qq.com/oauth2.0/authorize";
     private String qq_access_token = "https://graph.qq.com/oauth2.0/authorize";
 
-    @RequestMapping( {"/qq_login_api.htm"})
+    @RequestMapping({"/qq_login_api.htm"})
     public void qq_login_api(HttpServletRequest request, HttpServletResponse response)
     throws IOException {
         String redirect_uri = CommUtil.encode(CommUtil.getURL(request) + "/qq_login_bind.htm");
@@ -66,8 +66,8 @@ public class QQLoginPlug {
         response.sendRedirect(auth_url);
     }
 
-    @RequestMapping( {"/qq_login_bind.htm"})
-    public String qq_login_bind(HttpServletRequest request, HttpServletResponse response, String code) {
+    @RequestMapping({"/qq_login_bind.htm"})
+    public String qq_login_bind(HttpServletRequest request, HttpServletResponse response, String code){
         String redirect_uri = CommUtil.encode(CommUtil.getURL(request) + "/qq_login_bind.htm");
         String token_url = "https://graph.qq.com/oauth2.0/token?grant_type=authorization_code&client_id=" +
                            this.configService.getSysConfig().getQq_login_id() +
@@ -88,10 +88,10 @@ public class QQLoginPlug {
         String user_info_callback = getHttpContent(user_info_url, "UTF-8", "GET");
         Map user_map = (Map)Json.fromJson(HashMap.class, user_info_callback);
         System.out.println("用户名：" + user_map.get("nickname"));
-        if (SecurityUserHolder.getCurrentUser() == null) {
+        if (SecurityUserHolder.getCurrentUser() == null){
             String userName = generic_username(CommUtil.null2String(user_map.get("nickname")));
             User user = this.userService.getObjByProperty("qq_openid", qq_openid);
-            if (user == null) {
+            if (user == null){
                 user = new User();
                 user.setUserName(userName);
                 user.setUserRole("BUYER");
@@ -103,7 +103,7 @@ public class QQLoginPlug {
                 List roles = this.roleService.query(
                                  "select obj from Role obj where obj.type=:type", params, -1, -1);
                 user.getRoles().addAll(roles);
-                if (this.configService.getSysConfig().isIntegral()) {
+                if (this.configService.getSysConfig().isIntegral()){
                     user.setIntegral(this.configService.getSysConfig().getMemberRegister());
                     this.userService.save(user);
                     IntegralLog log = new IntegralLog();
@@ -113,7 +113,7 @@ public class QQLoginPlug {
                     log.setIntegral_user(user);
                     log.setType("reg");
                     this.integralLogService.save(log);
-                } else {
+                }else{
                     this.userService.save(user);
                 }
 
@@ -142,29 +142,29 @@ public class QQLoginPlug {
         return "redirect:" + CommUtil.getURL(request) + "/buyer/account_bind.htm";
     }
 
-    @RequestMapping( {"/qq_login_bind_finish.htm"})
-    public String qq_login_bind_finish(HttpServletRequest request, HttpServletResponse response, String userName, String password, String bind_already) {
+    @RequestMapping({"/qq_login_bind_finish.htm"})
+    public String qq_login_bind_finish(HttpServletRequest request, HttpServletResponse response, String userName, String password, String bind_already){
         String url = "redirect:" + CommUtil.getURL(request) + "/index.htm";
-        if (!CommUtil.null2String(bind_already).equals("")) {
+        if (!CommUtil.null2String(bind_already).equals("")){
             User user = this.userService.getObjByProperty("userName", userName);
-            if (user == null) {
+            if (user == null){
                 request.getSession(false).setAttribute("op_title", "用户绑定失败");
                 request.getSession(false).setAttribute("url", url);
                 url = "redirect:" + CommUtil.getURL(request) + "/error.htm";
-            } else if (Md5Encrypt.md5(password).toLowerCase().equals(
-                           user.getPassword())) {
+            }else if (Md5Encrypt.md5(password).toLowerCase().equals(
+                           user.getPassword())){
                 user.setQq_openid(SecurityUserHolder.getCurrentUser().getQq_openid());
                 request.getSession(false).removeAttribute("verify_code");
 
                 this.userService.delete(SecurityUserHolder.getCurrentUser().getId());
                 url = "redirect:" + CommUtil.getURL(request) + "/wemall_login.htm?username=" +
                       CommUtil.encode(user.getUsername()) + "&password=" + password;
-            } else {
+            }else{
                 request.getSession(false).setAttribute("op_title", "用户绑定失败");
                 request.getSession(false).setAttribute("url", CommUtil.getURL(request) + "/index.htm");
                 url = "redirect:" + CommUtil.getURL(request) + "/error.htm";
             }
-        } else {
+        }else{
             User user = SecurityUserHolder.getCurrentUser();
             user.setUserName(userName);
             user.setPassword(Md5Encrypt.md5(password).toLowerCase());
@@ -176,7 +176,7 @@ public class QQLoginPlug {
         return url;
     }
 
-    public static String getHttpContent(String url, String charSet, String method) {
+    public static String getHttpContent(String url, String charSet, String method){
         HttpURLConnection connection = null;
         String content = "";
         try {
@@ -188,40 +188,40 @@ public class QQLoginPlug {
             connection.setReadTimeout(1000000);
 
             int response_code = connection.getResponseCode();
-            if (response_code == 200) {
+            if (response_code == 200){
                 InputStream in = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(
                     new InputStreamReader(in, charSet));
                 String line = null;
-                while ((line = reader.readLine()) != null) {
+                while ((line = reader.readLine()) != null){
                     content = content + line;
                 }
                 String str1 = content;
                 return str1;
             }
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException e){
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         } finally {
             if (connection != null)
                 connection.disconnect();
         }
-        if (connection != null) {
+        if (connection != null){
             connection.disconnect();
         }
 
         return "";
     }
 
-    private String generic_username(String userName) {
+    private String generic_username(String userName){
         String name = userName;
         User user = this.userService.getObjByProperty("userName", name);
-        if (user != null) {
-            for (int i = 1; i < 1000000; i++) {
+        if (user != null){
+            for (int i = 1; i < 1000000; i++){
                 name = name + i;
                 user = this.userService.getObjByProperty("userName", name);
-                if (user == null) {
+                if (user == null){
                     break;
                 }
             }
@@ -230,7 +230,7 @@ public class QQLoginPlug {
         return name;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         SysConfig config = new SysConfig();
         config.setQq_login_id("100359491");
         config.setQq_login_key("a34bcaef0487e650238983abc0fbae7c");

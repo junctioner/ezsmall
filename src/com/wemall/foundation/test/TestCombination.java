@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestCombination {
-    public static void main(String[] arg) {
+    public static void main(String[] arg){
         List lists = new ArrayList();
         String[] list1 = { "A", "B", "C", "D" };
         String[] list2 = { "A1", "B1", "C1", "D1", "E1" };
@@ -18,14 +18,14 @@ public class TestCombination {
             { "A1", "B1", "C1", "D1", "E1" }, { "A2", "B2", "C3" }, { "A3", "B3" }
         };
         int max = 1;
-        for (int i = 0; i < str.length; i++) {
+        for (int i = 0; i < str.length; i++){
             max *= str[i].length;
         }
 
-        for (int i = 0; i < max; i++) {
+        for (int i = 0; i < max; i++){
             String s = "";
             int temp = 1;
-            for (int j = 0; j < str.length; j++) {
+            for (int j = 0; j < str.length; j++){
                 temp *= str[j].length;
                 s = s + str[j][(i / (max / temp) % str[j].length)];
             }

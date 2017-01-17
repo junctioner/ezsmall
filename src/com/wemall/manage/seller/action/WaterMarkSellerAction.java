@@ -43,21 +43,21 @@ public class WaterMarkSellerAction {
     private IUserService userService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "图片水印", value = "/seller/watermark.htm*", rtype = "seller", rname = "图片管理", rcode = "album_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/watermark.htm"})
-    public ModelAndView watermark(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/watermark.htm"})
+    public ModelAndView watermark(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/watermark.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         Store store = this.userService.getObjById(
                           SecurityUserHolder.getCurrentUser().getId()).getStore();
-        if (store != null) {
+        if (store != null){
             Map params = new HashMap();
             params.put("store_id", store.getId());
             List wms = this.watermarkService
                        .query("select obj from WaterMark obj where obj.store.id=:store_id",
                               params, -1, -1);
-            if (wms.size() > 0) {
+            if (wms.size() > 0){
                 mv.addObject("obj", wms.get(0));
             }
         }
@@ -66,16 +66,16 @@ public class WaterMarkSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "图片水印保存", value = "/seller/watermark_save.htm*", rtype = "seller", rname = "图片管理", rcode = "album_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/watermark_save.htm"})
-    public ModelAndView watermark_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd) {
+    @RequestMapping({"/seller/watermark_save.htm"})
+    public ModelAndView watermark_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd){
         ModelAndView mv = null;
-        if (SecurityUserHolder.getCurrentUser().getStore() != null) {
+        if (SecurityUserHolder.getCurrentUser().getStore() != null){
             WebForm wf = new WebForm();
             WaterMark watermark = null;
-            if (id.equals("")) {
+            if (id.equals("")){
                 watermark = (WaterMark)wf.toPo(request, WaterMark.class);
                 watermark.setAddTime(new Date());
-            } else {
+            }else{
                 WaterMark obj = this.watermarkService.getObjById(
                                     Long.valueOf(Long.parseLong(id)));
                 watermark = (WaterMark)wf.toPo(request, obj);
@@ -87,7 +87,7 @@ public class WaterMarkSellerAction {
             try {
                 Map map = CommUtil.saveFileToServer(request, "wm_img", path,
                                                     null, null);
-                if (!map.get("fileName").equals("")) {
+                if (!map.get("fileName").equals("")){
                     Accessory wm_image = new Accessory();
                     wm_image.setAddTime(new Date());
                     wm_image.setHeight(CommUtil.null2Int(map.get("height")));
@@ -99,7 +99,7 @@ public class WaterMarkSellerAction {
                     this.accessoryService.save(wm_image);
                     watermark.setWm_image(wm_image);
                 }
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
             if (id.equals(""))
@@ -111,7 +111,7 @@ public class WaterMarkSellerAction {
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "水印设置成功");
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);

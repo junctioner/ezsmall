@@ -26,8 +26,8 @@ public class UcenterManageAction {
     private IUserConfigService userConfigService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "UC配置", value = "/admin/ucenter.htm*", rtype = "admin", rname = "UC整合", rcode = "admin_bbs", rgroup = "工具")
-    @RequestMapping( {"/admin/ucenter.htm"})
-    public ModelAndView ucenter(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/admin/ucenter.htm"})
+    public ModelAndView ucenter(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("admin/blue/ucenter.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -36,8 +36,8 @@ public class UcenterManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "UC信息保存", value = "/admin/ucenter_save.htm*", rtype = "admin", rname = "UC整合", rcode = "admin_bbs", rgroup = "工具")
-    @RequestMapping( {"/admin/ucenter_save.htm"})
-    public ModelAndView ucenter_save(HttpServletRequest request, HttpServletResponse response, String uc_bbs, String uc_appid, String uc_api, String uc_key, String uc_ip, String uc_database_url, String uc_database_port, String uc_database_username, String uc_database_pws, String uc_database, String uc_table_preffix) {
+    @RequestMapping({"/admin/ucenter_save.htm"})
+    public ModelAndView ucenter_save(HttpServletRequest request, HttpServletResponse response, String uc_bbs, String uc_appid, String uc_api, String uc_key, String uc_ip, String uc_database_url, String uc_database_port, String uc_database_username, String uc_database_pws, String uc_database, String uc_table_preffix){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);

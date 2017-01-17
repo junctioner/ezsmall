@@ -42,67 +42,67 @@ public class UserGoodsClass extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    public List<Goods> getGoods_list() {
+    public List<Goods> getGoods_list(){
         return this.goods_list;
     }
 
-    public void setGoods_list(List<Goods> goods_list) {
+    public void setGoods_list(List<Goods> goods_list){
         this.goods_list = goods_list;
     }
 
-    public String getClassName() {
+    public String getClassName(){
         return this.className;
     }
 
-    public void setClassName(String className) {
+    public void setClassName(String className){
         this.className = className;
     }
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public boolean isDisplay() {
+    public boolean isDisplay(){
         return this.display;
     }
 
-    public void setDisplay(boolean display) {
+    public void setDisplay(boolean display){
         this.display = display;
     }
 
-    public int getLevel() {
+    public int getLevel(){
         return this.level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(int level){
         this.level = level;
     }
 
-    public UserGoodsClass getParent() {
+    public UserGoodsClass getParent(){
         return this.parent;
     }
 
-    public void setParent(UserGoodsClass parent) {
+    public void setParent(UserGoodsClass parent){
         this.parent = parent;
     }
 
-    public List<UserGoodsClass> getChilds() {
+    public List<UserGoodsClass> getChilds(){
         return this.childs;
     }
 
-    public void setChilds(List<UserGoodsClass> childs) {
+    public void setChilds(List<UserGoodsClass> childs){
         this.childs = childs;
     }
 
-    public User getUser() {
+    public User getUser(){
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 }

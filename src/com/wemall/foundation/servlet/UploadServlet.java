@@ -25,7 +25,7 @@ public class UploadServlet extends HttpServlet {
                           request.getParameter("path") + File.separator;
         File f1 = new File(savePath);
 
-        if (!f1.exists()) {
+        if (!f1.exists()){
             f1.mkdirs();
         }
         DiskFileItemFactory fac = new DiskFileItemFactory();
@@ -34,22 +34,22 @@ public class UploadServlet extends HttpServlet {
         List fileList = null;
         try {
             fileList = upload.parseRequest(request);
-        } catch (FileUploadException ex) {
+        } catch (FileUploadException ex){
             return;
         }
         Iterator it = fileList.iterator();
         String name = "";
         String extName = "";
-        while (it.hasNext()) {
+        while (it.hasNext()){
             FileItem item = (FileItem)it.next();
-            if (!item.isFormField()) {
+            if (!item.isFormField()){
                 name = item.getName();
                 long size = item.getSize();
                 String type = item.getContentType();
-                if ((name == null) || (name.trim().equals(""))) {
+                if ((name == null) || (name.trim().equals(""))){
                     continue;
                 }
-                if (name.lastIndexOf(".") >= 0) {
+                if (name.lastIndexOf(".") >= 0){
                     extName = name.substring(name.lastIndexOf("."));
                 }
                 File file = null;
@@ -60,7 +60,7 @@ public class UploadServlet extends HttpServlet {
                 File saveFile = new File(savePath + name + extName);
                 try {
                     item.write(saveFile);
-                } catch (Exception e) {
+                } catch (Exception e){
                     e.printStackTrace();
                 }
             }

@@ -56,8 +56,8 @@ public class SpareGoodsFloorManageAction {
     private IAdvertPositionService advertPositionService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "闲置商品楼层列表", value = "/admin/sparegoodsfloor_list.htm*", rtype = "admin", rname = "闲置楼层", rcode = "sparegoodsfloor_admin", rgroup = "闲置")
-    @RequestMapping( {"/admin/sparegoodsfloor_list.htm"})
-    public ModelAndView floor_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/admin/sparegoodsfloor_list.htm"})
+    public ModelAndView floor_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "admin/blue/sparegoodsfloor_list.html", this.configService
             .getSysConfig(),
@@ -73,8 +73,8 @@ public class SpareGoodsFloorManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "闲置商品楼层添加", value = "/admin/sparegoodsfloor_add.htm*", rtype = "admin", rname = "闲置楼层", rcode = "sparegoodsfloor_admin", rgroup = "闲置")
-    @RequestMapping( {"/admin/sparegoodsfloor_add.htm"})
-    public ModelAndView floor_add(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/admin/sparegoodsfloor_add.htm"})
+    public ModelAndView floor_add(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "admin/blue/sparegoodsfloor_add.html", this.configService
             .getSysConfig(),
@@ -98,13 +98,13 @@ public class SpareGoodsFloorManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "闲置商品楼层编辑", value = "/admin/sparegoodsfloor_edit.htm*", rtype = "admin", rname = "闲置楼层", rcode = "sparegoodsfloor_admin", rgroup = "闲置")
-    @RequestMapping( {"/admin/sparegoodsfloor_edit.htm"})
-    public ModelAndView floor_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/sparegoodsfloor_edit.htm"})
+    public ModelAndView floor_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "admin/blue/sparegoodsfloor_add.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             SpareGoodsFloor sparegoodsfloor = this.sparegoodsfloorService
                                               .getObjById(Long.valueOf(Long.parseLong(id)));
             mv.addObject("obj", sparegoodsfloor);
@@ -130,14 +130,14 @@ public class SpareGoodsFloorManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "闲置商品楼层保存", value = "/admin/sparegoodsfloor_save.htm*", rtype = "admin", rname = "闲置楼层", rcode = "sparegoodsfloor_admin", rgroup = "闲置")
-    @RequestMapping( {"/admin/sparegoodsfloor_save.htm"})
-    public ModelAndView floor_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String list_url, String add_url, String cid, String advert_url, String ap_id, String advert_type) {
+    @RequestMapping({"/admin/sparegoodsfloor_save.htm"})
+    public ModelAndView floor_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String list_url, String add_url, String cid, String advert_url, String ap_id, String advert_type){
         WebForm wf = new WebForm();
         SpareGoodsFloor sparegoodsfloor = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             sparegoodsfloor = (SpareGoodsFloor)wf.toPo(request, SpareGoodsFloor.class);
             sparegoodsfloor.setAddTime(new Date());
-        } else {
+        }else{
             SpareGoodsFloor obj = this.sparegoodsfloorService.getObjById(
                                       Long.valueOf(Long.parseLong(id)));
             sparegoodsfloor = (SpareGoodsFloor)wf.toPo(request, obj);
@@ -145,12 +145,12 @@ public class SpareGoodsFloorManageAction {
         SpareGoodsClass sgc = this.sparegoodsclassService.getObjById(
                                   CommUtil.null2Long(cid));
         sparegoodsfloor.setSgc(sgc);
-        if ((ap_id != null) && (!ap_id.equals(""))) {
+        if ((ap_id != null) && (!ap_id.equals(""))){
             AdvertPosition adp = this.advertPositionService.getObjById(
                                      CommUtil.null2Long(ap_id));
             sparegoodsfloor.setAdp(adp);
         }
-        if ((advert_url != null) && (!advert_url.equals(""))) {
+        if ((advert_url != null) && (!advert_url.equals(""))){
             sparegoodsfloor.setAdvert_url(advert_url);
         }
         String uploadFilePath = this.configService.getSysConfig()
@@ -166,8 +166,8 @@ public class SpareGoodsFloorManageAction {
             map = CommUtil.saveFileToServer(request, "advert_img",
                                             saveFilePathName, fileName, null);
             Accessory advert_img = null;
-            if (fileName.equals("")) {
-                if (map.get("fileName") != "") {
+            if (fileName.equals("")){
+                if (map.get("fileName") != ""){
                     advert_img = new Accessory();
                     advert_img.setName(
                         CommUtil.null2String(map.get("fileName")));
@@ -181,7 +181,7 @@ public class SpareGoodsFloorManageAction {
                     this.accessoryService.save(advert_img);
                     sparegoodsfloor.setAdvert_img(advert_img);
                 }
-            } else if (map.get("fileName") != "") {
+            }else if (map.get("fileName") != ""){
                 advert_img = sparegoodsfloor.getAdvert_img();
                 advert_img.setName(
                     CommUtil.null2String(map.get("fileName")));
@@ -194,7 +194,7 @@ public class SpareGoodsFloorManageAction {
                 advert_img.setAddTime(new Date());
                 this.accessoryService.update(advert_img);
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
 
@@ -207,7 +207,7 @@ public class SpareGoodsFloorManageAction {
                                             .getUserConfig(), 0, request, response);
         mv.addObject("list_url", list_url);
         mv.addObject("op_title", "楼层保存成功");
-        if (add_url != null) {
+        if (add_url != null){
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
 
@@ -215,25 +215,25 @@ public class SpareGoodsFloorManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "闲置商品楼层ajax更新", value = "/admin/sparegoodsfloor_ajax.htm*", rtype = "admin", rname = "闲置楼层", rcode = "sparegoodsfloor_admin", rgroup = "闲置")
-    @RequestMapping( {"/admin/sparegoodsfloor_ajax.htm"})
+    @RequestMapping({"/admin/sparegoodsfloor_ajax.htm"})
     public void floor_ajax(HttpServletRequest request, HttpServletResponse response, String id, String fieldName, String value) throws ClassNotFoundException {
         SpareGoodsFloor obj = this.sparegoodsfloorService.getObjById(
                                   Long.valueOf(Long.parseLong(id)));
         Field[] fields = SpareGoodsFloor.class.getDeclaredFields();
         BeanWrapper wrapper = new BeanWrapper(obj);
         Object val = null;
-        for (Field field : fields) {
-            if (field.getName().equals(fieldName)) {
+        for (Field field : fields){
+            if (field.getName().equals(fieldName)){
                 Class clz = Class.forName("java.lang.String");
-                if (field.getType().getName().equals("int")) {
+                if (field.getType().getName().equals("int")){
                     clz = Class.forName("java.lang.Integer");
                 }
-                if (field.getType().getName().equals("boolean")) {
+                if (field.getType().getName().equals("boolean")){
                     clz = Class.forName("java.lang.Boolean");
                 }
                 if (!value.equals(""))
                     val = BeanUtils.convertType(value, clz);
-                else {
+               else{
                     val = Boolean.valueOf(
                               !CommUtil.null2Boolean(wrapper
                                                      .getPropertyValue(fieldName)));
@@ -248,17 +248,17 @@ public class SpareGoodsFloorManageAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(val.toString());
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "闲置商品楼层删除", value = "/admin/sparegoodsfloor_del.htm*", rtype = "admin", rname = "闲置楼层", rcode = "sparegoodsfloor_admin", rgroup = "闲置")
-    @RequestMapping( {"/admin/sparegoodsfloor_del.htm"})
-    public String floor_delete(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
+    @RequestMapping({"/admin/sparegoodsfloor_del.htm"})
+    public String floor_delete(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 SpareGoodsFloor sparegoodsfloor = this.sparegoodsfloorService
                                                   .getObjById(Long.valueOf(Long.parseLong(id)));
                 this.sparegoodsfloorService.delete(Long.valueOf(Long.parseLong(id)));
@@ -269,8 +269,8 @@ public class SpareGoodsFloorManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "闲置商品楼层分类设置", value = "/admin/sparegoodsfloor_setclass.htm*", rtype = "admin", rname = "闲置楼层", rcode = "sparegoodsfloor_admin", rgroup = "闲置")
-    @RequestMapping( {"/admin/sparegoodsfloor_setclass.htm"})
-    public ModelAndView floor_setclass(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String fid) {
+    @RequestMapping({"/admin/sparegoodsfloor_setclass.htm"})
+    public ModelAndView floor_setclass(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String fid){
         ModelAndView mv = new JModelAndView(
             "admin/blue/sparegoodsfloor_setclass.html", this.configService
             .getSysConfig(),
@@ -295,25 +295,25 @@ public class SpareGoodsFloorManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品楼层分类ajax更新", value = "/admin/sparegoodsfloor_class_ajax.htm*", rtype = "admin", rname = "闲置楼层", rcode = "sparegoodsfloor_admin", rgroup = "闲置")
-    @RequestMapping( {"/admin/sparegoodsfloor_class_ajax.htm"})
+    @RequestMapping({"/admin/sparegoodsfloor_class_ajax.htm"})
     public void floor_class_ajax(HttpServletRequest request, HttpServletResponse response, String id, String fieldName, String value) throws ClassNotFoundException {
         SpareGoodsClass obj = this.sparegoodsclassService.getObjById(
                                   Long.valueOf(Long.parseLong(id)));
         Field[] fields = SpareGoodsClass.class.getDeclaredFields();
         BeanWrapper wrapper = new BeanWrapper(obj);
         Object val = null;
-        for (Field field : fields) {
-            if (field.getName().equals(fieldName)) {
+        for (Field field : fields){
+            if (field.getName().equals(fieldName)){
                 Class clz = Class.forName("java.lang.String");
-                if (field.getType().getName().equals("int")) {
+                if (field.getType().getName().equals("int")){
                     clz = Class.forName("java.lang.Integer");
                 }
-                if (field.getType().getName().equals("boolean")) {
+                if (field.getType().getName().equals("boolean")){
                     clz = Class.forName("java.lang.Boolean");
                 }
                 if (!value.equals(""))
                     val = BeanUtils.convertType(value, clz);
-                else {
+               else{
                     val = Boolean.valueOf(
                               !CommUtil.null2Boolean(wrapper
                                                      .getPropertyValue(fieldName)));
@@ -328,28 +328,28 @@ public class SpareGoodsFloorManageAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(val.toString());
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "闲置商品楼层分类设置是否显示", value = "/admin/sparegoodsfloor_setclass_switch.htm*", rtype = "admin", rname = "闲置楼层", rcode = "sparegoodsfloor_admin", rgroup = "闲置")
-    @RequestMapping( {"/admin/sparegoodsfloor_setclass_switch.htm"})
-    public String floor_setclass_switch(HttpServletRequest request, HttpServletResponse response, String currentPage, String fid, String mulitId, String type) {
+    @RequestMapping({"/admin/sparegoodsfloor_setclass_switch.htm"})
+    public String floor_setclass_switch(HttpServletRequest request, HttpServletResponse response, String currentPage, String fid, String mulitId, String type){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if ((id != null) && (!id.equals(""))) {
+        for (String id : ids){
+            if ((id != null) && (!id.equals(""))){
                 SpareGoodsClass sgc = this.sparegoodsclassService
                                       .getObjById(CommUtil.null2Long(id));
-                if ((type != null) && (!type.equals(""))) {
+                if ((type != null) && (!type.equals(""))){
                     if (type.equals("show"))
                         sgc.setViewInFloor(true);
-                    else {
+                   else{
                         sgc.setViewInFloor(false);
                     }
-                } else if (!sgc.isViewInFloor())
+                }else if (!sgc.isViewInFloor())
                     sgc.setViewInFloor(true);
-                else {
+               else{
                     sgc.setViewInFloor(false);
                 }
 
@@ -362,8 +362,8 @@ public class SpareGoodsFloorManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "闲置商品楼层商品设置", value = "/admin/sparegoodsfloor_setgoods.htm*", rtype = "admin", rname = "闲置楼层", rcode = "sparegoodsfloor_admin", rgroup = "闲置")
-    @RequestMapping( {"/admin/sparegoodsfloor_setgoods.htm"})
-    public ModelAndView floor_setgoods(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String fid) {
+    @RequestMapping({"/admin/sparegoodsfloor_setgoods.htm"})
+    public ModelAndView floor_setgoods(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String fid){
         ModelAndView mv = new JModelAndView(
             "admin/blue/sparegoodsfloor_setgoods.html", this.configService
             .getSysConfig(),
@@ -387,7 +387,7 @@ public class SpareGoodsFloorManageAction {
                                .query(
                                    "select obj from SpareGoods obj where obj.sgf.id is null and  obj.spareGoodsClass.id in (:ids)",
                                    map, -1, -1);
-        for (SpareGoods sg : sgs) {
+        for (SpareGoods sg : sgs){
             sg.setSgf(sgf);
             this.sparegoodsService.update(sg);
         }
@@ -396,22 +396,22 @@ public class SpareGoodsFloorManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "闲置商品楼层商品设置是否显示", value = "/admin/sparegoodsfloor_setgoods_switch.htm*", rtype = "admin", rname = "闲置楼层", rcode = "sparegoodsfloor_admin", rgroup = "闲置")
-    @RequestMapping( {"/admin/sparegoodsfloor_setgoods_switch.htm"})
-    public String floor_setgoods_switch(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId, String fid, String type) {
+    @RequestMapping({"/admin/sparegoodsfloor_setgoods_switch.htm"})
+    public String floor_setgoods_switch(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId, String fid, String type){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if ((id != null) && (!id.equals(""))) {
+        for (String id : ids){
+            if ((id != null) && (!id.equals(""))){
                 SpareGoods sg = this.sparegoodsService.getObjById(
                                     CommUtil.null2Long(id));
-                if ((type != null) && (!type.equals(""))) {
+                if ((type != null) && (!type.equals(""))){
                     if (type.equals("show"))
                         sg.setViewInFloor(true);
-                    else {
+                   else{
                         sg.setViewInFloor(false);
                     }
-                } else if (!sg.isViewInFloor())
+                }else if (!sg.isViewInFloor())
                     sg.setViewInFloor(true);
-                else {
+               else{
                     sg.setViewInFloor(false);
                 }
 
@@ -423,13 +423,13 @@ public class SpareGoodsFloorManageAction {
                currentPage + "&fid=" + fid;
     }
 
-    private Set<Long> getSpareGoodsClassChildIds(SpareGoodsClass obj) {
+    private Set<Long> getSpareGoodsClassChildIds(SpareGoodsClass obj){
         Set ids = new HashSet();
         ids.add(obj.getId());
-        if (obj.getChilds().size() > 0) {
-            for (SpareGoodsClass child : obj.getChilds()) {
+        if (obj.getChilds().size() > 0){
+            for (SpareGoodsClass child : obj.getChilds()){
                 Set<Long> cids = getSpareGoodsClassChildIds(child);
-                for (Long cid : cids) {
+                for (Long cid : cids){
                     ids.add(cid);
                 }
                 ids.add(child.getId());

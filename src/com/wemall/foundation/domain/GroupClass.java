@@ -36,51 +36,51 @@ public class GroupClass extends IdEntity {
     //分组类型等级
     private int gc_level;
 
-    public List<GroupGoods> getGgs() {
+    public List<GroupGoods> getGgs(){
         return this.ggs;
     }
 
-    public void setGgs(List<GroupGoods> ggs) {
+    public void setGgs(List<GroupGoods> ggs){
         this.ggs = ggs;
     }
 
-    public int getGc_level() {
+    public int getGc_level(){
         return this.gc_level;
     }
 
-    public void setGc_level(int gc_level) {
+    public void setGc_level(int gc_level){
         this.gc_level = gc_level;
     }
 
-    public String getGc_name() {
+    public String getGc_name(){
         return this.gc_name;
     }
 
-    public void setGc_name(String gc_name) {
+    public void setGc_name(String gc_name){
         this.gc_name = gc_name;
     }
 
-    public int getGc_sequence() {
+    public int getGc_sequence(){
         return this.gc_sequence;
     }
 
-    public void setGc_sequence(int gc_sequence) {
+    public void setGc_sequence(int gc_sequence){
         this.gc_sequence = gc_sequence;
     }
 
-    public GroupClass getParent() {
+    public GroupClass getParent(){
         return this.parent;
     }
 
-    public void setParent(GroupClass parent) {
+    public void setParent(GroupClass parent){
         this.parent = parent;
     }
 
-    public List<GroupClass> getChilds() {
+    public List<GroupClass> getChilds(){
         return this.childs;
     }
 
-    public void setChilds(List<GroupClass> childs) {
+    public void setChilds(List<GroupClass> childs){
         this.childs = childs;
     }
 }

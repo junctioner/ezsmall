@@ -76,13 +76,13 @@ public class GoodsManageAction {
     private IOrderFormLogService orderFormLogService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品列表", value = "/admin/goods_list.htm*", rtype = "admin", rname = "商品管理", rcode = "admin_goods", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_list.htm"})
-    public ModelAndView goods_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/admin/goods_list.htm"})
+    public ModelAndView goods_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView("admin/blue/goods_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -108,13 +108,13 @@ public class GoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "违规商品列表", value = "/admin/goods_outline.htm*", rtype = "admin", rname = "商品管理", rcode = "admin_goods", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_outline.htm"})
-    public ModelAndView goods_outline(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/admin/goods_outline.htm"})
+    public ModelAndView goods_outline(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView("admin/blue/goods_outline.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -140,8 +140,8 @@ public class GoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品添加", value = "/admin/goods_add.htm*", rtype = "admin", rname = "商品管理", rcode = "admin_goods", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_add.htm"})
-    public ModelAndView goods_add(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/admin/goods_add.htm"})
+    public ModelAndView goods_add(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/goods_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -151,12 +151,12 @@ public class GoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品编辑", value = "/admin/goods_edit.htm*", rtype = "admin", rname = "商品管理", rcode = "admin_goods", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_edit.htm"})
-    public ModelAndView goods_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/goods_edit.htm"})
+    public ModelAndView goods_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/goods_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             Goods goods = this.goodsService.getObjById(Long.valueOf(Long.parseLong(id)));
             mv.addObject("obj", goods);
             mv.addObject("currentPage", currentPage);
@@ -166,14 +166,14 @@ public class GoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品保存", value = "/admin/goods_save.htm*", rtype = "admin", rname = "商品管理", rcode = "admin_goods", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_save.htm"})
-    public ModelAndView goods_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String list_url, String add_url) {
+    @RequestMapping({"/admin/goods_save.htm"})
+    public ModelAndView goods_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String list_url, String add_url){
         WebForm wf = new WebForm();
         Goods goods = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             goods = (Goods)wf.toPo(request, Goods.class);
             goods.setAddTime(new Date());
-        } else {
+        }else{
             Goods obj = this.goodsService.getObjById(Long.valueOf(Long.parseLong(id)));
             goods = (Goods)wf.toPo(request, obj);
         }
@@ -186,7 +186,7 @@ public class GoodsManageAction {
                                             .getUserConfig(), 0, request, response);
         mv.addObject("list_url", list_url);
         mv.addObject("op_title", "保存商品成功");
-        if (add_url != null) {
+        if (add_url != null){
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
 
@@ -194,11 +194,11 @@ public class GoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品删除", value = "/admin/goods_del.htm*", rtype = "admin", rname = "商品管理", rcode = "admin_goods", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_del.htm"})
+    @RequestMapping({"/admin/goods_del.htm"})
     public String goods_del(HttpServletRequest request, String mulitId) throws Exception {
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 Goods goods = this.goodsService.getObjById(
                                   CommUtil.null2Long(id));
                 Map map = new HashMap();
@@ -209,17 +209,17 @@ public class GoodsManageAction {
                                                 map, -1, -1);
                 Long ofid = null;
                 Long of_id;
-                for (GoodsCart gc : goodCarts) {
+                for (GoodsCart gc : goodCarts){
                     of_id = gc.getOf().getId();
                     this.goodsCartService.delete(gc.getId());
                     OrderForm of = this.orderFormService.getObjById(of_id);
-                    if (of.getGcs().size() == 0) {
+                    if (of.getGcs().size() == 0){
                         this.orderFormService.delete(of_id);
                     }
                 }
 
                 List<Evaluate> evaluates = goods.getEvaluates();
-                for (Evaluate e : evaluates) {
+                for (Evaluate e : evaluates){
                     this.evaluateService.delete(e.getId());
                 }
                 goods.getGoods_ugcs().clear();
@@ -231,7 +231,7 @@ public class GoodsManageAction {
 
                 String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
                 File file = new File(goods_lucene_path);
-                if (!file.exists()) {
+                if (!file.exists()){
                     CommUtil.createFolder(goods_lucene_path);
                 }
                 LuceneUtil lucene = LuceneUtil.instance();
@@ -249,7 +249,7 @@ public class GoodsManageAction {
 
     private void send_site_msg(HttpServletRequest request, String mark, User user, Goods goods, String reason) throws Exception {
         com.wemall.foundation.domain.Template template = this.templateService.getObjByProperty("mark", mark);
-        if (template.isOpen()) {
+        if (template.isOpen()){
             String path = request.getSession().getServletContext().getRealPath("/") + "/vm/";
             PrintWriter pwrite = new PrintWriter(new OutputStreamWriter(new FileOutputStream(path + "msg.vm", false), "UTF-8"));
             pwrite.print(template.getContent());
@@ -288,24 +288,24 @@ public class GoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品AJAX更新", value = "/admin/goods_ajax.htm*", rtype = "admin", rname = "商品管理", rcode = "admin_goods", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_ajax.htm"})
+    @RequestMapping({"/admin/goods_ajax.htm"})
     public void ajax(HttpServletRequest request, HttpServletResponse response, String id, String fieldName, String value) throws ClassNotFoundException {
         Goods obj = this.goodsService.getObjById(Long.valueOf(Long.parseLong(id)));
         Field[] fields = Goods.class.getDeclaredFields();
         BeanWrapper wrapper = new BeanWrapper(obj);
         Object val = null;
-        for (Field field : fields) {
-            if (field.getName().equals(fieldName)) {
+        for (Field field : fields){
+            if (field.getName().equals(fieldName)){
                 Class clz = Class.forName("java.lang.String");
-                if (field.getType().getName().equals("int")) {
+                if (field.getType().getName().equals("int")){
                     clz = Class.forName("java.lang.Integer");
                 }
-                if (field.getType().getName().equals("boolean")) {
+                if (field.getType().getName().equals("boolean")){
                     clz = Class.forName("java.lang.Boolean");
                 }
                 if (!value.equals(""))
                     val = BeanUtils.convertType(value, clz);
-                else {
+               else{
                     val = Boolean.valueOf(
                               !CommUtil.null2Boolean(wrapper
                                                      .getPropertyValue(fieldName)));
@@ -313,17 +313,17 @@ public class GoodsManageAction {
                 wrapper.setPropertyValue(fieldName, val);
             }
         }
-        if (fieldName.equals("store_recommend")) {
+        if (fieldName.equals("store_recommend")){
             if (obj.isStore_recommend())
                 obj.setStore_recommend_time(new Date());
             else
                 obj.setStore_recommend_time(null);
         }
         this.goodsService.update(obj);
-        if (obj.getGoods_status() == 0) {
+        if (obj.getGoods_status() == 0){
             String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
             File file = new File(goods_lucene_path);
-            if (!file.exists()) {
+            if (!file.exists()){
                 CommUtil.createFolder(goods_lucene_path);
             }
             LuceneVo vo = new LuceneVo();
@@ -337,11 +337,11 @@ public class GoodsManageAction {
             LuceneUtil lucene = LuceneUtil.instance();
             LuceneUtil.setIndex_path(goods_lucene_path);
             lucene.update(CommUtil.null2String(obj.getId()), vo);
-        } else {
+        }else{
             String goods_lucene_path = System.getProperty("user.dir") +
                                        File.separator + "lucene" + File.separator + "goods";
             File file = new File(goods_lucene_path);
-            if (!file.exists()) {
+            if (!file.exists()){
                 CommUtil.createFolder(goods_lucene_path);
             }
             LuceneUtil lucene = LuceneUtil.instance();
@@ -354,7 +354,7 @@ public class GoodsManageAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(val.toString());
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

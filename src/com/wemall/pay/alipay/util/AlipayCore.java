@@ -16,7 +16,7 @@ import org.apache.commons.httpclient.methods.multipart.PartSource;
 import com.wemall.pay.alipay.config.AlipayConfig;
 
 public class AlipayCore {
-    public static String buildMysign(AlipayConfig config, Map<String, String> sArray) {
+    public static String buildMysign(AlipayConfig config, Map<String, String> sArray){
         String prestr = createLinkString(sArray);
         String mysign = MD5.sign(prestr, config.getKey(),
                                  config.getInput_charset());
@@ -28,18 +28,18 @@ public class AlipayCore {
      * @param sArray 签名参数组
      * @return 去掉空值与签名参数后的新签名参数组
      */
-    public static Map<String, String> paraFilter(Map<String, String> sArray) {
+    public static Map<String, String> paraFilter(Map<String, String> sArray){
 
         Map<String, String> result = new HashMap<String, String>();
 
-        if (sArray == null || sArray.size() <= 0) {
+        if (sArray == null || sArray.size() <= 0){
             return result;
         }
 
-        for (String key : sArray.keySet()) {
+        for (String key : sArray.keySet()){
             String value = sArray.get(key);
             if (value == null || value.equals("") || key.equalsIgnoreCase("sign")
-                    || key.equalsIgnoreCase("sign_type")) {
+                    || key.equalsIgnoreCase("sign_type")){
                 continue;
             }
             result.put(key, value);
@@ -52,20 +52,20 @@ public class AlipayCore {
      * @param params 需要排序并参与字符拼接的参数组
      * @return 拼接后字符串
      */
-    public static String createLinkString(Map<String, String> params) {
+    public static String createLinkString(Map<String, String> params){
 
         List<String> keys = new ArrayList<String>(params.keySet());
         Collections.sort(keys);
 
         String prestr = "";
 
-        for (int i = 0; i < keys.size(); i++) {
+        for (int i = 0; i < keys.size(); i++){
             String key = keys.get(i);
             String value = params.get(key);
 
-            if (i == keys.size() - 1) { //拼接时，不包括最后一个&字符
+            if (i == keys.size() - 1){ //拼接时，不包括最后一个&字符
                 prestr = prestr + key + "=" + value;
-            } else {
+            }else{
                 prestr = prestr + key + "=" + value + "&";
             }
         }
@@ -74,21 +74,21 @@ public class AlipayCore {
     }
 
 
-    public static String createLinkStringNoSort(Map<String, String> params) {
+    public static String createLinkStringNoSort(Map<String, String> params){
         List<String> keys = new ArrayList();
         keys.add("service");
         keys.add("v");
         keys.add("sec_id");
         keys.add("notify_data");
         String prestr = "";
-        for (String key : keys) {
+        for (String key : keys){
             prestr = prestr + key + "=" + (String)params.get(key) + "&";
         }
         prestr = prestr.substring(0, prestr.length() - 1);
         return prestr;
     }
 
-    public static String createLinkStringNoSort1(Map<String, String> params) {
+    public static String createLinkStringNoSort1(Map<String, String> params){
         Map<String, String> sParaSort = new HashMap<String, String>();
         sParaSort.put("service", (String)params.get("service"));
         sParaSort.put("v", (String)params.get("v"));
@@ -96,7 +96,7 @@ public class AlipayCore {
         sParaSort.put("notify_data", (String)params.get("notify_data"));
 
         String prestr = "";
-        for (String key : sParaSort.keySet()) {
+        for (String key : sParaSort.keySet()){
             prestr = prestr + key + "=" + (String)sParaSort.get(key) + "&";
         }
         prestr = prestr.substring(0, prestr.length() - 1);
@@ -107,25 +107,25 @@ public class AlipayCore {
      * 写日志，方便测试（看网站需求，也可以改成把记录存入数据库）
      * @param sWord 要写入日志里的文本内容
      */
-    public static void logResult(AlipayConfig config, String sWord) {
+    public static void logResult(AlipayConfig config, String sWord){
         FileWriter writer = null;
         try {
             writer = new FileWriter(config.getLog_path());
             writer.write(sWord);
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
 
             if (writer != null)
                 try {
                     writer.close();
-                } catch (IOException e1) {
+                } catch (IOException e1){
                     e1.printStackTrace();
                 }
         } finally {
             if (writer != null)
                 try {
                     writer.close();
-                } catch (IOException e) {
+                } catch (IOException e){
                     e.printStackTrace();
                 }
         }
@@ -139,11 +139,11 @@ public class AlipayCore {
      */
     public static String getAbstract(String strFilePath, String file_digest_type) throws IOException {
         PartSource file = new FilePartSource(new File(strFilePath));
-        if(file_digest_type.equals("MD5")) {
+        if(file_digest_type.equals("MD5")){
             return DigestUtils.md5Hex(file.createInputStream());
-        } else if(file_digest_type.equals("SHA")) {
+        }else if(file_digest_type.equals("SHA")){
             return DigestUtils.sha256Hex(file.createInputStream());
-        } else {
+        }else{
             return "";
         }
     }

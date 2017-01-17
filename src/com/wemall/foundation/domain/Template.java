@@ -28,51 +28,51 @@ public class Template extends IdEntity {
     private String mark;
     private boolean open;
 
-    public String getType() {
+    public String getType(){
         return this.type;
     }
 
-    public void setType(String type) {
+    public void setType(String type){
         this.type = type;
     }
 
-    public String getTitle() {
+    public String getTitle(){
         return this.title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title){
         this.title = title;
     }
 
-    public String getContent() {
+    public String getContent(){
         return this.content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String content){
         this.content = content;
     }
 
-    public String getMark() {
+    public String getMark(){
         return this.mark;
     }
 
-    public void setMark(String mark) {
+    public void setMark(String mark){
         this.mark = mark;
     }
 
-    public boolean isOpen() {
+    public boolean isOpen(){
         return this.open;
     }
 
-    public void setOpen(boolean open) {
+    public void setOpen(boolean open){
         this.open = open;
     }
 
-    public String getInfo() {
+    public String getInfo(){
         return this.info;
     }
 
-    public void setInfo(String info) {
+    public void setInfo(String info){
         this.info = info;
     }
 }

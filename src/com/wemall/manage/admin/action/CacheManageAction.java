@@ -28,8 +28,8 @@ public class CacheManageAction {
     private IUserConfigService userConfigService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "缓存列表", value = "/admin/cache_list.htm*", rtype = "admin", rname = "更新缓存", rcode = "cache_manage", rgroup = "工具")
-    @RequestMapping( {"/admin/cache_list.htm"})
-    public ModelAndView cache_list(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/admin/cache_list.htm"})
+    public ModelAndView cache_list(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("admin/blue/cache_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -38,7 +38,7 @@ public class CacheManageAction {
                                                 .getEhcache("SimplePageFragmentCachingFilter"));
         int data_cache_size = 0;
         long cache_memory_size = 0L;
-        for (String name : manager.getCacheNames()) {
+        for (String name : manager.getCacheNames()){
             data_cache_size = data_cache_size + (
                                   manager.getCache(name) != null ? manager.getCache(name)
                                   .getSize() : 0);
@@ -55,22 +55,22 @@ public class CacheManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "更新缓存", value = "/admin/update_cache.htm*", rtype = "admin", rname = "更新缓存", rcode = "cache_manage", rgroup = "工具")
-    @RequestMapping( {"/admin/update_cache.htm"})
-    public ModelAndView update_cache(HttpServletRequest request, HttpServletResponse response, String data_cache, String page_cache) {
+    @RequestMapping({"/admin/update_cache.htm"})
+    public ModelAndView update_cache(HttpServletRequest request, HttpServletResponse response, String data_cache, String page_cache){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         CacheManager manager = CacheManager.create();
         String[] names = manager.getCacheNames();
-        if (CommUtil.null2Boolean(data_cache)) {
-            for (String name : names) {
-                if (!name.equalsIgnoreCase("SimplePageCachingFilter")) {
+        if (CommUtil.null2Boolean(data_cache)){
+            for (String name : names){
+                if (!name.equalsIgnoreCase("SimplePageCachingFilter")){
                     manager.clearAllStartingWith(name);
                 }
             }
         }
 
-        if (CommUtil.null2Boolean(page_cache)) {
+        if (CommUtil.null2Boolean(page_cache)){
             Ehcache cache = manager.getEhcache("SimplePageCachingFilter");
             manager.clearAllStartingWith("SimplePageCachingFilter");
         }

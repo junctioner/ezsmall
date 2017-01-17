@@ -9,7 +9,7 @@ public class TestField {
     public static void main(String[] args)
     throws ClassNotFoundException {
         String field = "store.grade";
-        if (field.indexOf(".") > 0) {
+        if (field.indexOf(".") > 0){
             Class entity = Class.forName("com.wemall.domain." +
                                          CommUtil.first2upper(field.substring(
                                                  field.indexOf("_") + 1, field.indexOf("."))));

@@ -42,19 +42,19 @@ public class PredepositCashBuyerAction {
     private IUserService userService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "提现管理", value = "/buyer/buyer_cash.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/buyer_cash.htm"})
-    public ModelAndView buyer_cash(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/buyer/buyer_cash.htm"})
+    public ModelAndView buyer_cash(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/buyer_cash.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (!this.configService.getSysConfig().isDeposit()) {
+        if (!this.configService.getSysConfig().isDeposit()){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "系统未开启预存款");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/index.htm");
-        } else {
+        }else{
             mv.addObject("availableBalance",
                          Double.valueOf(CommUtil.null2Double(this.userService.getObjById(
                                             SecurityUserHolder.getCurrentUser().getId())
@@ -65,8 +65,8 @@ public class PredepositCashBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "提现管理保存", value = "/buyer/buyer_cash_save.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/buyer_cash_save.htm"})
-    public ModelAndView buyer_cash_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/buyer/buyer_cash_save.htm"})
+    public ModelAndView buyer_cash_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("success.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -81,7 +81,7 @@ public class PredepositCashBuyerAction {
                         SecurityUserHolder.getCurrentUser().getId());
 
         if (CommUtil.null2Double(obj.getCash_amount()) <=
-                CommUtil.null2Double(user.getAvailableBalance())) {
+                CommUtil.null2Double(user.getAvailableBalance())){
             this.predepositCashService.save(obj);
 
             PredepositLog log = new PredepositLog();
@@ -93,7 +93,7 @@ public class PredepositCashBuyerAction {
             log.setPd_type("可用预存款");
             this.predepositLogService.save(log);
             mv.addObject("op_title", "提现申请成功");
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -106,19 +106,19 @@ public class PredepositCashBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "提现管理", value = "/buyer/buyer_cash_list.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/buyer_cash_list.htm"})
-    public ModelAndView buyer_cash_list(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/buyer/buyer_cash_list.htm"})
+    public ModelAndView buyer_cash_list(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/buyer_cash_list.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (!this.configService.getSysConfig().isDeposit()) {
+        if (!this.configService.getSysConfig().isDeposit()){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "系统未开启预存款");
             mv.addObject("url", CommUtil.getURL(request) + "/buyer/index.htm");
-        } else {
+        }else{
             PredepositCashQueryObject qo = new PredepositCashQueryObject(
                 currentPage, mv, "addTime", "desc");
             qo.addQuery("obj.cash_user.id",
@@ -132,17 +132,17 @@ public class PredepositCashBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "会员提现详情", value = "/buyer/buyer_cash_view.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/buyer_cash_view.htm"})
-    public ModelAndView buyer_cash_view(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/buyer/buyer_cash_view.htm"})
+    public ModelAndView buyer_cash_view(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/buyer_cash_view.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isDeposit()) {
+        if (this.configService.getSysConfig().isDeposit()){
             PredepositCash obj = this.predepositCashService.getObjById(
                                      CommUtil.null2Long(id));
             mv.addObject("obj", obj);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);

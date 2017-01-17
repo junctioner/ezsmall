@@ -17,15 +17,15 @@ public class QueryService
     @Qualifier("genericEntityDao")
     private GenericEntityDao geDao;
 
-    public GenericEntityDao getGeDao() {
+    public GenericEntityDao getGeDao(){
         return this.geDao;
     }
 
-    public void setGeDao(GenericEntityDao geDao) {
+    public void setGeDao(GenericEntityDao geDao){
         this.geDao = geDao;
     }
 
-    public List query(String scope, Map params, int page, int pageSize) {
+    public List query(String scope, Map params, int page, int pageSize){
         return this.geDao.query(scope, params, page, pageSize);
     }
 }

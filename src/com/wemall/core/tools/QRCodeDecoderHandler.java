@@ -10,7 +10,7 @@ import jp.sourceforge.qrcode.data.QRCodeImage;
 import jp.sourceforge.qrcode.exception.DecodingFailedException;
 
 public class QRCodeDecoderHandler {
-    public String decoderQRCode(String imgPath) {
+    public String decoderQRCode(String imgPath){
         File imageFile = new File(imgPath);
 
         BufferedImage bufImg = null;
@@ -20,10 +20,10 @@ public class QRCodeDecoderHandler {
 
             QRCodeDecoder decoder = new QRCodeDecoder();
             decodedData = new String(decoder.decode(new J2SEImage(bufImg)));
-        } catch (IOException e) {
+        } catch (IOException e){
             System.out.println("Error: " + e.getMessage());
             e.printStackTrace();
-        } catch (DecodingFailedException dfe) {
+        } catch (DecodingFailedException dfe){
             System.out.println("Error: " + dfe.getMessage());
             dfe.printStackTrace();
         }
@@ -31,7 +31,7 @@ public class QRCodeDecoderHandler {
         return decodedData;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         QRCodeDecoderHandler handler = new QRCodeDecoderHandler();
         String imgPath = "d:/Michael_QRCode.png";
         String decoderContent = handler.decoderQRCode(imgPath);
@@ -42,19 +42,19 @@ public class QRCodeDecoderHandler {
     class J2SEImage implements QRCodeImage {
         BufferedImage bufImg;
 
-        public J2SEImage(BufferedImage bufImg) {
+        public J2SEImage(BufferedImage bufImg){
             this.bufImg = bufImg;
         }
 
-        public int getWidth() {
+        public int getWidth(){
             return this.bufImg.getWidth();
         }
 
-        public int getHeight() {
+        public int getHeight(){
             return this.bufImg.getHeight();
         }
 
-        public int getPixel(int x, int y) {
+        public int getPixel(int x, int y){
             return this.bufImg.getRGB(x, y);
         }
     }

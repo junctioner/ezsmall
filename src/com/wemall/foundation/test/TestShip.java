@@ -3,7 +3,7 @@ package com.wemall.foundation.test;
 import java.io.PrintStream;
 
 public class TestShip {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         double weight = 3.2D;
         int shipping_weight = 1;
         double shipping_fee = 12.0D;

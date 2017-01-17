@@ -39,51 +39,51 @@ public class GoodsType extends IdEntity {
     @OneToMany(mappedBy = "goodsType")
     private List<GoodsClass> gcs = new ArrayList();
 
-    public List<GoodsClass> getGcs() {
+    public List<GoodsClass> getGcs(){
         return this.gcs;
     }
 
-    public void setGcs(List<GoodsClass> gcs) {
+    public void setGcs(List<GoodsClass> gcs){
         this.gcs = gcs;
     }
 
-    public String getName() {
+    public String getName(){
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public List<GoodsSpecification> getGss() {
+    public List<GoodsSpecification> getGss(){
         return this.gss;
     }
 
-    public void setGss(List<GoodsSpecification> gss) {
+    public void setGss(List<GoodsSpecification> gss){
         this.gss = gss;
     }
 
-    public List<GoodsBrand> getGbs() {
+    public List<GoodsBrand> getGbs(){
         return this.gbs;
     }
 
-    public void setGbs(List<GoodsBrand> gbs) {
+    public void setGbs(List<GoodsBrand> gbs){
         this.gbs = gbs;
     }
 
-    public List<GoodsTypeProperty> getProperties() {
+    public List<GoodsTypeProperty> getProperties(){
         return this.properties;
     }
 
-    public void setProperties(List<GoodsTypeProperty> properties) {
+    public void setProperties(List<GoodsTypeProperty> properties){
         this.properties = properties;
     }
 }

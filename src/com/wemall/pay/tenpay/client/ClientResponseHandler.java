@@ -19,7 +19,7 @@ public class ClientResponseHandler {
     private String key;
     private String charset;
 
-    public ClientResponseHandler() {
+    public ClientResponseHandler(){
         this.content = "";
         this.parameters = new TreeMap();
         this.debugInfo = "";
@@ -27,7 +27,7 @@ public class ClientResponseHandler {
         this.charset = "GBK";
     }
 
-    public String getContent() {
+    public String getContent(){
         return this.content;
     }
 
@@ -37,52 +37,52 @@ public class ClientResponseHandler {
         doParse();
     }
 
-    public String getParameter(String parameter) {
+    public String getParameter(String parameter){
         String s = (String)this.parameters.get(parameter);
         return s == null ? "" : s;
     }
 
-    public void setParameter(String parameter, String parameterValue) {
+    public void setParameter(String parameter, String parameterValue){
         String v = "";
-        if (parameterValue != null) {
+        if (parameterValue != null){
             v = parameterValue.trim();
         }
         this.parameters.put(parameter, v);
     }
 
-    public SortedMap getAllParameters() {
+    public SortedMap getAllParameters(){
         return this.parameters;
     }
 
-    public String getDebugInfo() {
+    public String getDebugInfo(){
         return this.debugInfo;
     }
 
-    public String getKey() {
+    public String getKey(){
         return this.key;
     }
 
-    public void setKey(String key) {
+    public void setKey(String key){
         this.key = key;
     }
 
-    public String getCharset() {
+    public String getCharset(){
         return this.charset;
     }
 
-    public void setCharset(String charset) {
+    public void setCharset(String charset){
         this.charset = charset;
     }
 
-    public boolean isTenpaySign() {
+    public boolean isTenpaySign(){
         StringBuffer sb = new StringBuffer();
         Set es = this.parameters.entrySet();
         Iterator it = es.iterator();
-        while (it.hasNext()) {
+        while (it.hasNext()){
             Map.Entry entry = (Map.Entry)it.next();
             String k = (String)entry.getKey();
             String v = (String)entry.getValue();
-            if ((!"sign".equals(k)) && (v != null) && (!"".equals(v))) {
+            if ((!"sign".equals(k)) && (v != null) && (!"".equals(v))){
                 sb.append(k + "=" + v + "&");
             }
         }
@@ -100,12 +100,12 @@ public class ClientResponseHandler {
         return tenpaySign.equals(sign);
     }
 
-    protected boolean isTenpaySign(String[] signParameterArray) {
+    protected boolean isTenpaySign(String[] signParameterArray){
         StringBuffer signPars = new StringBuffer();
-        for (int index = 0; index < signParameterArray.length; index++) {
+        for (int index = 0; index < signParameterArray.length; index++){
             String k = signParameterArray[index];
             String v = getParameter(k);
-            if ((v != null) && (!"".equals(v))) {
+            if ((v != null) && (!"".equals(v))){
                 signPars.append(k + "=" + v + "&");
             }
         }
@@ -123,7 +123,7 @@ public class ClientResponseHandler {
         return tenpaySign.equals(sign);
     }
 
-    protected void setDebugInfo(String debugInfo) {
+    protected void setDebugInfo(String debugInfo){
         this.debugInfo = debugInfo;
     }
 
@@ -134,7 +134,7 @@ public class ClientResponseHandler {
         Map m = XMLUtil.doXMLParse(xmlContent);
 
         Iterator it = m.keySet().iterator();
-        while (it.hasNext()) {
+        while (it.hasNext()){
             String k = (String)it.next();
             String v = (String)m.get(k);
             setParameter(k, v);

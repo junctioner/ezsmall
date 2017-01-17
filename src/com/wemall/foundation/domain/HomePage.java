@@ -23,19 +23,19 @@ public class HomePage extends IdEntity {
     @OneToMany(mappedBy = "homepage", cascade = {javax.persistence.CascadeType.REMOVE})
     private List<Visit> customers = new ArrayList();
 
-    public User getOwner() {
+    public User getOwner(){
         return this.owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(User owner){
         this.owner = owner;
     }
 
-    public List<Visit> getCustomers() {
+    public List<Visit> getCustomers(){
         return this.customers;
     }
 
-    public void setCustomers(List<Visit> customers) {
+    public void setCustomers(List<Visit> customers){
         this.customers = customers;
     }
 }

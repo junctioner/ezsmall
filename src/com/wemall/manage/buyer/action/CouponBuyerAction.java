@@ -33,8 +33,8 @@ public class CouponBuyerAction {
     private ICouponInfoService couponInfoService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家优惠券列表", value = "/buyer/coupon.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/coupon.htm"})
-    public ModelAndView coupon(HttpServletRequest request, HttpServletResponse response, String reply, String currentPage) {
+    @RequestMapping({"/buyer/coupon.htm"})
+    public ModelAndView coupon(HttpServletRequest request, HttpServletResponse response, String reply, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/buyer_coupon.html", this.configService
             .getSysConfig(),

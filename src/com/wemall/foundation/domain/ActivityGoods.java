@@ -41,43 +41,43 @@ public class ActivityGoods extends IdEntity {
     @Column(precision = 12, scale = 2)
     private BigDecimal ag_price;
 
-    public Activity getAct() {
+    public Activity getAct(){
         return this.act;
     }
 
-    public void setAct(Activity act) {
+    public void setAct(Activity act){
         this.act = act;
     }
 
-    public Goods getAg_goods() {
+    public Goods getAg_goods(){
         return this.ag_goods;
     }
 
-    public void setAg_goods(Goods ag_goods) {
+    public void setAg_goods(Goods ag_goods){
         this.ag_goods = ag_goods;
     }
 
-    public int getAg_status() {
+    public int getAg_status(){
         return this.ag_status;
     }
 
-    public void setAg_status(int ag_status) {
+    public void setAg_status(int ag_status){
         this.ag_status = ag_status;
     }
 
-    public User getAg_admin() {
+    public User getAg_admin(){
         return this.ag_admin;
     }
 
-    public void setAg_admin(User ag_admin) {
+    public void setAg_admin(User ag_admin){
         this.ag_admin = ag_admin;
     }
 
-    public BigDecimal getAg_price() {
+    public BigDecimal getAg_price(){
         return this.ag_price;
     }
 
-    public void setAg_price(BigDecimal ag_price) {
+    public void setAg_price(BigDecimal ag_price){
         this.ag_price = ag_price;
     }
 }

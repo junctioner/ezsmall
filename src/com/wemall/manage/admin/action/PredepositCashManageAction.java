@@ -41,30 +41,30 @@ public class PredepositCashManageAction {
     private IUserService userService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "提现申请列表", value = "/admin/predeposit_cash.htm*", rtype = "admin", rname = "预存款管理", rcode = "predeposit", rgroup = "会员")
-    @RequestMapping( {"/admin/predeposit_cash.htm"})
-    public ModelAndView predeposit_cash(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String q_pd_userName, String q_beginTime, String q_endTime) {
+    @RequestMapping({"/admin/predeposit_cash.htm"})
+    public ModelAndView predeposit_cash(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String q_pd_userName, String q_beginTime, String q_endTime){
         ModelAndView mv = new JModelAndView("admin/blue/predeposit_cash.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isDeposit()) {
+        if (this.configService.getSysConfig().isDeposit()){
             String url = this.configService.getSysConfig().getAddress();
-            if ((url == null) || (url.equals(""))) {
+            if ((url == null) || (url.equals(""))){
                 url = CommUtil.getURL(request);
             }
             PredepositCashQueryObject qo = new PredepositCashQueryObject(
                 currentPage, mv, orderBy, orderType);
             WebForm wf = new WebForm();
             wf.toQueryPo(request, qo, PredepositCash.class, mv);
-            if (!CommUtil.null2String(q_pd_userName).equals("")) {
+            if (!CommUtil.null2String(q_pd_userName).equals("")){
                 qo.addQuery("obj.cash_user.userName",
                             new SysMap("cash_userName", q_pd_userName), "=");
             }
-            if (!CommUtil.null2String(q_beginTime).equals("")) {
+            if (!CommUtil.null2String(q_beginTime).equals("")){
                 qo.addQuery("obj.addTime",
                             new SysMap("beginTime",
                                        CommUtil.formatDate(q_beginTime)), ">=");
             }
-            if (!CommUtil.null2String(q_endTime).equals("")) {
+            if (!CommUtil.null2String(q_endTime).equals("")){
                 qo.addQuery("obj.addTime",
                             new SysMap("endTime",
                                        CommUtil.formatDate(q_endTime)), "<=");
@@ -74,7 +74,7 @@ public class PredepositCashManageAction {
             mv.addObject("q_pd_userName", q_pd_userName);
             mv.addObject("q_beginTime", q_beginTime);
             mv.addObject("q_endTime", q_endTime);
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -87,20 +87,20 @@ public class PredepositCashManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "提现申请编辑", value = "/admin/predeposit_cash_edit.htm*", rtype = "admin", rname = "预存款管理", rcode = "predeposit", rgroup = "会员")
-    @RequestMapping( {"/admin/predeposit_cash_edit.htm"})
-    public ModelAndView predeposit_cash_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/predeposit_cash_edit.htm"})
+    public ModelAndView predeposit_cash_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "admin/blue/predeposit_cash_edit.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isDeposit()) {
-            if ((id != null) && (!id.equals(""))) {
+        if (this.configService.getSysConfig().isDeposit()){
+            if ((id != null) && (!id.equals(""))){
                 PredepositCash predepositcash = this.predepositcashService
                                                 .getObjById(Long.valueOf(Long.parseLong(id)));
                 mv.addObject("obj", predepositcash);
                 mv.addObject("currentPage", currentPage);
             }
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -113,12 +113,12 @@ public class PredepositCashManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "提现申请编辑保存", value = "/admin/predeposit_cash_save.htm*", rtype = "admin", rname = "预存款管理", rcode = "predeposit", rgroup = "会员")
-    @RequestMapping( {"/admin/predeposit_cash_save.htm"})
-    public ModelAndView predeposit_cash_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String list_url) {
+    @RequestMapping({"/admin/predeposit_cash_save.htm"})
+    public ModelAndView predeposit_cash_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String list_url){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isDeposit()) {
+        if (this.configService.getSysConfig().isDeposit()){
             WebForm wf = new WebForm();
             PredepositCash obj = this.predepositcashService.getObjById(
                                      Long.valueOf(Long.parseLong(id)));
@@ -132,7 +132,7 @@ public class PredepositCashManageAction {
             this.userService.update(user);
             mv.addObject("list_url", list_url);
             mv.addObject("op_title", "审核提现申请成功");
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -145,19 +145,19 @@ public class PredepositCashManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "提现申请详情", value = "/admin/predeposit_cash_view.htm*", rtype = "admin", rname = "预存款管理", rcode = "predeposit", rgroup = "会员")
-    @RequestMapping( {"/admin/predeposit_cash_view.htm"})
-    public ModelAndView predeposit_cash_view(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/admin/predeposit_cash_view.htm"})
+    public ModelAndView predeposit_cash_view(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "admin/blue/predeposit_cash_view.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isDeposit()) {
-            if ((id != null) && (!id.equals(""))) {
+        if (this.configService.getSysConfig().isDeposit()){
+            if ((id != null) && (!id.equals(""))){
                 PredepositCash predepositcash = this.predepositcashService
                                                 .getObjById(Long.valueOf(Long.parseLong(id)));
                 mv.addObject("obj", predepositcash);
             }
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);

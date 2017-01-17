@@ -31,7 +31,7 @@ public class StatTools {
     @Autowired
     private IComplaintService complaintService;
 
-    public int query_store(int count) {
+    public int query_store(int count){
         List stores = new ArrayList();
         Map params = new HashMap();
         Calendar cal = Calendar.getInstance();
@@ -44,7 +44,7 @@ public class StatTools {
         return stores.size();
     }
 
-    public int query_user(int count) {
+    public int query_user(int count){
         List users = new ArrayList();
         Map params = new HashMap();
         Calendar cal = Calendar.getInstance();
@@ -57,7 +57,7 @@ public class StatTools {
         return users.size();
     }
 
-    public int query_goods(int count) {
+    public int query_goods(int count){
         List goods = new ArrayList();
         Map params = new HashMap();
         Calendar cal = Calendar.getInstance();
@@ -70,7 +70,7 @@ public class StatTools {
         return goods.size();
     }
 
-    public int query_order(int count) {
+    public int query_order(int count){
         List orders = new ArrayList();
         Map params = new HashMap();
         Calendar cal = Calendar.getInstance();
@@ -83,7 +83,7 @@ public class StatTools {
         return orders.size();
     }
 
-    public int query_all_user() {
+    public int query_all_user(){
         Map params = new HashMap();
         params.put("userRole", "ADMIN");
         List users = this.userService.query(
@@ -93,21 +93,21 @@ public class StatTools {
         return users.size();
     }
 
-    public int query_all_goods() {
+    public int query_all_goods(){
         List goods = this.goodsService.query(
                          "select obj from Goods obj", null, -1, -1);
 
         return goods.size();
     }
 
-    public int query_all_store() {
+    public int query_all_store(){
         List stores = this.storeService.query(
                           "select obj from Store obj", null, -1, -1);
 
         return stores.size();
     }
 
-    public int query_update_store() {
+    public int query_update_store(){
         List stores = this.storeService
                       .query(
                           "select obj from Store obj where obj.update_grade.id is not null",
@@ -116,7 +116,7 @@ public class StatTools {
         return stores.size();
     }
 
-    public double query_all_amount() {
+    public double query_all_amount(){
         double price = 0.0D;
         Map params = new HashMap();
         params.put("order_status", Integer.valueOf(60));
@@ -124,14 +124,14 @@ public class StatTools {
                               .query(
                                   "select obj from OrderForm obj where obj.order_status=:order_status",
                                   params, -1, -1);
-        for (OrderForm of : ofs) {
+        for (OrderForm of : ofs){
             price = CommUtil.null2Double(of.getTotalPrice()) + price;
         }
 
         return price;
     }
 
-    public int query_complaint(int count) {
+    public int query_complaint(int count){
         List objs = new ArrayList();
         Map params = new HashMap();
         Calendar cal = Calendar.getInstance();
@@ -146,7 +146,7 @@ public class StatTools {
         return objs.size();
     }
 
-    public int query_report(int count) {
+    public int query_report(int count){
         List objs = new ArrayList();
         Map params = new HashMap();
         Calendar cal = Calendar.getInstance();

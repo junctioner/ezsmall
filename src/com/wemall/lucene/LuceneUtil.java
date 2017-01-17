@@ -48,16 +48,16 @@ public class LuceneUtil {
 
     private int pageSize = 12;
 
-    public LuceneUtil() {
+    public LuceneUtil(){
         analyzer = new IKAnalyzer();
         parser = new ShopQueryParser(Version.LUCENE_35, "title", analyzer);
     }
 
-    public static LuceneUtil instance() {
+    public static LuceneUtil instance(){
         return lucence;
     }
 
-    public static void setIndex_path(String index_path2) {
+    public static void setIndex_path(String index_path2){
         index_path = index_path2;
     }
 
@@ -70,10 +70,10 @@ public class LuceneUtil {
             reader = IndexReader.open(FSDirectory.open(index_file));
             searcher = new IndexSearcher(reader);
             searcher.setSimilarity(new IKSimilarity());
-            if (keyword.indexOf("title:") < 0) {
+            if (keyword.indexOf("title:") < 0){
                 keyword = "(title:" + keyword + " OR content:" + keyword + ")";
             }
-            if ((begin_price >= 0.0D) && (end_price > 0.0D)) {
+            if ((begin_price >= 0.0D) && (end_price > 0.0D)){
                 keyword = keyword + " AND store_price:[" + begin_price + " TO " + end_price + "]";
             }
 
@@ -82,12 +82,12 @@ public class LuceneUtil {
             TopDocs topDocs = null;
             if (sort != null)
                 topDocs = searcher.search(query, size + start, sort);
-            else {
+           else{
                 topDocs = searcher.search(query, size + start);
             }
             ScoreDoc[] scoreDocs = topDocs.scoreDocs;
             int end = size + start < topDocs.totalHits ? size + start : topDocs.totalHits;
-            for (int i = start; i < end; i++) {
+            for (int i = start; i < end; i++){
                 Document doc = searcher.doc(scoreDocs[i].doc);
                 LuceneVo vo = new LuceneVo();
 
@@ -98,7 +98,7 @@ public class LuceneUtil {
                 String title = highlighter.getBestFragment(analyzer, "title", doc.get("title"));
                 if (content == null)
                     vo.setVo_content(doc.get("content"));
-                else {
+               else{
                     vo.setVo_content(content);
                 }
 
@@ -109,7 +109,7 @@ public class LuceneUtil {
                 vo.setVo_store_price(CommUtil.null2Double(doc.get("store_price")));
                 list.add(vo);
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         } finally {
             searcher.close();
@@ -120,14 +120,14 @@ public class LuceneUtil {
     }
 
     // Lucene全文搜索
-    public LuceneResult search(String params, int pageNo, double begin_price, double end_price, ScoreDoc after, Sort sort) {
+    public LuceneResult search(String params, int pageNo, double begin_price, double end_price, ScoreDoc after, Sort sort){
         LuceneResult pList = new LuceneResult();
         IndexSearcher isearcher = null;
         List list = new ArrayList();
         IndexReader reader = null;
         try {
             index_file = new File(index_path);
-            if (!index_file.exists()) {
+            if (!index_file.exists()){
                 LuceneResult localLuceneResult1 = pList;
                 return localLuceneResult1;
             }
@@ -135,10 +135,10 @@ public class LuceneUtil {
             isearcher = new IndexSearcher(reader);
 
             isearcher.setSimilarity(new IKSimilarity());
-            if (params.indexOf("title:") < 0) {
+            if (params.indexOf("title:") < 0){
                 params = "(title:" + params + " OR content:" + params + ")";
             }
-            if ((begin_price >= 0.0D) && (end_price > 0.0D)) {
+            if ((begin_price >= 0.0D) && (end_price > 0.0D)){
                 params = params + " AND store_price:[" + begin_price + " TO " + end_price + "]";
             }
             parser.setAllowLeadingWildcard(true);
@@ -154,22 +154,22 @@ public class LuceneUtil {
             pList.setRows(topDocs.totalHits);
             pList.setCurrentPage(intPageNo);
             pList.setVo_list(vo_list);
-        } catch (Exception e) {
+        } catch (Exception e){
             throw new RuntimeException(e);
         } finally {
             if (isearcher != null)
                 try {
                     isearcher.close();
                     reader.close();
-                } catch (IOException e) {
+                } catch (IOException e){
                     e.printStackTrace();
                 }
         }
-        if (isearcher != null) {
+        if (isearcher != null){
             try {
                 isearcher.close();
                 reader.close();
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
 
@@ -181,7 +181,7 @@ public class LuceneUtil {
     public void writeIndex(List<LuceneVo> list) throws IOException {
         IndexWriter writer = openIndexWriter();
         try {
-            for (LuceneVo lucenceVo : list) {
+            for (LuceneVo lucenceVo : list){
                 Document document = builderDocument(lucenceVo);
                 writer.addDocument(document);
             }
@@ -191,34 +191,34 @@ public class LuceneUtil {
         }
     }
 
-    public void writeIndex(LuceneVo vo) {
+    public void writeIndex(LuceneVo vo){
         IndexWriter writer = null;
         try {
             writer = openIndexWriter();
             Document document = builderDocument(vo);
             writer.addDocument(document);
             writer.optimize();
-        } catch (IOException e1) {
+        } catch (IOException e1){
             e1.printStackTrace();
             try {
                 writer.close();
-            } catch (CorruptIndexException e) {
+            } catch (CorruptIndexException e){
                 e.printStackTrace();
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
         } finally {
             try {
                 writer.close();
-            } catch (CorruptIndexException e) {
+            } catch (CorruptIndexException e){
                 e.printStackTrace();
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
         }
     }
 
-    public void update(String id, LuceneVo vo) {
+    public void update(String id, LuceneVo vo){
         try {
             index_file = new File(index_path);
             Directory directory = FSDirectory.open(index_file);
@@ -229,12 +229,12 @@ public class LuceneUtil {
             writer.updateDocument(term, doc);
 
             writer.close();
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void delete_index(String id) {
+    public void delete_index(String id){
         try {
             index_file = new File(index_path);
             Directory directory = FSDirectory.open(index_file);
@@ -243,41 +243,41 @@ public class LuceneUtil {
             Term term = new Term("id", String.valueOf(id));
             writer.deleteDocuments(term);
             writer.close();
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void deleteAllIndex(boolean isdeletefile) {
+    public void deleteAllIndex(boolean isdeletefile){
         IndexReader reader = null;
         index_file = new File(index_path);
-        if ((index_file.exists()) && (index_file.isDirectory())) {
+        if ((index_file.exists()) && (index_file.isDirectory())){
             try {
                 reader = IndexReader.open(FSDirectory.open(index_file), false);
-                for (int i = 0; i < reader.maxDoc(); i++) {
+                for (int i = 0; i < reader.maxDoc(); i++){
                     reader.deleteDocument(i);
                 }
                 reader.close();
-            } catch (Exception ex) {
+            } catch (Exception ex){
                 ex.printStackTrace();
 
                 if (reader != null)
                     try {
                         reader.close();
-                    } catch (IOException localIOException) {
+                    } catch (IOException localIOException){
                     }
             } finally {
                 if (reader != null)
                     try {
                         reader.close();
-                    } catch (IOException localIOException1) {
+                    } catch (IOException localIOException1){
                     }
             }
             deleteAllFile();
         }
     }
 
-    private void deleteAllFile() {
+    private void deleteAllFile(){
         index_file = new File(index_path);
         File[] files = index_file.listFiles();
         for (int i = 0; i < files.length; i++)
@@ -295,7 +295,7 @@ public class LuceneUtil {
         return writer;
     }
 
-    private Document builderDocument(LuceneVo luceneVo) {
+    private Document builderDocument(LuceneVo luceneVo){
         Document document = new Document();
         Whitelist white = new Whitelist();
         Field id = new Field("id", String.valueOf(luceneVo.getVo_id()), Field.Store.YES, Field.Index.ANALYZED);
@@ -318,14 +318,14 @@ public class LuceneUtil {
         return document;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         LuceneUtil lucence = instance();
         setIndex_path("E:\\apache-tomcat-7.0.42\\lucene\\goods");
         Date d1 = new Date();
         LuceneResult list = lucence.search("专柜正品黑色时尚冬装男", 0, 0.0D, 500.0D, null, null);
         Date d2 = new Date();
         System.out.println("查询时间为：" + (d2.getTime() - d1.getTime()) + "毫秒");
-        for (int i = 0; i < list.getVo_list().size(); i++) {
+        for (int i = 0; i < list.getVo_list().size(); i++){
             LuceneVo vo = (LuceneVo) list.getVo_list().get(i);
             System.out.println("标题：" + vo.getVo_title());
             System.out.println("价格:" + vo.getVo_store_price());

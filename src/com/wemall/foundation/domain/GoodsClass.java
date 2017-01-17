@@ -70,123 +70,123 @@ public class GoodsClass extends IdEntity {
     @OneToOne
     private Accessory icon_acc;
 
-    public int getIcon_type() {
+    public int getIcon_type(){
         return this.icon_type;
     }
 
-    public void setIcon_type(int icon_type) {
+    public void setIcon_type(int icon_type){
         this.icon_type = icon_type;
     }
 
-    public String getIcon_sys() {
+    public String getIcon_sys(){
         return this.icon_sys;
     }
 
-    public void setIcon_sys(String icon_sys) {
+    public void setIcon_sys(String icon_sys){
         this.icon_sys = icon_sys;
     }
 
-    public Accessory getIcon_acc() {
+    public Accessory getIcon_acc(){
         return this.icon_acc;
     }
 
-    public void setIcon_acc(Accessory icon_acc) {
+    public void setIcon_acc(Accessory icon_acc){
         this.icon_acc = icon_acc;
     }
 
-    public List<Goods> getGoods_list() {
+    public List<Goods> getGoods_list(){
         return this.goods_list;
     }
 
-    public void setGoods_list(List<Goods> goods_list) {
+    public void setGoods_list(List<Goods> goods_list){
         this.goods_list = goods_list;
     }
 
-    public List<GoodsClassStaple> getGcss() {
+    public List<GoodsClassStaple> getGcss(){
         return this.gcss;
     }
 
-    public void setGcss(List<GoodsClassStaple> gcss) {
+    public void setGcss(List<GoodsClassStaple> gcss){
         this.gcss = gcss;
     }
 
-    public String getClassName() {
+    public String getClassName(){
         return this.className;
     }
 
-    public void setClassName(String className) {
+    public void setClassName(String className){
         this.className = className;
     }
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public int getLevel() {
+    public int getLevel(){
         return this.level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(int level){
         this.level = level;
     }
 
-    public boolean isDisplay() {
+    public boolean isDisplay(){
         return this.display;
     }
 
-    public void setDisplay(boolean display) {
+    public void setDisplay(boolean display){
         this.display = display;
     }
 
-    public boolean isRecommend() {
+    public boolean isRecommend(){
         return this.recommend;
     }
 
-    public void setRecommend(boolean recommend) {
+    public void setRecommend(boolean recommend){
         this.recommend = recommend;
     }
 
-    public GoodsType getGoodsType() {
+    public GoodsType getGoodsType(){
         return this.goodsType;
     }
 
-    public void setGoodsType(GoodsType goodsType) {
+    public void setGoodsType(GoodsType goodsType){
         this.goodsType = goodsType;
     }
 
-    public List<GoodsClass> getChilds() {
+    public List<GoodsClass> getChilds(){
         return this.childs;
     }
 
-    public void setChilds(List<GoodsClass> childs) {
+    public void setChilds(List<GoodsClass> childs){
         this.childs = childs;
     }
 
-    public GoodsClass getParent() {
+    public GoodsClass getParent(){
         return this.parent;
     }
 
-    public void setParent(GoodsClass parent) {
+    public void setParent(GoodsClass parent){
         this.parent = parent;
     }
 
-    public String getSeo_keywords() {
+    public String getSeo_keywords(){
         return this.seo_keywords;
     }
 
-    public void setSeo_keywords(String seo_keywords) {
+    public void setSeo_keywords(String seo_keywords){
         this.seo_keywords = seo_keywords;
     }
 
-    public String getSeo_description() {
+    public String getSeo_description(){
         return this.seo_description;
     }
 
-    public void setSeo_description(String seo_description) {
+    public void setSeo_description(String seo_description){
         this.seo_description = seo_description;
     }
 }

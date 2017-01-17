@@ -49,8 +49,8 @@ public class SpareGoodsViewAction {
     @Autowired
     private INavigationService navService;
 
-    @RequestMapping( {"/sparegoods_head.htm"})
-    public ModelAndView sparegoods_head(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/sparegoods_head.htm"})
+    public ModelAndView sparegoods_head(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("sparegoods_head.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 1, request, response);
@@ -58,8 +58,8 @@ public class SpareGoodsViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/sparegoods_nav.htm"})
-    public ModelAndView sparegoods_nav(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/sparegoods_nav.htm"})
+    public ModelAndView sparegoods_nav(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView("sparegoods_nav.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 1, request, response);
@@ -69,7 +69,7 @@ public class SpareGoodsViewAction {
                         null, -1, -1);
         mv.addObject("sgcs", sgcs);
         if ((SecurityUserHolder.getCurrentUser() != null) &&
-                (!SecurityUserHolder.getCurrentUser().equals(""))) {
+                (!SecurityUserHolder.getCurrentUser().equals(""))){
             Map params = new HashMap();
             params.put("status", Integer.valueOf(0));
             params.put("down", Integer.valueOf(0));
@@ -110,8 +110,8 @@ public class SpareGoodsViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/sparegoods_nav2.htm"})
-    public ModelAndView sparegoods_nav2(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/sparegoods_nav2.htm"})
+    public ModelAndView sparegoods_nav2(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView("sparegoods_nav2.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 1, request, response);
@@ -121,7 +121,7 @@ public class SpareGoodsViewAction {
                         null, -1, -1);
         mv.addObject("sgcs", sgcs);
         if ((SecurityUserHolder.getCurrentUser() != null) &&
-                (!SecurityUserHolder.getCurrentUser().equals(""))) {
+                (!SecurityUserHolder.getCurrentUser().equals(""))){
             Map params = new HashMap();
             params.put("status", Integer.valueOf(0));
             params.put("down", Integer.valueOf(0));
@@ -162,8 +162,8 @@ public class SpareGoodsViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/sparegoods.htm"})
-    public ModelAndView sparegoods(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/sparegoods.htm"})
+    public ModelAndView sparegoods(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView("sparegoods.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -184,24 +184,24 @@ public class SpareGoodsViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/sparegoods_detail.htm"})
-    public ModelAndView sparegoods_detail(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/sparegoods_detail.htm"})
+    public ModelAndView sparegoods_detail(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView("sparegoods_detail.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 1, request, response);
         SpareGoods obj = this.sparegoodsService.getObjById(
                              CommUtil.null2Long(id));
-        if (obj.getStatus() == 0) {
+        if (obj.getStatus() == 0){
             mv.addObject("obj", obj);
         }
-        if (obj.getStatus() == -1) {
+        if (obj.getStatus() == -1){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("url", CommUtil.getURL(request) + "/sparegoods.htm");
             mv.addObject("op_title", "该商品已下架!");
         }
-        if (obj.getDown() == -1) {
+        if (obj.getDown() == -1){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -212,30 +212,30 @@ public class SpareGoodsViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/sparegoods_search.htm"})
-    public ModelAndView sparegoods_search(HttpServletRequest request, HttpServletResponse response, String cid, String orderBy, String orderType, String currentPage, String price_begin, String price_end, String keyword, String area_id) {
+    @RequestMapping({"/sparegoods_search.htm"})
+    public ModelAndView sparegoods_search(HttpServletRequest request, HttpServletResponse response, String cid, String orderBy, String orderType, String currentPage, String price_begin, String price_end, String keyword, String area_id){
         ModelAndView mv = new JModelAndView("sparegoods_search.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 1, request, response);
-        if ((orderType != null) && (!orderType.equals(""))) {
+        if ((orderType != null) && (!orderType.equals(""))){
             if (orderType.equals("asc"))
                 orderType = "desc";
             else
                 orderType = "asc";
-        } else {
+        }else{
             orderType = "desc";
         }
-        if ((orderBy != null) && (!orderBy.equals(""))) {
+        if ((orderBy != null) && (!orderBy.equals(""))){
             if (orderBy.equals("addTime"))
                 orderType = "desc";
-        } else {
+        }else{
             orderBy = "addTime";
         }
         SpareGoodsQueryObject qo = new SpareGoodsQueryObject(currentPage, mv,
                 orderBy, orderType);
         qo.addQuery("obj.status", new SysMap("status", Integer.valueOf(0)), "=");
         qo.addQuery("obj.down", new SysMap("down", Integer.valueOf(0)), "=");
-        if ((cid != null) && (!cid.equals(""))) {
+        if ((cid != null) && (!cid.equals(""))){
             SpareGoodsClass sgc = this.sparegoodsclassService
                                   .getObjById(CommUtil.null2Long(cid));
             Set ids = genericIds(sgc);
@@ -245,28 +245,28 @@ public class SpareGoodsViewAction {
             mv.addObject("cid", cid);
             mv.addObject("sgc", sgc);
         }
-        if ((orderBy != null) && (!orderBy.equals(""))) {
-            if (orderBy.equals("recommend")) {
+        if ((orderBy != null) && (!orderBy.equals(""))){
+            if (orderBy.equals("recommend")){
                 qo.addQuery("obj.recommend", new SysMap("obj_recommend", Boolean.valueOf(true)),
                             "=");
             }
-            if ((price_begin != null) && (!price_begin.equals(""))) {
+            if ((price_begin != null) && (!price_begin.equals(""))){
                 qo.addQuery("obj.goods_price",
                             new SysMap("goods_price",
                                        Integer.valueOf(CommUtil.null2Int(price_begin))), ">=");
             }
-            if ((price_end != null) && (!price_end.equals(""))) {
+            if ((price_end != null) && (!price_end.equals(""))){
                 qo.addQuery("obj.goods_price",
                             new SysMap("goods_end",
                                        Integer.valueOf(CommUtil.null2Int(price_end))), "<=");
             }
         }
-        if ((keyword != null) && (!keyword.equals(""))) {
+        if ((keyword != null) && (!keyword.equals(""))){
             qo.addQuery("obj.title",
                         new SysMap("obj_title", "%" +
                                    keyword.trim() + "%"), "like");
         }
-        if ((area_id != null) && (!area_id.equals(""))) {
+        if ((area_id != null) && (!area_id.equals(""))){
             qo.addQuery("obj.area.parent.id",
                         new SysMap("obj_area_id",
                                    CommUtil.null2Long(area_id)), "=");
@@ -290,12 +290,12 @@ public class SpareGoodsViewAction {
         return mv;
     }
 
-    private Set<Long> genericIds(SpareGoodsClass gc) {
+    private Set<Long> genericIds(SpareGoodsClass gc){
         Set ids = new HashSet();
         ids.add(gc.getId());
-        for (SpareGoodsClass child : gc.getChilds()) {
+        for (SpareGoodsClass child : gc.getChilds()){
             Set<Long> cids = genericIds(child);
-            for (Long cid : cids) {
+            for (Long cid : cids){
                 ids.add(cid);
             }
             ids.add(child.getId());

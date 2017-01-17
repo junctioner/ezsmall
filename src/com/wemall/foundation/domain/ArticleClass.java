@@ -49,67 +49,67 @@ public class ArticleClass extends IdEntity {
     @OrderBy("addTime desc")
     private List<Article> articles = new ArrayList<Article>();
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public String getClassName() {
+    public String getClassName(){
         return this.className;
     }
 
-    public void setClassName(String className) {
+    public void setClassName(String className){
         this.className = className;
     }
 
-    public int getLevel() {
+    public int getLevel(){
         return this.level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(int level){
         this.level = level;
     }
 
-    public boolean isSysClass() {
+    public boolean isSysClass(){
         return this.sysClass;
     }
 
-    public void setSysClass(boolean sysClass) {
+    public void setSysClass(boolean sysClass){
         this.sysClass = sysClass;
     }
 
-    public ArticleClass getParent() {
+    public ArticleClass getParent(){
         return this.parent;
     }
 
-    public void setParent(ArticleClass parent) {
+    public void setParent(ArticleClass parent){
         this.parent = parent;
     }
 
-    public List<ArticleClass> getChilds() {
+    public List<ArticleClass> getChilds(){
         return this.childs;
     }
 
-    public void setChilds(List<ArticleClass> childs) {
+    public void setChilds(List<ArticleClass> childs){
         this.childs = childs;
     }
 
-    public String getMark() {
+    public String getMark(){
         return this.mark;
     }
 
-    public void setMark(String mark) {
+    public void setMark(String mark){
         this.mark = mark;
     }
 
-    public List<Article> getArticles() {
+    public List<Article> getArticles(){
         return this.articles;
     }
 
-    public void setArticles(List<Article> articles) {
+    public void setArticles(List<Article> articles){
         this.articles = articles;
     }
 }

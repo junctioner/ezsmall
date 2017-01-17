@@ -5,11 +5,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.wemall.core.query.QueryObject;
 
 public class ShippingQueryObject extends QueryObject {
-    public ShippingQueryObject(String currentPage, ModelAndView mv, String orderBy, String orderType) {
+    public ShippingQueryObject(String currentPage, ModelAndView mv, String orderBy, String orderType){
         super(currentPage, mv, orderBy, orderType);
     }
 
-    public ShippingQueryObject() {
+    public ShippingQueryObject(){
     }
 }
 

@@ -22,19 +22,19 @@ public class SnsFriend extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private User toUser;
 
-    public User getFromUser() {
+    public User getFromUser(){
         return this.fromUser;
     }
 
-    public void setFromUser(User fromUser) {
+    public void setFromUser(User fromUser){
         this.fromUser = fromUser;
     }
 
-    public User getToUser() {
+    public User getToUser(){
         return this.toUser;
     }
 
-    public void setToUser(User toUser) {
+    public void setToUser(User toUser){
         this.toUser = toUser;
     }
 }

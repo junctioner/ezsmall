@@ -54,8 +54,8 @@ public class ReportBuyerAction {
     private IUserService userService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家举报列表", value = "/buyer/report.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/report.htm"})
-    public ModelAndView report(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/buyer/report.htm"})
+    public ModelAndView report(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/report.html", this.configService
             .getSysConfig(),
@@ -72,22 +72,22 @@ public class ReportBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家举报商品", value = "/buyer/report_add.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/report_add.htm"})
-    public ModelAndView report_add(HttpServletRequest request, HttpServletResponse response, String goods_id) {
+    @RequestMapping({"/buyer/report_add.htm"})
+    public ModelAndView report_add(HttpServletRequest request, HttpServletResponse response, String goods_id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/report_add.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
-        if (user.getReport() == -1) {
+        if (user.getReport() == -1){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "您因为恶意举报已被禁止举报，请与商城管理员联系");
             mv.addObject("url", CommUtil.getURL(request) + "/goods_" + goods_id +
                          ".htm");
-        } else {
+        }else{
             Map params = new HashMap();
             params.put("goods_id", CommUtil.null2Long(goods_id));
             params.put("user_id", SecurityUserHolder.getCurrentUser().getId());
@@ -96,7 +96,7 @@ public class ReportBuyerAction {
                            .query(
                                "select obj from Report obj where obj.goods.id=:goods_id and obj.user.id=:user_id and obj.status=:status",
                                params, -1, -1);
-            if (reports.size() == 0) {
+            if (reports.size() == 0){
                 Goods goods = this.goodsService.getObjById(
                                   CommUtil.null2Long(goods_id));
                 mv.addObject("goods", goods);
@@ -105,7 +105,7 @@ public class ReportBuyerAction {
                                  "select obj from ReportType obj order by obj.addTime desc",
                                  null, -1, -1);
                 mv.addObject("types", types);
-            } else {
+            }else{
                 mv = new JModelAndView("error.html", this.configService
                                        .getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
@@ -120,8 +120,8 @@ public class ReportBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "保存买家举报商品", value = "/buyer/report_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/report_save.htm"})
-    public ModelAndView report_save(HttpServletRequest request, HttpServletResponse response, String goods_id, String subject_id) {
+    @RequestMapping({"/buyer/report_save.htm"})
+    public ModelAndView report_save(HttpServletRequest request, HttpServletResponse response, String goods_id, String subject_id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/success.html", this.configService
             .getSysConfig(),
@@ -146,7 +146,7 @@ public class ReportBuyerAction {
         try {
             map = CommUtil.saveFileToServer(request, "img1", saveFilePathName,
                                             null, null);
-            if (map.get("fileName") != "") {
+            if (map.get("fileName") != ""){
                 Accessory acc1 = new Accessory();
                 acc1.setName(CommUtil.null2String(map.get("fileName")));
                 acc1.setExt(CommUtil.null2String(map.get("mime")));
@@ -161,7 +161,7 @@ public class ReportBuyerAction {
             map.clear();
             map = CommUtil.saveFileToServer(request, "img2", saveFilePathName,
                                             null, null);
-            if (map.get("fileName") != "") {
+            if (map.get("fileName") != ""){
                 Accessory acc2 = new Accessory();
                 acc2.setName(CommUtil.null2String(map.get("fileName")));
                 acc2.setExt(CommUtil.null2String(map.get("mime")));
@@ -176,7 +176,7 @@ public class ReportBuyerAction {
             map.clear();
             map = CommUtil.saveFileToServer(request, "img3", saveFilePathName,
                                             null, null);
-            if (map.get("fileName") != "") {
+            if (map.get("fileName") != ""){
                 Accessory acc3 = new Accessory();
                 acc3.setName(CommUtil.null2String(map.get("fileName")));
                 acc3.setExt(CommUtil.null2String(map.get("mime")));
@@ -188,7 +188,7 @@ public class ReportBuyerAction {
                 this.accessoryService.save(acc3);
                 report.setAcc3(acc3);
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
         this.reportService.save(report);
@@ -199,8 +199,8 @@ public class ReportBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家举报详情", value = "/buyer/report_view.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/report_view.htm"})
-    public ModelAndView report_view(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/buyer/report_view.htm"})
+    public ModelAndView report_view(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/report_view.html", this.configService
             .getSysConfig(),
@@ -212,8 +212,8 @@ public class ReportBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家取消举报", value = "/buyer/report_cancel.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/report_cancel.htm"})
-    public String report_cancel(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/buyer/report_cancel.htm"})
+    public String report_cancel(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         Report obj = this.reportService.getObjById(CommUtil.null2Long(id));
         obj.setStatus(-1);
         this.reportService.update(obj);
@@ -221,15 +221,15 @@ public class ReportBuyerAction {
         return "redirect:report.htm?currentPage=" + currentPage;
     }
 
-    @RequestMapping( {"/buyer/report_subject_load.htm"})
-    public void report_subject_load(HttpServletRequest request, HttpServletResponse response, String type_id) {
+    @RequestMapping({"/buyer/report_subject_load.htm"})
+    public void report_subject_load(HttpServletRequest request, HttpServletResponse response, String type_id){
         Map params = new HashMap();
         params.put("id", CommUtil.null2Long(type_id));
         List<ReportSubject> rss = this.reportSubjectService.query(
                                       "select obj from ReportSubject obj where obj.type.id=:id",
                                       params, -1, -1);
         List<Map> list = new ArrayList<Map>();
-        for (ReportSubject rs : rss) {
+        for (ReportSubject rs : rss){
             Map map = new HashMap();
             map.put("id", rs.getId());
             map.put("title", rs.getTitle());
@@ -242,7 +242,7 @@ public class ReportBuyerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(temp);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

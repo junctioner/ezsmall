@@ -23,20 +23,20 @@ public class ShopAuthenticationProvider extends AbstractUserDetailsAuthenticatio
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication)
     throws AuthenticationException {
         Object salt = null;
-        if (this.saltSource != null) {
+        if (this.saltSource != null){
             salt = this.saltSource.getSalt(userDetails);
         }
-        if (authentication.getCredentials() == null) {
+        if (authentication.getCredentials() == null){
             throw new BadCredentialsException(this.messages.getMessage(
                                                   "AbstractUserDetailsAuthenticationProvider.badCredentials",
                                                   "Bad credentials"), this.includeDetailsObject ? userDetails :
                                               null);
         }
         String presentedPassword = authentication.getCredentials().toString();
-        if (presentedPassword.indexOf("wemall_thid_login_") >= 0) {
+        if (presentedPassword.indexOf("wemall_thid_login_") >= 0){
             presentedPassword = presentedPassword
                                 .substring("wemall_thid_login_".length());
-            if (!presentedPassword.equals(userDetails.getPassword())) {
+            if (!presentedPassword.equals(userDetails.getPassword())){
                 throw new BadCredentialsException(
                     this.messages.getMessage(
                         "AbstractUserDetailsAuthenticationProvider.badCredentials",
@@ -44,8 +44,8 @@ public class ShopAuthenticationProvider extends AbstractUserDetailsAuthenticatio
                     this.includeDetailsObject ? userDetails : null);
             }
 
-        } else if (!this.passwordEncoder.isPasswordValid(
-                       userDetails.getPassword(), presentedPassword, salt)) {
+        }else if (!this.passwordEncoder.isPasswordValid(
+                       userDetails.getPassword(), presentedPassword, salt)){
             throw new BadCredentialsException(
                 this.messages.getMessage(
                     "AbstractUserDetailsAuthenticationProvider.badCredentials",
@@ -64,12 +64,12 @@ public class ShopAuthenticationProvider extends AbstractUserDetailsAuthenticatio
         UserDetails loadedUser;
         try {
             loadedUser = getUserDetailsService().loadUserByUsername(username);
-        } catch (DataAccessException repositoryProblem) {
+        } catch (DataAccessException repositoryProblem){
             throw new AuthenticationServiceException(
                 repositoryProblem.getMessage(), repositoryProblem);
         }
 
-        if (loadedUser == null) {
+        if (loadedUser == null){
             throw new AuthenticationServiceException(
                 "UserDetailsService returned null, which is an interface contract violation");
         }
@@ -77,35 +77,35 @@ public class ShopAuthenticationProvider extends AbstractUserDetailsAuthenticatio
         return loadedUser;
     }
 
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder){
         this.passwordEncoder = passwordEncoder;
     }
 
-    protected PasswordEncoder getPasswordEncoder() {
+    protected PasswordEncoder getPasswordEncoder(){
         return this.passwordEncoder;
     }
 
-    public void setSaltSource(SaltSource saltSource) {
+    public void setSaltSource(SaltSource saltSource){
         this.saltSource = saltSource;
     }
 
-    protected SaltSource getSaltSource() {
+    protected SaltSource getSaltSource(){
         return this.saltSource;
     }
 
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
+    public void setUserDetailsService(UserDetailsService userDetailsService){
         this.userDetailsService = userDetailsService;
     }
 
-    protected UserDetailsService getUserDetailsService() {
+    protected UserDetailsService getUserDetailsService(){
         return this.userDetailsService;
     }
 
-    protected boolean isIncludeDetailsObject() {
+    protected boolean isIncludeDetailsObject(){
         return this.includeDetailsObject;
     }
 
-    public void setIncludeDetailsObject(boolean includeDetailsObject) {
+    public void setIncludeDetailsObject(boolean includeDetailsObject){
         this.includeDetailsObject = includeDetailsObject;
     }
 }

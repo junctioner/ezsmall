@@ -10,19 +10,18 @@
 	<script src="$!webPath/resources/style/system/front/wap/js/jquery-1.10.2.min.js"></script>
 	<script src="$!webPath/resources/style/system/front/wap/js/jquery.validate.min.js"></script>
 	<script>
-	
+		var addr_id = "";
 		jQuery(document).ready(function() {
-			
 			jQuery(" li[id^=dis_]").hide();
-
 			jQuery("#times").focus(function() {
 				jQuery("#days_check").show();
 			});
-			
+
+			addr_id = jQuery(":radio[name^=addr_id]:checked").val();
+
 			// 选择配送地点
 			jQuery(":radio[name^=addr_id]").click(function(){
-			       var addr_id=jQuery(this).val();
-			       
+			       addr_id=jQuery(this).val();
 				   jQuery.ajax({type:'POST',url:'$!webPath/order_address.htm',data:{'addr_id':addr_id,"store_id":"$!sc.store.id"},dataType:'json',
 							  beforeSend:function(){
 								    jQuery("#order_save").attr("disabled",true);
@@ -96,7 +95,7 @@
 			var addr_save = false;
 			var invoice_save = true;
 			
-			if(jQuery("#addr_id").val()==undefined){
+			if(addr_id==""){
 				alert("请您先添加一个收货地址!");
 				return;
 			} else {
@@ -187,11 +186,11 @@
 				<ul class="order_ul">
 	            #set($addr_id="")
 	            #foreach($addr in $addrs)
-	              #if($!velocityCount==1)
-	                #set($default_address_info="$!{addr.area.parent.parent.areaName}$!{addr.area.parent.areaName}$!{addr.area.areaName}$!{addr.area_info}")
-	                #set($addr_id="$!{addr.area.id}")
-	                #set($default_person_info="$!{addr.trueName} $!{addr.mobile}")
-	              #end
+					#if($!velocityCount==1)
+						#set($default_address_info="$!{addr.area.parent.parent.areaName}$!{addr.area.parent.areaName}$!{addr.area.areaName}$!{addr.area_info}")
+						#set($addr_id="$!{addr.area.id}")
+						#set($default_person_info="$!{addr.trueName} $!{addr.mobile}")
+					#end
 					<li class="tel">
 						<input type="radio" name="addr_id" value="$!addr.id" #if($!velocityCount==1) checked="checked" #end />
 						$!{addr.trueName}<span>$!{addr.mobile}</span>
@@ -227,21 +226,20 @@
             			<input name="transport" type="hidden" id="transport" value="平邮" />
 						
 					</li>
-					<!-- <li>
+					<li>
 						<span class="fl">支付方式 <span class="gray">  
 						<label> 
 						<span> <input name="payType" class="pay_center_select" type="radio" checked="checked" value="onlinepay"></span>
-						<i>货到付款</i>
+						<i>在线支付</i>
 						</label>
 						</span>
 						</span>
-					</li> -->
+					</li>
 				</ul>
 			</div>
 			
 			<div class="pay_shop">
 		      <h3><span class="fl"><img width="25" height="25" src="$!webPath/resources/style/system/front/wap/images/shop.png"></span>$!{sc.store.store_name}</h3>
-		      
 		      <ul>
 		      	#foreach($gc in $sc.gcs)
 		          <li>
@@ -307,7 +305,6 @@
 			</div>
 		</div>
 	</form>
-	
 	<div class="mt50"></div>
 </body>
 </html>

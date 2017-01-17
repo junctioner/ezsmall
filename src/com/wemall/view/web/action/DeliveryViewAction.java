@@ -31,8 +31,8 @@ public class DeliveryViewAction {
     @Autowired
     private IDeliveryGoodsService deliveryGoodsService;
 
-    @RequestMapping( {"/delivery.htm"})
-    public ModelAndView delivery(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/delivery.htm"})
+    public ModelAndView delivery(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView("delivery.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);

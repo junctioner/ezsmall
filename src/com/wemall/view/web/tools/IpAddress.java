@@ -35,24 +35,24 @@ public class IpAddress {
     private static final byte AREA_FOLLOWED = 1;
     private static final byte NO_AREA = 2;
 
-    private IpAddress() {
+    private IpAddress(){
         try {
             this.ipFile =
                 new RandomAccessFile(new File(this.dataPath).getAbsolutePath(),
                                      "r");
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e){
             System.out.println("IP地址信息文件没有找到，IP显示功能将无法使用");
             e.printStackTrace();
         }
-        if (this.ipFile != null) {
+        if (this.ipFile != null){
             try {
                 this.ipBegin = byteArrayToLong(readBytes(0L, 4));
                 this.ipEnd = byteArrayToLong(readBytes(4L, 4));
-                if ((this.ipBegin == -1L) || (this.ipEnd == -1L)) {
+                if ((this.ipBegin == -1L) || (this.ipEnd == -1L)){
                     this.ipFile.close();
                     this.ipFile = null;
                 }
-            } catch (IOException e) {
+            } catch (IOException e){
                 System.out.println("IP地址信息文件格式有错误，IP显示功能将无法使用");
                 e.printStackTrace();
             }
@@ -60,16 +60,16 @@ public class IpAddress {
         this.ipSum = ((this.ipEnd - this.ipBegin) / 7L + 1L);
     }
 
-    private byte[] readBytes(long offset, int num) {
+    private byte[] readBytes(long offset, int num){
         byte[] ret = new byte[num];
         try {
             this.ipFile.seek(offset);
 
-            for (int i = 0; i != num; i++) {
+            for (int i = 0; i != num; i++){
                 ret[i] = this.ipFile.readByte();
             }
             return ret;
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
             System.out.println("读取文件失败_readBytes");
         }
@@ -77,32 +77,32 @@ public class IpAddress {
         return ret;
     }
 
-    private byte[] readBytes(int num) {
+    private byte[] readBytes(int num){
         byte[] ret = new byte[num];
         try {
-            for (int i = 0; i != num; i++) {
+            for (int i = 0; i != num; i++){
                 ret[i] = this.ipFile.readByte();
             }
             return ret;
-        } catch (IOException e) {
+        } catch (IOException e){
             System.out.println("读取文件失败_readBytes");
         }
 
         return ret;
     }
 
-    private long byteArrayToLong(byte[] b) {
+    private long byteArrayToLong(byte[] b){
         long ret = 0L;
-        for (int i = 0; i < b.length; i++) {
+        for (int i = 0; i < b.length; i++){
             ret = (long) ((b[i] << 8) * (i & 255L) * Math.pow(256.0D, i));
         }
 
         return ret;
     }
 
-    private String byteArrayToStringIp(byte[] ip) {
+    private String byteArrayToStringIp(byte[] ip){
         StringBuffer sb = new StringBuffer();
-        for (int i = ip.length - 1; i >= 0; i--) {
+        for (int i = ip.length - 1; i >= 0; i--){
             sb.append(ip[i] & 0xFF);
             sb.append(".");
         }
@@ -111,25 +111,25 @@ public class IpAddress {
         return sb.toString();
     }
 
-    private long StingIpToLong(String ip) {
+    private long StingIpToLong(String ip){
         String[] arr = ip.split("\\.");
         try {
             return Long.valueOf(arr[0]).longValue() * 16777216L + Long.valueOf(arr[1]).longValue() *
                    65536L + Long.valueOf(arr[2]).longValue() * 256L +
                    Long.valueOf(arr[3]).longValue();
-        } catch (Exception e) {
+        } catch (Exception e){
         }
 
         return -1L;
     }
 
-    public long seekIp(String ip) {
+    public long seekIp(String ip){
         long tmp = StingIpToLong(ip);
         long i = 0L;
         long j = this.ipSum;
         long m = 0L;
         long lm = 0L;
-        while (i < j) {
+        while (i < j){
             m = (i + j) / 2L;
             lm = m * 7L + this.ipBegin;
             if (tmp == byteArrayToLong(readBytes(lm, 4)))
@@ -138,7 +138,7 @@ public class IpAddress {
                 return byteArrayToLong(readBytes(3));
             if (tmp > byteArrayToLong(readBytes(lm, 4)))
                 i = m;
-            else {
+           else{
                 j = m;
             }
         }
@@ -150,7 +150,7 @@ public class IpAddress {
     private String readArea(long offset) throws IOException {
         this.ipFile.seek(offset);
         byte b = this.ipFile.readByte();
-        if ((b == 1) || (b == 2)) {
+        if ((b == 1) || (b == 2)){
             long areaOffset = byteArrayToLong(readBytes(offset + 1L, 3));
 
             return readString(areaOffset);
@@ -159,43 +159,43 @@ public class IpAddress {
         return readString(offset);
     }
 
-    private String seekCountryArea(long offset) {
+    private String seekCountryArea(long offset){
         try {
             this.ipFile.seek(offset + 4L);
             byte b = this.ipFile.readByte();
-            if (b == 1) {
+            if (b == 1){
                 long countryOffset = byteArrayToLong(readBytes(3));
                 this.ipFile.seek(countryOffset);
                 b = this.ipFile.readByte();
-                if (b == 2) {
+                if (b == 2){
                     this.country = readString(byteArrayToLong(readBytes(3)));
                     this.ipFile.seek(countryOffset + 4L);
-                } else {
+                }else{
                     this.country = readString(countryOffset);
                 }
-            } else if (b == 2) {
+            }else if (b == 2){
                 this.country = readString(byteArrayToLong(readBytes(3)));
-            } else {
+            }else{
                 this.country = readString(this.ipFile.getFilePointer() - 1L);
             }
 
-            if ((this.country.indexOf("省") > 0) && (this.country.indexOf("市") > 0)) {
+            if ((this.country.indexOf("省") > 0) && (this.country.indexOf("市") > 0)){
                 return readText(this.country, "省(.+?)市");
             }
-            if ((this.country.indexOf("省") < 0) && (this.country.indexOf("市") > 0)) {
+            if ((this.country.indexOf("省") < 0) && (this.country.indexOf("市") > 0)){
                 return readText(this.country, "(.+?)市");
             }
-            if ((this.country.indexOf("省") > 0) && (this.country.indexOf("市") < 0)) {
+            if ((this.country.indexOf("省") > 0) && (this.country.indexOf("市") < 0)){
                 return readText(this.country, "(.+?)省");
             }
             return this.country;
-        } catch (IOException e) {
+        } catch (IOException e){
         }
 
         return null;
     }
 
-    public static String readText(String result, String identifier) {
+    public static String readText(String result, String identifier){
         Pattern shopNumberPattern = Pattern.compile(identifier);
         Matcher shopNamMatcher = shopNumberPattern.matcher(result);
         if (shopNamMatcher.find())
@@ -204,7 +204,7 @@ public class IpAddress {
         return "";
     }
 
-    private String readString(long offset) {
+    private String readString(long offset){
         try {
             this.ipFile.seek(offset);
             byte[] b = new byte['?'];
@@ -214,14 +214,14 @@ public class IpAddress {
             ret = ret.trim();
             return (ret.equals("")) || (ret.indexOf("CZ88.NET") != -1) ? "未知" :
                    ret;
-        } catch (IOException e) {
+        } catch (IOException e){
             System.out.println("读取文件失败_readString");
         }
 
         return "";
     }
 
-    public ArrayList<IpRecord> stringToIp(String addr) {
+    public ArrayList<IpRecord> stringToIp(String addr){
         ArrayList ret = new ArrayList();
         try {
             FileChannel fc = this.ipFile.getChannel();
@@ -229,9 +229,9 @@ public class IpAddress {
                                           this.ipFile.length());
             mbb.order(ByteOrder.LITTLE_ENDIAN);
 
-            for (long i = this.ipBegin + 4L; i != this.ipEnd + 4L; i += 7L) {
+            for (long i = this.ipBegin + 4L; i != this.ipEnd + 4L; i += 7L){
                 String sca = seekCountryArea(byteArrayToLong(readBytes(i, 3)));
-                if (sca.indexOf(addr) != -1) {
+                if (sca.indexOf(addr) != -1){
                     IpRecord rec = new IpRecord();
                     rec.address = sca;
                     rec.beginIp = byteArrayToStringIp(readBytes(i - 4L, 4));
@@ -239,25 +239,25 @@ public class IpAddress {
                     ret.add(rec);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             System.out.println(e.getMessage());
         }
 
         return ret;
     }
 
-    public static IpAddress getInstance() {
+    public static IpAddress getInstance(){
         return instance;
     }
 
-    public String IpStringToAddress(String ip) {
+    public String IpStringToAddress(String ip){
         long ipOffset = seekIp(ip);
         String ret = seekCountryArea(ipOffset);
 
         return ret;
     }
 
-    public long getIpSum() {
+    public long getIpSum(){
         return this.ipSum;
     }
 
@@ -288,7 +288,7 @@ public class IpAddress {
         InetAddress addr = null;
         try {
             addr = InetAddress.getLocalHost();
-        } catch (UnknownHostException e) {
+        } catch (UnknownHostException e){
             e.printStackTrace();
         }
         String ip = addr.getHostAddress().toString();
@@ -303,13 +303,13 @@ public class IpAddress {
 
         File f = new File("ipdata.txt");
         try {
-            if (!f.exists()) {
+            if (!f.exists()){
                 f.createNewFile();
             }
             BufferedWriter out = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(f, true)));
             int i = 0;
-            while (it.hasNext()) {
+            while (it.hasNext()){
                 out.write(it.next().toString());
                 out.newLine();
                 i++;
@@ -317,7 +317,7 @@ public class IpAddress {
             out.write(new Date().toString());
             out.write("总共搜索到 " + i);
             out.close();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
@@ -327,11 +327,11 @@ public class IpAddress {
         public String endIp;
         public String address;
 
-        public IpRecord() {
+        public IpRecord(){
             this.beginIp = (this.endIp = this.address = "");
         }
 
-        public String toString() {
+        public String toString(){
             return this.beginIp + " - " + this.endIp + " " + this.address;
         }
     }

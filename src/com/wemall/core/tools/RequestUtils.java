@@ -30,43 +30,43 @@ public class RequestUtils {
      * @param name    参数名称
      * @return
      */
-    public static String getQueryParam(HttpServletRequest request, String name) {
-        if (StringUtils.isBlank(name)) {
+    public static String getQueryParam(HttpServletRequest request, String name){
+        if (StringUtils.isBlank(name)){
             return null;
         }
-        if (request.getMethod().equalsIgnoreCase(AppGlobal.POST)) {
+        if (request.getMethod().equalsIgnoreCase(AppGlobal.POST)){
             return request.getParameter(name);
         }
         String s = request.getQueryString();
-        if (StringUtils.isBlank(s)) {
+        if (StringUtils.isBlank(s)){
             return null;
         }
         try {
             s = URLDecoder.decode(s, AppGlobal.UTF8);
-        } catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e){
             log.error("encoding " + AppGlobal.UTF8 + " not support?", e);
         }
         String[] values = parseQueryString(s).get(name);
-        if (values != null && values.length > 0) {
+        if (values != null && values.length > 0){
             return values[values.length - 1];
-        } else {
+        }else{
             return null;
         }
     }
 
     @SuppressWarnings("unchecked")
-    public static Map<String, Object> getQueryParams(HttpServletRequest request) {
+    public static Map<String, Object> getQueryParams(HttpServletRequest request){
         Map<String, String[]> map;
-        if (request.getMethod().equalsIgnoreCase(AppGlobal.POST)) {
+        if (request.getMethod().equalsIgnoreCase(AppGlobal.POST)){
             map = request.getParameterMap();
-        } else {
+        }else{
             String s = request.getQueryString();
-            if (StringUtils.isBlank(s)) {
+            if (StringUtils.isBlank(s)){
                 return new HashMap<String, Object>();
             }
             try {
                 s = URLDecoder.decode(s, AppGlobal.UTF8);
-            } catch (UnsupportedEncodingException e) {
+            } catch (UnsupportedEncodingException e){
                 log.error("encoding " + AppGlobal.UTF8 + " not support?", e);
             }
             map = parseQueryString(s);
@@ -74,11 +74,11 @@ public class RequestUtils {
 
         Map<String, Object> params = new HashMap<String, Object>(map.size());
         int len;
-        for (Map.Entry<String, String[]> entry : map.entrySet()) {
+        for (Map.Entry<String, String[]> entry : map.entrySet()){
             len = entry.getValue().length;
-            if (len == 1) {
+            if (len == 1){
                 params.put(entry.getKey(), entry.getValue()[0]);
-            } else if (len > 1) {
+            }else if (len > 1){
                 params.put(entry.getKey(), entry.getValue());
             }
         }
@@ -109,29 +109,29 @@ public class RequestUtils {
      * pairs
      * @throws IllegalArgumentException if the query string is invalid
      */
-    public static Map<String, String[]> parseQueryString(String s) {
+    public static Map<String, String[]> parseQueryString(String s){
         String valArray[] = null;
-        if (s == null) {
+        if (s == null){
             throw new IllegalArgumentException();
         }
         Map<String, String[]> ht = new HashMap<String, String[]>();
         StringTokenizer st = new StringTokenizer(s, "&");
-        while (st.hasMoreTokens()) {
+        while (st.hasMoreTokens()){
             String pair = (String) st.nextToken();
             int pos = pair.indexOf('=');
-            if (pos == -1) {
+            if (pos == -1){
                 continue;
             }
             String key = pair.substring(0, pos);
             String val = pair.substring(pos + 1, pair.length());
-            if (ht.containsKey(key)) {
+            if (ht.containsKey(key)){
                 String oldVals[] = (String[]) ht.get(key);
                 valArray = new String[oldVals.length + 1];
-                for (int i = 0; i < oldVals.length; i++) {
+                for (int i = 0; i < oldVals.length; i++){
                     valArray[i] = oldVals[i];
                 }
                 valArray[oldVals.length] = val;
-            } else {
+            }else{
                 valArray = new String[1];
                 valArray[0] = val;
             }
@@ -141,22 +141,22 @@ public class RequestUtils {
         return ht;
     }
 
-    public static Map<String, String> getRequestMap(HttpServletRequest request, String prefix) {
+    public static Map<String, String> getRequestMap(HttpServletRequest request, String prefix){
         return getRequestMap(request, prefix, false);
     }
 
-    public static Map<String, String> getRequestMapWithPrefix(HttpServletRequest request, String prefix) {
+    public static Map<String, String> getRequestMapWithPrefix(HttpServletRequest request, String prefix){
         return getRequestMap(request, prefix, true);
     }
 
     @SuppressWarnings("unchecked")
-    private static Map<String, String> getRequestMap(HttpServletRequest request, String prefix, boolean nameWithPrefix) {
+    private static Map<String, String> getRequestMap(HttpServletRequest request, String prefix, boolean nameWithPrefix){
         Map<String, String> map = new HashMap<String, String>();
         Enumeration<String> names = request.getParameterNames();
         String name, key, value;
-        while (names.hasMoreElements()) {
+        while (names.hasMoreElements()){
             name = names.nextElement();
-            if (name.startsWith(prefix)) {
+            if (name.startsWith(prefix)){
                 key = nameWithPrefix ? name : name.substring(prefix.length());
                 value = StringUtils.join(request.getParameterValues(name), ',');
                 map.put(key, value);
@@ -177,21 +177,21 @@ public class RequestUtils {
      * @param request
      * @return
      */
-    public static String getIpAddr(HttpServletRequest request) {
+    public static String getIpAddr(HttpServletRequest request){
         String ip = request.getHeader("X-Real-IP");
-        if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
+        if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)){
             return ip;
         }
         ip = request.getHeader("X-Forwarded-For");
-        if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
+        if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)){
             // 多次反向代理后会有多个IP值，第一个为真实IP。
             int index = ip.indexOf(',');
-            if (index != -1) {
+            if (index != -1){
                 return ip.substring(0, index);
-            } else {
+            }else{
                 return ip;
             }
-        } else {
+        }else{
             return request.getRemoteAddr();
         }
     }
@@ -204,14 +204,14 @@ public class RequestUtils {
      * @param request
      * @return
      */
-    public static String getLocation(HttpServletRequest request) {
+    public static String getLocation(HttpServletRequest request){
         UrlPathHelper helper = new UrlPathHelper();
         StringBuffer buff = request.getRequestURL();
         String uri = request.getRequestURI();
         String origUri = helper.getOriginatingRequestUri(request);
         buff.replace(buff.length() - uri.length(), buff.length(), origUri);
         String queryString = helper.getOriginatingQueryString(request);
-        if (queryString != null) {
+        if (queryString != null){
             buff.append("?").append(queryString);
         }
 
@@ -226,18 +226,18 @@ public class RequestUtils {
      * @return
      * @see HttpServletRequest#getRequestedSessionId()
      */
-    public static String getRequestedSessionId(HttpServletRequest request) {
+    public static String getRequestedSessionId(HttpServletRequest request){
         String sid = request.getRequestedSessionId();
         String ctx = request.getContextPath();
         // 如果session id是从url中获取，或者部署路径为空，那么是在正确的。
-        if (request.isRequestedSessionIdFromURL() || StringUtils.isBlank(ctx)) {
+        if (request.isRequestedSessionIdFromURL() || StringUtils.isBlank(ctx)){
             return sid;
-        } else {
+        }else{
             // 手动从cookie获取
             Cookie cookie = CookieUtil.getCookieByName(request, AppGlobal.JSESSION_COOKIE);
-            if (cookie != null) {
+            if (cookie != null){
                 return cookie.getValue();
-            } else {
+            }else{
                 return request.getSession().getId();
             }
         }

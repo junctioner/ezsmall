@@ -220,515 +220,515 @@ public class Store extends IdEntity {
     @OneToOne(fetch = FetchType.LAZY)
     private Accessory store_weixin_logo;
 
-    public Accessory getStore_weixin_logo() {
+    public Accessory getStore_weixin_logo(){
         return this.store_weixin_logo;
     }
 
-    public void setStore_weixin_logo(Accessory store_weixin_logo) {
+    public void setStore_weixin_logo(Accessory store_weixin_logo){
         this.store_weixin_logo = store_weixin_logo;
     }
 
-    public String getWeixin_account() {
+    public String getWeixin_account(){
         return this.weixin_account;
     }
 
-    public void setWeixin_account(String weixin_account) {
+    public void setWeixin_account(String weixin_account){
         this.weixin_account = weixin_account;
     }
 
-    public Accessory getWeixin_qr_img() {
+    public Accessory getWeixin_qr_img(){
         return this.weixin_qr_img;
     }
 
-    public void setWeixin_qr_img(Accessory weixin_qr_img) {
+    public void setWeixin_qr_img(Accessory weixin_qr_img){
         this.weixin_qr_img = weixin_qr_img;
     }
 
-    public String getWeixin_welecome_content() {
+    public String getWeixin_welecome_content(){
         return this.weixin_welecome_content;
     }
 
-    public void setWeixin_welecome_content(String weixin_welecome_content) {
+    public void setWeixin_welecome_content(String weixin_welecome_content){
         this.weixin_welecome_content = weixin_welecome_content;
     }
 
-    public String getWeixin_token() {
+    public String getWeixin_token(){
         return this.weixin_token;
     }
 
-    public void setWeixin_token(String weixin_token) {
+    public void setWeixin_token(String weixin_token){
         this.weixin_token = weixin_token;
     }
 
-    public String getWeixin_appId() {
+    public String getWeixin_appId(){
         return this.weixin_appId;
     }
 
-    public void setWeixin_appId(String weixin_appId) {
+    public void setWeixin_appId(String weixin_appId){
         this.weixin_appId = weixin_appId;
     }
 
-    public String getWeixin_appSecret() {
+    public String getWeixin_appSecret(){
         return this.weixin_appSecret;
     }
 
-    public void setWeixin_appSecret(String weixin_appSecret) {
+    public void setWeixin_appSecret(String weixin_appSecret){
         this.weixin_appSecret = weixin_appSecret;
     }
 
-    public int getWeixin_status() {
+    public int getWeixin_status(){
         return this.weixin_status;
     }
 
-    public void setWeixin_status(int weixin_status) {
+    public void setWeixin_status(int weixin_status){
         this.weixin_status = weixin_status;
     }
 
-    public Date getWeixin_begin_time() {
+    public Date getWeixin_begin_time(){
         return this.weixin_begin_time;
     }
 
-    public void setWeixin_begin_time(Date weixin_begin_time) {
+    public void setWeixin_begin_time(Date weixin_begin_time){
         this.weixin_begin_time = weixin_begin_time;
     }
 
-    public Date getWeixin_end_time() {
+    public Date getWeixin_end_time(){
         return this.weixin_end_time;
     }
 
-    public void setWeixin_end_time(Date weixin_end_time) {
+    public void setWeixin_end_time(Date weixin_end_time){
         this.weixin_end_time = weixin_end_time;
     }
 
-    public List<Dynamic> getDynamics() {
+    public List<Dynamic> getDynamics(){
         return this.dynamics;
     }
 
-    public void setDynamics(List<Dynamic> dynamics) {
+    public void setDynamics(List<Dynamic> dynamics){
         this.dynamics = dynamics;
     }
 
-    public List<Transport> getTransport_list() {
+    public List<Transport> getTransport_list(){
         return this.transport_list;
     }
 
-    public void setTransport_list(List<Transport> transport_list) {
+    public void setTransport_list(List<Transport> transport_list){
         this.transport_list = transport_list;
     }
 
-    public List<CombinLog> getCombin_logs() {
+    public List<CombinLog> getCombin_logs(){
         return this.combin_logs;
     }
 
-    public void setCombin_logs(List<CombinLog> combin_logs) {
+    public void setCombin_logs(List<CombinLog> combin_logs){
         this.combin_logs = combin_logs;
     }
 
-    public List<OrderForm> getOfs() {
+    public List<OrderForm> getOfs(){
         return this.ofs;
     }
 
-    public void setOfs(List<OrderForm> ofs) {
+    public void setOfs(List<OrderForm> ofs){
         this.ofs = ofs;
     }
 
-    public List<GoodsClassStaple> getGcss() {
+    public List<GoodsClassStaple> getGcss(){
         return this.gcss;
     }
 
-    public void setGcss(List<GoodsClassStaple> gcss) {
+    public void setGcss(List<GoodsClassStaple> gcss){
         this.gcss = gcss;
     }
 
-    public List<Favorite> getFavs() {
+    public List<Favorite> getFavs(){
         return this.favs;
     }
 
-    public void setFavs(List<Favorite> favs) {
+    public void setFavs(List<Favorite> favs){
         this.favs = favs;
     }
 
-    public List<StoreNavigation> getNavs() {
+    public List<StoreNavigation> getNavs(){
         return this.navs;
     }
 
-    public void setNavs(List<StoreNavigation> navs) {
+    public void setNavs(List<StoreNavigation> navs){
         this.navs = navs;
     }
 
-    public StorePoint getSp() {
+    public StorePoint getSp(){
         return this.sp;
     }
 
-    public void setSp(StorePoint sp) {
+    public void setSp(StorePoint sp){
         this.sp = sp;
     }
 
-    public List<Payment> getPayments() {
+    public List<Payment> getPayments(){
         return this.payments;
     }
 
-    public void setPayments(List<Payment> payments) {
+    public void setPayments(List<Payment> payments){
         this.payments = payments;
     }
 
-    public BigDecimal getStore_lat() {
+    public BigDecimal getStore_lat(){
         return this.store_lat;
     }
 
-    public void setStore_lat(BigDecimal store_lat) {
+    public void setStore_lat(BigDecimal store_lat){
         this.store_lat = store_lat;
     }
 
-    public BigDecimal getStore_lng() {
+    public BigDecimal getStore_lng(){
         return this.store_lng;
     }
 
-    public void setStore_lng(BigDecimal store_lng) {
+    public void setStore_lng(BigDecimal store_lng){
         this.store_lng = store_lng;
     }
 
-    public int getFavorite_count() {
+    public int getFavorite_count(){
         return this.favorite_count;
     }
 
-    public void setFavorite_count(int favorite_count) {
+    public void setFavorite_count(int favorite_count){
         this.favorite_count = favorite_count;
     }
 
-    public String getStore_second_domain() {
+    public String getStore_second_domain(){
         return this.store_second_domain;
     }
 
-    public void setStore_second_domain(String store_second_domain) {
+    public void setStore_second_domain(String store_second_domain){
         this.store_second_domain = store_second_domain;
     }
 
-    public int getDomain_modify_count() {
+    public int getDomain_modify_count(){
         return this.domain_modify_count;
     }
 
-    public void setDomain_modify_count(int domain_modify_count) {
+    public void setDomain_modify_count(int domain_modify_count){
         this.domain_modify_count = domain_modify_count;
     }
 
-    public List<StoreSlide> getSlides() {
+    public List<StoreSlide> getSlides(){
         return this.slides;
     }
 
-    public void setSlides(List<StoreSlide> slides) {
+    public void setSlides(List<StoreSlide> slides){
         this.slides = slides;
     }
 
-    public String getViolation_reseaon() {
+    public String getViolation_reseaon(){
         return this.violation_reseaon;
     }
 
-    public void setViolation_reseaon(String violation_reseaon) {
+    public void setViolation_reseaon(String violation_reseaon){
         this.violation_reseaon = violation_reseaon;
     }
 
-    public String getTemplate() {
+    public String getTemplate(){
         return this.template;
     }
 
-    public void setTemplate(String template) {
+    public void setTemplate(String template){
         this.template = template;
     }
 
-    public int getStore_credit() {
+    public int getStore_credit(){
         return this.store_credit;
     }
 
-    public void setStore_credit(int store_credit) {
+    public void setStore_credit(int store_credit){
         this.store_credit = store_credit;
     }
 
-    public List<Goods> getGoods_list() {
+    public List<Goods> getGoods_list(){
         return this.goods_list;
     }
 
-    public void setGoods_list(List<Goods> goods_list) {
+    public void setGoods_list(List<Goods> goods_list){
         this.goods_list = goods_list;
     }
 
-    public StoreClass getSc() {
+    public StoreClass getSc(){
         return this.sc;
     }
 
-    public void setSc(StoreClass sc) {
+    public void setSc(StoreClass sc){
         this.sc = sc;
     }
 
-    public Area getArea() {
+    public Area getArea(){
         return this.area;
     }
 
-    public void setArea(Area area) {
+    public void setArea(Area area){
         this.area = area;
     }
 
-    public String getStore_address() {
+    public String getStore_address(){
         return this.store_address;
     }
 
-    public void setStore_address(String store_address) {
+    public void setStore_address(String store_address){
         this.store_address = store_address;
     }
 
-    public String getStore_name() {
+    public String getStore_name(){
         return this.store_name;
     }
 
-    public void setStore_name(String store_name) {
+    public void setStore_name(String store_name){
         this.store_name = store_name;
     }
 
-    public String getStore_ower() {
+    public String getStore_ower(){
         return this.store_ower;
     }
 
-    public void setStore_ower(String store_ower) {
+    public void setStore_ower(String store_ower){
         this.store_ower = store_ower;
     }
 
-    public String getStore_ower_card() {
+    public String getStore_ower_card(){
         return this.store_ower_card;
     }
 
-    public void setStore_ower_card(String store_ower_card) {
+    public void setStore_ower_card(String store_ower_card){
         this.store_ower_card = store_ower_card;
     }
 
-    public StoreGrade getGrade() {
+    public StoreGrade getGrade(){
         return this.grade;
     }
 
-    public void setGrade(StoreGrade grade) {
+    public void setGrade(StoreGrade grade){
         this.grade = grade;
     }
 
-    public User getUser() {
+    public User getUser(){
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 
-    public boolean isStore_recommend() {
+    public boolean isStore_recommend(){
         return this.store_recommend;
     }
 
-    public void setStore_recommend(boolean store_recommend) {
+    public void setStore_recommend(boolean store_recommend){
         this.store_recommend = store_recommend;
     }
 
-    public Date getValidity() {
+    public Date getValidity(){
         return this.validity;
     }
 
-    public void setValidity(Date validity) {
+    public void setValidity(Date validity){
         this.validity = validity;
     }
 
-    public boolean isCard_approve() {
+    public boolean isCard_approve(){
         return this.card_approve;
     }
 
-    public void setCard_approve(boolean card_approve) {
+    public void setCard_approve(boolean card_approve){
         this.card_approve = card_approve;
     }
 
-    public Accessory getCard() {
+    public Accessory getCard(){
         return this.card;
     }
 
-    public void setCard(Accessory card) {
+    public void setCard(Accessory card){
         this.card = card;
     }
 
-    public boolean isRealstore_approve() {
+    public boolean isRealstore_approve(){
         return this.realstore_approve;
     }
 
-    public void setRealstore_approve(boolean realstore_approve) {
+    public void setRealstore_approve(boolean realstore_approve){
         this.realstore_approve = realstore_approve;
     }
 
-    public Accessory getStore_license() {
+    public Accessory getStore_license(){
         return this.store_license;
     }
 
-    public void setStore_license(Accessory store_license) {
+    public void setStore_license(Accessory store_license){
         this.store_license = store_license;
     }
 
-    public int getStore_status() {
+    public int getStore_status(){
         return this.store_status;
     }
 
-    public void setStore_status(int store_status) {
+    public void setStore_status(int store_status){
         this.store_status = store_status;
     }
 
-    public String getStore_telephone() {
+    public String getStore_telephone(){
         return this.store_telephone;
     }
 
-    public void setStore_telephone(String store_telephone) {
+    public void setStore_telephone(String store_telephone){
         this.store_telephone = store_telephone;
     }
 
-    public String getStore_zip() {
+    public String getStore_zip(){
         return this.store_zip;
     }
 
-    public void setStore_zip(String store_zip) {
+    public void setStore_zip(String store_zip){
         this.store_zip = store_zip;
     }
 
-    public Accessory getStore_logo() {
+    public Accessory getStore_logo(){
         return this.store_logo;
     }
 
-    public void setStore_logo(Accessory store_logo) {
+    public void setStore_logo(Accessory store_logo){
         this.store_logo = store_logo;
     }
 
-    public Accessory getStore_banner() {
+    public Accessory getStore_banner(){
         return this.store_banner;
     }
 
-    public void setStore_banner(Accessory store_banner) {
+    public void setStore_banner(Accessory store_banner){
         this.store_banner = store_banner;
     }
 
-    public String getStore_seo_keywords() {
+    public String getStore_seo_keywords(){
         return this.store_seo_keywords;
     }
 
-    public void setStore_seo_keywords(String store_seo_keywords) {
+    public void setStore_seo_keywords(String store_seo_keywords){
         this.store_seo_keywords = store_seo_keywords;
     }
 
-    public String getStore_seo_description() {
+    public String getStore_seo_description(){
         return this.store_seo_description;
     }
 
-    public void setStore_seo_description(String store_seo_description) {
+    public void setStore_seo_description(String store_seo_description){
         this.store_seo_description = store_seo_description;
     }
 
-    public String getStore_info() {
+    public String getStore_info(){
         return this.store_info;
     }
 
-    public void setStore_info(String store_info) {
+    public void setStore_info(String store_info){
         this.store_info = store_info;
     }
 
-    public StoreGrade getUpdate_grade() {
+    public StoreGrade getUpdate_grade(){
         return this.update_grade;
     }
 
-    public void setUpdate_grade(StoreGrade update_grade) {
+    public void setUpdate_grade(StoreGrade update_grade){
         this.update_grade = update_grade;
     }
 
-    public Date getStore_recommend_time() {
+    public Date getStore_recommend_time(){
         return this.store_recommend_time;
     }
 
-    public void setStore_recommend_time(Date store_recommend_time) {
+    public void setStore_recommend_time(Date store_recommend_time){
         this.store_recommend_time = store_recommend_time;
     }
 
-    public String getStore_qq() {
+    public String getStore_qq(){
         return this.store_qq;
     }
 
-    public void setStore_qq(String store_qq) {
+    public void setStore_qq(String store_qq){
         this.store_qq = store_qq;
     }
 
-    public String getStore_msn() {
+    public String getStore_msn(){
         return this.store_msn;
     }
 
-    public void setStore_msn(String store_msn) {
+    public void setStore_msn(String store_msn){
         this.store_msn = store_msn;
     }
 
-    public StorePoint getPoint() {
+    public StorePoint getPoint(){
         return this.point;
     }
 
-    public void setPoint(StorePoint point) {
+    public void setPoint(StorePoint point){
         this.point = point;
     }
 
-    public List<StoreGradeLog> getLogs() {
+    public List<StoreGradeLog> getLogs(){
         return this.logs;
     }
 
-    public void setLogs(List<StoreGradeLog> logs) {
+    public void setLogs(List<StoreGradeLog> logs){
         this.logs = logs;
     }
 
-    public String getStore_ww() {
+    public String getStore_ww(){
         return this.store_ww;
     }
 
-    public void setStore_ww(String store_ww) {
+    public void setStore_ww(String store_ww){
         this.store_ww = store_ww;
     }
 
-    public String getMap_type() {
+    public String getMap_type(){
         return this.map_type;
     }
 
-    public void setMap_type(String map_type) {
+    public void setMap_type(String map_type){
         this.map_type = map_type;
     }
 
-    public Date getDelivery_begin_time() {
+    public Date getDelivery_begin_time(){
         return this.delivery_begin_time;
     }
 
-    public void setDelivery_begin_time(Date delivery_begin_time) {
+    public void setDelivery_begin_time(Date delivery_begin_time){
         this.delivery_begin_time = delivery_begin_time;
     }
 
-    public Date getDelivery_end_time() {
+    public Date getDelivery_end_time(){
         return this.delivery_end_time;
     }
 
-    public void setDelivery_end_time(Date delivery_end_time) {
+    public void setDelivery_end_time(Date delivery_end_time){
         this.delivery_end_time = delivery_end_time;
     }
 
-    public List<DeliveryLog> getDelivery_logs() {
+    public List<DeliveryLog> getDelivery_logs(){
         return this.delivery_logs;
     }
 
-    public void setDelivery_logs(List<DeliveryLog> delivery_logs) {
+    public void setDelivery_logs(List<DeliveryLog> delivery_logs){
         this.delivery_logs = delivery_logs;
     }
 
-    public Date getCombin_begin_time() {
+    public Date getCombin_begin_time(){
         return this.combin_begin_time;
     }
 
-    public void setCombin_begin_time(Date combin_begin_time) {
+    public void setCombin_begin_time(Date combin_begin_time){
         this.combin_begin_time = combin_begin_time;
     }
 
-    public Date getCombin_end_time() {
+    public Date getCombin_end_time(){
         return this.combin_end_time;
     }
 
-    public void setCombin_end_time(Date combin_end_time) {
+    public void setCombin_end_time(Date combin_end_time){
         this.combin_end_time = combin_end_time;
     }
 }

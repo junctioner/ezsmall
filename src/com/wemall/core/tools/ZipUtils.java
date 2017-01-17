@@ -31,19 +31,19 @@ public class ZipUtils {
      * @param zipfileName
      *            压缩后的文件名
      */
-    public static void zipFiles(List<String> srcfileName, String zipfileName) {
+    public static void zipFiles(List<String> srcfileName, String zipfileName){
         byte[] buf = new byte[1024];
         try {
             File zip_file = new File(zipfileName);
             ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zip_file));
             Iterator itr = srcfileName.iterator();
-            while (itr.hasNext()) {
+            while (itr.hasNext()){
                 String src_file_name = (String) itr.next();
                 File src_file = new File(src_file_name);
                 FileInputStream in = new FileInputStream(src_file);
                 out.putNextEntry(new ZipEntry(src_file.getName()));
                 int len;
-                while ((len = in.read(buf)) > 0) {
+                while ((len = in.read(buf)) > 0){
                     out.write(buf, 0, len);
                 }
                 out.closeEntry();
@@ -51,7 +51,7 @@ public class ZipUtils {
             }
             out.close();
             log.debug("压缩成功！");
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -64,25 +64,25 @@ public class ZipUtils {
      * @param descDir
      *            目标路径
      */
-    public static void unZipFiles(String zipfileName, String descDir) {
+    public static void unZipFiles(String zipfileName, String descDir){
         try {
             File zipfile = new File(zipfileName);
             ZipFile zf = new ZipFile(zipfile);
-            for (Enumeration entries = zf.entries(); entries.hasMoreElements();) {
+            for (Enumeration entries = zf.entries(); entries.hasMoreElements();){
                 ZipEntry entry = (ZipEntry) entries.nextElement();
                 String zipEntryName = entry.getName();
                 InputStream in = zf.getInputStream(entry);
                 OutputStream out = new FileOutputStream(descDir + zipEntryName);
                 byte[] buf1 = new byte[1024];
                 int len;
-                while ((len = in.read(buf1)) > 0) {
+                while ((len = in.read(buf1)) > 0){
                     out.write(buf1, 0, len);
                 }
                 in.close();
                 out.close();
                 log.debug("压缩文件" + zipEntryName + "解压成功！");
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

@@ -37,7 +37,7 @@ public class ShopSecurityExceptionFilter extends SpringSecurityFilter
     private ThrowableAnalyzer throwableAnalyzer;
     private boolean createSessionAllowed;
 
-    public ShopSecurityExceptionFilter() {
+    public ShopSecurityExceptionFilter(){
         this.accessDeniedHandler = new ShopAccessDeniedHandlerImpl();
         this.authenticationTrustResolver = new AuthenticationTrustResolverImpl();
         this.portResolver = new PortResolverImpl();
@@ -61,22 +61,22 @@ public class ShopSecurityExceptionFilter extends SpringSecurityFilter
 
             if (this.logger.isDebugEnabled())
                 this.logger.debug("Chain processed normally");
-        } catch (IOException ex) {
+        } catch (IOException ex){
             throw ex;
-        } catch (Exception ex) {
+        } catch (Exception ex){
             Throwable[] causeChain = this.throwableAnalyzer
                                      .determineCauseChain(ex);
             SpringSecurityException ase = (SpringSecurityException)this.throwableAnalyzer
                                           .getFirstThrowableOfType(SpringSecurityException.class,
                                                   causeChain);
 
-            if (ase != null) {
+            if (ase != null){
                 handleException(request, response, chain, ase);
-            } else {
-                if ((ex instanceof ServletException)) {
+            }else{
+                if ((ex instanceof ServletException)){
                     throw ((ServletException)ex);
                 }
-                if ((ex instanceof RuntimeException)) {
+                if ((ex instanceof RuntimeException)){
                     throw ((RuntimeException)ex);
                 }
 
@@ -85,22 +85,22 @@ public class ShopSecurityExceptionFilter extends SpringSecurityFilter
         }
     }
 
-    public AuthenticationEntryPoint getAuthenticationEntryPoint() {
+    public AuthenticationEntryPoint getAuthenticationEntryPoint(){
         return this.authenticationEntryPoint;
     }
 
-    public AuthenticationTrustResolver getAuthenticationTrustResolver() {
+    public AuthenticationTrustResolver getAuthenticationTrustResolver(){
         return this.authenticationTrustResolver;
     }
 
-    public PortResolver getPortResolver() {
+    public PortResolver getPortResolver(){
         return this.portResolver;
     }
 
     private void handleException(ServletRequest request, ServletResponse response, FilterChain chain, SpringSecurityException exception)
     throws IOException, ServletException {
-        if ((exception instanceof AuthenticationException)) {
-            if (this.logger.isDebugEnabled()) {
+        if ((exception instanceof AuthenticationException)){
+            if (this.logger.isDebugEnabled()){
                 this.logger
                 .debug(
                     "Authentication exception occurred; redirecting to authentication entry point",
@@ -109,11 +109,11 @@ public class ShopSecurityExceptionFilter extends SpringSecurityFilter
 
             sendStartAuthentication(request, response, chain,
                                     (AuthenticationException)exception);
-        } else if ((exception instanceof AccessDeniedException)) {
+        }else if ((exception instanceof AccessDeniedException)){
             if (this.authenticationTrustResolver
                     .isAnonymous(SecurityContextHolder.getContext()
-                                 .getAuthentication())) {
-                if (this.logger.isDebugEnabled()) {
+                                 .getAuthentication())){
+                if (this.logger.isDebugEnabled()){
                     this.logger
                     .debug(
                         "Access is denied (user is anonymous); redirecting to authentication entry point",
@@ -126,8 +126,8 @@ public class ShopSecurityExceptionFilter extends SpringSecurityFilter
                     chain,
                     new InsufficientAuthenticationException(
                         "Full authentication is required to access this resource"));
-            } else {
-                if (this.logger.isDebugEnabled()) {
+            }else{
+                if (this.logger.isDebugEnabled()){
                     this.logger
                     .debug(
                         "Access is denied (user is not anonymous); delegating to AccessDeniedHandler",
@@ -140,7 +140,7 @@ public class ShopSecurityExceptionFilter extends SpringSecurityFilter
         }
     }
 
-    public boolean isCreateSessionAllowed() {
+    public boolean isCreateSessionAllowed(){
         return this.createSessionAllowed;
     }
 
@@ -151,13 +151,13 @@ public class ShopSecurityExceptionFilter extends SpringSecurityFilter
         SavedRequest savedRequest = new SavedRequest(httpRequest,
                 this.portResolver);
 
-        if (this.logger.isDebugEnabled()) {
+        if (this.logger.isDebugEnabled()){
             this.logger
             .debug("Authentication entry point being called; SavedRequest added to Session: " +
                    savedRequest);
         }
 
-        if (this.createSessionAllowed) {
+        if (this.createSessionAllowed){
             httpRequest.getSession().setAttribute(
                 "SPRING_SECURITY_SAVED_REQUEST_KEY", savedRequest);
         }
@@ -167,32 +167,32 @@ public class ShopSecurityExceptionFilter extends SpringSecurityFilter
         this.authenticationEntryPoint.commence(httpRequest, response, reason);
     }
 
-    public void setAccessDeniedHandler(AccessDeniedHandler accessDeniedHandler) {
+    public void setAccessDeniedHandler(AccessDeniedHandler accessDeniedHandler){
         Assert.notNull(accessDeniedHandler, "AccessDeniedHandler required");
         this.accessDeniedHandler = accessDeniedHandler;
     }
 
-    public void setAuthenticationEntryPoint(AuthenticationEntryPoint authenticationEntryPoint) {
+    public void setAuthenticationEntryPoint(AuthenticationEntryPoint authenticationEntryPoint){
         this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
-    public void setAuthenticationTrustResolver(AuthenticationTrustResolver authenticationTrustResolver) {
+    public void setAuthenticationTrustResolver(AuthenticationTrustResolver authenticationTrustResolver){
         this.authenticationTrustResolver = authenticationTrustResolver;
     }
 
-    public void setCreateSessionAllowed(boolean createSessionAllowed) {
+    public void setCreateSessionAllowed(boolean createSessionAllowed){
         this.createSessionAllowed = createSessionAllowed;
     }
 
-    public void setPortResolver(PortResolver portResolver) {
+    public void setPortResolver(PortResolver portResolver){
         this.portResolver = portResolver;
     }
 
-    public void setThrowableAnalyzer(ThrowableAnalyzer throwableAnalyzer) {
+    public void setThrowableAnalyzer(ThrowableAnalyzer throwableAnalyzer){
         this.throwableAnalyzer = throwableAnalyzer;
     }
 
-    public int getOrder() {
+    public int getOrder(){
         return FilterChainOrder.EXCEPTION_TRANSLATION_FILTER;
     }
 }

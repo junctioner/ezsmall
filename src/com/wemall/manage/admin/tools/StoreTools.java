@@ -22,41 +22,41 @@ public class StoreTools {
     @Autowired
     private IStoreService storeService;
 
-    public String genericProperty(GoodsSpecification spec) {
+    public String genericProperty(GoodsSpecification spec){
         String val = "";
-        for (GoodsSpecProperty gsp : spec.getProperties()) {
+        for (GoodsSpecProperty gsp : spec.getProperties()){
             val = val + "," + gsp.getValue();
         }
-        if (!val.equals("")) {
+        if (!val.equals("")){
             return val.substring(1);
         }
 
         return "";
     }
 
-    public String createUserFolder(HttpServletRequest request, SysConfig config, Store store) {
+    public String createUserFolder(HttpServletRequest request, SysConfig config, Store store){
         String path = "";
         String uploadFilePath = config.getUploadFilePath();
-        if (config.getImageSaveType().equals("sidImg")) {
+        if (config.getImageSaveType().equals("sidImg")){
             path = request.getSession().getServletContext().getRealPath("/") +
                    uploadFilePath + File.separator + "store" +
                    File.separator + store.getId();
         }
 
-        if (config.getImageSaveType().equals("sidYearImg")) {
+        if (config.getImageSaveType().equals("sidYearImg")){
             path = request.getSession().getServletContext().getRealPath("/") +
                    uploadFilePath + File.separator + "store" +
                    File.separator + store.getId() + File.separator +
                    CommUtil.formatTime("yyyy", new Date());
         }
-        if (config.getImageSaveType().equals("sidYearMonthImg")) {
+        if (config.getImageSaveType().equals("sidYearMonthImg")){
             path = request.getSession().getServletContext().getRealPath("/") +
                    uploadFilePath + File.separator + "store" +
                    File.separator + store.getId() + File.separator +
                    CommUtil.formatTime("yyyy", new Date()) + File.separator +
                    CommUtil.formatTime("MM", new Date());
         }
-        if (config.getImageSaveType().equals("sidYearMonthDayImg")) {
+        if (config.getImageSaveType().equals("sidYearMonthDayImg")){
             path = request.getSession().getServletContext().getRealPath("/") +
                    uploadFilePath + File.separator + "store" +
                    File.separator + store.getId() + File.separator +
@@ -69,23 +69,23 @@ public class StoreTools {
         return path;
     }
 
-    public String createUserFolderURL(SysConfig config, Store store) {
+    public String createUserFolderURL(SysConfig config, Store store){
         String path = "";
         String uploadFilePath = config.getUploadFilePath();
-        if (config.getImageSaveType().equals("sidImg")) {
+        if (config.getImageSaveType().equals("sidImg")){
             path = uploadFilePath + "/store/" + store.getId().toString();
         }
 
-        if (config.getImageSaveType().equals("sidYearImg")) {
+        if (config.getImageSaveType().equals("sidYearImg")){
             path = uploadFilePath + "/store/" + store.getId() + "/" +
                    CommUtil.formatTime("yyyy", new Date());
         }
-        if (config.getImageSaveType().equals("sidYearMonthImg")) {
+        if (config.getImageSaveType().equals("sidYearMonthImg")){
             path = uploadFilePath + "/store/" + store.getId() + "/" +
                    CommUtil.formatTime("yyyy", new Date()) + "/" +
                    CommUtil.formatTime("MM", new Date());
         }
-        if (config.getImageSaveType().equals("sidYearMonthDayImg")) {
+        if (config.getImageSaveType().equals("sidYearMonthDayImg")){
             path = uploadFilePath + "/store/" + store.getId() + "/" +
                    CommUtil.formatTime("yyyy", new Date()) + "/" +
                    CommUtil.formatTime("MM", new Date()) + "/" +
@@ -95,8 +95,8 @@ public class StoreTools {
         return path;
     }
 
-    public String generic_goods_class_info(GoodsClass gc) {
-        if (gc != null) {
+    public String generic_goods_class_info(GoodsClass gc){
+        if (gc != null){
             String goods_class_info = generic_the_goods_class_info(gc);
             return goods_class_info.substring(0, goods_class_info.length() - 1);
         }
@@ -104,10 +104,10 @@ public class StoreTools {
         return "";
     }
 
-    private String generic_the_goods_class_info(GoodsClass gc) {
-        if (gc != null) {
+    private String generic_the_goods_class_info(GoodsClass gc){
+        if (gc != null){
             String goods_class_info = gc.getClassName() + ">";
-            if (gc.getParent() != null) {
+            if (gc.getParent() != null){
                 String class_info = generic_the_goods_class_info(gc.getParent());
                 goods_class_info = class_info + goods_class_info;
             }
@@ -117,7 +117,7 @@ public class StoreTools {
         return "";
     }
 
-    public int query_store_with_user(String user_id) {
+    public int query_store_with_user(String user_id){
         int status = 0;
         Store store = this.storeService.getObjByProperty("user.id",
                       CommUtil.null2Long(user_id));

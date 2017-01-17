@@ -31,43 +31,43 @@ public class IntegralLog extends IdEntity {
     @Column(columnDefinition = "LongText")
     private String content;
 
-    public String getContent() {
+    public String getContent(){
         return this.content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String content){
         this.content = content;
     }
 
-    public User getIntegral_user() {
+    public User getIntegral_user(){
         return this.integral_user;
     }
 
-    public void setIntegral_user(User integral_user) {
+    public void setIntegral_user(User integral_user){
         this.integral_user = integral_user;
     }
 
-    public User getOperate_user() {
+    public User getOperate_user(){
         return this.operate_user;
     }
 
-    public void setOperate_user(User operate_user) {
+    public void setOperate_user(User operate_user){
         this.operate_user = operate_user;
     }
 
-    public int getIntegral() {
+    public int getIntegral(){
         return this.integral;
     }
 
-    public void setIntegral(int integral) {
+    public void setIntegral(int integral){
         this.integral = integral;
     }
 
-    public String getType() {
+    public String getType(){
         return this.type;
     }
 
-    public void setType(String type) {
+    public void setType(String type){
         this.type = type;
     }
 }

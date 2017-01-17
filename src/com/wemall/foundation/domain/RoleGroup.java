@@ -25,35 +25,35 @@ public class RoleGroup extends IdEntity {
     @OneToMany(mappedBy = "rg")
     private List<Role> roles = new ArrayList();
 
-    public String getName() {
+    public String getName(){
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public List<Role> getRoles() {
+    public List<Role> getRoles(){
         return this.roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(List<Role> roles){
         this.roles = roles;
     }
 
-    public String getType() {
+    public String getType(){
         return this.type;
     }
 
-    public void setType(String type) {
+    public void setType(String type){
         this.type = type;
     }
 }

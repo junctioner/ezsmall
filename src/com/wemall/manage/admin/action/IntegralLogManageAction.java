@@ -53,13 +53,13 @@ public class IntegralLogManageAction {
      * @return
      */
     @SecurityMapping(display = false, rsequence = 0, title = "积分明细", value = "/admin/integrallog_list.htm*", rtype = "admin", rname = "积分明细", rcode = "user_integral", rgroup = "会员")
-    @RequestMapping( {"/admin/integrallog_list.htm"})
-    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String userName) {
+    @RequestMapping({"/admin/integrallog_list.htm"})
+    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String userName){
         ModelAndView mv = new JModelAndView("admin/blue/integrallog_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -79,13 +79,13 @@ public class IntegralLogManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "积分管理", value = "/admin/user_integral.htm*", rtype = "admin", rname = "积分管理", rcode = "user_integral", rgroup = "会员")
-    @RequestMapping( {"/admin/user_integral.htm"})
-    public ModelAndView user_integral(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/admin/user_integral.htm"})
+    public ModelAndView user_integral(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("admin/blue/user_integral.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         SysConfig config = this.configService.getSysConfig();
-        if (!config.isIntegral()) {
+        if (!config.isIntegral()){
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -107,11 +107,11 @@ public class IntegralLogManageAction {
      * @param userName
      */
     @SecurityMapping(display = false, rsequence = 0, title = "积分动态获取", value = "/admin/verify_user_integral.htm*", rtype = "admin", rname = "积分管理", rcode = "user_integral", rgroup = "会员")
-    @RequestMapping( {"/admin/verify_user_integral.htm"})
-    public void verify_user_integral(HttpServletRequest request, HttpServletResponse response, String userName) {
+    @RequestMapping({"/admin/verify_user_integral.htm"})
+    public void verify_user_integral(HttpServletRequest request, HttpServletResponse response, String userName){
         User user = this.userService.getObjByProperty("userName", userName);
         int ret = -1;
-        if (user != null) {
+        if (user != null){
             ret = user.getIntegral();
         }
         response.setContentType("text/plain");
@@ -120,7 +120,7 @@ public class IntegralLogManageAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
@@ -136,18 +136,18 @@ public class IntegralLogManageAction {
      * @return
      */
     @SecurityMapping(display = false, rsequence = 0, title = "积分管理保存", value = "/admin/user_integral_save.htm*", rtype = "admin", rname = "积分管理", rcode = "user_integral", rgroup = "会员")
-    @RequestMapping( {"/admin/user_integral_save.htm"})
-    public ModelAndView user_integral_save(HttpServletRequest request, HttpServletResponse response, String userName, String operate_type, String integral, String content) {
+    @RequestMapping({"/admin/user_integral_save.htm"})
+    public ModelAndView user_integral_save(HttpServletRequest request, HttpServletResponse response, String userName, String operate_type, String integral, String content){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
 
         User user = this.userService.getObjByProperty("userName", userName);
-        if (operate_type.equals("add")) {
+        if (operate_type.equals("add")){
             user.setIntegral(user.getIntegral() + CommUtil.null2Int(integral));
-        } else if (user.getIntegral() > CommUtil.null2Int(integral)) {
+        }else if (user.getIntegral() > CommUtil.null2Int(integral)){
             user.setIntegral(user.getIntegral() - CommUtil.null2Int(integral));
-        } else {
+        }else{
             user.setIntegral(0);
         }
 
@@ -158,7 +158,7 @@ public class IntegralLogManageAction {
         log.setContent(content);
         if (operate_type.equals("add"))
             log.setIntegral(CommUtil.null2Int(integral));
-        else {
+       else{
             log.setIntegral(-CommUtil.null2Int(integral));
         }
         log.setOperate_user(SecurityUserHolder.getCurrentUser());

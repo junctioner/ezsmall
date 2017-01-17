@@ -5,11 +5,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.wemall.core.query.QueryObject;
 
 public class GoodsTypeQueryObject extends QueryObject {
-    public GoodsTypeQueryObject(String currentPage, ModelAndView mv, String orderBy, String orderType) {
+    public GoodsTypeQueryObject(String currentPage, ModelAndView mv, String orderBy, String orderType){
         super(currentPage, mv, orderBy, orderType);
     }
 
-    public GoodsTypeQueryObject() {
+    public GoodsTypeQueryObject(){
     }
 }
 

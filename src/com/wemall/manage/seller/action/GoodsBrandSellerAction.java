@@ -46,8 +46,8 @@ public class GoodsBrandSellerAction extends IdEntity {
     private IAccessoryService accessoryService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家品牌列表", value = "/seller/usergoodsbrand_list.htm*", rtype = "seller", rname = "品牌申请", rcode = "usergoodsbrand_seller", rgroup = "商品管理")
-    @RequestMapping( {"/seller/usergoodsbrand_list.htm"})
-    public ModelAndView usergoodsbrand_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/seller/usergoodsbrand_list.htm"})
+    public ModelAndView usergoodsbrand_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/usergoodsbrand_list.html",
             this.configService.getSysConfig(), this.userConfigService
@@ -66,8 +66,8 @@ public class GoodsBrandSellerAction extends IdEntity {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家品牌申请", value = "/seller/usergoodsbrand_add.htm*", rtype = "seller", rname = "品牌申请", rcode = "usergoodsbrand_seller", rgroup = "商品管理")
-    @RequestMapping( {"/seller/usergoodsbrand_add.htm"})
-    public ModelAndView usergoodsbrand_add(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/usergoodsbrand_add.htm"})
+    public ModelAndView usergoodsbrand_add(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/usergoodsbrand_add.html",
             this.configService.getSysConfig(), this.userConfigService
@@ -77,13 +77,13 @@ public class GoodsBrandSellerAction extends IdEntity {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家品牌编辑", value = "/seller/usergoodsbrand_edit.htm*", rtype = "seller", rname = "品牌申请", rcode = "usergoodsbrand_seller", rgroup = "商品管理")
-    @RequestMapping( {"/seller/usergoodsbrand_edit.htm"})
-    public ModelAndView usergoodsbrand_edit(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/usergoodsbrand_edit.htm"})
+    public ModelAndView usergoodsbrand_edit(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/usergoodsbrand_add.html",
             this.configService.getSysConfig(), this.userConfigService
             .getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             GoodsBrand goodsBrand = this.goodsBrandService.getObjById(
                                         Long.valueOf(Long.parseLong(id)));
             mv.addObject("obj", goodsBrand);
@@ -94,12 +94,12 @@ public class GoodsBrandSellerAction extends IdEntity {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家品牌删除", value = "/seller/usergoodsbrand_dele.htm*", rtype = "seller", rname = "品牌申请", rcode = "usergoodsbrand_seller", rgroup = "商品管理")
-    @RequestMapping( {"/seller/usergoodsbrand_dele.htm"})
-    public String usergoodsbrand_dele(HttpServletRequest request, String id, String currentPage) {
-        if (!id.equals("")) {
+    @RequestMapping({"/seller/usergoodsbrand_dele.htm"})
+    public String usergoodsbrand_dele(HttpServletRequest request, String id, String currentPage){
+        if (!id.equals("")){
             GoodsBrand brand = this.goodsBrandService.getObjById(
                                    Long.valueOf(Long.parseLong(id)));
-            if (brand.getAudit() != 1) {
+            if (brand.getAudit() != 1){
                 CommUtil.del_acc(request, brand.getBrandLogo());
                 this.goodsBrandService.delete(Long.valueOf(Long.parseLong(id)));
             }
@@ -109,17 +109,17 @@ public class GoodsBrandSellerAction extends IdEntity {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家品牌保存", value = "/seller/usergoodsbrand_save.htm*", rtype = "seller", rname = "品牌申请", rcode = "usergoodsbrand_seller", rgroup = "商品管理")
-    @RequestMapping( {"/seller/usergoodsbrand_save.htm"})
-    public String usergoodsbrand_save(HttpServletRequest request, HttpServletResponse response, String id, String cmd, String cat_name, String list_url, String add_url) {
+    @RequestMapping({"/seller/usergoodsbrand_save.htm"})
+    public String usergoodsbrand_save(HttpServletRequest request, HttpServletResponse response, String id, String cmd, String cat_name, String list_url, String add_url){
         WebForm wf = new WebForm();
         GoodsBrand goodsBrand = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             goodsBrand = (GoodsBrand)wf.toPo(request, GoodsBrand.class);
             goodsBrand.setAddTime(new Date());
             goodsBrand.setAudit(0);
             goodsBrand.setUserStatus(1);
             goodsBrand.setUser(SecurityUserHolder.getCurrentUser());
-        } else {
+        }else{
             GoodsBrand obj = this.goodsBrandService.getObjById(
                                  Long.valueOf(Long.parseLong(id)));
             goodsBrand = (GoodsBrand)wf.toPo(request, obj);
@@ -136,8 +136,8 @@ public class GoodsBrandSellerAction extends IdEntity {
                               goodsBrand.getBrandLogo().getName();
             map = CommUtil.saveFileToServer(request, "brandLogo",
                                             saveFilePathName, fileName, null);
-            if (fileName.equals("")) {
-                if (map.get("fileName") != "") {
+            if (fileName.equals("")){
+                if (map.get("fileName") != ""){
                     Accessory photo = new Accessory();
                     photo.setName(CommUtil.null2String(map.get("fileName")));
                     photo.setExt(CommUtil.null2String(map.get("mime")));
@@ -149,7 +149,7 @@ public class GoodsBrandSellerAction extends IdEntity {
                     this.accessoryService.save(photo);
                     goodsBrand.setBrandLogo(photo);
                 }
-            } else if (map.get("fileName") != "") {
+            }else if (map.get("fileName") != ""){
                 Accessory photo = goodsBrand.getBrandLogo();
                 photo.setName(CommUtil.null2String(map.get("fileName")));
                 photo.setExt(CommUtil.null2String(map.get("mime")));
@@ -160,7 +160,7 @@ public class GoodsBrandSellerAction extends IdEntity {
                 photo.setAddTime(new Date());
                 this.accessoryService.update(photo);
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
         if (id.equals(""))

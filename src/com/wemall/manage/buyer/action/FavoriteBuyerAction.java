@@ -34,14 +34,14 @@ public class FavoriteBuyerAction {
     private IFavoriteService favoriteService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "用户商品收藏", value = "/buyer/favorite_goods.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/favorite_goods.htm"})
-    public ModelAndView favorite_goods(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/buyer/favorite_goods.htm"})
+    public ModelAndView favorite_goods(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/favorite_goods.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -59,14 +59,14 @@ public class FavoriteBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "用户店铺收藏", value = "/buyer/favorite_store.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/favorite_store.htm"})
-    public ModelAndView favorite_store(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/buyer/favorite_store.htm"})
+    public ModelAndView favorite_store(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/favorite_store.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -84,17 +84,17 @@ public class FavoriteBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "用户收藏删除", value = "/buyer/favorite_del.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/favorite_del.htm"})
-    public String favorite_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage, int type) {
+    @RequestMapping({"/buyer/favorite_del.htm"})
+    public String favorite_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage, int type){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 Favorite favorite = this.favoriteService.getObjById(
                                         Long.valueOf(Long.parseLong(id)));
                 this.favoriteService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
-        if (type == 0) {
+        if (type == 0){
             return "redirect:favorite_goods.htm?currentPage=" + currentPage;
         }
 

@@ -36,8 +36,8 @@ public class ActivityViewAction {
     @Autowired
     private IActivityGoodsService activityGoodsService;
 
-    @RequestMapping( {"/activity.htm"})
-    public ModelAndView activity(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/activity.htm"})
+    public ModelAndView activity(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("activity.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);

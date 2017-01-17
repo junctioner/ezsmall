@@ -42,35 +42,35 @@ public class Bargain extends IdEntity {
     @Column(columnDefinition = "LongText")
     private String state;
 
-    public Date getBargain_time() {
+    public Date getBargain_time(){
         return this.bargain_time;
     }
 
-    public void setBargain_time(Date bargain_time) {
+    public void setBargain_time(Date bargain_time){
         this.bargain_time = bargain_time;
     }
 
-    public BigDecimal getRebate() {
+    public BigDecimal getRebate(){
         return this.rebate;
     }
 
-    public void setRebate(BigDecimal rebate) {
+    public void setRebate(BigDecimal rebate){
         this.rebate = rebate;
     }
 
-    public int getMaximum() {
+    public int getMaximum(){
         return this.maximum;
     }
 
-    public void setMaximum(int maximum) {
+    public void setMaximum(int maximum){
         this.maximum = maximum;
     }
 
-    public String getState() {
+    public String getState(){
         return this.state;
     }
 
-    public void setState(String state) {
+    public void setState(String state){
         this.state = state;
     }
 }

@@ -27,22 +27,22 @@ public class MD5 {
     public String digestHexStr;
     private byte[] digest = new byte[16];
 
-    public String getMD5ofStr(String inbuf) {
+    public String getMD5ofStr(String inbuf){
         md5Init();
         md5Update(inbuf.getBytes(), inbuf.length());
         md5Final();
         this.digestHexStr = "";
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++){
             this.digestHexStr += byteHEX(this.digest[i]);
         }
         return this.digestHexStr;
     }
 
-    public MD5() {
+    public MD5(){
         md5Init();
     }
 
-    private void md5Init() {
+    private void md5Init(){
         this.count[0] = 0L;
         this.count[1] = 0L;
 
@@ -52,51 +52,51 @@ public class MD5 {
         this.state[3] = 271733878L;
     }
 
-    private long F(long x, long y, long z) {
+    private long F(long x, long y, long z){
         return x & y | (x ^ 0xFFFFFFFF) & z;
     }
 
-    private long G(long x, long y, long z) {
+    private long G(long x, long y, long z){
         return x & z | y & (z ^ 0xFFFFFFFF);
     }
 
-    private long H(long x, long y, long z) {
+    private long H(long x, long y, long z){
         return x ^ y ^ z;
     }
 
-    private long I(long x, long y, long z) {
+    private long I(long x, long y, long z){
         return y ^ (x | z ^ 0xFFFFFFFF);
     }
 
-    private long FF(long a, long b, long c, long d, long x, long s, long ac) {
+    private long FF(long a, long b, long c, long d, long x, long s, long ac){
         a += F(b, c, d) + x + ac;
         a = (int)a << (int)s | (int)a >>> (int)(32L - s);
         a += b;
         return a;
     }
 
-    private long GG(long a, long b, long c, long d, long x, long s, long ac) {
+    private long GG(long a, long b, long c, long d, long x, long s, long ac){
         a += G(b, c, d) + x + ac;
         a = (int)a << (int)s | (int)a >>> (int)(32L - s);
         a += b;
         return a;
     }
 
-    private long HH(long a, long b, long c, long d, long x, long s, long ac) {
+    private long HH(long a, long b, long c, long d, long x, long s, long ac){
         a += H(b, c, d) + x + ac;
         a = (int)a << (int)s | (int)a >>> (int)(32L - s);
         a += b;
         return a;
     }
 
-    private long II(long a, long b, long c, long d, long x, long s, long ac) {
+    private long II(long a, long b, long c, long d, long x, long s, long ac){
         a += I(b, c, d) + x + ac;
         a = (int)a << (int)s | (int)a >>> (int)(32L - s);
         a += b;
         return a;
     }
 
-    private void md5Update(byte[] inbuf, int inputLen) {
+    private void md5Update(byte[] inbuf, int inputLen){
         byte[] block = new byte[64];
         int index = (int)(this.count[0] >>> 3) & 0x3F;
         this.count[0] += (inputLen << 3);
@@ -106,23 +106,23 @@ public class MD5 {
 
         int partLen = 64 - index;
         int i = 0;
-        if (inputLen >= partLen) {
+        if (inputLen >= partLen){
             md5Memcpy(this.buffer, inbuf, index, 0, partLen);
             md5Transform(this.buffer);
 
-            for (int j = partLen; j + 63 < inputLen; j += 64) {
+            for (int j = partLen; j + 63 < inputLen; j += 64){
                 md5Memcpy(block, inbuf, 0, j, 64);
                 md5Transform(block);
             }
             index = 0;
-        } else {
+        }else{
             i = 0;
         }
 
         md5Memcpy(this.buffer, inbuf, index, i, inputLen - i);
     }
 
-    private void md5Final() {
+    private void md5Final(){
         byte[] bits = new byte[8];
 
         Encode(bits, this.count, 8);
@@ -136,12 +136,12 @@ public class MD5 {
         Encode(this.digest, this.state, 16);
     }
 
-    private void md5Memcpy(byte[] output, byte[] input, int outpos, int inpos, int len) {
+    private void md5Memcpy(byte[] output, byte[] input, int outpos, int inpos, int len){
         for (int i = 0; i < len; i++)
             output[(outpos + i)] = input[(inpos + i)];
     }
 
-    private void md5Transform(byte[] block) {
+    private void md5Transform(byte[] block){
         long a = this.state[0];
         long b = this.state[1];
         long c = this.state[2];
@@ -224,9 +224,9 @@ public class MD5 {
         this.state[3] += d;
     }
 
-    private void Encode(byte[] output, long[] input, int len) {
+    private void Encode(byte[] output, long[] input, int len){
         int i = 0;
-        for (int j = 0; j < len; j += 4) {
+        for (int j = 0; j < len; j += 4){
             output[j] = (byte)(int)(input[i] & 0xFF);
             output[(j + 1)] = (byte)(int)(input[i] >>> 8 & 0xFF);
             output[(j + 2)] = (byte)(int)(input[i] >>> 16 & 0xFF);
@@ -236,9 +236,9 @@ public class MD5 {
         }
     }
 
-    private void Decode(long[] output, byte[] input, int len) {
+    private void Decode(long[] output, byte[] input, int len){
         int i = 0;
-        for (int j = 0; j < len; j += 4) {
+        for (int j = 0; j < len; j += 4){
             output[i] =
                 (b2iu(input[j]) |
                  b2iu(input[(j + 1)]) << 8 |
@@ -249,11 +249,11 @@ public class MD5 {
         }
     }
 
-    public static long b2iu(byte b) {
+    public static long b2iu(byte b){
         return b < 0 ? b & 0xFF : b;
     }
 
-    public static String byteHEX(byte ib) {
+    public static String byteHEX(byte ib){
         char[] Digit = {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
             'A', 'B', 'C', 'D', 'E', 'F'

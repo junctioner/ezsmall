@@ -40,7 +40,7 @@ public class DatabaseManageAction {
     private DatabaseTools databaseTools;
 
     @SecurityMapping(display = false, rsequence = 0, title = "数据库备份", value = "/admin/database_add.htm*", rtype = "admin", rname = "数据库管理", rcode = "data_manage", rgroup = "工具")
-    @RequestMapping( {"/admin/database_add.htm"})
+    @RequestMapping({"/admin/database_add.htm"})
     public ModelAndView database_add(HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         ModelAndView mv = new JModelAndView("admin/blue/database_add.html",
@@ -51,18 +51,18 @@ public class DatabaseManageAction {
         int count = 1;
         File dir = new File(path);
         File[] files = dir.listFiles();
-        if (files == null) {
+        if (files == null){
             files = new File[0];
         }
         Arrays.sort(files, new FileSorter(1));
-        if (files.length > 0) {
-            for (File file : files) {
-                if (file.getName().lastIndexOf("_") < 0) {
+        if (files.length > 0){
+            for (File file : files){
+                if (file.getName().lastIndexOf("_") < 0){
                     continue;
                 }
                 if (file.getName().substring(0,
                                              file.getName().lastIndexOf("_")).equals(
-                            CommUtil.formatTime("yyyyMMdd", new Date()))) {
+                            CommUtil.formatTime("yyyyMMdd", new Date()))){
                     count = CommUtil.null2Int(file.getName().substring(
                                                   file.getName().lastIndexOf("_") + 1)) + 1;
                     break;
@@ -77,20 +77,20 @@ public class DatabaseManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "数据库备份保存", value = "/admin/database_backup.htm*", rtype = "admin", rname = "数据库管理", rcode = "data_manage", rgroup = "工具")
-    @RequestMapping( {"/admin/database_backup.htm"})
+    @RequestMapping({"/admin/database_backup.htm"})
     public ModelAndView database_backup(HttpServletRequest request, HttpServletResponse response, String type, String name, String tables, String preBoundSize) throws Exception {
         ModelAndView mv = new JModelAndView("admin/blue/db.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                             request, response);
-        if (CommUtil.null2Float(preBoundSize) >= 20.0F) {
-            if (type.equals("all")) {
+        if (CommUtil.null2Float(preBoundSize) >= 20.0F){
+            if (type.equals("all")){
                 request.getSession(false).setAttribute("backup_type", type);
                 request.getSession(false).setAttribute("backup_name", name);
                 request.getSession(false).setAttribute("backup_size",
                                                        preBoundSize);
                 mv.addObject("mode", "backup");
                 mv.addObject("name", name);
-            } else if (!tables.trim().equals("")) {
+            }else if (!tables.trim().equals("")){
                 request.getSession(false).setAttribute("backup_type", type);
                 request.getSession(false).setAttribute("backup_tables",
                                                        tables);
@@ -99,14 +99,14 @@ public class DatabaseManageAction {
                                                        preBoundSize);
                 mv.addObject("name", name);
                 mv.addObject("mode", "backup");
-            } else {
+            }else{
                 mv = new JModelAndView("admin/blue/error.html",
                                        this.configService.getSysConfig(),
                                        this.userConfigService.getUserConfig(), 0, request,
                                        response);
                 mv.addObject("op_title", "没有选择数据表，数据备份失败");
             }
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -119,7 +119,7 @@ public class DatabaseManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "数据库分卷备份", value = "/admin/database_bund_backup.htm*", rtype = "admin", rname = "数据库管理", rcode = "data_manage", rgroup = "工具")
-    @RequestMapping( {"/admin/database_bund_backup.htm"})
+    @RequestMapping({"/admin/database_bund_backup.htm"})
     public void database_bund_backup(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String name = CommUtil.null2String(request.getSession(false)
                                            .getAttribute("backup_name"));
@@ -131,12 +131,12 @@ public class DatabaseManageAction {
                                              .getAttribute("backup_tables"));
         String path = request.getSession().getServletContext().getRealPath("/") +
                       "data" + File.separator + name;
-        if (type.equals("all")) {
+        if (type.equals("all")){
             boolean ret = CommUtil.createFolder(path);
             if (ret)
                 this.databaseTools.createSqlScript(request, path, name,
                                                    preBoundSize, "");
-        } else {
+        }else{
             boolean ret = CommUtil.createFolder(path);
             if (ret)
                 this.databaseTools.createSqlScript(request, path, name,
@@ -145,8 +145,8 @@ public class DatabaseManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "数据库备份列表", value = "/admin/database_list.htm*", rtype = "admin", rname = "数据库管理", rcode = "data_manage", rgroup = "工具")
-    @RequestMapping( {"/admin/database_list.htm"})
-    public ModelAndView database_list(HttpServletRequest request, HttpServletResponse response, String type, String name, String preBoundSize) {
+    @RequestMapping({"/admin/database_list.htm"})
+    public ModelAndView database_list(HttpServletRequest request, HttpServletResponse response, String type, String name, String preBoundSize){
         ModelAndView mv = new JModelAndView("admin/blue/database_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -155,12 +155,12 @@ public class DatabaseManageAction {
                       "data";
         File dir = new File(path);
         File[] files = dir.listFiles();
-        if (files == null) {
+        if (files == null){
             files = new File[0];
         }
         Arrays.sort(files, new FileSorter(1));
-        for (File f : files) {
-            if (f.isDirectory()) {
+        for (File f : files){
+            if (f.isDirectory()){
                 ShopData obj = new ShopData();
                 obj.setAddTime(new Date(f.lastModified()));
                 obj.setSize(CommUtil.fileSize(f));
@@ -175,13 +175,13 @@ public class DatabaseManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "数据库备份删除", value = "/admin/database_del.htm*", rtype = "admin", rname = "数据库管理", rcode = "data_manage", rgroup = "工具")
-    @RequestMapping( {"/admin/database_del.htm"})
-    public ModelAndView database_del(HttpServletRequest request, HttpServletResponse response, String names) {
+    @RequestMapping({"/admin/database_del.htm"})
+    public ModelAndView database_del(HttpServletRequest request, HttpServletResponse response, String names){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         String[] list = names.split(",");
-        for (String name : list) {
+        for (String name : list){
             String path = request.getSession().getServletContext()
                           .getRealPath("/") +
                           "data" + File.separator + name;
@@ -195,8 +195,8 @@ public class DatabaseManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "数据库导入引导", value = "/admin/database_store.htm*", rtype = "admin", rname = "数据库管理", rcode = "data_manage", rgroup = "工具")
-    @RequestMapping( {"/admin/database_store.htm"})
-    public ModelAndView database_store(HttpServletRequest request, HttpServletResponse response, String name) {
+    @RequestMapping({"/admin/database_store.htm"})
+    public ModelAndView database_store(HttpServletRequest request, HttpServletResponse response, String name){
         ModelAndView mv = new JModelAndView("admin/blue/db.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                             request, response);
@@ -212,20 +212,20 @@ public class DatabaseManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "数据库分卷导入", value = "/admin/database_bund_store.htm*", rtype = "admin", rname = "数据库管理", rcode = "data_manage", rgroup = "工具")
-    @RequestMapping( {"/admin/database_bund_store.htm"})
+    @RequestMapping({"/admin/database_bund_store.htm"})
     public void database_bund_store(HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         File[] files = (File[])request.getSession(false).getAttribute(
                            "db_store_tables");
         if ((files != null) && (files.length > 0))
-            for (int i = 0; i < files.length; i++) {
+            for (int i = 0; i < files.length; i++){
                 request.getSession(false).setAttribute("db_mode", "store");
                 request.getSession(false).setAttribute("db_bound", Integer.valueOf(i + 1));
                 request.getSession(false).setAttribute("db_error", Integer.valueOf(0));
                 request.getSession(false).setAttribute("db_result", Integer.valueOf(0));
                 boolean ret = this.databaseTools.executSqlScript(files[i]
                               .getPath());
-                if (ret) {
+                if (ret){
                     if (i == files.length - 1)
                         request.getSession(false).setAttribute("db_result", Integer.valueOf(1));
                 } else
@@ -233,8 +233,8 @@ public class DatabaseManageAction {
             }
     }
 
-    @RequestMapping( {"/admin/database_deal_info.htm"})
-    public void database_deal_info(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/admin/database_deal_info.htm"})
+    public void database_deal_info(HttpServletRequest request, HttpServletResponse response){
         JSONObject obj = new JSONObject();
         obj.put("error", request.getSession(false).getAttribute("db_error"));
         obj.put("bound", request.getSession(false).getAttribute("db_bound"));
@@ -247,19 +247,19 @@ public class DatabaseManageAction {
             PrintWriter writer = response.getWriter();
 
             writer.print(obj.toJSONString());
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    @RequestMapping( {"/admin/database_success.htm"})
+    @RequestMapping({"/admin/database_success.htm"})
     public ModelAndView database_success(HttpServletRequest request, HttpServletResponse response, String mode) throws Exception {
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         String op_title = "数据备份成功";
         String list_url = CommUtil.getURL(request) + "/admin/database_add.htm";
-        if (mode.equals("store")) {
+        if (mode.equals("store")){
             CacheManager manager = CacheManager.create();
             manager.clearAll();
             op_title = "数据恢复成功";
@@ -280,14 +280,14 @@ public class DatabaseManageAction {
         return mv;
     }
 
-    @RequestMapping( {"/admin/database_error.htm"})
+    @RequestMapping({"/admin/database_error.htm"})
     public ModelAndView database_error(HttpServletRequest request, HttpServletResponse response, String mode) throws Exception {
         ModelAndView mv = new JModelAndView("admin/blue/error.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         String op_title = "数据备份失败";
         String list_url = CommUtil.getURL(request) + "/admin/database_add.htm";
-        if (mode.equals("store")) {
+        if (mode.equals("store")){
             op_title = "数据恢复失败";
             list_url = CommUtil.getURL(request) + "/admin/database_list.htm";
         }

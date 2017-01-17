@@ -6,7 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class CheckURL {
-    public static String check(String urlvalue) {
+    public static String check(String urlvalue){
         String inputLine = "";
         try {
             URL url = new URL(urlvalue);
@@ -18,7 +18,7 @@ public class CheckURL {
                 new InputStreamReader(urlConnection.getInputStream()));
 
             inputLine = in.readLine().toString();
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 

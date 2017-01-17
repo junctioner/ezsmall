@@ -43,14 +43,14 @@ public class PartnerManageAction {
     private IAccessoryService accessoryService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "合作伙伴列表", value = "/admin/partner_list.htm*", rtype = "admin", rname = "合作伙伴", rcode = "partner_manage", rgroup = "网站")
-    @RequestMapping( {"/admin/partner_list.htm"})
-    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String title) {
+    @RequestMapping({"/admin/partner_list.htm"})
+    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String title){
         ModelAndView mv = new JModelAndView("admin/blue/partner_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         PartnerQueryObject qo = new PartnerQueryObject(currentPage, mv,
                 orderBy, orderType);
-        if ((title != null) && (!title.equals(""))) {
+        if ((title != null) && (!title.equals(""))){
             qo.addQuery("obj.title", new SysMap("title", "%" + title + "%"),
                         "like");
         }
@@ -60,14 +60,14 @@ public class PartnerManageAction {
         qo.setOrderType("asc");
         IPageList pList = this.partnerService.list(qo);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         if ((title != null) && (!title.equals("")))
             CommUtil.saveIPageList2ModelAndView(
                 url + "/admin/partner_list.htm", "", "title=" + title,
                 pList, mv);
-        else {
+       else{
             CommUtil.saveIPageList2ModelAndView(
                 url + "/admin/partner_list.htm", "", "", pList, mv);
         }
@@ -76,8 +76,8 @@ public class PartnerManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "合作伙伴添加", value = "/admin/partner_add.htm*", rtype = "admin", rname = "合作伙伴", rcode = "partner_manage", rgroup = "网站")
-    @RequestMapping( {"/admin/partner_add.htm"})
-    public ModelAndView add(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/admin/partner_add.htm"})
+    public ModelAndView add(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/partner_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -87,12 +87,12 @@ public class PartnerManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "合作伙伴编辑", value = "/admin/partner_edit.htm*", rtype = "admin", rname = "合作伙伴", rcode = "partner_manage", rgroup = "网站")
-    @RequestMapping( {"/admin/partner_edit.htm"})
-    public ModelAndView edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/partner_edit.htm"})
+    public ModelAndView edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/partner_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             Partner partner = this.partnerService
                               .getObjById(Long.valueOf(Long.parseLong(id)));
             mv.addObject("obj", partner);
@@ -104,14 +104,14 @@ public class PartnerManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "合作伙伴保存", value = "/admin/partner_save.htm*", rtype = "admin", rname = "合作伙伴", rcode = "partner_manage", rgroup = "网站")
-    @RequestMapping( {"/admin/partner_save.htm"})
-    public ModelAndView save(HttpServletRequest request, HttpServletResponse response, String id, String list_url, String add_url) {
+    @RequestMapping({"/admin/partner_save.htm"})
+    public ModelAndView save(HttpServletRequest request, HttpServletResponse response, String id, String list_url, String add_url){
         WebForm wf = new WebForm();
         Partner partner = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             partner = (Partner)wf.toPo(request, Partner.class);
             partner.setAddTime(new Date());
-        } else {
+        }else{
             Partner obj = this.partnerService.getObjById(Long.valueOf(Long.parseLong(id)));
             partner = (Partner)wf.toPo(request, obj);
         }
@@ -127,8 +127,8 @@ public class PartnerManageAction {
                               .getImage().getName();
             map = CommUtil.saveFileToServer(request, "image", saveFilePathName,
                                             fileName, null);
-            if (fileName.equals("")) {
-                if (map.get("fileName") != "") {
+            if (fileName.equals("")){
+                if (map.get("fileName") != ""){
                     Accessory photo = new Accessory();
                     photo.setName(CommUtil.null2String(map.get("fileName")));
                     photo.setExt(CommUtil.null2String(map.get("mime")));
@@ -140,7 +140,7 @@ public class PartnerManageAction {
                     this.accessoryService.save(photo);
                     partner.setImage(photo);
                 }
-            } else if (map.get("fileName") != "") {
+            }else if (map.get("fileName") != ""){
                 Accessory photo = partner.getImage();
                 photo.setName(CommUtil.null2String(map.get("fileName")));
                 photo.setExt(CommUtil.null2String(map.get("mime")));
@@ -150,7 +150,7 @@ public class PartnerManageAction {
                 photo.setHeight(CommUtil.null2Int(map.get("height")));
                 this.accessoryService.update(photo);
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
 
@@ -163,7 +163,7 @@ public class PartnerManageAction {
                                             .getUserConfig(), 0, request, response);
         mv.addObject("list_url", list_url);
         mv.addObject("op_title", "保存合作伙伴成功");
-        if (add_url != null) {
+        if (add_url != null){
             mv.addObject("add_url", add_url);
         }
 
@@ -171,11 +171,11 @@ public class PartnerManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "合作伙伴删除", value = "/admin/partner_del.htm*", rtype = "admin", rname = "合作伙伴", rcode = "partner_manage", rgroup = "网站")
-    @RequestMapping( {"/admin/partner_del.htm"})
-    public String delete(HttpServletRequest request, String mulitId) {
+    @RequestMapping({"/admin/partner_del.htm"})
+    public String delete(HttpServletRequest request, String mulitId){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 Partner partner = this.partnerService.getObjById(
                                       Long.valueOf(Long.parseLong(id)));
                 CommUtil.del_acc(request, partner.getImage());

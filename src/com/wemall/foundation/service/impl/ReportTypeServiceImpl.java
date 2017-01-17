@@ -21,78 +21,78 @@ public class ReportTypeServiceImpl
     @Resource(name = "reportTypeDAO")
     private IGenericDAO<ReportType> reportTypeDao;
 
-    public boolean save(ReportType reportType) {
+    public boolean save(ReportType reportType){
         try {
             this.reportTypeDao.save(reportType);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public ReportType getObjById(Long id) {
+    public ReportType getObjById(Long id){
         ReportType reportType = (ReportType)this.reportTypeDao.get(id);
-        if (reportType != null) {
+        if (reportType != null){
             return reportType;
         }
 
         return null;
     }
 
-    public boolean delete(Long id) {
+    public boolean delete(Long id){
         try {
             this.reportTypeDao.remove(id);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public boolean batchDelete(List<Serializable> reportTypeIds) {
-        for (Serializable id : reportTypeIds) {
+    public boolean batchDelete(List<Serializable> reportTypeIds){
+        for (Serializable id : reportTypeIds){
             delete((Long)id);
         }
 
         return true;
     }
 
-    public IPageList list(IQueryObject properties) {
-        if (properties == null) {
+    public IPageList list(IQueryObject properties){
+        if (properties == null){
             return null;
         }
         String query = properties.getQuery();
         Map params = properties.getParameters();
         GenericPageList pList = new GenericPageList(ReportType.class, query,
                 params, this.reportTypeDao);
-        if (properties != null) {
+        if (properties != null){
             PageObject pageObj = properties.getPageObj();
             if (pageObj != null)
                 pList.doList(pageObj.getCurrentPage() == null ? 0 : pageObj
                              .getCurrentPage().intValue(), pageObj.getPageSize() == null ? 0 :
                              pageObj.getPageSize().intValue());
-        } else {
+        }else{
             pList.doList(0, -1);
         }
 
         return pList;
     }
 
-    public boolean update(ReportType reportType) {
+    public boolean update(ReportType reportType){
         try {
             this.reportTypeDao.update(reportType);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public List<ReportType> query(String query, Map params, int begin, int max) {
+    public List<ReportType> query(String query, Map params, int begin, int max){
         return this.reportTypeDao.query(query, params, begin, max);
     }
 }

@@ -62,12 +62,12 @@ public class MD5 {
      * getMD5ofStr是类MD5最主要的公共方法，入口参数是你想要进行MD5变换的字符串
      * 返回的是变换完的结果，这个结果是从公共成员digestHexStr取得的．
      */
-    public String getMD5ofStr(String inbuf) {
+    public String getMD5ofStr(String inbuf){
         md5Init();
         md5Update(inbuf.getBytes(), inbuf.length());
         md5Final();
         digestHexStr = "";
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++){
             digestHexStr += byteHEX(digest[i]);
         }
 
@@ -75,14 +75,14 @@ public class MD5 {
     }
 
     // 这是MD5这个类的标准构造函数，JavaBean要求有一个public的并且没有参数的构造函数
-    public MD5() {
+    public MD5(){
         md5Init();
 
         return;
     }
 
     /* md5Init是一个初始化函数，初始化核心变量，装入标准的幻数 */
-    private void md5Init() {
+    private void md5Init(){
         count[0] = 0L;
         count[1] = 0L;
         // /* Load magic initialization constants.
@@ -100,21 +100,21 @@ public class MD5 {
      * 简单的位运算，可能出于效率的考虑把它们实现成了宏，在java中，我们把它们 　　实现成了private方法，名字保持了原来C中的。
      */
 
-    private long F(long x, long y, long z) {
+    private long F(long x, long y, long z){
         return (x & y) | ((~x) & z);
 
     }
 
-    private long G(long x, long y, long z) {
+    private long G(long x, long y, long z){
         return (x & z) | (y & (~z));
 
     }
 
-    private long H(long x, long y, long z) {
+    private long H(long x, long y, long z){
         return x ^ y ^ z;
     }
 
-    private long I(long x, long y, long z) {
+    private long I(long x, long y, long z){
         return y ^ (x | (~z));
     }
 
@@ -124,7 +124,7 @@ public class MD5 {
      * recomputation.
      */
 
-    private long FF(long a, long b, long c, long d, long x, long s, long ac) {
+    private long FF(long a, long b, long c, long d, long x, long s, long ac){
         a += F(b, c, d) + x + ac;
         a = ((int) a << s) | ((int) a >>> (32 - s));
         a += b;
@@ -132,7 +132,7 @@ public class MD5 {
         return a;
     }
 
-    private long GG(long a, long b, long c, long d, long x, long s, long ac) {
+    private long GG(long a, long b, long c, long d, long x, long s, long ac){
         a += G(b, c, d) + x + ac;
         a = ((int) a << s) | ((int) a >>> (32 - s));
         a += b;
@@ -140,7 +140,7 @@ public class MD5 {
         return a;
     }
 
-    private long HH(long a, long b, long c, long d, long x, long s, long ac) {
+    private long HH(long a, long b, long c, long d, long x, long s, long ac){
         a += H(b, c, d) + x + ac;
         a = ((int) a << s) | ((int) a >>> (32 - s));
         a += b;
@@ -148,7 +148,7 @@ public class MD5 {
         return a;
     }
 
-    private long II(long a, long b, long c, long d, long x, long s, long ac) {
+    private long II(long a, long b, long c, long d, long x, long s, long ac){
         a += I(b, c, d) + x + ac;
         a = ((int) a << s) | ((int) a >>> (32 - s));
         a += b;
@@ -160,7 +160,7 @@ public class MD5 {
      * md5Update是MD5的主计算过程，inbuf是要变换的字节串，inputlen是长度，这个
      * 函数由getMD5ofStr调用，调用之前需要调用md5init，因此把它设计成private的
      */
-    private void md5Update(byte[] inbuf, int inputLen) {
+    private void md5Update(byte[] inbuf, int inputLen){
 
         int i, index, partLen;
         byte[] block = new byte[64];
@@ -173,11 +173,11 @@ public class MD5 {
         partLen = 64 - index;
 
         // Transform as many times as possible.
-        if (inputLen >= partLen) {
+        if (inputLen >= partLen){
             md5Memcpy(buffer, inbuf, index, 0, partLen);
             md5Transform(buffer);
 
-            for (i = partLen; i + 63 < inputLen; i += 64) {
+            for (i = partLen; i + 63 < inputLen; i += 64){
 
                 md5Memcpy(block, inbuf, 0, i, 64);
                 md5Transform(block);
@@ -195,7 +195,7 @@ public class MD5 {
     /*
      * md5Final整理和填写输出结果
      */
-    private void md5Final() {
+    private void md5Final(){
         byte[] bits = new byte[8];
         int index, padLen;
 
@@ -219,7 +219,7 @@ public class MD5 {
      * 字节拷贝到output的outpos位置开始
      */
 
-    private void md5Memcpy(byte[] output, byte[] input, int outpos, int inpos, int len) {
+    private void md5Memcpy(byte[] output, byte[] input, int outpos, int inpos, int len){
         int i;
 
         for (i = 0; i < len; i++)
@@ -229,7 +229,7 @@ public class MD5 {
     /*
      * md5Transform是MD5核心变换程序，有md5Update调用，block是分块的原始字节
      */
-    private void md5Transform(byte block[]) {
+    private void md5Transform(byte block[]){
         long a = state[0], b = state[1], c = state[2], d = state[3];
         long[] x = new long[16];
 
@@ -316,10 +316,10 @@ public class MD5 {
     /*
      * Encode把long数组按顺序拆成byte数组，因为java的long类型是64bit的， 只拆低32bit，以适应原始C实现的用途
      */
-    private void Encode(byte[] output, long[] input, int len) {
+    private void Encode(byte[] output, long[] input, int len){
         int i, j;
 
-        for (i = 0, j = 0; j < len; i++, j += 4) {
+        for (i = 0, j = 0; j < len; i++, j += 4){
             output[j] = (byte) (input[i] & 0xffL);
             output[j + 1] = (byte) ((input[i] >>> 8) & 0xffL);
             output[j + 2] = (byte) ((input[i] >>> 16) & 0xffL);
@@ -331,7 +331,7 @@ public class MD5 {
      * Decode把byte数组按顺序合成成long数组，因为java的long类型是64bit的，
      * 只合成低32bit，高32bit清零，以适应原始C实现的用途
      */
-    private void Decode(long[] output, byte[] input, int len) {
+    private void Decode(long[] output, byte[] input, int len){
         int i, j;
 
         for (i = 0, j = 0; j < len; i++, j += 4)
@@ -343,7 +343,7 @@ public class MD5 {
     /*
      * b2iu是我写的一个把byte按照不考虑正负号的原则的＂升位＂程序，因为java没有unsigned运算
      */
-    public static long b2iu(byte b) {
+    public static long b2iu(byte b){
         return b < 0 ? b & 0x7F + 128 : b;
     }
 
@@ -351,7 +351,7 @@ public class MD5 {
      * byteHEX()，用来把一个byte类型的数转换成十六进制的ASCII表示，
      * 　因为java中的byte的toString无法实现这一点，我们又没有C语言中的 sprintf(outbuf,"%02X",ib)
      */
-    public static String byteHEX(byte ib) {
+    public static String byteHEX(byte ib){
         char[] Digit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
         char[] ob = new char[2];
         ob[0] = Digit[(ib >>> 4) & 0X0F];
@@ -361,9 +361,9 @@ public class MD5 {
         return s;
     }
 
-    public static void main(String args[]) {
+    public static void main(String args[]){
         MD5 m = new MD5();
-        if (Array.getLength(args) == 0) { // 如果没有参数，执行标准的Test Suite
+        if (Array.getLength(args) == 0){ // 如果没有参数，执行标准的Test Suite
 
             log.info("MD5 Test suite:");
             log.info("MD5(\"\"):" + m.getMD5ofStr(""));

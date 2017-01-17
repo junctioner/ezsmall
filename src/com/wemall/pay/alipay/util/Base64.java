@@ -14,35 +14,35 @@ public final class Base64 {
     private static final char[] lookUpBase64Alphabet = new char[64];
 
     static {
-        for (int i = 0; i < 128; i++) {
+        for (int i = 0; i < 128; i++){
             base64Alphabet[i] = -1;
         }
-        for (int i = 90; i >= 65; i--) {
+        for (int i = 90; i >= 65; i--){
             base64Alphabet[i] = (byte)(i - 65);
         }
-        for (int i = 122; i >= 97; i--) {
+        for (int i = 122; i >= 97; i--){
             base64Alphabet[i] = (byte)(i - 97 + 26);
         }
 
-        for (int i = 57; i >= 48; i--) {
+        for (int i = 57; i >= 48; i--){
             base64Alphabet[i] = (byte)(i - 48 + 52);
         }
 
         base64Alphabet[43] = 62;
         base64Alphabet[47] = 63;
 
-        for (int j = 0; j <= 25; j++) {
+        for (int j = 0; j <= 25; j++){
             lookUpBase64Alphabet[j] = (char)(65 + j);
             j++;
         }
 
-        for (int j = 26; j <= 51; j++) {
+        for (int j = 26; j <= 51; j++){
             lookUpBase64Alphabet[j] = (char)(97 + j);
 
 
         }
 
-        for (int j = 52; j <= 61; j++) {
+        for (int j = 52; j <= 61; j++){
             lookUpBase64Alphabet[j] = (char)(48 + j);
 
 
@@ -52,25 +52,25 @@ public final class Base64 {
         lookUpBase64Alphabet[63] = '/';
     }
 
-    private static boolean isWhiteSpace(char octect) {
+    private static boolean isWhiteSpace(char octect){
         return (octect == ' ') || (octect == '\r') || (octect == '\n') || (octect == '\t');
     }
 
-    private static boolean isPad(char octect) {
+    private static boolean isPad(char octect){
         return octect == '=';
     }
 
-    private static boolean isData(char octect) {
+    private static boolean isData(char octect){
         return (octect < '?') && (base64Alphabet[octect] != -1);
     }
 
-    public static String encode(byte[] binaryData) {
-        if (binaryData == null) {
+    public static String encode(byte[] binaryData){
+        if (binaryData == null){
             return null;
         }
 
         int lengthDataBits = binaryData.length * 8;
-        if (lengthDataBits == 0) {
+        if (lengthDataBits == 0){
             return "";
         }
 
@@ -90,7 +90,7 @@ public final class Base64 {
         int encodedIndex = 0;
         int dataIndex = 0;
 
-        for (int i = 0; i < numberTriplets; i++) {
+        for (int i = 0; i < numberTriplets; i++){
             b1 = binaryData[(dataIndex++)];
             b2 = binaryData[(dataIndex++)];
             b3 = binaryData[(dataIndex++)];
@@ -108,7 +108,7 @@ public final class Base64 {
             encodedData[(encodedIndex++)] = lookUpBase64Alphabet[(b3 & 0x3F)];
         }
 
-        if (fewerThan24bits == 8) {
+        if (fewerThan24bits == 8){
             b1 = binaryData[dataIndex];
             k = (byte)(b1 & 0x3);
 
@@ -117,7 +117,7 @@ public final class Base64 {
             encodedData[(encodedIndex++)] = lookUpBase64Alphabet[(k << 4)];
             encodedData[(encodedIndex++)] = '=';
             encodedData[(encodedIndex++)] = '=';
-        } else if (fewerThan24bits == 16) {
+        }else if (fewerThan24bits == 16){
             b1 = binaryData[dataIndex];
             b2 = binaryData[(dataIndex + 1)];
             l = (byte)(b2 & 0xF);
@@ -135,8 +135,8 @@ public final class Base64 {
         return new String(encodedData);
     }
 
-    public static byte[] decode(String encoded) {
-        if (encoded == null) {
+    public static byte[] decode(String encoded){
+        if (encoded == null){
             return null;
         }
 
@@ -144,13 +144,13 @@ public final class Base64 {
 
         int len = removeWhiteSpace(base64Data);
 
-        if (len % 4 != 0) {
+        if (len % 4 != 0){
             return null;
         }
 
         int numberQuadruple = len / 4;
 
-        if (numberQuadruple == 0) {
+        if (numberQuadruple == 0){
             return new byte[0];
         }
 
@@ -169,10 +169,10 @@ public final class Base64 {
         int dataIndex = 0;
         decodedData = new byte[numberQuadruple * 3];
 
-        for (; i < numberQuadruple - 1; i++) {
+        for (; i < numberQuadruple - 1; i++){
             if ((!isData(d1 = base64Data[(dataIndex++)])) || (!isData(d2 = base64Data[(dataIndex++)])) ||
                     (!isData(d3 = base64Data[(dataIndex++)])) ||
-                    (!isData(d4 = base64Data[(dataIndex++)]))) {
+                    (!isData(d4 = base64Data[(dataIndex++)]))){
                 return null;
             }
 
@@ -186,7 +186,7 @@ public final class Base64 {
             decodedData[(encodedIndex++)] = (byte)(b3 << 6 | b4);
         }
 
-        if ((!isData(d1 = base64Data[(dataIndex++)])) || (!isData(d2 = base64Data[(dataIndex++)]))) {
+        if ((!isData(d1 = base64Data[(dataIndex++)])) || (!isData(d2 = base64Data[(dataIndex++)]))){
             return null;
         }
 
@@ -195,9 +195,9 @@ public final class Base64 {
 
         d3 = base64Data[(dataIndex++)];
         d4 = base64Data[(dataIndex++)];
-        if ((!isData(d3)) || (!isData(d4))) {
-            if ((isPad(d3)) && (isPad(d4))) {
-                if ((b2 & 0xF) != 0) {
+        if ((!isData(d3)) || (!isData(d4))){
+            if ((isPad(d3)) && (isPad(d4))){
+                if ((b2 & 0xF) != 0){
                     return null;
                 }
                 byte[] tmp = new byte[i * 3 + 1];
@@ -205,9 +205,9 @@ public final class Base64 {
                 tmp[encodedIndex] = (byte)(b1 << 2 | b2 >> 4);
                 return tmp;
             }
-            if ((!isPad(d3)) && (isPad(d4))) {
+            if ((!isPad(d3)) && (isPad(d4))){
                 b3 = base64Alphabet[d3];
-                if ((b3 & 0x3) != 0) {
+                if ((b3 & 0x3) != 0){
                     return null;
                 }
                 byte[] tmp = new byte[i * 3 + 2];
@@ -228,15 +228,15 @@ public final class Base64 {
         return decodedData;
     }
 
-    private static int removeWhiteSpace(char[] data) {
-        if (data == null) {
+    private static int removeWhiteSpace(char[] data){
+        if (data == null){
             return 0;
         }
 
         int newSize = 0;
         int len = data.length;
-        for (int i = 0; i < len; i++) {
-            if (!isWhiteSpace(data[i])) {
+        for (int i = 0; i < len; i++){
+            if (!isWhiteSpace(data[i])){
                 data[(newSize++)] = data[i];
             }
         }

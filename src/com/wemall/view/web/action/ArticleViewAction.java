@@ -41,8 +41,8 @@ public class ArticleViewAction {
     @Autowired
     private ArticleViewTools articleTools;
 
-    @RequestMapping( {"/articlelist.htm"})
-    public ModelAndView articlelist(HttpServletRequest request, HttpServletResponse response, String param, String currentPage) {
+    @RequestMapping({"/articlelist.htm"})
+    public ModelAndView articlelist(HttpServletRequest request, HttpServletResponse response, String param, String currentPage){
         ModelAndView mv = new JModelAndView("articlelist.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -51,16 +51,16 @@ public class ArticleViewAction {
         aqo.setCurrentPage(Integer.valueOf(CommUtil.null2Int(currentPage)));
         Long id = CommUtil.null2Long(param);
         String mark = "";
-        if (id.longValue() == -1L) {
+        if (id.longValue() == -1L){
             mark = param;
         }
-        if (!mark.equals("")) {
+        if (!mark.equals("")){
             aqo
             .addQuery("obj.articleClass.mark",
                       new SysMap("mark", mark), "=");
             ac = this.articleClassService.getObjByPropertyName("mark", mark);
         }
-        if (id.longValue() != -1L) {
+        if (id.longValue() != -1L){
             aqo.addQuery("obj.articleClass.id", new SysMap("id", id), "=");
             ac = this.articleClassService.getObjById(id);
         }
@@ -84,20 +84,20 @@ public class ArticleViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/article.htm"})
-    public ModelAndView article(HttpServletRequest request, HttpServletResponse response, String param) {
+    @RequestMapping({"/article.htm"})
+    public ModelAndView article(HttpServletRequest request, HttpServletResponse response, String param){
         ModelAndView mv = new JModelAndView("article.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
         Article obj = null;
         Long id = CommUtil.null2Long(param);
         String mark = "";
-        if (id.longValue() == -1L) {
+        if (id.longValue() == -1L){
             mark = param;
         }
-        if (id.longValue() != -1L) {
+        if (id.longValue() != -1L){
             obj = this.articleService.getObjById(id);
         }
-        if (!mark.equals("")) {
+        if (!mark.equals("")){
             obj = this.articleService.getObjByProperty("mark", mark);
         }
         List acs = this.articleClassService.query(

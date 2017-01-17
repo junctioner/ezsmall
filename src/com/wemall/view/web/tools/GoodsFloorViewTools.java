@@ -35,19 +35,19 @@ public class GoodsFloorViewTools {
     @Autowired
     private IGoodsBrandService goodsBrandService;
 
-    public List<GoodsClass> generic_gf_gc(String json) {
+    public List<GoodsClass> generic_gf_gc(String json){
         List gcs = new ArrayList();
-        if ((json != null) && (!json.equals(""))) {
+        if ((json != null) && (!json.equals(""))){
             List<Map> list = (List)Json.fromJson(List.class, json);
-            for (Map map : list) {
+            for (Map map : list){
                 GoodsClass the_gc = this.goodsClassService.getObjById(
                                         CommUtil.null2Long(map.get("pid")));
-                if (the_gc != null) {
+                if (the_gc != null){
                     int count = CommUtil.null2Int(map.get("gc_count"));
                     GoodsClass gc = new GoodsClass();
                     gc.setId(the_gc.getId());
                     gc.setClassName(the_gc.getClassName());
-                    for (int i = 1; i <= count; i++) {
+                    for (int i = 1; i <= count; i++){
                         GoodsClass child = this.goodsClassService
                                            .getObjById(CommUtil.null2Long(map.get("gc_id" +
                                                        i)));
@@ -61,16 +61,16 @@ public class GoodsFloorViewTools {
         return gcs;
     }
 
-    public List<Goods> generic_goods(String json) {
+    public List<Goods> generic_goods(String json){
         List goods_list = new ArrayList();
-        if ((json != null) && (!json.equals(""))) {
+        if ((json != null) && (!json.equals(""))){
             Map map = (Map)Json.fromJson(Map.class, json);
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 1; i <= 10; i++){
                 String key = "goods_id" + i;
 
                 Goods goods = this.goodsService.getObjById(
                                   CommUtil.null2Long(map.get(key)));
-                if (goods != null) {
+                if (goods != null){
                     goods_list.add(goods);
                 }
             }
@@ -79,10 +79,10 @@ public class GoodsFloorViewTools {
         return goods_list;
     }
 
-    public Map generic_goods_list(String json) {
+    public Map generic_goods_list(String json){
         Map map = new HashMap();
         map.put("list_title", "商品排行");
-        if ((json != null) && (!json.equals(""))) {
+        if ((json != null) && (!json.equals(""))){
             Map list = (Map)Json.fromJson(Map.class, json);
             map.put("list_title", CommUtil.null2String(list.get("list_title")));
             map.put("goods1", this.goodsService.getObjById(
@@ -102,20 +102,20 @@ public class GoodsFloorViewTools {
         return map;
     }
 
-    public String generic_adv(String web_url, String json) {
+    public String generic_adv(String web_url, String json){
         String template = "<div style='float:left;overflow:hidden;'>";
-        if ((json != null) && (!json.equals(""))) {
+        if ((json != null) && (!json.equals(""))){
             Map map = (Map)Json.fromJson(Map.class, json);
-            if (CommUtil.null2String(map.get("adv_id")).equals("")) {
+            if (CommUtil.null2String(map.get("adv_id")).equals("")){
                 Accessory img = this.accessoryService.getObjById(
                                     CommUtil.null2Long(map.get("acc_id")));
-                if (img != null) {
+                if (img != null){
                     String url = CommUtil.null2String(map.get("acc_url"));
                     template = template + "<a href='" + url +
                                "' target='_blank'><img src='" + web_url + "/" +
                                img.getPath() + "/" + img.getName() + "' /></a>";
                 }
-            } else {
+            }else{
                 AdvertPosition ap = this.advertPositionService
                                     .getObjById(CommUtil.null2Long(map.get("adv_id")));
                 AdvertPosition obj = new AdvertPosition();
@@ -125,22 +125,22 @@ public class GoodsFloorViewTools {
                 obj.setAp_width(ap.getAp_width());
                 obj.setAp_height(ap.getAp_height());
                 List advs = new ArrayList();
-                for (Advert temp_adv : ap.getAdvs()) {
+                for (Advert temp_adv : ap.getAdvs()){
                     if ((temp_adv.getAd_status() != 1) ||
                             (!temp_adv.getAd_begin_time().before(new Date())) ||
                             (!temp_adv.getAd_end_time().after(new Date()))) continue;
                     advs.add(temp_adv);
                 }
 
-                if (advs.size() > 0) {
-                    if (obj.getAp_type().equals("img")) {
-                        if (obj.getAp_show_type() == 0) {
+                if (advs.size() > 0){
+                    if (obj.getAp_type().equals("img")){
+                        if (obj.getAp_show_type() == 0){
                             obj.setAp_acc(((Advert)advs.get(0)).getAd_acc());
                             obj.setAp_acc_url(((Advert)advs.get(0)).getAd_url());
                             obj.setAdv_id(CommUtil.null2String(((Advert)advs.get(0))
                                                                .getId()));
                         }
-                        if (obj.getAp_show_type() == 1) {
+                        if (obj.getAp_show_type() == 1){
                             Random random = new Random();
                             int i = random.nextInt(advs.size());
                             obj.setAp_acc(((Advert)advs.get(i)).getAd_acc());
@@ -149,7 +149,7 @@ public class GoodsFloorViewTools {
                                                                .getId()));
                         }
                     }
-                } else {
+                }else{
                     obj.setAp_acc(ap.getAp_acc());
                     obj.setAp_text(ap.getAp_text());
                     obj.setAp_acc_url(ap.getAp_acc_url());
@@ -170,15 +170,15 @@ public class GoodsFloorViewTools {
         return template;
     }
 
-    public List<GoodsBrand> generic_brand(String json) {
+    public List<GoodsBrand> generic_brand(String json){
         List brands = new ArrayList();
-        if ((json != null) && (!json.equals(""))) {
+        if ((json != null) && (!json.equals(""))){
             Map map = (Map)Json.fromJson(Map.class, json);
-            for (int i = 1; i <= 11; i++) {
+            for (int i = 1; i <= 11; i++){
                 String key = "brand_id" + i;
                 GoodsBrand brand = this.goodsBrandService.getObjById(
                                        CommUtil.null2Long(map.get(key)));
-                if (brand != null) {
+                if (brand != null){
                     brands.add(brand);
                 }
             }

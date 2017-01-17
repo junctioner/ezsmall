@@ -73,24 +73,24 @@ public class StoreSellerAction {
     private AreaViewTools areaViewTools;
 
     @SecurityMapping(display = false, rsequence = 0, title = "申请店铺第一步", value = "/seller/store_create_first.htm*", rtype = "buyer", rname = "申请店铺", rcode = "create_store", rgroup = "申请店铺")
-    @RequestMapping( {"/seller/store_create_first.htm"})
-    public ModelAndView store_create_first(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/store_create_first.htm"})
+    public ModelAndView store_create_first(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = null;
         int store_status = 0;
         Store store = this.storeService.getObjByProperty("user.id",
                       SecurityUserHolder.getCurrentUser().getId());
-        if (store != null) {
+        if (store != null){
             store_status = store.getStore_status();
         }
-        if (this.configService.getSysConfig().isStore_allow()) {
-            if (store_status == 0) {
+        if (this.configService.getSysConfig().isStore_allow()){
+            if (store_status == 0){
                 mv = new JModelAndView("store_create_first.html", this.configService.getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request, response);
                 List sgs = this.storeGradeService.query("select obj from StoreGrade obj order by obj.sequence asc", null, -1, -1);
                 mv.addObject("sgs", sgs);
                 mv.addObject("storeTools", this.storeTools);
             }
-            if (store_status == 1) {
+            if (store_status == 1){
                 mv = new JModelAndView("error.html",
                                        this.configService.getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
@@ -98,7 +98,7 @@ public class StoreSellerAction {
                 mv.addObject("op_title", "您的店铺正在审核中");
                 mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
             }
-            if (store_status == 2) {
+            if (store_status == 2){
                 mv = new JModelAndView("error.html",
                                        this.configService.getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
@@ -106,7 +106,7 @@ public class StoreSellerAction {
                 mv.addObject("op_title", "您已经开通店铺");
                 mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
             }
-            if (store_status == 3) {
+            if (store_status == 3){
                 mv = new JModelAndView("error.html",
                                        this.configService.getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
@@ -114,7 +114,7 @@ public class StoreSellerAction {
                 mv.addObject("op_title", "您的店铺已经被关闭");
                 mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -126,14 +126,14 @@ public class StoreSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "申请店铺第二步", value = "/seller/store_create_second.htm*", rtype = "buyer", rname = "申请店铺", rcode = "create_store", rgroup = "申请店铺")
-    @RequestMapping( {"/seller/store_create_second.htm"})
-    public ModelAndView store_create_second(HttpServletRequest request, HttpServletResponse response, String grade_id) {
+    @RequestMapping({"/seller/store_create_second.htm"})
+    public ModelAndView store_create_second(HttpServletRequest request, HttpServletResponse response, String grade_id){
         ModelAndView mv = null;
         Store store = this.storeService.getObjByProperty("user.id",
                       SecurityUserHolder.getCurrentUser().getId());
         int store_status = store == null ? 0 : store.getStore_status();
-        if (this.configService.getSysConfig().isStore_allow()) {
-            if ((grade_id == null) || (grade_id.equals(""))) {
+        if (this.configService.getSysConfig().isStore_allow()){
+            if ((grade_id == null) || (grade_id.equals(""))){
                 mv = new JModelAndView("store_create_first.html",
                                        this.configService.getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request, response);
@@ -142,8 +142,8 @@ public class StoreSellerAction {
                                   null, -1, -1);
                 mv.addObject("sgs", sgs);
                 mv.addObject("storeTools", this.storeTools);
-            } else {
-                if (store_status == 0) {
+            }else{
+                if (store_status == 0){
                     mv = new JModelAndView("store_create_second.html",
                                            this.configService.getSysConfig(),
                                            this.userConfigService.getUserConfig(), 1, request,
@@ -162,7 +162,7 @@ public class StoreSellerAction {
                     mv.addObject("areas", areas);
                     mv.addObject("grade_id", grade_id);
                 }
-                if (store_status == 1) {
+                if (store_status == 1){
                     mv = new JModelAndView("error.html",
                                            this.configService.getSysConfig(),
                                            this.userConfigService.getUserConfig(), 1, request,
@@ -170,7 +170,7 @@ public class StoreSellerAction {
                     mv.addObject("op_title", "您的店铺正在审核中");
                     mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
                 }
-                if (store_status == 2) {
+                if (store_status == 2){
                     mv = new JModelAndView("error.html",
                                            this.configService.getSysConfig(),
                                            this.userConfigService.getUserConfig(), 1, request,
@@ -178,7 +178,7 @@ public class StoreSellerAction {
                     mv.addObject("op_title", "您已经开通店铺");
                     mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
                 }
-                if (store_status == 3) {
+                if (store_status == 3){
                     mv = new JModelAndView("error.html",
                                            this.configService.getSysConfig(),
                                            this.userConfigService.getUserConfig(), 1, request,
@@ -187,7 +187,7 @@ public class StoreSellerAction {
                     mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
                 }
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -199,19 +199,19 @@ public class StoreSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "申请店铺完成", value = "/seller/store_create_finish.htm*", rtype = "buyer", rname = "申请店铺", rcode = "create_store", rgroup = "申请店铺")
-    @RequestMapping( {"/seller/store_create_finish.htm"})
-    public ModelAndView store_create_finish(HttpServletRequest request, HttpServletResponse response, String sc_id, String grade_id, String area_id, String store_create_session) {
+    @RequestMapping({"/seller/store_create_finish.htm"})
+    public ModelAndView store_create_finish(HttpServletRequest request, HttpServletResponse response, String sc_id, String grade_id, String area_id, String store_create_session){
         ModelAndView mv = new JModelAndView("success.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
         String store_create_session1 = CommUtil.null2String(request.getSession(
                                            false).getAttribute("store_create_session"));
         if ((!store_create_session1.equals("")) &&
-                (store_create_session1.equals(store_create_session))) {
+                (store_create_session1.equals(store_create_session))){
             Store user_store = this.storeService.getObjByProperty("user.id",
                                SecurityUserHolder.getCurrentUser().getId());
             int store_status = user_store == null ? 0 : user_store.getStore_status();
-            if (store_status == 0) {
+            if (store_status == 0){
                 WebForm wf = new WebForm();
                 Store store = (Store)wf.toPo(request, Store.class);
                 StoreClass sc = this.storeClassService.getObjById(Long.valueOf(Long.parseLong(sc_id)));
@@ -237,13 +237,13 @@ public class StoreSellerAction {
                 SecurityUserHolder.getCurrentUser().setStore(store);
                 if (store.getGrade().isAudit())
                     store.setStore_status(1);
-                else {
+               else{
                     store.setStore_status(2);
                 }
-                if (user.getUserRole().equals("BUYER")) {
+                if (user.getUserRole().equals("BUYER")){
                     user.setUserRole("BUYER_SELLER");
                 }
-                if (user.getUserRole().equals("ADMIN")) {
+                if (user.getUserRole().equals("ADMIN")){
                     user.setUserRole("ADMIN_BUYER_SELLER");
                 }
 
@@ -261,12 +261,12 @@ public class StoreSellerAction {
                     user.get_common_Authorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 mv.addObject("op_title", "店铺申请成功");
-            } else {
+            }else{
                 mv = new JModelAndView("error.html",
                                        this.configService.getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
                                        response);
-                if (store_status == 1) {
+                if (store_status == 1){
                     mv = new JModelAndView("error.html",
                                            this.configService.getSysConfig(),
                                            this.userConfigService.getUserConfig(), 1, request,
@@ -274,14 +274,14 @@ public class StoreSellerAction {
                     mv.addObject("op_title", "您的店铺正在审核中");
                     mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
                 }
-                if (store_status == 2) {
+                if (store_status == 2){
                     mv = new JModelAndView("error.html",
                                            this.configService.getSysConfig(),
                                            this.userConfigService.getUserConfig(), 1, request, response);
                     mv.addObject("op_title", "您已经开通店铺");
                     mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
                 }
-                if (store_status == 3) {
+                if (store_status == 3){
                     mv = new JModelAndView("error.html",
                                            this.configService.getSysConfig(),
                                            this.userConfigService.getUserConfig(), 1, request, response);
@@ -291,7 +291,7 @@ public class StoreSellerAction {
             }
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
             request.getSession(false).removeAttribute("store_create_session");
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request, response);
             mv.addObject("op_title", "表单已经失效");
@@ -302,8 +302,8 @@ public class StoreSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺设置", value = "/seller/store_set.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_set.htm"})
-    public ModelAndView store_set(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/store_set.htm"})
+    public ModelAndView store_set(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/store_set.html",
             this.configService.getSysConfig(),
@@ -321,8 +321,8 @@ public class StoreSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺设置保存", value = "/seller/store_set_save.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_set_save.htm"})
-    public ModelAndView store_set_save(HttpServletRequest request, HttpServletResponse response, String area_id, String store_second_domain) {
+    @RequestMapping({"/seller/store_set_save.htm"})
+    public ModelAndView store_set_save(HttpServletRequest request, HttpServletResponse response, String area_id, String store_second_domain){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/success.html",
             this.configService.getSysConfig(),
@@ -343,8 +343,8 @@ public class StoreSellerAction {
                               .getStore_logo().getName();
             map = CommUtil.saveFileToServer(request, "logo", saveFilePathName,
                                             fileName, null);
-            if (fileName.equals("")) {
-                if (map.get("fileName") != "") {
+            if (fileName.equals("")){
+                if (map.get("fileName") != ""){
                     Accessory store_logo = new Accessory();
                     store_logo
                     .setName(CommUtil.null2String(map.get("fileName")));
@@ -358,7 +358,7 @@ public class StoreSellerAction {
                     this.accessoryService.save(store_logo);
                     store.setStore_logo(store_logo);
                 }
-            } else if (map.get("fileName") != "") {
+            }else if (map.get("fileName") != ""){
                 Accessory store_logo = store.getStore_logo();
                 store_logo
                 .setName(CommUtil.null2String(map.get("fileName")));
@@ -370,7 +370,7 @@ public class StoreSellerAction {
                 store_logo.setHeight(CommUtil.null2Int(map.get("height")));
                 this.accessoryService.update(store_logo);
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
 
@@ -383,8 +383,8 @@ public class StoreSellerAction {
                               .getStore_banner().getName();
             map = CommUtil.saveFileToServer(request, "banner",
                                             saveFilePathName, fileName, null);
-            if (fileName.equals("")) {
-                if (map.get("fileName") != "") {
+            if (fileName.equals("")){
+                if (map.get("fileName") != ""){
                     Accessory store_banner = new Accessory();
                     store_banner.setName(CommUtil.null2String(map
                                          .get("fileName")));
@@ -399,7 +399,7 @@ public class StoreSellerAction {
                     this.accessoryService.save(store_banner);
                     store.setStore_banner(store_banner);
                 }
-            } else if (map.get("fileName") != "") {
+            }else if (map.get("fileName") != ""){
                 Accessory store_banner = store.getStore_banner();
                 store_banner.setName(CommUtil.null2String(map
                                      .get("fileName")));
@@ -412,17 +412,17 @@ public class StoreSellerAction {
                 .setHeight(CommUtil.null2Int(map.get("height")));
                 this.accessoryService.update(store_banner);
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
         Area area = this.areaService.getObjById(CommUtil.null2Long(area_id));
         store.setArea(area);
-        if (this.configService.getSysConfig().isSecond_domain_open()) {
+        if (this.configService.getSysConfig().isSecond_domain_open()){
             if ((this.configService.getSysConfig().getDomain_allow_count() > store
                     .getDomain_modify_count()) &&
-                    (!CommUtil.null2String(store_second_domain).equals(""))) {
+                    (!CommUtil.null2String(store_second_domain).equals(""))){
                 if (!store_second_domain.equals(store
-                                                .getStore_second_domain())) {
+                                                .getStore_second_domain())){
                     store.setStore_second_domain(store_second_domain);
                     store.setDomain_modify_count(store.getDomain_modify_count() + 1);
                 }
@@ -436,14 +436,14 @@ public class StoreSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺地图", value = "/seller/store_map.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_map.htm"})
-    public ModelAndView store_map(HttpServletRequest request, HttpServletResponse response, String map_type) {
+    @RequestMapping({"/seller/store_map.htm"})
+    public ModelAndView store_map(HttpServletRequest request, HttpServletResponse response, String map_type){
         Store store = this.storeService.getObjByProperty("user.id",
                       SecurityUserHolder.getCurrentUser().getId());
-        if (CommUtil.null2String(map_type).equals("")) {
+        if (CommUtil.null2String(map_type).equals("")){
             if ((store.getMap_type() != null) && (!store.getMap_type().equals("")))
                 map_type = store.getMap_type();
-            else {
+           else{
                 map_type = "baidu";
             }
         }
@@ -457,8 +457,8 @@ public class StoreSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺地图保存", value = "/seller/store_map_save.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_map_save.htm"})
-    public ModelAndView store_map_save(HttpServletRequest request, HttpServletResponse response, String store_lat, String store_lng) {
+    @RequestMapping({"/seller/store_map_save.htm"})
+    public ModelAndView store_map_save(HttpServletRequest request, HttpServletResponse response, String store_lat, String store_lng){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/success.html",
             this.configService.getSysConfig(),
@@ -475,8 +475,8 @@ public class StoreSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "主题设置", value = "/seller/store_theme.htm*", rtype = "seller", rname = "主题设置", rcode = "store_theme_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_theme.htm"})
-    public ModelAndView store_theme(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/store_theme.htm"})
+    public ModelAndView store_theme(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/store_theme.html",
             this.configService.getSysConfig(),
@@ -489,11 +489,11 @@ public class StoreSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "主题设置", value = "/seller/store_theme_save.htm*", rtype = "seller", rname = "主题设置", rcode = "store_theme_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_theme_save.htm"})
-    public String store_theme_set(HttpServletRequest request, HttpServletResponse response, String theme) {
+    @RequestMapping({"/seller/store_theme_save.htm"})
+    public String store_theme_set(HttpServletRequest request, HttpServletResponse response, String theme){
         Store store = this.storeService.getObjByProperty("user.id",
                       SecurityUserHolder.getCurrentUser().getId());
-        if (store.getGrade().getTemplates().indexOf(theme) >= 0) {
+        if (store.getGrade().getTemplates().indexOf(theme) >= 0){
             store.setTemplate(theme);
             this.storeService.update(store);
         }
@@ -502,8 +502,8 @@ public class StoreSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺认证", value = "/seller/store_approve.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_approve.htm"})
-    public ModelAndView store_approve(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/store_approve.htm"})
+    public ModelAndView store_approve(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/store_approve.html",
             this.configService.getSysConfig(),
@@ -516,8 +516,8 @@ public class StoreSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺认证保存", value = "/seller/store_approve_save.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_approve_save.htm"})
-    public String store_approve_save(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/store_approve_save.htm"})
+    public String store_approve_save(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/store_approve.html",
             this.configService.getSysConfig(),
@@ -536,8 +536,8 @@ public class StoreSellerAction {
                               .getName();
             map = CommUtil.saveFileToServer(request, "card_img",
                                             saveFilePathName + File.separator + "card", fileName, null);
-            if (fileName.equals("")) {
-                if (map.get("fileName") != "") {
+            if (fileName.equals("")){
+                if (map.get("fileName") != ""){
                     Accessory card = new Accessory();
                     card.setName(CommUtil.null2String(map.get("fileName")));
                     card.setExt(CommUtil.null2String(map.get("mime")));
@@ -549,7 +549,7 @@ public class StoreSellerAction {
                     this.accessoryService.save(card);
                     store.setCard(card);
                 }
-            } else if (map.get("fileName") != "") {
+            }else if (map.get("fileName") != ""){
                 Accessory card = store.getCard();
                 card.setName(CommUtil.null2String(map.get("fileName")));
                 card.setExt(CommUtil.null2String(map.get("mime")));
@@ -559,7 +559,7 @@ public class StoreSellerAction {
                 card.setHeight(CommUtil.null2Int(map.get("height")));
                 this.accessoryService.update(card);
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
         try {
@@ -568,8 +568,8 @@ public class StoreSellerAction {
             map = CommUtil.saveFileToServer(request, "license_img",
                                             saveFilePathName + File.separator + "license", fileName,
                                             null);
-            if (fileName.equals("")) {
-                if (map.get("fileName") != "") {
+            if (fileName.equals("")){
+                if (map.get("fileName") != ""){
                     Accessory store_license = new Accessory();
                     store_license.setName(CommUtil.null2String(map
                                           .get("fileName")));
@@ -584,7 +584,7 @@ public class StoreSellerAction {
                     this.accessoryService.save(store_license);
                     store.setStore_license(store_license);
                 }
-            } else if (map.get("fileName") != "") {
+            }else if (map.get("fileName") != ""){
                 Accessory store_license = store.getStore_license();
                 store_license.setName(CommUtil.null2String(map
                                       .get("fileName")));
@@ -597,7 +597,7 @@ public class StoreSellerAction {
                 .setHeight(CommUtil.null2Int(map.get("height")));
                 this.accessoryService.update(store_license);
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
         this.storeService.update(store);
@@ -606,21 +606,21 @@ public class StoreSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺升级", value = "/seller/store_grade.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_grade.htm"})
-    public ModelAndView store_grade(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/store_grade.htm"})
+    public ModelAndView store_grade(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/store_grade.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         Store store = this.storeService.getObjByProperty("user.id",
                       SecurityUserHolder.getCurrentUser().getId());
-        if (store.getUpdate_grade() == null) {
+        if (store.getUpdate_grade() == null){
             List sgs = this.storeGradeService.query(
                            "select obj from StoreGrade obj order by obj.sequence asc",
                            null, -1, -1);
             mv.addObject("sgs", sgs);
             mv.addObject("store", store);
-        } else {
+        }else{
             mv = new JModelAndView("user/default/usercenter/error.html",
                                    this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 0, request,
@@ -634,8 +634,8 @@ public class StoreSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺升级申请完成", value = "/seller/store_grade_finish.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_grade_finish.htm"})
-    public ModelAndView store_grade_finish(HttpServletRequest request, HttpServletResponse response, String grade_id) {
+    @RequestMapping({"/seller/store_grade_finish.htm"})
+    public ModelAndView store_grade_finish(HttpServletRequest request, HttpServletResponse response, String grade_id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/success.html",
             this.configService.getSysConfig(),
@@ -657,8 +657,8 @@ public class StoreSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺幻灯", value = "/seller/store_slide.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_slide.htm"})
-    public ModelAndView store_slide(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/store_slide.htm"})
+    public ModelAndView store_slide(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/store_slide.html",
             this.configService.getSysConfig(),
@@ -671,8 +671,8 @@ public class StoreSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺幻灯保存", value = "/seller/store_slide_save.htm*", rtype = "seller", rname = "店铺设置", rcode = "store_set_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_slide_save.htm"})
-    public ModelAndView store_slide_save(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/store_slide_save.htm"})
+    public ModelAndView store_slide_save(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/store_slide.html",
             this.configService.getSysConfig(),
@@ -684,11 +684,11 @@ public class StoreSellerAction {
         String saveFilePathName = request.getSession().getServletContext()
                                   .getRealPath("/") +
                                   uploadFilePath + File.separator + "store_slide";
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 5; i++){
             Map map = new HashMap();
             String fileName = "";
             StoreSlide slide = null;
-            if (store.getSlides().size() >= i) {
+            if (store.getSlides().size() >= i){
                 fileName = ((StoreSlide)store.getSlides().get(i - 1)).getAcc().getName();
                 slide = (StoreSlide)store.getSlides().get(i - 1);
             }
@@ -696,8 +696,8 @@ public class StoreSellerAction {
                 map = CommUtil.saveFileToServer(request, "acc" + i,
                                                 saveFilePathName, fileName, null);
                 Accessory acc = null;
-                if (fileName.equals("")) {
-                    if (map.get("fileName") != "") {
+                if (fileName.equals("")){
+                    if (map.get("fileName") != ""){
                         acc = new Accessory();
                         acc.setName(CommUtil.null2String(map.get("fileName")));
                         acc.setExt(CommUtil.null2String(map.get("mime")));
@@ -708,7 +708,7 @@ public class StoreSellerAction {
                         acc.setAddTime(new Date());
                         this.accessoryService.save(acc);
                     }
-                } else if (map.get("fileName") != "") {
+                }else if (map.get("fileName") != ""){
                     acc = slide.getAcc();
                     acc.setName(CommUtil.null2String(map.get("fileName")));
                     acc.setExt(CommUtil.null2String(map.get("mime")));
@@ -720,8 +720,8 @@ public class StoreSellerAction {
                     this.accessoryService.update(acc);
                 }
 
-                if (acc != null) {
-                    if (slide == null) {
+                if (acc != null){
+                    if (slide == null){
                         slide = new StoreSlide();
                         slide.setAcc(acc);
                         slide.setAddTime(new Date());
@@ -733,7 +733,7 @@ public class StoreSellerAction {
                     else
                         this.storeSlideService.update(slide);
                 }
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
         }

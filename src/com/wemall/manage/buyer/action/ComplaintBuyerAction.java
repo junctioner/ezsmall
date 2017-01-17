@@ -53,8 +53,8 @@ public class ComplaintBuyerAction {
     private IUserService userService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家投诉列表", value = "/buyer/complaint.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/complaint.htm"})
-    public ModelAndView complaint(HttpServletRequest request, HttpServletResponse response, String currentPage, String status) {
+    @RequestMapping({"/buyer/complaint.htm"})
+    public ModelAndView complaint(HttpServletRequest request, HttpServletResponse response, String currentPage, String status){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/buyer_complaint.html", this.configService
             .getSysConfig(),
@@ -64,7 +64,7 @@ public class ComplaintBuyerAction {
         qo.addQuery("obj.from_user.id",
                     new SysMap("user_id",
                                SecurityUserHolder.getCurrentUser().getId()), "=");
-        if (!CommUtil.null2String(status).equals("")) {
+        if (!CommUtil.null2String(status).equals("")){
             qo.addQuery("obj.status",
                         new SysMap("status",
                                    Integer.valueOf(CommUtil.null2Int(status))), "=");
@@ -77,8 +77,8 @@ public class ComplaintBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家投诉发起", value = "/buyer/complaint_handle.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/complaint_handle.htm"})
-    public ModelAndView complaint_handle(HttpServletRequest request, HttpServletResponse response, String order_id) {
+    @RequestMapping({"/buyer/complaint_handle.htm"})
+    public ModelAndView complaint_handle(HttpServletRequest request, HttpServletResponse response, String order_id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/complaint_handle.html", this.configService
             .getSysConfig(),
@@ -91,21 +91,21 @@ public class ComplaintBuyerAction {
                      .getComplaint_time());
         boolean result = true;
         if ((of.getOrder_status() == 60) &&
-                (of.getFinishTime().before(calendar.getTime()))) {
+                (of.getFinishTime().before(calendar.getTime()))){
             result = false;
         }
 
         boolean result1 = true;
-        if (of.getComplaints().size() > 0) {
-            for (Complaint complaint : of.getComplaints()) {
+        if (of.getComplaints().size() > 0){
+            for (Complaint complaint : of.getComplaints()){
                 if (complaint.getFrom_user().getId().equals(
-                            SecurityUserHolder.getCurrentUser().getId())) {
+                            SecurityUserHolder.getCurrentUser().getId())){
                     result1 = false;
                 }
             }
         }
-        if (result) {
-            if (result1) {
+        if (result){
+            if (result1){
                 Complaint obj = new Complaint();
                 obj.setFrom_user(SecurityUserHolder.getCurrentUser());
                 obj.setStatus(0);
@@ -120,7 +120,7 @@ public class ComplaintBuyerAction {
                                "select obj from ComplaintSubject obj where obj.type=:type",
                                (Map)params, -1, -1);
                 mv.addObject("css", css);
-            } else {
+            }else{
                 mv = new JModelAndView("error.html", this.configService
                                        .getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
@@ -129,7 +129,7 @@ public class ComplaintBuyerAction {
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/buyer/order.htm");
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -141,8 +141,8 @@ public class ComplaintBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家投诉列表", value = "/buyer/complaint_save.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/complaint_save.htm"})
-    public ModelAndView complaint_save(HttpServletRequest request, HttpServletResponse response, String order_id, String cs_id, String from_user_content, String goods_ids, String to_user_id, String type) {
+    @RequestMapping({"/buyer/complaint_save.htm"})
+    public ModelAndView complaint_save(HttpServletRequest request, HttpServletResponse response, String order_id, String cs_id, String from_user_content, String goods_ids, String to_user_id, String type){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/success.html", this.configService
             .getSysConfig(),
@@ -161,7 +161,7 @@ public class ComplaintBuyerAction {
         obj.setType(type);
         obj.setOf(of);
         String[] goods_id_list = goods_ids.split(",");
-        for (String goods_id : goods_id_list) {
+        for (String goods_id : goods_id_list){
             Goods goods = this.goodsService.getObjById(
                               CommUtil.null2Long(goods_id));
             ComplaintGoods cg = new ComplaintGoods();
@@ -181,7 +181,7 @@ public class ComplaintBuyerAction {
         try {
             map = CommUtil.saveFileToServer(request, "img1", saveFilePathName,
                                             null, null);
-            if (((Map)map).get("fileName") != "") {
+            if (((Map)map).get("fileName") != ""){
                 Accessory from_acc1 = new Accessory();
                 from_acc1.setName(CommUtil.null2String(((Map)map).get("fileName")));
                 from_acc1.setExt(CommUtil.null2String(((Map)map).get("mime")));
@@ -196,7 +196,7 @@ public class ComplaintBuyerAction {
             ((Map)map).clear();
             map = CommUtil.saveFileToServer(request, "img2", saveFilePathName,
                                             null, null);
-            if (((Map)map).get("fileName") != "") {
+            if (((Map)map).get("fileName") != ""){
                 Accessory from_acc2 = new Accessory();
                 from_acc2.setName(CommUtil.null2String(((Map)map).get("fileName")));
                 from_acc2.setExt(CommUtil.null2String(((Map)map).get("mime")));
@@ -211,7 +211,7 @@ public class ComplaintBuyerAction {
             ((Map)map).clear();
             map = CommUtil.saveFileToServer(request, "img3", saveFilePathName,
                                             null, null);
-            if (((Map)map).get("fileName") != "") {
+            if (((Map)map).get("fileName") != ""){
                 Accessory from_acc3 = new Accessory();
                 from_acc3.setName(CommUtil.null2String(((Map)map).get("fileName")));
                 from_acc3.setExt(CommUtil.null2String(((Map)map).get("mime")));
@@ -223,7 +223,7 @@ public class ComplaintBuyerAction {
                 this.accessoryService.save(from_acc3);
                 obj.setFrom_acc3(from_acc3);
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
         this.complaintService.save(obj);
@@ -234,8 +234,8 @@ public class ComplaintBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家查看投诉详情", value = "/buyer/complaint_view.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/complaint_view.htm"})
-    public ModelAndView complaint_view(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/buyer/complaint_view.htm"})
+    public ModelAndView complaint_view(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/complaint_view.html", this.configService
             .getSysConfig(),
@@ -246,9 +246,9 @@ public class ComplaintBuyerAction {
         if ((obj.getFrom_user().getId().equals(
                     SecurityUserHolder.getCurrentUser().getId())) ||
                 (obj.getTo_user().getId().equals(
-                     SecurityUserHolder.getCurrentUser().getId()))) {
+                     SecurityUserHolder.getCurrentUser().getId()))){
             mv.addObject("obj", obj);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -261,8 +261,8 @@ public class ComplaintBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家取消投诉", value = "/buyer/complaint_cancel.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/complaint_cancel.htm"})
-    public String complaint_cancel(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/buyer/complaint_cancel.htm"})
+    public String complaint_cancel(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/success.html", this.configService
             .getSysConfig(),
@@ -273,8 +273,8 @@ public class ComplaintBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "投诉图片", value = "/buyer/complaint_img.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/complaint_img.htm"})
-    public ModelAndView complaint_img(HttpServletRequest request, HttpServletResponse response, String id, String type) {
+    @RequestMapping({"/buyer/complaint_img.htm"})
+    public ModelAndView complaint_img(HttpServletRequest request, HttpServletResponse response, String id, String type){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/complaint_img.html", this.configService
             .getSysConfig(),
@@ -288,20 +288,20 @@ public class ComplaintBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "发布投诉对话", value = "/buyer/complaint_talk.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/complaint_talk.htm"})
+    @RequestMapping({"/buyer/complaint_talk.htm"})
     public void complaint_talk(HttpServletRequest request, HttpServletResponse response, String id, String talk_content) throws IOException {
         Complaint obj = this.complaintService
                         .getObjById(CommUtil.null2Long(id));
-        if (!CommUtil.null2String(talk_content).equals("")) {
+        if (!CommUtil.null2String(talk_content).equals("")){
             String user_role = "";
 
             if (SecurityUserHolder.getCurrentUser().getId().equals(
-                        obj.getFrom_user().getId())) {
+                        obj.getFrom_user().getId())){
                 user_role = "投诉人";
             }
 
             if (SecurityUserHolder.getCurrentUser().getId().equals(
-                        obj.getTo_user().getId())) {
+                        obj.getTo_user().getId())){
                 user_role = "申诉人";
             }
             String temp = user_role + "[" +
@@ -310,22 +310,22 @@ public class ComplaintBuyerAction {
                           talk_content;
             if (obj.getTalk_content() == null)
                 obj.setTalk_content(temp);
-            else {
+           else{
                 obj.setTalk_content(temp + "\n\r" + obj.getTalk_content());
             }
             this.complaintService.update(obj);
         }
         List maps = new ArrayList();
-        for (String s : CommUtil.str2list(obj.getTalk_content())) {
+        for (String s : CommUtil.str2list(obj.getTalk_content())){
             Map map = new HashMap();
             map.put("content", s);
-            if (s.indexOf("管理员") == 0) {
+            if (s.indexOf("管理员") == 0){
                 map.put("role", "admin");
             }
-            if (s.indexOf("投诉") == 0) {
+            if (s.indexOf("投诉") == 0){
                 map.put("role", "from_user");
             }
-            if (s.indexOf("申诉") == 0) {
+            if (s.indexOf("申诉") == 0){
                 map.put("role", "to_user");
             }
             maps.add(map);
@@ -336,14 +336,14 @@ public class ComplaintBuyerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(Json.toJson(maps, JsonFormat.compact()));
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "申诉提交仲裁", value = "/buyer/complaint_arbitrate.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/complaint_arbitrate.htm"})
-    public ModelAndView complaint_arbitrate(HttpServletRequest request, HttpServletResponse response, String id, String to_user_content) {
+    @RequestMapping({"/buyer/complaint_arbitrate.htm"})
+    public ModelAndView complaint_arbitrate(HttpServletRequest request, HttpServletResponse response, String id, String to_user_content){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/success.html", this.configService
             .getSysConfig(),

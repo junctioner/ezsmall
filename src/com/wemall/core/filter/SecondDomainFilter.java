@@ -29,19 +29,19 @@ public class SecondDomainFilter
     @Autowired
     private ISysConfigService configService;
 
-    public void destroy() {
+    public void destroy(){
     }
 
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
     throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest)req;
         HttpServletResponse response = (HttpServletResponse)res;
-        if (this.configService.getSysConfig().isSecond_domain_open()) {
+        if (this.configService.getSysConfig().isSecond_domain_open()){
             Cookie[] cookies = request.getCookies();
             String id = "";
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if (cookie.getName().equals("wemall_user_session")) {
+            if (cookies != null){
+                for (Cookie cookie : cookies){
+                    if (cookie.getName().equals("wemall_user_session")){
                         id = CommUtil.null2String(cookie.getValue());
                     }
                 }

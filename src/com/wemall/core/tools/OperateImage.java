@@ -34,7 +34,7 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
  * 创建日期 2015-10-16
  */
 public class OperateImage {
-    public OperateImage() {
+    public OperateImage(){
         super();
     }
 
@@ -103,10 +103,10 @@ public class OperateImage {
             out = new FileOutputStream(toImagePath);
             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
             encoder.encode(tag);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(out != null) {
+            if(out != null){
                 out.close();
             }
         }
@@ -135,10 +135,10 @@ public class OperateImage {
             out = new FileOutputStream(toImagePath);
             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
             encoder.encode(tag);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(out != null) {
+            if(out != null){
                 out.close();
             }
         }
@@ -168,10 +168,10 @@ public class OperateImage {
             out = new FileOutputStream(toImagePath);
             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
             encoder.encode(tag);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(out != null) {
+            if(out != null){
                 out.close();
             }
         }
@@ -201,10 +201,10 @@ public class OperateImage {
             out = new FileOutputStream(toImagePath);
             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
             encoder.encode(tag);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(out != null) {
+            if(out != null){
                 out.close();
             }
         }
@@ -232,10 +232,10 @@ public class OperateImage {
             out = new FileOutputStream(toImagePath);
             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
             encoder.encode(tag);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(out != null) {
+            if(out != null){
                 out.close();
             }
         }
@@ -248,7 +248,7 @@ public class OperateImage {
      * @param imageFormat	拼接生成图片的格式
      * @param toPath	拼接生成图片的路径
      */
-    public void joinImagesHorizontal(String firstSrcImagePath, String secondSrcImagePath, String imageFormat, String toPath) {
+    public void joinImagesHorizontal(String firstSrcImagePath, String secondSrcImagePath, String imageFormat, String toPath){
         try {
             //读取第一张图片
             File  fileOne  =  new  File(firstSrcImagePath);
@@ -278,7 +278,7 @@ public class OperateImage {
 
             File  outFile  =  new  File(toPath);
             ImageIO.write(imageNew,  imageFormat,  outFile);//写图片
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -290,17 +290,17 @@ public class OperateImage {
      * @param dst_pic 图像写入路径
      * @return
      */
-    public  boolean joinImageListHorizontal(String[] pics, String type, String dst_pic) {
+    public  boolean joinImageListHorizontal(String[] pics, String type, String dst_pic){
         try {
             int len = pics.length;
-            if (len < 1) {
+            if (len < 1){
                 System.out.println("pics len < 1");
                 return false;
             }
             File[] src = new File[len];
             BufferedImage[] images = new BufferedImage[len];
             int[][] imageArrays = new int[len][];
-            for (int i = 0; i < len; i++) {
+            for (int i = 0; i < len; i++){
                 src[i] = new File(pics[i]);
                 images[i] = ImageIO.read(src[i]);
                 int width = images[i].getWidth();
@@ -311,13 +311,13 @@ public class OperateImage {
 
             int dst_width = 0;
             int dst_height = images[0].getHeight();
-            for (int i = 0; i < images.length; i++) {
+            for (int i = 0; i < images.length; i++){
                 dst_height = dst_height > images[i].getHeight() ? dst_height : images[i].getHeight();
                 dst_width += images[i].getWidth();
             }
             //System.out.println(dst_width);
             //System.out.println(dst_height);
-            if (dst_height < 1) {
+            if (dst_height < 1){
                 System.out.println("dst_height < 1");
                 return false;
             }
@@ -326,13 +326,13 @@ public class OperateImage {
              */
             BufferedImage ImageNew = new BufferedImage(dst_width, dst_height,  BufferedImage.TYPE_INT_RGB);
             int width_i = 0;
-            for (int i = 0; i < images.length; i++) {
+            for (int i = 0; i < images.length; i++){
                 ImageNew.setRGB(width_i, 0, images[i].getWidth(), dst_height,  imageArrays[i], 0, images[i].getWidth());
                 width_i += images[i].getWidth();
             }
             File outFile = new File(dst_pic);
             ImageIO.write(ImageNew, type, outFile);// 写图片
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
             return false;
         }
@@ -347,7 +347,7 @@ public class OperateImage {
      * @param imageFormat 图片写入格式
      * @param toPath	图片写入路径
      */
-    public void joinImagesVertical(String firstSrcImagePath, String secondSrcImagePath, String imageFormat, String toPath) {
+    public void joinImagesVertical(String firstSrcImagePath, String secondSrcImagePath, String imageFormat, String toPath){
         try {
             //读取第一张图片
             File  fileOne  =  new  File(firstSrcImagePath);
@@ -377,7 +377,7 @@ public class OperateImage {
 
             File  outFile  =  new  File(toPath);
             ImageIO.write(imageNew,  imageFormat,  outFile);//写图片
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -389,17 +389,17 @@ public class OperateImage {
      * @param dst_pic	写入图像路径
      * @return
      */
-    public  boolean joinImageListVertical(String[] pics, String type, String dst_pic) {
+    public  boolean joinImageListVertical(String[] pics, String type, String dst_pic){
         try {
             int len = pics.length;
-            if (len < 1) {
+            if (len < 1){
                 System.out.println("pics len < 1");
                 return false;
             }
             File[] src = new File[len];
             BufferedImage[] images = new BufferedImage[len];
             int[][] imageArrays = new int[len][];
-            for (int i = 0; i < len; i++) {
+            for (int i = 0; i < len; i++){
                 //System.out.println(i);
                 src[i] = new File(pics[i]);
                 images[i] = ImageIO.read(src[i]);
@@ -411,13 +411,13 @@ public class OperateImage {
 
             int dst_height = 0;
             int dst_width = images[0].getWidth();
-            for (int i = 0; i < images.length; i++) {
+            for (int i = 0; i < images.length; i++){
                 dst_width = dst_width > images[i].getWidth() ? dst_width : images[i].getWidth();
                 dst_height += images[i].getHeight();
             }
             //System.out.println(dst_width);
             //System.out.println(dst_height);
-            if (dst_height < 1) {
+            if (dst_height < 1){
                 System.out.println("dst_height < 1");
                 return false;
             }
@@ -426,13 +426,13 @@ public class OperateImage {
              */
             BufferedImage ImageNew = new BufferedImage(dst_width, dst_height,  BufferedImage.TYPE_INT_RGB);
             int height_i = 0;
-            for (int i = 0; i < images.length; i++) {
+            for (int i = 0; i < images.length; i++){
                 ImageNew.setRGB(0, height_i, dst_width, images[i].getHeight(),  imageArrays[i], 0, dst_width);
                 height_i += images[i].getHeight();
             }
             File outFile = new File(dst_pic);
             ImageIO.write(ImageNew, type, outFile);// 写图片
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
             return false;
         }
@@ -449,7 +449,7 @@ public class OperateImage {
      * @param toPath 图片写入路径
      * @throws IOException
      */
-    public void mergeBothImage(String negativeImagePath, String additionImagePath, int x, int y, String toPath ) throws IOException {
+    public void mergeBothImage(String negativeImagePath, String additionImagePath, int x, int y, String toPath) throws IOException {
         InputStream is = null;
         InputStream is2 = null;
         OutputStream os = null;
@@ -463,16 +463,16 @@ public class OperateImage {
             os = new FileOutputStream(toPath);
             JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
             enc.encode(image);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(os != null) {
+            if(os != null){
                 os.close();
             }
-            if(is2 != null) {
+            if(is2 != null){
                 is2.close();
             }
-            if(is != null) {
+            if(is != null){
                 is.close();
             }
         }
@@ -496,8 +496,8 @@ public class OperateImage {
             //Graphics g=image.getGraphics();
             Graphics2D g = image.createGraphics();;
             BufferedImage image2 = null;
-            if(additionImageList != null) {
-                for(int i = 0; i < additionImageList.size(); i++) {
+            if(additionImageList != null){
+                for(int i = 0; i < additionImageList.size(); i++){
                     //解析附加图片信息：x坐标、 y坐标、 additionImagePath附加图片路径
                     //图片信息存储在一个数组中
                     String[] additionImageInfo = (String[]) additionImageList.get(i);
@@ -515,16 +515,16 @@ public class OperateImage {
             ImageIO.write(image,  imageFormat,  os);//写图片
             //JPEGImageEncoder enc=JPEGCodec.createJPEGEncoder(os);
             //enc.encode(image);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(os != null) {
+            if(os != null){
                 os.close();
             }
-            if(is2 != null) {
+            if(is2 != null){
                 is2.close();
             }
-            if(is != null) {
+            if(is != null){
                 is.close();
             }
         }
@@ -537,7 +537,7 @@ public class OperateImage {
      * @param toPath	合成图片写入路径
      * @throws IOException
      */
-    public void mergeBothImageTopleftcorner(String negativeImagePath, String additionImagePath, String toPath ) throws IOException {
+    public void mergeBothImageTopleftcorner(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
         InputStream is = null;
         InputStream is2 = null;
         OutputStream os = null;
@@ -551,16 +551,16 @@ public class OperateImage {
             os = new FileOutputStream(toPath);
             JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
             enc.encode(image);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(os != null) {
+            if(os != null){
                 os.close();
             }
-            if(is2 != null) {
+            if(is2 != null){
                 is2.close();
             }
-            if(is != null) {
+            if(is != null){
                 is.close();
             }
         }
@@ -573,7 +573,7 @@ public class OperateImage {
      * @param toPath	合成图片写入路径
      * @throws IOException
      */
-    public void mergeBothImageToprightcorner(String negativeImagePath, String additionImagePath, String toPath ) throws IOException {
+    public void mergeBothImageToprightcorner(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
         InputStream is = null;
         InputStream is2 = null;
         OutputStream os = null;
@@ -587,16 +587,16 @@ public class OperateImage {
             os = new FileOutputStream(toPath);
             JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
             enc.encode(image);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(os != null) {
+            if(os != null){
                 os.close();
             }
-            if(is2 != null) {
+            if(is2 != null){
                 is2.close();
             }
-            if(is != null) {
+            if(is != null){
                 is.close();
             }
         }
@@ -609,7 +609,7 @@ public class OperateImage {
      * @param toPath	合成图片写入路径
      * @throws IOException
      */
-    public void mergeBothImageLeftbottom(String negativeImagePath, String additionImagePath, String toPath ) throws IOException {
+    public void mergeBothImageLeftbottom(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
         InputStream is = null;
         InputStream is2 = null;
         OutputStream os = null;
@@ -623,16 +623,16 @@ public class OperateImage {
             os = new FileOutputStream(toPath);
             JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
             enc.encode(image);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(os != null) {
+            if(os != null){
                 os.close();
             }
-            if(is2 != null) {
+            if(is2 != null){
                 is2.close();
             }
-            if(is != null) {
+            if(is != null){
                 is.close();
             }
         }
@@ -645,7 +645,7 @@ public class OperateImage {
      * @param toPath	合成图片写入路径
      * @throws IOException
      */
-    public void mergeBothImageRightbottom(String negativeImagePath, String additionImagePath, String toPath ) throws IOException {
+    public void mergeBothImageRightbottom(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
         InputStream is = null;
         InputStream is2 = null;
         OutputStream os = null;
@@ -659,16 +659,16 @@ public class OperateImage {
             os = new FileOutputStream(toPath);
             JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
             enc.encode(image);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(os != null) {
+            if(os != null){
                 os.close();
             }
-            if(is2 != null) {
+            if(is2 != null){
                 is2.close();
             }
-            if(is != null) {
+            if(is != null){
                 is.close();
             }
         }
@@ -681,7 +681,7 @@ public class OperateImage {
      * @param toPath	合成图片写入路径
      * @throws IOException
      */
-    public void mergeBothImageCenter(String negativeImagePath, String additionImagePath, String toPath ) throws IOException {
+    public void mergeBothImageCenter(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
         InputStream is = null;
         InputStream is2 = null;
         OutputStream os = null;
@@ -695,16 +695,16 @@ public class OperateImage {
             os = new FileOutputStream(toPath);
             JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
             enc.encode(image);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(os != null) {
+            if(os != null){
                 os.close();
             }
-            if(is2 != null) {
+            if(is2 != null){
                 is2.close();
             }
-            if(is != null) {
+            if(is != null){
                 is.close();
             }
         }
@@ -717,7 +717,7 @@ public class OperateImage {
      * @param toPath	合成图片写入路径
      * @throws IOException
      */
-    public void mergeBothImageTopcenter(String negativeImagePath, String additionImagePath, String toPath ) throws IOException {
+    public void mergeBothImageTopcenter(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
         InputStream is = null;
         InputStream is2 = null;
         OutputStream os = null;
@@ -731,16 +731,16 @@ public class OperateImage {
             os = new FileOutputStream(toPath);
             JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
             enc.encode(image);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(os != null) {
+            if(os != null){
                 os.close();
             }
-            if(is2 != null) {
+            if(is2 != null){
                 is2.close();
             }
-            if(is != null) {
+            if(is != null){
                 is.close();
             }
         }
@@ -753,7 +753,7 @@ public class OperateImage {
      * @param toPath	合成图片写入路径
      * @throws IOException
      */
-    public void mergeBothImageBottomcenter(String negativeImagePath, String additionImagePath, String toPath ) throws IOException {
+    public void mergeBothImageBottomcenter(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
         InputStream is = null;
         InputStream is2 = null;
         OutputStream os = null;
@@ -767,16 +767,16 @@ public class OperateImage {
             os = new FileOutputStream(toPath);
             JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
             enc.encode(image);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(os != null) {
+            if(os != null){
                 os.close();
             }
-            if(is2 != null) {
+            if(is2 != null){
                 is2.close();
             }
-            if(is != null) {
+            if(is != null){
                 is.close();
             }
         }
@@ -789,7 +789,7 @@ public class OperateImage {
      * @param toPath	合成图片写入路径
      * @throws IOException
      */
-    public void mergeBothImageLeftcenter(String negativeImagePath, String additionImagePath, String toPath ) throws IOException {
+    public void mergeBothImageLeftcenter(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
         InputStream is = null;
         InputStream is2 = null;
         OutputStream os = null;
@@ -803,16 +803,16 @@ public class OperateImage {
             os = new FileOutputStream(toPath);
             JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
             enc.encode(image);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(os != null) {
+            if(os != null){
                 os.close();
             }
-            if(is2 != null) {
+            if(is2 != null){
                 is2.close();
             }
-            if(is != null) {
+            if(is != null){
                 is.close();
             }
         }
@@ -825,7 +825,7 @@ public class OperateImage {
      * @param toPath	合成图片写入路径
      * @throws IOException
      */
-    public void mergeBothImageRightcenter(String negativeImagePath, String additionImagePath, String toPath ) throws IOException {
+    public void mergeBothImageRightcenter(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
         InputStream is = null;
         InputStream is2 = null;
         OutputStream os = null;
@@ -839,16 +839,16 @@ public class OperateImage {
             os = new FileOutputStream(toPath);
             JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
             enc.encode(image);
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         } finally {
-            if(os != null) {
+            if(os != null){
                 os.close();
             }
-            if(is2 != null) {
+            if(is2 != null){
                 is2.close();
             }
-            if(is != null) {
+            if(is != null){
                 is.close();
             }
         }
@@ -860,14 +860,14 @@ public class OperateImage {
      * @param toPath	写入灰化后的图片路径
      * @param imageFormat 图片写入格式
      */
-    public void grayImage(String srcImage, String toPath, String imageFormat) {
+    public void grayImage(String srcImage, String toPath, String imageFormat){
         try {
             BufferedImage src = ImageIO.read(new File(srcImage));
             ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
             ColorConvertOp op = new ColorConvertOp(cs, null);
             src = op.filter(src, null);
             ImageIO.write(src, imageFormat, new File(toPath));
-        } catch(Exception e) {
+        } catch(Exception e){
             e.printStackTrace();
         }
     }
@@ -877,7 +877,7 @@ public class OperateImage {
      * @param srcImagePath	源图片路径
      * @param alpha	透明度（0<alpha<1）
      * @param font	字体（例如：宋体）
-     * @param fontStyle		字体格式(例如：普通样式--Font.PLAIN、粗体--Font.BOLD )
+     * @param fontStyle		字体格式(例如：普通样式--Font.PLAIN、粗体--Font.BOLD)
      * @param fontSize	字体大小
      * @param color	字体颜色(例如：黑色--Color.BLACK)
      * @param inputWords		输入显示在图片上的文字
@@ -907,10 +907,10 @@ public class OperateImage {
             g2d.dispose();
             fos = new FileOutputStream(toPath);
             ImageIO.write(image, imageFormat, fos);
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         } finally {
-            if(fos != null) {
+            if(fos != null){
                 fos.close();
             }
         }
@@ -949,10 +949,10 @@ public class OperateImage {
             g2d.dispose();
             fos = new FileOutputStream(toPath);
             ImageIO.write(image, imageFormat, fos);
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         } finally {
-            if(fos != null) {
+            if(fos != null){
                 fos.close();
             }
         }
@@ -983,10 +983,10 @@ public class OperateImage {
             g2d.fillOval(x, y, width, height);
             fos = new FileOutputStream(toPath);
             ImageIO.write(image, imageFormat, fos);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         } finally {
-            if(fos != null) {
+            if(fos != null){
                 fos.close();
             }
         }
@@ -1013,8 +1013,8 @@ public class OperateImage {
             Graphics2D g2d = image.createGraphics();
             g2d.setColor(ovalColor);
             //填充一个椭圆形
-            if(pointList != null) {
-                for(int i = 0; i < pointList.size(); i++) {
+            if(pointList != null){
+                for(int i = 0; i < pointList.size(); i++){
                     Point point = (Point)pointList.get(i);
                     int x = (int) point.getX();
                     int y = (int) point.getY();
@@ -1023,10 +1023,10 @@ public class OperateImage {
             }
             fos = new FileOutputStream(toPath);
             ImageIO.write(image, imageFormat, fos);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         } finally {
-            if(fos != null) {
+            if(fos != null){
                 fos.close();
             }
         }
@@ -1052,13 +1052,13 @@ public class OperateImage {
             //根据xy点坐标绘制连接线
             Graphics2D g2d = image.createGraphics();
             g2d.setColor(lineColor);
-            g2d.drawLine( x1, y1, x2, y2);
+            g2d.drawLine(x1, y1, x2, y2);
             fos = new FileOutputStream(toPath);
             ImageIO.write(image, imageFormat, fos);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         } finally {
-            if(fos != null) {
+            if(fos != null){
                 fos.close();
             }
         }
@@ -1089,10 +1089,10 @@ public class OperateImage {
             //图像写出路径
             fos = new FileOutputStream(toPath);
             ImageIO.write(image, imageFormat, fos);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         } finally {
-            if(fos != null) {
+            if(fos != null){
                 fos.close();
             }
         }
@@ -1126,8 +1126,8 @@ public class OperateImage {
             //设置圆点颜色
             g2d.setColor(ovalColor);
             //画圆点
-            if(xPoints != null) {
-                for(int i = 0; i < xPoints.length; i++) {
+            if(xPoints != null){
+                for(int i = 0; i < xPoints.length; i++){
                     int x = xPoints[i];
                     int y = yPoints[i];
                     g2d.fillOval(x, y, width, height);
@@ -1136,10 +1136,10 @@ public class OperateImage {
             //图像写出路径
             fos = new FileOutputStream(toPath);
             ImageIO.write(image, imageFormat, fos);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         } finally {
-            if(fos != null) {
+            if(fos != null){
                 fos.close();
             }
         }
@@ -1169,10 +1169,10 @@ public class OperateImage {
             fos = new FileOutputStream(toPath);
             ImageIO.write(image, imageFormat, fos);
             g2d.dispose();
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         } finally {
-            if(fos != null) {
+            if(fos != null){
                 fos.close();
             }
         }
@@ -1205,10 +1205,10 @@ public class OperateImage {
             fos = new FileOutputStream(toPath);
             ImageIO.write(image, imageFormat, fos);
             g2d.dispose();
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         } finally {
-            if(fos != null) {
+            if(fos != null){
                 fos.close();
             }
         }
@@ -1492,7 +1492,7 @@ public class OperateImage {
 
         BufferedReader inputStream = new BufferedReader(new FileReader(new File(path)));
         String mrMsg = "";
-        while((mrMsg = inputStream.readLine()) != null) {
+        while((mrMsg = inputStream.readLine()) != null){
             System.out.println(mrMsg);
         }
     }

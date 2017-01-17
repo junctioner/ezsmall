@@ -21,26 +21,26 @@ public class SecureResourceFilterInvocationDefinitionSource implements FilterInv
 
     private boolean lowercaseComparisons = true;
 
-    public void setUseAntPath(boolean useAntPath) {
+    public void setUseAntPath(boolean useAntPath){
         this.useAntPath = useAntPath;
     }
 
-    public void setLowercaseComparisons(boolean lowercaseComparisons) {
+    public void setLowercaseComparisons(boolean lowercaseComparisons){
         this.lowercaseComparisons = lowercaseComparisons;
     }
 
     public void afterPropertiesSet() throws Exception {
         this.urlMatcher = new RegexUrlPathMatcher();
 
-        if (this.useAntPath) {
+        if (this.useAntPath){
             this.urlMatcher = new AntUrlPathMatcher();
         }
 
-        if ("true".equals(Boolean.valueOf(this.lowercaseComparisons))) {
+        if ("true".equals(Boolean.valueOf(this.lowercaseComparisons))){
             if (!this.useAntPath)
                 ((RegexUrlPathMatcher)this.urlMatcher)
                 .setRequiresLowerCaseUrl(true);
-        } else if (("false".equals(Boolean.valueOf(this.lowercaseComparisons))) &&
+        }else if (("false".equals(Boolean.valueOf(this.lowercaseComparisons))) &&
                    (this.useAntPath))
             ((AntUrlPathMatcher)this.urlMatcher)
             .setRequiresLowerCaseUrl(false);
@@ -50,7 +50,7 @@ public class SecureResourceFilterInvocationDefinitionSource implements FilterInv
         FilterInvocation filterInvocation = (FilterInvocation)filter;
         String requestURI = filterInvocation.getRequestUrl();
         boolean verify = true;
-        if ((verify) && (requestURI.indexOf("login.htm") < 0)) {
+        if ((verify) && (requestURI.indexOf("login.htm") < 0)){
             Map urlAuthorities =
                 getUrlAuthorities(filterInvocation);
 
@@ -58,7 +58,7 @@ public class SecureResourceFilterInvocationDefinitionSource implements FilterInv
 
             Iterator iter = urlAuthorities
                             .entrySet().iterator();
-            while (iter.hasNext()) {
+            while (iter.hasNext()){
                 Map.Entry entry = (Map.Entry)iter.next();
                 String url = (String)entry.getKey();
 
@@ -68,12 +68,12 @@ public class SecureResourceFilterInvocationDefinitionSource implements FilterInv
                 break;
             }
 
-            if (grantedAuthorities != null) {
+            if (grantedAuthorities != null){
                 ConfigAttributeEditor configAttrEditor = new ConfigAttributeEditor();
                 configAttrEditor.setAsText(grantedAuthorities);
                 return (ConfigAttributeDefinition)configAttrEditor.getValue();
             }
-        } else if (requestURI.indexOf("login.htm") < 0) {
+        }else if (requestURI.indexOf("login.htm") < 0){
             ConfigAttributeEditor configAttrEditor = new ConfigAttributeEditor();
             configAttrEditor.setAsText("domain_error");
             filterInvocation.getHttpRequest().getSession().setAttribute(
@@ -84,15 +84,15 @@ public class SecureResourceFilterInvocationDefinitionSource implements FilterInv
         return null;
     }
 
-    public Collection getConfigAttributeDefinitions() {
+    public Collection getConfigAttributeDefinitions(){
         return null;
     }
 
-    public boolean supports(Class clazz) {
+    public boolean supports(Class clazz){
         return true;
     }
 
-    private Map<String, String> getUrlAuthorities(FilterInvocation filterInvocation) {
+    private Map<String, String> getUrlAuthorities(FilterInvocation filterInvocation){
         ServletContext servletContext = filterInvocation.getHttpRequest()
                                         .getSession().getServletContext();
 

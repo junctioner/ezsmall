@@ -31,19 +31,19 @@ public class GoodsViewTools {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<GoodsSpecification> generic_spec(String id) {
+    public List<GoodsSpecification> generic_spec(String id){
         List specs = new ArrayList();
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             Goods goods = this.goodsService.getObjById(Long.valueOf(Long.parseLong(id)));
-            for (GoodsSpecProperty gsp : goods.getGoods_specs()) {
+            for (GoodsSpecProperty gsp : goods.getGoods_specs()){
                 GoodsSpecification spec = gsp.getSpec();
-                if (!specs.contains(spec)) {
+                if (!specs.contains(spec)){
                     specs.add(spec);
                 }
             }
         }
-        Collections.sort(specs, new Comparator() {
-            public int compare(Object gs1, Object gs2) {
+        Collections.sort(specs, new Comparator(){
+            public int compare(Object gs1, Object gs2){
                 return (((GoodsSpecification)gs1).getSequence()) - (((GoodsSpecification)gs2).getSequence());
             }
         });
@@ -51,15 +51,15 @@ public class GoodsViewTools {
         return specs;
     }
 
-    public List<UserGoodsClass> query_user_class(String pid) {
+    public List<UserGoodsClass> query_user_class(String pid){
         List list = new ArrayList();
-        if ((pid == null) || (pid.equals(""))) {
+        if ((pid == null) || (pid.equals(""))){
             Map map = new HashMap();
             map.put("uid", SecurityUserHolder.getCurrentUser().getId());
             list = this.userGoodsClassService
                    .query("select obj from UserGoodsClass obj where obj.parent.id is null and obj.user.id = :uid order by obj.sequence asc",
                           map, -1, -1);
-        } else {
+        }else{
             Map params = new HashMap();
             params.put("pid", Long.valueOf(Long.parseLong(pid)));
             params.put("uid", SecurityUserHolder.getCurrentUser().getId());
@@ -71,11 +71,11 @@ public class GoodsViewTools {
         return list;
     }
 
-    public List<Goods> query_with_gc(String gc_id, int count) {
+    public List<Goods> query_with_gc(String gc_id, int count){
         List list = new ArrayList();
         GoodsClass gc = this.goodsClassService.getObjById(
                             CommUtil.null2Long(gc_id));
-        if (gc != null) {
+        if (gc != null){
             Set ids = genericIds(gc);
             Map params = new HashMap();
             params.put("ids", ids);
@@ -88,12 +88,12 @@ public class GoodsViewTools {
         return list;
     }
 
-    private Set<Long> genericIds(GoodsClass gc) {
+    private Set<Long> genericIds(GoodsClass gc){
         Set ids = new HashSet();
         ids.add(gc.getId());
-        for (GoodsClass child : gc.getChilds()) {
+        for (GoodsClass child : gc.getChilds()){
             Set<Long> cids = genericIds(child);
-            for (Long cid : cids) {
+            for (Long cid : cids){
                 ids.add(cid);
             }
             ids.add(child.getId());
@@ -102,7 +102,7 @@ public class GoodsViewTools {
         return ids;
     }
 
-    public List<Goods> sort_sale_goods(String store_id, int count) {
+    public List<Goods> sort_sale_goods(String store_id, int count){
         List list = new ArrayList();
         Map params = new HashMap();
         params.put("store_id", CommUtil.null2Long(store_id));
@@ -114,7 +114,7 @@ public class GoodsViewTools {
         return list;
     }
 
-    public List<Goods> sort_collect_goods(String store_id, int count) {
+    public List<Goods> sort_collect_goods(String store_id, int count){
         List list = new ArrayList();
         Map params = new HashMap();
         params.put("store_id", CommUtil.null2Long(store_id));
@@ -126,7 +126,7 @@ public class GoodsViewTools {
         return list;
     }
 
-    public List<Goods> query_combin_goods(String id) {
+    public List<Goods> query_combin_goods(String id){
         return this.goodsService.getObjById(CommUtil.null2Long(id))
                .getCombin_goods();
     }

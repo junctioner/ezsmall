@@ -25,14 +25,14 @@ public class PublicMethod {
     throws Exception {
         try {
             conn = this.dbConnectoin.getConnection();
-        } catch (Exception e) {
+        } catch (Exception e){
             throw new Exception("数据链接错误,请检查用户输入的信息!");
         }
 
         return conn;
     }
 
-    public void closeConn() {
+    public void closeConn(){
         this.dbConnectoin.closeAll();
     }
 
@@ -42,7 +42,7 @@ public class PublicMethod {
             conn = getConnection();
             stmt = conn.createStatement();
             rs = stmt.executeQuery(sqlStr);
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
@@ -57,7 +57,7 @@ public class PublicMethod {
             rs = queryResult(sqlStr);
             while (rs.next())
                 list.add(rs.getString(1));
-        } catch (Exception e) {
+        } catch (Exception e){
             throw e;
         } finally {
             this.dbConnectoin.closeAll();
@@ -74,7 +74,7 @@ public class PublicMethod {
             rs = queryResult(sqlStr);
             while (rs.next())
                 list.add(rs.getString(2));
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         } finally {
             this.dbConnectoin.closeAll();
@@ -89,7 +89,7 @@ public class PublicMethod {
         try {
             list = new ArrayList();
             rs = queryResult(sqlStr);
-            while (rs.next()) {
+            while (rs.next()){
                 TableColumn dbColumns = new TableColumn();
                 dbColumns.setColumnsFiled(rs.getString(1));
                 dbColumns.setColumnsType(rs.getString(2));
@@ -99,7 +99,7 @@ public class PublicMethod {
                 dbColumns.setColumnsExtra(rs.getString(6));
                 list.add(dbColumns);
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         } finally {
             this.dbConnectoin.closeAll();
@@ -120,18 +120,18 @@ public class PublicMethod {
             inReader = new UnicodeReader(new FileInputStream(filePath), "UTF-8");
             char[] buff = new char[1024];
             int byteRead = 0;
-            while ((byteRead = inReader.read(buff)) != -1) {
+            while ((byteRead = inReader.read(buff)) != -1){
                 sqlStr.append(new String(buff, 0, byteRead));
             }
 
             String[] sqlStrArr = sqlStr.toString().split(
                                      "(;\\s*\\r\\n)|(;\\s*\\n)");
-            for (String str : sqlStrArr) {
+            for (String str : sqlStrArr){
                 String sql = str.replaceAll("--.*", "").trim();
                 if (!sql.equals(""))
                     sqlList.add(sql);
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
@@ -145,14 +145,14 @@ public class PublicMethod {
         try {
             pattern = Pattern.compile("\\s*\n");
             matcher = pattern.matcher(obj.toString());
-        } catch (Exception e) {
+        } catch (Exception e){
             throw e;
         }
 
         return matcher.replaceAll("");
     }
 
-    public String genericQueryField(String table) {
+    public String genericQueryField(String table){
         String query_sql = "";
         try {
             conn = getConnection();
@@ -160,11 +160,11 @@ public class PublicMethod {
 
             String sql = "select * from " + table;
             ResultSetMetaData rsmds = stmt.executeQuery(sql).getMetaData();
-            for (int j = 1; j < rsmds.getColumnCount(); j++) {
+            for (int j = 1; j < rsmds.getColumnCount(); j++){
                 query_sql = query_sql + rsmds.getColumnName(j) + ",";
             }
             query_sql = query_sql + rsmds.getColumnName(rsmds.getColumnCount());
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         } finally {
             this.dbConnectoin.closeAll();

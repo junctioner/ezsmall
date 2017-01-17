@@ -20,67 +20,67 @@ public class UserServiceImpl
     @Resource(name = "userDAO")
     private IGenericDAO<User> userDAO;
 
-    public boolean delete(Long id) {
+    public boolean delete(Long id){
         try {
             this.userDAO.remove(id);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public User getObjById(Long id) {
+    public User getObjById(Long id){
         return (User)this.userDAO.get(id);
     }
 
-    public boolean save(User user) {
+    public boolean save(User user){
         try {
             this.userDAO.save(user);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
         }
 
         return false;
     }
 
-    public boolean update(User user) {
+    public boolean update(User user){
         try {
             this.userDAO.update(user);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
         }
 
         return false;
     }
 
-    public List<User> query(String query, Map params, int begin, int max) {
+    public List<User> query(String query, Map params, int begin, int max){
         return this.userDAO.query(query, params, begin, max);
     }
 
-    public IPageList list(IQueryObject properties) {
-        if (properties == null) {
+    public IPageList list(IQueryObject properties){
+        if (properties == null){
             return null;
         }
         String query = properties.getQuery();
         Map params = properties.getParameters();
         GenericPageList pList = new GenericPageList(User.class, query, params,
                 this.userDAO);
-        if (properties != null) {
+        if (properties != null){
             PageObject pageObj = properties.getPageObj();
             if (pageObj != null)
                 pList.doList(pageObj.getCurrentPage() == null ? 0 : pageObj
                              .getCurrentPage().intValue(), pageObj.getPageSize() == null ? 0 :
                              pageObj.getPageSize().intValue());
-        } else {
+        }else{
             pList.doList(0, -1);
         }
 
         return pList;
     }
 
-    public User getObjByProperty(String propertyName, String value) {
+    public User getObjByProperty(String propertyName, String value){
         return (User)this.userDAO.getBy(propertyName, value);
     }
 }

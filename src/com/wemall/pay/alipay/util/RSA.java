@@ -14,7 +14,7 @@ import javax.crypto.Cipher;
 public class RSA {
     public static final String SIGN_ALGORITHMS = "SHA1WithRSA";
 
-    public static String sign(String content, String privateKey, String input_charset) {
+    public static String sign(String content, String privateKey, String input_charset){
         try {
             PKCS8EncodedKeySpec priPKCS8 = new PKCS8EncodedKeySpec(
                 Base64Wap.decode(privateKey));
@@ -30,14 +30,14 @@ public class RSA {
             byte[] signed = signature.sign();
 
             return Base64Wap.encode(signed);
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return null;
     }
 
-    public static boolean verify(String content, String sign, String ali_public_key, String input_charset) {
+    public static boolean verify(String content, String sign, String ali_public_key, String input_charset){
         try {
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             byte[] encodedKey = Base64Wap.decode(ali_public_key);
@@ -52,7 +52,7 @@ public class RSA {
 
             boolean bverify = signature.verify(Base64Wap.decode(sign));
             return bverify;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
@@ -71,15 +71,15 @@ public class RSA {
 
         byte[] buf = new byte['?'];
         int bufl;
-        while ((bufl = ins.read(buf)) != -1) {
+        while ((bufl = ins.read(buf)) != -1){
             //int bufl;
             byte[] block = null;
 
-            if (buf.length == bufl) {
+            if (buf.length == bufl){
                 block = buf;
-            } else {
+            }else{
                 block = new byte[bufl];
-                for (int i = 0; i < bufl; i++) {
+                for (int i = 0; i < bufl; i++){
                     block[i] = buf[i];
                 }
             }
@@ -111,21 +111,21 @@ public class RSA {
     * @param input_charset 编码格式
     * @return 签名值
     */
-    public static String signWap(String content, String privateKey, String input_charset) {
+    public static String signWap(String content, String privateKey, String input_charset){
         try {
-            PKCS8EncodedKeySpec priPKCS8 	= new PKCS8EncodedKeySpec( Base64Wap.decode(privateKey) );
+            PKCS8EncodedKeySpec priPKCS8 	= new PKCS8EncodedKeySpec(Base64Wap.decode(privateKey));
             KeyFactory keyf 				= KeyFactory.getInstance("RSA");
             PrivateKey priKey 				= keyf.generatePrivate(priPKCS8);
 
             java.security.Signature signature = java.security.Signature.getInstance(SIGN_ALGORITHMS);
 
             signature.initSign(priKey);
-            signature.update( content.getBytes(input_charset) );
+            signature.update(content.getBytes(input_charset));
 
             byte[] signed = signature.sign();
 
             return Base64Wap.encode(signed);
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
@@ -140,7 +140,7 @@ public class RSA {
     * @param input_charset 编码格式
     * @return 布尔值
     */
-    public static boolean verifyWap(String content, String sign, String ali_public_key, String input_charset) {
+    public static boolean verifyWap(String content, String sign, String ali_public_key, String input_charset){
         try {
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             byte[] encodedKey = Base64Wap.decode(ali_public_key);
@@ -149,12 +149,12 @@ public class RSA {
             java.security.Signature signature = java.security.Signature.getInstance(SIGN_ALGORITHMS);
 
             signature.initVerify(pubKey);
-            signature.update( content.getBytes(input_charset) );
+            signature.update(content.getBytes(input_charset));
 
-            boolean bverify = signature.verify( Base64Wap.decode(sign) );
+            boolean bverify = signature.verify(Base64Wap.decode(sign));
             return bverify;
 
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
         return false;
@@ -179,14 +179,14 @@ public class RSA {
         byte[] buf = new byte[128];
         int bufl;
 
-        while ((bufl = ins.read(buf)) != -1) {
+        while ((bufl = ins.read(buf)) != -1){
             byte[] block = null;
 
-            if (buf.length == bufl) {
+            if (buf.length == bufl){
                 block = buf;
-            } else {
+            }else{
                 block = new byte[bufl];
-                for (int i = 0; i < bufl; i++) {
+                for (int i = 0; i < bufl; i++){
                     block[i] = buf[i];
                 }
             }

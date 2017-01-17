@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 public class TestFile {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         int count = 1;
         String name = "book";
         float psize = 30.0F;
@@ -19,9 +19,9 @@ public class TestFile {
         try {
             PrintWriter pwrite = new PrintWriter(
                 new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8"), true);
-            for (int i = 1; i < 100000; i++) {
+            for (int i = 1; i < 100000; i++){
                 double fsize = CommUtil.div(Long.valueOf(file.length()), Integer.valueOf(1024));
-                if (fsize > psize) {
+                if (fsize > psize){
                     pwrite.flush();
 
                     count++;
@@ -36,9 +36,9 @@ public class TestFile {
             pwrite.flush();
             pwrite.close();
             System.out.println("文件输出完毕");
-        } catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e){
             e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e){
             e.printStackTrace();
         }
     }

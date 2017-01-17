@@ -91,7 +91,7 @@ public class StatManageAction {
         StoreStat stat = null;
         if (stats.size() > 0)
             stat = (StoreStat) stats.get(0);
-        else {
+       else{
             stat = new StoreStat();
         }
         stat.setAddTime(new Date());
@@ -111,7 +111,7 @@ public class StatManageAction {
         stat.setOrder_amount(BigDecimal.valueOf(this.statTools.query_all_amount()));
         if (stats.size() > 0)
             this.storeStatService.update(stat);
-        else {
+       else{
             this.storeStatService.save(stat);
         }
         cal.setTime(new Date());
@@ -120,7 +120,7 @@ public class StatManageAction {
         params.put("time", cal.getTime());
         List<MobileVerifyCode> mvcs = this.mobileverifycodeService
                                       .query("select obj from MobileVerifyCode obj where obj.addTime<=:time", params, -1, -1);
-        for (MobileVerifyCode mvc : mvcs) {
+        for (MobileVerifyCode mvc : mvcs){
             this.mobileverifycodeService.delete(mvc.getId());
         }
 
@@ -130,7 +130,7 @@ public class StatManageAction {
         double service_evaluate;
         double ship_evaluate;
         DecimalFormat df;
-        for (Store store : stores) {
+        for (Store store : stores){
             params.clear();
             params.put("store_id", store.getId());
             evas = this.evaluateService.query("select obj from Evaluate obj where obj.of.store.id=:store_id", params, -1, -1);
@@ -143,7 +143,7 @@ public class StatManageAction {
             ship_evaluate = 0.0D;
             double ship_evaluate_total = 0.0D;
             df = new DecimalFormat("0.0");
-            for (Evaluate eva1 : evas) {
+            for (Evaluate eva1 : evas){
                 store_evaluate1_total = store_evaluate1_total
                                         + eva1.getEvaluate_buyer_val();
 
@@ -185,7 +185,7 @@ public class StatManageAction {
             params.put("addTime", cal1.getTime());
             evas = this.evaluateService
                    .query("select obj from Evaluate obj where obj.of.store.id=:store_id and obj.addTime>=:addTime", params, -1, -1);
-            for (Evaluate eva : evas) {
+            for (Evaluate eva : evas){
                 description_evaluate_halfyear = description_evaluate_halfyear
                                                 + CommUtil.null2Double(eva.getDescription_evaluate());
 
@@ -194,57 +194,57 @@ public class StatManageAction {
 
                 ship_evaluate_halfyear = ship_evaluate_halfyear
                                          + CommUtil.null2Double(eva.getService_evaluate());
-                if (CommUtil.null2Double(eva.getDescription_evaluate()) >= 4.0D) {
+                if (CommUtil.null2Double(eva.getDescription_evaluate()) >= 4.0D){
                     description_evaluate_halfyear_count5++;
                 }
                 if ((CommUtil.null2Double(eva.getDescription_evaluate()) >= 3.0D)
-                        && (CommUtil.null2Double(eva.getDescription_evaluate()) < 4.0D)) {
+                        && (CommUtil.null2Double(eva.getDescription_evaluate()) < 4.0D)){
                     description_evaluate_halfyear_count4++;
                 }
                 if ((CommUtil.null2Double(eva.getDescription_evaluate()) >= 2.0D)
-                        && (CommUtil.null2Double(eva.getDescription_evaluate()) < 3.0D)) {
+                        && (CommUtil.null2Double(eva.getDescription_evaluate()) < 3.0D)){
                     description_evaluate_halfyear_count3++;
                 }
                 if ((CommUtil.null2Double(eva.getDescription_evaluate()) >= 1.0D)
-                        && (CommUtil.null2Double(eva.getDescription_evaluate()) < 2.0D)) {
+                        && (CommUtil.null2Double(eva.getDescription_evaluate()) < 2.0D)){
                     description_evaluate_halfyear_count2++;
                 }
                 if ((CommUtil.null2Double(eva.getDescription_evaluate()) >= 0.0D)
-                        && (CommUtil.null2Double(eva.getDescription_evaluate()) < 1.0D)) {
+                        && (CommUtil.null2Double(eva.getDescription_evaluate()) < 1.0D)){
                     description_evaluate_halfyear_count1++;
                 }
-                if (CommUtil.null2Double(eva.getService_evaluate()) >= 4.0D) {
+                if (CommUtil.null2Double(eva.getService_evaluate()) >= 4.0D){
                     service_evaluate_halfyear_count5++;
                 }
                 if ((CommUtil.null2Double(eva.getService_evaluate()) >= 3.0D)
-                        && (CommUtil.null2Double(eva.getService_evaluate()) < 4.0D)) {
+                        && (CommUtil.null2Double(eva.getService_evaluate()) < 4.0D)){
                     service_evaluate_halfyear_count4++;
                 }
                 if ((CommUtil.null2Double(eva.getService_evaluate()) >= 2.0D)
-                        && (CommUtil.null2Double(eva.getService_evaluate()) < 3.0D)) {
+                        && (CommUtil.null2Double(eva.getService_evaluate()) < 3.0D)){
                     service_evaluate_halfyear_count3++;
                 }
                 if ((CommUtil.null2Double(eva.getService_evaluate()) >= 1.0D)
-                        && (CommUtil.null2Double(eva.getService_evaluate()) < 2.0D)) {
+                        && (CommUtil.null2Double(eva.getService_evaluate()) < 2.0D)){
                     service_evaluate_halfyear_count2++;
                 }
                 if ((CommUtil.null2Double(eva.getService_evaluate()) >= 0.0D)
-                        && (CommUtil.null2Double(eva.getService_evaluate()) < 1.0D)) {
+                        && (CommUtil.null2Double(eva.getService_evaluate()) < 1.0D)){
                     service_evaluate_halfyear_count1++;
                 }
-                if (CommUtil.null2Double(eva.getShip_evaluate()) >= 4.0D) {
+                if (CommUtil.null2Double(eva.getShip_evaluate()) >= 4.0D){
                     ship_evaluate_halfyear_count5++;
                 }
                 if ((CommUtil.null2Double(eva.getShip_evaluate()) >= 3.0D)
-                        && (CommUtil.null2Double(eva.getShip_evaluate()) < 4.0D)) {
+                        && (CommUtil.null2Double(eva.getShip_evaluate()) < 4.0D)){
                     ship_evaluate_halfyear_count4++;
                 }
                 if ((CommUtil.null2Double(eva.getShip_evaluate()) >= 2.0D)
-                        && (CommUtil.null2Double(eva.getShip_evaluate()) < 3.0D)) {
+                        && (CommUtil.null2Double(eva.getShip_evaluate()) < 3.0D)){
                     ship_evaluate_halfyear_count3++;
                 }
                 if ((CommUtil.null2Double(eva.getShip_evaluate()) >= 1.0D)
-                        && (CommUtil.null2Double(eva.getShip_evaluate()) < 2.0D)) {
+                        && (CommUtil.null2Double(eva.getShip_evaluate()) < 2.0D)){
                     ship_evaluate_halfyear_count2++;
                 }
                 if ((CommUtil.null2Double(eva.getShip_evaluate()) < 0.0D)
@@ -253,7 +253,7 @@ public class StatManageAction {
                 ship_evaluate_halfyear_count1++;
             }
 
-            if (evas.size() > 0) {
+            if (evas.size() > 0){
                 description_evaluate_halfyear = description_evaluate_halfyear / evas.size();
 
                 service_evaluate_halfyear = service_evaluate_halfyear / evas.size();
@@ -266,7 +266,7 @@ public class StatManageAction {
             StorePoint point = null;
             if (sps.size() > 0)
                 point = (StorePoint) sps.get(0);
-            else {
+           else{
                 point = new StorePoint();
             }
             point.setStatTime(new Date());
@@ -295,7 +295,7 @@ public class StatManageAction {
             point.setShip_evaluate_halfyear_count5(ship_evaluate_halfyear_count5);
             if (sps.size() > 0)
                 this.storePointService.update(point);
-            else {
+           else{
                 this.storePointService.save(point);
             }
         }
@@ -304,7 +304,7 @@ public class StatManageAction {
                                    "select obj from StoreClass obj", null, -1, -1);
         double description_evaluate;
         // double service_evaluate;
-        for (StoreClass sc : scs) {
+        for (StoreClass sc : scs){
             description_evaluate = 0.0D;
             service_evaluate = 0.0D;
             ship_evaluate = 0.0D;
@@ -312,7 +312,7 @@ public class StatManageAction {
             params.put("sc_id", sc.getId());
             List<StorePoint> sp_list = this.storePointService
                                        .query("select obj from StorePoint obj where obj.store.sc.id=:sc_id", params, -1, -1);
-            for (StorePoint sp : sp_list) {
+            for (StorePoint sp : sp_list){
                 description_evaluate = CommUtil.add(Double.valueOf(description_evaluate),
                                                     sp.getDescription_evaluate());
                 service_evaluate = CommUtil.add(Double.valueOf(service_evaluate),
@@ -333,17 +333,17 @@ public class StatManageAction {
                                  "select obj from Group obj order by obj.addTime", null, -1, -1);
         GroupGoods gg;
         Goods goods;
-        for (Group group : groups) {
+        for (Group group : groups){
             if ((group.getBeginTime().before(new Date()))
-                    && (group.getEndTime().after(new Date()))) {
+                    && (group.getEndTime().after(new Date()))){
                 group.setStatus(0);
                 this.groupService.update(group);
             }
-            if (group.getEndTime().before(new Date())) {
+            if (group.getEndTime().before(new Date())){
                 group.setStatus(-2);
                 this.groupService.update(group);
 
-                for (GroupGoods gg1 : group.getGg_list()) {
+                for (GroupGoods gg1 : group.getGg_list()){
                     // gg = (GroupGoods)service_evaluate.next();
                     gg1.setGg_status(-2);
                     this.groupGoodsService.update(gg1);
@@ -360,10 +360,10 @@ public class StatManageAction {
         params.put("ac_status", Integer.valueOf(1));
         List<Activity> acts = this.activityService
                               .query("select obj from Activity obj where obj.ac_end_time<=:ac_end_time and obj.ac_status=:ac_status", params, -1, -1);
-        for (Activity act : acts) {
+        for (Activity act : acts){
             act.setAc_status(0);
             this.activityService.update(act);
-            for (ActivityGoods ac : act.getAgs()) {
+            for (ActivityGoods ac : act.getAgs()){
                 ac.setAg_status(-2);
                 this.activityGoodsService.update(ac);
                 Goods goods1 = ac.getAg_goods();
@@ -384,19 +384,19 @@ public class StatManageAction {
         List<OrderForm> notice_ofs = this.orderFormService
                                      .query("select obj from OrderForm obj where obj.shipTime<=:shipTime and (obj.auto_confirm_email=:auto_confirm_email or obj.auto_confirm_sms=:auto_confirm_sms)",
                                             params, -1, -1);
-        for (OrderForm of : notice_ofs) {
-            if (!of.isAuto_confirm_email()) {
+        for (OrderForm of : notice_ofs){
+            if (!of.isAuto_confirm_email()){
                 boolean email = send_email(of,
                                            "email_tobuyer_order_will_confirm_notify");
-                if (email) {
+                if (email){
                     of.setAuto_confirm_email(true);
                     this.orderFormService.update(of);
                 }
             }
-            if (!of.isAuto_confirm_sms()) {
+            if (!of.isAuto_confirm_sms()){
                 boolean sms = send_sms(of, of.getUser().getMobile(),
                                        "sms_tobuyer_order_will_confirm_notify");
-                if (sms) {
+                if (sms){
                     of.setAuto_confirm_sms(true);
                     this.orderFormService.update(of);
                 }
@@ -414,32 +414,32 @@ public class StatManageAction {
         OrderFormLog ofl;
         PredepositLog log;
         User buyer;
-        for (OrderForm of : confirm_ofs) {
+        for (OrderForm of : confirm_ofs){
             of.setOrder_status(40);
             boolean ret = this.orderFormService.update(of);
-            if (ret) {
+            if (ret){
                 ofl = new OrderFormLog();
                 ofl.setAddTime(new Date());
                 ofl.setLog_info("确认收货");
                 ofl.setLog_user(SecurityUserHolder.getCurrentUser());
                 ofl.setOf(of);
                 this.orderFormLogService.save(ofl);
-                if (this.configService.getSysConfig().isEmailEnable()) {
+                if (this.configService.getSysConfig().isEmailEnable()){
                     send_email(of, "email_toseller_order_receive_ok_notify");
                 }
-                if (this.configService.getSysConfig().isSmsEnbale()) {
+                if (this.configService.getSysConfig().isSmsEnbale()){
                     send_sms(of, of.getStore().getUser().getMobile(), "sms_toseller_order_receive_ok_notify");
                 }
-                if (of.getPayment().getMark().equals("balance")) {
+                if (of.getPayment().getMark().equals("balance")){
                     User seller = this.userService.getObjById(of.getStore().getUser().getId());
-                    if (this.configService.getSysConfig().getBalance_fenrun() == 1) {
+                    if (this.configService.getSysConfig().getBalance_fenrun() == 1){
                         params.clear();
                         params.put("type", "admin");
                         params.put("mark", "alipay");
                         List payments = this.paymentService
                                         .query("select obj from Payment obj where obj.type=:type and obj.mark=:mark", params, -1, -1);
                         Payment shop_payment = new Payment();
-                        if (payments.size() > 0) {
+                        if (payments.size() > 0){
                             shop_payment = (Payment) payments.get(0);
                         }
 
@@ -474,7 +474,7 @@ public class StatManageAction {
                         User buyer1 = of.getUser();
                         buyer1.setFreezeBlance(BigDecimal.valueOf(CommUtil.subtract(buyer1.getFreezeBlance(), of.getTotalPrice())));
                         this.userService.update(buyer1);
-                    } else {
+                    }else{
                         seller.setAvailableBalance(BigDecimal.valueOf(CommUtil.add(seller.getAvailableBalance(), of.getTotalPrice())));
                         this.userService.update(seller);
                         log = new PredepositLog();
@@ -508,7 +508,7 @@ public class StatManageAction {
         params.put("order_status_50", Integer.valueOf(50));
         params.put("order_status_60", Integer.valueOf(60));
         List<OrderForm> confirm_evaluate_ofs = this.orderFormService.query("select obj from OrderForm obj where obj.return_shipTime<=:auto_order_evaluate and obj.order_status>=:order_status_40 and obj.order_status!=:order_status_47 and obj.order_status!=:order_status_48 and obj.order_status!=:order_status_49 and obj.order_status!=:order_status_50 and obj.order_status!=:order_status_60", params, -1, -1);
-        for (OrderForm order : confirm_evaluate_ofs) {
+        for (OrderForm order : confirm_evaluate_ofs){
             order.setOrder_status(65);
             this.orderFormService.update(order);
         }
@@ -521,7 +521,7 @@ public class StatManageAction {
         params.put("order_status", Integer.valueOf(46));
         List<OrderForm> confirm_return_ofs = this.orderFormService
                                              .query("select obj from OrderForm obj where obj.return_shipTime<=:return_shipTime and obj.order_status=:order_status", params, -1, -1);
-        for (OrderForm order : confirm_return_ofs) {
+        for (OrderForm order : confirm_return_ofs){
             order.setOrder_status(49);
             this.orderFormService.update(order);
         }
@@ -529,7 +529,7 @@ public class StatManageAction {
         params.clear();
         params.put("delivery_end_time", new Date());
         List<DeliveryGoods> dgs = this.deliveryGoodsService.query("select obj from DeliveryGoods obj where obj.d_goods.goods_store.delivery_end_time<:delivery_end_time", params, -1, -1);
-        for (DeliveryGoods dg : dgs) {
+        for (DeliveryGoods dg : dgs){
             dg.setD_status(-2);
             this.deliveryGoodsService.update(dg);
             Goods goods1 = dg.getD_goods();
@@ -541,9 +541,9 @@ public class StatManageAction {
         params.put("combin_end_time", new Date());
         stores = this.storeService.query("select obj from Store obj where obj.combin_end_time<=:combin_end_time", params, -1, -1);
         // Goods goods;
-        for (Store store : stores) {
-            for (Goods goods1 : store.getGoods_list()) {
-                if (goods1.getCombin_status() != 0) {
+        for (Store store : stores){
+            for (Goods goods1 : store.getGoods_list()){
+                if (goods1.getCombin_status() != 0){
                     goods1.setCombin_begin_time(null);
                     goods1.setCombin_end_time(null);
                     goods1.setCombin_price(null);
@@ -557,13 +557,13 @@ public class StatManageAction {
         List<Goods> goods_list = this.evaluateService.query_goods(
                                      "select distinct obj.evaluate_goods from Evaluate obj ", null, -1, -1);
 
-        for (Goods goods1 : goods_list) {
+        for (Goods goods1 : goods_list){
             description_evaluate = 0.0D;
             params.clear();
             params.put("evaluate_goods_id", goods1.getId());
             List<Evaluate> eva_list = this.evaluateService
                                       .query("select obj from Evaluate obj where obj.evaluate_goods.id=:evaluate_goods_id", params, -1, -1);
-            for (Evaluate eva : eva_list) {
+            for (Evaluate eva : eva_list){
                 description_evaluate = CommUtil.add(eva.getDescription_evaluate(),
                                                     Double.valueOf(description_evaluate));
             }
@@ -578,7 +578,7 @@ public class StatManageAction {
         List<Store> store_list = this.storeService
                                  .query("select obj from Store obj where obj.weixin_status=:weixin_status", params, -1, -1);
         for (Store store : store_list)
-            if (store.getWeixin_end_time().before(new Date())) {
+            if (store.getWeixin_end_time().before(new Date())){
                 store.setWeixin_status(2);
                 this.storeService.update(store);
             }
@@ -587,7 +587,7 @@ public class StatManageAction {
     private boolean send_email(OrderForm order, String mark) throws Exception {
         com.wemall.foundation.domain.Template template = this.templateService
                 .getObjByProperty("mark", mark);
-        if (template.isOpen()) {
+        if (template.isOpen()){
             String email = order.getStore().getUser().getEmail();
             String subject = template.getTitle();
             String path = System.getProperty("wemall.root") + "vm" + File.separator;
@@ -624,7 +624,7 @@ public class StatManageAction {
     private boolean send_sms(OrderForm order, String mobile, String mark)
     throws Exception {
         com.wemall.foundation.domain.Template template = this.templateService.getObjByProperty("mark", mark);
-        if (template.isOpen()) {
+        if (template.isOpen()){
             String path = System.getProperty("wemall.root") + "vm" + File.separator;
             PrintWriter pwrite = new PrintWriter(
                 new OutputStreamWriter(new FileOutputStream(path + "msg.vm", false), "UTF-8"));

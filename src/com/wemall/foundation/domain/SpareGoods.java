@@ -100,187 +100,187 @@ public class SpareGoods extends IdEntity {
     @Column(columnDefinition = "LongText")
     private String content;
 
-    public int getDown() {
+    public int getDown(){
         return this.down;
     }
 
-    public void setDown(int down) {
+    public void setDown(int down){
         this.down = down;
     }
 
-    public boolean isRecommend() {
+    public boolean isRecommend(){
         return this.recommend;
     }
 
-    public void setRecommend(boolean recommend) {
+    public void setRecommend(boolean recommend){
         this.recommend = recommend;
     }
 
-    public String getQQ() {
+    public String getQQ(){
         return this.QQ;
     }
 
-    public void setQQ(String qq) {
+    public void setQQ(String qq){
         this.QQ = qq;
     }
 
-    public boolean isViewInFloor() {
+    public boolean isViewInFloor(){
         return this.viewInFloor;
     }
 
-    public void setViewInFloor(boolean viewInFloor) {
+    public void setViewInFloor(boolean viewInFloor){
         this.viewInFloor = viewInFloor;
     }
 
-    public SpareGoodsFloor getSgf() {
+    public SpareGoodsFloor getSgf(){
         return this.sgf;
     }
 
-    public void setSgf(SpareGoodsFloor sgf) {
+    public void setSgf(SpareGoodsFloor sgf){
         this.sgf = sgf;
     }
 
-    public Accessory getImg5() {
+    public Accessory getImg5(){
         return this.img5;
     }
 
-    public void setImg5(Accessory img5) {
+    public void setImg5(Accessory img5){
         this.img5 = img5;
     }
 
-    public Accessory getMain_img() {
+    public Accessory getMain_img(){
         return this.main_img;
     }
 
-    public void setMain_img(Accessory main_img) {
+    public void setMain_img(Accessory main_img){
         this.main_img = main_img;
     }
 
-    public Accessory getImg1() {
+    public Accessory getImg1(){
         return this.img1;
     }
 
-    public void setImg1(Accessory img1) {
+    public void setImg1(Accessory img1){
         this.img1 = img1;
     }
 
-    public Accessory getImg2() {
+    public Accessory getImg2(){
         return this.img2;
     }
 
-    public void setImg2(Accessory img2) {
+    public void setImg2(Accessory img2){
         this.img2 = img2;
     }
 
-    public Accessory getImg3() {
+    public Accessory getImg3(){
         return this.img3;
     }
 
-    public void setImg3(Accessory img3) {
+    public void setImg3(Accessory img3){
         this.img3 = img3;
     }
 
-    public Accessory getImg4() {
+    public Accessory getImg4(){
         return this.img4;
     }
 
-    public void setImg4(Accessory img4) {
+    public void setImg4(Accessory img4){
         this.img4 = img4;
     }
 
-    public String getPhone() {
+    public String getPhone(){
         return this.phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(String phone){
         this.phone = phone;
     }
 
-    public int getStatus() {
+    public int getStatus(){
         return this.status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(int status){
         this.status = status;
     }
 
-    public String getErrorMessage() {
+    public String getErrorMessage(){
         return this.errorMessage;
     }
 
-    public void setErrorMessage(String errorMessage) {
+    public void setErrorMessage(String errorMessage){
         this.errorMessage = errorMessage;
     }
 
-    public User getUser() {
+    public User getUser(){
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 
-    public String getTitle() {
+    public String getTitle(){
         return this.title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title){
         this.title = title;
     }
 
-    public int getGoods_old_price() {
+    public int getGoods_old_price(){
         return this.goods_old_price;
     }
 
-    public void setGoods_old_price(int goods_old_price) {
+    public void setGoods_old_price(int goods_old_price){
         this.goods_old_price = goods_old_price;
     }
 
-    public int getGoods_price() {
+    public int getGoods_price(){
         return this.goods_price;
     }
 
-    public void setGoods_price(int goods_price) {
+    public void setGoods_price(int goods_price){
         this.goods_price = goods_price;
     }
 
-    public SpareGoodsClass getSpareGoodsClass() {
+    public SpareGoodsClass getSpareGoodsClass(){
         return this.spareGoodsClass;
     }
 
-    public void setSpareGoodsClass(SpareGoodsClass spareGoodsClass) {
+    public void setSpareGoodsClass(SpareGoodsClass spareGoodsClass){
         this.spareGoodsClass = spareGoodsClass;
     }
 
-    public int getOldAndnew() {
+    public int getOldAndnew(){
         return this.oldAndnew;
     }
 
-    public void setOldAndnew(int oldAndnew) {
+    public void setOldAndnew(int oldAndnew){
         this.oldAndnew = oldAndnew;
     }
 
-    public String getName() {
+    public String getName(){
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-    public Area getArea() {
+    public Area getArea(){
         return this.area;
     }
 
-    public void setArea(Area area) {
+    public void setArea(Area area){
         this.area = area;
     }
 
-    public String getContent() {
+    public String getContent(){
         return this.content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String content){
         this.content = content;
     }
 }

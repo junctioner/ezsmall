@@ -69,8 +69,8 @@ public class SubAccountSellerAction {
     private IGoodsService goodsService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "子账户列表", value = "/seller/sub_account_list.htm*", rtype = "seller", rname = "子账户管理", rcode = "sub_account_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/sub_account_list.htm"})
-    public ModelAndView sub_account_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/seller/sub_account_list.htm"})
+    public ModelAndView sub_account_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/sub_account_list.html",
             this.configService.getSysConfig(),
@@ -90,8 +90,8 @@ public class SubAccountSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "子账户添加", value = "/seller/sub_account_add.htm*", rtype = "seller", rname = "子账户管理", rcode = "sub_account_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/sub_account_add.htm"})
-    public ModelAndView sub_account_add(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/sub_account_add.htm"})
+    public ModelAndView sub_account_add(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/sub_account_add.html",
             this.configService.getSysConfig(),
@@ -99,7 +99,7 @@ public class SubAccountSellerAction {
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
         Store store = user.getStore();
-        if (store == null) {
+        if (store == null){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -107,7 +107,7 @@ public class SubAccountSellerAction {
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
         }
 
-        if (user.getChilds().size() >= store.getGrade().getAcount_num()) {
+        if (user.getChilds().size() >= store.getGrade().getAcount_num()){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -127,8 +127,8 @@ public class SubAccountSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "子账户编辑", value = "/seller/sub_account_edit.htm*", rtype = "seller", rname = "子账户管理", rcode = "sub_account_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/sub_account_edit.htm"})
-    public ModelAndView sub_account_edit(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/sub_account_edit.htm"})
+    public ModelAndView sub_account_edit(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/sub_account_add.html",
             this.configService.getSysConfig(),
@@ -136,7 +136,7 @@ public class SubAccountSellerAction {
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
         Store store = user.getStore();
-        if (store == null) {
+        if (store == null){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -155,7 +155,7 @@ public class SubAccountSellerAction {
         return mv;
     }
 
-    private String clearContent(String inputString) {
+    private String clearContent(String inputString){
         String htmlStr = inputString;
         String textStr = "";
         try {
@@ -180,7 +180,7 @@ public class SubAccountSellerAction {
             htmlStr = m_html1.replaceAll("");
 
             textStr = htmlStr;
-        } catch (Exception e) {
+        } catch (Exception e){
             System.err.println("Html2Text: " + e.getMessage());
         }
 
@@ -188,18 +188,18 @@ public class SubAccountSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "子账户保存", value = "/seller/sub_account_save.htm*", rtype = "seller", rname = "子账户管理", rcode = "sub_account_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/sub_account_save.htm"})
-    public void sub_account_save(HttpServletRequest request, HttpServletResponse response, String id, String userName, String trueName, String sex, String birthday, String QQ, String telephone, String mobile, String password, String role_ids) {
+    @RequestMapping({"/seller/sub_account_save.htm"})
+    public void sub_account_save(HttpServletRequest request, HttpServletResponse response, String id, String userName, String trueName, String sex, String birthday, String QQ, String telephone, String mobile, String password, String role_ids){
         boolean ret = true;
         String msg = "保存成功";
         User parent = this.userService.getObjById(
                           SecurityUserHolder.getCurrentUser().getId());
         Store store = parent.getStore();
         userName = clearContent(userName);
-        if (parent.getChilds().size() >= store.getGrade().getAcount_num()) {
+        if (parent.getChilds().size() >= store.getGrade().getAcount_num()){
             ret = false;
             msg = "已经超过子账户上线";
-        } else if (CommUtil.null2String(id).equals("")) {
+        }else if (CommUtil.null2String(id).equals("")){
             User user = new User();
             user.setAddTime(new Date());
             user.setUserName(userName);
@@ -218,15 +218,15 @@ public class SubAccountSellerAction {
                              "select obj from Role obj where obj.type=:type",
                              params, -1, -1);
             user.getRoles().addAll(roles);
-            for (String role_id : role_ids.split(",")) {
-                if (!role_id.equals("")) {
+            for (String role_id : role_ids.split(",")){
+                if (!role_id.equals("")){
                     Role role = this.roleService.getObjById(
                                     CommUtil.null2Long(role_id));
                     user.getRoles().add(role);
                 }
             }
             ret = this.userService.save(user);
-        } else {
+        }else{
             User user = this.userService.getObjById(CommUtil.null2Long(id));
             user.setUserName(userName);
             user.setTrueName(trueName);
@@ -242,8 +242,8 @@ public class SubAccountSellerAction {
                              "select obj from Role obj where obj.type=:type",
                              params, -1, -1);
             user.getRoles().addAll(roles);
-            for (String role_id : role_ids.split(",")) {
-                if (!role_id.equals("")) {
+            for (String role_id : role_ids.split(",")){
+                if (!role_id.equals("")){
                     Role role = this.roleService.getObjById(
                                     CommUtil.null2Long(role_id));
                     user.getRoles().add(role);
@@ -262,14 +262,14 @@ public class SubAccountSellerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(Json.toJson(map, JsonFormat.compact()));
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "子账户删除", value = "/seller/sub_account_del.htm*", rtype = "seller", rname = "子账户管理", rcode = "sub_account_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/sub_account_del.htm"})
-    public String sub_account_del(HttpServletRequest request, HttpServletResponse response, String mulitId) {
+    @RequestMapping({"/seller/sub_account_del.htm"})
+    public String sub_account_del(HttpServletRequest request, HttpServletResponse response, String mulitId){
         User user = this.userService.getObjById(CommUtil.null2Long(mulitId));
         user.getRoles().clear();
         this.userService.delete(user.getId());

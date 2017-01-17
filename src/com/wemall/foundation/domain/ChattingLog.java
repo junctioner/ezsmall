@@ -40,35 +40,35 @@ public class ChattingLog extends IdEntity {
     @Column(columnDefinition = "int default 0")
     private int mark;
 
-    public int getMark() {
+    public int getMark(){
         return this.mark;
     }
 
-    public void setMark(int mark) {
+    public void setMark(int mark){
         this.mark = mark;
     }
 
-    public Chatting getChatting() {
+    public Chatting getChatting(){
         return this.chatting;
     }
 
-    public void setChatting(Chatting chatting) {
+    public void setChatting(Chatting chatting){
         this.chatting = chatting;
     }
 
-    public User getUser() {
+    public User getUser(){
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 
-    public String getContent() {
+    public String getContent(){
         return this.content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String content){
         this.content = content;
     }
 }

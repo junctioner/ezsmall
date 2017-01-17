@@ -41,14 +41,14 @@ public class StorePartnerManageAction {
     private IStoreService storeService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家合作伙伴列表", value = "/seller/store_partner.htm*", rtype = "seller", rname = "友情链接", rcode = "store_partner_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_partner.htm"})
-    public ModelAndView store_partner(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/seller/store_partner.htm"})
+    public ModelAndView store_partner(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/store_partner.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -66,8 +66,8 @@ public class StorePartnerManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家合作伙伴添加", value = "/seller/store_partner_add.htm*", rtype = "seller", rname = "友情链接", rcode = "store_partner_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_partner_add.htm"})
-    public ModelAndView store_partner_add(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/seller/store_partner_add.htm"})
+    public ModelAndView store_partner_add(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/store_partner_add.html",
             this.configService.getSysConfig(),
@@ -78,13 +78,13 @@ public class StorePartnerManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家合作伙伴编辑", value = "/seller/store_partner_edit.htm*", rtype = "seller", rname = "友情链接", rcode = "store_partner_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_partner_edit.htm"})
-    public ModelAndView store_partner_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/seller/store_partner_edit.htm"})
+    public ModelAndView store_partner_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/store_partner_add.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             StorePartner storepartner = this.storepartnerService
                                         .getObjById(Long.valueOf(Long.parseLong(id)));
             mv.addObject("obj", storepartner);
@@ -96,14 +96,14 @@ public class StorePartnerManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家合作伙伴保存", value = "/seller/store_partner_save.htm*", rtype = "seller", rname = "友情链接", rcode = "store_partner_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_partner_save.htm"})
-    public ModelAndView store_partner_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String list_url, String add_url) {
+    @RequestMapping({"/seller/store_partner_save.htm"})
+    public ModelAndView store_partner_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String list_url, String add_url){
         WebForm wf = new WebForm();
         StorePartner storepartner = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             storepartner = (StorePartner)wf.toPo(request, StorePartner.class);
             storepartner.setAddTime(new Date());
-        } else {
+        }else{
             StorePartner obj = this.storepartnerService.getObjById(
                                    Long.valueOf(Long.parseLong(id)));
             storepartner = (StorePartner)wf.toPo(request, obj);
@@ -127,11 +127,11 @@ public class StorePartnerManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家合作伙伴删除", value = "/seller/store_partner_del.htm*", rtype = "seller", rname = "友情链接", rcode = "store_partner_seller", rgroup = "店铺设置")
-    @RequestMapping( {"/seller/store_partner_del.htm"})
-    public String store_partner_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
+    @RequestMapping({"/seller/store_partner_del.htm"})
+    public String store_partner_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 StorePartner storepartner = this.storepartnerService
                                             .getObjById(Long.valueOf(Long.parseLong(id)));
                 this.storepartnerService.delete(Long.valueOf(Long.parseLong(id)));

@@ -37,15 +37,15 @@ public class SnsManageAction {
     private StoreViewTools storeViewTools;
 
     @SecurityMapping(display = false, rsequence = 0, title = "会员动态列表", value = "/admin/sns_user.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
-    @RequestMapping( {"/admin/sns_user.htm"})
-    public ModelAndView sns_user(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String condition, String userName) {
+    @RequestMapping({"/admin/sns_user.htm"})
+    public ModelAndView sns_user(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String condition, String userName){
         ModelAndView mv = new JModelAndView("admin/blue/sns_user.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         DynamicQueryObject qo = new DynamicQueryObject(currentPage, mv,
                 orderBy, orderType);
         qo.addQuery("obj.dissParent.id is null", null);
-        if ((userName != null) && (!userName.equals(""))) {
+        if ((userName != null) && (!userName.equals(""))){
             qo.addQuery("obj.user.userName",
                         new SysMap("obj_userName", "%" +
                                    userName.trim() + "%"), "like");
@@ -61,10 +61,10 @@ public class SnsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "会员动态删除", value = "/admin/sns_del.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
-    @RequestMapping( {"/admin/sns_del.htm"})
-    public String sns_user_del(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId) {
+    @RequestMapping({"/admin/sns_del.htm"})
+    public String sns_user_del(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
+        for (String id : ids){
             Dynamic obj = this.dynamicService
                           .getObjById(CommUtil.null2Long(id));
             this.dynamicService.delete(CommUtil.null2Long(id));
@@ -75,15 +75,15 @@ public class SnsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺动态列表", value = "/admin/sns_store.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
-    @RequestMapping( {"/admin/sns_store.htm"})
-    public ModelAndView sns_store(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String condition, String store_name) {
+    @RequestMapping({"/admin/sns_store.htm"})
+    public ModelAndView sns_store(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String condition, String store_name){
         ModelAndView mv = new JModelAndView("admin/blue/sns_store.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         DynamicQueryObject qo = new DynamicQueryObject(currentPage, mv,
                 orderBy, orderType);
         qo.addQuery("obj.dissParent.id is null", null);
-        if ((store_name != null) && (!store_name.equals(""))) {
+        if ((store_name != null) && (!store_name.equals(""))){
             qo.addQuery("obj.store.store_name",
                         new SysMap("obj_store_name",
                                    "%" + store_name.trim() + "%"), "like");
@@ -101,10 +101,10 @@ public class SnsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺动态删除", value = "/admin/sns_store_del.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
-    @RequestMapping( {"/admin/sns_store_del.htm"})
-    public String sns_store_del(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId) {
+    @RequestMapping({"/admin/sns_store_del.htm"})
+    public String sns_store_del(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
+        for (String id : ids){
             Dynamic obj = this.dynamicService
                           .getObjById(CommUtil.null2Long(id));
             this.dynamicService.delete(CommUtil.null2Long(id));
@@ -115,18 +115,18 @@ public class SnsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "sns动态设置可见度", value = "/admin/sns_set_display.htm*", rtype = "admin", rname = "会员管理", rcode = "user_manage", rgroup = "会员")
-    @RequestMapping( {"/admin/sns_set_display.htm"})
-    public String sns_set_display(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId, String type, String mark) {
+    @RequestMapping({"/admin/sns_set_display.htm"})
+    public String sns_set_display(HttpServletRequest request, HttpServletResponse response, String currentPage, String mulitId, String type, String mark){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
+        for (String id : ids){
             Dynamic obj = this.dynamicService
                           .getObjById(CommUtil.null2Long(id));
-            if ((obj != null) && (!obj.equals(""))) {
-                if (type.equals("show")) {
-                    if (!obj.isDisplay()) {
+            if ((obj != null) && (!obj.equals(""))){
+                if (type.equals("show")){
+                    if (!obj.isDisplay()){
                         obj.setDisplay(true);
                     }
-                } else if (obj.isDisplay()) {
+                }else if (obj.isDisplay()){
                     obj.setDisplay(false);
                 }
 

@@ -21,79 +21,79 @@ public class HttpRequest {
     private String clientIp;
     private HttpResultType resultType = HttpResultType.BYTES;
 
-    public HttpRequest(HttpResultType resultType) {
+    public HttpRequest(HttpResultType resultType){
         this.resultType = resultType;
     }
 
-    public String getClientIp() {
+    public String getClientIp(){
         return this.clientIp;
     }
 
-    public void setClientIp(String clientIp) {
+    public void setClientIp(String clientIp){
         this.clientIp = clientIp;
     }
 
-    public NameValuePair[] getParameters() {
+    public NameValuePair[] getParameters(){
         return this.parameters;
     }
 
-    public void setParameters(NameValuePair[] parameters) {
+    public void setParameters(NameValuePair[] parameters){
         this.parameters = parameters;
     }
 
-    public String getQueryString() {
+    public String getQueryString(){
         return this.queryString;
     }
 
-    public void setQueryString(String queryString) {
+    public void setQueryString(String queryString){
         this.queryString = queryString;
     }
 
-    public String getUrl() {
+    public String getUrl(){
         return this.url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(String url){
         this.url = url;
     }
 
-    public String getMethod() {
+    public String getMethod(){
         return this.method;
     }
 
-    public void setMethod(String method) {
+    public void setMethod(String method){
         this.method = method;
     }
 
-    public int getConnectionTimeout() {
+    public int getConnectionTimeout(){
         return this.connectionTimeout;
     }
 
-    public void setConnectionTimeout(int connectionTimeout) {
+    public void setConnectionTimeout(int connectionTimeout){
         this.connectionTimeout = connectionTimeout;
     }
 
-    public int getTimeout() {
+    public int getTimeout(){
         return this.timeout;
     }
 
-    public void setTimeout(int timeout) {
+    public void setTimeout(int timeout){
         this.timeout = timeout;
     }
 
-    public String getCharset() {
+    public String getCharset(){
         return this.charset;
     }
 
-    public void setCharset(String charset) {
+    public void setCharset(String charset){
         this.charset = charset;
     }
 
-    public HttpResultType getResultType() {
+    public HttpResultType getResultType(){
         return this.resultType;
     }
 
-    public void setResultType(HttpResultType resultType) {
+    public void setResultType(HttpResultType resultType){
         this.resultType = resultType;
     }
 }

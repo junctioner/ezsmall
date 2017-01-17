@@ -49,8 +49,8 @@ public class DeliveryManageAction {
     private INavigationService navigationService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "买就送设置", value = "/admin/set_delivery.htm*", rtype = "admin", rname = "买就送", rcode = "delivery_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/set_delivery.htm"})
-    public ModelAndView set_delivery(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/admin/set_delivery.htm"})
+    public ModelAndView set_delivery(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/set_delivery.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -59,29 +59,29 @@ public class DeliveryManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买就送设置保存", value = "/admin/set_delivery_save.htm*", rtype = "admin", rname = "买就送", rcode = "delivery_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/set_delivery_save.htm"})
-    public ModelAndView set_delivery_save(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/admin/set_delivery_save.htm"})
+    public ModelAndView set_delivery_save(HttpServletRequest request, HttpServletResponse response, String id){
         SysConfig obj = this.configService.getSysConfig();
         WebForm wf = new WebForm();
         SysConfig sysConfig = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             sysConfig = (SysConfig)wf.toPo(request, SysConfig.class);
             sysConfig.setAddTime(new Date());
-        } else {
+        }else{
             sysConfig = (SysConfig)wf.toPo(request, obj);
         }
         if (id.equals(""))
             this.configService.save(sysConfig);
-        else {
+       else{
             this.configService.update(sysConfig);
         }
-        if (sysConfig.getDelivery_status() == 1) {
+        if (sysConfig.getDelivery_status() == 1){
             Map params = new HashMap();
             params.put("url", "delivery.htm");
             List navs = this.navigationService.query(
                             "select obj from Navigation obj where obj.url=:url",
                             params, -1, -1);
-            if (navs.size() == 0) {
+            if (navs.size() == 0){
                 Navigation nav = new Navigation();
                 nav.setAddTime(new Date());
                 nav.setDisplay(true);
@@ -95,13 +95,13 @@ public class DeliveryManageAction {
                 nav.setOriginal_url("delivery.htm");
                 this.navigationService.save(nav);
             }
-        } else {
+        }else{
             Map params = new HashMap();
             params.put("url", "delivery.htm");
             List<Navigation> navs = this.navigationService.query(
                                         "select obj from Navigation obj where obj.url=:url",
                                         params, -1, -1);
-            for (Navigation nav : navs) {
+            for (Navigation nav : navs){
                 this.navigationService.delete(nav.getId());
             }
         }
@@ -117,20 +117,20 @@ public class DeliveryManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买就送商品列表", value = "/admin/delivery_goods_list.htm*", rtype = "admin", rname = "买就送", rcode = "delivery_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/delivery_goods_list.htm"})
-    public ModelAndView delivery_goods_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String goods_name, String d_status) {
+    @RequestMapping({"/admin/delivery_goods_list.htm"})
+    public ModelAndView delivery_goods_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String goods_name, String d_status){
         ModelAndView mv = new JModelAndView(
             "admin/blue/delivery_goods_list.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         DeliveryGoodsQueryObject qo = new DeliveryGoodsQueryObject(currentPage,
                 mv, orderBy, orderType);
-        if (!CommUtil.null2String(d_status).equals("")) {
+        if (!CommUtil.null2String(d_status).equals("")){
             qo.addQuery("obj.d_status",
                         new SysMap("d_status",
                                    Integer.valueOf(CommUtil.null2Int(d_status))), "=");
         }
-        if (!CommUtil.null2String(goods_name).equals("")) {
+        if (!CommUtil.null2String(goods_name).equals("")){
             qo.addQuery("obj.d_goods.goods_name",
                         new SysMap("goods_name", "%" +
                                    goods_name.trim() + "goods_name"), "=");
@@ -144,11 +144,11 @@ public class DeliveryManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买就送商品审核", value = "/admin/delivery_goods_audit.htm*", rtype = "admin", rname = "买就送", rcode = "delivery_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/delivery_goods_audit.htm"})
-    public String delivery_goods_audit(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
+    @RequestMapping({"/admin/delivery_goods_audit.htm"})
+    public String delivery_goods_audit(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!CommUtil.null2String(id).equals("")) {
+        for (String id : ids){
+            if (!CommUtil.null2String(id).equals("")){
                 DeliveryGoods obj = this.deliveryGoodsService
                                     .getObjById(CommUtil.null2Long(id));
                 obj.setD_admin_user(SecurityUserHolder.getCurrentUser());
@@ -165,11 +165,11 @@ public class DeliveryManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买就送拒绝", value = "/admin/delivery_goods_refuse.htm*", rtype = "admin", rname = "买就送", rcode = "delivery_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/delivery_goods_refuse.htm"})
-    public String delivery_goods_refuse(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
+    @RequestMapping({"/admin/delivery_goods_refuse.htm"})
+    public String delivery_goods_refuse(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!CommUtil.null2String(id).equals("")) {
+        for (String id : ids){
+            if (!CommUtil.null2String(id).equals("")){
                 DeliveryGoods obj = this.deliveryGoodsService
                                     .getObjById(CommUtil.null2Long(id));
                 obj.setD_admin_user(SecurityUserHolder.getCurrentUser());

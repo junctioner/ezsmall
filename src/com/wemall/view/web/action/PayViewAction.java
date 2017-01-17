@@ -96,7 +96,7 @@ public class PayViewAction {
      * @return
      * @throws Exception
      */
-    @RequestMapping( {"/alipay_return.htm"})
+    @RequestMapping({"/alipay_return.htm"})
     public ModelAndView alipay_return(HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         ModelAndView mv = new JModelAndView("order_finish.html",
@@ -113,30 +113,30 @@ public class PayViewAction {
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             order = this.orderFormService.getObjById(
                         CommUtil.null2Long(order_no));
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             obj = this.predepositService.getObjById(
                       CommUtil.null2Long(order_no));
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             gold = this.goldRecordService.getObjById(
                        CommUtil.null2Long(order_no));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(
                            CommUtil.null2Long(order_no));
         }
 
         Map params = new HashMap();
         Map requestParams = request.getParameterMap();
-        for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext(); ) {
+        for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();){
             String name = (String)iter.next();
             String[] values = (String[])requestParams.get(name);
             String valueStr = "";
-            for (int i = 0; i < values.length; i++) {
+            for (int i = 0; i < values.length; i++){
                 //valueStr = valueStr + values[i] + ",";
                 valueStr = valueStr + values[i];
             }
@@ -145,22 +145,22 @@ public class PayViewAction {
             params.put(name, valueStr);
         }
         AlipayConfig config = new AlipayConfig();
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             config.setKey(order.getPayment().getSafeKey());
             config.setPartner(order.getPayment().getPartner());
             config.setSeller_email(order.getPayment().getSeller_email());
         }
         if ((type.equals("cash")) || (type.equals("gold")) ||
-                (type.equals("integral"))) {
+                (type.equals("integral"))){
             Map q_params = new HashMap();
             q_params.put("install", Boolean.valueOf(true));
-            if (type.equals("cash")) {
+            if (type.equals("cash")){
                 q_params.put("mark", obj.getPd_payment());
             }
-            if (type.equals("gold")) {
+            if (type.equals("gold")){
                 q_params.put("mark", gold.getGold_payment());
             }
-            if (type.equals("integral")) {
+            if (type.equals("integral")){
                 q_params.put("mark", ig_order.getIgo_payment());
             }
             q_params.put("type", "admin");
@@ -174,12 +174,12 @@ public class PayViewAction {
         config.setNotify_url(CommUtil.getURL(request) + "/alipay_notify.htm");
         config.setReturn_url(CommUtil.getURL(request) + "/alipay_return.htm");
         boolean verify_result = AlipayNotify.verify(config, params);
-        if (verify_result) {
+        if (verify_result){
             if ((type.equals("goods")) && (
                         (trade_status.equals("WAIT_SELLER_SEND_GOODS")) ||
                         (trade_status.equals("TRADE_FINISHED")) ||
-                        (trade_status.equals("TRADE_SUCCESS")))) {
-                if (order.getOrder_status() != 20) {
+                        (trade_status.equals("TRADE_SUCCESS")))){
+                if (order.getOrder_status() != 20){
                     order.setOrder_status(20);
                     order.setOut_order_id(trade_no);
                     order.setPayTime(new Date());
@@ -193,7 +193,7 @@ public class PayViewAction {
                     ofl.setOf(order);
                     this.orderFormLogService.save(ofl);
 
-                    if (this.configService.getSysConfig().isEmailEnable()) {
+                    if (this.configService.getSysConfig().isEmailEnable()){
                         send_order_email(request, order, order
                                          .getUser().getEmail(),
                                          "email_tobuyer_online_pay_ok_notify");
@@ -202,7 +202,7 @@ public class PayViewAction {
                                          "email_toseller_online_pay_ok_notify");
                     }
 
-                    if (this.configService.getSysConfig().isSmsEnbale()) {
+                    if (this.configService.getSysConfig().isSmsEnbale()){
                         send_order_sms(request, order, order.getUser()
                                        .getMobile(),
                                        "sms_tobuyer_online_pay_ok_notify");
@@ -217,8 +217,8 @@ public class PayViewAction {
             if ((type.equals("cash")) && (
                         (trade_status.equals("WAIT_SELLER_SEND_GOODS")) ||
                         (trade_status.equals("TRADE_FINISHED")) ||
-                        (trade_status.equals("TRADE_SUCCESS")))) {
-                if (obj.getPd_pay_status() != 2) {
+                        (trade_status.equals("TRADE_SUCCESS")))){
+                if (obj.getPd_pay_status() != 2){
                     obj.setPd_status(1);
                     obj.setPd_pay_status(2);
                     this.predepositService.update(obj);
@@ -249,8 +249,8 @@ public class PayViewAction {
             if ((type.equals("gold")) && (
                         (trade_status.equals("WAIT_SELLER_SEND_GOODS")) ||
                         (trade_status.equals("TRADE_FINISHED")) ||
-                        (trade_status.equals("TRADE_SUCCESS")))) {
-                if (gold.getGold_pay_status() != 2) {
+                        (trade_status.equals("TRADE_SUCCESS")))){
+                if (gold.getGold_pay_status() != 2){
                     gold.setGold_status(1);
                     gold.setGold_pay_status(2);
                     this.goldRecordService.update(gold);
@@ -282,13 +282,13 @@ public class PayViewAction {
             if ((type.equals("integral")) && (
                         (trade_status.equals("WAIT_SELLER_SEND_GOODS")) ||
                         (trade_status.equals("TRADE_FINISHED")) ||
-                        (trade_status.equals("TRADE_SUCCESS")))) {
-                if (ig_order.getIgo_status() < 20) {
+                        (trade_status.equals("TRADE_SUCCESS")))){
+                if (ig_order.getIgo_status() < 20){
                     ig_order.setIgo_status(20);
                     ig_order.setIgo_pay_time(new Date());
                     ig_order.setIgo_payment("alipay");
                     this.integralGoodsOrderService.update(ig_order);
-                    for (IntegralGoodsCart igc : ig_order.getIgo_gcs()) {
+                    for (IntegralGoodsCart igc : ig_order.getIgo_gcs()){
                         IntegralGoods goods = igc.getGoods();
                         goods.setIg_goods_count(goods.getIg_goods_count() -
                                                 igc.getCount());
@@ -303,7 +303,7 @@ public class PayViewAction {
                                        response);
                 mv.addObject("obj", ig_order);
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -320,7 +320,7 @@ public class PayViewAction {
      * @param response
      * @throws Exception
      */
-    @RequestMapping( {"/alipay_notify.htm"})
+    @RequestMapping({"/alipay_notify.htm"})
     public void alipay_notify(HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         String trade_no = request.getParameter("trade_no");
@@ -334,30 +334,30 @@ public class PayViewAction {
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             order = this.orderFormService.getObjById(
                         CommUtil.null2Long(order_no));
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             obj = this.predepositService.getObjById(
                       CommUtil.null2Long(order_no));
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             gold = this.goldRecordService.getObjById(
                        CommUtil.null2Long(order_no));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(
                            CommUtil.null2Long(order_no));
         }
 
         Map params = new HashMap();
         Map requestParams = request.getParameterMap();
-        for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext(); ) {
+        for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();){
             String name = (String)iter.next();
             String[] values = (String[])requestParams.get(name);
             String valueStr = "";
-            for (int i = 0; i < values.length; i++) {
+            for (int i = 0; i < values.length; i++){
                 //valueStr =  valueStr + values[i] + ",";
                 valueStr = valueStr + values[i];
             }
@@ -366,22 +366,22 @@ public class PayViewAction {
             params.put(name, valueStr);
         }
         AlipayConfig config = new AlipayConfig();
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             config.setKey(order.getPayment().getSafeKey());
             config.setPartner(order.getPayment().getPartner());
             config.setSeller_email(order.getPayment().getSeller_email());
         }
         if ((type.equals("cash")) || (type.equals("gold")) ||
-                (type.equals("integral"))) {
+                (type.equals("integral"))){
             Map q_params = new HashMap();
             q_params.put("install", Boolean.valueOf(true));
-            if (type.equals("cash")) {
+            if (type.equals("cash")){
                 q_params.put("mark", obj.getPd_payment());
             }
-            if (type.equals("gold")) {
+            if (type.equals("gold")){
                 q_params.put("mark", gold.getGold_payment());
             }
-            if (type.equals("integral")) {
+            if (type.equals("integral")){
                 q_params.put("mark", ig_order.getIgo_payment());
             }
             q_params.put("type", "admin");
@@ -395,12 +395,12 @@ public class PayViewAction {
         config.setNotify_url(CommUtil.getURL(request) + "/alipay_notify.htm");
         config.setReturn_url(CommUtil.getURL(request) + "/alipay_return.htm");
         boolean verify_result = AlipayNotify.verify(config, params);
-        if (verify_result) {
+        if (verify_result){
             if ((type.equals("goods")) &&
                     ((trade_status.equals("WAIT_SELLER_SEND_GOODS")) ||
                      (trade_status.equals("TRADE_FINISHED")) ||
                      (trade_status.equals("TRADE_SUCCESS"))) &&
-                    (order.getOrder_status() < 20)) {
+                    (order.getOrder_status() < 20)){
                 order.setOrder_status(20);
                 order.setOut_order_id(trade_no);
                 order.setPayTime(new Date());
@@ -414,7 +414,7 @@ public class PayViewAction {
                 ofl.setOf(order);
                 this.orderFormLogService.save(ofl);
 
-                if (this.configService.getSysConfig().isEmailEnable()) {
+                if (this.configService.getSysConfig().isEmailEnable()){
                     send_order_email(request, order, order
                                      .getUser().getEmail(),
                                      "email_tobuyer_online_pay_ok_notify");
@@ -423,7 +423,7 @@ public class PayViewAction {
                                      "email_toseller_online_pay_ok_notify");
                 }
 
-                if (this.configService.getSysConfig().isSmsEnbale()) {
+                if (this.configService.getSysConfig().isSmsEnbale()){
                     send_order_sms(request, order, order.getUser()
                                    .getMobile(),
                                    "sms_tobuyer_online_pay_ok_notify");
@@ -438,7 +438,7 @@ public class PayViewAction {
                     ((trade_status.equals("WAIT_SELLER_SEND_GOODS")) ||
                      (trade_status.equals("TRADE_FINISHED")) ||
                      (trade_status.equals("TRADE_SUCCESS"))) &&
-                    (obj.getPd_pay_status() < 2)) {
+                    (obj.getPd_pay_status() < 2)){
                 obj.setPd_status(1);
                 obj.setPd_pay_status(2);
                 this.predepositService.update(obj);
@@ -462,7 +462,7 @@ public class PayViewAction {
                     ((trade_status.equals("WAIT_SELLER_SEND_GOODS")) ||
                      (trade_status.equals("TRADE_FINISHED")) ||
                      (trade_status.equals("TRADE_SUCCESS"))) &&
-                    (gold.getGold_pay_status() < 2)) {
+                    (gold.getGold_pay_status() < 2)){
                 gold.setGold_status(1);
                 gold.setGold_pay_status(2);
                 this.goldRecordService.update(gold);
@@ -486,12 +486,12 @@ public class PayViewAction {
                     ((trade_status.equals("WAIT_SELLER_SEND_GOODS")) ||
                      (trade_status.equals("TRADE_FINISHED")) ||
                      (trade_status.equals("TRADE_SUCCESS"))) &&
-                    (ig_order.getIgo_status() < 20)) {
+                    (ig_order.getIgo_status() < 20)){
                 ig_order.setIgo_status(20);
                 ig_order.setIgo_pay_time(new Date());
                 ig_order.setIgo_payment("alipay");
                 this.integralGoodsOrderService.update(ig_order);
-                for (IntegralGoodsCart igc : ig_order.getIgo_gcs()) {
+                for (IntegralGoodsCart igc : ig_order.getIgo_gcs()){
                     IntegralGoods goods = igc.getGoods();
                     goods.setIg_goods_count(goods.getIg_goods_count() -
                                             igc.getCount());
@@ -508,17 +508,17 @@ public class PayViewAction {
             try {
                 PrintWriter writer = response.getWriter();
                 writer.print("success");
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
-        } else {
+        }else{
             response.setContentType("text/plain");
             response.setHeader("Cache-Control", "no-cache");
             response.setCharacterEncoding("UTF-8");
             try {
                 PrintWriter writer = response.getWriter();
                 writer.print("fail");
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
         }
@@ -531,7 +531,7 @@ public class PayViewAction {
      * @return
      * @throws Exception
      */
-    @RequestMapping( {"/bill_return.htm"})
+    @RequestMapping({"/bill_return.htm"})
     public ModelAndView bill_return(HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         ModelAndView mv = new JModelAndView("order_finish.html",
@@ -544,16 +544,16 @@ public class PayViewAction {
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (ext2.equals("goods")) {
+        if (ext2.equals("goods")){
             order = this.orderFormService.getObjById(CommUtil.null2Long(ext1));
         }
-        if (ext2.equals("cash")) {
+        if (ext2.equals("cash")){
             obj = this.predepositService.getObjById(CommUtil.null2Long(ext1));
         }
-        if (ext2.equals("gold")) {
+        if (ext2.equals("gold")){
             gold = this.goldRecordService.getObjById(CommUtil.null2Long(ext1));
         }
-        if (ext2.equals("integral")) {
+        if (ext2.equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(
                            CommUtil.null2Long(ext1));
         }
@@ -562,20 +562,20 @@ public class PayViewAction {
                                 .trim();
 
         String key = "";
-        if (ext2.equals("goods")) {
+        if (ext2.equals("goods")){
             key = order.getPayment().getRmbKey();
         }
         if ((ext2.equals("cash")) || (ext2.equals("gold")) ||
-                (ext2.equals("integral"))) {
+                (ext2.equals("integral"))){
             Map q_params = new HashMap();
             q_params.put("install", Boolean.valueOf(true));
-            if (ext2.equals("cash")) {
+            if (ext2.equals("cash")){
                 q_params.put("mark", obj.getPd_payment());
             }
-            if (ext2.equals("gold")) {
+            if (ext2.equals("gold")){
                 q_params.put("mark", gold.getGold_payment());
             }
-            if (ext2.equals("integral")) {
+            if (ext2.equals("integral")){
                 q_params.put("mark", ig_order.getIgo_payment());
             }
             q_params.put("type", "admin");
@@ -651,10 +651,10 @@ public class PayViewAction {
         String merchantSignMsg = MD5Util.md5Hex(
                                      merchantSignMsgVal.getBytes("utf-8")).toUpperCase();
 
-        if (signMsg.toUpperCase().equals(merchantSignMsg.toUpperCase())) {
-            switch (Integer.parseInt(payResult)) {
+        if (signMsg.toUpperCase().equals(merchantSignMsg.toUpperCase())){
+            switch (Integer.parseInt(payResult)){
             case 10:
-                if (ext2.equals("goods")) {
+                if (ext2.equals("goods")){
                     order.setOrder_status(20);
                     order.setPayTime(new Date());
                     this.orderFormService.update(order);
@@ -667,7 +667,7 @@ public class PayViewAction {
                     this.orderFormLogService.save(ofl);
                     mv.addObject("obj", order);
 
-                    if (this.configService.getSysConfig().isEmailEnable()) {
+                    if (this.configService.getSysConfig().isEmailEnable()){
                         send_order_email(request, order, order.getUser()
                                          .getEmail(),
                                          "email_tobuyer_online_pay_ok_notify");
@@ -676,7 +676,7 @@ public class PayViewAction {
                                          "email_toseller_online_pay_ok_notify");
                     }
 
-                    if (this.configService.getSysConfig().isSmsEnbale()) {
+                    if (this.configService.getSysConfig().isSmsEnbale()){
                         send_order_sms(request, order, order.getUser()
                                        .getMobile(),
                                        "sms_tobuyer_online_pay_ok_notify");
@@ -685,7 +685,7 @@ public class PayViewAction {
                                        "sms_toseller_online_pay_ok_notify");
                     }
                 }
-                if (ext2.equals("cash")) {
+                if (ext2.equals("cash")){
                     obj.setPd_status(1);
                     obj.setPd_pay_status(2);
                     this.predepositService.update(obj);
@@ -711,7 +711,7 @@ public class PayViewAction {
                                  "/buyer/predeposit_list.htm");
                 }
                 GoldLog log;
-                if (ext2.equals("gold")) {
+                if (ext2.equals("gold")){
                     gold.setGold_status(1);
                     gold.setGold_pay_status(2);
                     this.goldRecordService.update(gold);
@@ -743,7 +743,7 @@ public class PayViewAction {
                 ig_order.setIgo_pay_time(new Date());
                 ig_order.setIgo_payment("bill");
                 this.integralGoodsOrderService.update(ig_order);
-                for (IntegralGoodsCart igc : ig_order.getIgo_gcs()) {
+                for (IntegralGoodsCart igc : ig_order.getIgo_gcs()){
                     IntegralGoods goods = igc.getGoods();
                     goods.setIg_goods_count(goods.getIg_goods_count() -
                                             igc.getCount());
@@ -768,7 +768,7 @@ public class PayViewAction {
 
                 break;
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -779,12 +779,12 @@ public class PayViewAction {
         return mv;
     }
 
-    public String appendParam(String returnStr, String paramId, String paramValue) {
-        if (!returnStr.equals("")) {
-            if (!paramValue.equals("")) {
+    public String appendParam(String returnStr, String paramId, String paramValue){
+        if (!returnStr.equals("")){
+            if (!paramValue.equals("")){
                 returnStr = returnStr + "&" + paramId + "=" + paramValue;
             }
-        } else if (!paramValue.equals("")) {
+        }else if (!paramValue.equals("")){
             returnStr = paramId + "=" + paramValue;
         }
 
@@ -800,38 +800,38 @@ public class PayViewAction {
      * @param payment_id
      * @throws IOException
      */
-    @RequestMapping( {"/tenpay.htm"})
+    @RequestMapping({"/tenpay.htm"})
     public void tenpay(HttpServletRequest request, HttpServletResponse response, String id, String type, String payment_id)
     throws IOException {
         OrderForm of = null;
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             of = this.orderFormService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             obj = this.predepositService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             gold = this.goldRecordService.getObjById(CommUtil.null2Long(id));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(
                            CommUtil.null2Long(id));
         }
 
         String order_price = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             order_price = CommUtil.null2String(of.getTotalPrice());
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             order_price = CommUtil.null2String(obj.getPd_amount());
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             order_price = CommUtil.null2String(Integer.valueOf(gold.getGold_money()));
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             order_price = CommUtil.null2String(ig_order.getIgo_trans_fee());
         }
 
@@ -839,64 +839,64 @@ public class PayViewAction {
         int fee = (int)total_fee;
 
         String product_name = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             product_name = of.getOrder_id();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             product_name = obj.getPd_sn();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             product_name = gold.getGold_sn();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             product_name = ig_order.getIgo_order_sn();
         }
 
         String remarkexplain = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             remarkexplain = of.getMsg();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             remarkexplain = obj.getPd_remittance_info();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             remarkexplain = gold.getGold_exchange_info();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             remarkexplain = ig_order.getIgo_msg();
         }
         String attach = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             attach = type + "," + of.getId().toString();
         }
-        if (type.equals("cash")) {
+        if (type.equals("cash")){
             attach = type + "," + obj.getId().toString();
         }
-        if (type.equals("gold")) {
+        if (type.equals("gold")){
             attach = type + "," + gold.getId().toString();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             attach = type + "," + ig_order.getId().toString();
         }
         String desc = "商品：" + product_name;
 
         String out_trade_no = "";
-        if (type.equals("goods")) {
+        if (type.equals("goods")){
             out_trade_no = of.getOrder_id();
         }
-        if (type.endsWith("cash")) {
+        if (type.endsWith("cash")){
             out_trade_no = obj.getPd_sn();
         }
-        if (type.endsWith("gold")) {
+        if (type.endsWith("gold")){
             out_trade_no = gold.getGold_sn();
         }
-        if (type.equals("integral")) {
+        if (type.equals("integral")){
             out_trade_no = ig_order.getIgo_order_sn();
         }
 
         Payment payment = this.paymentService.getObjById(
                               CommUtil.null2Long(payment_id));
-        if (payment == null) {
+        if (payment == null){
             payment = new Payment();
         }
         String trade_mode = CommUtil.null2String(Integer.valueOf(payment.getTrade_mode()));
@@ -952,7 +952,7 @@ public class PayViewAction {
      * @return
      * @throws Exception
      */
-    @RequestMapping( {"/tenpay_return.htm"})
+    @RequestMapping({"/tenpay_return.htm"})
     public ModelAndView tenpay_return(HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         ModelAndView mv = new JModelAndView("order_finish.html",
@@ -966,7 +966,7 @@ public class PayViewAction {
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (attachs[0].equals("integral")) {
+        if (attachs[0].equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(
                            CommUtil.null2Long(attachs[1]));
             Map q_params = new HashMap();
@@ -978,7 +978,7 @@ public class PayViewAction {
                                    q_params, -1, -1);
             resHandler.setKey(((Payment)payments.get(0)).getTenpay_key());
         }
-        if (attachs[0].equals("cash")) {
+        if (attachs[0].equals("cash")){
             obj = this.predepositService.getObjById(
                       CommUtil.null2Long(attachs[1]));
             Map q_params = new HashMap();
@@ -990,7 +990,7 @@ public class PayViewAction {
                                    q_params, -1, -1);
             resHandler.setKey(((Payment)payments.get(0)).getTenpay_key());
         }
-        if (attachs[0].equals("gold")) {
+        if (attachs[0].equals("gold")){
             gold = this.goldRecordService.getObjById(
                        CommUtil.null2Long(attachs[1]));
             Map q_params = new HashMap();
@@ -1002,13 +1002,13 @@ public class PayViewAction {
                                    q_params, -1, -1);
             resHandler.setKey(((Payment)payments.get(0)).getTenpay_key());
         }
-        if (attachs[0].equals("goods")) {
+        if (attachs[0].equals("goods")){
             order = this.orderFormService.getObjById(
                         CommUtil.null2Long(attachs[1]));
             resHandler.setKey(order.getPayment().getTenpay_key());
         }
 
-        if (resHandler.isTenpaySign()) {
+        if (resHandler.isTenpaySign()){
             String notify_id = resHandler.getParameter("notify_id");
 
             String transaction_id = resHandler.getParameter("transaction_id");
@@ -1020,9 +1020,9 @@ public class PayViewAction {
             String trade_state = resHandler.getParameter("trade_state");
 
             String trade_mode = resHandler.getParameter("trade_mode");
-            if ("1".equals(trade_mode)) {
-                if ("0".equals(trade_state)) {
-                    if (attachs[0].equals("cash")) {
+            if ("1".equals(trade_mode)){
+                if ("0".equals(trade_state)){
+                    if (attachs[0].equals("cash")){
                         obj.setPd_status(1);
                         obj.setPd_pay_status(2);
                         this.predepositService.update(obj);
@@ -1049,7 +1049,7 @@ public class PayViewAction {
                         mv.addObject("url", CommUtil.getURL(request) +
                                      "/buyer/predeposit_list.htm");
                     }
-                    if (attachs[0].equals("goods")) {
+                    if (attachs[0].equals("goods")){
                         order.setOrder_status(20);
                         order.setPayTime(new Date());
                         this.orderFormService.update(order);
@@ -1062,7 +1062,7 @@ public class PayViewAction {
                         this.orderFormLogService.save(ofl);
                         mv.addObject("obj", order);
 
-                        if (this.configService.getSysConfig().isEmailEnable()) {
+                        if (this.configService.getSysConfig().isEmailEnable()){
                             send_order_email(request, order, order
                                              .getUser().getEmail(),
                                              "email_tobuyer_online_pay_ok_notify");
@@ -1071,7 +1071,7 @@ public class PayViewAction {
                                              "email_toseller_online_pay_ok_notify");
                         }
 
-                        if (this.configService.getSysConfig().isSmsEnbale()) {
+                        if (this.configService.getSysConfig().isSmsEnbale()){
                             send_order_sms(request, order, order.getUser()
                                            .getMobile(),
                                            "sms_tobuyer_online_pay_ok_notify");
@@ -1081,7 +1081,7 @@ public class PayViewAction {
                         }
                     }
                     GoldLog log;
-                    if (attachs[0].equals("gold")) {
+                    if (attachs[0].equals("gold")){
                         gold.setGold_status(1);
                         gold.setGold_pay_status(2);
                         this.goldRecordService.update(gold);
@@ -1108,12 +1108,12 @@ public class PayViewAction {
                         mv.addObject("url", CommUtil.getURL(request) +
                                      "/seller/gold_record_list.htm");
                     }
-                    if (attachs[0].equals("integral")) {
+                    if (attachs[0].equals("integral")){
                         ig_order.setIgo_status(20);
                         ig_order.setIgo_pay_time(new Date());
                         ig_order.setIgo_payment("bill");
                         this.integralGoodsOrderService.update(ig_order);
-                        for (IntegralGoodsCart igc : ig_order.getIgo_gcs()) {
+                        for (IntegralGoodsCart igc : ig_order.getIgo_gcs()){
                             IntegralGoods goods = igc.getGoods();
                             goods.setIg_goods_count(goods.getIg_goods_count() -
                                                     igc.getCount());
@@ -1127,7 +1127,7 @@ public class PayViewAction {
                                                request, response);
                         mv.addObject("obj", ig_order);
                     }
-                } else {
+                }else{
                     mv = new JModelAndView("error.html",
                                            this.configService.getSysConfig(),
                                            this.userConfigService.getUserConfig(), 1, request,
@@ -1135,9 +1135,9 @@ public class PayViewAction {
                     mv.addObject("op_title", "财付通支付失败！");
                     mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
                 }
-            } else if ("2".equals(trade_mode))
-                if ("0".equals(trade_state)) {
-                    if (attachs[0].equals("cash")) {
+            }else if ("2".equals(trade_mode))
+                if ("0".equals(trade_state)){
+                    if (attachs[0].equals("cash")){
                         obj.setPd_status(1);
                         obj.setPd_pay_status(2);
                         this.predepositService.update(obj);
@@ -1164,7 +1164,7 @@ public class PayViewAction {
                         mv.addObject("url", CommUtil.getURL(request) +
                                      "/buyer/predeposit_list.htm");
                     }
-                    if (attachs[0].equals("goods")) {
+                    if (attachs[0].equals("goods")){
                         order.setOrder_status(20);
                         order.setPayTime(new Date());
                         this.orderFormService.update(order);
@@ -1177,7 +1177,7 @@ public class PayViewAction {
                         this.orderFormLogService.save(ofl);
                         mv.addObject("obj", order);
 
-                        if (this.configService.getSysConfig().isEmailEnable()) {
+                        if (this.configService.getSysConfig().isEmailEnable()){
                             send_order_email(request, order, order
                                              .getUser().getEmail(),
                                              "email_tobuyer_online_pay_ok_notify");
@@ -1186,7 +1186,7 @@ public class PayViewAction {
                                              "email_toseller_online_pay_ok_notify");
                         }
 
-                        if (this.configService.getSysConfig().isSmsEnbale()) {
+                        if (this.configService.getSysConfig().isSmsEnbale()){
                             send_order_sms(request, order, order.getUser()
                                            .getMobile(),
                                            "sms_tobuyer_online_pay_ok_notify");
@@ -1196,7 +1196,7 @@ public class PayViewAction {
                         }
                     }
                     GoldLog log;
-                    if (attachs[0].equals("gold")) {
+                    if (attachs[0].equals("gold")){
                         gold.setGold_status(1);
                         gold.setGold_pay_status(2);
                         this.goldRecordService.update(gold);
@@ -1223,12 +1223,12 @@ public class PayViewAction {
                         mv.addObject("url", CommUtil.getURL(request) +
                                      "/seller/gold_record_list.htm");
                     }
-                    if (attachs[0].equals("integral")) {
+                    if (attachs[0].equals("integral")){
                         ig_order.setIgo_status(20);
                         ig_order.setIgo_pay_time(new Date());
                         ig_order.setIgo_payment("bill");
                         this.integralGoodsOrderService.update(ig_order);
-                        for (IntegralGoodsCart igc : ig_order.getIgo_gcs()) {
+                        for (IntegralGoodsCart igc : ig_order.getIgo_gcs()){
                             IntegralGoods goods = igc.getGoods();
                             goods.setIg_goods_count(goods.getIg_goods_count() -
                                                     igc.getCount());
@@ -1242,7 +1242,7 @@ public class PayViewAction {
                                                request, response);
                         mv.addObject("obj", ig_order);
                     }
-                } else {
+                }else{
                     mv = new JModelAndView("error.html",
                                            this.configService.getSysConfig(),
                                            this.userConfigService.getUserConfig(), 1, request,
@@ -1250,7 +1250,7 @@ public class PayViewAction {
                     mv.addObject("op_title", "财付通支付失败！");
                     mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
                 }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -1268,7 +1268,7 @@ public class PayViewAction {
      * @return
      * @throws Exception
      */
-    @RequestMapping( {"/chinabank_return.htm"})
+    @RequestMapping({"/chinabank_return.htm"})
     public ModelAndView chinabank_return(HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         ModelAndView mv = new JModelAndView("order_finish.html",
@@ -1280,37 +1280,37 @@ public class PayViewAction {
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (remark2.equals("goods")) {
+        if (remark2.equals("goods")){
             order = this.orderFormService.getObjById(CommUtil.null2Long(remark1
                     .trim()));
         }
-        if (remark2.equals("cash")) {
+        if (remark2.equals("cash")){
             obj = this.predepositService
                   .getObjById(CommUtil.null2Long(remark1));
         }
-        if (remark2.equals("gold")) {
+        if (remark2.equals("gold")){
             gold = this.goldRecordService.getObjById(
                        CommUtil.null2Long(remark1));
         }
-        if (remark2.equals("integral")) {
+        if (remark2.equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(
                            CommUtil.null2Long(remark1));
         }
         String key = "";
-        if (remark2.equals("goods")) {
+        if (remark2.equals("goods")){
             key = order.getPayment().getChinabank_key();
         }
         if ((remark2.equals("cash")) || (remark2.equals("gold")) ||
-                (remark2.equals("integral"))) {
+                (remark2.equals("integral"))){
             Map q_params = new HashMap();
             q_params.put("install", Boolean.valueOf(true));
-            if (remark2.equals("cash")) {
+            if (remark2.equals("cash")){
                 q_params.put("mark", obj.getPd_payment());
             }
-            if (remark2.equals("gold")) {
+            if (remark2.equals("gold")){
                 q_params.put("mark", gold.getGold_payment());
             }
-            if (remark2.equals("integral")) {
+            if (remark2.equals("integral")){
                 q_params.put("mark", ig_order.getIgo_payment());
             }
             q_params.put("type", "admin");
@@ -1330,9 +1330,9 @@ public class PayViewAction {
         String v_md5str = request.getParameter("v_md5str");
         String text = v_oid + v_pstatus + v_amount + v_moneytype + key;
         String v_md5text = Md5Encrypt.md5(text).toUpperCase();
-        if (v_md5str.equals(v_md5text)) {
-            if ("20".equals(v_pstatus)) {
-                if (remark2.equals("goods")) {
+        if (v_md5str.equals(v_md5text)){
+            if ("20".equals(v_pstatus)){
+                if (remark2.equals("goods")){
                     order.setOrder_status(20);
                     order.setPayTime(new Date());
                     this.orderFormService.update(order);
@@ -1345,7 +1345,7 @@ public class PayViewAction {
                     this.orderFormLogService.save(ofl);
                     mv.addObject("obj", order);
 
-                    if (this.configService.getSysConfig().isEmailEnable()) {
+                    if (this.configService.getSysConfig().isEmailEnable()){
                         send_order_email(request, order, order.getUser()
                                          .getEmail(),
                                          "email_tobuyer_online_pay_ok_notify");
@@ -1354,7 +1354,7 @@ public class PayViewAction {
                                          "email_toseller_online_pay_ok_notify");
                     }
 
-                    if (this.configService.getSysConfig().isSmsEnbale()) {
+                    if (this.configService.getSysConfig().isSmsEnbale()){
                         send_order_sms(request, order, order.getUser()
                                        .getMobile(),
                                        "sms_tobuyer_online_pay_ok_notify");
@@ -1363,7 +1363,7 @@ public class PayViewAction {
                                        "sms_toseller_online_pay_ok_notify");
                     }
                 }
-                if (remark2.endsWith("cash")) {
+                if (remark2.endsWith("cash")){
                     obj.setPd_status(1);
                     obj.setPd_pay_status(2);
                     this.predepositService.update(obj);
@@ -1389,7 +1389,7 @@ public class PayViewAction {
                                  "/buyer/predeposit_list.htm");
                 }
                 GoldLog log;
-                if (remark2.equals("gold")) {
+                if (remark2.equals("gold")){
                     gold.setGold_status(1);
                     gold.setGold_pay_status(2);
                     this.goldRecordService.update(gold);
@@ -1416,12 +1416,12 @@ public class PayViewAction {
                     mv.addObject("url", CommUtil.getURL(request) +
                                  "/seller/gold_record_list.htm");
                 }
-                if (remark2.equals("gold")) {
+                if (remark2.equals("gold")){
                     ig_order.setIgo_status(20);
                     ig_order.setIgo_pay_time(new Date());
                     ig_order.setIgo_payment("bill");
                     this.integralGoodsOrderService.update(ig_order);
-                    for (IntegralGoodsCart igc : ig_order.getIgo_gcs()) {
+                    for (IntegralGoodsCart igc : ig_order.getIgo_gcs()){
                         IntegralGoods goods = igc.getGoods();
                         goods.setIg_goods_count(goods.getIg_goods_count() -
                                                 igc.getCount());
@@ -1436,7 +1436,7 @@ public class PayViewAction {
                     mv.addObject("obj", ig_order);
                 }
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -1454,7 +1454,7 @@ public class PayViewAction {
      * @return
      * @throws Exception
      */
-    @RequestMapping( {"/paypal_return.htm"})
+    @RequestMapping({"/paypal_return.htm"})
     public ModelAndView paypal_return(HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         ModelAndView mv = new JModelAndView("order_finish.html",
@@ -1462,7 +1462,7 @@ public class PayViewAction {
                                             this.userConfigService.getUserConfig(), 1, request, response);
         Enumeration en = request.getParameterNames();
         String str = "cmd=_notify-validate";
-        while (en.hasMoreElements()) {
+        while (en.hasMoreElements()){
             String paramName = (String)en.nextElement();
             String paramValue = request.getParameter(paramName);
             str = str + "&" + paramName + "=" + URLEncoder.encode(paramValue);
@@ -1477,19 +1477,19 @@ public class PayViewAction {
         Predeposit obj = null;
         GoldRecord gold = null;
         IntegralGoodsOrder ig_order = null;
-        if (remark2.equals("goods")) {
+        if (remark2.equals("goods")){
             order = this.orderFormService.getObjById(CommUtil.null2Long(remark1
                     .trim()));
         }
-        if (remark2.equals("cash")) {
+        if (remark2.equals("cash")){
             obj = this.predepositService
                   .getObjById(CommUtil.null2Long(remark1));
         }
-        if (remark2.equals("gold")) {
+        if (remark2.equals("gold")){
             gold = this.goldRecordService.getObjById(
                        CommUtil.null2Long(remark1));
         }
-        if (remark2.equals("integral")) {
+        if (remark2.equals("integral")){
             ig_order = this.integralGoodsOrderService.getObjById(
                            CommUtil.null2Long(remark1));
         }
@@ -1503,8 +1503,8 @@ public class PayViewAction {
         String payerEmail = request.getParameter("payer_email");
 
         if ((paymentStatus.equals("Completed")) ||
-                (paymentStatus.equals("Pending"))) {
-            if (remark2.equals("goods")) {
+                (paymentStatus.equals("Pending"))){
+            if (remark2.equals("goods")){
                 order.setOrder_status(20);
                 order.setPayTime(new Date());
                 this.orderFormService.update(order);
@@ -1517,7 +1517,7 @@ public class PayViewAction {
                 this.orderFormLogService.save(ofl);
                 mv.addObject("obj", order);
 
-                if (this.configService.getSysConfig().isEmailEnable()) {
+                if (this.configService.getSysConfig().isEmailEnable()){
                     send_order_email(request, order, order.getUser()
                                      .getEmail(), "email_tobuyer_online_pay_ok_notify");
                     send_order_email(request, order, order.getStore()
@@ -1525,7 +1525,7 @@ public class PayViewAction {
                                      "email_toseller_online_pay_ok_notify");
                 }
 
-                if (this.configService.getSysConfig().isSmsEnbale()) {
+                if (this.configService.getSysConfig().isSmsEnbale()){
                     send_order_sms(request, order, order.getUser()
                                    .getMobile(), "sms_tobuyer_online_pay_ok_notify");
                     send_order_sms(request, order, order.getStore()
@@ -1533,7 +1533,7 @@ public class PayViewAction {
                                    "sms_toseller_online_pay_ok_notify");
                 }
             }
-            if (remark2.endsWith("cash")) {
+            if (remark2.endsWith("cash")){
                 obj.setPd_status(1);
                 obj.setPd_pay_status(2);
                 this.predepositService.update(obj);
@@ -1559,7 +1559,7 @@ public class PayViewAction {
                              "/buyer/predeposit_list.htm");
             }
             GoldLog log;
-            if (remark2.equals("gold")) {
+            if (remark2.equals("gold")){
                 gold.setGold_status(1);
                 gold.setGold_pay_status(2);
                 this.goldRecordService.update(gold);
@@ -1585,12 +1585,12 @@ public class PayViewAction {
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/seller/gold_record_list.htm");
             }
-            if (remark2.equals("gold")) {
+            if (remark2.equals("gold")){
                 ig_order.setIgo_status(20);
                 ig_order.setIgo_pay_time(new Date());
                 ig_order.setIgo_payment("paypal");
                 this.integralGoodsOrderService.update(ig_order);
-                for (IntegralGoodsCart igc : ig_order.getIgo_gcs()) {
+                for (IntegralGoodsCart igc : ig_order.getIgo_gcs()){
                     IntegralGoods goods = igc.getGoods();
                     goods.setIg_goods_count(goods.getIg_goods_count() -
                                             igc.getCount());
@@ -1604,7 +1604,7 @@ public class PayViewAction {
                                        response);
                 mv.addObject("obj", ig_order);
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -1625,13 +1625,13 @@ public class PayViewAction {
      * @throws IOException
      * @throws JDOMException
      */
-    @RequestMapping( {"/wechat/paynotify.htm"})
+    @RequestMapping({"/wechat/paynotify.htm"})
     public String notify_success(HttpServletRequest request, HttpServletResponse response) throws IOException, JDOMException, Exception {
         InputStream inStream = request.getInputStream();
         ByteArrayOutputStream outSteam = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int len = 0;
-        while ((len = inStream.read(buffer)) != -1) {
+        while ((len = inStream.read(buffer)) != -1){
             outSteam.write(buffer, 0, len);
         }
         logger.info("~~~~~~~~~~~~~~~~付款成功，收到微信回调~~~~~~~~~");
@@ -1642,18 +1642,18 @@ public class PayViewAction {
         String result = new String(outSteam.toByteArray(), "utf-8");
         Map<String, String> map = WxCommonUtil.doXMLParse(result);
 
-        for (Object keyValue : map.keySet()) {
+        for (Object keyValue : map.keySet()){
             /** 输出返回的订单支付信息 */
             logger.info(keyValue + "=" + map.get(keyValue));
         }
         //支付签名验证
-        /*if (verifyNotify(notifyMethod, request)) {
+        /*if (verifyNotify(notifyMethod, request)){
         }*/
         String order_no = map.get("out_trade_no");
         OrderForm order = null;
         order = this.orderFormService.getObjById(CommUtil.null2Long(order_no));
 
-        if (map.get("result_code").toString().equalsIgnoreCase("SUCCESS") && (order.getOrder_status() < 20)) {
+        if (map.get("result_code").toString().equalsIgnoreCase("SUCCESS") && (order.getOrder_status() < 20)){
             order.setOrder_status(20);
             order.setOut_order_id(map.get("transaction_id"));
             order.setPayTime(new Date());
@@ -1668,11 +1668,11 @@ public class PayViewAction {
             this.orderFormLogService.save(ofl);
 
             // 邮件和短信通知,根据情况使用
-            if (this.configService.getSysConfig().isEmailEnable()) {
+            if (this.configService.getSysConfig().isEmailEnable()){
                 send_order_email(request, order, order.getUser().getEmail(), "email_tobuyer_online_pay_ok_notify");
                 send_order_email(request, order, order.getStore().getUser().getEmail(), "email_toseller_online_pay_ok_notify");
             }
-            if (this.configService.getSysConfig().isSmsEnbale()) {
+            if (this.configService.getSysConfig().isSmsEnbale()){
                 send_order_sms(request, order, order.getUser().getMobile(), "sms_tobuyer_online_pay_ok_notify");
                 send_order_sms(request, order, order.getStore().getUser().getMobile(), "sms_toseller_online_pay_ok_notify");
             }
@@ -1680,7 +1680,7 @@ public class PayViewAction {
             // 告诉微信服务器，我收到信息了，不要在调用回调方法(/pay)了
             logger.info("-------------" + WxCommonUtil.setXML("SUCCESS", "OK"));
             response.getWriter().write(WxCommonUtil.setXML("SUCCESS", "OK"));
-        } else {
+        }else{
             logger.error("------微信异步回调失败-------");
         }
 
@@ -1694,8 +1694,8 @@ public class PayViewAction {
     * @return
     */
     @SecurityMapping(display = false, rsequence = 0, title = "微信前台回调", value = "/wechat/paysuccess.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")
-    @RequestMapping( {"/wechat/paysuccess.htm"})
-    public ModelAndView wxpaySuccess(HttpServletRequest request, HttpServletResponse response, String totalPrice) {
+    @RequestMapping({"/wechat/paysuccess.htm"})
+    public ModelAndView wxpaySuccess(HttpServletRequest request, HttpServletResponse response, String totalPrice){
         ModelAndView mv = new JModelAndView("wap/paysuccess.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
         mv.addObject("totalPrice", totalPrice);
@@ -1707,17 +1707,17 @@ public class PayViewAction {
      * 支付宝后台台回调
      */
     @SecurityMapping(display = false, rsequence = 0, title = "支付宝后台回调", value = "/alipay/alipay_notify.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")
-    @RequestMapping( { "/alipay/alipay_notify.htm" })
+    @RequestMapping({ "/alipay/alipay_notify.htm" })
     public void alipayNotify(HttpServletRequest request, HttpServletResponse respons) throws Exception {
         // 获取支付宝POST过来反馈信息
         Map<String, String> params = new HashMap<String, String>();
         Map requestParams = request.getParameterMap();
         System.out.println(request.getQueryString());
-        for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();){
             String name = (String) iter.next();
             String[] values = (String[]) requestParams.get(name);
             String valueStr = "";
-            for (int i = 0; i < values.length; i++) {
+            for (int i = 0; i < values.length; i++){
                 //valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
                 valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i];
             }
@@ -1749,11 +1749,11 @@ public class PayViewAction {
 
         boolean check = AlipayNotify.verifyWap(config, params);
         check = true;
-        if (check) { // 验证成功
+        if (check){ // 验证成功
 
             if (((trade_status.equals("WAIT_SELLER_SEND_GOODS")) ||
                     (trade_status.equals("TRADE_FINISHED")) ||
-                    (trade_status.equals("TRADE_SUCCESS"))) && (order.getOrder_status() < 20)) {
+                    (trade_status.equals("TRADE_SUCCESS"))) && (order.getOrder_status() < 20)){
                 order.setOrder_status(20);
                 order.setOut_order_id(trade_no);
                 order.setPayTime(new Date());
@@ -1767,28 +1767,28 @@ public class PayViewAction {
                 ofl.setOf(order);
                 this.orderFormLogService.save(ofl);
 
-                if (this.configService.getSysConfig().isEmailEnable()) {
+                if (this.configService.getSysConfig().isEmailEnable()){
                     send_order_email(request, order, order.getUser().getEmail(), "email_tobuyer_online_pay_ok_notify");
                     send_order_email(request, order, order.getStore().getUser().getEmail(), "email_toseller_online_pay_ok_notify");
                 }
 
-                if (this.configService.getSysConfig().isSmsEnbale()) {
+                if (this.configService.getSysConfig().isSmsEnbale()){
                     send_order_sms(request, order, order.getUser().getMobile(), "sms_tobuyer_online_pay_ok_notify");
                     send_order_sms(request, order, order.getStore().getUser().getMobile(), "sms_toseller_online_pay_ok_notify");
                 }
             }
             try {
                 respons.getWriter().println("success");
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
                 logger.error("返回支付宝发送错误");
             }
 
-        } else { // 验证失败
+        }else{ // 验证失败
             logger.error("支付宝验证失败");
             try {
                 respons.getWriter().println("fail");
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
         }
@@ -1798,16 +1798,16 @@ public class PayViewAction {
      * 支付宝前台回调
      */
     @SecurityMapping(display = false, rsequence = 0, title = "支付宝前台回调", value = "/alipay_return.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")
-    @RequestMapping( { "/alipay/alipay_return.htm" })
-    public void alipayReturn(HttpServletRequest request, HttpServletResponse respons) {
+    @RequestMapping({ "/alipay/alipay_return.htm" })
+    public void alipayReturn(HttpServletRequest request, HttpServletResponse respons){
         // 获取支付宝GET过来反馈信息
         Map<String, String> params = new HashMap<String, String>();
         Map requestParams = request.getParameterMap();
-        for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+        for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();){
             String name = (String) iter.next();
             String[] values = (String[]) requestParams.get(name);
             String valueStr = "";
-            for (int i = 0; i < values.length; i++) {
+            for (int i = 0; i < values.length; i++){
                 valueStr = (i == values.length - 1) ? valueStr + values[i]
                            : valueStr + values[i] + ",";
             }
@@ -1848,20 +1848,20 @@ public class PayViewAction {
         //boolean verify_result = AlipayNotify.verify(config, params);
         boolean verify_result = true;
 
-        if (verify_result) { // 验证成功
+        if (verify_result){ // 验证成功
             if (trade_status.equals("TRADE_FINISHED")
-                    || trade_status.equals("TRADE_SUCCESS")) {
+                    || trade_status.equals("TRADE_SUCCESS")){
                 try {
                     respons.sendRedirect(CommUtil.getURL(request, this.configService.getSysConfig()) + "/alipay/paysuccess.htm");
-                } catch (IOException e) {
+                } catch (IOException e){
                     e.printStackTrace();
                 }
             }
-        } else {
+        }else{
             // 该页面可做页面美工编辑
             try {
                 respons.getWriter().println("验证失败");
-            } catch (IOException e) {
+            } catch (IOException e){
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
@@ -1875,8 +1875,8 @@ public class PayViewAction {
     * @return
     */
     @SecurityMapping(display = false, rsequence = 0, title = "支付宝前台回调", value = "/alipay/paysuccess.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")
-    @RequestMapping( {"/alipay/paysuccess.htm"})
-    public ModelAndView account_password(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/alipay/paysuccess.htm"})
+    public ModelAndView account_password(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("alipaysuccess.html", this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
         //mv.addObject("totalPrice",totalPrice);
@@ -1888,12 +1888,12 @@ public class PayViewAction {
      * 更新商品库存数量
      * @param order
      */
-    private void update_goods_inventory(OrderForm order) {
-        for (GoodsCart gc : order.getGcs()) {
+    private void update_goods_inventory(OrderForm order){
+        for (GoodsCart gc : order.getGcs()){
             Goods goods = gc.getGoods();
-            if ((goods.getGroup() != null) && (goods.getGroup_buy() == 2)) {
-                for (GroupGoods gg : goods.getGroup_goods_list()) {
-                    if (gg.getGroup().getId().equals(goods.getGroup().getId())) {
+            if ((goods.getGroup() != null) && (goods.getGroup_buy() == 2)){
+                for (GroupGoods gg : goods.getGroup_goods_list()){
+                    if (gg.getGroup().getId().equals(goods.getGroup().getId())){
                         gg.setGg_def_count(gg.getGg_def_count() + gc.getCount());
                         gg.setGg_count(gg.getGg_count() - gc.getCount());
                         this.groupGoodsService.update(gg);
@@ -1901,7 +1901,7 @@ public class PayViewAction {
                 }
             }
             List gsps = new ArrayList();
-            for (GoodsSpecProperty gsp : gc.getGsps()) {
+            for (GoodsSpecProperty gsp : gc.getGsps()){
                 gsps.add(gsp.getId().toString());
             }
             String[] gsp_list = new String[gsps.size()];
@@ -1910,20 +1910,20 @@ public class PayViewAction {
             String inventory_type = goods.getInventory_type() == null ? "all" :
                                     goods.getInventory_type();
             Map temp;
-            if (inventory_type.equals("all")) {
+            if (inventory_type.equals("all")){
                 goods.setGoods_inventory(goods.getGoods_inventory() -
                                          gc.getCount());
-            } else {
+            }else{
                 List list =
                     (List)Json.fromJson(ArrayList.class, CommUtil.null2String(goods
                                         .getGoods_inventory_detail()));
-                for (Iterator localIterator4 = list.iterator(); localIterator4.hasNext(); ) {
+                for (Iterator localIterator4 = list.iterator(); localIterator4.hasNext();){
                     temp = (Map)localIterator4.next();
                     String[] temp_ids = CommUtil.null2String(temp.get("id"))
                                         .split("_");
                     Arrays.sort(temp_ids);
                     Arrays.sort(gsp_list);
-                    if (Arrays.equals(temp_ids, gsp_list)) {
+                    if (Arrays.equals(temp_ids, gsp_list)){
                         temp.put("count",
                                  Integer.valueOf(CommUtil.null2Int(temp.get("count")) -
                                                  gc.getCount()));
@@ -1932,7 +1932,7 @@ public class PayViewAction {
                 goods.setGoods_inventory_detail(Json.toJson(list,
                                                 JsonFormat.compact()));
             }
-            for (GroupGoods gg : goods.getGroup_goods_list()) {
+            for (GroupGoods gg : goods.getGroup_goods_list()){
                 if ((!gg.getGroup().getId().equals(goods.getGroup().getId())) ||
                         (gg.getGg_count() != 0)) continue;
                 goods.setGroup_buy(3);
@@ -1952,7 +1952,7 @@ public class PayViewAction {
      */
     private void send_order_email(HttpServletRequest request, OrderForm order, String email, String mark) throws Exception {
         com.wemall.foundation.domain.Template template = this.templateService.getObjByProperty("mark", mark);
-        if ((template != null) && (template.isOpen())) {
+        if ((template != null) && (template.isOpen())){
             String subject = template.getTitle();
             String path = request.getSession().getServletContext().getRealPath("/") + "/vm/";
             PrintWriter pwrite = new PrintWriter(
@@ -1994,7 +1994,7 @@ public class PayViewAction {
      */
     private void send_order_sms(HttpServletRequest request, OrderForm order, String mobile, String mark) throws Exception {
         com.wemall.foundation.domain.Template template = this.templateService.getObjByProperty("mark", mark);
-        if ((template != null) && (template.isOpen())) {
+        if ((template != null) && (template.isOpen())){
             String path = request.getSession().getServletContext()
                           .getRealPath("/") +
                           "/vm/";

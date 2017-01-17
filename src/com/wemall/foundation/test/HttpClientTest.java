@@ -38,13 +38,13 @@ public class HttpClientTest {
         method.setParams(params);
         int status = client.executeMethod(method);
         System.out.println("状态值：" + status);
-        if (status == 200) {
+        if (status == 200){
             Map map = (Map)Json.fromJson(HashMap.class, method
                                          .getResponseBodyAsString());
             access_token = CommUtil.null2String(map.get("access_token"));
             System.out.println("输出token:");
             System.out.println(method.getResponseBodyAsString());
-            if (!access_token.equals("")) {
+            if (!access_token.equals("")){
                 method = new PostMethod(sina_token_info_url);
                 params.clear();
                 params.setParameter("access_token", access_token);

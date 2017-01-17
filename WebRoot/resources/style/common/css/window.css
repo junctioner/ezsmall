@@ -3,6 +3,7 @@
 .box_table {
 	border-collapse:collapse;
 	font-size:12px;
+	margin-top:50px;
 }
 .box_table td {
 	padding-left:10px;

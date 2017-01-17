@@ -49,7 +49,7 @@ public class FtpUtils {
                                      String path, // FTP服务器保存目录
                                      String filename, // 上传到FTP服务器上的文件名
                                      InputStream input // 输入流
-                                    ) {
+                                   ){
         boolean success = false;
         FTPClient ftp = new FTPClient();
         try {
@@ -58,7 +58,7 @@ public class FtpUtils {
             // 如果采用默认端口，可以使用ftp.connect(url)的方式直接连接FTP服务器
             ftp.login(username, password);// 登录
             reply = ftp.getReplyCode();
-            if (!FTPReply.isPositiveCompletion(reply)) {
+            if (!FTPReply.isPositiveCompletion(reply)){
                 ftp.disconnect();
                 return success;
             }
@@ -68,13 +68,13 @@ public class FtpUtils {
             input.close();
             ftp.logout();
             success = true;
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         } finally {
-            if (ftp.isConnected()) {
+            if (ftp.isConnected()){
                 try {
                     ftp.disconnect();
-                } catch (IOException ioe) {
+                } catch (IOException ioe){
                 }
             }
         }
@@ -110,7 +110,7 @@ public class FtpUtils {
                                         String fileName,// 要下载的文件名
                                         String match_flag,// 文件名匹配模式 0：模糊匹配 1：精确匹配
                                         String localPath// 下载后保存到本地的路径
-                                       ) {
+                                      ){
         List<String> lst_files = new ArrayList<String>();
 
         FTPClient ftp = new FTPClient();
@@ -120,7 +120,7 @@ public class FtpUtils {
             // 如果采用默认端口，可以使用ftp.connect(url)的方式直接连接FTP服务器
             ftp.login(username, password);// 登录
             reply = ftp.getReplyCode();
-            if (!FTPReply.isPositiveCompletion(reply)) {
+            if (!FTPReply.isPositiveCompletion(reply)){
                 ftp.disconnect();
                 log.error("FTP服务器连接失败！");
 
@@ -128,15 +128,15 @@ public class FtpUtils {
             }
             ftp.changeWorkingDirectory(remotePath);// 转移到FTP服务器目录
             FTPFile[] fs = ftp.listFiles();
-            for (FTPFile ff : fs) {
-                if ("0".equals(match_flag) && ff.getName().indexOf(fileName) >= 0) { // 文件名模糊匹配
+            for (FTPFile ff : fs){
+                if ("0".equals(match_flag) && ff.getName().indexOf(fileName) >= 0){ // 文件名模糊匹配
                     File localFile = new File(localPath + "/" + ff.getName());
                     OutputStream is = new FileOutputStream(localFile);
                     ftp.retrieveFile(ff.getName(), is);
                     is.close();
 
                     lst_files.add(ff.getName());
-                } else if (ff.getName().equals(fileName)) { // 文件名精确匹配
+                }else if (ff.getName().equals(fileName)){ // 文件名精确匹配
                     File localFile = new File(localPath + "/" + ff.getName());
                     OutputStream is = new FileOutputStream(localFile);
                     ftp.retrieveFile(ff.getName(), is);
@@ -147,14 +147,14 @@ public class FtpUtils {
             }
 
             ftp.logout();
-        } catch (IOException e) {
+        } catch (IOException e){
             log.error("FTP服务器连接异常！" + e.getMessage());
             e.printStackTrace();
         } finally {
-            if (ftp.isConnected()) {
+            if (ftp.isConnected()){
                 try {
                     ftp.disconnect();
-                } catch (IOException ioe) {
+                } catch (IOException ioe){
                 }
             }
         }

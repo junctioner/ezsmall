@@ -29,27 +29,27 @@ public class GoodsClassStaple extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Store store;
 
-    public String getName() {
+    public String getName(){
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-    public GoodsClass getGc() {
+    public GoodsClass getGc(){
         return this.gc;
     }
 
-    public void setGc(GoodsClass gc) {
+    public void setGc(GoodsClass gc){
         this.gc = gc;
     }
 
-    public Store getStore() {
+    public Store getStore(){
         return this.store;
     }
 
-    public void setStore(Store store) {
+    public void setStore(Store store){
         this.store = store;
     }
 }

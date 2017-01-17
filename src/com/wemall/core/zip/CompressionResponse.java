@@ -20,13 +20,13 @@ public class CompressionResponse extends HttpServletResponseWrapper {
         this.compressedOut = new CompressedStream(response.getOutputStream());
     }
 
-    public void setContentLength(int len) {
+    public void setContentLength(int len){
         this.contentLength = len;
     }
 
     public ServletOutputStream getOutputStream() throws IOException {
-        if (this.out == null) {
-            if (this.writer != null) {
+        if (this.out == null){
+            if (this.writer != null){
                 throw new IllegalStateException(
                     "getWriter() has already been called on this response.");
             }
@@ -37,8 +37,8 @@ public class CompressionResponse extends HttpServletResponseWrapper {
     }
 
     public PrintWriter getWriter() throws IOException {
-        if (this.writer == null) {
-            if (this.out != null) {
+        if (this.writer == null){
+            if (this.out != null){
                 throw new IllegalStateException(
                     "getOutputStream() has already been called on this response.");
             }
@@ -48,31 +48,31 @@ public class CompressionResponse extends HttpServletResponseWrapper {
         return this.writer;
     }
 
-    public void flushBuffer() {
+    public void flushBuffer(){
         try {
             if (this.writer != null)
                 this.writer.flush();
-            else if (this.out != null)
+           else if (this.out != null)
                 this.out.flush();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    public void reset() {
+    public void reset(){
         super.reset();
         try {
             this.compressedOut.reset();
-        } catch (IOException e) {
+        } catch (IOException e){
             throw new RuntimeException(e);
         }
     }
 
-    public void resetBuffer() {
+    public void resetBuffer(){
         super.resetBuffer();
         try {
             this.compressedOut.reset();
-        } catch (IOException e) {
+        } catch (IOException e){
             throw new RuntimeException(e);
         }
     }

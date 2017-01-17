@@ -53,20 +53,20 @@ public class IntegralGoodsManageAction {
     private IIntegralLogService integralLogService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "积分礼品列表", value = "/admin/integral_goods.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/integral_goods.htm"})
-    public ModelAndView integral_goods(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String ig_goods_name, String ig_show) {
+    @RequestMapping({"/admin/integral_goods.htm"})
+    public ModelAndView integral_goods(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String ig_goods_name, String ig_show){
         ModelAndView mv = new JModelAndView("admin/blue/integral_goods.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isIntegralStore()) {
+        if (this.configService.getSysConfig().isIntegralStore()){
             IntegralGoodsQueryObject qo = new IntegralGoodsQueryObject(
                 currentPage, mv, orderBy, orderType);
-            if (!CommUtil.null2String(ig_goods_name).equals("")) {
+            if (!CommUtil.null2String(ig_goods_name).equals("")){
                 qo.addQuery("obj.ig_goods_name",
                             new SysMap("ig_goods_name",
                                        "%" + ig_goods_name.trim() + "%"), "like");
             }
-            if (!CommUtil.null2String(ig_show).equals("")) {
+            if (!CommUtil.null2String(ig_show).equals("")){
                 qo.addQuery("obj.ig_show",
                             new SysMap("ig_show",
                                        Boolean.valueOf(CommUtil.null2Boolean(ig_show))), "=");
@@ -75,7 +75,7 @@ public class IntegralGoodsManageAction {
             CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
             mv.addObject("ig_goods_name", ig_goods_name);
             mv.addObject("ig_show", ig_show);
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -88,15 +88,15 @@ public class IntegralGoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "积分礼品添加", value = "/admin/integral_goods_add.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/integral_goods_add.htm"})
-    public ModelAndView integral_goods_add(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/admin/integral_goods_add.htm"})
+    public ModelAndView integral_goods_add(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "admin/blue/integral_goods_add.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isIntegralStore()) {
+        if (this.configService.getSysConfig().isIntegralStore()){
             mv.addObject("currentPage", currentPage);
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -109,21 +109,21 @@ public class IntegralGoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "积分礼品编辑", value = "/admin/integral_goods_edit.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/integral_goods_edit.htm"})
-    public ModelAndView integral_goods_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/integral_goods_edit.htm"})
+    public ModelAndView integral_goods_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "admin/blue/integral_goods_add.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isIntegralStore()) {
-            if ((id != null) && (!id.equals(""))) {
+        if (this.configService.getSysConfig().isIntegralStore()){
+            if ((id != null) && (!id.equals(""))){
                 IntegralGoods integralgoods = this.integralgoodsService
                                               .getObjById(Long.valueOf(Long.parseLong(id)));
                 mv.addObject("obj", integralgoods);
                 mv.addObject("currentPage", currentPage);
                 mv.addObject("edit", Boolean.valueOf(true));
             }
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -136,21 +136,21 @@ public class IntegralGoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "积分礼品保存", value = "/admin/integral_goods_save.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/integral_goods_save.htm"})
-    public ModelAndView integral_goods_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String begin_hour, String end_hour, String list_url, String add_url) {
+    @RequestMapping({"/admin/integral_goods_save.htm"})
+    public ModelAndView integral_goods_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String begin_hour, String end_hour, String list_url, String add_url){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isIntegralStore()) {
+        if (this.configService.getSysConfig().isIntegralStore()){
             WebForm wf = new WebForm();
             IntegralGoods goods = null;
-            if (id.equals("")) {
+            if (id.equals("")){
                 goods = (IntegralGoods)wf.toPo(request, IntegralGoods.class);
                 goods.setAddTime(new Date());
                 goods.setIg_goods_sn("gift" +
                                      CommUtil.formatTime("yyyyMMddHHmmss", new Date()) +
                                      SecurityUserHolder.getCurrentUser().getId());
-            } else {
+            }else{
                 IntegralGoods obj = this.integralgoodsService.getObjById(
                                         Long.valueOf(Long.parseLong(id)));
                 goods = (IntegralGoods)wf.toPo(request, obj);
@@ -168,8 +168,8 @@ public class IntegralGoodsManageAction {
                 map = CommUtil.saveFileToServer(request, "img1",
                                                 saveFilePathName, fileName, null);
                 Accessory acc = null;
-                if (fileName.equals("")) {
-                    if (map.get("fileName") != "") {
+                if (fileName.equals("")){
+                    if (map.get("fileName") != ""){
                         acc = new Accessory();
                         acc.setName(CommUtil.null2String(map.get("fileName")));
                         acc.setExt(CommUtil.null2String(map.get("mime")));
@@ -181,7 +181,7 @@ public class IntegralGoodsManageAction {
                         this.accessoryService.save(acc);
                         goods.setIg_goods_img(acc);
                     }
-                } else if (map.get("fileName") != "") {
+                }else if (map.get("fileName") != ""){
                     acc = goods.getIg_goods_img();
                     acc.setName(CommUtil.null2String(map.get("fileName")));
                     acc.setExt(CommUtil.null2String(map.get("mime")));
@@ -192,7 +192,7 @@ public class IntegralGoodsManageAction {
                     acc.setAddTime(new Date());
                     this.accessoryService.update(acc);
                 }
-            } catch (IOException e) {
+            } catch (IOException e){
                 e.printStackTrace();
             }
             String ext = goods.getIg_goods_img().getExt().indexOf(".") < 0 ? "." +
@@ -208,19 +208,19 @@ public class IntegralGoodsManageAction {
                                  .getSysConfig().getSmallWidth(), this.configService
                                  .getSysConfig().getSmallHeight());
             Calendar cal = Calendar.getInstance();
-            if (goods.getIg_begin_time() != null) {
+            if (goods.getIg_begin_time() != null){
                 cal.setTime(goods.getIg_begin_time());
                 cal.add(10, CommUtil.null2Int(begin_hour));
                 goods.setIg_begin_time(cal.getTime());
             }
-            if (goods.getIg_end_time() != null) {
+            if (goods.getIg_end_time() != null){
                 cal.setTime(goods.getIg_end_time());
                 cal.add(10, CommUtil.null2Int(end_hour));
                 goods.setIg_end_time(cal.getTime());
             }
             if (id.equals(""))
                 this.integralgoodsService.save(goods);
-            else {
+           else{
                 this.integralgoodsService.update(goods);
             }
             mv.addObject("list_url", list_url);
@@ -229,7 +229,7 @@ public class IntegralGoodsManageAction {
                 mv
                 .addObject("add_url", add_url + "?currentPage=" +
                            currentPage);
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -242,11 +242,11 @@ public class IntegralGoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "积分礼品删除", value = "/admin/integral_goods_del.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/integral_goods_del.htm"})
-    public String integral_goods_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
+    @RequestMapping({"/admin/integral_goods_del.htm"})
+    public String integral_goods_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 IntegralGoods integralgoods = this.integralgoodsService
                                               .getObjById(Long.valueOf(Long.parseLong(id)));
                 CommUtil.del_acc(request, integralgoods.getIg_goods_img());
@@ -271,30 +271,30 @@ public class IntegralGoodsManageAction {
      * @return
      */
     @SecurityMapping(display = false, rsequence = 0, title = "积分礼品兑换列表", value = "/admin/integral_order.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/integral_order.htm"})
-    public ModelAndView integral_order(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String igo_order_sn, String userName, String igo_payment, String igo_status) {
+    @RequestMapping({"/admin/integral_order.htm"})
+    public ModelAndView integral_order(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String igo_order_sn, String userName, String igo_payment, String igo_status){
         ModelAndView mv = new JModelAndView("admin/blue/integral_order.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isIntegralStore()) {
+        if (this.configService.getSysConfig().isIntegralStore()){
             IntegralGoodsOrderQueryObject qo = new IntegralGoodsOrderQueryObject(
                 currentPage, mv, orderBy, orderType);
-            if (!CommUtil.null2String(igo_order_sn).equals("")) {
+            if (!CommUtil.null2String(igo_order_sn).equals("")){
                 qo.addQuery("obj.igo_order_sn",
                             new SysMap("igo_order_sn", "%" +
                                        igo_order_sn.trim() + "%"), "like");
             }
-            if (!CommUtil.null2String(userName).equals("")) {
+            if (!CommUtil.null2String(userName).equals("")){
                 qo.addQuery("obj.igo_user.userName",
                             new SysMap("uesrName",
                                        userName), "like");
             }
-            if (!CommUtil.null2String(igo_payment).equals("")) {
+            if (!CommUtil.null2String(igo_payment).equals("")){
                 qo.addQuery("obj.igo_payment",
                             new SysMap("igo_payment",
                                        igo_payment.trim()), "=");
             }
-            if (!CommUtil.null2String(igo_status).equals("")) {
+            if (!CommUtil.null2String(igo_status).equals("")){
                 qo.addQuery("obj.igo_status",
                             new SysMap("igo_status",
                                        Integer.valueOf(CommUtil.null2Int(igo_status))), "=");
@@ -305,7 +305,7 @@ public class IntegralGoodsManageAction {
             mv.addObject("userName", userName);
             mv.addObject("igo_payment", igo_payment);
             mv.addObject("igo_status", igo_status);
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -318,17 +318,17 @@ public class IntegralGoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "积分礼品兑换详情", value = "/admin/integral_order_view.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/integral_order_view.htm"})
-    public ModelAndView integral_order_view(HttpServletRequest request, HttpServletResponse response, String currentPage, String id) {
+    @RequestMapping({"/admin/integral_order_view.htm"})
+    public ModelAndView integral_order_view(HttpServletRequest request, HttpServletResponse response, String currentPage, String id){
         ModelAndView mv = new JModelAndView(
             "admin/blue/integral_order_view.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isIntegralStore()) {
+        if (this.configService.getSysConfig().isIntegralStore()){
             IntegralGoodsOrder obj = this.integralGoodsOrderService
                                      .getObjById(CommUtil.null2Long(id));
             mv.addObject("obj", obj);
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -341,17 +341,17 @@ public class IntegralGoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "取消积分订单", value = "/admin/integral_order_cancel.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/integral_order_cancel.htm"})
-    public ModelAndView integral_order_cancel(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/integral_order_cancel.htm"})
+    public ModelAndView integral_order_cancel(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         IntegralGoodsOrder obj = this.integralGoodsOrderService
                                  .getObjById(CommUtil.null2Long(id));
-        if (this.configService.getSysConfig().isIntegralStore()) {
+        if (this.configService.getSysConfig().isIntegralStore()){
             obj.setIgo_status(-1);
             this.integralGoodsOrderService.update(obj);
-            for (IntegralGoodsCart igc : obj.getIgo_gcs()) {
+            for (IntegralGoodsCart igc : obj.getIgo_gcs()){
                 IntegralGoods goods = igc.getGoods();
                 goods.setIg_goods_count(goods.getIg_goods_count() +
                                         igc.getCount());
@@ -371,7 +371,7 @@ public class IntegralGoodsManageAction {
             mv.addObject("op_title", "积分兑换取消成功");
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/integral_order.htm");
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -384,20 +384,20 @@ public class IntegralGoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "订单确认付款", value = "/admin/integral_order_payok.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/integral_order_payok.htm"})
-    public ModelAndView integral_order_payok(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/integral_order_payok.htm"})
+    public ModelAndView integral_order_payok(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         IntegralGoodsOrder obj = this.integralGoodsOrderService
                                  .getObjById(CommUtil.null2Long(id));
-        if (this.configService.getSysConfig().isIntegralStore()) {
+        if (this.configService.getSysConfig().isIntegralStore()){
             obj.setIgo_status(20);
             this.integralGoodsOrderService.update(obj);
             mv.addObject("op_title", "确认收款成功");
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/integral_order.htm");
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -410,21 +410,21 @@ public class IntegralGoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "订单删除", value = "/admin/integral_order_del.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/integral_order_del.htm"})
-    public ModelAndView integral_order_del(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/integral_order_del.htm"})
+    public ModelAndView integral_order_del(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         IntegralGoodsOrder obj = this.integralGoodsOrderService
                                  .getObjById(CommUtil.null2Long(id));
-        if (this.configService.getSysConfig().isIntegralStore()) {
-            if (obj.getIgo_status() == -1) {
+        if (this.configService.getSysConfig().isIntegralStore()){
+            if (obj.getIgo_status() == -1){
                 this.integralGoodsOrderService.delete(obj.getId());
             }
             mv.addObject("op_title", "删除兑换订单成功");
             mv.addObject("list_url", CommUtil.getURL(request) +
                          "/admin/integral_order.htm");
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -437,18 +437,18 @@ public class IntegralGoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "订单费用调整", value = "/admin/integral_order_fee.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/integral_order_fee.htm"})
-    public ModelAndView integral_order_fee(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/integral_order_fee.htm"})
+    public ModelAndView integral_order_fee(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "admin/blue/integral_order_fee.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         IntegralGoodsOrder obj = this.integralGoodsOrderService
                                  .getObjById(CommUtil.null2Long(id));
-        if (this.configService.getSysConfig().isIntegralStore()) {
+        if (this.configService.getSysConfig().isIntegralStore()){
             mv.addObject("obj", obj);
             mv.addObject("currentPage", currentPage);
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -461,14 +461,14 @@ public class IntegralGoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "订单费用调整保存", value = "/admin/integral_order_fee_save.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/integral_order_fee_save.htm"})
-    public String integral_order_fee_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String igo_trans_fee) {
+    @RequestMapping({"/admin/integral_order_fee_save.htm"})
+    public String integral_order_fee_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String igo_trans_fee){
         IntegralGoodsOrder obj = this.integralGoodsOrderService
                                  .getObjById(CommUtil.null2Long(id));
-        if (this.configService.getSysConfig().isIntegralStore()) {
+        if (this.configService.getSysConfig().isIntegralStore()){
             obj.setIgo_trans_fee(BigDecimal.valueOf(
                                      CommUtil.null2Double(igo_trans_fee)));
-            if (CommUtil.null2Double(obj.getIgo_trans_fee()) == 0.0D) {
+            if (CommUtil.null2Double(obj.getIgo_trans_fee()) == 0.0D){
                 obj.setIgo_pay_time(new Date());
                 obj.setIgo_status(20);
             }
@@ -479,18 +479,18 @@ public class IntegralGoodsManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "发货设置", value = "/admin/integral_order_ship.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/integral_order_ship.htm"})
-    public ModelAndView integral_order_ship(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/integral_order_ship.htm"})
+    public ModelAndView integral_order_ship(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "admin/blue/integral_order_ship.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         IntegralGoodsOrder obj = this.integralGoodsOrderService
                                  .getObjById(CommUtil.null2Long(id));
-        if (this.configService.getSysConfig().isIntegralStore()) {
+        if (this.configService.getSysConfig().isIntegralStore()){
             mv.addObject("obj", obj);
             mv.addObject("currentPage", currentPage);
-        } else {
+        }else{
             mv = new JModelAndView("admin/blue/error.html", this.configService
                                    .getSysConfig(), this.userConfigService.getUserConfig(), 0,
                                    request, response);
@@ -514,11 +514,11 @@ public class IntegralGoodsManageAction {
      * @return
      */
     @SecurityMapping(display = false, rsequence = 0, title = "发货设置保存", value = "/admin/integral_order_ship_save.htm*", rtype = "admin", rname = "积分商城", rcode = "integral_goods_admin", rgroup = "运营")
-    @RequestMapping( {"/admin/integral_order_ship_save.htm"})
-    public String integral_order_ship_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String igo_ship_code, String igo_ship_time, String igo_ship_content) {
+    @RequestMapping({"/admin/integral_order_ship_save.htm"})
+    public String integral_order_ship_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String igo_ship_code, String igo_ship_time, String igo_ship_content){
         IntegralGoodsOrder obj = this.integralGoodsOrderService
                                  .getObjById(CommUtil.null2Long(id));
-        if (this.configService.getSysConfig().isIntegralStore()) {
+        if (this.configService.getSysConfig().isIntegralStore()){
             obj.setIgo_status(30);
             obj.setIgo_ship_code(igo_ship_code);
             obj.setIgo_ship_time(CommUtil.formatDate(igo_ship_time));

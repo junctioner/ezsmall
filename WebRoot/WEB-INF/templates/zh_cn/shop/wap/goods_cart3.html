@@ -80,7 +80,6 @@ function order_pay(payType){
 <body>
 
 <div class="main">
-
 	<div class="phone_hd">
 		<a class="back" href="javascript:history.go(-1);">
 			<img src="$!webPath/resources/style/system/front/wap/images/back.png" width="25" height="25">
@@ -92,14 +91,9 @@ function order_pay(payType){
 	</div>
 
     <div class="pd5">
-      
       <form action="$!webPath/pay_submit.htm" method="post" id="theForm">
-      
       <div class="payment">
-      
         <div class="pay_detail">
-        
-        
         	<dl>
 	        <dt><img width="62" src="$!webPath/resources/style/system/front/wap/images/dun.png"></dt>
 	        <dd>
@@ -113,7 +107,6 @@ function order_pay(payType){
 	          
 	        </dd>
 	      </dl>
-      
         </div>
         
         <div class="payfor">
@@ -122,11 +115,10 @@ function order_pay(payType){
           </div>
           <div class="bankcar">
             <ul class="list">
-                
                 #set($paym=$!config.getConfig_payment_type())
-                
+				<!-- 平台统一支付 -->
                 #if($!paym==1)
-                	<li id="wxpay_1" class="list-item pay-list-item">
+					<li id="wxpay_1" class="list-item pay-list-item">
 	                #set($install=$!paymentTools.queryShopPayment("weixin_wap").get("install"))
 	                #if($!install==true)                
 	                <a class="list-link" href="javascript:void(0)" onclick="order_pay('weixin_wap')">
@@ -146,6 +138,7 @@ function order_pay(payType){
 	                </a>
 	                #end
 	                </li>
+				<!-- 店铺支付 -->
                 #else
                 	<li id="wxpay_0" class="list-item pay-list-item">
 	                #set($install=$!paymentTools.queryStorePayment("weixin_wap","$!{of.store.id}").get("install"))
@@ -168,8 +161,6 @@ function order_pay(payType){
 	                #end
 	                </li>
                 #end
-                
-                
                 </li>
             </ul>
             <input name="order_id" type="hidden" id="order_id" value="$!{of.id}" />

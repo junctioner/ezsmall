@@ -9,19 +9,19 @@ public class WxToken {
     // 凭证有效期，单位：秒
     private int expiresIn;
 
-    public String getAccessToken() {
+    public String getAccessToken(){
         return accessToken;
     }
 
-    public void setAccessToken(String accessToken) {
+    public void setAccessToken(String accessToken){
         this.accessToken = accessToken;
     }
 
-    public int getExpiresIn() {
+    public int getExpiresIn(){
         return expiresIn;
     }
 
-    public void setExpiresIn(int expiresIn) {
+    public void setExpiresIn(int expiresIn){
         this.expiresIn = expiresIn;
     }
 }

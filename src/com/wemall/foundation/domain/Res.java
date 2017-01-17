@@ -33,59 +33,59 @@ public class Res extends IdEntity {
     private String info;
 
     @Transient
-    public String getRoleAuthorities() {
+    public String getRoleAuthorities(){
         List roleAuthorities = new ArrayList();
-        for (Role role : this.roles) {
+        for (Role role : this.roles){
             roleAuthorities.add(role.getRoleCode());
         }
         return StringUtils.join(roleAuthorities.toArray(), ",");
     }
 
-    public String getResName() {
+    public String getResName(){
         return this.resName;
     }
 
-    public void setResName(String resName) {
+    public void setResName(String resName){
         this.resName = resName;
     }
 
-    public String getType() {
+    public String getType(){
         return this.type;
     }
 
-    public void setType(String type) {
+    public void setType(String type){
         this.type = type;
     }
 
-    public String getValue() {
+    public String getValue(){
         return this.value;
     }
 
-    public void setValue(String value) {
+    public void setValue(String value){
         this.value = value;
     }
 
-    public List<Role> getRoles() {
+    public List<Role> getRoles(){
         return this.roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(List<Role> roles){
         this.roles = roles;
     }
 
-    public String getInfo() {
+    public String getInfo(){
         return this.info;
     }
 
-    public void setInfo(String info) {
+    public void setInfo(String info){
         this.info = info;
     }
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 }

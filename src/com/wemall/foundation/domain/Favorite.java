@@ -36,35 +36,35 @@ public class Favorite extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    public int getType() {
+    public int getType(){
         return this.type;
     }
 
-    public void setType(int type) {
+    public void setType(int type){
         this.type = type;
     }
 
-    public Goods getGoods() {
+    public Goods getGoods(){
         return this.goods;
     }
 
-    public void setGoods(Goods goods) {
+    public void setGoods(Goods goods){
         this.goods = goods;
     }
 
-    public Store getStore() {
+    public Store getStore(){
         return this.store;
     }
 
-    public void setStore(Store store) {
+    public void setStore(Store store){
         this.store = store;
     }
 
-    public User getUser() {
+    public User getUser(){
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 }

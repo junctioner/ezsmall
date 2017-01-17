@@ -27,8 +27,8 @@ public class DocumentViewAction {
     @Autowired
     private IDocumentService documentService;
 
-    @RequestMapping( {"/doc.htm"})
-    public ModelAndView doc(HttpServletRequest request, HttpServletResponse response, String mark) {
+    @RequestMapping({"/doc.htm"})
+    public ModelAndView doc(HttpServletRequest request, HttpServletResponse response, String mark){
         ModelAndView mv = new JModelAndView("doc.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);

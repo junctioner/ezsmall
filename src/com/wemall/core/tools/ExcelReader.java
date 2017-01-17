@@ -53,7 +53,7 @@ public class ExcelReader {
         HSSFRow rowOfFieldName = sheet.getRow(indexOfFieldName);
         Iterator cit = rowOfFieldName.cellIterator();
         // 读取列名
-        while (cit.hasNext()) {
+        while (cit.hasNext()){
             HSSFCell cell = (HSSFCell) cit.next();
             keys.add(cell.getRichStringCellValue().toString());
             physicalNumberOfCells++;
@@ -61,10 +61,10 @@ public class ExcelReader {
 
         int physicalNumberOfRows = sheet.getPhysicalNumberOfRows();
         // 遍历每行数据
-        for (int i = indexOfFieldName + 1; i < physicalNumberOfRows; i++) {
+        for (int i = indexOfFieldName + 1; i < physicalNumberOfRows; i++){
             HSSFRow row = sheet.getRow(i);
             Map<String, String> map = new HashMap<String, String>();
-            for (int m = 0; m < physicalNumberOfCells; m++) {
+            for (int m = 0; m < physicalNumberOfCells; m++){
                 HSSFCell cell = row.getCell(m);
                 map.put(keys.get(m), match(row, cell, m));
             }
@@ -72,8 +72,8 @@ public class ExcelReader {
              * 由于Map存放的对象是无序的，需重新将结果集排序
              */
             List<Entry> data = new ArrayList<Entry>(map.entrySet());
-            Collections.sort(data, new Comparator<Entry>() {
-                public int compare(Entry o1, Entry o2) {
+            Collections.sort(data, new Comparator<Entry>(){
+                public int compare(Entry o1, Entry o2){
                     return keys.indexOf(o1.getKey()) - keys.indexOf(o2.getKey());
                 }
             });
@@ -93,10 +93,10 @@ public class ExcelReader {
      * @param columnNo
      *            - 单元格所在列
      */
-    private String match(HSSFRow row, HSSFCell cell, int columnNo) {
+    private String match(HSSFRow row, HSSFCell cell, int columnNo){
         String value = "";
         if (cell != null)
-            switch (cell.getCellType()) {
+            switch (cell.getCellType()){
             case HSSFCell.CELL_TYPE_BLANK:
                 value = "";
                 break;
@@ -113,13 +113,13 @@ public class ExcelReader {
                 value = Boolean.toString(cell.getBooleanCellValue());
                 break;
             case HSSFCell.CELL_TYPE_NUMERIC:
-                if (HSSFDateUtil.isCellDateFormatted(cell)) { // 是否为日期型
+                if (HSSFDateUtil.isCellDateFormatted(cell)){ // 是否为日期型
                     value = sdf.format(cell.getDateCellValue());
-                } else { // 是否为数值型
+                }else{ // 是否为数值型
                     double d = cell.getNumericCellValue();
-                    if (d - (int) d < Double.MIN_VALUE) { // 是否为int型
+                    if (d - (int) d < Double.MIN_VALUE){ // 是否为int型
                         value = Integer.toString((int) d);
-                    } else { // 是否为double型
+                    }else{ // 是否为double型
                         value = Double.toString(cell.getNumericCellValue());
                     }
                 }

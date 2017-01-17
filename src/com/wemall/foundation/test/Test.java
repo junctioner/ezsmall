@@ -13,7 +13,7 @@ public class Test {
 
     static int totalFile = 0;
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         String path = "E:\\apache-tomcat-7.0.42\\lucene";
         double size = CommUtil.fileSize(new File(path));
         System.out.println(size);
@@ -21,17 +21,17 @@ public class Test {
         System.out.println(size1);
     }
 
-    public static long getFileSize(File folder) {
+    public static long getFileSize(File folder){
         totalFolder += 1;
 
         long foldersize = 0L;
 
         File[] filelist = folder.listFiles();
 
-        for (int i = 0; i < filelist.length; i++) {
-            if (filelist[i].isDirectory()) {
+        for (int i = 0; i < filelist.length; i++){
+            if (filelist[i].isDirectory()){
                 foldersize += getFileSize(filelist[i]);
-            } else {
+            }else{
                 totalFile += 1;
 
                 foldersize += filelist[i].length();

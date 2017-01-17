@@ -19,11 +19,11 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 public class TestEmail {
-    public static boolean sendEmail(String username, String password, String smtp_server, String from_mail_address, String email, String subject, String content) {
+    public static boolean sendEmail(String username, String password, String smtp_server, String from_mail_address, String email, String subject, String content){
         boolean ret = true;
         String to_mail_address = email;
         if ((username != null) && (password != null) && (!username.equals("")) &&
-                (!password.equals("")) && (!smtp_server.equals(""))) {
+                (!password.equals("")) && (!smtp_server.equals(""))){
             Authenticator auth = new PopupAuthenticator(username, password);
             Properties mailProps = new Properties();
             mailProps.put("mail.smtp.auth", "true");
@@ -45,21 +45,21 @@ public class TestEmail {
                 message.saveChanges();
                 Transport.send(message);
                 ret = true;
-            } catch (AddressException e) {
+            } catch (AddressException e){
                 ret = false;
                 e.printStackTrace();
-            } catch (MessagingException e) {
+            } catch (MessagingException e){
                 ret = false;
                 e.printStackTrace();
             }
-        } else {
+        }else{
             ret = false;
         }
 
         return ret;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         String username = "erikchang";
         String password = "erikchang@830729";
         String smtp_server = "smtp.qq.com";

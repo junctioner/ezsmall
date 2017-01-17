@@ -36,27 +36,27 @@ public class ComplaintGoods extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Complaint complaint;
 
-    public Goods getGoods() {
+    public Goods getGoods(){
         return this.goods;
     }
 
-    public void setGoods(Goods goods) {
+    public void setGoods(Goods goods){
         this.goods = goods;
     }
 
-    public String getContent() {
+    public String getContent(){
         return this.content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String content){
         this.content = content;
     }
 
-    public Complaint getComplaint() {
+    public Complaint getComplaint(){
         return this.complaint;
     }
 
-    public void setComplaint(Complaint complaint) {
+    public void setComplaint(Complaint complaint){
         this.complaint = complaint;
     }
 }

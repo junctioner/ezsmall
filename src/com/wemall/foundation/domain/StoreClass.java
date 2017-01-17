@@ -45,67 +45,67 @@ public class StoreClass extends IdEntity {
     @Column(precision = 4, scale = 1)
     private BigDecimal ship_evaluate;
 
-    public BigDecimal getDescription_evaluate() {
+    public BigDecimal getDescription_evaluate(){
         return this.description_evaluate;
     }
 
-    public void setDescription_evaluate(BigDecimal description_evaluate) {
+    public void setDescription_evaluate(BigDecimal description_evaluate){
         this.description_evaluate = description_evaluate;
     }
 
-    public BigDecimal getService_evaluate() {
+    public BigDecimal getService_evaluate(){
         return this.service_evaluate;
     }
 
-    public void setService_evaluate(BigDecimal service_evaluate) {
+    public void setService_evaluate(BigDecimal service_evaluate){
         this.service_evaluate = service_evaluate;
     }
 
-    public BigDecimal getShip_evaluate() {
+    public BigDecimal getShip_evaluate(){
         return this.ship_evaluate;
     }
 
-    public void setShip_evaluate(BigDecimal ship_evaluate) {
+    public void setShip_evaluate(BigDecimal ship_evaluate){
         this.ship_evaluate = ship_evaluate;
     }
 
-    public String getClassName() {
+    public String getClassName(){
         return this.className;
     }
 
-    public void setClassName(String className) {
+    public void setClassName(String className){
         this.className = className;
     }
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public StoreClass getParent() {
+    public StoreClass getParent(){
         return this.parent;
     }
 
-    public void setParent(StoreClass parent) {
+    public void setParent(StoreClass parent){
         this.parent = parent;
     }
 
-    public List<StoreClass> getChilds() {
+    public List<StoreClass> getChilds(){
         return this.childs;
     }
 
-    public void setChilds(List<StoreClass> childs) {
+    public void setChilds(List<StoreClass> childs){
         this.childs = childs;
     }
 
-    public int getLevel() {
+    public int getLevel(){
         return this.level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(int level){
         this.level = level;
     }
 }

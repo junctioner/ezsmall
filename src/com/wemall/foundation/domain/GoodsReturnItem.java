@@ -40,43 +40,43 @@ public class GoodsReturnItem extends IdEntity {
     //数量
     private int count;
 
-    public Goods getGoods() {
+    public Goods getGoods(){
         return this.goods;
     }
 
-    public void setGoods(Goods goods) {
+    public void setGoods(Goods goods){
         this.goods = goods;
     }
 
-    public GoodsReturn getGr() {
+    public GoodsReturn getGr(){
         return this.gr;
     }
 
-    public void setGr(GoodsReturn gr) {
+    public void setGr(GoodsReturn gr){
         this.gr = gr;
     }
 
-    public List<GoodsSpecProperty> getGsps() {
+    public List<GoodsSpecProperty> getGsps(){
         return this.gsps;
     }
 
-    public void setGsps(List<GoodsSpecProperty> gsps) {
+    public void setGsps(List<GoodsSpecProperty> gsps){
         this.gsps = gsps;
     }
 
-    public String getSpec_info() {
+    public String getSpec_info(){
         return this.spec_info;
     }
 
-    public void setSpec_info(String spec_info) {
+    public void setSpec_info(String spec_info){
         this.spec_info = spec_info;
     }
 
-    public int getCount() {
+    public int getCount(){
         return this.count;
     }
 
-    public void setCount(int count) {
+    public void setCount(int count){
         this.count = count;
     }
 }

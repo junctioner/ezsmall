@@ -43,51 +43,51 @@ public class Area extends IdEntity {
     @Column(columnDefinition = "bit default false")
     private boolean common;
 
-    public boolean isCommon() {
+    public boolean isCommon(){
         return this.common;
     }
 
-    public void setCommon(boolean common) {
+    public void setCommon(boolean common){
         this.common = common;
     }
 
-    public List<Area> getChilds() {
+    public List<Area> getChilds(){
         return this.childs;
     }
 
-    public void setChilds(List<Area> childs) {
+    public void setChilds(List<Area> childs){
         this.childs = childs;
     }
 
-    public Area getParent() {
+    public Area getParent(){
         return this.parent;
     }
 
-    public void setParent(Area parent) {
+    public void setParent(Area parent){
         this.parent = parent;
     }
 
-    public String getAreaName() {
+    public String getAreaName(){
         return this.areaName;
     }
 
-    public void setAreaName(String areaName) {
+    public void setAreaName(String areaName){
         this.areaName = areaName;
     }
 
-    public int getLevel() {
+    public int getLevel(){
         return this.level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(int level){
         this.level = level;
     }
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 }

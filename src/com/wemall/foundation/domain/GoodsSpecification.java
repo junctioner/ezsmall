@@ -30,43 +30,43 @@ public class GoodsSpecification extends IdEntity {
     @OrderBy("sequence asc")
     private List<GoodsSpecProperty> properties = new ArrayList();
 
-    public String getName() {
+    public String getName(){
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public String getType() {
+    public String getType(){
         return this.type;
     }
 
-    public void setType(String type) {
+    public void setType(String type){
         this.type = type;
     }
 
-    public List<GoodsType> getTypes() {
+    public List<GoodsType> getTypes(){
         return this.types;
     }
 
-    public void setTypes(List<GoodsType> types) {
+    public void setTypes(List<GoodsType> types){
         this.types = types;
     }
 
-    public List<GoodsSpecProperty> getProperties() {
+    public List<GoodsSpecProperty> getProperties(){
         return this.properties;
     }
 
-    public void setProperties(List<GoodsSpecProperty> properties) {
+    public void setProperties(List<GoodsSpecProperty> properties){
         this.properties = properties;
     }
 }

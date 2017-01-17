@@ -24,27 +24,27 @@ public class GoodsReturnLog extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private User return_user;
 
-    public OrderForm getOf() {
+    public OrderForm getOf(){
         return this.of;
     }
 
-    public void setOf(OrderForm of) {
+    public void setOf(OrderForm of){
         this.of = of;
     }
 
-    public GoodsReturn getGr() {
+    public GoodsReturn getGr(){
         return this.gr;
     }
 
-    public void setGr(GoodsReturn gr) {
+    public void setGr(GoodsReturn gr){
         this.gr = gr;
     }
 
-    public User getReturn_user() {
+    public User getReturn_user(){
         return this.return_user;
     }
 
-    public void setReturn_user(User return_user) {
+    public void setReturn_user(User return_user){
         this.return_user = return_user;
     }
 }

@@ -60,13 +60,13 @@ public class PredepositBuyerAction {
      * @return
      */
     @SecurityMapping(display = false, rsequence = 0, title = "会员充值", value = "/buyer/predeposit.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/predeposit.htm"})
-    public ModelAndView predeposit(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/buyer/predeposit.htm"})
+    public ModelAndView predeposit(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/buyer_predeposit.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isDeposit()) {
+        if (this.configService.getSysConfig().isDeposit()){
             Map params = new HashMap();
             params.put("type", "admin");
             params.put("install", Boolean.valueOf(true));
@@ -77,7 +77,7 @@ public class PredepositBuyerAction {
                                 "select obj from Payment obj where obj.type=:type and obj.install=:install and obj.mark !=:mark and obj.mark !=:mark2",
                                 params, -1, -1);
             mv.addObject("payments", payments);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -89,20 +89,20 @@ public class PredepositBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "会员充值保存", value = "/buyer/predeposit_save.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/predeposit_save.htm"})
-    public ModelAndView predeposit_save(HttpServletRequest request, HttpServletResponse response, String id, String pd_payment, String pd_amount, String pd_remittance_user, String pd_remittance_bank, String pd_remittance_time, String pd_remittance_info) {
+    @RequestMapping({"/buyer/predeposit_save.htm"})
+    public ModelAndView predeposit_save(HttpServletRequest request, HttpServletResponse response, String id, String pd_payment, String pd_amount, String pd_remittance_user, String pd_remittance_bank, String pd_remittance_time, String pd_remittance_info){
         ModelAndView mv = new JModelAndView("line_pay.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
-        if (this.configService.getSysConfig().isDeposit()) {
+        if (this.configService.getSysConfig().isDeposit()){
             WebForm wf = new WebForm();
             Predeposit obj = null;
-            if (CommUtil.null2String(id).equals("")) {
+            if (CommUtil.null2String(id).equals("")){
                 obj = (Predeposit)wf.toPo(request, Predeposit.class);
                 obj.setAddTime(new Date());
                 if (pd_payment.equals("outline"))
                     obj.setPd_pay_status(1);
-                else {
+               else{
                     obj.setPd_pay_status(0);
                 }
                 obj.setPd_sn("pd" +
@@ -115,19 +115,19 @@ public class PredepositBuyerAction {
                 log.setAddTime(new Date());
                 log.setPd_log_amount(obj.getPd_amount());
                 String pay_text = "";
-                if (pd_payment.equals("outline")) {
+                if (pd_payment.equals("outline")){
                     pay_text = "线下账户";
                 }
-                if (pd_payment.equals("alipay")) {
+                if (pd_payment.equals("alipay")){
                     pay_text = "支付宝";
                 }
-                if (pd_payment.equals("bill")) {
+                if (pd_payment.equals("bill")){
                     pay_text = "快钱";
                 }
-                if (pd_payment.equals("tenpay")) {
+                if (pd_payment.equals("tenpay")){
                     pay_text = "财付通";
                 }
-                if (pd_payment.equals("chinabank")) {
+                if (pd_payment.equals("chinabank")){
                     pay_text = "网银在线";
                 }
                 log.setPd_log_info(pay_text + "充值");
@@ -136,13 +136,13 @@ public class PredepositBuyerAction {
                 log.setPd_type("可用预存款");
                 log.setPredeposit(obj);
                 this.predepositLogService.save(log);// 新增预存款充值记录
-            } else {
+            }else{
                 Predeposit pre = this.predepositService.getObjById(
                                      CommUtil.null2Long(id));
                 obj = (Predeposit)wf.toPo(request, pre);
                 this.predepositService.update(obj);// 更新预存款充值记录
             }
-            if (pd_payment.equals("outline")) {
+            if (pd_payment.equals("outline")){
                 mv = new JModelAndView("success.html", this.configService
                                        .getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
@@ -150,7 +150,7 @@ public class PredepositBuyerAction {
                 mv.addObject("op_title", "线下支付提交成功，等待审核");
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/buyer/predeposit_list.htm");
-            } else {
+            }else{
                 mv.addObject("payType", pd_payment);
                 mv.addObject("type", "cash");
                 mv.addObject("url", CommUtil.getURL(request));
@@ -168,7 +168,7 @@ public class PredepositBuyerAction {
                              ((Payment)payments
                               .get(0)).getId() : new Payment());
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -180,13 +180,13 @@ public class PredepositBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "会员充值列表", value = "/buyer/predeposit_list.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/predeposit_list.htm"})
-    public ModelAndView predeposit_list(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/buyer/predeposit_list.htm"})
+    public ModelAndView predeposit_list(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/predeposit_list.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isDeposit()) {
+        if (this.configService.getSysConfig().isDeposit()){
             PredepositQueryObject qo = new PredepositQueryObject(currentPage,
                     mv, "addTime", "desc");
             qo.addQuery("obj.pd_user.id",
@@ -194,7 +194,7 @@ public class PredepositBuyerAction {
                                    SecurityUserHolder.getCurrentUser().getId()), "=");
             IPageList pList = this.predepositService.list(qo);
             CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -206,20 +206,20 @@ public class PredepositBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "会员充值详情", value = "/buyer/predeposit_view.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/predeposit_view.htm"})
-    public ModelAndView predeposit_view(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/buyer/predeposit_view.htm"})
+    public ModelAndView predeposit_view(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/predeposit_view.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isDeposit()) {
+        if (this.configService.getSysConfig().isDeposit()){
             Predeposit obj = this.predepositService.getObjById(
                                  CommUtil.null2Long(id));
 
             if (obj.getPd_user().getId().equals(
-                        SecurityUserHolder.getCurrentUser().getId())) {
+                        SecurityUserHolder.getCurrentUser().getId())){
                 mv.addObject("obj", obj);
-            } else {
+            }else{
                 mv = new JModelAndView("error.html", this.configService
                                        .getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
@@ -228,7 +228,7 @@ public class PredepositBuyerAction {
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/buyer/predeposit_list.htm");
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -240,20 +240,20 @@ public class PredepositBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "会员充值支付", value = "/buyer/predeposit_pay.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/predeposit_pay.htm"})
-    public ModelAndView predeposit_pay(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/buyer/predeposit_pay.htm"})
+    public ModelAndView predeposit_pay(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/predeposit_pay.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isDeposit()) {
+        if (this.configService.getSysConfig().isDeposit()){
             Predeposit obj = this.predepositService.getObjById(
                                  CommUtil.null2Long(id));
 
             if (obj.getPd_user().getId().equals(
-                        SecurityUserHolder.getCurrentUser().getId())) {
+                        SecurityUserHolder.getCurrentUser().getId())){
                 mv.addObject("obj", obj);
-            } else {
+            }else{
                 mv = new JModelAndView("error.html", this.configService
                                        .getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
@@ -262,7 +262,7 @@ public class PredepositBuyerAction {
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/buyer/predeposit_list.htm");
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -274,13 +274,13 @@ public class PredepositBuyerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "会员收入明细", value = "/buyer/predeposit_log.htm*", rtype = "buyer", rname = "预存款管理", rcode = "predeposit_set", rgroup = "用户中心")
-    @RequestMapping( {"/buyer/predeposit_log.htm"})
-    public ModelAndView predeposit_log(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/buyer/predeposit_log.htm"})
+    public ModelAndView predeposit_log(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/buyer_predeposit_log.html",
             this.configService.getSysConfig(), this.userConfigService
             .getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isDeposit()) {
+        if (this.configService.getSysConfig().isDeposit()){
             PredepositLogQueryObject qo = new PredepositLogQueryObject(
                 currentPage, mv, "addTime", "desc");
             qo.addQuery("obj.pd_log_user.id",
@@ -290,7 +290,7 @@ public class PredepositBuyerAction {
             CommUtil.saveIPageList2ModelAndView("", "", "", pList, mv);
             mv.addObject("user", this.userService.getObjById(
                              SecurityUserHolder.getCurrentUser().getId()));
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);

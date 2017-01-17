@@ -34,7 +34,7 @@ public class DatabaseTools
         List<String> backup_list = new ArrayList<String>();
         if ((tables != null) && (!tables.equals("")))
             backup_list = Arrays.asList(tables.split(","));
-        else {
+       else{
             backup_list = tablelists;
         }
         try {
@@ -46,14 +46,14 @@ public class DatabaseTools
 
             pwrite.println(AppendMessage.headerMessage());
             pwrite.println("SET FOREIGN_KEY_CHECKS=0;\n");
-            for (String table : backup_list) {
+            for (String table : backup_list){
                 StringBuilder strBuilder = new StringBuilder();
                 strBuilder.append("show create table ").append(table);
                 List<String>  list = this.publicMethod.getAllColumns(strBuilder
                                      .toString());
-                for (String line : list) {
+                for (String line : list){
                     double fsize = CommUtil.div(Long.valueOf(file.length()), Integer.valueOf(1024));
-                    if (fsize > psize) {
+                    if (fsize > psize){
                         pwrite.flush();
 
                         count++;
@@ -79,7 +79,7 @@ public class DatabaseTools
             }
             pwrite.flush();
             pwrite.close();
-        } catch (Exception e) {
+        } catch (Exception e){
             ret = false;
             e.printStackTrace();
             throw new Exception("出现错误,创建备份文件失败!");
@@ -95,13 +95,13 @@ public class DatabaseTools
 
             pwrite.println(AppendMessage.headerMessage());
             pwrite.println(AppendMessage.insertHeaderMessage());
-            for (String table : backup_list) {
+            for (String table : backup_list){
                 if (CommUtil.null2String(table).equals(""))
                     continue;
                 List insertList = getAllDatas(table.toString());
-                for (int i = 0; i < insertList.size(); i++) {
+                for (int i = 0; i < insertList.size(); i++){
                     double fsize = CommUtil.div(Long.valueOf(file.length()), Integer.valueOf(1024));
-                    if (fsize > psize) {
+                    if (fsize > psize){
                         pwrite.flush();
 
                         count++;
@@ -128,7 +128,7 @@ public class DatabaseTools
             pwrite.close();
 
             request.getSession(false).setAttribute("db_result", Integer.valueOf(1));
-        } catch (Exception e) {
+        } catch (Exception e){
             ret = false;
             e.printStackTrace();
             throw new Exception("出现错误,创建备份文件失败!");
@@ -149,9 +149,9 @@ public class DatabaseTools
             stmt = conn.createStatement();
 
             conn.setAutoCommit(false);
-            for (String sqlStr : sqlStrList) {
+            for (String sqlStr : sqlStrList){
                 int index = sqlStr.indexOf("INSERT");
-                if (-1 == index) {
+                if (-1 == index){
                     stmt.addBatch(sqlStr);
                 }
 
@@ -159,9 +159,9 @@ public class DatabaseTools
 
             stmt.executeBatch();
 
-            for (String sqlStr : sqlStrList) {
+            for (String sqlStr : sqlStrList){
                 int index = sqlStr.indexOf("INSERT");
-                if (-1 != index) {
+                if (-1 != index){
                     System.out.println(sqlStr);
                     int i = stmt.executeUpdate(sqlStr);
                 }
@@ -169,7 +169,7 @@ public class DatabaseTools
 
             stmt.executeBatch();
             conn.commit();
-        } catch (Exception ex) {
+        } catch (Exception ex){
             ret = false;
             System.out.println(ex.getMessage());
             ex.printStackTrace();
@@ -193,7 +193,7 @@ public class DatabaseTools
                 tableName);
             List<TableColumn> columnList = this.publicMethod.getDescribe(columnsStr.toString());
             sqlStr.append("SELECT ");
-            for (TableColumn bColumn : columnList) {
+            for (TableColumn bColumn : columnList){
                 String columnsType = bColumn.getColumnsType();
                 if (("longblob".equals(columnsType)) ||
                         ("blob".equals(columnsType)) ||
@@ -202,7 +202,7 @@ public class DatabaseTools
                     typeStr.append("hex(`" + bColumn.getColumnsFiled() +
                                    "`" + ") as " + "`" + bColumn.getColumnsFiled() +
                                    "`" + " ,");
-                else {
+               else{
                     typeStr
                     .append("`" + bColumn.getColumnsFiled() + "`" +
                             " ,");
@@ -211,41 +211,41 @@ public class DatabaseTools
             sqlStr.append(typeStr.substring(0, typeStr.length() - 1));
             sqlStr.append(" FROM ").append("`" + tableName + "`;");
             rs = this.publicMethod.queryResult(sqlStr.toString());
-            while (rs.next()) {
+            while (rs.next()){
                 StringBuffer insert_sql = new StringBuffer();
                 insert_sql.append("INSERT INTO " + tableName + " (" +
                                   typeStr.substring(0, typeStr.length() - 1) +
                                   ") VALUES (");
                 Vector vector = new Vector();
-                for (TableColumn dbColumn : columnList) {
+                for (TableColumn dbColumn : columnList){
                     String columnsType = dbColumn.getColumnsType();
                     String columnsFile = dbColumn.getColumnsFiled();
-                    if (rs.getString(columnsFile) == null) {
+                    if (rs.getString(columnsFile) == null){
                         vector.add(rs.getString(columnsFile));
-                    } else if ("bit".equals(columnsType.substring(0, 3))) {
+                    }else if ("bit".equals(columnsType.substring(0, 3))){
                         vector.add(
                             Integer.valueOf(Integer.valueOf(rs.getString(columnsFile))
                                             .intValue()));
-                    } else if (("bit".equals(columnsType.substring(0, 3))) &&
+                    }else if (("bit".equals(columnsType.substring(0, 3))) &&
                                (Integer.valueOf(rs.getString(columnsFile))
-                                .intValue() == 0)) {
+                                .intValue() == 0)){
                         vector.add("''");
-                    } else if (("longblob".equals(columnsType)) ||
+                    }else if (("longblob".equals(columnsType)) ||
                                ("blob".equals(columnsType)) ||
                                ("tinyblob".equals(columnsType)) ||
-                               ("mediumblob".equals(columnsType))) {
+                               ("mediumblob".equals(columnsType))){
                         vector.add("0x" + rs.getString(columnsFile));
-                    } else if (("text".equals(columnsType)) ||
+                    }else if (("text".equals(columnsType)) ||
                                ("longtext".equals(columnsType)) ||
                                ("tinytext".equals(columnsType)) ||
-                               ("mediumtext".equals(columnsType))) {
+                               ("mediumtext".equals(columnsType))){
                         String tempStr = rs.getString(columnsFile);
                         tempStr = tempStr.replaceAll("'", "\\'");
                         tempStr = tempStr.replaceAll("\"", "\\\"").replaceAll(
                                       "\r", "\\\\r").replaceAll("\n", "\\\\n")
                                   .replaceAll("<!--[\\w\\W\\r\\n]*?-->", "");
                         vector.add("'" + tempStr + "'");
-                    } else {
+                    }else{
                         vector.add("'" + rs.getString(columnsFile) + "'");
                     }
                 }
@@ -254,7 +254,7 @@ public class DatabaseTools
                 insert_sql.append(tempStr);
                 list.add(insert_sql.toString());
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             throw e;
         }
         StringBuilder columnsStr;
@@ -276,7 +276,7 @@ public class DatabaseTools
                 tableName);
             List<TableColumn> columnList = this.publicMethod.getDescribe(columnsStr.toString());
             sqlStr.append("SELECT ");
-            for (TableColumn bColumn : columnList) {
+            for (TableColumn bColumn : columnList){
                 String columnsType = bColumn.getColumnsType();
                 if (("longblob".equals(columnsType)) ||
                         ("blob".equals(columnsType)) ||
@@ -285,7 +285,7 @@ public class DatabaseTools
                     typeStr.append("hex(`" + bColumn.getColumnsFiled() +
                                    "`" + ") as " + "`" + bColumn.getColumnsFiled() +
                                    "`" + " ,");
-                else {
+               else{
                     typeStr
                     .append("`" + bColumn.getColumnsFiled() + "`" +
                             " ,");
@@ -296,41 +296,41 @@ public class DatabaseTools
 
 
             rs = this.publicMethod.queryResult(sqlStr.toString());
-            while (rs.next()) {
+            while (rs.next()){
                 Vector vector = new Vector();
-                for (TableColumn dbColumn : columnList) {
+                for (TableColumn dbColumn : columnList){
                     String columnsType = dbColumn.getColumnsType();
                     String columnsFile = dbColumn.getColumnsFiled();
-                    if (rs.getString(columnsFile) == null) {
+                    if (rs.getString(columnsFile) == null){
                         vector.add(rs.getString(columnsFile));
-                    } else if ("bit".equals(columnsType.substring(0, 3))) {
+                    }else if ("bit".equals(columnsType.substring(0, 3))){
                         vector.add(
                             Integer.valueOf(Integer.valueOf(rs.getString(columnsFile))
                                             .intValue()));
-                    } else if (("bit".equals(columnsType.substring(0, 3))) &&
+                    }else if (("bit".equals(columnsType.substring(0, 3))) &&
                                (Integer.valueOf(rs.getString(columnsFile))
-                                .intValue() == 0)) {
+                                .intValue() == 0)){
                         vector.add("''");
-                    } else if (("longblob".equals(columnsType)) ||
+                    }else if (("longblob".equals(columnsType)) ||
                                ("blob".equals(columnsType)) ||
                                ("tinyblob".equals(columnsType)) ||
-                               ("mediumblob".equals(columnsType))) {
+                               ("mediumblob".equals(columnsType))){
                         vector.add("0x" + rs.getString(columnsFile));
-                    } else if (("text".equals(columnsType)) ||
+                    }else if (("text".equals(columnsType)) ||
                                ("longtext".equals(columnsType)) ||
                                ("tinytext".equals(columnsType)) ||
-                               ("mediumtext".equals(columnsType))) {
+                               ("mediumtext".equals(columnsType))){
                         String tempStr = rs.getString(columnsFile);
                         tempStr = tempStr.replace("'", "\\'");
                         tempStr = tempStr.replace("\"", "\\\"");
                         vector.add("'" + tempStr + "'");
-                    } else {
+                    }else{
                         vector.add("'" + rs.getString(columnsFile) + "'");
                     }
                 }
                 list.add(vector);
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             throw e;
         }
         //     List list;
@@ -346,7 +346,7 @@ public class DatabaseTools
             ResultSet rs = conn.getMetaData().getTables("", "", "", null);
             while (rs.next())
                 tables.add(rs.getString("TABLE_NAME"));
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         } finally {
             this.publicMethod.closeConn();
@@ -355,7 +355,7 @@ public class DatabaseTools
         return tables;
     }
 
-    public String queryDatabaseVersion() {
+    public String queryDatabaseVersion(){
         Connection conn = null;
         String version = "未知版本号";
         try {
@@ -364,7 +364,7 @@ public class DatabaseTools
             String str1 = md.getDatabaseProductName() + " " +
                           md.getDatabaseProductVersion().toUpperCase();
             return str1;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         } finally {
             this.publicMethod.closeConn();
@@ -373,14 +373,14 @@ public class DatabaseTools
         return version;
     }
 
-    public boolean execute(String sql) {
+    public boolean execute(String sql){
         Connection conn = null;
         boolean ret = true;
         try {
             conn = this.publicMethod.getConnection();
             Statement stmt = conn.createStatement();
             stmt.execute(sql);
-        } catch (Exception e) {
+        } catch (Exception e){
             ret = false;
             e.printStackTrace();
         } finally {
@@ -390,7 +390,7 @@ public class DatabaseTools
         return ret;
     }
 
-    public boolean export(String tables, String path) {
+    public boolean export(String tables, String path){
         boolean ret = true;
         try {
             File file = new File(path);
@@ -401,16 +401,16 @@ public class DatabaseTools
             pwrite.println(AppendMessage.headerMessage());
             pwrite.println(AppendMessage.insertHeaderMessage());
             List<String> list = Arrays.asList(tables.split(","));
-            for (String table : list) {
+            for (String table : list){
                 List insertList = getAllDatas(table.toString());
-                for (int i = 0; i < insertList.size(); i++) {
+                for (int i = 0; i < insertList.size(); i++){
                     pwrite.flush();
                     pwrite.println((String)insertList.get(i));
                 }
             }
             pwrite.flush();
             pwrite.close();
-        } catch (Exception e) {
+        } catch (Exception e){
             ret = false;
             e.printStackTrace();
         }
@@ -418,7 +418,7 @@ public class DatabaseTools
         return ret;
     }
 
-    public ResultSet query(String sql) {
+    public ResultSet query(String sql){
         Connection conn = null;
         ResultSet rs = null;
         boolean ret = true;
@@ -426,7 +426,7 @@ public class DatabaseTools
             conn = this.publicMethod.getConnection();
             Statement stmt = conn.createStatement();
             rs = stmt.executeQuery(sql);
-        } catch (Exception e) {
+        } catch (Exception e){
             ret = false;
             e.printStackTrace();
         } finally {

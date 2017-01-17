@@ -21,78 +21,78 @@ public class IntegralGoodsServiceImpl
     @Resource(name = "integralGoodsDAO")
     private IGenericDAO<IntegralGoods> integralGoodsDao;
 
-    public boolean save(IntegralGoods integralGoods) {
+    public boolean save(IntegralGoods integralGoods){
         try {
             this.integralGoodsDao.save(integralGoods);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public IntegralGoods getObjById(Long id) {
+    public IntegralGoods getObjById(Long id){
         IntegralGoods integralGoods = (IntegralGoods)this.integralGoodsDao.get(id);
-        if (integralGoods != null) {
+        if (integralGoods != null){
             return integralGoods;
         }
 
         return null;
     }
 
-    public boolean delete(Long id) {
+    public boolean delete(Long id){
         try {
             this.integralGoodsDao.remove(id);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public boolean batchDelete(List<Serializable> integralGoodsIds) {
-        for (Serializable id : integralGoodsIds) {
+    public boolean batchDelete(List<Serializable> integralGoodsIds){
+        for (Serializable id : integralGoodsIds){
             delete((Long)id);
         }
 
         return true;
     }
 
-    public IPageList list(IQueryObject properties) {
-        if (properties == null) {
+    public IPageList list(IQueryObject properties){
+        if (properties == null){
             return null;
         }
         String query = properties.getQuery();
         Map params = properties.getParameters();
         GenericPageList pList = new GenericPageList(IntegralGoods.class, query,
                 params, this.integralGoodsDao);
-        if (properties != null) {
+        if (properties != null){
             PageObject pageObj = properties.getPageObj();
             if (pageObj != null)
                 pList.doList(pageObj.getCurrentPage() == null ? 0 : pageObj
                              .getCurrentPage().intValue(), pageObj.getPageSize() == null ? 0 :
                              pageObj.getPageSize().intValue());
-        } else {
+        }else{
             pList.doList(0, -1);
         }
 
         return pList;
     }
 
-    public boolean update(IntegralGoods integralGoods) {
+    public boolean update(IntegralGoods integralGoods){
         try {
             this.integralGoodsDao.update(integralGoods);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public List<IntegralGoods> query(String query, Map params, int begin, int max) {
+    public List<IntegralGoods> query(String query, Map params, int begin, int max){
         return this.integralGoodsDao.query(query, params, begin, max);
     }
 }

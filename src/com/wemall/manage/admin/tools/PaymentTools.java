@@ -29,7 +29,7 @@ public class PaymentTools {
      * @param type
      * @return
      */
-    public boolean queryPayment(String mark, String type) {
+    public boolean queryPayment(String mark, String type){
         Map params = new HashMap();
         params.put("mark", mark);
         params.put("type", type);
@@ -37,7 +37,7 @@ public class PaymentTools {
                     .query(
                         "select obj from Payment obj where obj.mark=:mark and obj.type=:type",
                         params, -1, -1);
-        if (objs.size() > 0) {
+        if (objs.size() > 0){
             return ((Payment)objs.get(0)).isInstall();
         }
 
@@ -49,7 +49,7 @@ public class PaymentTools {
      * @param mark
      * @return
      */
-    public Map queryPayment(String mark) {
+    public Map queryPayment(String mark){
         Map params = new HashMap();
         params.put("mark", mark);
         params.put("type", "user");
@@ -62,10 +62,10 @@ public class PaymentTools {
                         "select obj from Payment obj where obj.mark=:mark and obj.type=:type and obj.store.id=:store_id",
                         params, -1, -1);
         Map ret = new HashMap();
-        if (objs.size() == 1) {
+        if (objs.size() == 1){
             ret.put("install", Boolean.valueOf(((Payment)objs.get(0)).isInstall()));
             ret.put("already", Boolean.valueOf(true));
-        } else {
+        }else{
             ret.put("install", Boolean.valueOf(false));
             ret.put("already", Boolean.valueOf(false));
         }
@@ -79,7 +79,7 @@ public class PaymentTools {
      * @param store_id
      * @return 安装状态和支付说明
      */
-    public Map queryStorePayment(String mark, String store_id) {
+    public Map queryStorePayment(String mark, String store_id){
         Map ret = new HashMap();
         Map params = new HashMap();
         params.put("mark", mark);
@@ -87,10 +87,10 @@ public class PaymentTools {
         List objs = this.paymentService
                     .query("select obj from Payment obj where obj.mark=:mark and obj.store.id=:store_id",
                            params, -1, -1);
-        if (objs.size() == 1) {
+        if (objs.size() == 1){
             ret.put("install", Boolean.valueOf(((Payment)objs.get(0)).isInstall()));
             ret.put("content", ((Payment)objs.get(0)).getContent());
-        } else {
+        }else{
             ret.put("install", Boolean.valueOf(false));
             ret.put("content", "");
         }
@@ -103,7 +103,7 @@ public class PaymentTools {
      * @param mark
      * @return 安装状态和支付说明
      */
-    public Map queryShopPayment(String mark) {
+    public Map queryShopPayment(String mark){
         Map ret = new HashMap();
         Map params = new HashMap();
         params.put("mark", mark);
@@ -111,10 +111,10 @@ public class PaymentTools {
         List objs = this.paymentService
                     .query("select obj from Payment obj where obj.mark=:mark and obj.type=:type",
                            params, -1, -1);
-        if (objs.size() == 1) {
+        if (objs.size() == 1){
             ret.put("install", Boolean.valueOf(((Payment)objs.get(0)).isInstall()));
             ret.put("content", ((Payment)objs.get(0)).getContent());
-        } else {
+        }else{
             ret.put("install", Boolean.valueOf(false));
             ret.put("content", "");
         }

@@ -9,17 +9,17 @@ public class Md5Encrypt {
                                            '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
                                          };
 
-    public static String md5(String text) {
+    public static String md5(String text){
         MessageDigest msgDigest = null;
         try {
             msgDigest = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e){
             throw new IllegalStateException(
                 "System doesn't support MD5 algorithm.");
         }
         try {
             msgDigest.update(text.getBytes("utf-8"));
-        } catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e){
             throw new IllegalStateException(
                 "System doesn't support your  EncodingException.");
         }
@@ -31,13 +31,13 @@ public class Md5Encrypt {
         return md5Str;
     }
 
-    public static char[] encodeHex(byte[] data) {
+    public static char[] encodeHex(byte[] data){
         int l = data.length;
 
         char[] out = new char[l << 1];
 
         int i = 0;
-        for (int j = 0; i < l; i++) {
+        for (int j = 0; i < l; i++){
             out[(j++)] = DIGITS[((0xF0 & data[i]) >>> 4)];
             out[(j++)] = DIGITS[(0xF & data[i])];
         }
@@ -45,7 +45,7 @@ public class Md5Encrypt {
         return out;
     }
 
-    private static String byteArrayToHexString(byte b[]) {
+    private static String byteArrayToHexString(byte b[]){
         StringBuffer resultSb = new StringBuffer();
         for (int i = 0; i < b.length; i++)
             resultSb.append(byteToHexString(b[i]));
@@ -53,7 +53,7 @@ public class Md5Encrypt {
         return resultSb.toString();
     }
 
-    private static String byteToHexString(byte b) {
+    private static String byteToHexString(byte b){
         int n = b;
         if (n < 0)
             n += 256;
@@ -62,7 +62,7 @@ public class Md5Encrypt {
         return hexDigits[d1] + hexDigits[d2];
     }
 
-    public static String MD5Encode(String origin, String charsetname) {
+    public static String MD5Encode(String origin, String charsetname){
         String resultString = null;
         try {
             resultString = new String(origin);
@@ -73,7 +73,7 @@ public class Md5Encrypt {
             else
                 resultString = byteArrayToHexString(md.digest(resultString
                                                     .getBytes(charsetname)));
-        } catch (Exception exception) {
+        } catch (Exception exception){
         }
         return resultString;
     }

@@ -19,17 +19,17 @@ public class FileSorter
     public static final int TYPE_DIR = 7;
     private int mType = -1;
 
-    public FileSorter(int type) {
-        if ((type < 0) || (type > 7)) {
+    public FileSorter(int type){
+        if ((type < 0) || (type > 7)){
             type = 7;
         }
         this.mType = type;
     }
 
-    public int compare(File object1, File object2) {
+    public int compare(File object1, File object2){
         int result = 0;
 
-        switch (this.mType) {
+        switch (this.mType){
         case 1:
             result = compareByModifiedDateDown(object1, object2);
             break;
@@ -56,99 +56,99 @@ public class FileSorter
         return result;
     }
 
-    private int compareByModifiedDateDown(File object1, File object2) {
+    private int compareByModifiedDateDown(File object1, File object2){
         long d1 = object1.lastModified();
         long d2 = object2.lastModified();
 
-        if (d1 == d2) {
+        if (d1 == d2){
             return 0;
         }
 
         return d1 < d2 ? 1 : -1;
     }
 
-    private int compareByModifiedDateUp(File object1, File object2) {
+    private int compareByModifiedDateUp(File object1, File object2){
         long d1 = object1.lastModified();
         long d2 = object2.lastModified();
 
-        if (d1 == d2) {
+        if (d1 == d2){
             return 0;
         }
 
         return d1 > d2 ? 1 : -1;
     }
 
-    private int compareBySizeDown(File object1, File object2) {
-        if ((object1.isDirectory()) && (object2.isDirectory())) {
+    private int compareBySizeDown(File object1, File object2){
+        if ((object1.isDirectory()) && (object2.isDirectory())){
             return 0;
         }
-        if ((object1.isDirectory()) && (object2.isFile())) {
+        if ((object1.isDirectory()) && (object2.isFile())){
             return -1;
         }
-        if ((object1.isFile()) && (object2.isDirectory())) {
+        if ((object1.isFile()) && (object2.isDirectory())){
             return 1;
         }
         long s1 = object1.length();
         long s2 = object2.length();
 
-        if (s1 == s2) {
+        if (s1 == s2){
             return 0;
         }
 
         return s1 < s2 ? 1 : -1;
     }
 
-    private int compareBySizeUp(File object1, File object2) {
-        if ((object1.isDirectory()) && (object2.isDirectory())) {
+    private int compareBySizeUp(File object1, File object2){
+        if ((object1.isDirectory()) && (object2.isDirectory())){
             return 0;
         }
-        if ((object1.isDirectory()) && (object2.isFile())) {
+        if ((object1.isDirectory()) && (object2.isFile())){
             return -1;
         }
-        if ((object1.isFile()) && (object2.isDirectory())) {
+        if ((object1.isFile()) && (object2.isDirectory())){
             return 1;
         }
 
         long s1 = object1.length();
         long s2 = object2.length();
 
-        if (s1 == s2) {
+        if (s1 == s2){
             return 0;
         }
 
         return s1 > s2 ? 1 : -1;
     }
 
-    private int compareByName(File object1, File object2) {
+    private int compareByName(File object1, File object2){
         Comparator cmp = Collator.getInstance(Locale.CHINA);
 
         return cmp.compare(object1.getName(), object2.getName());
     }
 
-    private int compareByDir(File object1, File object2) {
+    private int compareByDir(File object1, File object2){
         if ((object1.isDirectory()) && (object2.isFile()))
             return -1;
         if ((object1.isDirectory()) && (object2.isDirectory()))
             return compareByName(object1, object2);
-        if ((object1.isFile()) && (object2.isDirectory())) {
+        if ((object1.isFile()) && (object2.isDirectory())){
             return 1;
         }
 
         return compareByName(object1, object2);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         File[] list = new File("/usr").listFiles();
         Arrays.sort(list, new FileSorter(4));
         printFileArray(list);
     }
 
-    private static void printFileArray(File[] list) {
+    private static void printFileArray(File[] list){
         System.out.println("文件大小\t\t文件修改日期\t\t文件类型\t\t文件名称");
 
         File[] arrayOfFile = list;
         int j = list.length;
-        for (int i = 0; i < j; i++) {
+        for (int i = 0; i < j; i++){
             File f = arrayOfFile[i];
             System.out.println(f.length() + "\t\t" +
                                new Date(f.lastModified()).toString() + "\t\t" + (

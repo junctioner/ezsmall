@@ -27,43 +27,43 @@ public class SysLog extends IdEntity {
     private User user;
     private String ip;
 
-    public String getTitle() {
+    public String getTitle(){
         return this.title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title){
         this.title = title;
     }
 
-    public String getContent() {
+    public String getContent(){
         return this.content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String content){
         this.content = content;
     }
 
-    public User getUser() {
+    public User getUser(){
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 
-    public int getType() {
+    public int getType(){
         return this.type;
     }
 
-    public void setType(int type) {
+    public void setType(int type){
         this.type = type;
     }
 
-    public String getIp() {
+    public String getIp(){
         return this.ip;
     }
 
-    public void setIp(String ip) {
+    public void setIp(String ip){
         this.ip = ip;
     }
 }

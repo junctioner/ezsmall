@@ -23,7 +23,7 @@ public class ResponseHandler {
     private HttpServletResponse response;
     private String uriEncoding;
 
-    public ResponseHandler(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseHandler(HttpServletRequest request, HttpServletResponse response){
         this.request = request;
         this.response = response;
 
@@ -35,43 +35,43 @@ public class ResponseHandler {
 
         Map m = this.request.getParameterMap();
         Iterator it = m.keySet().iterator();
-        while (it.hasNext()) {
+        while (it.hasNext()){
             String k = (String)it.next();
             String v = ((String[])m.get(k))[0];
             setParameter(k, v);
         }
     }
 
-    public String getKey() {
+    public String getKey(){
         return this.key;
     }
 
-    public void setKey(String key) {
+    public void setKey(String key){
         this.key = key;
     }
 
-    public String getParameter(String parameter) {
+    public String getParameter(String parameter){
         String s = (String)this.parameters.get(parameter);
         return s == null ? "" : s;
     }
 
-    public void setParameter(String parameter, String parameterValue) {
+    public void setParameter(String parameter, String parameterValue){
         String v = "";
-        if (parameterValue != null) {
+        if (parameterValue != null){
             v = parameterValue.trim();
         }
         this.parameters.put(parameter, v);
     }
 
-    public SortedMap getAllParameters() {
+    public SortedMap getAllParameters(){
         return this.parameters;
     }
 
-    public boolean isTenpaySign() {
+    public boolean isTenpaySign(){
         StringBuffer sb = new StringBuffer();
         Set es = this.parameters.entrySet();
         Iterator it = es.iterator();
-        while (it.hasNext()) {
+        while (it.hasNext()){
             Map.Entry entry = (Map.Entry)it.next();
             String k = (String)entry.getKey();
             String v = (String)entry.getValue();
@@ -103,18 +103,18 @@ public class ResponseHandler {
         out.close();
     }
 
-    public String getUriEncoding() {
+    public String getUriEncoding(){
         return this.uriEncoding;
     }
 
     public void setUriEncoding(String uriEncoding)
     throws UnsupportedEncodingException {
-        if (!"".equals(uriEncoding.trim())) {
+        if (!"".equals(uriEncoding.trim())){
             this.uriEncoding = uriEncoding;
 
             String enc = TenpayUtil.getCharacterEncoding(this.request, this.response);
             Iterator it = this.parameters.keySet().iterator();
-            while (it.hasNext()) {
+            while (it.hasNext()){
                 String k = (String)it.next();
                 String v = getParameter(k);
                 v = new String(v.getBytes(uriEncoding.trim()), enc);
@@ -123,19 +123,19 @@ public class ResponseHandler {
         }
     }
 
-    public String getDebugInfo() {
+    public String getDebugInfo(){
         return this.debugInfo;
     }
 
-    protected void setDebugInfo(String debugInfo) {
+    protected void setDebugInfo(String debugInfo){
         this.debugInfo = debugInfo;
     }
 
-    protected HttpServletRequest getHttpServletRequest() {
+    protected HttpServletRequest getHttpServletRequest(){
         return this.request;
     }
 
-    protected HttpServletResponse getHttpServletResponse() {
+    protected HttpServletResponse getHttpServletResponse(){
         return this.response;
     }
 }

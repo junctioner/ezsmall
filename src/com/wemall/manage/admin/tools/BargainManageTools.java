@@ -27,7 +27,7 @@ public class BargainManageTools {
     @Autowired
     private ISysConfigService configService;
 
-    public BigDecimal query_bargain_rebate(Object bargain_time) {
+    public BigDecimal query_bargain_rebate(Object bargain_time){
         Map params = new HashMap();
         params.put("bt", bargain_time);
         List bargain = this.bargainServicve.query(
@@ -36,14 +36,14 @@ public class BargainManageTools {
         BigDecimal bd = null;
         if (bargain.size() > 0)
             bd = ((Bargain)bargain.get(0)).getRebate();
-        else {
+       else{
             bd = this.configService.getSysConfig().getBargain_rebate();
         }
 
         return bd;
     }
 
-    public int query_bargain_maximum(Object bargain_time) {
+    public int query_bargain_maximum(Object bargain_time){
         Map params = new HashMap();
         params.put("bt", bargain_time);
         List bargain = this.bargainServicve.query(
@@ -52,22 +52,22 @@ public class BargainManageTools {
         int bd = 0;
         if (bargain.size() > 0)
             bd = ((Bargain)bargain.get(0)).getMaximum();
-        else {
+       else{
             bd = this.configService.getSysConfig().getBargain_maximum();
         }
 
         return bd;
     }
 
-    public int query_bargain_audit(Object bargain_time) {
+    public int query_bargain_audit(Object bargain_time){
         Map params = new HashMap();
         params.put("bt", bargain_time);
         List<BargainGoods> bargainGoods = this.bargainGoodsService.query(
                                               "select obj from BargainGoods obj where obj.bg_time =:bt",
                                               params, -1, -1);
         int bd = 0;
-        for (BargainGoods bg : bargainGoods) {
-            if (bg.getBg_status() == 1) {
+        for (BargainGoods bg : bargainGoods){
+            if (bg.getBg_status() == 1){
                 bd++;
             }
         }
@@ -75,7 +75,7 @@ public class BargainManageTools {
         return bd;
     }
 
-    public int query_bargain_apply(Object bargain_time) {
+    public int query_bargain_apply(Object bargain_time){
         Map params = new HashMap();
         params.put("bt", bargain_time);
         List bargainGoods = this.bargainGoodsService.query(

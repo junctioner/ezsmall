@@ -11,7 +11,7 @@ import java.util.Map;
  * ¿ìÇ®Ö§¸¶
  */
 public class Kuaiqian {
-    public static String calSignMsg(String inputCharset, String pageUrl, String bgUrl, String version, String language, String signType, String merchantAcctId, String payerName, String payerContactType, String payerContact, String orderId, String orderAmount, String orderTime, String productName, String productNum, String productId, String productDesc, String ext1, String ext2, String payType, String bankId, String pid, String key) {
+    public static String calSignMsg(String inputCharset, String pageUrl, String bgUrl, String version, String language, String signType, String merchantAcctId, String payerName, String payerContactType, String payerContact, String orderId, String orderAmount, String orderTime, String productName, String productNum, String productId, String productDesc, String ext1, String ext2, String payType, String bankId, String pid, String key){
         Map params = new HashMap();
         params.put("inputCharset", inputCharset);
         params.put("pageUrl", pageUrl);
@@ -41,20 +41,20 @@ public class Kuaiqian {
         return sign;
     }
 
-    private static String getContent(Map params) {
+    private static String getContent(Map params){
         List keys = new ArrayList(params.keySet());
         String prestr = "";
-        for (int i = 0; i < keys.size(); i++) {
+        for (int i = 0; i < keys.size(); i++){
             System.out.println(keys.get(i));
         }
-        for (int i = 0; i < keys.size(); i++) {
+        for (int i = 0; i < keys.size(); i++){
             String key = (String)keys.get(i);
             String value = (String)params.get(key);
 
-            if (!value.equals("")) {
+            if (!value.equals("")){
                 if (i == keys.size() - 1)
                     prestr = prestr + key + "={" + value + "}";
-                else {
+               else{
                     prestr = prestr + key + "={" + value + "}&";
                 }
             }

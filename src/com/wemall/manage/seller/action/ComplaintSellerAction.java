@@ -59,8 +59,8 @@ public class ComplaintSellerAction {
     private IAccessoryService accessoryService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家投诉发起", value = "/seller/complaint_handle.htm*", rtype = "seller", rname = "投诉管理", rcode = "complaint_seller", rgroup = "客户服务")
-    @RequestMapping( {"/seller/complaint_handle.htm"})
-    public ModelAndView complaint_handle(HttpServletRequest request, HttpServletResponse response, String order_id) {
+    @RequestMapping({"/seller/complaint_handle.htm"})
+    public ModelAndView complaint_handle(HttpServletRequest request, HttpServletResponse response, String order_id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/complaint_handle.html", this.configService
             .getSysConfig(),
@@ -73,21 +73,21 @@ public class ComplaintSellerAction {
                      .getComplaint_time());
         boolean result = true;
         if ((of.getOrder_status() == 60) &&
-                (of.getFinishTime().before(calendar.getTime()))) {
+                (of.getFinishTime().before(calendar.getTime()))){
             result = false;
         }
 
         boolean result1 = true;
-        if (of.getComplaints().size() > 0) {
-            for (Complaint complaint : of.getComplaints()) {
+        if (of.getComplaints().size() > 0){
+            for (Complaint complaint : of.getComplaints()){
                 if (complaint.getFrom_user().getId().equals(
-                            SecurityUserHolder.getCurrentUser().getId())) {
+                            SecurityUserHolder.getCurrentUser().getId())){
                     result1 = false;
                 }
             }
         }
-        if (result) {
-            if (result1) {
+        if (result){
+            if (result1){
                 Complaint obj = new Complaint();
                 obj.setFrom_user(SecurityUserHolder.getCurrentUser());
                 obj.setStatus(0);
@@ -102,7 +102,7 @@ public class ComplaintSellerAction {
                                "select obj from ComplaintSubject obj where obj.type=:type",
                                (Map)params, -1, -1);
                 mv.addObject("css", css);
-            } else {
+            }else{
                 mv = new JModelAndView("error.html", this.configService
                                        .getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
@@ -111,7 +111,7 @@ public class ComplaintSellerAction {
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/seller/order.htm");
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -123,8 +123,8 @@ public class ComplaintSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家被投诉列表", value = "/seller/complaint.htm*", rtype = "seller", rname = "投诉管理", rcode = "complaint_seller", rgroup = "客户服务")
-    @RequestMapping( {"/seller/complaint.htm"})
-    public ModelAndView complaint_seller(HttpServletRequest request, HttpServletResponse response, String currentPage, String status) {
+    @RequestMapping({"/seller/complaint.htm"})
+    public ModelAndView complaint_seller(HttpServletRequest request, HttpServletResponse response, String currentPage, String status){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/seller_complaint.html", this.configService
             .getSysConfig(),
@@ -138,7 +138,7 @@ public class ComplaintSellerAction {
             qo.addQuery("obj.status",
                         new SysMap("status",
                                    Integer.valueOf(CommUtil.null2Int(status))), "=");
-        else {
+       else{
             qo.addQuery("obj.status", new SysMap("status", Integer.valueOf(0)), ">=");
         }
         IPageList pList = this.complaintService.list(qo);
@@ -149,8 +149,8 @@ public class ComplaintSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家查看投诉详情", value = "/seller/complaint_view.htm*", rtype = "seller", rname = "投诉管理", rcode = "complaint_seller", rgroup = "客户服务")
-    @RequestMapping( {"/seller/complaint_view.htm"})
-    public ModelAndView complaint_view(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/complaint_view.htm"})
+    public ModelAndView complaint_view(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/seller_complaint_view.html",
             this.configService.getSysConfig(), this.userConfigService
@@ -161,9 +161,9 @@ public class ComplaintSellerAction {
         if ((obj.getFrom_user().getId().equals(
                     SecurityUserHolder.getCurrentUser().getId())) ||
                 (obj.getTo_user().getId().equals(
-                     SecurityUserHolder.getCurrentUser().getId()))) {
+                     SecurityUserHolder.getCurrentUser().getId()))){
             mv.addObject("obj", obj);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -176,8 +176,8 @@ public class ComplaintSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家查看投诉详情", value = "/seller/complaint_appeal.htm*", rtype = "seller", rname = "投诉管理", rcode = "complaint_seller", rgroup = "客户服务")
-    @RequestMapping( {"/seller/complaint_appeal.htm"})
-    public ModelAndView complaint_appeal(HttpServletRequest request, HttpServletResponse response, String id, String to_user_content) {
+    @RequestMapping({"/seller/complaint_appeal.htm"})
+    public ModelAndView complaint_appeal(HttpServletRequest request, HttpServletResponse response, String id, String to_user_content){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/success.html", this.configService
             .getSysConfig(),
@@ -196,7 +196,7 @@ public class ComplaintSellerAction {
         try {
             map = CommUtil.saveFileToServer(request, "img1", saveFilePathName,
                                             null, null);
-            if (map.get("fileName") != "") {
+            if (map.get("fileName") != ""){
                 Accessory to_acc1 = new Accessory();
                 to_acc1.setName(CommUtil.null2String(map.get("fileName")));
                 to_acc1.setExt(CommUtil.null2String(map.get("mime")));
@@ -211,7 +211,7 @@ public class ComplaintSellerAction {
             map.clear();
             map = CommUtil.saveFileToServer(request, "img2", saveFilePathName,
                                             null, null);
-            if (map.get("fileName") != "") {
+            if (map.get("fileName") != ""){
                 Accessory to_acc2 = new Accessory();
                 to_acc2.setName(CommUtil.null2String(map.get("fileName")));
                 to_acc2.setExt(CommUtil.null2String(map.get("mime")));
@@ -226,7 +226,7 @@ public class ComplaintSellerAction {
             map.clear();
             map = CommUtil.saveFileToServer(request, "img3", saveFilePathName,
                                             null, null);
-            if (map.get("fileName") != "") {
+            if (map.get("fileName") != ""){
                 Accessory to_acc3 = new Accessory();
                 to_acc3.setName(CommUtil.null2String(map.get("fileName")));
                 to_acc3.setExt(CommUtil.null2String(map.get("mime")));
@@ -238,7 +238,7 @@ public class ComplaintSellerAction {
                 this.accessoryService.save(to_acc3);
                 obj.setTo_acc3(to_acc3);
             }
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
         this.complaintService.update(obj);

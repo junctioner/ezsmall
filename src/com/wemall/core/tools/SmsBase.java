@@ -14,7 +14,7 @@ public class SmsBase {
     private String id;
     private String pwd;
 
-    public SmsBase(String url, String id, String pwd) {
+    public SmsBase(String url, String id, String pwd){
         this.url = url;
         this.id = id;
         this.pwd = pwd;
@@ -39,12 +39,12 @@ public class SmsBase {
                 new InputStreamReader(httpconn.getInputStream()));
             result = rd.readLine();
             rd.close();
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException e){
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         } finally {
-            if (httpconn != null) {
+            if (httpconn != null){
                 httpconn.disconnect();
                 httpconn = null;
             }

@@ -5,7 +5,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target( {java.lang.annotation.ElementType.METHOD})
+@Target({java.lang.annotation.ElementType.METHOD})
 public @interface SecurityMapping {
     public abstract String title();
 

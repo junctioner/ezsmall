@@ -11,13 +11,13 @@ public class DbConnection {
     private DataSource dataSource;
     public static final ThreadLocal<Connection> thread = new ThreadLocal();
 
-    public Connection getConnection() {
+    public Connection getConnection(){
         Connection conn = (Connection)thread.get();
-        if (conn == null) {
+        if (conn == null){
             try {
                 conn = this.dataSource.getConnection();
                 thread.set(conn);
-            } catch (Exception e) {
+            } catch (Exception e){
                 e.printStackTrace();
             }
         }
@@ -25,17 +25,17 @@ public class DbConnection {
         return conn;
     }
 
-    public void closeAll() {
+    public void closeAll(){
         try {
             Connection conn = (Connection)thread.get();
-            if (conn != null) {
+            if (conn != null){
                 conn.close();
                 thread.set(null);
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             try {
                 throw e;
-            } catch (Exception e1) {
+            } catch (Exception e1){
                 e1.printStackTrace();
             }
         }

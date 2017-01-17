@@ -23,35 +23,35 @@ public class StoreGradeLog extends IdEntity {
     //编辑记录
     private boolean log_edit;
 
-    public boolean isLog_edit() {
+    public boolean isLog_edit(){
         return this.log_edit;
     }
 
-    public void setLog_edit(boolean log_edit) {
+    public void setLog_edit(boolean log_edit){
         this.log_edit = log_edit;
     }
 
-    public Store getStore() {
+    public Store getStore(){
         return this.store;
     }
 
-    public void setStore(Store store) {
+    public void setStore(Store store){
         this.store = store;
     }
 
-    public int getStore_grade_status() {
+    public int getStore_grade_status(){
         return this.store_grade_status;
     }
 
-    public void setStore_grade_status(int store_grade_status) {
+    public void setStore_grade_status(int store_grade_status){
         this.store_grade_status = store_grade_status;
     }
 
-    public String getStore_grade_info() {
+    public String getStore_grade_info(){
         return this.store_grade_info;
     }
 
-    public void setStore_grade_info(String store_grade_info) {
+    public void setStore_grade_info(String store_grade_info){
         this.store_grade_info = store_grade_info;
     }
 }

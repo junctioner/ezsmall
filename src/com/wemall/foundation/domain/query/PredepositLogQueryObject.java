@@ -5,11 +5,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.wemall.core.query.QueryObject;
 
 public class PredepositLogQueryObject extends QueryObject {
-    public PredepositLogQueryObject(String currentPage, ModelAndView mv, String orderBy, String orderType) {
+    public PredepositLogQueryObject(String currentPage, ModelAndView mv, String orderBy, String orderType){
         super(currentPage, mv, orderBy, orderType);
     }
 
-    public PredepositLogQueryObject() {
+    public PredepositLogQueryObject(){
     }
 }
 

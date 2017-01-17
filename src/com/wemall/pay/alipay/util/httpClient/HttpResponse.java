@@ -8,39 +8,39 @@ public class HttpResponse {
     private String stringResult;
     private byte[] byteResult;
 
-    public Header[] getResponseHeaders() {
+    public Header[] getResponseHeaders(){
         return this.responseHeaders;
     }
 
-    public void setResponseHeaders(Header[] responseHeaders) {
+    public void setResponseHeaders(Header[] responseHeaders){
         this.responseHeaders = responseHeaders;
     }
 
-    public byte[] getByteResult() {
-        if (this.byteResult != null) {
+    public byte[] getByteResult(){
+        if (this.byteResult != null){
             return this.byteResult;
         }
-        if (this.stringResult != null) {
+        if (this.stringResult != null){
             return this.stringResult.getBytes();
         }
         return null;
     }
 
-    public void setByteResult(byte[] byteResult) {
+    public void setByteResult(byte[] byteResult){
         this.byteResult = byteResult;
     }
 
     public String getStringResult() throws UnsupportedEncodingException {
-        if (this.stringResult != null) {
+        if (this.stringResult != null){
             return this.stringResult;
         }
-        if (this.byteResult != null) {
+        if (this.byteResult != null){
             return new String(this.byteResult, "UTF-8");
         }
         return null;
     }
 
-    public void setStringResult(String stringResult) {
+    public void setStringResult(String stringResult){
         this.stringResult = stringResult;
     }
 }

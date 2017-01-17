@@ -55,19 +55,19 @@ public class GoldSellerAction {
     private PayTools payTools;
 
     @SecurityMapping(display = false, rsequence = 0, title = "金币兑换", value = "/seller/gold_record.htm*", rtype = "seller", rname = "金币管理", rcode = "gold_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/gold_record.htm"})
-    public ModelAndView gold_record(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/seller/gold_record.htm"})
+    public ModelAndView gold_record(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/gold_record.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (!this.configService.getSysConfig().isGold()) {
+        if (!this.configService.getSysConfig().isGold()){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "商城未开启金币功能");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
-        } else {
+        }else{
             Map params = new HashMap();
             params.put("type", "admin");
             params.put("install", Boolean.valueOf(true));
@@ -87,24 +87,24 @@ public class GoldSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "金币兑换保存", value = "/buyer/gold_record_save.htm*", rtype = "seller", rname = "金币管理", rcode = "gold_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/gold_record_save.htm"})
-    public ModelAndView gold_record_save(HttpServletRequest request, HttpServletResponse response, String id, String gold_payment, String gold_exchange_info, String gold_session) {
+    @RequestMapping({"/seller/gold_record_save.htm"})
+    public ModelAndView gold_record_save(HttpServletRequest request, HttpServletResponse response, String id, String gold_payment, String gold_exchange_info, String gold_session){
         ModelAndView mv = new JModelAndView("line_pay.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
-        if (this.configService.getSysConfig().isGold()) {
+        if (this.configService.getSysConfig().isGold()){
             String gold_session1 = CommUtil.null2String(request.getSession(
                                        false).getAttribute("gold_session"));
-            if ((!gold_session1.equals("")) && (gold_session1.equals(gold_session))) {
+            if ((!gold_session1.equals("")) && (gold_session1.equals(gold_session))){
                 request.getSession(false).removeAttribute("gold_session");
                 WebForm wf = new WebForm();
                 GoldRecord obj = null;
-                if (CommUtil.null2String(id).equals("")) {
+                if (CommUtil.null2String(id).equals("")){
                     obj = (GoldRecord)wf.toPo(request, GoldRecord.class);
                     obj.setAddTime(new Date());
                     if (gold_payment.equals("outline"))
                         obj.setGold_pay_status(1);
-                    else {
+                   else{
                         obj.setGold_pay_status(0);
                     }
                     obj.setGold_sn("gold" +
@@ -115,13 +115,13 @@ public class GoldSellerAction {
                                       this.configService.getSysConfig()
                                       .getGoldMarketValue());
                     this.goldRecordService.save(obj);
-                } else {
+                }else{
                     GoldRecord gr = this.goldRecordService.getObjById(
                                         CommUtil.null2Long(id));
                     obj = (GoldRecord)wf.toPo(request, gr);
                     this.goldRecordService.update(obj);
                 }
-                if (gold_payment.equals("outline")) {
+                if (gold_payment.equals("outline")){
                     GoldLog log = new GoldLog();
                     log.setAddTime(new Date());
                     log.setGl_payment(obj.getGold_payment());
@@ -139,12 +139,12 @@ public class GoldSellerAction {
                     mv.addObject("op_title", "线下支付提交成功，等待审核");
                     mv.addObject("url", CommUtil.getURL(request) +
                                  "/seller/gold_record_list.htm");
-                } else if (gold_payment.equals("balance")) {
+                }else if (gold_payment.equals("balance")){
                     User user = this.userService.getObjById(
                                     SecurityUserHolder.getCurrentUser().getId());
                     double balance = CommUtil.null2Double(user
                                                           .getAvailableBalance());
-                    if (balance > obj.getGold_money()) {
+                    if (balance > obj.getGold_money()){
                         user.setGold(user.getGold() + obj.getGold_count());
                         user.setAvailableBalance(BigDecimal.valueOf(
                                                      CommUtil.subtract(user.getAvailableBalance(),
@@ -183,7 +183,7 @@ public class GoldSellerAction {
                         mv.addObject("op_title", "金币兑换成功");
                         mv.addObject("url", CommUtil.getURL(request) +
                                      "/seller/gold_record_list.htm");
-                    } else {
+                    }else{
                         mv = new JModelAndView("error.html",
                                                this.configService.getSysConfig(),
                                                this.userConfigService.getUserConfig(), 1,
@@ -192,7 +192,7 @@ public class GoldSellerAction {
                         mv.addObject("url", CommUtil.getURL(request) +
                                      "/seller/gold_record.htm");
                     }
-                } else {
+                }else{
                     mv.addObject("payType", gold_payment);
                     mv.addObject("type", "gold");
                     mv.addObject("url", CommUtil.getURL(request));
@@ -209,7 +209,7 @@ public class GoldSellerAction {
                                  ((Payment)payments
                                   .get(0)).getId() : new Payment());
                 }
-            } else {
+            }else{
                 mv = new JModelAndView("error.html",
                                        this.configService.getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
@@ -218,7 +218,7 @@ public class GoldSellerAction {
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/seller/gold_record_list.htm");
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -230,19 +230,19 @@ public class GoldSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "金币兑换", value = "/seller/gold_record_list.htm*", rtype = "seller", rname = "金币管理", rcode = "gold_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/gold_record_list.htm"})
-    public ModelAndView gold_record_list(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/seller/gold_record_list.htm"})
+    public ModelAndView gold_record_list(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/gold_record_list.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (!this.configService.getSysConfig().isGold()) {
+        if (!this.configService.getSysConfig().isGold()){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "系统未开启金币");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
-        } else {
+        }else{
             GoldRecordQueryObject qo = new GoldRecordQueryObject(currentPage,
                     mv, "addTime", "desc");
             qo.addQuery("obj.gold_user.id",
@@ -256,24 +256,24 @@ public class GoldSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "金币兑换支付", value = "/seller/gold_pay.htm*", rtype = "seller", rname = "金币管理", rcode = "gold_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/gold_pay.htm"})
-    public ModelAndView gold_pay(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/gold_pay.htm"})
+    public ModelAndView gold_pay(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/gold_pay.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isGold()) {
+        if (this.configService.getSysConfig().isGold()){
             GoldRecord obj = this.goldRecordService.getObjById(
                                  CommUtil.null2Long(id));
 
             if (obj.getGold_user().getId()
-                    .equals(SecurityUserHolder.getCurrentUser().getId())) {
+                    .equals(SecurityUserHolder.getCurrentUser().getId())){
                 String gold_session = CommUtil.randomString(32);
                 request.getSession(false).setAttribute("gold_session",
                                                        gold_session);
                 mv.addObject("gold_session", gold_session);
                 mv.addObject("obj", obj);
-            } else {
+            }else{
                 mv = new JModelAndView("error.html",
                                        this.configService.getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
@@ -282,7 +282,7 @@ public class GoldSellerAction {
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/seller/gold_record_list.htm");
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -294,20 +294,20 @@ public class GoldSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "金币兑换详情", value = "/seller/gold_view.htm*", rtype = "seller", rname = "金币管理", rcode = "gold_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/gold_view.htm"})
-    public ModelAndView gold_view(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/gold_view.htm"})
+    public ModelAndView gold_view(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/gold_view.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (this.configService.getSysConfig().isGold()) {
+        if (this.configService.getSysConfig().isGold()){
             GoldRecord obj = this.goldRecordService.getObjById(
                                  CommUtil.null2Long(id));
 
             if (obj.getGold_user().getId()
-                    .equals(SecurityUserHolder.getCurrentUser().getId())) {
+                    .equals(SecurityUserHolder.getCurrentUser().getId())){
                 mv.addObject("obj", obj);
-            } else {
+            }else{
                 mv = new JModelAndView("error.html",
                                        this.configService.getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,
@@ -316,7 +316,7 @@ public class GoldSellerAction {
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/seller/gold_record_list.htm");
             }
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -328,19 +328,19 @@ public class GoldSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "兑换日志", value = "/seller/gold_log.htm*", rtype = "seller", rname = "金币管理", rcode = "gold_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/gold_log.htm"})
-    public ModelAndView gold_log(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/seller/gold_log.htm"})
+    public ModelAndView gold_log(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/gold_log.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if (!this.configService.getSysConfig().isGold()) {
+        if (!this.configService.getSysConfig().isGold()){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "系统未开启金币");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
-        } else {
+        }else{
             GoldLogQueryObject qo = new GoldLogQueryObject(currentPage, mv,
                     "addTime", "desc");
             qo.addQuery("obj.gl_user.id",

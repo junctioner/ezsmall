@@ -43,7 +43,7 @@ public class WxCommonUtil {
      * @param outputStr 提交的数据
      * @return 返回微信服务器响应的信息
      */
-    public static String httpsRequestString(String requestUrl, String requestMethod, String outputStr) {
+    public static String httpsRequestString(String requestUrl, String requestMethod, String outputStr){
         try {
             // 创建SSLContext对象，并使用我们指定的信任管理器初始化
             TrustManager[] tm = { new MyX509TrustManager() };
@@ -61,7 +61,7 @@ public class WxCommonUtil {
             conn.setRequestMethod(requestMethod);
             conn.setRequestProperty("content-type", "application/x-www-form-urlencoded");
             // 当outputStr不为null时向输出流写数据
-            if (null != outputStr) {
+            if (null != outputStr){
                 OutputStream outputStream = conn.getOutputStream();
                 // 注意编码格式
                 outputStream.write(outputStr.getBytes("UTF-8"));
@@ -73,7 +73,7 @@ public class WxCommonUtil {
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String str = null;
             StringBuffer buffer = new StringBuffer();
-            while ((str = bufferedReader.readLine()) != null) {
+            while ((str = bufferedReader.readLine()) != null){
                 buffer.append(str);
             }
             // 释放资源
@@ -83,9 +83,9 @@ public class WxCommonUtil {
             inputStream = null;
             conn.disconnect();
             return buffer.toString();
-        } catch (ConnectException ce) {
+        } catch (ConnectException ce){
             log.error("连接超时：{}", ce);
-        } catch (Exception e) {
+        } catch (Exception e){
             log.error("https请求异常：{}", e);
         }
         return null;
@@ -98,7 +98,7 @@ public class WxCommonUtil {
      * @param outputStr 提交的数据
      * @return JSONObject(通过JSONObject.get(key)的方式获取json对象的属性值)
      */
-    public static JSONObject httpsRequest(String requestUrl, String requestMethod, String outputStr) {
+    public static JSONObject httpsRequest(String requestUrl, String requestMethod, String outputStr){
         JSONObject jsonObject = null;
         try {
             // 创建SSLContext对象，并使用我们指定的信任管理器初始化
@@ -117,7 +117,7 @@ public class WxCommonUtil {
             // 设置请求方式（GET/POST）
             conn.setRequestMethod(requestMethod);
             // 当outputStr不为null时向输出流写数据
-            if (null != outputStr) {
+            if (null != outputStr){
                 OutputStream outputStream = conn.getOutputStream();
                 // 注意编码格式
                 outputStream.write(outputStr.getBytes("UTF-8"));
@@ -129,7 +129,7 @@ public class WxCommonUtil {
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String str = null;
             StringBuffer buffer = new StringBuffer();
-            while ((str = bufferedReader.readLine()) != null) {
+            while ((str = bufferedReader.readLine()) != null){
                 buffer.append(str);
             }
 
@@ -140,9 +140,9 @@ public class WxCommonUtil {
             inputStream = null;
             conn.disconnect();
             jsonObject = JSONObject.fromObject(buffer.toString());
-        } catch (ConnectException ce) {
+        } catch (ConnectException ce){
             log.error("连接超时：{}", ce);
-        } catch (Exception e) {
+        } catch (Exception e){
             log.error("https请求异常：{}", e);
         }
         return jsonObject;
@@ -155,18 +155,18 @@ public class WxCommonUtil {
      * @param appsecret 密钥
      * @return
      */
-    public static WxToken getToken(String appid, String appsecret) {
+    public static WxToken getToken(String appid, String appsecret){
         WxToken WxToken = null;
         String requestUrl = WxToken_url.replace("APPID", appid).replace("APPSECRET", appsecret);
         // 发起GET请求获取凭证
         JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
 
-        if (null != jsonObject) {
+        if (null != jsonObject){
             try {
                 WxToken = new WxToken();
                 WxToken.setAccessToken(jsonObject.getString("access_token"));
                 WxToken.setExpiresIn(jsonObject.getInt("expires_in"));
-            } catch (JSONException e) {
+            } catch (JSONException e){
                 WxToken = null;
                 // 获取WxToken失败
                 log.error("获取WxToken失败 errcode:{} errmsg:{}", jsonObject.getInt("errcode"), jsonObject.getString("errmsg"));
@@ -180,7 +180,7 @@ public class WxCommonUtil {
      * @param appsecret 密钥
      * @return
      */
-    /*public static AccessToken getAccessToken(SystemService systemService,String appid,String appsecret) {
+    /*public static AccessToken getAccessToken(SystemService systemService,String appid,String appsecret){
 
         AccessTokenYw accessTocken = getRealAccessToken(systemService);
 
@@ -193,7 +193,7 @@ public class WxCommonUtil {
                 String requestUrl = access_token_url.replace("APPID", appid).replace("APPSECRET", appsecret);
                 JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
                 // 如果请求成功
-                if (null != jsonObject) {
+                if (null != jsonObject){
                     try {
                         accessToken = new AccessToken();
                         accessToken.setToken(jsonObject.getString("access_token"));
@@ -204,7 +204,7 @@ public class WxCommonUtil {
                         atyw.setExpires_in(jsonObject.getInt("expires_in"));
                         atyw.setAccess_token(jsonObject.getString("access_token"));
                         updateAccessToken(atyw,systemService);
-                    } catch (Exception e) {
+                    } catch (Exception e){
                         accessToken = null;
                         // 获取token失败
                         String wrongMessage = "获取token失败 errcode:{} errmsg:{}"+jsonObject.getInt("errcode")+jsonObject.getString("errmsg");
@@ -225,7 +225,7 @@ public class WxCommonUtil {
             String requestUrl = access_token_url.replace("APPID", appid).replace("APPSECRET", appsecret);
             JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
             // 如果请求成功
-            if (null != jsonObject) {
+            if (null != jsonObject){
                 try {
                     accessToken = new AccessToken();
                     accessToken.setToken(jsonObject.getString("access_token"));
@@ -236,7 +236,7 @@ public class WxCommonUtil {
                     atyw.setAccess_token(jsonObject.getString("access_token"));
                     saveAccessToken(atyw,systemService);
 
-                } catch (Exception e) {
+                } catch (Exception e){
                     accessToken = null;
                     // 获取token失败
                     String wrongMessage = "获取token失败 errcode:{} errmsg:{}"+jsonObject.getInt("errcode")+jsonObject.getString("errmsg");
@@ -261,7 +261,7 @@ public class WxCommonUtil {
      * 保存凭证
      * @return
      */
-    /*public static void saveAccessToken( AccessTokenYw accessTocken,SystemService systemService){
+    /*public static void saveAccessToken(AccessTokenYw accessTocken,SystemService systemService){
         systemService.save(accessTocken);
     }*/
 
@@ -269,7 +269,7 @@ public class WxCommonUtil {
      * 更新凭证
      * @return
      */
-    /*public static void updateAccessToken( AccessTokenYw accessTocken,SystemService systemService){
+    /*public static void updateAccessToken(AccessTokenYw accessTocken,SystemService systemService){
         String sql = "update accesstoken set access_token='"+accessTocken.getAccess_token()+"',expires_ib="+accessTocken.getExpires_in()+",addtime=now() where id='"+accessTocken.getId()+"'";
         systemService.updateBySqlString(sql);
     }*/
@@ -279,7 +279,7 @@ public class WxCommonUtil {
      * @param bstr
      * @return String
      */
-    public static String encode(byte[] bstr) {
+    public static String encode(byte[] bstr){
         return new sun.misc.BASE64Encoder().encode(bstr);
     }
 
@@ -288,13 +288,13 @@ public class WxCommonUtil {
      * @param str
      * @return string
      */
-    public static byte[] decode(String str) {
+    public static byte[] decode(String str){
 
         byte[] bt = null;
         try {
             sun.misc.BASE64Decoder decoder = new sun.misc.BASE64Decoder();
-            bt = decoder.decodeBuffer( str );
-        } catch (IOException e) {
+            bt = decoder.decodeBuffer(str);
+        } catch (IOException e){
             e.printStackTrace();
         }
         return bt;
@@ -306,11 +306,11 @@ public class WxCommonUtil {
      * @param source
      * @return
      */
-    public static String urlEncodeUTF8(String source) {
+    public static String urlEncodeUTF8(String source){
         String result = source;
         try {
             result = java.net.URLEncoder.encode(source, "utf-8");
-        } catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e){
             e.printStackTrace();
         }
         return result;
@@ -322,34 +322,34 @@ public class WxCommonUtil {
      * @param contentType 内容类型
      * @return
      */
-    public static String getFileExt(String contentType) {
+    public static String getFileExt(String contentType){
         String fileExt = "";
         if ("image/jpeg".equals(contentType))
             fileExt = ".jpg";
-        else if ("audio/mpeg".equals(contentType))
+       else if ("audio/mpeg".equals(contentType))
             fileExt = ".mp3";
-        else if ("audio/amr".equals(contentType))
+       else if ("audio/amr".equals(contentType))
             fileExt = ".amr";
-        else if ("video/mp4".equals(contentType))
+       else if ("video/mp4".equals(contentType))
             fileExt = ".mp4";
-        else if ("video/mpeg4".equals(contentType))
+       else if ("video/mpeg4".equals(contentType))
             fileExt = ".mp4";
         return fileExt;
     }
 
-    public static String createNoncestr(int length) {
+    public static String createNoncestr(int length){
         String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         String res = "";
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++){
             Random rd = new Random();
             res += chars.indexOf(rd.nextInt(chars.length() - 1));
         }
         return res;
     }
-    public static String createNoncestr() {
+    public static String createNoncestr(){
         String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         String res = "";
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 16; i++){
             Random rd = new Random();
             res += chars.charAt(rd.nextInt(chars.length() - 1));
         }
@@ -360,7 +360,7 @@ public class WxCommonUtil {
      *
      * @return String
      */
-    public static String getCurrTime() {
+    public static String getCurrTime(){
         Date now = new Date();
         SimpleDateFormat outFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         String s = outFormat.format(now);
@@ -373,13 +373,13 @@ public class WxCommonUtil {
      *            int 设定所取出随机数的长度。length小于11
      * @return int 返回生成的随机数。
      */
-    public static int buildRandom(int length) {
+    public static int buildRandom(int length){
         int num = 1;
         double random = Math.random();
-        if (random < 0.1) {
+        if (random < 0.1){
             random = random + 0.1;
         }
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++){
             num = num * 10;
         }
         return (int) ((random * num));
@@ -389,8 +389,8 @@ public class WxCommonUtil {
      * @param amount
      * @return
      */
-    public static String getMoney(String amount) {
-        if(amount == null) {
+    public static String getMoney(String amount){
+        if(amount == null){
             return "";
         }
         // 金额转化为分为单位
@@ -398,13 +398,13 @@ public class WxCommonUtil {
         int index = currency.indexOf(".");
         int length = currency.length();
         Long amLong = 0l;
-        if(index == -1) {
+        if(index == -1){
             amLong = Long.valueOf(currency + "00");
-        } else if(length - index >= 3) {
+        }else if(length - index >= 3){
             amLong = Long.valueOf((currency.substring(0, index + 3)).replace(".", ""));
-        } else if(length - index == 2) {
+        }else if(length - index == 2){
             amLong = Long.valueOf((currency.substring(0, index + 2)).replace(".", "") + 0);
-        } else {
+        }else{
             amLong = Long.valueOf((currency.substring(0, index + 1)).replace(".", "") + "00");
         }
         return amLong.toString();
@@ -416,22 +416,22 @@ public class WxCommonUtil {
      *  获得符合 <code>InetAddress instanceof Inet4Address</code> 条件的一个IpV4地址
      * @return
      */
-    public static String localIp() {
+    public static String localIp(){
         String ip = null;
         Enumeration allNetInterfaces;
         try {
             allNetInterfaces = NetworkInterface.getNetworkInterfaces();
-            while (allNetInterfaces.hasMoreElements()) {
+            while (allNetInterfaces.hasMoreElements()){
                 NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
                 List<InterfaceAddress> InterfaceAddress = netInterface.getInterfaceAddresses();
-                for (InterfaceAddress add : InterfaceAddress) {
+                for (InterfaceAddress add : InterfaceAddress){
                     InetAddress Ip = add.getAddress();
-                    if (Ip != null && Ip instanceof Inet4Address) {
+                    if (Ip != null && Ip instanceof Inet4Address){
                         ip = Ip.getHostAddress();
                     }
                 }
             }
-        } catch (SocketException e) {
+        } catch (SocketException e){
             e.printStackTrace();
             //logger.warn("获取本机Ip失败:异常信息:"+e.getMessage());
         }
@@ -440,25 +440,25 @@ public class WxCommonUtil {
     /**
      * 获取访问用户的客户端IP（适用于公网与局域网）.
      */
-    public static final String getIpAddr(final HttpServletRequest request) {
-        /*if (request == null) {
+    public static final String getIpAddr(final HttpServletRequest request){
+        /*if (request == null){
             throw (new Exception("getIpAddr method HttpServletRequest Object is null"));
         }*/
         String ipString = request.getHeader("x-forwarded-for");
-        if (StringUtils.isBlank(ipString) || "unknown".equalsIgnoreCase(ipString)) {
+        if (StringUtils.isBlank(ipString) || "unknown".equalsIgnoreCase(ipString)){
             ipString = request.getHeader("Proxy-Client-IP");
         }
-        if (StringUtils.isBlank(ipString) || "unknown".equalsIgnoreCase(ipString)) {
+        if (StringUtils.isBlank(ipString) || "unknown".equalsIgnoreCase(ipString)){
             ipString = request.getHeader("WL-Proxy-Client-IP");
         }
-        if (StringUtils.isBlank(ipString) || "unknown".equalsIgnoreCase(ipString)) {
+        if (StringUtils.isBlank(ipString) || "unknown".equalsIgnoreCase(ipString)){
             ipString = request.getRemoteAddr();
         }
 
         // 多个路由时，取第一个非unknown的ip
         final String[] arr = ipString.split(",");
-        for (final String str : arr) {
-            if (!"unknown".equalsIgnoreCase(str)) {
+        for (final String str : arr){
+            if (!"unknown".equalsIgnoreCase(str)){
                 ipString = str;
                 break;
             }
@@ -473,11 +473,11 @@ public class WxCommonUtil {
      * @throws JDOMException
      * @throws IOException
      */
-    @SuppressWarnings( { "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static Map doXMLParse(String strxml) throws JDOMException, IOException {
         strxml = strxml.replaceFirst("encoding=\".*\"", "encoding=\"UTF-8\"");
 
-        if(null == strxml || "".equals(strxml)) {
+        if(null == strxml || "".equals(strxml)){
             return null;
         }
         Map m = new HashMap();
@@ -487,14 +487,14 @@ public class WxCommonUtil {
         Element root = doc.getRootElement();
         List list = root.getChildren();
         Iterator it = list.iterator();
-        while(it.hasNext()) {
+        while(it.hasNext()){
             Element e = (Element) it.next();
             String k = e.getName();
             String v = "";
             List children = e.getChildren();
-            if(children.isEmpty()) {
+            if(children.isEmpty()){
                 v = e.getTextNormalize();
-            } else {
+            }else{
                 v = WxCommonUtil.getChildrenText(children);
             }
             m.put(k, v);
@@ -510,17 +510,17 @@ public class WxCommonUtil {
      * @return String
      */
     @SuppressWarnings("rawtypes")
-    public static String getChildrenText(List children) {
+    public static String getChildrenText(List children){
         StringBuffer sb = new StringBuffer();
-        if(!children.isEmpty()) {
+        if(!children.isEmpty()){
             Iterator it = children.iterator();
-            while(it.hasNext()) {
+            while(it.hasNext()){
                 Element e = (Element) it.next();
                 String name = e.getName();
                 String value = e.getTextNormalize();
                 List list = e.getChildren();
                 sb.append("<" + name + ">");
-                if(!list.isEmpty()) {
+                if(!list.isEmpty()){
                     sb.append(WxCommonUtil.getChildrenText(list));
                 }
                 sb.append(value);
@@ -539,7 +539,7 @@ public class WxCommonUtil {
      * @param return_msg
      * @return
      */
-    public static String setXML(String return_code, String return_msg) {
+    public static String setXML(String return_code, String return_msg){
         return "<xml><return_code><![CDATA[" + return_code
                + "]]></return_code><return_msg><![CDATA[" + return_msg
                + "]]></return_msg></xml>";
@@ -554,15 +554,15 @@ public class WxCommonUtil {
      * @param parameters
      * @return
      */
-    public static String createSignMD5(String characterEncoding, SortedMap<Object, Object> parameters, String API_KEY) {
+    public static String createSignMD5(String characterEncoding, SortedMap<Object, Object> parameters, String API_KEY){
         StringBuffer sb = new StringBuffer();
         Set<Map.Entry<Object, Object>> es = parameters.entrySet();
         Iterator<Map.Entry<Object, Object>> it = es.iterator();
-        while (it.hasNext()) {
+        while (it.hasNext()){
             Map.Entry<Object, Object> entry = (Map.Entry<Object, Object>) it.next();
             String k = (String) entry.getKey();
             Object v = entry.getValue();
-            if (null != v && !"".equals(v) && !"sign".equals(k) && !"key".equals(k)) {
+            if (null != v && !"".equals(v) && !"sign".equals(k) && !"key".equals(k)){
                 sb.append(k + "=" + v + "&");
             }
         }
@@ -581,15 +581,15 @@ public class WxCommonUtil {
      * @param parameters
      * @return
      */
-    public static String createSignSHA1(String characterEncoding, SortedMap<Object, Object> parameters) {
+    public static String createSignSHA1(String characterEncoding, SortedMap<Object, Object> parameters){
         StringBuffer sb = new StringBuffer();
         Set<Map.Entry<Object, Object>> es = parameters.entrySet();
         Iterator<Map.Entry<Object, Object>> it = es.iterator();
-        while (it.hasNext()) {
+        while (it.hasNext()){
             Map.Entry<Object, Object> entry = (Map.Entry<Object, Object>) it.next();
             String k = (String) entry.getKey();
             Object v = entry.getValue();
-            if (null != v && !"".equals(v)) {
+            if (null != v && !"".equals(v)){
                 sb.append(k + "=" + v + "&");
             }
         }
@@ -606,18 +606,18 @@ public class WxCommonUtil {
      * @param parameters
      * @return
      */
-    public static String getRequestXml(SortedMap<Object, Object> parameters) {
+    public static String getRequestXml(SortedMap<Object, Object> parameters){
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>");
         Set<Map.Entry<Object, Object>> es = parameters.entrySet();
         Iterator<Map.Entry<Object, Object>> it = es.iterator();
-        while (it.hasNext()) {
+        while (it.hasNext()){
             Map.Entry<Object, Object> entry = (Map.Entry<Object, Object>) it.next();
             String k = (String) entry.getKey();
             String v = (String) entry.getValue();
-            if ("attach".equalsIgnoreCase(k) || "body".equalsIgnoreCase(k) || "sign".equalsIgnoreCase(k)) {
+            if ("attach".equalsIgnoreCase(k) || "body".equalsIgnoreCase(k) || "sign".equalsIgnoreCase(k)){
                 sb.append("<" + k + ">" + "<![CDATA[" + v + "]]></" + k + ">");
-            } else {
+            }else{
                 sb.append("<" + k + ">" + v + "</" + k + ">");
             }
         }
@@ -633,12 +633,12 @@ public class WxCommonUtil {
      * @param nonce
      * @return
      */
-    public static boolean checkSignature(String token, String signature, String timestamp, String nonce) {
+    public static boolean checkSignature(String token, String signature, String timestamp, String nonce){
         String[] arr = new String[] { token, timestamp, nonce };
         // 将token、timestamp、nonce三个参数进行字典序排序
         Arrays.sort(arr);
         StringBuilder content = new StringBuilder();
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++){
             content.append(arr[i]);
         }
         MessageDigest md = null;
@@ -648,7 +648,7 @@ public class WxCommonUtil {
             // 将三个参数字符串拼接成一个字符串进行sha1加密
             byte[] digest = md.digest(content.toString().getBytes());
             tmpStr = byteToStr(digest);
-        } catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e){
             e.printStackTrace();
         }
         content = null;
@@ -662,9 +662,9 @@ public class WxCommonUtil {
      * @param byteArray
      * @return
      */
-    private static String byteToStr(byte[] byteArray) {
+    private static String byteToStr(byte[] byteArray){
         String strDigest = "";
-        for (int i = 0; i < byteArray.length; i++) {
+        for (int i = 0; i < byteArray.length; i++){
             strDigest += byteToHexStr(byteArray[i]);
         }
         return strDigest;
@@ -676,7 +676,7 @@ public class WxCommonUtil {
      * @param mByte
      * @return
      */
-    private static String byteToHexStr(byte mByte) {
+    private static String byteToHexStr(byte mByte){
 
         char[] Digit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
         char[] tempArr = new char[2];
@@ -696,13 +696,13 @@ public class WxCommonUtil {
      *
      * @return 加密后的内容
      */
-    /*public static String decryptMsg(String msgSignature,String timeStamp,String nonce,String encrypt_msg) {
+    /*public static String decryptMsg(String msgSignature,String timeStamp,String nonce,String encrypt_msg){
         WXBizMsgCrypt pc;
         String result ="";
         try {
             pc = new WXBizMsgCrypt(token, encodingAesKey, appId);
             result = pc.decryptMsg(msgSignature, timeStamp, nonce, encrypt_msg);
-        } catch (AesException e) {
+        } catch (AesException e){
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -716,13 +716,13 @@ public class WxCommonUtil {
      * @param nonce
      * @return
      */
-    /*public static String ecryptMsg(String replayMsg,String timeStamp, String nonce) {
+    /*public static String ecryptMsg(String replayMsg,String timeStamp, String nonce){
         WXBizMsgCrypt pc;
         String result ="";
         try {
             pc = new WXBizMsgCrypt(token, encodingAesKey, appId);
             result = pc.encryptMsg(replayMsg, timeStamp, nonce);
-        } catch (AesException e) {
+        } catch (AesException e){
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

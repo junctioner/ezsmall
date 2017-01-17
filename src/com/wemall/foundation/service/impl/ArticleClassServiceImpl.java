@@ -21,82 +21,82 @@ public class ArticleClassServiceImpl
     @Resource(name = "articleClassDAO")
     private IGenericDAO<ArticleClass> articleClassDao;
 
-    public boolean save(ArticleClass articleClass) {
+    public boolean save(ArticleClass articleClass){
         try {
             this.articleClassDao.save(articleClass);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public ArticleClass getObjById(Long id) {
+    public ArticleClass getObjById(Long id){
         ArticleClass articleClass = (ArticleClass)this.articleClassDao.get(id);
-        if (articleClass != null) {
+        if (articleClass != null){
             return articleClass;
         }
 
         return null;
     }
 
-    public boolean delete(Long id) {
+    public boolean delete(Long id){
         try {
             this.articleClassDao.remove(id);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public boolean batchDelete(List<Serializable> articleClassIds) {
-        for (Serializable id : articleClassIds) {
+    public boolean batchDelete(List<Serializable> articleClassIds){
+        for (Serializable id : articleClassIds){
             delete((Long)id);
         }
 
         return true;
     }
 
-    public IPageList list(IQueryObject properties) {
-        if (properties == null) {
+    public IPageList list(IQueryObject properties){
+        if (properties == null){
             return null;
         }
         String query = properties.getQuery();
         Map params = properties.getParameters();
         GenericPageList pList = new GenericPageList(ArticleClass.class, query,
                 params, this.articleClassDao);
-        if (properties != null) {
+        if (properties != null){
             PageObject pageObj = properties.getPageObj();
             if (pageObj != null)
                 pList.doList(pageObj.getCurrentPage() == null ? 0 : pageObj
                              .getCurrentPage().intValue(), pageObj.getPageSize() == null ? 0 :
                              pageObj.getPageSize().intValue());
-        } else {
+        }else{
             pList.doList(0, -1);
         }
 
         return pList;
     }
 
-    public boolean update(ArticleClass articleClass) {
+    public boolean update(ArticleClass articleClass){
         try {
             this.articleClassDao.update(articleClass);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public List<ArticleClass> query(String query, Map params, int begin, int max) {
+    public List<ArticleClass> query(String query, Map params, int begin, int max){
         return this.articleClassDao.query(query, params, begin, max);
     }
 
-    public ArticleClass getObjByPropertyName(String propertyName, Object value) {
+    public ArticleClass getObjByPropertyName(String propertyName, Object value){
         return (ArticleClass)this.articleClassDao.getBy(propertyName, value);
     }
 }

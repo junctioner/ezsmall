@@ -27,35 +27,35 @@ public class GoodsSpecProperty extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private GoodsSpecification spec;
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public String getValue() {
+    public String getValue(){
         return this.value;
     }
 
-    public void setValue(String value) {
+    public void setValue(String value){
         this.value = value;
     }
 
-    public Accessory getSpecImage() {
+    public Accessory getSpecImage(){
         return this.specImage;
     }
 
-    public void setSpecImage(Accessory specImage) {
+    public void setSpecImage(Accessory specImage){
         this.specImage = specImage;
     }
 
-    public GoodsSpecification getSpec() {
+    public GoodsSpecification getSpec(){
         return this.spec;
     }
 
-    public void setSpec(GoodsSpecification spec) {
+    public void setSpec(GoodsSpecification spec){
         this.spec = spec;
     }
 }

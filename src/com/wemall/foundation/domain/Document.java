@@ -31,27 +31,27 @@ public class Document extends IdEntity {
     @Column(columnDefinition = "LongText")
     private String content;
 
-    public String getMark() {
+    public String getMark(){
         return this.mark;
     }
 
-    public void setMark(String mark) {
+    public void setMark(String mark){
         this.mark = mark;
     }
 
-    public String getTitle() {
+    public String getTitle(){
         return this.title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title){
         this.title = title;
     }
 
-    public String getContent() {
+    public String getContent(){
         return this.content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String content){
         this.content = content;
     }
 }

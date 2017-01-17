@@ -364,986 +364,986 @@ public class SysConfig extends IdEntity {
 
     private String site_url;
 
-    public int getConfig_payment_type() {
+    public int getConfig_payment_type(){
         return this.config_payment_type;
     }
 
-    public void setConfig_payment_type(int config_payment_type) {
+    public void setConfig_payment_type(int config_payment_type){
         this.config_payment_type = config_payment_type;
     }
 
-    public Accessory getWeixin_qr_img() {
+    public Accessory getWeixin_qr_img(){
         return this.weixin_qr_img;
     }
 
-    public void setWeixin_qr_img(Accessory weixin_qr_img) {
+    public void setWeixin_qr_img(Accessory weixin_qr_img){
         this.weixin_qr_img = weixin_qr_img;
     }
 
-    public String getWeixin_account() {
+    public String getWeixin_account(){
         return this.weixin_account;
     }
 
-    public void setWeixin_account(String weixin_account) {
+    public void setWeixin_account(String weixin_account){
         this.weixin_account = weixin_account;
     }
 
-    public String getWeixin_token() {
+    public String getWeixin_token(){
         return this.weixin_token;
     }
 
-    public void setWeixin_token(String weixin_token) {
+    public void setWeixin_token(String weixin_token){
         this.weixin_token = weixin_token;
     }
 
-    public String getWeixin_appId() {
+    public String getWeixin_appId(){
         return this.weixin_appId;
     }
 
-    public void setWeixin_appId(String weixin_appId) {
+    public void setWeixin_appId(String weixin_appId){
         this.weixin_appId = weixin_appId;
     }
 
-    public String getWeixin_appSecret() {
+    public String getWeixin_appSecret(){
         return this.weixin_appSecret;
     }
 
-    public void setWeixin_appSecret(String weixin_appSecret) {
+    public void setWeixin_appSecret(String weixin_appSecret){
         this.weixin_appSecret = weixin_appSecret;
     }
 
-    public String getWeixin_welecome_content() {
+    public String getWeixin_welecome_content(){
         return this.weixin_welecome_content;
     }
 
-    public void setWeixin_welecome_content(String weixin_welecome_content) {
+    public void setWeixin_welecome_content(String weixin_welecome_content){
         this.weixin_welecome_content = weixin_welecome_content;
     }
 
-    public Accessory getStore_weixin_logo() {
+    public Accessory getStore_weixin_logo(){
         return this.store_weixin_logo;
     }
 
-    public void setStore_weixin_logo(Accessory store_weixin_logo) {
+    public void setStore_weixin_logo(Accessory store_weixin_logo){
         this.store_weixin_logo = store_weixin_logo;
     }
 
-    public int getWeixin_amount() {
+    public int getWeixin_amount(){
         return this.weixin_amount;
     }
 
-    public void setWeixin_amount(int weixin_amount) {
+    public void setWeixin_amount(int weixin_amount){
         this.weixin_amount = weixin_amount;
     }
 
-    public boolean isWeixin_store() {
+    public boolean isWeixin_store(){
         return this.weixin_store;
     }
 
-    public void setWeixin_store(boolean weixin_store) {
+    public void setWeixin_store(boolean weixin_store){
         this.weixin_store = weixin_store;
     }
 
-    public int getAuto_order_return() {
+    public int getAuto_order_return(){
         return this.auto_order_return;
     }
 
-    public void setAuto_order_return(int auto_order_return) {
+    public void setAuto_order_return(int auto_order_return){
         this.auto_order_return = auto_order_return;
     }
 
-    public int getAuto_order_evaluate() {
+    public int getAuto_order_evaluate(){
         return this.auto_order_evaluate;
     }
 
-    public void setAuto_order_evaluate(int auto_order_evaluate) {
+    public void setAuto_order_evaluate(int auto_order_evaluate){
         this.auto_order_evaluate = auto_order_evaluate;
     }
 
-    public int getZtc_goods_view() {
+    public int getZtc_goods_view(){
         return this.ztc_goods_view;
     }
 
-    public void setZtc_goods_view(int ztc_goods_view) {
+    public void setZtc_goods_view(int ztc_goods_view){
         this.ztc_goods_view = ztc_goods_view;
     }
 
-    public String getWebsiteCss() {
+    public String getWebsiteCss(){
         return this.websiteCss;
     }
 
-    public void setWebsiteCss(String websiteCss) {
+    public void setWebsiteCss(String websiteCss){
         this.websiteCss = websiteCss;
     }
 
-    public String getCurrency_code() {
+    public String getCurrency_code(){
         return this.currency_code;
     }
 
-    public void setCurrency_code(String currency_code) {
+    public void setCurrency_code(String currency_code){
         this.currency_code = currency_code;
     }
 
-    public boolean isUc_bbs() {
+    public boolean isUc_bbs(){
         return this.uc_bbs;
     }
 
-    public void setUc_bbs(boolean uc_bbs) {
+    public void setUc_bbs(boolean uc_bbs){
         this.uc_bbs = uc_bbs;
     }
 
-    public List<Accessory> getLogin_imgs() {
+    public List<Accessory> getLogin_imgs(){
         return this.login_imgs;
     }
 
-    public void setLogin_imgs(List<Accessory> login_imgs) {
+    public void setLogin_imgs(List<Accessory> login_imgs){
         this.login_imgs = login_imgs;
     }
 
-    public int getBargain_status() {
+    public int getBargain_status(){
         return this.bargain_status;
     }
 
-    public void setBargain_status(int bargain_status) {
+    public void setBargain_status(int bargain_status){
         this.bargain_status = bargain_status;
     }
 
-    public int getBargain_validity() {
+    public int getBargain_validity(){
         return this.bargain_validity;
     }
 
-    public void setBargain_validity(int bargain_validity) {
+    public void setBargain_validity(int bargain_validity){
         this.bargain_validity = bargain_validity;
     }
 
-    public BigDecimal getBargain_rebate() {
+    public BigDecimal getBargain_rebate(){
         return this.bargain_rebate;
     }
 
-    public void setBargain_rebate(BigDecimal bargain_rebate) {
+    public void setBargain_rebate(BigDecimal bargain_rebate){
         this.bargain_rebate = bargain_rebate;
     }
 
-    public int getBargain_maximum() {
+    public int getBargain_maximum(){
         return this.bargain_maximum;
     }
 
-    public void setBargain_maximum(int bargain_maximum) {
+    public void setBargain_maximum(int bargain_maximum){
         this.bargain_maximum = bargain_maximum;
     }
 
-    public Date getLucene_update() {
+    public Date getLucene_update(){
         return this.lucene_update;
     }
 
-    public void setLucene_update(Date lucene_update) {
+    public void setLucene_update(Date lucene_update){
         this.lucene_update = lucene_update;
     }
 
-    public boolean isSina_login() {
+    public boolean isSina_login(){
         return this.sina_login;
     }
 
-    public void setSina_login(boolean sina_login) {
+    public void setSina_login(boolean sina_login){
         this.sina_login = sina_login;
     }
 
-    public String getSina_login_id() {
+    public String getSina_login_id(){
         return this.sina_login_id;
     }
 
-    public void setSina_login_id(String sina_login_id) {
+    public void setSina_login_id(String sina_login_id){
         this.sina_login_id = sina_login_id;
     }
 
-    public String getSina_login_key() {
+    public String getSina_login_key(){
         return this.sina_login_key;
     }
 
-    public void setSina_login_key(String sina_login_key) {
+    public void setSina_login_key(String sina_login_key){
         this.sina_login_key = sina_login_key;
     }
 
-    public String getSina_domain_code() {
+    public String getSina_domain_code(){
         return this.sina_domain_code;
     }
 
-    public void setSina_domain_code(String sina_domain_code) {
+    public void setSina_domain_code(String sina_domain_code){
         this.sina_domain_code = sina_domain_code;
     }
 
-    public boolean isQq_login() {
+    public boolean isQq_login(){
         return this.qq_login;
     }
 
-    public void setQq_login(boolean qq_login) {
+    public void setQq_login(boolean qq_login){
         this.qq_login = qq_login;
     }
 
-    public String getQq_login_id() {
+    public String getQq_login_id(){
         return this.qq_login_id;
     }
 
-    public void setQq_login_id(String qq_login_id) {
+    public void setQq_login_id(String qq_login_id){
         this.qq_login_id = qq_login_id;
     }
 
-    public String getQq_login_key() {
+    public String getQq_login_key(){
         return this.qq_login_key;
     }
 
-    public void setQq_login_key(String qq_login_key) {
+    public void setQq_login_key(String qq_login_key){
         this.qq_login_key = qq_login_key;
     }
 
-    public int getDomain_allow_count() {
+    public int getDomain_allow_count(){
         return this.domain_allow_count;
     }
 
-    public void setDomain_allow_count(int domain_allow_count) {
+    public void setDomain_allow_count(int domain_allow_count){
         this.domain_allow_count = domain_allow_count;
     }
 
-    public String getSys_domain() {
+    public String getSys_domain(){
         return this.sys_domain;
     }
 
-    public void setSys_domain(String sys_domain) {
+    public void setSys_domain(String sys_domain){
         this.sys_domain = sys_domain;
     }
 
-    public boolean isZtc_status() {
+    public boolean isZtc_status(){
         return this.ztc_status;
     }
 
-    public void setZtc_status(boolean ztc_status) {
+    public void setZtc_status(boolean ztc_status){
         this.ztc_status = ztc_status;
     }
 
-    public int getZtc_price() {
+    public int getZtc_price(){
         return this.ztc_price;
     }
 
-    public void setZtc_price(int ztc_price) {
+    public void setZtc_price(int ztc_price){
         this.ztc_price = ztc_price;
     }
 
-    public String getTemplates() {
+    public String getTemplates(){
         return this.templates;
     }
 
-    public void setTemplates(String templates) {
+    public void setTemplates(String templates){
         this.templates = templates;
     }
 
-    public boolean isStore_allow() {
+    public boolean isStore_allow(){
         return this.store_allow;
     }
 
-    public void setStore_allow(boolean store_allow) {
+    public void setStore_allow(boolean store_allow){
         this.store_allow = store_allow;
     }
 
-    public Accessory getStoreImage() {
+    public Accessory getStoreImage(){
         return this.storeImage;
     }
 
-    public void setStoreImage(Accessory storeImage) {
+    public void setStoreImage(Accessory storeImage){
         this.storeImage = storeImage;
     }
 
-    public Accessory getGoodsImage() {
+    public Accessory getGoodsImage(){
         return this.goodsImage;
     }
 
-    public void setGoodsImage(Accessory goodsImage) {
+    public void setGoodsImage(Accessory goodsImage){
         this.goodsImage = goodsImage;
     }
 
-    public Accessory getMemberIcon() {
+    public Accessory getMemberIcon(){
         return this.memberIcon;
     }
 
-    public void setMemberIcon(Accessory memberIcon) {
+    public void setMemberIcon(Accessory memberIcon){
         this.memberIcon = memberIcon;
     }
 
-    public String getEmailHost() {
+    public String getEmailHost(){
         return this.emailHost;
     }
 
-    public void setEmailHost(String emailHost) {
+    public void setEmailHost(String emailHost){
         this.emailHost = emailHost;
     }
 
-    public int getEmailPort() {
+    public int getEmailPort(){
         return this.emailPort;
     }
 
-    public void setEmailPort(int emailPort) {
+    public void setEmailPort(int emailPort){
         this.emailPort = emailPort;
     }
 
-    public String getEmailUser() {
+    public String getEmailUser(){
         return this.emailUser;
     }
 
-    public void setEmailUser(String emailUser) {
+    public void setEmailUser(String emailUser){
         this.emailUser = emailUser;
     }
 
-    public String getEmailUserName() {
+    public String getEmailUserName(){
         return this.emailUserName;
     }
 
-    public void setEmailUserName(String emailUserName) {
+    public void setEmailUserName(String emailUserName){
         this.emailUserName = emailUserName;
     }
 
-    public String getEmailPws() {
+    public String getEmailPws(){
         return this.emailPws;
     }
 
-    public void setEmailPws(String emailPws) {
+    public void setEmailPws(String emailPws){
         this.emailPws = emailPws;
     }
 
-    public String getSysLanguage() {
+    public String getSysLanguage(){
         return this.sysLanguage;
     }
 
-    public void setSysLanguage(String sysLanguage) {
+    public void setSysLanguage(String sysLanguage){
         this.sysLanguage = sysLanguage;
     }
 
-    public String getTitle() {
+    public String getTitle(){
         return this.title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title){
         this.title = title;
     }
 
-    public String getKeywords() {
+    public String getKeywords(){
         return this.keywords;
     }
 
-    public void setKeywords(String keywords) {
+    public void setKeywords(String keywords){
         this.keywords = keywords;
     }
 
-    public String getSmsURL() {
+    public String getSmsURL(){
         return this.smsURL;
     }
 
-    public void setSmsURL(String smsURL) {
+    public void setSmsURL(String smsURL){
         this.smsURL = smsURL;
     }
 
-    public String getSmsUserName() {
+    public String getSmsUserName(){
         return this.smsUserName;
     }
 
-    public void setSmsUserName(String smsUserName) {
+    public void setSmsUserName(String smsUserName){
         this.smsUserName = smsUserName;
     }
 
-    public String getSmsPassword() {
+    public String getSmsPassword(){
         return this.smsPassword;
     }
 
-    public void setSmsPassword(String smsPassword) {
+    public void setSmsPassword(String smsPassword){
         this.smsPassword = smsPassword;
     }
 
-    public String getDescription() {
+    public String getDescription(){
         return this.description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description){
         this.description = description;
     }
 
-    public int getIntegralRate() {
+    public int getIntegralRate(){
         return this.integralRate;
     }
 
-    public void setIntegralRate(int integralRate) {
+    public void setIntegralRate(int integralRate){
         this.integralRate = integralRate;
     }
 
-    public String getCopyRight() {
+    public String getCopyRight(){
         return this.copyRight;
     }
 
-    public void setCopyRight(String copyRight) {
+    public void setCopyRight(String copyRight){
         this.copyRight = copyRight;
     }
 
-    public String getWebsiteName() {
+    public String getWebsiteName(){
         return this.websiteName;
     }
 
-    public void setWebsiteName(String websiteName) {
+    public void setWebsiteName(String websiteName){
         this.websiteName = websiteName;
     }
 
-    public String getHotSearch() {
+    public String getHotSearch(){
         return this.hotSearch;
     }
 
-    public void setHotSearch(String hotSearch) {
+    public void setHotSearch(String hotSearch){
         this.hotSearch = hotSearch;
     }
 
-    public Accessory getWebsiteLogo() {
+    public Accessory getWebsiteLogo(){
         return this.websiteLogo;
     }
 
-    public void setWebsiteLogo(Accessory websiteLogo) {
+    public void setWebsiteLogo(Accessory websiteLogo){
         this.websiteLogo = websiteLogo;
     }
 
-    public String getCodeStat() {
+    public String getCodeStat(){
         return this.codeStat;
     }
 
-    public void setCodeStat(String codeStat) {
+    public void setCodeStat(String codeStat){
         this.codeStat = codeStat;
     }
 
-    public boolean isWebsiteState() {
+    public boolean isWebsiteState(){
         return this.websiteState;
     }
 
-    public void setWebsiteState(boolean websiteState) {
+    public void setWebsiteState(boolean websiteState){
         this.websiteState = websiteState;
     }
 
-    public String getCloseReason() {
+    public String getCloseReason(){
         return this.closeReason;
     }
 
-    public void setCloseReason(String closeReason) {
+    public void setCloseReason(String closeReason){
         this.closeReason = closeReason;
     }
 
-    public boolean isEmailEnable() {
+    public boolean isEmailEnable(){
         return this.emailEnable;
     }
 
-    public void setEmailEnable(boolean emailEnable) {
+    public void setEmailEnable(boolean emailEnable){
         this.emailEnable = emailEnable;
     }
 
-    public String getEmailTest() {
+    public String getEmailTest(){
         return this.emailTest;
     }
 
-    public void setEmailTest(String emailTest) {
+    public void setEmailTest(String emailTest){
         this.emailTest = emailTest;
     }
 
-    public boolean isSecurityCodeRegister() {
+    public boolean isSecurityCodeRegister(){
         return this.securityCodeRegister;
     }
 
-    public void setSecurityCodeRegister(boolean securityCodeRegister) {
+    public void setSecurityCodeRegister(boolean securityCodeRegister){
         this.securityCodeRegister = securityCodeRegister;
     }
 
-    public boolean isSecurityCodeLogin() {
+    public boolean isSecurityCodeLogin(){
         return this.securityCodeLogin;
     }
 
-    public void setSecurityCodeLogin(boolean securityCodeLogin) {
+    public void setSecurityCodeLogin(boolean securityCodeLogin){
         this.securityCodeLogin = securityCodeLogin;
     }
 
-    public boolean isSecurityCodeConsult() {
+    public boolean isSecurityCodeConsult(){
         return this.securityCodeConsult;
     }
 
-    public void setSecurityCodeConsult(boolean securityCodeConsult) {
+    public void setSecurityCodeConsult(boolean securityCodeConsult){
         this.securityCodeConsult = securityCodeConsult;
     }
 
-    public boolean isVisitorConsult() {
+    public boolean isVisitorConsult(){
         return this.visitorConsult;
     }
 
-    public void setVisitorConsult(boolean visitorConsult) {
+    public void setVisitorConsult(boolean visitorConsult){
         this.visitorConsult = visitorConsult;
     }
 
-    public String getImageSuffix() {
+    public String getImageSuffix(){
         return this.imageSuffix;
     }
 
-    public void setImageSuffix(String imageSuffix) {
+    public void setImageSuffix(String imageSuffix){
         this.imageSuffix = imageSuffix;
     }
 
-    public int getImageFilesize() {
+    public int getImageFilesize(){
         return this.imageFilesize;
     }
 
-    public void setImageFilesize(int imageFilesize) {
+    public void setImageFilesize(int imageFilesize){
         this.imageFilesize = imageFilesize;
     }
 
-    public int getSmallWidth() {
+    public int getSmallWidth(){
         return this.smallWidth;
     }
 
-    public void setSmallWidth(int smallWidth) {
+    public void setSmallWidth(int smallWidth){
         this.smallWidth = smallWidth;
     }
 
-    public int getSmallHeight() {
+    public int getSmallHeight(){
         return this.smallHeight;
     }
 
-    public void setSmallHeight(int smallHeight) {
+    public void setSmallHeight(int smallHeight){
         this.smallHeight = smallHeight;
     }
 
-    public int getMiddleWidth() {
+    public int getMiddleWidth(){
         return this.middleWidth;
     }
 
-    public void setMiddleWidth(int middleWidth) {
+    public void setMiddleWidth(int middleWidth){
         this.middleWidth = middleWidth;
     }
 
-    public int getMiddleHeight() {
+    public int getMiddleHeight(){
         return this.middleHeight;
     }
 
-    public void setMiddleHeight(int middleHeight) {
+    public void setMiddleHeight(int middleHeight){
         this.middleHeight = middleHeight;
     }
 
-    public int getBigWidth() {
+    public int getBigWidth(){
         return this.bigWidth;
     }
 
-    public void setBigWidth(int bigWidth) {
+    public void setBigWidth(int bigWidth){
         this.bigWidth = bigWidth;
     }
 
-    public int getBigHeight() {
+    public int getBigHeight(){
         return this.bigHeight;
     }
 
-    public void setBigHeight(int bigHeight) {
+    public void setBigHeight(int bigHeight){
         this.bigHeight = bigHeight;
     }
 
-    public String getImageSaveType() {
+    public String getImageSaveType(){
         return this.imageSaveType;
     }
 
-    public void setImageSaveType(String imageSaveType) {
+    public void setImageSaveType(String imageSaveType){
         this.imageSaveType = imageSaveType;
     }
 
-    public String getSecurityCodeType() {
+    public String getSecurityCodeType(){
         return this.securityCodeType;
     }
 
-    public void setSecurityCodeType(String securityCodeType) {
+    public void setSecurityCodeType(String securityCodeType){
         this.securityCodeType = securityCodeType;
     }
 
-    public boolean isIntegral() {
+    public boolean isIntegral(){
         return this.integral;
     }
 
-    public void setIntegral(boolean integral) {
+    public void setIntegral(boolean integral){
         this.integral = integral;
     }
 
-    public boolean isIntegralStore() {
+    public boolean isIntegralStore(){
         return this.integralStore;
     }
 
-    public void setIntegralStore(boolean integralStore) {
+    public void setIntegralStore(boolean integralStore){
         this.integralStore = integralStore;
     }
 
-    public boolean isVoucher() {
+    public boolean isVoucher(){
         return this.voucher;
     }
 
-    public void setVoucher(boolean voucher) {
+    public void setVoucher(boolean voucher){
         this.voucher = voucher;
     }
 
-    public boolean isDeposit() {
+    public boolean isDeposit(){
         return this.deposit;
     }
 
-    public void setDeposit(boolean deposit) {
+    public void setDeposit(boolean deposit){
         this.deposit = deposit;
     }
 
-    public boolean isGroupBuy() {
+    public boolean isGroupBuy(){
         return this.groupBuy;
     }
 
-    public void setGroupBuy(boolean groupBuy) {
+    public void setGroupBuy(boolean groupBuy){
         this.groupBuy = groupBuy;
     }
 
-    public boolean isGold() {
+    public boolean isGold(){
         return this.gold;
     }
 
-    public void setGold(boolean gold) {
+    public void setGold(boolean gold){
         this.gold = gold;
     }
 
-    public int getGoldMarketValue() {
+    public int getGoldMarketValue(){
         return this.goldMarketValue;
     }
 
-    public void setGoldMarketValue(int goldMarketValue) {
+    public void setGoldMarketValue(int goldMarketValue){
         this.goldMarketValue = goldMarketValue;
     }
 
-    public int getMemberRegister() {
+    public int getMemberRegister(){
         return this.memberRegister;
     }
 
-    public void setMemberRegister(int memberRegister) {
+    public void setMemberRegister(int memberRegister){
         this.memberRegister = memberRegister;
     }
 
-    public int getMemberDayLogin() {
+    public int getMemberDayLogin(){
         return this.memberDayLogin;
     }
 
-    public void setMemberDayLogin(int memberDayLogin) {
+    public void setMemberDayLogin(int memberDayLogin){
         this.memberDayLogin = memberDayLogin;
     }
 
-    public int getIndentComment() {
+    public int getIndentComment(){
         return this.indentComment;
     }
 
-    public void setIndentComment(int indentComment) {
+    public void setIndentComment(int indentComment){
         this.indentComment = indentComment;
     }
 
-    public int getConsumptionRatio() {
+    public int getConsumptionRatio(){
         return this.consumptionRatio;
     }
 
-    public void setConsumptionRatio(int consumptionRatio) {
+    public void setConsumptionRatio(int consumptionRatio){
         this.consumptionRatio = consumptionRatio;
     }
 
-    public int getEveryIndentLimit() {
+    public int getEveryIndentLimit(){
         return this.everyIndentLimit;
     }
 
-    public void setEveryIndentLimit(int everyIndentLimit) {
+    public void setEveryIndentLimit(int everyIndentLimit){
         this.everyIndentLimit = everyIndentLimit;
     }
 
-    public boolean isSmsEnbale() {
+    public boolean isSmsEnbale(){
         return this.smsEnbale;
     }
 
-    public void setSmsEnbale(boolean smsEnbale) {
+    public void setSmsEnbale(boolean smsEnbale){
         this.smsEnbale = smsEnbale;
     }
 
-    public String getSmsTest() {
+    public String getSmsTest(){
         return this.smsTest;
     }
 
-    public void setSmsTest(String smsTest) {
+    public void setSmsTest(String smsTest){
         this.smsTest = smsTest;
     }
 
-    public String getCreditrule() {
+    public String getCreditrule(){
         return this.creditrule;
     }
 
-    public void setCreditrule(String creditrule) {
+    public void setCreditrule(String creditrule){
         this.creditrule = creditrule;
     }
 
-    public String getUploadFilePath() {
+    public String getUploadFilePath(){
         return this.uploadFilePath;
     }
 
-    public void setUploadFilePath(String uploadFilePath) {
+    public void setUploadFilePath(String uploadFilePath){
         this.uploadFilePath = uploadFilePath;
     }
 
-    public String getAddress() {
+    public String getAddress(){
         return this.address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(String address){
         this.address = address;
     }
 
-    public String getStore_payment() {
+    public String getStore_payment(){
         return this.store_payment;
     }
 
-    public void setStore_payment(String store_payment) {
+    public void setStore_payment(String store_payment){
         this.store_payment = store_payment;
     }
 
-    public String getShare_code() {
+    public String getShare_code(){
         return this.share_code;
     }
 
-    public void setShare_code(String share_code) {
+    public void setShare_code(String share_code){
         this.share_code = share_code;
     }
 
-    public String getUser_creditrule() {
+    public String getUser_creditrule(){
         return this.user_creditrule;
     }
 
-    public void setUser_creditrule(String user_creditrule) {
+    public void setUser_creditrule(String user_creditrule){
         this.user_creditrule = user_creditrule;
     }
 
-    public int getComplaint_time() {
+    public int getComplaint_time(){
         return this.complaint_time;
     }
 
-    public void setComplaint_time(int complaint_time) {
+    public void setComplaint_time(int complaint_time){
         this.complaint_time = complaint_time;
     }
 
-    public boolean isSecond_domain_open() {
+    public boolean isSecond_domain_open(){
         return this.second_domain_open;
     }
 
-    public void setSecond_domain_open(boolean second_domain_open) {
+    public void setSecond_domain_open(boolean second_domain_open){
         this.second_domain_open = second_domain_open;
     }
 
-    public String getQq_domain_code() {
+    public String getQq_domain_code(){
         return this.qq_domain_code;
     }
 
-    public void setQq_domain_code(String qq_domain_code) {
+    public void setQq_domain_code(String qq_domain_code){
         this.qq_domain_code = qq_domain_code;
     }
 
-    public String getImageWebServer() {
+    public String getImageWebServer(){
         return this.imageWebServer;
     }
 
-    public void setImageWebServer(String imageWebServer) {
+    public void setImageWebServer(String imageWebServer){
         this.imageWebServer = imageWebServer;
     }
 
-    public int getAlipay_fenrun() {
+    public int getAlipay_fenrun(){
         return this.alipay_fenrun;
     }
 
-    public void setAlipay_fenrun(int alipay_fenrun) {
+    public void setAlipay_fenrun(int alipay_fenrun){
         this.alipay_fenrun = alipay_fenrun;
     }
 
-    public int getBalance_fenrun() {
+    public int getBalance_fenrun(){
         return this.balance_fenrun;
     }
 
-    public void setBalance_fenrun(int balance_fenrun) {
+    public void setBalance_fenrun(int balance_fenrun){
         this.balance_fenrun = balance_fenrun;
     }
 
-    public String getBargain_title() {
+    public String getBargain_title(){
         return this.bargain_title;
     }
 
-    public void setBargain_title(String bargain_title) {
+    public void setBargain_title(String bargain_title){
         this.bargain_title = bargain_title;
     }
 
-    public String getBargain_state() {
+    public String getBargain_state(){
         return this.bargain_state;
     }
 
-    public void setBargain_state(String bargain_state) {
+    public void setBargain_state(String bargain_state){
         this.bargain_state = bargain_state;
     }
 
-    public String getDelivery_title() {
+    public String getDelivery_title(){
         return this.delivery_title;
     }
 
-    public void setDelivery_title(String delivery_title) {
+    public void setDelivery_title(String delivery_title){
         this.delivery_title = delivery_title;
     }
 
-    public int getDelivery_status() {
+    public int getDelivery_status(){
         return this.delivery_status;
     }
 
-    public void setDelivery_status(int delivery_status) {
+    public void setDelivery_status(int delivery_status){
         this.delivery_status = delivery_status;
     }
 
-    public String getService_telphone_list() {
+    public String getService_telphone_list(){
         return this.service_telphone_list;
     }
 
-    public void setService_telphone_list(String service_telphone_list) {
+    public void setService_telphone_list(String service_telphone_list){
         this.service_telphone_list = service_telphone_list;
     }
 
-    public String getService_qq_list() {
+    public String getService_qq_list(){
         return this.service_qq_list;
     }
 
-    public void setService_qq_list(String service_qq_list) {
+    public void setService_qq_list(String service_qq_list){
         this.service_qq_list = service_qq_list;
     }
 
-    public int getAuto_order_confirm() {
+    public int getAuto_order_confirm(){
         return this.auto_order_confirm;
     }
 
-    public void setAuto_order_confirm(int auto_order_confirm) {
+    public void setAuto_order_confirm(int auto_order_confirm){
         this.auto_order_confirm = auto_order_confirm;
     }
 
-    public int getAuto_order_notice() {
+    public int getAuto_order_notice(){
         return this.auto_order_notice;
     }
 
-    public void setAuto_order_notice(int auto_order_notice) {
+    public void setAuto_order_notice(int auto_order_notice){
         this.auto_order_notice = auto_order_notice;
     }
 
-    public String getKuaidi_id() {
+    public String getKuaidi_id(){
         return this.kuaidi_id;
     }
 
-    public void setKuaidi_id(String kuaidi_id) {
+    public void setKuaidi_id(String kuaidi_id){
         this.kuaidi_id = kuaidi_id;
     }
 
-    public String getUc_database() {
+    public String getUc_database(){
         return this.uc_database;
     }
 
-    public void setUc_database(String uc_database) {
+    public void setUc_database(String uc_database){
         this.uc_database = uc_database;
     }
 
-    public String getUc_table_preffix() {
+    public String getUc_table_preffix(){
         return this.uc_table_preffix;
     }
 
-    public void setUc_table_preffix(String uc_table_preffix) {
+    public void setUc_table_preffix(String uc_table_preffix){
         this.uc_table_preffix = uc_table_preffix;
     }
 
-    public String getUc_database_url() {
+    public String getUc_database_url(){
         return this.uc_database_url;
     }
 
-    public void setUc_database_url(String uc_database_url) {
+    public void setUc_database_url(String uc_database_url){
         this.uc_database_url = uc_database_url;
     }
 
-    public String getUc_database_port() {
+    public String getUc_database_port(){
         return this.uc_database_port;
     }
 
-    public void setUc_database_port(String uc_database_port) {
+    public void setUc_database_port(String uc_database_port){
         this.uc_database_port = uc_database_port;
     }
 
-    public String getUc_database_username() {
+    public String getUc_database_username(){
         return this.uc_database_username;
     }
 
-    public void setUc_database_username(String uc_database_username) {
+    public void setUc_database_username(String uc_database_username){
         this.uc_database_username = uc_database_username;
     }
 
-    public String getUc_database_pws() {
+    public String getUc_database_pws(){
         return this.uc_database_pws;
     }
 
-    public void setUc_database_pws(String uc_database_pws) {
+    public void setUc_database_pws(String uc_database_pws){
         this.uc_database_pws = uc_database_pws;
     }
 
-    public String getUc_api() {
+    public String getUc_api(){
         return this.uc_api;
     }
 
-    public void setUc_api(String uc_api) {
+    public void setUc_api(String uc_api){
         this.uc_api = uc_api;
     }
 
-    public String getUc_ip() {
+    public String getUc_ip(){
         return this.uc_ip;
     }
 
-    public void setUc_ip(String uc_ip) {
+    public void setUc_ip(String uc_ip){
         this.uc_ip = uc_ip;
     }
 
-    public String getUc_key() {
+    public String getUc_key(){
         return this.uc_key;
     }
 
-    public void setUc_key(String uc_key) {
+    public void setUc_key(String uc_key){
         this.uc_key = uc_key;
     }
 
-    public String getUc_appid() {
+    public String getUc_appid(){
         return this.uc_appid;
     }
 
-    public void setUc_appid(String uc_appid) {
+    public void setUc_appid(String uc_appid){
         this.uc_appid = uc_appid;
     }
 
-    public int getDelivery_amount() {
+    public int getDelivery_amount(){
         return this.delivery_amount;
     }
 
-    public void setDelivery_amount(int delivery_amount) {
+    public void setDelivery_amount(int delivery_amount){
         this.delivery_amount = delivery_amount;
     }
 
-    public int getCombin_amount() {
+    public int getCombin_amount(){
         return this.combin_amount;
     }
 
-    public void setCombin_amount(int combin_amount) {
+    public void setCombin_amount(int combin_amount){
         this.combin_amount = combin_amount;
     }
 
-    public int getCombin_count() {
+    public int getCombin_count(){
         return this.combin_count;
     }
 
-    public void setCombin_count(int combin_count) {
+    public void setCombin_count(int combin_count){
         this.combin_count = combin_count;
     }
-    public String getSite_url() {
+    public String getSite_url(){
         return site_url;
     }
 
-    public void setSite_url(String site_url) {
+    public void setSite_url(String site_url){
         this.site_url = site_url;
     }
 }

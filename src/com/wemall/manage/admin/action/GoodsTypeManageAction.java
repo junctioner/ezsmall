@@ -59,8 +59,8 @@ public class GoodsTypeManageAction {
     private StoreTools shopTools;
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品类型列表", value = "/admin/goods_type_list.htm*", rtype = "admin", rname = "类型管理", rcode = "goods_type", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_type_list.htm"})
-    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/admin/goods_type_list.htm"})
+    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView("admin/blue/goods_type_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -77,8 +77,8 @@ public class GoodsTypeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品类型添加", value = "/admin/goods_type_add.htm*", rtype = "admin", rname = "类型管理", rcode = "goods_type", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_type_add.htm"})
-    public ModelAndView add(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/admin/goods_type_add.htm"})
+    public ModelAndView add(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("admin/blue/goods_type_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -97,12 +97,12 @@ public class GoodsTypeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品类型编辑", value = "/admin/goods_type_edit.htm*", rtype = "admin", rname = "类型管理", rcode = "goods_type", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_type_edit.htm"})
-    public ModelAndView edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/goods_type_edit.htm"})
+    public ModelAndView edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/goods_type_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             GoodsType goodsType = this.goodsTypeService.getObjById(
                                       Long.valueOf(Long.parseLong(id)));
             List gbcs = this.goodsBrandCategoryService
@@ -124,14 +124,14 @@ public class GoodsTypeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品类型保存", value = "/admin/goods_type_save.htm*", rtype = "admin", rname = "类型管理", rcode = "goods_type", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_type_save.htm"})
-    public ModelAndView save(HttpServletRequest request, HttpServletResponse response, String id, String cmd, String currentPage, String list_url, String add_url, String spec_ids, String brand_ids, String count) {
+    @RequestMapping({"/admin/goods_type_save.htm"})
+    public ModelAndView save(HttpServletRequest request, HttpServletResponse response, String id, String cmd, String currentPage, String list_url, String add_url, String spec_ids, String brand_ids, String count){
         WebForm wf = new WebForm();
         GoodsType goodsType = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             goodsType = (GoodsType)wf.toPo(request, GoodsType.class);
             goodsType.setAddTime(new Date());
-        } else {
+        }else{
             GoodsType obj = this.goodsTypeService
                             .getObjById(Long.valueOf(Long.parseLong(id)));
             goodsType = (GoodsType)wf.toPo(request, obj);
@@ -140,16 +140,16 @@ public class GoodsTypeManageAction {
         goodsType.getGbs().clear();
         String[] gs_ids = spec_ids.split(",");
         GoodsSpecification gs;
-        for (String gs_id : gs_ids) {
-            if (!gs_id.equals("")) {
+        for (String gs_id : gs_ids){
+            if (!gs_id.equals("")){
                 gs = this.goodsSpecificationService
                      .getObjById(Long.valueOf(Long.parseLong(gs_id)));
                 goodsType.getGss().add(gs);
             }
         }
         String[] gb_ids = brand_ids.split(",");
-        for (String gb_id : gb_ids) {
-            if (!gb_id.equals("")) {
+        for (String gb_id : gb_ids){
+            if (!gb_id.equals("")){
                 GoodsBrand gb = this.goodsBrandService.getObjById(
                                     Long.valueOf(Long.parseLong(gb_id)));
                 goodsType.getGbs().add(gb);
@@ -165,15 +165,15 @@ public class GoodsTypeManageAction {
                                       .getUserConfig(), 0, request, response);
         ((ModelAndView)mv).addObject("list_url", list_url + "?currentPage=" + currentPage);
         ((ModelAndView)mv).addObject("op_title", "保存商品类型成功");
-        if (add_url != null) {
+        if (add_url != null){
             ((ModelAndView)mv).addObject("add_url", add_url);
         }
 
         return (ModelAndView)mv;
     }
 
-    public void genericProperty(HttpServletRequest request, GoodsType type, String count) {
-        for (int i = 1; i <= CommUtil.null2Int(count); i++) {
+    public void genericProperty(HttpServletRequest request, GoodsType type, String count){
+        for (int i = 1; i <= CommUtil.null2Int(count); i++){
             int sequence = CommUtil.null2Int(request
                                              .getParameter("gtp_sequence_" + i));
             String name = CommUtil.null2String(request.getParameter("gtp_name_" +
@@ -182,13 +182,13 @@ public class GoodsTypeManageAction {
                                                 .getParameter("gtp_value_" + i));
             boolean display = CommUtil.null2Boolean(request
                                                     .getParameter("gtp_display_" + i));
-            if ((!name.equals("")) && (!value.equals(""))) {
+            if ((!name.equals("")) && (!value.equals(""))){
                 GoodsTypeProperty gtp = null;
                 String id = CommUtil.null2String(request.getParameter("gtp_id_" +
                                                  i));
                 if (id.equals(""))
                     gtp = new GoodsTypeProperty();
-                else {
+               else{
                     gtp = this.goodsTypePropertyService.getObjById(
                               Long.valueOf(Long.parseLong(id)));
                 }
@@ -207,16 +207,16 @@ public class GoodsTypeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品类型删除", value = "/admin/goods_type_del.htm*", rtype = "admin", rname = "类型管理", rcode = "goods_type", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_type_del.htm"})
-    public String delete(HttpServletRequest request, String mulitId, String currentPage) {
+    @RequestMapping({"/admin/goods_type_del.htm"})
+    public String delete(HttpServletRequest request, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 GoodsType goodsType = this.goodsTypeService.getObjById(
                                           Long.valueOf(Long.parseLong(id)));
                 goodsType.getGbs().clear();
                 goodsType.getGss().clear();
-                for (GoodsClass gc : goodsType.getGcs()) {
+                for (GoodsClass gc : goodsType.getGcs()){
                     gc.setGoodsType(null);
                     this.goodsClassService.update(gc);
                 }
@@ -228,10 +228,10 @@ public class GoodsTypeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品类型属性AJAX删除", value = "/admin/goods_type_property_delete.htm*", rtype = "admin", rname = "类型管理", rcode = "goods_type", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_type_property_delete.htm"})
-    public void goods_type_property_delete(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/admin/goods_type_property_delete.htm"})
+    public void goods_type_property_delete(HttpServletRequest request, HttpServletResponse response, String id){
         boolean ret = true;
-        if (!id.equals("")) {
+        if (!id.equals("")){
             GoodsTypeProperty property = this.goodsTypePropertyService
                                          .getObjById(Long.valueOf(Long.parseLong(id)));
             property.setGoodsType(null);
@@ -243,30 +243,30 @@ public class GoodsTypeManageAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品类型AJAX更新", value = "/admin/goods_type_ajax.htm*", rtype = "admin", rname = "类型管理", rcode = "goods_type", rgroup = "商品")
-    @RequestMapping( {"/admin/goods_type_ajax.htm"})
+    @RequestMapping({"/admin/goods_type_ajax.htm"})
     public void ajax(HttpServletRequest request, HttpServletResponse response, String id, String fieldName, String value) throws ClassNotFoundException {
         GoodsType obj = this.goodsTypeService.getObjById(Long.valueOf(Long.parseLong(id)));
         Field[] fields = GoodsType.class.getDeclaredFields();
         BeanWrapper wrapper = new BeanWrapper(obj);
         Object val = null;
-        for (Field field : fields) {
-            if (field.getName().equals(fieldName)) {
+        for (Field field : fields){
+            if (field.getName().equals(fieldName)){
                 Class clz = Class.forName("java.lang.String");
-                if (field.getType().getName().equals("int")) {
+                if (field.getType().getName().equals("int")){
                     clz = Class.forName("java.lang.Integer");
                 }
-                if (field.getType().getName().equals("boolean")) {
+                if (field.getType().getName().equals("boolean")){
                     clz = Class.forName("java.lang.Boolean");
                 }
                 if (!value.equals(""))
                     val = BeanUtils.convertType(value, clz);
-                else {
+               else{
                     val = Boolean.valueOf(
                               !CommUtil.null2Boolean(wrapper
                                                      .getPropertyValue(fieldName)));
@@ -281,13 +281,13 @@ public class GoodsTypeManageAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(val.toString());
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    @RequestMapping( {"/admin/goods_type_verify.htm"})
-    public void goods_type_verify(HttpServletRequest request, HttpServletResponse response, String name, String id) {
+    @RequestMapping({"/admin/goods_type_verify.htm"})
+    public void goods_type_verify(HttpServletRequest request, HttpServletResponse response, String name, String id){
         boolean ret = true;
         Map params = new HashMap();
         params.put("name", name);
@@ -296,7 +296,7 @@ public class GoodsTypeManageAction {
                    .query(
                        "select obj from GoodsType obj where obj.name=:name and obj.id!=:id",
                        params, -1, -1);
-        if ((gts != null) && (gts.size() > 0)) {
+        if ((gts != null) && (gts.size() > 0)){
             ret = false;
         }
         response.setContentType("text/plain");
@@ -305,7 +305,7 @@ public class GoodsTypeManageAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

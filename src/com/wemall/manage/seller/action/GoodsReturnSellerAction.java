@@ -38,8 +38,8 @@ public class GoodsReturnSellerAction {
     private IGoodsReturnItemService goodsReturnItemService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家退货列表", value = "/seller/goods_return.htm*", rtype = "seller", rname = "退货管理", rcode = "goods_return_seller", rgroup = "客户服务")
-    @RequestMapping( {"/seller/goods_return.htm"})
-    public ModelAndView refund(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String data_type, String data, String beginTime, String endTime) {
+    @RequestMapping({"/seller/goods_return.htm"})
+    public ModelAndView refund(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String data_type, String data, String beginTime, String endTime){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/goods_return.html", this.configService
             .getSysConfig(),
@@ -47,22 +47,22 @@ public class GoodsReturnSellerAction {
         GoodsReturnQueryObject qo = new GoodsReturnQueryObject(currentPage, mv,
                 "addTime", "desc");
         qo.setPageSize(Integer.valueOf(30));
-        if (!CommUtil.null2String(data).equals("")) {
-            if (CommUtil.null2String(data_type).equals("order_id")) {
+        if (!CommUtil.null2String(data).equals("")){
+            if (CommUtil.null2String(data_type).equals("order_id")){
                 qo.addQuery("obj.of.order_id", new SysMap("order_id", data),
                             "=");
             }
-            if (CommUtil.null2String(data_type).equals("buyer_name")) {
+            if (CommUtil.null2String(data_type).equals("buyer_name")){
                 qo.addQuery("obj.of.user.userName",
                             new SysMap("userName", data), "=");
             }
         }
-        if (!CommUtil.null2String(beginTime).equals("")) {
+        if (!CommUtil.null2String(beginTime).equals("")){
             qo.addQuery("obj.addTime",
                         new SysMap("beginTime",
                                    CommUtil.formatDate(beginTime)), ">=");
         }
-        if (!CommUtil.null2String(endTime).equals("")) {
+        if (!CommUtil.null2String(endTime).equals("")){
             qo.addQuery("obj.addTime",
                         new SysMap("endTime",
                                    CommUtil.formatDate(endTime)), "<=");
@@ -81,8 +81,8 @@ public class GoodsReturnSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家退款列表", value = "/seller/return_view.htm*", rtype = "seller", rname = "退货管理", rcode = "goods_return_seller", rgroup = "客户服务")
-    @RequestMapping( {"/seller/return_view.htm"})
-    public ModelAndView return_view(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/return_view.htm"})
+    public ModelAndView return_view(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/return_view.html", this.configService
             .getSysConfig(),

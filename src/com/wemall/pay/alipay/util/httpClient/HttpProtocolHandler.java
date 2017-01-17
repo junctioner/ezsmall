@@ -39,11 +39,11 @@ public class HttpProtocolHandler {
     private HttpConnectionManager connectionManager;
     private static HttpProtocolHandler httpProtocolHandler = new HttpProtocolHandler();
 
-    public static HttpProtocolHandler getInstance() {
+    public static HttpProtocolHandler getInstance(){
         return httpProtocolHandler;
     }
 
-    private HttpProtocolHandler() {
+    private HttpProtocolHandler(){
         this.connectionManager = new MultiThreadedHttpConnectionManager();
         this.connectionManager.getParams().setDefaultMaxConnectionsPerHost(
             this.defaultMaxConnPerHost);
@@ -57,18 +57,18 @@ public class HttpProtocolHandler {
         ict.start();
     }
 
-    public HttpResponse execute(HttpRequest request) {
+    public HttpResponse execute(HttpRequest request){
         HttpClient httpclient = new HttpClient(this.connectionManager);
 
         int connectionTimeout = this.defaultConnectionTimeout;
-        if (request.getConnectionTimeout() > 0) {
+        if (request.getConnectionTimeout() > 0){
             connectionTimeout = request.getConnectionTimeout();
         }
         httpclient.getHttpConnectionManager().getParams().setConnectionTimeout(
             connectionTimeout);
 
         int soTimeout = this.defaultSoTimeout;
-        if (request.getTimeout() > 0) {
+        if (request.getTimeout() > 0){
             soTimeout = request.getTimeout();
         }
         httpclient.getHttpConnectionManager().getParams().setSoTimeout(
@@ -81,12 +81,12 @@ public class HttpProtocolHandler {
         charset = charset == null ? DEFAULT_CHARSET : charset;
         HttpMethod method = null;
 
-        if (request.getMethod().equals("GET")) {
+        if (request.getMethod().equals("GET")){
             method = new GetMethod(request.getUrl());
             method.getParams().setCredentialCharset(charset);
 
             method.setQueryString(request.getQueryString());
-        } else {
+        }else{
             method = new PostMethod(request.getUrl());
             ((PostMethod)method).addParameters(request.getParameters());
             method.addRequestHeader("Content-Type",
@@ -100,15 +100,15 @@ public class HttpProtocolHandler {
             httpclient.executeMethod(method);
             if (request.getResultType().equals(HttpResultType.STRING))
                 response.setStringResult(method.getResponseBodyAsString());
-            else if (request.getResultType().equals(HttpResultType.BYTES)) {
+           else if (request.getResultType().equals(HttpResultType.BYTES)){
                 response.setByteResult(method.getResponseBody());
             }
             response.setResponseHeaders(method.getResponseHeaders());
-        } catch (UnknownHostException ex) {
+        } catch (UnknownHostException ex){
             return null;
-        } catch (IOException ex) {
+        } catch (IOException ex){
             return null;
-        } catch (Exception ex) {
+        } catch (Exception ex){
             return null;
         } finally {
             method.releaseConnection();
@@ -123,14 +123,14 @@ public class HttpProtocolHandler {
         HttpClient httpclient = new HttpClient(this.connectionManager);
 
         int connectionTimeout = this.defaultConnectionTimeout;
-        if (request.getConnectionTimeout() > 0) {
+        if (request.getConnectionTimeout() > 0){
             connectionTimeout = request.getConnectionTimeout();
         }
         httpclient.getHttpConnectionManager().getParams().setConnectionTimeout(
             connectionTimeout);
 
         int soTimeout = this.defaultSoTimeout;
-        if (request.getTimeout() > 0) {
+        if (request.getTimeout() > 0){
             soTimeout = request.getTimeout();
         }
         httpclient.getHttpConnectionManager().getParams().setSoTimeout(
@@ -143,21 +143,21 @@ public class HttpProtocolHandler {
         charset = charset == null ? DEFAULT_CHARSET : charset;
         HttpMethod method = null;
 
-        if (request.getMethod().equals("GET")) {
+        if (request.getMethod().equals("GET")){
             method = new GetMethod(request.getUrl());
             method.getParams().setCredentialCharset(charset);
 
             method.setQueryString(request.getQueryString());
-        } else if ((strParaFileName.equals("")) && (strFilePath.equals(""))) {
+        }else if ((strParaFileName.equals("")) && (strFilePath.equals(""))){
             method = new PostMethod(request.getUrl());
             ((PostMethod)method).addParameters(request.getParameters());
             method.addRequestHeader("Content-Type",
                                     "application/x-www-form-urlencoded; text/html; charset=" +
                                     charset);
-        } else {
+        }else{
             method = new PostMethod(request.getUrl());
             List parts = new ArrayList();
-            for (int i = 0; i < request.getParameters().length; i++) {
+            for (int i = 0; i < request.getParameters().length; i++){
                 parts.add(
                     new StringPart(request.getParameters()[i].getName(),
                                    request.getParameters()[i].getValue(), charset));
@@ -177,15 +177,15 @@ public class HttpProtocolHandler {
             httpclient.executeMethod(method);
             if (request.getResultType().equals(HttpResultType.STRING))
                 response.setStringResult(method.getResponseBodyAsString());
-            else if (request.getResultType().equals(HttpResultType.BYTES)) {
+           else if (request.getResultType().equals(HttpResultType.BYTES)){
                 response.setByteResult(method.getResponseBody());
             }
             response.setResponseHeaders(method.getResponseHeaders());
-        } catch (UnknownHostException ex) {
+        } catch (UnknownHostException ex){
             return null;
-        } catch (IOException ex) {
+        } catch (IOException ex){
             return null;
-        } catch (Exception ex) {
+        } catch (Exception ex){
             return null;
         } finally {
             method.releaseConnection();
@@ -195,19 +195,19 @@ public class HttpProtocolHandler {
         return response;
     }
 
-    protected String toString(NameValuePair[] nameValues) {
-        if ((nameValues == null) || (nameValues.length == 0)) {
+    protected String toString(NameValuePair[] nameValues){
+        if ((nameValues == null) || (nameValues.length == 0)){
             return "null";
         }
 
         StringBuffer buffer = new StringBuffer();
 
-        for (int i = 0; i < nameValues.length; i++) {
+        for (int i = 0; i < nameValues.length; i++){
             NameValuePair nameValue = nameValues[i];
 
             if (i == 0)
                 buffer.append(nameValue.getName() + "=" + nameValue.getValue());
-            else {
+           else{
                 buffer.append("&" + nameValue.getName() + "=" +
                               nameValue.getValue());
             }

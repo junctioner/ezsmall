@@ -34,7 +34,7 @@ public class TenpayHttpClient {
     private String charset;
     private InputStream inputStream;
 
-    public TenpayHttpClient() {
+    public TenpayHttpClient(){
         this.caFile = null;
         this.certFile = null;
         this.certPasswd = "";
@@ -51,53 +51,53 @@ public class TenpayHttpClient {
         this.inputStream = null;
     }
 
-    public void setCertInfo(File certFile, String certPasswd) {
+    public void setCertInfo(File certFile, String certPasswd){
         this.certFile = certFile;
         this.certPasswd = certPasswd;
     }
 
-    public void setCaInfo(File caFile) {
+    public void setCaInfo(File caFile){
         this.caFile = caFile;
     }
 
-    public void setReqContent(String reqContent) {
+    public void setReqContent(String reqContent){
         this.reqContent = reqContent;
     }
 
-    public String getResContent() {
+    public String getResContent(){
         try {
             doResponse();
-        } catch (IOException e) {
+        } catch (IOException e){
             this.errInfo = e.getMessage();
         }
 
         return this.resContent;
     }
 
-    public void setMethod(String method) {
+    public void setMethod(String method){
         this.method = method;
     }
 
-    public String getErrInfo() {
+    public String getErrInfo(){
         return this.errInfo;
     }
 
-    public void setTimeOut(int timeOut) {
+    public void setTimeOut(int timeOut){
         this.timeOut = timeOut;
     }
 
-    public int getResponseCode() {
+    public int getResponseCode(){
         return this.responseCode;
     }
 
-    public boolean call() {
+    public boolean call(){
         boolean isRet = false;
 
-        if ((this.caFile == null) && (this.certFile == null)) {
+        if ((this.caFile == null) && (this.certFile == null)){
             try {
                 callHttp();
                 isRet = true;
-            } catch (IOException e) {
+            } catch (IOException e){
                 this.errInfo = e.getMessage();
             }
             return isRet;
@@ -106,17 +106,17 @@ public class TenpayHttpClient {
         try {
             callHttps();
             isRet = true;
-        } catch (UnrecoverableKeyException e) {
+        } catch (UnrecoverableKeyException e){
             this.errInfo = e.getMessage();
-        } catch (KeyManagementException e) {
+        } catch (KeyManagementException e){
             this.errInfo = e.getMessage();
-        } catch (CertificateException e) {
+        } catch (CertificateException e){
             this.errInfo = e.getMessage();
-        } catch (KeyStoreException e) {
+        } catch (KeyStoreException e){
             this.errInfo = e.getMessage();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e){
             this.errInfo = e.getMessage();
-        } catch (IOException e) {
+        } catch (IOException e){
             this.errInfo = e.getMessage();
         }
 
@@ -125,7 +125,7 @@ public class TenpayHttpClient {
 
     protected void callHttp()
     throws IOException {
-        if ("POST".equals(this.method.toUpperCase())) {
+        if ("POST".equals(this.method.toUpperCase())){
             String url = HttpClientUtil.getURL(this.reqContent);
             String queryString = HttpClientUtil.getQueryString(this.reqContent);
             byte[] postData = queryString.getBytes(this.charset);
@@ -143,7 +143,7 @@ public class TenpayHttpClient {
 
         File jksCAFile = new File(caPath + "/" +
                                   "tenpay_cacert.jks");
-        if (!jksCAFile.isFile()) {
+        if (!jksCAFile.isFile()){
             X509Certificate cert = (X509Certificate)
                                    HttpClientUtil.getCertificate(this.caFile);
 
@@ -164,7 +164,7 @@ public class TenpayHttpClient {
         keyStream.close();
         trustStream.close();
 
-        if ("POST".equals(this.method.toUpperCase())) {
+        if ("POST".equals(this.method.toUpperCase())){
             String url = HttpClientUtil.getURL(this.reqContent);
             String queryString = HttpClientUtil.getQueryString(this.reqContent);
             byte[] postData = queryString.getBytes(this.charset);
@@ -220,7 +220,7 @@ public class TenpayHttpClient {
         doPost(conn, postData);
     }
 
-    protected void setHttpRequest(HttpURLConnection httpConnection) {
+    protected void setHttpRequest(HttpURLConnection httpConnection){
         httpConnection.setConnectTimeout(this.timeOut * 1000);
 
         httpConnection.setRequestProperty("User-Agent",
@@ -234,7 +234,7 @@ public class TenpayHttpClient {
 
     protected void doResponse()
     throws IOException {
-        if (this.inputStream == null) {
+        if (this.inputStream == null){
             return;
         }
 

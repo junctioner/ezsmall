@@ -37,51 +37,51 @@ public class RefundLog extends IdEntity {
 
     @Lob
     @Column(columnDefinition = "LongText")
-    public OrderForm getOf() {
+    public OrderForm getOf(){
         return this.of;
     }
 
-    public void setOf(OrderForm of) {
+    public void setOf(OrderForm of){
         this.of = of;
     }
 
-    public String getRefund_log() {
+    public String getRefund_log(){
         return this.refund_log;
     }
 
-    public void setRefund_log(String refund_log) {
+    public void setRefund_log(String refund_log){
         this.refund_log = refund_log;
     }
 
-    public BigDecimal getRefund() {
+    public BigDecimal getRefund(){
         return this.refund;
     }
 
-    public void setRefund(BigDecimal refund) {
+    public void setRefund(BigDecimal refund){
         this.refund = refund;
     }
 
-    public User getRefund_user() {
+    public User getRefund_user(){
         return this.refund_user;
     }
 
-    public void setRefund_user(User refund_user) {
+    public void setRefund_user(User refund_user){
         this.refund_user = refund_user;
     }
 
-    public String getRefund_type() {
+    public String getRefund_type(){
         return this.refund_type;
     }
 
-    public void setRefund_type(String refund_type) {
+    public void setRefund_type(String refund_type){
         this.refund_type = refund_type;
     }
 
-    public String getRefund_id() {
+    public String getRefund_id(){
         return this.refund_id;
     }
 
-    public void setRefund_id(String refund_id) {
+    public void setRefund_id(String refund_id){
         this.refund_id = refund_id;
     }
 }

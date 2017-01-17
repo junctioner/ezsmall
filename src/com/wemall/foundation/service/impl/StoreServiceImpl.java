@@ -22,39 +22,39 @@ public class StoreServiceImpl
     @Resource(name = "storeDAO")
     private IGenericDAO<Store> storeDao;
 
-    public boolean save(Store store) {
+    public boolean save(Store store){
         try {
             this.storeDao.save(store);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public Store getObjById(Long id) {
+    public Store getObjById(Long id){
         Store store = (Store)this.storeDao.get(id);
-        if (store != null) {
+        if (store != null){
             return store;
         }
 
         return null;
     }
 
-    public boolean delete(Long id) {
+    public boolean delete(Long id){
         try {
             this.storeDao.remove(id);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public boolean batchDelete(List<Serializable> storeIds) {
-        for (Serializable id : storeIds) {
+    public boolean batchDelete(List<Serializable> storeIds){
+        for (Serializable id : storeIds){
             delete((Long)id);
         }
 
@@ -66,44 +66,44 @@ public class StoreServiceImpl
      * @param properties
      * @return
      */
-    public IPageList list(IQueryObject properties) {
-        if (properties == null) {
+    public IPageList list(IQueryObject properties){
+        if (properties == null){
             return null;
         }
         String query = properties.getQuery();
         Map params = properties.getParameters();
         GenericPageList pList = new GenericPageList(Store.class, query,
                 params, this.storeDao);
-        if (properties != null) {
+        if (properties != null){
             PageObject pageObj = properties.getPageObj();
-            if (pageObj != null) {
+            if (pageObj != null){
                 pList.doList(pageObj.getCurrentPage() == null ? 0 : pageObj
                         .getCurrentPage().intValue(), pageObj.getPageSize() == null ? 0 :
                         pageObj.getPageSize().intValue());
             }
-        } else {
+        }else{
             pList.doList(0, -1);
         }
 
         return pList;
     }
 
-    public boolean update(Store store) {
+    public boolean update(Store store){
         try {
             this.storeDao.update(store);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return false;
     }
 
-    public List<Store> query(String query, Map params, int begin, int max) {
+    public List<Store> query(String query, Map params, int begin, int max){
         return this.storeDao.query(query, params, begin, max);
     }
 
-    public Store getObjByProperty(String propertyName, Object value) {
+    public Store getObjByProperty(String propertyName, Object value){
         return (Store)this.storeDao.getBy(propertyName, value);
     }
 }

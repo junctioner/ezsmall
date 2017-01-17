@@ -19,7 +19,7 @@ public class UCTools {
     private ISysConfigService configService;
     public static final ThreadLocal<Connection> thread = new ThreadLocal();
 
-    public boolean active_user(String userName, String pws, String email) {
+    public boolean active_user(String userName, String pws, String email){
         boolean ret = true;
         Connection conn = getConnection();
         try {
@@ -30,7 +30,7 @@ public class UCTools {
                          email + "','" + userName + "','" + pws + "','" +
                          System.currentTimeMillis() / 1000L + "','10')";
             ret = stmt.execute(sql);
-        } catch (SQLException e) {
+        } catch (SQLException e){
             e.printStackTrace();
         } finally {
             closeAll();
@@ -39,9 +39,9 @@ public class UCTools {
         return ret;
     }
 
-    public Connection getConnection() {
+    public Connection getConnection(){
         Connection conn = (Connection)thread.get();
-        if (conn == null) {
+        if (conn == null){
             SysConfig config = this.configService.getSysConfig();
             String UC_DATABASE = config.getUc_database();
             String UC_TABLE_PREFFIX = config.getUc_table_preffix();
@@ -54,9 +54,9 @@ public class UCTools {
                 conn = DriverManager.getConnection("jdbc:mysql://" +
                                                    UC_DATABASE_URL + ":" + UC_DATABASE_PORT + "/" +
                                                    UC_DATABASE, UC_DATABASE_USERNAME, UC_DATABASE_PWS);
-            } catch (ClassNotFoundException e) {
+            } catch (ClassNotFoundException e){
                 e.printStackTrace();
-            } catch (SQLException e) {
+            } catch (SQLException e){
                 e.printStackTrace();
             }
             thread.set(conn);
@@ -65,23 +65,23 @@ public class UCTools {
         return conn;
     }
 
-    public void closeAll() {
+    public void closeAll(){
         try {
             Connection conn = (Connection)thread.get();
-            if (conn != null) {
+            if (conn != null){
                 conn.close();
                 thread.set(null);
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             try {
                 throw e;
-            } catch (Exception e1) {
+            } catch (Exception e1){
                 e1.printStackTrace();
             }
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         UCTools tools = new UCTools();
         tools.active_user("test", "122", "333@test.com");
     }

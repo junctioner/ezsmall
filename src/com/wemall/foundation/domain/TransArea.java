@@ -31,43 +31,43 @@ public class TransArea extends IdEntity {
     //等级
     private int level;
 
-    public String getAreaName() {
+    public String getAreaName(){
         return this.areaName;
     }
 
-    public void setAreaName(String areaName) {
+    public void setAreaName(String areaName){
         this.areaName = areaName;
     }
 
-    public List<TransArea> getChilds() {
+    public List<TransArea> getChilds(){
         return this.childs;
     }
 
-    public void setChilds(List<TransArea> childs) {
+    public void setChilds(List<TransArea> childs){
         this.childs = childs;
     }
 
-    public TransArea getParent() {
+    public TransArea getParent(){
         return this.parent;
     }
 
-    public void setParent(TransArea parent) {
+    public void setParent(TransArea parent){
         this.parent = parent;
     }
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public int getLevel() {
+    public int getLevel(){
         return this.level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(int level){
         this.level = level;
     }
 }

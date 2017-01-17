@@ -42,25 +42,25 @@ public class ReportManageAction {
     private IUserService userService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "未处理举报列表", value = "/admin/report_list.htm*", rtype = "admin", rname = "举报管理", rcode = "report_manage", rgroup = "交易")
-    @RequestMapping( {"/admin/report_list.htm"})
-    public ModelAndView report_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String goods_name, String userName) {
+    @RequestMapping({"/admin/report_list.htm"})
+    public ModelAndView report_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String goods_name, String userName){
         ModelAndView mv = new JModelAndView("admin/blue/report_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
         ReportQueryObject qo = new ReportQueryObject(currentPage, mv, orderBy,
                 orderType);
-        if (!CommUtil.null2String(goods_name).equals("")) {
+        if (!CommUtil.null2String(goods_name).equals("")){
             qo.addQuery("obj.goods.goods_name",
                         new SysMap("goods_name", "%" +
                                    goods_name + "%"), "like");
             mv.addObject("goods_name", goods_name);
         }
-        if (!CommUtil.null2String(userName).equals("")) {
+        if (!CommUtil.null2String(userName).equals("")){
             qo.addQuery("obj.user.userName", new SysMap("userName", userName),
                         "=");
             mv.addObject("userName", userName);
@@ -74,26 +74,26 @@ public class ReportManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "已处理举报列表", value = "/admin/report_handle_list.htm*", rtype = "admin", rname = "举报管理", rcode = "report_manage", rgroup = "交易")
-    @RequestMapping( {"/admin/report_handle_list.htm"})
-    public ModelAndView report_handle_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String goods_name, String userName) {
+    @RequestMapping({"/admin/report_handle_list.htm"})
+    public ModelAndView report_handle_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String goods_name, String userName){
         ModelAndView mv = new JModelAndView(
             "admin/blue/report_handle_list.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
         ReportQueryObject qo = new ReportQueryObject(currentPage, mv, orderBy,
                 orderType);
-        if (!CommUtil.null2String(goods_name).equals("")) {
+        if (!CommUtil.null2String(goods_name).equals("")){
             qo.addQuery("obj.goods.goods_name",
                         new SysMap("goods_name", "%" +
                                    goods_name + "%"), "like");
             mv.addObject("goods_name", goods_name);
         }
-        if (!CommUtil.null2String(userName).equals("")) {
+        if (!CommUtil.null2String(userName).equals("")){
             qo.addQuery("obj.user.userName", new SysMap("userName", userName),
                         "=");
             mv.addObject("userName", userName);
@@ -107,8 +107,8 @@ public class ReportManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "举报处理", value = "/admin/report_handle.htm*", rtype = "admin", rname = "举报管理", rcode = "report_manage", rgroup = "交易")
-    @RequestMapping( {"/admin/report_handle.htm"})
-    public ModelAndView report_handle(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/report_handle.htm"})
+    public ModelAndView report_handle(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/report_handle.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -120,8 +120,8 @@ public class ReportManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "举报处理", value = "/admin/report_handle_save.htm*", rtype = "admin", rname = "举报管理", rcode = "report_manage", rgroup = "交易")
-    @RequestMapping( {"/admin/report_handle_save.htm"})
-    public ModelAndView report_handle_save(HttpServletRequest request, HttpServletResponse response, String id, int result, String handle_info, String currentPage) {
+    @RequestMapping({"/admin/report_handle_save.htm"})
+    public ModelAndView report_handle_save(HttpServletRequest request, HttpServletResponse response, String id, int result, String handle_info, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -131,21 +131,21 @@ public class ReportManageAction {
         obj.setHandle_info(handle_info);
         obj.setHandle_Time(new Date());
         this.reportService.update(obj);
-        if (obj.getResult() == 1) {
+        if (obj.getResult() == 1){
             Goods goods = obj.getGoods();
             goods.setGoods_status(-3);
             this.goodsService.update(goods);
 
             String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
             File file = new File(goods_lucene_path);
-            if (!file.exists()) {
+            if (!file.exists()){
                 CommUtil.createFolder(goods_lucene_path);
             }
             LuceneUtil lucene = LuceneUtil.instance();
             LuceneUtil.setIndex_path(goods_lucene_path);
             lucene.delete_index(CommUtil.null2String(goods.getId()));
         }
-        if (obj.getResult() == -2) {
+        if (obj.getResult() == -2){
             User user = obj.getUser();
             user.setReport(-1);
             this.userService.update(user);

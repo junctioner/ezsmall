@@ -5,11 +5,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.wemall.core.query.QueryObject;
 
 public class GoodsReturnLogQueryObject extends QueryObject {
-    public GoodsReturnLogQueryObject(String currentPage, ModelAndView mv, String orderBy, String orderType) {
+    public GoodsReturnLogQueryObject(String currentPage, ModelAndView mv, String orderBy, String orderType){
         super(currentPage, mv, orderBy, orderType);
     }
 
-    public GoodsReturnLogQueryObject() {
+    public GoodsReturnLogQueryObject(){
     }
 }
 

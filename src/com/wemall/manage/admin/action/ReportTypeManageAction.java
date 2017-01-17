@@ -34,13 +34,13 @@ public class ReportTypeManageAction {
     private IReportTypeService reporttypeService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "举报类型列表", value = "/admin/reporttype_list.htm*", rtype = "admin", rname = "举报管理", rcode = "report_manage", rgroup = "交易")
-    @RequestMapping( {"/admin/reporttype_list.htm"})
-    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/admin/reporttype_list.htm"})
+    public ModelAndView list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView("admin/blue/reporttype_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -56,8 +56,8 @@ public class ReportTypeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "举报类型增加", value = "/admin/reporttype_add.htm*", rtype = "admin", rname = "举报管理", rcode = "report_manage", rgroup = "交易")
-    @RequestMapping( {"/admin/reporttype_add.htm"})
-    public ModelAndView add(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/admin/reporttype_add.htm"})
+    public ModelAndView add(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/reporttype_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -67,12 +67,12 @@ public class ReportTypeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "举报类型编辑", value = "/admin/reporttype_edit.htm*", rtype = "admin", rname = "举报管理", rcode = "report_manage", rgroup = "交易")
-    @RequestMapping( {"/admin/reporttype_edit.htm"})
-    public ModelAndView edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/reporttype_edit.htm"})
+    public ModelAndView edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/reporttype_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             ReportType reporttype = this.reporttypeService.getObjById(
                                         Long.valueOf(Long.parseLong(id)));
             mv.addObject("obj", reporttype);
@@ -84,14 +84,14 @@ public class ReportTypeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "举报类型保存", value = "/admin/reporttype_save.htm*", rtype = "admin", rname = "举报管理", rcode = "report_manage", rgroup = "交易")
-    @RequestMapping( {"/admin/reporttype_save.htm"})
-    public ModelAndView save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String list_url, String add_url) {
+    @RequestMapping({"/admin/reporttype_save.htm"})
+    public ModelAndView save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String list_url, String add_url){
         WebForm wf = new WebForm();
         ReportType reporttype = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             reporttype = (ReportType)wf.toPo(request, ReportType.class);
             reporttype.setAddTime(new Date());
-        } else {
+        }else{
             ReportType obj = this.reporttypeService.getObjById(
                                  Long.valueOf(Long.parseLong(id)));
             reporttype = (ReportType)wf.toPo(request, obj);
@@ -106,7 +106,7 @@ public class ReportTypeManageAction {
                                             .getUserConfig(), 0, request, response);
         mv.addObject("list_url", list_url);
         mv.addObject("op_title", "保存举报类型成功");
-        if (add_url != null) {
+        if (add_url != null){
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
 
@@ -114,11 +114,11 @@ public class ReportTypeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "举报类型删除", value = "/admin/reporttype_del.htm*", rtype = "admin", rname = "举报管理", rcode = "report_manage", rgroup = "交易")
-    @RequestMapping( {"/admin/reporttype_del.htm"})
-    public String delete(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage) {
+    @RequestMapping({"/admin/reporttype_del.htm"})
+    public String delete(HttpServletRequest request, HttpServletResponse response, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 ReportType reporttype = this.reporttypeService.getObjById(
                                             Long.valueOf(Long.parseLong(id)));
                 this.reporttypeService.delete(Long.valueOf(Long.parseLong(id)));

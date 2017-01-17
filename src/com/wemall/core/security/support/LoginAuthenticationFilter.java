@@ -39,21 +39,21 @@ public class LoginAuthenticationFilter extends AuthenticationProcessingFilter {
 
         // 验证码校验
         boolean flag = true;
-        if (session.getAttribute("verify_code") != null) {
+        if (session.getAttribute("verify_code") != null){
             String code = request.getParameter("code") != null ? request.getParameter("code").toUpperCase() : "";
-            if (!session.getAttribute("verify_code").equals(code)) {
+            if (!session.getAttribute("verify_code").equals(code)){
                 flag = false;
             }
         }
 
         // 用户输入验证码错误
-        if (!flag) {
+        if (!flag){
             String username = obtainUsername(request);
             String password = "";
             username = username.trim();
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
                 username, password);
-            if ((session != null) || (getAllowSessionCreation())) {
+            if ((session != null) || (getAllowSessionCreation())){
                 request.getSession().setAttribute("SPRING_SECURITY_LAST_USERNAME",
                                                   TextUtils.escapeEntities(username));
             }
@@ -69,7 +69,7 @@ public class LoginAuthenticationFilter extends AuthenticationProcessingFilter {
             username = obtainUsername(request) + "," + login_role;
         String password = obtainPassword(request);
 
-        if (this.configService.getSysConfig().isUc_bbs()) {
+        if (this.configService.getSysConfig().isUc_bbs()){
             String uc_login_js = uc_Login(
                                      CommUtil.decode(obtainUsername(request)), password);
             request.getSession(false).setAttribute("uc_login_js",
@@ -78,7 +78,7 @@ public class LoginAuthenticationFilter extends AuthenticationProcessingFilter {
         username = username.trim();
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
             username, password);
-        if ((session != null) || (getAllowSessionCreation())) {
+        if ((session != null) || (getAllowSessionCreation())){
             request.getSession().setAttribute(
                 "SPRING_SECURITY_LAST_USERNAME",
                 TextUtils.escapeEntities(username));
@@ -99,19 +99,19 @@ public class LoginAuthenticationFilter extends AuthenticationProcessingFilter {
         super.onUnsuccessfulAuthentication(request, response, failed);
     }
 
-    private static String uc_Login(String username, String pws) {
+    private static String uc_Login(String username, String pws){
         String ucsynlogin = "";
         UCClient e = new UCClient();
         String result = e.uc_user_login(username, pws);
         LinkedList rs = XMLHelper.uc_unserialize(result);
-        if (rs.size() > 0) {
+        if (rs.size() > 0){
             int uid = Integer.parseInt((String)rs.get(0));
             String uname = (String)rs.get(1);
             String password = (String)rs.get(2);
             String email = (String)rs.get(3);
-            if (uid > 0) {
+            if (uid > 0){
                 ucsynlogin = e.uc_user_synlogin(uid);
-            } else if (uid == -1) {
+            }else if (uid == -1){
                 System.out.println("用户不存在,或者被删除");
             }
         }

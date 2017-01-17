@@ -99,8 +99,8 @@ public class OrderSellerAction {
     private PaymentTools paymentTools;
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家订单列表", value = "/seller/order.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order.htm"})
-    public ModelAndView order(HttpServletRequest request, HttpServletResponse response, String currentPage, String order_status, String order_id, String beginTime, String endTime, String buyer_userName) {
+    @RequestMapping({"/seller/order.htm"})
+    public ModelAndView order(HttpServletRequest request, HttpServletResponse response, String currentPage, String order_status, String order_id, String beginTime, String endTime, String buyer_userName){
         ModelAndView mv = mv = new JModelAndView(
             "user/default/usercenter/seller_order.html",
             this.configService.getSysConfig(),
@@ -110,51 +110,51 @@ public class OrderSellerAction {
         ofqo.addQuery("obj.store.user.id",
                       new SysMap("user_id",
                                  SecurityUserHolder.getCurrentUser().getId()), "=");
-        if (!CommUtil.null2String(order_status).equals("")) {
-            if (order_status.equals("order_submit")) {
+        if (!CommUtil.null2String(order_status).equals("")){
+            if (order_status.equals("order_submit")){
                 ofqo.addQuery("obj.order_status",
                               new SysMap("order_status", Integer.valueOf(10)), "=");
             }
-            if (order_status.equals("order_pay")) {
+            if (order_status.equals("order_pay")){
                 ofqo.addQuery("obj.order_status",
                               new SysMap("order_status", Integer.valueOf(20)), "=");
             }
-            if (order_status.equals("order_shipping")) {
+            if (order_status.equals("order_shipping")){
                 ofqo.addQuery("obj.order_status",
                               new SysMap("order_status", Integer.valueOf(30)), "=");
             }
-            if (order_status.equals("order_receive")) {
+            if (order_status.equals("order_receive")){
                 ofqo.addQuery("obj.order_status",
                               new SysMap("order_status", Integer.valueOf(40)), "=");
             }
-            if (order_status.equals("order_evaluate")) {
+            if (order_status.equals("order_evaluate")){
                 ofqo.addQuery("obj.order_status",
                               new SysMap("order_status", Integer.valueOf(50)), "=");
             }
-            if (order_status.equals("order_finish")) {
+            if (order_status.equals("order_finish")){
                 ofqo.addQuery("obj.order_status",
                               new SysMap("order_status", Integer.valueOf(60)), "=");
             }
-            if (order_status.equals("order_cancel")) {
+            if (order_status.equals("order_cancel")){
                 ofqo.addQuery("obj.order_status",
                               new SysMap("order_status", Integer.valueOf(0)), "=");
             }
         }
-        if (!CommUtil.null2String(order_id).equals("")) {
+        if (!CommUtil.null2String(order_id).equals("")){
             ofqo.addQuery("obj.order_id",
                           new SysMap("order_id", "%" + order_id +
                                      "%"), "like");
         }
-        if (!CommUtil.null2String(beginTime).equals("")) {
+        if (!CommUtil.null2String(beginTime).equals("")){
             ofqo.addQuery("obj.addTime",
                           new SysMap("beginTime", CommUtil.formatDate(beginTime)),
                           ">=");
         }
-        if (!CommUtil.null2String(endTime).equals("")) {
+        if (!CommUtil.null2String(endTime).equals("")){
             ofqo.addQuery("obj.addTime",
                           new SysMap("endTime", CommUtil.formatDate(endTime)), ">=");
         }
-        if (!CommUtil.null2String(buyer_userName).equals("")) {
+        if (!CommUtil.null2String(buyer_userName).equals("")){
             ofqo.addQuery("obj.user.userName",
                           new SysMap("userName",
                                      buyer_userName), "=");
@@ -173,8 +173,8 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家订单详情", value = "/seller/order_view.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_view.htm"})
-    public ModelAndView order_view(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/order_view.htm"})
+    public ModelAndView order_view(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/order_view.html",
             this.configService.getSysConfig(),
@@ -183,12 +183,12 @@ public class OrderSellerAction {
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             mv.addObject("obj", obj);
             TransInfo transInfo = query_ship_getData(
                                       CommUtil.null2String(obj.getId()));
             mv.addObject("transInfo", transInfo);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -200,8 +200,8 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家取消订单", value = "/seller/order_cancel.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_cancel.htm"})
-    public ModelAndView order_cancel(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/seller/order_cancel.htm"})
+    public ModelAndView order_cancel(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/seller_order_cancel.html",
             this.configService.getSysConfig(),
@@ -210,10 +210,10 @@ public class OrderSellerAction {
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             mv.addObject("obj", obj);
             mv.addObject("currentPage", currentPage);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -225,14 +225,14 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家取消订单保存", value = "/seller/order_cancel_save.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_cancel_save.htm"})
+    @RequestMapping({"/seller/order_cancel_save.htm"})
     public String order_cancel_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String state_info, String other_state_info) throws Exception {
         OrderForm obj = this.orderFormService
                         .getObjById(CommUtil.null2Long(id));
 
         // 判断订单所属店铺是否是当前登录用户的店铺
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             obj.setOrder_status(0);
             this.orderFormService.update(obj);
             OrderFormLog ofl = new OrderFormLog();
@@ -242,15 +242,15 @@ public class OrderSellerAction {
             ofl.setOf(obj);
             if (state_info.equals("other"))
                 ofl.setState_info(other_state_info);
-            else {
+           else{
                 ofl.setState_info(state_info);
             }
             this.orderFormLogService.save(ofl);
-            if (this.configService.getSysConfig().isEmailEnable()) {
+            if (this.configService.getSysConfig().isEmailEnable()){
                 send_email(request, obj,
                            "email_tobuyer_order_cancel_notify");
             }
-            if (this.configService.getSysConfig().isSmsEnbale()) {
+            if (this.configService.getSysConfig().isSmsEnbale()){
                 send_sms(request, obj, obj.getUser().getMobile(),
                          "sms_tobuyer_order_cancel_notify");
             }
@@ -260,8 +260,8 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家调整订单费用", value = "/seller/order_fee.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_fee.htm"})
-    public ModelAndView order_fee(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/seller/order_fee.htm"})
+    public ModelAndView order_fee(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/seller_order_fee.html",
             this.configService.getSysConfig(),
@@ -270,10 +270,10 @@ public class OrderSellerAction {
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             mv.addObject("obj", obj);
             mv.addObject("currentPage", currentPage);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -285,14 +285,14 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家调整订单费用保存", value = "/seller/order_fee_save.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_fee_save.htm"})
+    @RequestMapping({"/seller/order_fee_save.htm"})
     public String order_fee_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String goods_amount, String ship_price, String totalPrice) throws Exception {
         OrderForm obj = this.orderFormService
                         .getObjById(CommUtil.null2Long(id));
 
         // 判断订单所属店铺是否是当前登录用户的店铺
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             obj.setGoods_amount(BigDecimal.valueOf(
                                     CommUtil.null2Double(goods_amount)));
             obj.setShip_price(BigDecimal.valueOf(
@@ -307,11 +307,11 @@ public class OrderSellerAction {
             ofl.setLog_user(SecurityUserHolder.getCurrentUser());
             ofl.setOf(obj);
             this.orderFormLogService.save(ofl);
-            if (this.configService.getSysConfig().isEmailEnable()) {
+            if (this.configService.getSysConfig().isEmailEnable()){
                 send_email(request, obj,
                            "email_tobuyer_order_update_fee_notify");
             }
-            if (this.configService.getSysConfig().isSmsEnbale()) {
+            if (this.configService.getSysConfig().isSmsEnbale()){
                 send_sms(request, obj, obj.getUser().getMobile(),
                          "sms_tobuyer_order_fee_notify");
             }
@@ -321,8 +321,8 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "线下付款确认", value = "/seller/seller_order_outline.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/seller_order_outline.htm"})
-    public ModelAndView seller_order_outline(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/seller/seller_order_outline.htm"})
+    public ModelAndView seller_order_outline(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/seller_order_outline.html",
             this.configService.getSysConfig(),
@@ -331,10 +331,10 @@ public class OrderSellerAction {
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             mv.addObject("obj", obj);
             mv.addObject("currentPage", currentPage);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -346,21 +346,21 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "线下付款确认保存", value = "/seller/seller_order_outline_save.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/seller_order_outline_save.htm"})
+    @RequestMapping({"/seller/seller_order_outline_save.htm"})
     public String seller_order_outline_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String state_info) throws Exception {
         OrderForm obj = this.orderFormService
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             obj.setOrder_status(20);
             this.orderFormService.update(obj);
 
-            for (GoodsCart gc : obj.getGcs()) {
+            for (GoodsCart gc : obj.getGcs()){
                 Goods goods = gc.getGoods();
-                if ((goods.getGroup() != null) && (goods.getGroup_buy() == 2)) {
-                    for (GroupGoods gg : goods.getGroup_goods_list()) {
-                        if (gg.getGroup().equals(goods.getGroup().getId())) {
+                if ((goods.getGroup() != null) && (goods.getGroup_buy() == 2)){
+                    for (GroupGoods gg : goods.getGroup_goods_list()){
+                        if (gg.getGroup().equals(goods.getGroup().getId())){
                             gg.setGg_count(gg.getGg_count() - gc.getCount());
                             gg.setGg_def_count(gg.getGg_def_count() +
                                                gc.getCount());
@@ -369,7 +369,7 @@ public class OrderSellerAction {
                     }
                 }
                 List gsps = new ArrayList();
-                for (GoodsSpecProperty gsp : gc.getGsps()) {
+                for (GoodsSpecProperty gsp : gc.getGsps()){
                     gsps.add(gsp.getId().toString());
                 }
                 String[] gsp_list = new String[gsps.size()];
@@ -378,19 +378,19 @@ public class OrderSellerAction {
                 String inventory_type = goods.getInventory_type() == null ? "all" :
                                         goods.getInventory_type();
                 Map temp;
-                if (inventory_type.equals("all")) {
+                if (inventory_type.equals("all")){
                     goods.setGoods_inventory(goods.getGoods_inventory() -
                                              gc.getCount());
-                } else {
+                }else{
                     List list = (List) Json.fromJson(ArrayList.class,
                                                      goods.getGoods_inventory_detail());
-                    for (Iterator localIterator4 = list.iterator(); localIterator4.hasNext(); ) {
+                    for (Iterator localIterator4 = list.iterator(); localIterator4.hasNext();){
                         temp = (Map) localIterator4.next();
                         String[] temp_ids =
                             CommUtil.null2String(temp.get("id")).split("_");
                         Arrays.sort(temp_ids);
                         Arrays.sort(gsp_list);
-                        if (Arrays.equals(temp_ids, gsp_list)) {
+                        if (Arrays.equals(temp_ids, gsp_list)){
                             temp.put(
                                 "count",
                                 Integer.valueOf(CommUtil.null2Int(temp.get("count")) -
@@ -400,7 +400,7 @@ public class OrderSellerAction {
                     goods.setGoods_inventory_detail(Json.toJson(list,
                                                     JsonFormat.compact()));
                 }
-                for (GroupGoods gg : goods.getGroup_goods_list()) {
+                for (GroupGoods gg : goods.getGroup_goods_list()){
                     if ((!gg.getGroup().getId().equals(goods.getGroup().getId())) ||
                             (gg.getGg_count() != 0)) continue;
                     goods.setGroup_buy(3);
@@ -415,11 +415,11 @@ public class OrderSellerAction {
             ofl.setOf(obj);
             ofl.setState_info(state_info);
             this.orderFormLogService.save(ofl);
-            if (this.configService.getSysConfig().isEmailEnable()) {
+            if (this.configService.getSysConfig().isEmailEnable()){
                 send_email(request, obj,
                            "email_tobuyer_order_outline_pay_ok_notify");
             }
-            if (this.configService.getSysConfig().isSmsEnbale()) {
+            if (this.configService.getSysConfig().isSmsEnbale()){
                 send_sms(request, obj, obj.getUser().getMobile(),
                          "sms_tobuyer_order_outline_pay_ok_notify");
             }
@@ -429,8 +429,8 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家确认发货", value = "/seller/order_shipping.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_shipping.htm"})
-    public ModelAndView order_shipping(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/seller/order_shipping.htm"})
+    public ModelAndView order_shipping(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/seller_order_shipping.html",
             this.configService.getSysConfig(),
@@ -439,7 +439,7 @@ public class OrderSellerAction {
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             mv.addObject("obj", obj);
             mv.addObject("currentPage", currentPage);
 
@@ -450,10 +450,10 @@ public class OrderSellerAction {
                                              map, -1, -1);
             List deliveryGoods = new ArrayList();
             boolean physicalGoods = false;
-            for (GoodsCart gc : goodsCarts) {
+            for (GoodsCart gc : goodsCarts){
                 if (gc.getGoods().getGoods_choice_type() == 1)
                     deliveryGoods.add(gc);
-                else {
+               else{
                     physicalGoods = true;
                 }
             }
@@ -465,7 +465,7 @@ public class OrderSellerAction {
             mv.addObject("expressCompanys", expressCompanys);
             mv.addObject("physicalGoods", Boolean.valueOf(physicalGoods));
             mv.addObject("deliveryGoods", deliveryGoods);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -477,7 +477,7 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家确认发货保存", value = "/seller/order_shipping_save.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_shipping_save.htm"})
+    @RequestMapping({"/seller/order_shipping_save.htm"})
     public String order_shipping_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String shipCode, String state_info, String order_seller_intro, String ec_id) throws Exception {
         OrderForm obj = this.orderFormService
                         .getObjById(CommUtil.null2Long(id));
@@ -485,7 +485,7 @@ public class OrderSellerAction {
                                 CommUtil.null2Long(ec_id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             obj.setOrder_status(30);
             obj.setShipCode(shipCode);
             obj.setShipTime(new Date());
@@ -499,23 +499,23 @@ public class OrderSellerAction {
             ofl.setLog_user(SecurityUserHolder.getCurrentUser());
             ofl.setOf(obj);
             this.orderFormLogService.save(ofl);
-            if (this.configService.getSysConfig().isEmailEnable()) {
+            if (this.configService.getSysConfig().isEmailEnable()){
                 send_email(request, obj, "email_tobuyer_order_ship_notify");
             }
-            if (this.configService.getSysConfig().isSmsEnbale()) {
+            if (this.configService.getSysConfig().isSmsEnbale()){
                 send_sms(request, obj, obj.getUser().getMobile(),
                          "sms_tobuyer_order_ship_notify");
             }
 
-            if (obj.getPayment().getMark().equals("alipay")) {
+            if (obj.getPayment().getMark().equals("alipay")){
                 boolean synch = false;
                 String safe_key = "";
                 String partner = "";
 
                 if (!CommUtil.null2String(obj.getPayment().getSafeKey())
-                        .equals("")) {
+                        .equals("")){
                     if (!CommUtil.null2String(obj.getPayment().getPartner())
-                            .equals("")) {
+                            .equals("")){
                         safe_key = obj.getPayment().getSafeKey();
                         partner = obj.getPayment().getPartner();
                         synch = true;
@@ -528,11 +528,11 @@ public class OrderSellerAction {
                                 .query("select obj from Payment obj where obj.type=:type and obj.mark=:mark",
                                        params, -1, -1);
                 if ((payments.size() > 0) &&
-                        (payments.get(0) != null)) {
+                        (payments.get(0) != null)){
                     if (!CommUtil.null2String(
-                                ((Payment) payments.get(0)).getSafeKey()).equals("")) {
+                                ((Payment) payments.get(0)).getSafeKey()).equals("")){
                         if (!CommUtil.null2String(
-                                    ((Payment) payments.get(0)).getPartner()).equals("")) {
+                                    ((Payment) payments.get(0)).getPartner()).equals("")){
                             safe_key = ((Payment) payments.get(0)).getSafeKey();
                             partner = ((Payment) payments.get(0)).getPartner();
                             synch = true;
@@ -540,7 +540,7 @@ public class OrderSellerAction {
                     }
                 }
                 label480:
-                if (synch) {
+                if (synch){
                     AlipayConfig config = new AlipayConfig();
                     config.setKey(safe_key);
                     config.setPartner(partner);
@@ -563,8 +563,8 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家修改物流", value = "/seller/order_shipping_code.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_shipping_code.htm"})
-    public ModelAndView order_shipping_code(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/seller/order_shipping_code.htm"})
+    public ModelAndView order_shipping_code(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/seller_order_shipping_code.html",
             this.configService.getSysConfig(),
@@ -573,10 +573,10 @@ public class OrderSellerAction {
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             mv.addObject("obj", obj);
             mv.addObject("currentPage", currentPage);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -588,13 +588,13 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家修改物流保存", value = "/seller/order_shipping_code_save.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_shipping_code_save.htm"})
-    public String order_shipping_code_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String shipCode, String state_info) {
+    @RequestMapping({"/seller/order_shipping_code_save.htm"})
+    public String order_shipping_code_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String shipCode, String state_info){
         OrderForm obj = this.orderFormService
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             obj.setShipCode(shipCode);
             this.orderFormService.update(obj);
             OrderFormLog ofl = new OrderFormLog();
@@ -610,8 +610,8 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家退款", value = "/seller/order_refund.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_refund.htm"})
-    public ModelAndView order_refund(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/seller/order_refund.htm"})
+    public ModelAndView order_refund(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/seller_order_refund.html",
             this.configService.getSysConfig(),
@@ -620,11 +620,11 @@ public class OrderSellerAction {
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             mv.addObject("obj", obj);
             mv.addObject("currentPage", currentPage);
             mv.addObject("paymentTools", this.paymentTools);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -636,19 +636,19 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家退款保存", value = "/seller/order_refund_save.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_refund_save.htm"})
-    public String order_refund_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String refund, String refund_log, String refund_type) {
+    @RequestMapping({"/seller/order_refund_save.htm"})
+    public String order_refund_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String refund, String refund_log, String refund_type){
         OrderForm obj = this.orderFormService
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             obj.setRefund(BigDecimal.valueOf(CommUtil.add(obj.getRefund(),
                                              refund)));
             this.orderFormService.update(obj);
 
             String type = "预存款";
-            if (type.equals(refund_type)) {
+            if (type.equals(refund_type)){
                 User seller = this.userService.getObjById(obj.getStore()
                               .getUser().getId());
                 seller.setAvailableBalance(BigDecimal.valueOf(
@@ -677,8 +677,8 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家退货", value = "/seller/order_return.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_return.htm"})
-    public ModelAndView order_return(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/seller/order_return.htm"})
+    public ModelAndView order_return(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/seller_order_return.html",
             this.configService.getSysConfig(),
@@ -687,10 +687,10 @@ public class OrderSellerAction {
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             mv.addObject("obj", obj);
             mv.addObject("currentPage", currentPage);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -702,13 +702,13 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家退货保存", value = "/seller/order_return_save.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_return_save.htm"})
-    public String order_return_save(HttpServletRequest request, HttpServletResponse response, String id, String return_info, String currentPage) {
+    @RequestMapping({"/seller/order_return_save.htm"})
+    public String order_return_save(HttpServletRequest request, HttpServletResponse response, String id, String return_info, String currentPage){
         OrderForm obj = this.orderFormService
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             Enumeration enum1 = request.getParameterNames();
             GoodsReturn gr = new GoodsReturn();
             gr.setAddTime(new Date());
@@ -718,14 +718,14 @@ public class OrderSellerAction {
             gr.setUser(SecurityUserHolder.getCurrentUser());
             gr.setReturn_info(return_info);
             this.goodsReturnService.save(gr);
-            while (enum1.hasMoreElements()) {
+            while (enum1.hasMoreElements()){
                 String paramName = (String) enum1.nextElement();
-                if (paramName.indexOf("refund_count_") >= 0) {
+                if (paramName.indexOf("refund_count_") >= 0){
                     GoodsCart gc = this.goodsCartService.getObjById(
                                        CommUtil.null2Long(paramName.substring(13)));
                     int count = CommUtil.null2Int(request
                                                   .getParameter(paramName));
-                    if (count > 0) {
+                    if (count > 0){
                         gc.setCount(gc.getCount() - count);
                         this.goodsCartService.update(gc);
                         GoodsReturnItem item = new GoodsReturnItem();
@@ -733,31 +733,31 @@ public class OrderSellerAction {
                         item.setCount(count);
                         item.setGoods(gc.getGoods());
                         item.setGr(gr);
-                        for (GoodsSpecProperty gsp : gc.getGsps()) {
+                        for (GoodsSpecProperty gsp : gc.getGsps()){
                             item.getGsps().add(gsp);
                         }
                         item.setSpec_info(gc.getSpec_info());
                         this.goodsReturnItemService.save(item);
 
                         Goods goods = gc.getGoods();
-                        if (goods.getInventory_type().equals("all")) {
+                        if (goods.getInventory_type().equals("all")){
                             goods.setGoods_inventory(goods.getGoods_inventory() +
                                                      count);
-                        } else {
+                        }else{
                             Object gsps = new ArrayList();
-                            for (GoodsSpecProperty gsp : gc.getGsps()) {
+                            for (GoodsSpecProperty gsp : gc.getGsps()){
                                 ((List) gsps).add(gsp.getId().toString());
                             }
                             String[] gsp_list = new String[((List) gsps).size()];
                             ((List) gsps).toArray(gsp_list);
                             List<Map> list = (List) Json.fromJson(ArrayList.class,
                                                                   goods.getGoods_inventory_detail());
-                            for (Map temp : list) {
+                            for (Map temp : list){
                                 String[] temp_ids = CommUtil.null2String(
                                                         temp.get("id")).split("_");
                                 Arrays.sort(temp_ids);
                                 Arrays.sort(gsp_list);
-                                if (Arrays.equals(temp_ids, gsp_list)) {
+                                if (Arrays.equals(temp_ids, gsp_list)){
                                     temp.put(
                                         "count",
                                         Integer.valueOf(CommUtil.null2Int(temp.get("count")) +
@@ -770,14 +770,14 @@ public class OrderSellerAction {
                         goods.setGoods_salenum(goods.getGoods_salenum() - count);
                         this.goodsService.update(goods);
 
-                        if (obj.getPayment().getMark().equals("balance")) {
+                        if (obj.getPayment().getMark().equals("balance")){
                             BigDecimal balance = goods.getGoods_current_price();
                             User seller = this.userService
                                           .getObjById(
                                               SecurityUserHolder.getCurrentUser().getId());
 
                             if (this.configService.getSysConfig()
-                                    .getBalance_fenrun() == 1) {
+                                    .getBalance_fenrun() == 1){
                                 Object params = new HashMap();
                                 ((Map) params).put("type", "admin");
                                 ((Map) params).put("mark", "balance");
@@ -785,7 +785,7 @@ public class OrderSellerAction {
                                                 .query("select obj from Payment obj where obj.type=:type and obj.mark=:mark",
                                                        (Map) params, -1, -1);
                                 Payment shop_payment = new Payment();
-                                if (payments.size() > 0) {
+                                if (payments.size() > 0){
                                     shop_payment = (Payment) payments.get(0);
                                 }
 
@@ -824,8 +824,8 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家评价", value = "/seller/order_evaluate.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_evaluate.htm"})
-    public ModelAndView order_evaluate(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/seller/order_evaluate.htm"})
+    public ModelAndView order_evaluate(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/seller_order_evaluate.html",
             this.configService.getSysConfig(),
@@ -834,10 +834,10 @@ public class OrderSellerAction {
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             mv.addObject("obj", obj);
             mv.addObject("currentPage", currentPage);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -849,22 +849,22 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家评价保存", value = "/seller/order_evaluate_save.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_evaluate_save.htm"})
-    public ModelAndView order_evaluate_save(HttpServletRequest request, HttpServletResponse response, String id, String evaluate_info, String evaluate_seller_val) {
+    @RequestMapping({"/seller/order_evaluate_save.htm"})
+    public ModelAndView order_evaluate_save(HttpServletRequest request, HttpServletResponse response, String id, String evaluate_info, String evaluate_seller_val){
         OrderForm obj = this.orderFormService
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
-            if (obj.getOrder_status() == 50) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
+            if (obj.getOrder_status() == 50){
                 obj.setOrder_status(60);
                 obj.setFinishTime(new Date());
                 this.orderFormService.update(obj);
                 Enumeration enum1 = request.getParameterNames();
                 List maps = new ArrayList();
-                while (enum1.hasMoreElements()) {
+                while (enum1.hasMoreElements()){
                     String paramName = (String) enum1.nextElement();
-                    if (paramName.indexOf("evaluate_seller_val") >= 0) {
+                    if (paramName.indexOf("evaluate_seller_val") >= 0){
                         String value = request.getParameter(paramName);
                         Evaluate eva = this.evaluateService.getObjById(
                                            CommUtil.null2Long(paramName.substring(19)));
@@ -881,11 +881,11 @@ public class OrderSellerAction {
                         user.setUser_credit(user.getUser_credit() +
                                             eva.getEvaluate_seller_val());
 
-                        if (this.configService.getSysConfig().isIntegral()) {
+                        if (this.configService.getSysConfig().isIntegral()){
                             int integral = 0;
 
                             if (this.configService.getSysConfig()
-                                    .getConsumptionRatio() > 0) {
+                                    .getConsumptionRatio() > 0){
                                 integral = CommUtil.null2Int(Double.valueOf(CommUtil.div(obj
                                                              .getTotalPrice(),
                                                              Integer.valueOf(this.configService
@@ -927,13 +927,13 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "打印订单", value = "/seller/order_print.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_print.htm"})
-    public ModelAndView order_print(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/order_print.htm"})
+    public ModelAndView order_print(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/order_print.html",
             this.configService.getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             OrderForm orderform = this.orderFormService.getObjById(
                                       CommUtil.null2Long(id));
             mv.addObject("obj", orderform);
@@ -943,8 +943,8 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家物流详情", value = "/seller/ship_view.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/ship_view.htm"})
-    public ModelAndView order_ship_view(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/ship_view.htm"})
+    public ModelAndView order_ship_view(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/order_ship_view.html",
             this.configService.getSysConfig(),
@@ -953,12 +953,12 @@ public class OrderSellerAction {
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             mv.addObject("obj", obj);
             TransInfo transInfo = query_ship_getData(
                                       CommUtil.null2String(obj.getId()));
             mv.addObject("transInfo", transInfo);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -969,7 +969,7 @@ public class OrderSellerAction {
         return mv;
     }
 
-    private TransInfo query_ship_getData(String id) {
+    private TransInfo query_ship_getData(String id){
         TransInfo info = new TransInfo();
         OrderForm obj = this.orderFormService.getObjById(CommUtil.null2Long(id));
         try {
@@ -992,7 +992,7 @@ public class OrderSellerAction {
             /*byte[] b = new byte[10000];
             int numRead = urlStream.read(b);
             String content = new String(b, 0, numRead, charSet);
-            while (numRead != -1) {
+            while (numRead != -1){
               numRead = urlStream.read(b);
               if (numRead == -1)
                 continue;
@@ -1005,19 +1005,19 @@ public class OrderSellerAction {
             Reader reader = new InputStreamReader(urlStream, charSet);
             //增加缓冲功能
             BufferedReader bufferedReader = new BufferedReader(reader);
-            while ((line = bufferedReader.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null){
                 stringBuffer.append(line);
             }
-            if (bufferedReader != null) {
+            if (bufferedReader != null){
                 bufferedReader.close();
             }
             String content = stringBuffer.toString();
 
             info = (TransInfo) Json.fromJson(TransInfo.class, content);
             urlStream.close();
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException e){
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
 
@@ -1025,8 +1025,8 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家物流详情", value = "/seller/order_query_userinfor.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/order_query_userinfor.htm"})
-    public ModelAndView seller_query_userinfor(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/order_query_userinfor.htm"})
+    public ModelAndView seller_query_userinfor(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/seller_query_userinfor.html",
             this.configService.getSysConfig(),
@@ -1039,8 +1039,8 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家退货申请详情", value = "/seller/seller_order_return_apply_view.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/seller_order_return_apply_view.htm"})
-    public ModelAndView seller_order_return_apply_view(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/seller/seller_order_return_apply_view.htm"})
+    public ModelAndView seller_order_return_apply_view(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/seller_order_return_apply_view.html",
             this.configService.getSysConfig(),
@@ -1049,9 +1049,9 @@ public class OrderSellerAction {
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getUser().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getId())){
             mv.addObject("obj", obj);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -1063,15 +1063,15 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家保存退货申请", value = "/seller/seller_order_return.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/seller_order_return.htm"})
+    @RequestMapping({"/seller/seller_order_return.htm"})
     public String seller_order_return(HttpServletRequest request, HttpServletResponse response, String id, String gr_id, String currentPage, String mark) throws Exception {
         OrderForm obj = this.orderFormService
                         .getObjById(CommUtil.null2Long(id));
-        if (mark.equals("true")) {
+        if (mark.equals("true")){
             if (obj.getStore()
                     .getId()
                     .equals(SecurityUserHolder.getCurrentUser().getStore()
-                            .getId())) {
+                            .getId())){
                 Enumeration enum1 = request.getParameterNames();
                 GoodsReturn gr = this.goodsReturnService.getObjById(
                                      CommUtil.null2Long(gr_id));
@@ -1081,7 +1081,7 @@ public class OrderSellerAction {
                 Calendar cal = Calendar.getInstance();
                 cal.add(6, auto_order_return);
                 obj.setReturn_shipTime(cal.getTime());
-                if (this.configService.getSysConfig().isEmailEnable()) {
+                if (this.configService.getSysConfig().isEmailEnable()){
                     send_email(request, obj,
                                "email_tobuyer_order_return_apply_ok_notify");
                 }
@@ -1089,13 +1089,13 @@ public class OrderSellerAction {
                     send_sms(request, obj, obj.getUser().getMobile(),
                              "sms_tobuyer_order_return_apply_ok_notify");
             }
-        } else {
+        }else{
             obj.setOrder_status(48);
-            if (this.configService.getSysConfig().isEmailEnable()) {
+            if (this.configService.getSysConfig().isEmailEnable()){
                 send_email(request, obj,
                            "email_tobuyer_order_return_apply_refuse_notify");
             }
-            if (this.configService.getSysConfig().isSmsEnbale()) {
+            if (this.configService.getSysConfig().isSmsEnbale()){
                 send_sms(request, obj, obj.getUser().getMobile(),
                          "sms_tobuyer_order_return_apply_refuse_notify");
             }
@@ -1106,8 +1106,8 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "确认买家退货", value = "/seller/seller_order_return_confirm.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/seller_order_return_confirm.htm"})
-    public ModelAndView seller_order_return_confirm(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/seller_order_return_confirm.htm"})
+    public ModelAndView seller_order_return_confirm(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView("error.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
@@ -1115,7 +1115,7 @@ public class OrderSellerAction {
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             obj.setOrder_status(47);
             this.orderFormService.update(obj);
             mv = new JModelAndView("success.html",
@@ -1124,7 +1124,7 @@ public class OrderSellerAction {
                                    response);
             mv.addObject("op_title", "您已成功确认退货");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/order.htm");
-        } else {
+        }else{
             mv.addObject("op_title", "您店铺中没有编号为" + id + "的订单！");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/order.htm");
         }
@@ -1133,8 +1133,8 @@ public class OrderSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "买家退商品流详情", value = "/seller/seller_order_return_ship_view.htm*", rtype = "seller", rname = "订单管理", rcode = "order_seller", rgroup = "交易管理")
-    @RequestMapping( {"/seller/seller_order_return_ship_view.htm"})
-    public ModelAndView seller_order_return_ship_view(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/seller_order_return_ship_view.htm"})
+    public ModelAndView seller_order_return_ship_view(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView("error.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
@@ -1142,11 +1142,11 @@ public class OrderSellerAction {
                         .getObjById(CommUtil.null2Long(id));
 
         if (obj.getStore().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())) {
+                .equals(SecurityUserHolder.getCurrentUser().getStore().getId())){
             if ((obj.getReturn_shipCode() != null) &&
                     (!obj.getReturn_shipCode().equals("")) &&
                     (obj.getReturn_ec() != null) &&
-                    (!obj.getReturn_ec().equals(""))) {
+                    (!obj.getReturn_ec().equals(""))){
                 mv = new JModelAndView(
                     "user/default/usercenter/seller_order_return_ship_view.html",
                     this.configService.getSysConfig(), this.userConfigService
@@ -1155,12 +1155,12 @@ public class OrderSellerAction {
                                           CommUtil.null2String(obj.getId()));
                 mv.addObject("obj", obj);
                 mv.addObject("transInfo", transInfo);
-            } else {
+            }else{
                 mv.addObject("op_title", "买家没有提交退商品流信息");
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/seller/order.htm");
             }
-        } else {
+        }else{
             mv.addObject("op_title", "您店铺中没有编号为" + id + "的订单！");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/order.htm");
         }
@@ -1168,7 +1168,7 @@ public class OrderSellerAction {
         return mv;
     }
 
-    private TransInfo query_return_ship(String id) {
+    private TransInfo query_return_ship(String id){
         TransInfo info = new TransInfo();
         OrderForm obj = this.orderFormService
                         .getObjById(CommUtil.null2Long(id));
@@ -1194,7 +1194,7 @@ public class OrderSellerAction {
             byte[] b = new byte[10000];
             int numRead = urlStream.read(b);
             String content = new String(b, 0, numRead, charSet);
-            while (numRead != -1) {
+            while (numRead != -1){
                 numRead = urlStream.read(b);
                 if (numRead == -1)
                     continue;
@@ -1204,9 +1204,9 @@ public class OrderSellerAction {
 
             info = (TransInfo) Json.fromJson(TransInfo.class, content);
             urlStream.close();
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException e){
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
 
@@ -1215,13 +1215,13 @@ public class OrderSellerAction {
 
     private void send_email(HttpServletRequest request, OrderForm order, String mark) throws Exception {
         com.wemall.foundation.domain.Template template = this.templateService.getObjByProperty("mark", mark);
-        if ((template != null) && (template.isOpen())) {
+        if ((template != null) && (template.isOpen())){
             String email = order.getUser().getEmail();
             String subject = template.getTitle();
             String path = request.getSession().getServletContext()
                           .getRealPath("") +
                           File.separator + "vm" + File.separator;
-            if (!CommUtil.fileExist(path)) {
+            if (!CommUtil.fileExist(path)){
                 CommUtil.createFolder(path);
             }
             PrintWriter pwrite = new PrintWriter(
@@ -1256,11 +1256,11 @@ public class OrderSellerAction {
 
     private void send_sms(HttpServletRequest request, OrderForm order, String mobile, String mark) throws Exception {
         com.wemall.foundation.domain.Template template = this.templateService.getObjByProperty("mark", mark);
-        if ((template != null) && (template.isOpen())) {
+        if ((template != null) && (template.isOpen())){
             String path = request.getSession().getServletContext()
                           .getRealPath("") +
                           File.separator + "vm" + File.separator;
-            if (!CommUtil.fileExist(path)) {
+            if (!CommUtil.fileExist(path)){
                 CommUtil.createFolder(path);
             }
             PrintWriter pwrite = new PrintWriter(

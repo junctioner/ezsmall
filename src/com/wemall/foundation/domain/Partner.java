@@ -23,35 +23,35 @@ public class Partner extends IdEntity {
     @OneToOne(fetch = FetchType.LAZY)
     private Accessory image;
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public String getUrl() {
+    public String getUrl(){
         return this.url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(String url){
         this.url = url;
     }
 
-    public String getTitle() {
+    public String getTitle(){
         return this.title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title){
         this.title = title;
     }
 
-    public Accessory getImage() {
+    public Accessory getImage(){
         return this.image;
     }
 
-    public void setImage(Accessory image) {
+    public void setImage(Accessory image){
         this.image = image;
     }
 }

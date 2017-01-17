@@ -58,67 +58,67 @@ public class GoodsCart extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private StoreCart sc;
 
-    public StoreCart getSc() {
+    public StoreCart getSc(){
         return this.sc;
     }
 
-    public void setSc(StoreCart sc) {
+    public void setSc(StoreCart sc){
         this.sc = sc;
     }
 
-    public Goods getGoods() {
+    public Goods getGoods(){
         return this.goods;
     }
 
-    public void setGoods(Goods goods) {
+    public void setGoods(Goods goods){
         this.goods = goods;
     }
 
-    public int getCount() {
+    public int getCount(){
         return this.count;
     }
 
-    public void setCount(int count) {
+    public void setCount(int count){
         this.count = count;
     }
 
-    public List<GoodsSpecProperty> getGsps() {
+    public List<GoodsSpecProperty> getGsps(){
         return this.gsps;
     }
 
-    public void setGsps(List<GoodsSpecProperty> gsps) {
+    public void setGsps(List<GoodsSpecProperty> gsps){
         this.gsps = gsps;
     }
 
-    public String getSpec_info() {
+    public String getSpec_info(){
         return this.spec_info;
     }
 
-    public void setSpec_info(String spec_info) {
+    public void setSpec_info(String spec_info){
         this.spec_info = spec_info;
     }
 
-    public OrderForm getOf() {
+    public OrderForm getOf(){
         return this.of;
     }
 
-    public void setOf(OrderForm of) {
+    public void setOf(OrderForm of){
         this.of = of;
     }
 
-    public BigDecimal getPrice() {
+    public BigDecimal getPrice(){
         return this.price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(BigDecimal price){
         this.price = price;
     }
 
-    public String getCart_type() {
+    public String getCart_type(){
         return this.cart_type;
     }
 
-    public void setCart_type(String cart_type) {
+    public void setCart_type(String cart_type){
         this.cart_type = cart_type;
     }
 }

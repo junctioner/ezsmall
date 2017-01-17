@@ -19,27 +19,27 @@ public class IdEntity {
     @Lock
     private boolean deleteStatus;
 
-    public Long getId() {
+    public Long getId(){
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id){
         this.id = id;
     }
 
-    public Date getAddTime() {
+    public Date getAddTime(){
         return this.addTime;
     }
 
-    public void setAddTime(Date addTime) {
+    public void setAddTime(Date addTime){
         this.addTime = addTime;
     }
 
-    public boolean isDeleteStatus() {
+    public boolean isDeleteStatus(){
         return this.deleteStatus;
     }
 
-    public void setDeleteStatus(boolean deleteStatus) {
+    public void setDeleteStatus(boolean deleteStatus){
         this.deleteStatus = deleteStatus;
     }
 }

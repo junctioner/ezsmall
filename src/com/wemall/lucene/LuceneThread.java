@@ -9,18 +9,18 @@ public class LuceneThread
     private String path;
     private List<LuceneVo> vo_list = new ArrayList();
 
-    public LuceneThread(String path, List<LuceneVo> vo_list) {
+    public LuceneThread(String path, List<LuceneVo> vo_list){
         this.path = path;
         this.vo_list = vo_list;
     }
 
-    public void run() {
+    public void run(){
         LuceneUtil lucene = LuceneUtil.instance();
         LuceneUtil.setIndex_path(this.path);
         lucene.deleteAllIndex(true);
         try {
             lucene.writeIndex(this.vo_list);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

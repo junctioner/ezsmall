@@ -27,27 +27,27 @@ public class GoodsBrandCategory extends IdEntity {
     @OneToMany(mappedBy = "category")
     private List<GoodsBrand> brands = new ArrayList<GoodsBrand>();
 
-    public String getName() {
+    public String getName(){
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public List<GoodsBrand> getBrands() {
+    public List<GoodsBrand> getBrands(){
         return this.brands;
     }
 
-    public void setBrands(List<GoodsBrand> brands) {
+    public void setBrands(List<GoodsBrand> brands){
         this.brands = brands;
     }
 }

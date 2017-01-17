@@ -48,15 +48,15 @@ public class ConsultSellerAction {
     private MsgTools msgTools;
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家咨询列表", value = "/seller/consult.htm*", rtype = "seller", rname = "咨询管理", rcode = "consult_seller", rgroup = "客户服务")
-    @RequestMapping( {"/seller/consult.htm"})
-    public ModelAndView consult(HttpServletRequest request, HttpServletResponse response, String reply, String currentPage) {
+    @RequestMapping({"/seller/consult.htm"})
+    public ModelAndView consult(HttpServletRequest request, HttpServletResponse response, String reply, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/consult.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         ConsultQueryObject qo = new ConsultQueryObject(currentPage, mv,
                 "addTime", "desc");
-        if (!CommUtil.null2String(reply).equals("")) {
+        if (!CommUtil.null2String(reply).equals("")){
             qo.addQuery("obj.reply",
                         new SysMap("reply",
                                    Boolean.valueOf(CommUtil.null2Boolean(reply))), "=");
@@ -74,8 +74,8 @@ public class ConsultSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家咨询回复", value = "/seller/consult_reply.htm*", rtype = "seller", rname = "咨询管理", rcode = "consult_seller", rgroup = "客户服务")
-    @RequestMapping( {"/seller/consult_reply.htm"})
-    public ModelAndView consult_reply(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/seller/consult_reply.htm"})
+    public ModelAndView consult_reply(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/consult_reply.html", this.configService
             .getSysConfig(),
@@ -88,7 +88,7 @@ public class ConsultSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家咨询回复保存", value = "/seller/consult_reply_save.htm*", rtype = "seller", rname = "咨询管理", rcode = "consult_seller", rgroup = "客户服务")
-    @RequestMapping( {"/seller/consult_reply_save.htm"})
+    @RequestMapping({"/seller/consult_reply_save.htm"})
     public String consult_reply_save(HttpServletRequest request, HttpServletResponse response, String id, String consult_reply, String currentPage) throws Exception {
         Consult obj = this.consultService.getObjById(CommUtil.null2Long(id));
         obj.setConsult_reply(consult_reply);
@@ -102,11 +102,11 @@ public class ConsultSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "卖家咨询删除", value = "/seller/consult_del.htm*", rtype = "seller", rname = "咨询管理", rcode = "consult_seller", rgroup = "客户服务")
-    @RequestMapping( {"/seller/consult_del.htm"})
-    public String consult_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String consult_reply, String currentPage) {
+    @RequestMapping({"/seller/consult_del.htm"})
+    public String consult_del(HttpServletRequest request, HttpServletResponse response, String mulitId, String consult_reply, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 this.consultService.delete(CommUtil.null2Long(id));
             }
         }
@@ -116,7 +116,7 @@ public class ConsultSellerAction {
 
     private void send_email(HttpServletRequest request, Consult obj, String mark) throws Exception {
         com.wemall.foundation.domain.Template template = this.templateService.getObjByProperty("mark", mark);
-        if (template.isOpen()) {
+        if (template.isOpen()){
             String email = obj.getConsult_email();
             String subject = template.getTitle();
             String path = request.getSession().getServletContext()

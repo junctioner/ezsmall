@@ -29,24 +29,24 @@ public class MySecureProtocolSocketFactory
         System.out.println("loading SSL");
     }
 
-    private SSLContext createSSLContext() {
+    private SSLContext createSSLContext(){
         SSLContext sslcontext = null;
         try {
             sslcontext = SSLContext.getInstance("SSL");
             sslcontext.init(null,
             new TrustManager[] { new TrustAnyTrustManager() },
             new SecureRandom());
-        } catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e){
             e.printStackTrace();
-        } catch (KeyManagementException e) {
+        } catch (KeyManagementException e){
             e.printStackTrace();
         }
 
         return sslcontext;
     }
 
-    private SSLContext getSSLContext() {
-        if (this.sslcontext == null) {
+    private SSLContext getSSLContext(){
+        if (this.sslcontext == null){
             this.sslcontext = createSSLContext();
         }
 
@@ -69,12 +69,12 @@ public class MySecureProtocolSocketFactory
 
     public Socket createSocket(String host, int port, InetAddress localAddress, int localPort, HttpConnectionParams params)
     throws IOException, UnknownHostException, ConnectTimeoutException {
-        if (params == null) {
+        if (params == null){
             throw new IllegalArgumentException("Parameters may not be null");
         }
         int timeout = params.getConnectionTimeout();
         SocketFactory socketfactory = getSSLContext().getSocketFactory();
-        if (timeout == 0) {
+        if (timeout == 0){
             return socketfactory.createSocket(host, port, localAddress,
                                               localPort);
         }
@@ -95,7 +95,7 @@ public class MySecureProtocolSocketFactory
         public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
         }
 
-        public X509Certificate[] getAcceptedIssuers() {
+        public X509Certificate[] getAcceptedIssuers(){
             return new X509Certificate[0];
         }
     }

@@ -49,7 +49,7 @@ public class ExcelWriter {
     /**
      * 创建第一行,也就是显示的标题,可以设置高度,单元格的格式,颜色,字体等设置,同时可以合并单元格.
      */
-    private void createHead() {
+    private void createHead(){
         /**
          * 指定合并区域,前二个参数为开始处X,Y坐标.后二个为结束的坐标.
          */
@@ -68,7 +68,7 @@ public class ExcelWriter {
         createCell(style, headRow0.createCell(0), headline);
     }
 
-    private void createBody() {
+    private void createBody(){
         HSSFCellStyle style = workbook.createCellStyle();
         style.setWrapText(true);// 文本区域随内容多少自动调整
 
@@ -79,7 +79,7 @@ public class ExcelWriter {
 
         HSSFRow bodyRow;
         // 填充数据
-        for (int i = 0; i < dataList.size(); i++) {
+        for (int i = 0; i < dataList.size(); i++){
             String[] datas = dataList.get(i);
             bodyRow = sheet.createRow(lineX++);
             for (int j = 0; j < columns.length; j++)
@@ -87,25 +87,25 @@ public class ExcelWriter {
         }
     }
 
-    private void createCell(HSSFCellStyle cellStyle, HSSFCell cell, String value) {
+    private void createCell(HSSFCellStyle cellStyle, HSSFCell cell, String value){
         if (cellStyle != null)
             cell.setCellStyle(cellStyle);
         cell.setCellValue(new HSSFRichTextString(value));
     }
 
-    public void setDataList(ArrayList<String[]> dataList) {
+    public void setDataList(ArrayList<String[]> dataList){
         this.dataList = dataList;
     }
 
-    public void setColumns(String[] columns) {
+    public void setColumns(String[] columns){
         this.columns = columns;
     }
 
-    public void setSheetName(String sheetName) {
+    public void setSheetName(String sheetName){
         this.sheetName = sheetName;
     }
 
-    public void setHeadline(String headline) {
+    public void setHeadline(String headline){
         this.headline = headline;
     }
 }

@@ -53,8 +53,8 @@ public class AdvertSellerAction {
     private IGoldLogService goldLogService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告列表", value = "/seller/advert_list.htm*", rtype = "seller", rname = "广告管理", rcode = "advert_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/advert_list.htm"})
-    public ModelAndView advert_list(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/seller/advert_list.htm"})
+    public ModelAndView advert_list(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/advert_list.html", this.configService
             .getSysConfig(),
@@ -71,8 +71,8 @@ public class AdvertSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告购买", value = "/seller/advert_apply.htm*", rtype = "seller", rname = "广告管理", rcode = "advert_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/advert_apply.htm"})
-    public ModelAndView advert_apply(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/advert_apply.htm"})
+    public ModelAndView advert_apply(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/advert_apply.html", this.configService
             .getSysConfig(),
@@ -81,14 +81,14 @@ public class AdvertSellerAction {
                                 CommUtil.null2Long(id));
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
-        if (ap.getAp_price() > user.getGold()) {
+        if (ap.getAp_price() > user.getGold()){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "金币不足，不能申请");
             mv.addObject("url", CommUtil.getURL(request) +
                          "/seller/advert_list.htm");
-        } else {
+        }else{
             String ap_session = CommUtil.randomString(32);
             request.getSession(false).setAttribute("ap_session", ap_session);
             mv.addObject("ap_session", ap_session);
@@ -100,15 +100,15 @@ public class AdvertSellerAction {
         return mv;
     }
 
-    @RequestMapping( {"/seller/advert_vefity.htm"})
-    public void advert_vefity(HttpServletRequest request, HttpServletResponse response, String month, String ap_id) {
+    @RequestMapping({"/seller/advert_vefity.htm"})
+    public void advert_vefity(HttpServletRequest request, HttpServletResponse response, String month, String ap_id){
         boolean ret = true;
         AdvertPosition ap = this.advertPositionService.getObjById(
                                 CommUtil.null2Long(ap_id));
         int total_price = ap.getAp_price() * CommUtil.null2Int(month);
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
-        if (total_price > user.getGold()) {
+        if (total_price > user.getGold()){
             ret = false;
         }
         response.setContentType("text/plain");
@@ -117,32 +117,32 @@ public class AdvertSellerAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(ret);
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告购买保存", value = "/seller/advert_apply_save.htm*", rtype = "seller", rname = "广告管理", rcode = "advert_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/advert_apply_save.htm"})
-    public ModelAndView advert_apply_save(HttpServletRequest request, HttpServletResponse response, String id, String ap_id, String ad_begin_time, String month, String ap_session) {
+    @RequestMapping({"/seller/advert_apply_save.htm"})
+    public ModelAndView advert_apply_save(HttpServletRequest request, HttpServletResponse response, String id, String ap_id, String ad_begin_time, String month, String ap_session){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/success.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         String ap_session1 = CommUtil.null2String(request.getSession(false)
                              .getAttribute("ap_session"));
-        if (ap_session1.equals("")) {
+        if (ap_session1.equals("")){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "禁止表单重复提交");
             mv.addObject("url", CommUtil.getURL(request) +
                          "/seller/advert_list.htm");
-        } else {
+        }else{
             request.getSession(false).removeAttribute("ap_session");
             Advert advert = null;
             WebForm wf = new WebForm();
-            if (id.equals("")) {
+            if (id.equals("")){
                 advert = (Advert) wf.toPo(request, Advert.class);
                 advert.setAddTime(new Date());
                 AdvertPosition ap = this.advertPositionService
@@ -154,12 +154,12 @@ public class AdvertSellerAction {
                 advert.setAd_end_time(cal.getTime());
                 advert.setAd_user(SecurityUserHolder.getCurrentUser());
                 advert.setAd_gold(ap.getAp_price() * CommUtil.null2Int(month));
-            } else {
+            }else{
                 Advert obj = this.advertService.getObjById(
                                  CommUtil.null2Long(id));
                 advert = (Advert) wf.toPo(request, obj);
             }
-            if (!advert.getAd_ap().getAp_type().equals("text")) {
+            if (!advert.getAd_ap().getAp_type().equals("text")){
                 String uploadFilePath = this.configService.getSysConfig()
                                         .getUploadFilePath();
                 String saveFilePathName = request.getSession()
@@ -173,8 +173,8 @@ public class AdvertSellerAction {
                     map = CommUtil.saveFileToServer(request, "acc",
                                                     saveFilePathName, fileName, null);
                     Accessory acc = null;
-                    if (fileName.equals("")) {
-                        if (map.get("fileName") != "") {
+                    if (fileName.equals("")){
+                        if (map.get("fileName") != ""){
                             acc = new Accessory();
                             acc.setName(CommUtil.null2String(map
                                                              .get("fileName")));
@@ -188,7 +188,7 @@ public class AdvertSellerAction {
                             this.accessoryService.save(acc);
                             advert.setAd_acc(acc);
                         }
-                    } else if (map.get("fileName") != "") {
+                    }else if (map.get("fileName") != ""){
                         acc = advert.getAd_acc();
                         acc.setName(CommUtil.null2String(map
                                                          .get("fileName")));
@@ -201,11 +201,11 @@ public class AdvertSellerAction {
                         acc.setAddTime(new Date());
                         this.accessoryService.update(acc);
                     }
-                } catch (IOException e) {
+                } catch (IOException e){
                     e.printStackTrace();
                 }
             }
-            if (id.equals("")) {
+            if (id.equals("")){
                 this.advertService.save(advert);
 
                 User user = this.userService.getObjById(
@@ -219,7 +219,7 @@ public class AdvertSellerAction {
                 log.setGl_user(user);
                 log.setGl_type(-1);
                 this.goldLogService.save(log);
-            } else {
+            }else{
                 this.advertService.update(advert);
             }
             mv.addObject("op_title", "广告申请成功");
@@ -231,8 +231,8 @@ public class AdvertSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告编辑", value = "/seller/advert_apply_edit.htm*", rtype = "seller", rname = "广告管理", rcode = "advert_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/advert_apply_edit.htm"})
-    public ModelAndView advert_apply_edit(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/advert_apply_edit.htm"})
+    public ModelAndView advert_apply_edit(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/advert_apply.html", this.configService
             .getSysConfig(),
@@ -250,8 +250,8 @@ public class AdvertSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "我的广告", value = "/seller/advert_my.htm*", rtype = "seller", rname = "广告管理", rcode = "advert_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/advert_my.htm"})
-    public ModelAndView advert_my(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/seller/advert_my.htm"})
+    public ModelAndView advert_my(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/advert_my.html", this.configService
             .getSysConfig(),
@@ -268,8 +268,8 @@ public class AdvertSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告延时", value = "/seller/advert_delay.htm*", rtype = "seller", rname = "广告管理", rcode = "advert_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/advert_delay.htm"})
-    public ModelAndView advert_delay(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/seller/advert_delay.htm"})
+    public ModelAndView advert_delay(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/advert_delay.html", this.configService
             .getSysConfig(),
@@ -277,14 +277,14 @@ public class AdvertSellerAction {
         Advert obj = this.advertService.getObjById(CommUtil.null2Long(id));
         User user = this.userService.getObjById(
                         SecurityUserHolder.getCurrentUser().getId());
-        if (obj.getAd_ap().getAp_price() > user.getGold()) {
+        if (obj.getAd_ap().getAp_price() > user.getGold()){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "金币不足，不能申请");
             mv.addObject("url", CommUtil.getURL(request) +
                          "/seller/advert_list.htm");
-        } else {
+        }else{
             String delay_session = CommUtil.randomString(32);
             request.getSession(false).setAttribute("delay_session",
                                                    delay_session);
@@ -299,22 +299,22 @@ public class AdvertSellerAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "广告购买保存", value = "/seller/advert_delay_save.htm*", rtype = "seller", rname = "广告管理", rcode = "advert_seller", rgroup = "其他设置")
-    @RequestMapping( {"/seller/advert_delay_save.htm"})
-    public ModelAndView advert_delay_save(HttpServletRequest request, HttpServletResponse response, String id, String month, String delay_session) {
+    @RequestMapping({"/seller/advert_delay_save.htm"})
+    public ModelAndView advert_delay_save(HttpServletRequest request, HttpServletResponse response, String id, String month, String delay_session){
         ModelAndView mv = new JModelAndView(
             "user/default/usercenter/success.html", this.configService
             .getSysConfig(),
             this.userConfigService.getUserConfig(), 0, request, response);
         String delay_session1 = CommUtil.null2String(request.getSession(false)
                                 .getAttribute("delay_session"));
-        if (delay_session1.equals("")) {
+        if (delay_session1.equals("")){
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
             mv.addObject("op_title", "禁止表单重复提交");
             mv.addObject("url", CommUtil.getURL(request) +
                          "/seller/advert_list.htm");
-        } else {
+        }else{
             request.getSession(false).removeAttribute("delay_session");
             Advert advert = this.advertService.getObjById(
                                 CommUtil.null2Long(id));
@@ -322,7 +322,7 @@ public class AdvertSellerAction {
                             SecurityUserHolder.getCurrentUser().getId());
             int total_gold = advert.getAd_ap().getAp_price() *
                              CommUtil.null2Int(month);
-            if (total_gold < user.getGold()) {
+            if (total_gold < user.getGold()){
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(advert.getAd_end_time());
                 cal.add(2, CommUtil.null2Int(month));
@@ -342,7 +342,7 @@ public class AdvertSellerAction {
                 mv.addObject("op_title", "广告延时成功");
                 mv.addObject("url", CommUtil.getURL(request) +
                              "/seller/advert_my.htm");
-            } else {
+            }else{
                 mv = new JModelAndView("error.html", this.configService
                                        .getSysConfig(),
                                        this.userConfigService.getUserConfig(), 1, request,

@@ -119,299 +119,299 @@ public class OrderForm extends IdEntity {
     @Column(columnDefinition = "LongText")
     private String order_seller_intro;
 
-    public String getOrder_type() {
+    public String getOrder_type(){
         return this.order_type;
     }
 
-    public void setOrder_type(String order_type) {
+    public void setOrder_type(String order_type){
         this.order_type = order_type;
     }
 
-    public String getReturn_content() {
+    public String getReturn_content(){
         return this.return_content;
     }
 
-    public void setReturn_content(String return_content) {
+    public void setReturn_content(String return_content){
         this.return_content = return_content;
     }
 
-    public Date getReturn_shipTime() {
+    public Date getReturn_shipTime(){
         return this.return_shipTime;
     }
 
-    public void setReturn_shipTime(Date return_shipTime) {
+    public void setReturn_shipTime(Date return_shipTime){
         this.return_shipTime = return_shipTime;
     }
 
-    public String getReturn_shipCode() {
+    public String getReturn_shipCode(){
         return this.return_shipCode;
     }
 
-    public void setReturn_shipCode(String return_shipCode) {
+    public void setReturn_shipCode(String return_shipCode){
         this.return_shipCode = return_shipCode;
     }
 
-    public ExpressCompany getReturn_ec() {
+    public ExpressCompany getReturn_ec(){
         return this.return_ec;
     }
 
-    public void setReturn_ec(ExpressCompany return_ec) {
+    public void setReturn_ec(ExpressCompany return_ec){
         this.return_ec = return_ec;
     }
 
-    public CouponInfo getCi() {
+    public CouponInfo getCi(){
         return this.ci;
     }
 
-    public void setCi(CouponInfo ci) {
+    public void setCi(CouponInfo ci){
         this.ci = ci;
     }
 
-    public List<Complaint> getComplaints() {
+    public List<Complaint> getComplaints(){
         return this.complaints;
     }
 
-    public void setComplaints(List<Complaint> complaints) {
+    public void setComplaints(List<Complaint> complaints){
         this.complaints = complaints;
     }
 
-    public List<Evaluate> getEvas() {
+    public List<Evaluate> getEvas(){
         return this.evas;
     }
 
-    public void setEvas(List<Evaluate> evas) {
+    public void setEvas(List<Evaluate> evas){
         this.evas = evas;
     }
 
-    public List<GoodsReturnLog> getGrls() {
+    public List<GoodsReturnLog> getGrls(){
         return this.grls;
     }
 
-    public void setGrls(List<GoodsReturnLog> grls) {
+    public void setGrls(List<GoodsReturnLog> grls){
         this.grls = grls;
     }
 
-    public BigDecimal getRefund() {
+    public BigDecimal getRefund(){
         return this.refund;
     }
 
-    public void setRefund(BigDecimal refund) {
+    public void setRefund(BigDecimal refund){
         this.refund = refund;
     }
 
-    public String getRefund_type() {
+    public String getRefund_type(){
         return this.refund_type;
     }
 
-    public void setRefund_type(String refund_type) {
+    public void setRefund_type(String refund_type){
         this.refund_type = refund_type;
     }
 
-    public String getOrder_id() {
+    public String getOrder_id(){
         return this.order_id;
     }
 
-    public void setOrder_id(String order_id) {
+    public void setOrder_id(String order_id){
         this.order_id = order_id;
     }
 
-    public BigDecimal getTotalPrice() {
+    public BigDecimal getTotalPrice(){
         return this.totalPrice;
     }
 
-    public void setTotalPrice(BigDecimal totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice){
         this.totalPrice = totalPrice;
     }
 
-    public BigDecimal getShip_price() {
+    public BigDecimal getShip_price(){
         return this.ship_price;
     }
 
-    public void setShip_price(BigDecimal ship_price) {
+    public void setShip_price(BigDecimal ship_price){
         this.ship_price = ship_price;
     }
 
-    public int getOrder_status() {
+    public int getOrder_status(){
         return this.order_status;
     }
 
-    public void setOrder_status(int order_status) {
+    public void setOrder_status(int order_status){
         this.order_status = order_status;
     }
 
-    public String getMsg() {
+    public String getMsg(){
         return this.msg;
     }
 
-    public void setMsg(String msg) {
+    public void setMsg(String msg){
         this.msg = msg;
     }
 
-    public Payment getPayment() {
+    public Payment getPayment(){
         return this.payment;
     }
 
-    public void setPayment(Payment payment) {
+    public void setPayment(Payment payment){
         this.payment = payment;
     }
 
-    public User getUser() {
+    public User getUser(){
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 
-    public Date getPayTime() {
+    public Date getPayTime(){
         return this.payTime;
     }
 
-    public void setPayTime(Date payTime) {
+    public void setPayTime(Date payTime){
         this.payTime = payTime;
     }
 
-    public List<GoodsCart> getGcs() {
+    public List<GoodsCart> getGcs(){
         return this.gcs;
     }
 
-    public void setGcs(List<GoodsCart> gcs) {
+    public void setGcs(List<GoodsCart> gcs){
         this.gcs = gcs;
     }
 
-    public Address getAddr() {
+    public Address getAddr(){
         return this.addr;
     }
 
-    public void setAddr(Address addr) {
+    public void setAddr(Address addr){
         this.addr = addr;
     }
 
-    public String getShipCode() {
+    public String getShipCode(){
         return this.shipCode;
     }
 
-    public void setShipCode(String shipCode) {
+    public void setShipCode(String shipCode){
         this.shipCode = shipCode;
     }
 
-    public Date getShipTime() {
+    public Date getShipTime(){
         return this.shipTime;
     }
 
-    public void setShipTime(Date shipTime) {
+    public void setShipTime(Date shipTime){
         this.shipTime = shipTime;
     }
 
-    public Date getFinishTime() {
+    public Date getFinishTime(){
         return this.finishTime;
     }
 
-    public void setFinishTime(Date finishTime) {
+    public void setFinishTime(Date finishTime){
         this.finishTime = finishTime;
     }
 
-    public int getInvoiceType() {
+    public int getInvoiceType(){
         return this.invoiceType;
     }
 
-    public void setInvoiceType(int invoiceType) {
+    public void setInvoiceType(int invoiceType){
         this.invoiceType = invoiceType;
     }
 
-    public String getInvoice() {
+    public String getInvoice(){
         return this.invoice;
     }
 
-    public void setInvoice(String invoice) {
+    public void setInvoice(String invoice){
         this.invoice = invoice;
     }
 
-    public Store getStore() {
+    public Store getStore(){
         return this.store;
     }
 
-    public void setStore(Store store) {
+    public void setStore(Store store){
         this.store = store;
     }
 
-    public List<OrderFormLog> getOfls() {
+    public List<OrderFormLog> getOfls(){
         return this.ofls;
     }
 
-    public void setOfls(List<OrderFormLog> ofls) {
+    public void setOfls(List<OrderFormLog> ofls){
         this.ofls = ofls;
     }
 
-    public String getPay_msg() {
+    public String getPay_msg(){
         return this.pay_msg;
     }
 
-    public void setPay_msg(String pay_msg) {
+    public void setPay_msg(String pay_msg){
         this.pay_msg = pay_msg;
     }
 
-    public BigDecimal getGoods_amount() {
+    public BigDecimal getGoods_amount(){
         return this.goods_amount;
     }
 
-    public void setGoods_amount(BigDecimal goods_amount) {
+    public void setGoods_amount(BigDecimal goods_amount){
         this.goods_amount = goods_amount;
     }
 
-    public List<RefundLog> getRls() {
+    public List<RefundLog> getRls(){
         return this.rls;
     }
 
-    public void setRls(List<RefundLog> rls) {
+    public void setRls(List<RefundLog> rls){
         this.rls = rls;
     }
 
-    public boolean isAuto_confirm_email() {
+    public boolean isAuto_confirm_email(){
         return this.auto_confirm_email;
     }
 
-    public void setAuto_confirm_email(boolean auto_confirm_email) {
+    public void setAuto_confirm_email(boolean auto_confirm_email){
         this.auto_confirm_email = auto_confirm_email;
     }
 
-    public boolean isAuto_confirm_sms() {
+    public boolean isAuto_confirm_sms(){
         return this.auto_confirm_sms;
     }
 
-    public void setAuto_confirm_sms(boolean auto_confirm_sms) {
+    public void setAuto_confirm_sms(boolean auto_confirm_sms){
         this.auto_confirm_sms = auto_confirm_sms;
     }
 
-    public String getTransport() {
+    public String getTransport(){
         return this.transport;
     }
 
-    public void setTransport(String transport) {
+    public void setTransport(String transport){
         this.transport = transport;
     }
 
-    public ExpressCompany getEc() {
+    public ExpressCompany getEc(){
         return this.ec;
     }
 
-    public void setEc(ExpressCompany ec) {
+    public void setEc(ExpressCompany ec){
         this.ec = ec;
     }
 
-    public String getOut_order_id() {
+    public String getOut_order_id(){
         return this.out_order_id;
     }
 
-    public void setOut_order_id(String out_order_id) {
+    public void setOut_order_id(String out_order_id){
         this.out_order_id = out_order_id;
     }
 
-    public String getOrder_seller_intro() {
+    public String getOrder_seller_intro(){
         return this.order_seller_intro;
     }
 
-    public void setOrder_seller_intro(String order_seller_intro) {
+    public void setOrder_seller_intro(String order_seller_intro){
         this.order_seller_intro = order_seller_intro;
     }
 }

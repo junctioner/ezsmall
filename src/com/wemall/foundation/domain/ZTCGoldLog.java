@@ -24,35 +24,35 @@ public class ZTCGoldLog extends IdEntity {
     //zgl内容
     private String zgl_content;
 
-    public Goods getZgl_goods() {
+    public Goods getZgl_goods(){
         return this.zgl_goods;
     }
 
-    public void setZgl_goods(Goods zgl_goods) {
+    public void setZgl_goods(Goods zgl_goods){
         this.zgl_goods = zgl_goods;
     }
 
-    public int getZgl_gold() {
+    public int getZgl_gold(){
         return this.zgl_gold;
     }
 
-    public void setZgl_gold(int zgl_gold) {
+    public void setZgl_gold(int zgl_gold){
         this.zgl_gold = zgl_gold;
     }
 
-    public int getZgl_type() {
+    public int getZgl_type(){
         return this.zgl_type;
     }
 
-    public void setZgl_type(int zgl_type) {
+    public void setZgl_type(int zgl_type){
         this.zgl_type = zgl_type;
     }
 
-    public String getZgl_content() {
+    public String getZgl_content(){
         return this.zgl_content;
     }
 
-    public void setZgl_content(String zgl_content) {
+    public void setZgl_content(String zgl_content){
         this.zgl_content = zgl_content;
     }
 }

@@ -35,34 +35,34 @@ public class HttpInclude {
     private HttpServletResponse response;
     private static final String SET_COOKIE_SEPARATOR = "; ";
 
-    public HttpInclude(HttpServletRequest request, HttpServletResponse response) {
+    public HttpInclude(HttpServletRequest request, HttpServletResponse response){
         this.request = request;
         this.response = response;
     }
 
-    public String include(String includePath) {
+    public String include(String includePath){
         StringWriter sw = new StringWriter(8192);
         include(includePath, sw);
 
         return sw.toString();
     }
 
-    public void include(String includePath, Writer writer) {
+    public void include(String includePath, Writer writer){
         try {
             if (isRemoteHttpRequest(includePath))
                 getRemoteContent(includePath, writer);
             else
                 getLocalContent(includePath, writer);
-        } catch (ServletException e) {
+        } catch (ServletException e){
             throw new RuntimeException("include error,path:" + includePath +
                                        " cause:" + e, e);
-        } catch (IOException e) {
+        } catch (IOException e){
             throw new RuntimeException("include error,path:" + includePath +
                                        " cause:" + e, e);
         }
     }
 
-    private static boolean isRemoteHttpRequest(String includePath) {
+    private static boolean isRemoteHttpRequest(String includePath){
         return (includePath != null) && ((includePath.toLowerCase().startsWith("http://")) ||
                                          (includePath.toLowerCase().startsWith("https://")));
     }
@@ -73,8 +73,8 @@ public class HttpInclude {
         String url_path = includePath.indexOf("?") > 0 ? includePath.substring(0, includePath.indexOf("?")) : includePath;
         String query = includePath.indexOf("?") > 0 ? includePath.substring(includePath.indexOf("?") + 1) : "";
         String[] params = query.split("&");
-        for (String param : params) {
-            if ((param != null) && (!param.equals(""))) {
+        for (String param : params){
+            if ((param != null) && (!param.equals(""))){
                 String[] list = param.split("=");
                 if (list.length == 2)
                     this.request.setAttribute(list[0], list[1]);
@@ -82,7 +82,7 @@ public class HttpInclude {
         }
         this.request.getRequestDispatcher(url_path).include(this.request, customResponse);
         customResponse.flushBuffer();
-        if (customResponse.useOutputStream) {
+        if (customResponse.useOutputStream){
             writer.write(outputStream.toString(this.response.getCharacterEncoding()));
         }
         writer.flush();
@@ -104,7 +104,7 @@ public class HttpInclude {
         writer.flush();
     }
 
-    private void setConnectionHeaders(String urlString, URLConnection conn) {
+    private void setConnectionHeaders(String urlString, URLConnection conn){
         conn.setReadTimeout(6000);
         conn.setConnectTimeout(6000);
         String cookie = getCookieString();
@@ -114,15 +114,15 @@ public class HttpInclude {
             log.debug("request properties:" + conn.getRequestProperties() + " for url:" + urlString);
     }
 
-    private String getWithSessionIdUrl(String url) {
+    private String getWithSessionIdUrl(String url){
         return url;
     }
 
-    private String getCookieString() {
+    private String getCookieString(){
         StringBuffer sb = new StringBuffer(64);
         Cookie[] cookies = this.request.getCookies();
-        if (cookies != null) {
-            for (Cookie c : cookies) {
+        if (cookies != null){
+            for (Cookie c : cookies){
                 if (sessionIdKey.equals(c.getName())) continue;
                 sb.append(c.getName()).append("=").append(c.getValue()).append("; ");
             }
@@ -130,7 +130,7 @@ public class HttpInclude {
         }
 
         String sessionId = Utils.getSessionId(this.request);
-        if (sessionId != null) {
+        if (sessionId != null){
             sb.append(sessionIdKey).append("=").append(sessionId).append(
                 "; ");
         }
@@ -144,10 +144,10 @@ public class HttpInclude {
         private PrintWriter printWriter;
         private ServletOutputStream servletOutputStream;
 
-        public CustomOutputHttpServletResponseWrapper(HttpServletResponse response, Writer customWriter, final OutputStream customOutputStream) {
+        public CustomOutputHttpServletResponseWrapper(HttpServletResponse response, Writer customWriter, final OutputStream customOutputStream){
             super(response);
             this.printWriter = new PrintWriter(customWriter);
-            this.servletOutputStream = new ServletOutputStream() {
+            this.servletOutputStream = new ServletOutputStream(){
                 public void write(int b) throws IOException {
                     customOutputStream.write(b);
                 }
@@ -191,24 +191,24 @@ public class HttpInclude {
         static Pattern p = Pattern.compile("(charset=)(.*)",
                                            2);
 
-        static String getContentEncoding(URLConnection conn, HttpServletResponse response) {
+        static String getContentEncoding(URLConnection conn, HttpServletResponse response){
             String contentEncoding = conn.getContentEncoding();
-            if (conn.getContentEncoding() == null) {
+            if (conn.getContentEncoding() == null){
                 contentEncoding = parseContentTypeForCharset(conn
                                   .getContentType());
                 if (contentEncoding == null)
                     contentEncoding = response.getCharacterEncoding();
-            } else {
+            }else{
                 contentEncoding = conn.getContentEncoding();
             }
             return contentEncoding;
         }
 
-        private static String parseContentTypeForCharset(String contentType) {
+        private static String parseContentTypeForCharset(String contentType){
             if (contentType == null)
                 return null;
             Matcher m = p.matcher(contentType);
-            if (m.find()) {
+            if (m.find()){
                 return m.group(2).trim();
             }
             return null;
@@ -220,9 +220,9 @@ public class HttpInclude {
                 out.write(buff);
         }
 
-        private static String getSessionId(HttpServletRequest request) {
+        private static String getSessionId(HttpServletRequest request){
             HttpSession session = request.getSession(false);
-            if (session == null) {
+            if (session == null){
                 return null;
             }
             return session.getId();

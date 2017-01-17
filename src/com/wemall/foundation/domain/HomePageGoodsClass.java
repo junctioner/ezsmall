@@ -20,19 +20,19 @@ public class HomePageGoodsClass extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private GoodsClass gc;
 
-    public GoodsClass getGc() {
+    public GoodsClass getGc(){
         return this.gc;
     }
 
-    public void setGc(GoodsClass gc) {
+    public void setGc(GoodsClass gc){
         this.gc = gc;
     }
 
-    public User getUser() {
+    public User getUser(){
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 }

@@ -18,7 +18,7 @@ public class MyX509TrustManager implements X509TrustManager {
     }
 
     // 返回受信任的X509证书数组
-    public X509Certificate[] getAcceptedIssuers() {
+    public X509Certificate[] getAcceptedIssuers(){
         return null;
     }
 }

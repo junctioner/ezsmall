@@ -35,22 +35,22 @@ public class Base64 {
         codes[47] = 63;
     }
 
-    public static char[] encode(byte[] data) {
+    public static char[] encode(byte[] data){
         char[] out = new char[(data.length + 2) / 3 * 4];
 
         int i = 0;
-        for (int index = 0; i < data.length; index += 4) {
+        for (int index = 0; i < data.length; index += 4){
             boolean quad = false;
             boolean trip = false;
 
             int val = 0xFF & data[i];
             val <<= 8;
-            if (i + 1 < data.length) {
+            if (i + 1 < data.length){
                 val |= 0xFF & data[(i + 1)];
                 trip = true;
             }
             val <<= 8;
-            if (i + 2 < data.length) {
+            if (i + 2 < data.length){
                 val |= 0xFF & data[(i + 2)];
                 quad = true;
             }
@@ -68,10 +68,10 @@ public class Base64 {
         return out;
     }
 
-    public static byte[] decode(char[] data) {
+    public static byte[] decode(char[] data){
         int tempLen = data.length;
-        for (int ix = 0; ix < data.length; ix++) {
-            if ((data[ix] > '?') || (codes[data[ix]] < 0)) {
+        for (int ix = 0; ix < data.length; ix++){
+            if ((data[ix] > '?') || (codes[data[ix]] < 0)){
                 tempLen--;
             }
 
@@ -80,7 +80,7 @@ public class Base64 {
         int len = tempLen / 4 * 3;
         if (tempLen % 4 == 3)
             len += 2;
-        if (tempLen % 4 == 2) {
+        if (tempLen % 4 == 2){
             len++;
         }
         byte[] out = new byte[len];
@@ -89,7 +89,7 @@ public class Base64 {
         int accum = 0;
         int index = 0;
 
-        for (int ix = 0; ix < data.length; ix++) {
+        for (int ix = 0; ix < data.length; ix++){
             int value = data[ix] > '?' ? -1 : codes[data[ix]];
 
             if (value < 0)
@@ -104,7 +104,7 @@ public class Base64 {
                 (byte)(accum >> shift & 0xFF);
         }
 
-        if (index != out.length) {
+        if (index != out.length){
             throw new Error("Miscalculated data length (wrote " +
                             index + " instead of " + out.length + ")");
         }
@@ -112,94 +112,94 @@ public class Base64 {
         return out;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         boolean decode = false;
 
-        if (args.length == 0) {
+        if (args.length == 0){
             System.out.println("usage:  java Base64 [-d[ecode]] filename");
             System.exit(0);
         }
-        for (int i = 0; i < args.length; i++) {
+        for (int i = 0; i < args.length; i++){
             if ("-decode".equalsIgnoreCase(args[i]))
                 decode = true;
-            else if ("-d".equalsIgnoreCase(args[i])) {
+           else if ("-d".equalsIgnoreCase(args[i])){
                 decode = true;
             }
         }
         String filename = args[(args.length - 1)];
         File file = new File(filename);
-        if (!file.exists()) {
+        if (!file.exists()){
             System.out.println("Error:  file '" + filename + "' doesn't exist!");
             System.exit(0);
         }
 
-        if (decode) {
+        if (decode){
             char[] encoded = readChars(file);
             byte[] decoded = decode(encoded);
             writeBytes(file, decoded);
-        } else {
+        }else{
             byte[] decoded = readBytes(file);
             char[] encoded = encode(decoded);
             writeChars(file, encoded);
         }
     }
 
-    private static byte[] readBytes(File file) {
+    private static byte[] readBytes(File file){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
             InputStream fis = new FileInputStream(file);
             InputStream is = new BufferedInputStream(fis);
             int count = 0;
             byte[] buf = new byte[16384];
-            while ((count = is.read(buf)) != -1) {
+            while ((count = is.read(buf)) != -1){
                 if (count > 0)
                     baos.write(buf, 0, count);
             }
             is.close();
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return baos.toByteArray();
     }
 
-    private static char[] readChars(File file) {
+    private static char[] readChars(File file){
         CharArrayWriter caw = new CharArrayWriter();
         try {
             Reader fr = new FileReader(file);
             Reader in = new BufferedReader(fr);
             int count = 0;
             char[] buf = new char[16384];
-            while ((count = in.read(buf)) != -1) {
+            while ((count = in.read(buf)) != -1){
                 if (count > 0)
                     caw.write(buf, 0, count);
             }
             in.close();
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 
         return caw.toCharArray();
     }
 
-    private static void writeBytes(File file, byte[] data) {
+    private static void writeBytes(File file, byte[] data){
         try {
             OutputStream fos = new FileOutputStream(file);
             OutputStream os = new BufferedOutputStream(fos);
             os.write(data);
             os.close();
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    private static void writeChars(File file, char[] data) {
+    private static void writeChars(File file, char[] data){
         try {
             Writer fos = new FileWriter(file);
             Writer os = new BufferedWriter(fos);
             os.write(data);
             os.close();
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

@@ -44,8 +44,8 @@ public class OrderManageAction {
     private IOrderFormService orderFormService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "订单设置", value = "/admin/set_order_confirm.htm*", rtype = "admin", rname = "订单设置", rcode = "set_order_confirm", rgroup = "交易")
-    @RequestMapping( {"/admin/set_order_confirm.htm"})
-    public ModelAndView set_order_confirm(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/admin/set_order_confirm.htm"})
+    public ModelAndView set_order_confirm(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView(
             "admin/blue/set_order_confirm.html", this.configService
             .getSysConfig(),
@@ -55,15 +55,15 @@ public class OrderManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "订单设置保存", value = "/admin/set_order_confirm_save.htm*", rtype = "admin", rname = "订单设置", rcode = "set_order_confirm", rgroup = "交易")
-    @RequestMapping( {"/admin/set_order_confirm_save.htm"})
-    public ModelAndView set_order_confirm_save(HttpServletRequest request, HttpServletResponse response, String id, String auto_order_confirm, String auto_order_notice, String auto_order_return, String auto_order_evaluate) {
+    @RequestMapping({"/admin/set_order_confirm_save.htm"})
+    public ModelAndView set_order_confirm_save(HttpServletRequest request, HttpServletResponse response, String id, String auto_order_confirm, String auto_order_notice, String auto_order_return, String auto_order_evaluate){
         SysConfig obj = this.configService.getSysConfig();
         WebForm wf = new WebForm();
         SysConfig config = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             config = (SysConfig)wf.toPo(request, SysConfig.class);
             config.setAddTime(new Date());
-        } else {
+        }else{
             config = (SysConfig)wf.toPo(request, obj);
         }
         config.setAuto_order_confirm(CommUtil.null2Int(auto_order_confirm));
@@ -72,7 +72,7 @@ public class OrderManageAction {
         config.setAuto_order_evaluate(CommUtil.null2Int(auto_order_evaluate));
         if (id.equals(""))
             this.configService.save(config);
-        else {
+       else{
             this.configService.update(config);
         }
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
@@ -86,54 +86,54 @@ public class OrderManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "订单列表", value = "/admin/order_list.htm*", rtype = "admin", rname = "订单管理", rcode = "order_admin", rgroup = "交易")
-    @RequestMapping( {"/admin/order_list.htm"})
-    public ModelAndView order_list(HttpServletRequest request, HttpServletResponse response, String order_status, String type, String type_data, String payment, String beginTime, String endTime, String begin_price, String end_price, String currentPage) {
+    @RequestMapping({"/admin/order_list.htm"})
+    public ModelAndView order_list(HttpServletRequest request, HttpServletResponse response, String order_status, String type, String type_data, String payment, String beginTime, String endTime, String begin_price, String end_price, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/order_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         OrderFormQueryObject ofqo = new OrderFormQueryObject(currentPage, mv,
                 "addTime", "desc");
-        if (!CommUtil.null2String(order_status).equals("")) {
+        if (!CommUtil.null2String(order_status).equals("")){
             ofqo.addQuery("obj.order_status",
                           new SysMap("order_status",
                                      Integer.valueOf(CommUtil.null2Int(order_status))), "=");
         }
-        if (!CommUtil.null2String(type_data).equals("")) {
-            if (type.equals("store")) {
+        if (!CommUtil.null2String(type_data).equals("")){
+            if (type.equals("store")){
                 ofqo.addQuery("obj.store.store_name",
                               new SysMap("store_name",
                                          type_data), "=");
             }
-            if (type.equals("buyer")) {
+            if (type.equals("buyer")){
                 ofqo.addQuery("obj.user.userName",
                               new SysMap("userName",
                                          type_data), "=");
             }
-            if (type.equals("order")) {
+            if (type.equals("order")){
                 ofqo.addQuery("obj.order_id",
                               new SysMap("order_id", type_data), "=");
             }
         }
-        if (!CommUtil.null2String(payment).equals("")) {
+        if (!CommUtil.null2String(payment).equals("")){
             ofqo.addQuery("obj.payment.mark", new SysMap("mark", payment), "=");
         }
-        if (!CommUtil.null2String(beginTime).equals("")) {
+        if (!CommUtil.null2String(beginTime).equals("")){
             ofqo.addQuery("obj.addTime",
                           new SysMap("beginTime",
                                      CommUtil.formatDate(beginTime)), ">=");
         }
-        if (!CommUtil.null2String(endTime).equals("")) {
+        if (!CommUtil.null2String(endTime).equals("")){
             ofqo.addQuery("obj.addTime",
                           new SysMap("endTime",
                                      CommUtil.formatDate(endTime)), "<=");
         }
-        if (!CommUtil.null2String(begin_price).equals("")) {
+        if (!CommUtil.null2String(begin_price).equals("")){
             ofqo.addQuery("obj.totalPrice",
                           new SysMap("begin_price",
                                      BigDecimal.valueOf(CommUtil.null2Double(begin_price))),
                           ">=");
         }
-        if (!CommUtil.null2String(end_price).equals("")) {
+        if (!CommUtil.null2String(end_price).equals("")){
             ofqo.addQuery("obj.totalPrice",
                           new SysMap("end_price",
                                      BigDecimal.valueOf(CommUtil.null2Double(end_price))), "<=");
@@ -153,8 +153,8 @@ public class OrderManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "订单详情", value = "/admin/order_view.htm*", rtype = "admin", rname = "订单管理", rcode = "order_admin", rgroup = "交易")
-    @RequestMapping( {"/admin/order_view.htm"})
-    public ModelAndView order_view(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/admin/order_view.htm"})
+    public ModelAndView order_view(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView("admin/blue/order_view.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -167,7 +167,7 @@ public class OrderManageAction {
         return mv;
     }
 
-    public TransInfo query_ship_getData(String id) {
+    public TransInfo query_ship_getData(String id){
         TransInfo info = new TransInfo();
         OrderForm obj = this.orderFormService
                         .getObjById(CommUtil.null2Long(id));
@@ -194,7 +194,7 @@ public class OrderManageAction {
             byte[] b = new byte[10000];
             int numRead = urlStream.read(b);
             String content = new String(b, 0, numRead, charSet);
-            while (numRead != -1) {
+            while (numRead != -1){
                 numRead = urlStream.read(b);
                 if (numRead == -1)
                     continue;
@@ -204,9 +204,9 @@ public class OrderManageAction {
 
             info = (TransInfo)Json.fromJson(TransInfo.class, content);
             urlStream.close();
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException e){
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
 

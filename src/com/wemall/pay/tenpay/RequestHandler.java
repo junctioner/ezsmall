@@ -24,7 +24,7 @@ public class RequestHandler {
     private HttpServletRequest request;
     private HttpServletResponse response;
 
-    public RequestHandler(HttpServletRequest request, HttpServletResponse response) {
+    public RequestHandler(HttpServletRequest request, HttpServletResponse response){
         this.request = request;
         this.response = response;
 
@@ -34,43 +34,43 @@ public class RequestHandler {
         this.debugInfo = "";
     }
 
-    public void init() {
+    public void init(){
     }
 
-    public String getGateUrl() {
+    public String getGateUrl(){
         return this.gateUrl;
     }
 
-    public void setGateUrl(String gateUrl) {
+    public void setGateUrl(String gateUrl){
         this.gateUrl = gateUrl;
     }
 
-    public String getKey() {
+    public String getKey(){
         return this.key;
     }
 
-    public void setKey(String key) {
+    public void setKey(String key){
         this.key = key;
     }
 
-    public String getParameter(String parameter) {
+    public String getParameter(String parameter){
         String s = (String)this.parameters.get(parameter);
         return s == null ? "" : s;
     }
 
-    public void setParameter(String parameter, String parameterValue) {
+    public void setParameter(String parameter, String parameterValue){
         String v = "";
-        if (parameterValue != null) {
+        if (parameterValue != null){
             v = parameterValue.trim();
         }
         this.parameters.put(parameter, v);
     }
 
-    public SortedMap getAllParameters() {
+    public SortedMap getAllParameters(){
         return this.parameters;
     }
 
-    public String getDebugInfo() {
+    public String getDebugInfo(){
         return this.debugInfo;
     }
 
@@ -83,7 +83,7 @@ public class RequestHandler {
                      this.response);
         Set es = this.parameters.entrySet();
         Iterator it = es.iterator();
-        while (it.hasNext()) {
+        while (it.hasNext()){
             Map.Entry entry = (Map.Entry)it.next();
             String k = (String)entry.getKey();
             String v = (String)entry.getValue();
@@ -99,11 +99,11 @@ public class RequestHandler {
         this.response.sendRedirect(getRequestURL());
     }
 
-    protected void createSign() {
+    protected void createSign(){
         StringBuffer sb = new StringBuffer();
         Set es = this.parameters.entrySet();
         Iterator it = es.iterator();
-        while (it.hasNext()) {
+        while (it.hasNext()){
             Map.Entry entry = (Map.Entry)it.next();
             String k = (String)entry.getKey();
             String v = (String)entry.getValue();
@@ -123,15 +123,15 @@ public class RequestHandler {
         setDebugInfo(sb.toString() + " => sign:" + sign);
     }
 
-    protected void setDebugInfo(String debugInfo) {
+    protected void setDebugInfo(String debugInfo){
         this.debugInfo = debugInfo;
     }
 
-    protected HttpServletRequest getHttpServletRequest() {
+    protected HttpServletRequest getHttpServletRequest(){
         return this.request;
     }
 
-    protected HttpServletResponse getHttpServletResponse() {
+    protected HttpServletResponse getHttpServletResponse(){
         return this.response;
     }
 }

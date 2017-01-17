@@ -44,44 +44,44 @@ public class UCClient extends PHPFunctions {
             UC_KEY = properties.getProperty("UC_KEY");
             UC_APPID = properties.getProperty("UC_APPID");
             UC_CONNECT = properties.getProperty("UC_CONNECT");
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    protected String uc_serialize(String arr, int htmlon) {
+    protected String uc_serialize(String arr, int htmlon){
         return arr;
     }
 
-    protected String uc_unserialize(String s) {
+    protected String uc_unserialize(String s){
         return s;
     }
 
-    protected String uc_addslashes(String string, int force, boolean strip) {
+    protected String uc_addslashes(String string, int force, boolean strip){
         return string;
     }
 
-    protected String daddslashes(String string, int force) {
+    protected String daddslashes(String string, int force){
         return uc_addslashes(string, force, false);
     }
 
-    protected String uc_stripslashes(String string) {
+    protected String uc_stripslashes(String string){
         return string;
     }
 
-    public String uc_api_post(String module, String action, Map<String, Object> arg) {
+    public String uc_api_post(String module, String action, Map<String, Object> arg){
         StringBuffer s = new StringBuffer();
         String sep = "";
 
-        for (String k : arg.keySet()) {
+        for (String k : arg.keySet()){
             Object v = arg.get(k);
             k = urlencode(k);
 
-            if (v.getClass().isAssignableFrom(Map.class)) {
+            if (v.getClass().isAssignableFrom(Map.class)){
                 String s2 = "";
                 String sep2 = "";
 
-                for (Object k2 : ((Map)v).keySet()) {
+                for (Object k2 : ((Map)v).keySet()){
                     Object v2 = ((Map)v).get(k2);
                     k2 = urlencode(k2.toString());
                     s2 = s2 + sep2 + "{" + k + "}[" + k2 + "]=" +
@@ -89,7 +89,7 @@ public class UCClient extends PHPFunctions {
                     sep2 = "&";
                 }
                 s.append(sep).append(s2);
-            } else {
+            }else{
                 s.append(sep).append(k).append("=").append(
                     urlencode(uc_stripslashes(String.valueOf(v))));
             }
@@ -101,7 +101,7 @@ public class UCClient extends PHPFunctions {
                          UC_IP, 20, true);
     }
 
-    protected String uc_api_requestdata(String module, String action, String arg, String extra) {
+    protected String uc_api_requestdata(String module, String action, String arg, String extra){
         String input = uc_api_input(arg);
         String post = "m=" + module + "&a=" + action + "&inajax=2&release=" +
                       UC_CLIENT_RELEASE + "&input=" + input + "&appid=" + UC_APPID +
@@ -110,37 +110,37 @@ public class UCClient extends PHPFunctions {
         return post;
     }
 
-    protected String uc_api_url(String module, String action, String arg, String extra) {
+    protected String uc_api_url(String module, String action, String arg, String extra){
         String url = UC_API + "/index.php?" +
                      uc_api_requestdata(module, action, arg, extra);
 
         return url;
     }
 
-    public String uc_api_input(String data) {
+    public String uc_api_input(String data){
         String s = urlencode(uc_authcode(data + "&agent=" + md5("") + "&time=" +
                                          time(), "ENCODE", UC_KEY));
 
         return s;
     }
 
-    public String uc_api_mysql(String model, String action, Map args) {
-        if (action.charAt(0) != '_') {
+    public String uc_api_mysql(String model, String action, Map args){
+        if (action.charAt(0) != '_'){
             return null;
         }
 
         return "";
     }
 
-    public String uc_authcode(String string, String operation) {
+    public String uc_authcode(String string, String operation){
         return uc_authcode(string, operation, null);
     }
 
-    public String uc_authcode(String string, String operation, String key) {
+    public String uc_authcode(String string, String operation, String key){
         return uc_authcode(string, operation, key, 0);
     }
 
-    public String uc_authcode(String string, String operation, String key, int expiry) {
+    public String uc_authcode(String string, String operation, String key, int expiry){
         int ckey_length = 4;
 
         key = md5(key != null ? key : UC_KEY);
@@ -163,17 +163,17 @@ public class UCClient extends PHPFunctions {
         StringBuffer result1 = new StringBuffer();
 
         int[] box = new int[256];
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < 256; i++){
             box[i] = i;
         }
 
         int[] rndkey = new int[256];
-        for (int i = 0; i <= 255; i++) {
+        for (int i = 0; i <= 255; i++){
             rndkey[i] = cryptkey.charAt(i % key_length);
         }
 
         int j = 0;
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < 256; i++){
             j = (j + box[i] + rndkey[i]) % 256;
             int tmp = box[i];
             box[i] = box[j];
@@ -182,7 +182,7 @@ public class UCClient extends PHPFunctions {
 
         j = 0;
         int a = 0;
-        for (int i = 0; i < string_length; i++) {
+        for (int i = 0; i < string_length; i++){
             a = (a + 1) % 256;
             j = (j + box[a]) % 256;
             int tmp = box[a];
@@ -193,11 +193,11 @@ public class UCClient extends PHPFunctions {
             .append((char)(string.charAt(i) ^ box[((box[a] + box[j]) % 256)]));
         }
 
-        if (operation.equals("DECODE")) {
+        if (operation.equals("DECODE")){
             String result = result1.substring(0, result1.length());
             if ((CommUtil.null2Int(substr(result.toString(), 0, 10)) == 0) ||
                     (CommUtil.null2Long(substr(result.toString(), 0, 10)).longValue() -
-                     time() > 0L)) {
+                     time() > 0L)){
                 if (substr(result.toString(), 10, 16).equals(
                             substr(md5(substr(result.toString(), 26) + keyb),
                                    0, 16)))
@@ -209,13 +209,13 @@ public class UCClient extends PHPFunctions {
         return keyc + base64_encode(result1.toString()).replaceAll("=", "");
     }
 
-    protected String uc_fopen2(String url, int limit, String post, String cookie, boolean bysocket, String ip, int timeout, boolean block) {
+    protected String uc_fopen2(String url, int limit, String post, String cookie, boolean bysocket, String ip, int timeout, boolean block){
         url = url + (url.indexOf("?") > 0 ? "&" : "?__times__=1");
 
         return uc_fopen(url, limit, post, cookie, bysocket, ip, timeout, block);
     }
 
-    protected String uc_fopen(String url, int limit, String post, String cookie, boolean bysocket, String ip, int timeout, boolean block) {
+    protected String uc_fopen(String url, int limit, String post, String cookie, boolean bysocket, String ip, int timeout, boolean block){
         String ret = "";
 
         String host = "";
@@ -230,10 +230,10 @@ public class UCClient extends PHPFunctions {
                    "/";
             if (matches.getPort() > 0)
                 port = matches.getPort();
-        } catch (MalformedURLException localMalformedURLException) {
+        } catch (MalformedURLException localMalformedURLException){
         }
         StringBuffer out = new StringBuffer();
-        if ((post != null) && (post.length() > 0)) {
+        if ((post != null) && (post.length() > 0)){
             out.append("POST ").append(path).append(" HTTP/1.0\r\n");
             out.append("Accept: *\r\n");
             out.append("Accept-Language: zh-cn\r\n");
@@ -245,7 +245,7 @@ public class UCClient extends PHPFunctions {
             out.append("Cache-Control: no-cache\r\n");
             out.append("Cookie: \r\n\r\n");
             out.append(post);
-        } else {
+        }else{
             out.append("GET path HTTP/1.0\r\n");
             out.append("Accept: *\r\n");
 
@@ -258,7 +258,7 @@ public class UCClient extends PHPFunctions {
         try {
             Socket fp = new Socket((ip != null) && (ip.length() > 10) ? ip : host,
                                    port);
-            if (!fp.isConnected()) {
+            if (!fp.isConnected()){
                 return "";
             }
             OutputStream os = fp.getOutputStream();
@@ -272,32 +272,32 @@ public class UCClient extends PHPFunctions {
             do header = reader.readLine();
             while ((header != null) && (!header.equals("")) && (header != "\r\n") &&
                     (header != "\n"));
-            while (true) {
+            while (true){
                 String data = reader.readLine();
-                if ((data == null) || (data.equals(""))) {
+                if ((data == null) || (data.equals(""))){
                     break;
                 }
                 ret = ret + data;
             }
 
             fp.close();
-        } catch (IOException localIOException) {
+        } catch (IOException localIOException){
         }
 
         return ret;
     }
 
-    public String uc_app_ls() {
+    public String uc_app_ls(){
         String ret = call_user_func(UC_API_FUNC, "app", "ls", null);
 
         return UC_CONNECT.equals("mysql") ? ret : uc_unserialize(ret);
     }
 
-    public String uc_user_register(String username, String password, String email) {
+    public String uc_user_register(String username, String password, String email){
         return uc_user_register(username, password, email, "", "");
     }
 
-    public String uc_user_register(String username, String password, String email, String questionid, String answer) {
+    public String uc_user_register(String username, String password, String email, String questionid, String answer){
         Map args = new HashMap();
         args.put("username", username);
         args.put("password", password);
@@ -308,15 +308,15 @@ public class UCClient extends PHPFunctions {
         return call_user_func(UC_API_FUNC, "user", "register", args);
     }
 
-    public String uc_user_login(String username, String password) {
+    public String uc_user_login(String username, String password){
         return uc_user_login(username, password, 0, 0);
     }
 
-    public String uc_user_login(String username, String password, int isuid, int checkques) {
+    public String uc_user_login(String username, String password, int isuid, int checkques){
         return uc_user_login(username, password, isuid, checkques, 0, "");
     }
 
-    public String uc_user_login(String username, String password, int isuid, int checkques, int questionid, String answer) {
+    public String uc_user_login(String username, String password, int isuid, int checkques, int questionid, String answer){
         Map args = new HashMap();
         args.put("username", username);
         args.put("password", password);
@@ -329,7 +329,7 @@ public class UCClient extends PHPFunctions {
         return UC_CONNECT.equals("mysql") ? ret : uc_unserialize(ret);
     }
 
-    public String uc_user_synlogin(int uid) {
+    public String uc_user_synlogin(int uid){
         Map args = new HashMap();
         args.put("uid", Integer.valueOf(uid));
         String ret = uc_api_post("user", "synlogin", args);
@@ -337,14 +337,14 @@ public class UCClient extends PHPFunctions {
         return ret;
     }
 
-    public String uc_user_synlogout() {
+    public String uc_user_synlogout(){
         String ret = uc_api_post("user", "synlogout",
                                  new HashMap());
 
         return ret;
     }
 
-    public String uc_get_user(String username, int isuid) {
+    public String uc_get_user(String username, int isuid){
         Map args = new HashMap();
         args.put("username", username);
         args.put("isuid", Integer.valueOf(isuid));
@@ -353,7 +353,7 @@ public class UCClient extends PHPFunctions {
         return UC_CONNECT.equals("mysql") ? ret : uc_unserialize(ret);
     }
 
-    public String uc_user_edit(String username, String oldpw, String newpw, String email, int ignoreoldpw, int questionid, int answer) {
+    public String uc_user_edit(String username, String oldpw, String newpw, String email, int ignoreoldpw, int questionid, int answer){
         Map args = new HashMap();
         args.put("username", username);
         args.put("oldpw", oldpw);
@@ -366,14 +366,14 @@ public class UCClient extends PHPFunctions {
         return call_user_func(UC_API_FUNC, "user", "edit", args);
     }
 
-    public String uc_user_delete(String uid) {
+    public String uc_user_delete(String uid){
         Map args = new HashMap();
         args.put("uid", uid);
 
         return call_user_func(UC_API_FUNC, "user", "delete", args);
     }
 
-    public String uc_user_deleteavatar(String uid) {
+    public String uc_user_deleteavatar(String uid){
         Map args = new HashMap();
         args.put("uid", uid);
 

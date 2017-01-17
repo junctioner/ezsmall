@@ -31,8 +31,8 @@ public class BargainViewAction {
     @Autowired
     private IBargainGoodsService bargainGoodsService;
 
-    @RequestMapping( {"/bargain.htm"})
-    public ModelAndView bargain(HttpServletRequest request, HttpServletResponse response, String bg_time, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/bargain.htm"})
+    public ModelAndView bargain(HttpServletRequest request, HttpServletResponse response, String bg_time, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView("bargain.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
@@ -43,7 +43,7 @@ public class BargainViewAction {
                 "obj.bg_time",
                 new SysMap("bg_time", CommUtil.formatDate(
                                CommUtil.formatShortDate(new Date()))), "=");
-        else {
+       else{
             bqo.addQuery("obj.bg_time",
                          new SysMap("bg_time", CommUtil.formatDate(bg_time)), "=");
         }
@@ -54,7 +54,7 @@ public class BargainViewAction {
 
         Map params = new HashMap();
         Calendar cal = Calendar.getInstance();
-        if (CommUtil.null2String(bg_time).equals("")) {
+        if (CommUtil.null2String(bg_time).equals("")){
             bg_time = CommUtil.formatShortDate(new Date());
         }
         cal.setTime(CommUtil.formatDate(bg_time));
@@ -68,7 +68,7 @@ public class BargainViewAction {
         mv.addObject("bgs", bgs);
         int day_count = this.configService.getSysConfig().getBargain_validity();
         List dates = new ArrayList();
-        for (int i = 0; i < day_count; i++) {
+        for (int i = 0; i < day_count; i++){
             cal = Calendar.getInstance();
             cal.add(6, i);
             dates.add(cal.getTime());

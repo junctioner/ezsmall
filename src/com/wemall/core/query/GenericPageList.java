@@ -10,11 +10,11 @@ public class GenericPageList extends PageList {
     protected String scope;
     protected Class cls;
 
-    public GenericPageList(Class cls, IQueryObject queryObject, IGenericDAO dao) {
+    public GenericPageList(Class cls, IQueryObject queryObject, IGenericDAO dao){
         this(cls, queryObject.getQuery(), queryObject.getParameters(), dao);
     }
 
-    public GenericPageList(Class cls, String scope, Map paras, IGenericDAO dao) {
+    public GenericPageList(Class cls, String scope, Map paras, IGenericDAO dao){
         this.cls = cls;
         this.scope = scope;
         IQuery query = new GenericQuery(dao);
@@ -22,7 +22,7 @@ public class GenericPageList extends PageList {
         setQuery(query);
     }
 
-    public void doList(int currentPage, int pageSize) {
+    public void doList(int currentPage, int pageSize){
         String totalSql = "select COUNT(obj) from " + this.cls.getName() + " obj where " +
                           this.scope;
         super.doList(pageSize, currentPage, totalSql, this.scope);

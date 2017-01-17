@@ -5,26 +5,26 @@ public class PageObject {
 
     private Integer pageSize = Integer.valueOf(-1);
 
-    public Integer getCurrentPage() {
-        if (this.currentPage == null) {
+    public Integer getCurrentPage(){
+        if (this.currentPage == null){
             this.currentPage = Integer.valueOf(-1);
         }
 
         return this.currentPage;
     }
 
-    public void setCurrentPage(Integer currentPage) {
-        if (currentPage == null) {
+    public void setCurrentPage(Integer currentPage){
+        if (currentPage == null){
             currentPage = Integer.valueOf(-1);
         }
         this.currentPage = currentPage;
     }
 
-    public Integer getPageSize() {
+    public Integer getPageSize(){
         return this.pageSize;
     }
 
-    public void setPageSize(Integer pageSize) {
+    public void setPageSize(Integer pageSize){
         this.pageSize = pageSize;
     }
 }

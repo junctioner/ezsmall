@@ -25,83 +25,83 @@ public class WxUserInfo {
     // 用户头像
     private String headImgUrl;
 
-    public String getOpenId() {
+    public String getOpenId(){
         return openId;
     }
 
-    public void setOpenId(String openId) {
+    public void setOpenId(String openId){
         this.openId = openId;
     }
 
-    public int getSubscribe() {
+    public int getSubscribe(){
         return subscribe;
     }
 
-    public void setSubscribe(int subscribe) {
+    public void setSubscribe(int subscribe){
         this.subscribe = subscribe;
     }
 
-    public String getSubscribeTime() {
+    public String getSubscribeTime(){
         return subscribeTime;
     }
 
-    public void setSubscribeTime(String subscribeTime) {
+    public void setSubscribeTime(String subscribeTime){
         this.subscribeTime = subscribeTime;
     }
 
-    public String getNickname() {
+    public String getNickname(){
         return nickname;
     }
 
-    public void setNickname(String nickname) {
+    public void setNickname(String nickname){
         this.nickname = nickname;
     }
 
-    public int getSex() {
+    public int getSex(){
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(int sex){
         this.sex = sex;
     }
 
-    public String getCountry() {
+    public String getCountry(){
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(String country){
         this.country = country;
     }
 
-    public String getProvince() {
+    public String getProvince(){
         return province;
     }
 
-    public void setProvince(String province) {
+    public void setProvince(String province){
         this.province = province;
     }
 
-    public String getCity() {
+    public String getCity(){
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(String city){
         this.city = city;
     }
 
-    public String getLanguage() {
+    public String getLanguage(){
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(String language){
         this.language = language;
     }
 
-    public String getHeadImgUrl() {
+    public String getHeadImgUrl(){
         return headImgUrl;
     }
 
-    public void setHeadImgUrl(String headImgUrl) {
+    public void setHeadImgUrl(String headImgUrl){
         this.headImgUrl = headImgUrl;
     }
 }

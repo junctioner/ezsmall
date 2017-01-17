@@ -40,13 +40,13 @@ public class StoreGradeManageAction {
     private IStoreGradeService storegradeService;
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺等级列表", value = "/admin/storegrade_list.htm*", rtype = "admin", rname = "店铺等级", rcode = "store_grade", rgroup = "店铺")
-    @RequestMapping( {"/admin/storegrade_list.htm"})
-    public ModelAndView storegrade_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType) {
+    @RequestMapping({"/admin/storegrade_list.htm"})
+    public ModelAndView storegrade_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType){
         ModelAndView mv = new JModelAndView("admin/blue/storegrade_list.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
         String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))) {
+        if ((url == null) || (url.equals(""))){
             url = CommUtil.getURL(request);
         }
         String params = "";
@@ -61,8 +61,8 @@ public class StoreGradeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺等级添加", value = "/admin/storegrade_add.htm*", rtype = "admin", rname = "店铺等级", rcode = "store_grade", rgroup = "店铺")
-    @RequestMapping( {"/admin/storegrade_add.htm"})
-    public ModelAndView storegrade_add(HttpServletRequest request, HttpServletResponse response, String currentPage) {
+    @RequestMapping({"/admin/storegrade_add.htm"})
+    public ModelAndView storegrade_add(HttpServletRequest request, HttpServletResponse response, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/storegrade_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
@@ -72,12 +72,12 @@ public class StoreGradeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺等级编辑", value = "/admin/storegrade_edit.htm*", rtype = "admin", rname = "店铺等级", rcode = "store_grade", rgroup = "店铺")
-    @RequestMapping( {"/admin/storegrade_edit.htm"})
-    public ModelAndView storegrade_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage) {
+    @RequestMapping({"/admin/storegrade_edit.htm"})
+    public ModelAndView storegrade_edit(HttpServletRequest request, HttpServletResponse response, String id, String currentPage){
         ModelAndView mv = new JModelAndView("admin/blue/storegrade_add.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);
-        if ((id != null) && (!id.equals(""))) {
+        if ((id != null) && (!id.equals(""))){
             StoreGrade storegrade = this.storegradeService.getObjById(
                                         Long.valueOf(Long.parseLong(id)));
             mv.addObject("obj", storegrade);
@@ -89,14 +89,14 @@ public class StoreGradeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺等级保存", value = "/admin/storegrade_save.htm*", rtype = "admin", rname = "店铺等级", rcode = "store_grade", rgroup = "店铺")
-    @RequestMapping( {"/admin/storegrade_save.htm"})
-    public ModelAndView storegrade_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String list_url, String add_url) {
+    @RequestMapping({"/admin/storegrade_save.htm"})
+    public ModelAndView storegrade_save(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String cmd, String list_url, String add_url){
         WebForm wf = new WebForm();
         StoreGrade storegrade = null;
-        if (id.equals("")) {
+        if (id.equals("")){
             storegrade = (StoreGrade)wf.toPo(request, StoreGrade.class);
             storegrade.setAddTime(new Date());
-        } else {
+        }else{
             StoreGrade obj = this.storegradeService.getObjById(
                                  Long.valueOf(Long.parseLong(id)));
             storegrade = (StoreGrade)wf.toPo(request, obj);
@@ -111,7 +111,7 @@ public class StoreGradeManageAction {
                                             .getUserConfig(), 0, request, response);
         mv.addObject("list_url", list_url);
         mv.addObject("op_title", "保存店铺等级成功");
-        if (add_url != null) {
+        if (add_url != null){
             mv.addObject("add_url", add_url + "?currentPage=" + currentPage);
         }
 
@@ -119,11 +119,11 @@ public class StoreGradeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺等级删除", value = "/admin/storegrade_del.htm*", rtype = "admin", rname = "店铺等级", rcode = "store_grade", rgroup = "店铺")
-    @RequestMapping( {"/admin/storegrade_del.htm"})
-    public String storegrade_del(HttpServletRequest request, String mulitId, String currentPage) {
+    @RequestMapping({"/admin/storegrade_del.htm"})
+    public String storegrade_del(HttpServletRequest request, String mulitId, String currentPage){
         String[] ids = mulitId.split(",");
-        for (String id : ids) {
-            if (!id.equals("")) {
+        for (String id : ids){
+            if (!id.equals("")){
                 StoreGrade storegrade = this.storegradeService.getObjById(
                                             Long.valueOf(Long.parseLong(id)));
                 this.storegradeService.delete(Long.valueOf(Long.parseLong(id)));
@@ -134,24 +134,24 @@ public class StoreGradeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺等级AJAX更新", value = "/admin/storegrade_ajax.htm*", rtype = "admin", rname = "店铺等级", rcode = "store_grade", rgroup = "店铺")
-    @RequestMapping( {"/admin/storegrade_ajax.htm"})
+    @RequestMapping({"/admin/storegrade_ajax.htm"})
     public void storegrade_ajax(HttpServletRequest request, HttpServletResponse response, String id, String fieldName, String value) throws ClassNotFoundException {
         StoreGrade obj = this.storegradeService.getObjById(Long.valueOf(Long.parseLong(id)));
         Field[] fields = StoreGrade.class.getDeclaredFields();
         BeanWrapper wrapper = new BeanWrapper(obj);
         Object val = null;
-        for (Field field : fields) {
-            if (field.getName().equals(fieldName)) {
+        for (Field field : fields){
+            if (field.getName().equals(fieldName)){
                 Class clz = Class.forName("java.lang.String");
-                if (field.getType().getName().equals("int")) {
+                if (field.getType().getName().equals("int")){
                     clz = Class.forName("java.lang.Integer");
                 }
-                if (field.getType().getName().equals("boolean")) {
+                if (field.getType().getName().equals("boolean")){
                     clz = Class.forName("java.lang.Boolean");
                 }
                 if (!value.equals(""))
                     val = BeanUtils.convertType(value, clz);
-                else {
+               else{
                     val = Boolean.valueOf(
                               !CommUtil.null2Boolean(wrapper
                                                      .getPropertyValue(fieldName)));
@@ -166,14 +166,14 @@ public class StoreGradeManageAction {
         try {
             PrintWriter writer = response.getWriter();
             writer.print(val.toString());
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺等级模板设置", value = "/admin/storegrade_template.htm*", rtype = "admin", rname = "店铺等级", rcode = "store_grade", rgroup = "店铺")
-    @RequestMapping( {"/admin/storegrade_template.htm"})
-    public ModelAndView storegrade_template(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/admin/storegrade_template.htm"})
+    public ModelAndView storegrade_template(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView(
             "admin/blue/storegrade_template.html", this.configService
             .getSysConfig(),
@@ -187,8 +187,8 @@ public class StoreGradeManageAction {
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "店铺等级模板保存", value = "/admin/storegrade_template_save.htm*", rtype = "admin", rname = "店铺等级", rcode = "store_grade", rgroup = "店铺")
-    @RequestMapping( {"/admin/storegrade_template_save.htm"})
-    public ModelAndView storegrade_template_save(HttpServletRequest request, HttpServletResponse response, String list_url, String id, String templates) {
+    @RequestMapping({"/admin/storegrade_template_save.htm"})
+    public ModelAndView storegrade_template_save(HttpServletRequest request, HttpServletResponse response, String list_url, String id, String templates){
         ModelAndView mv = new JModelAndView("admin/blue/success.html",
                                             this.configService.getSysConfig(), this.userConfigService
                                             .getUserConfig(), 0, request, response);

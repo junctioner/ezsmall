@@ -62,8 +62,8 @@ public class GroupViewAction {
     @Autowired
     private GroupViewTools groupViewTools;
 
-    @RequestMapping( {"/group.htm"})
-    public ModelAndView group(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String gc_id, String gpr_id, String ga_id) {
+    @RequestMapping({"/group.htm"})
+    public ModelAndView group(HttpServletRequest request, HttpServletResponse response, String currentPage, String orderBy, String orderType, String gc_id, String gpr_id, String ga_id){
         ModelAndView mv = new JModelAndView("group.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -74,18 +74,18 @@ public class GroupViewAction {
                       .query(
                           "select obj from Group obj where obj.beginTime<=:beginTime and obj.endTime>=:endTime",
                           params, -1, -1);
-        if (groups.size() > 0) {
+        if (groups.size() > 0){
             GroupGoodsQueryObject ggqo = new GroupGoodsQueryObject(currentPage,
                     mv, orderBy, orderType);
             ggqo.addQuery("obj.group.id",
                           new SysMap("group_id", ((Group)groups.get(0))
                                      .getId()), "=");
-            if ((gc_id != null) && (!gc_id.equals(""))) {
+            if ((gc_id != null) && (!gc_id.equals(""))){
                 ggqo.addQuery("obj.gg_gc.id",
                               new SysMap("gc_id",
                                          CommUtil.null2Long(gc_id)), "=");
             }
-            if ((ga_id != null) && (!ga_id.equals(""))) {
+            if ((ga_id != null) && (!ga_id.equals(""))){
                 ggqo.addQuery("obj.gg_ga.id",
                               new SysMap("ga_id",
                                          CommUtil.null2Long(ga_id)), "=");
@@ -93,7 +93,7 @@ public class GroupViewAction {
             }
             GroupPriceRange gpr = this.groupPriceRangeService
                                   .getObjById(CommUtil.null2Long(gpr_id));
-            if (gpr != null) {
+            if (gpr != null){
                 ggqo.addQuery("obj.gg_price",
                               new SysMap("begin_price",
                                          BigDecimal.valueOf(gpr.getGpr_begin())), ">=");
@@ -115,10 +115,10 @@ public class GroupViewAction {
             mv.addObject("gprs", gprs);
             mv.addObject("gcs", gcs);
             mv.addObject("group", groups.get(0));
-            if ((orderBy == null) || (orderBy.equals(""))) {
+            if ((orderBy == null) || (orderBy.equals(""))){
                 orderBy = "addTime";
             }
-            if ((orderType == null) || (orderType.equals(""))) {
+            if ((orderType == null) || (orderType.equals(""))){
                 orderType = "desc";
             }
             mv.addObject("order_type", CommUtil.null2String(orderBy) + "_" +
@@ -130,8 +130,8 @@ public class GroupViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/group_head.htm"})
-    public ModelAndView group_head(HttpServletRequest request, HttpServletResponse response, String ga_id) {
+    @RequestMapping({"/group_head.htm"})
+    public ModelAndView group_head(HttpServletRequest request, HttpServletResponse response, String ga_id){
         ModelAndView mv = new JModelAndView("group_head.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -143,15 +143,15 @@ public class GroupViewAction {
         if ((ga_id != null) && (!ga_id.equals("")))
             mv.addObject("ga", this.groupAreaService.getObjById(
                              CommUtil.null2Long(ga_id)).getGa_name());
-        else {
+       else{
             mv.addObject("ga", "全国");
         }
 
         return mv;
     }
 
-    @RequestMapping( {"/group_view.htm"})
-    public ModelAndView group_view(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/group_view.htm"})
+    public ModelAndView group_view(HttpServletRequest request, HttpServletResponse response, String id){
         ModelAndView mv = new JModelAndView("group_view.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
@@ -160,13 +160,13 @@ public class GroupViewAction {
         User user = SecurityUserHolder.getCurrentUser();
         boolean view = false;
         if ((obj.getGroup().getBeginTime().before(new Date())) &&
-                (obj.getGroup().getEndTime().after(new Date()))) {
+                (obj.getGroup().getEndTime().after(new Date()))){
             view = true;
         }
-        if ((user != null) && (user.getUserRole().indexOf("ADMIN") >= 0)) {
+        if ((user != null) && (user.getUserRole().indexOf("ADMIN") >= 0)){
             view = true;
         }
-        if (view) {
+        if (view){
             mv.addObject("obj", obj);
             Map params = new HashMap();
             params.put("beginTime", new Date());
@@ -176,7 +176,7 @@ public class GroupViewAction {
                           .query(
                               "select obj from Group obj where obj.beginTime<=:beginTime and obj.endTime>=:endTime and obj.status=:status",
                               params, -1, -1);
-            if (groups.size() > 0) {
+            if (groups.size() > 0){
                 GroupGoodsQueryObject ggqo = new GroupGoodsQueryObject("1", mv,
                         "gg_recommend", "desc");
                 ggqo.addQuery("obj.gg_status", new SysMap("gg_status", Integer.valueOf(1)), "=");
@@ -211,12 +211,12 @@ public class GroupViewAction {
                                           "select obj from GoodsCart obj where :gg member of obj.goods.group_goods_list",
                                           params, 0, 4);
             List gcs = new ArrayList();
-            for (GoodsCart gc : gc_list) {
+            for (GoodsCart gc : gc_list){
                 if (!gcs.contains(gc))
                     gcs.add(gc);
             }
             mv.addObject("gcs", gcs);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -227,18 +227,18 @@ public class GroupViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/group_list.htm"})
-    public ModelAndView group_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String time) {
+    @RequestMapping({"/group_list.htm"})
+    public ModelAndView group_list(HttpServletRequest request, HttpServletResponse response, String currentPage, String time){
         ModelAndView mv = new JModelAndView("group_list.html", this.configService
                                             .getSysConfig(), this.userConfigService.getUserConfig(), 1,
                                             request, response);
         GroupQueryObject gqo = new GroupQueryObject(currentPage, mv, "addTime",
                 "desc");
-        if (time.equals("soon")) {
+        if (time.equals("soon")){
             gqo.addQuery("obj.beginTime", new SysMap("beginTime", new Date()),
                          ">");
         }
-        if (time.equals("history")) {
+        if (time.equals("history")){
             gqo.addQuery("obj.endTime", new SysMap("endTime", new Date()), "<");
         }
         IPageList pList = this.groupService.list(gqo);

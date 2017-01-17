@@ -44,23 +44,23 @@ public class ImageCompress extends Frame {
     private TextField textHeight = new TextField(7);
     private String file;
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         String fileName = "F:/af4496a4-15ae-47c9-8279-6e095ebfd539.png";
         String gui = "";
         if (args.length > 0)
             fileName = args[0];
         if (args.length > 1)
             gui = "gui";
-        if (gui.equals("gui")) {
+        if (gui.equals("gui")){
             new ImageCompress(fileName);
-        } else {
+        }else{
             long c = System.currentTimeMillis();
             ImageScale(fileName, fileName + "-s." + getFileExt(fileName).toLowerCase(), 160, 160);
             System.out.println("elapse time:" + (float) (System.currentTimeMillis() - c) / 1000.0F + "s");
         }
     }
 
-    public ImageCompress(String fileName) {
+    public ImageCompress(String fileName){
         super("ImageCompress v1.0");
         this.file = fileName;
         createUI();
@@ -68,7 +68,7 @@ public class ImageCompress extends Frame {
         setVisible(true);
     }
 
-    private void createUI() {
+    private void createUI(){
         setFont(new Font("Serif", 0, 12));
 
         setLayout(new BorderLayout());
@@ -80,8 +80,8 @@ public class ImageCompress extends Frame {
 
         Button loadButton = new Button("Load...");
 
-        loadButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
+        loadButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
                 FileDialog fd = new FileDialog(ImageCompress.this);
                 fd.setVisible(true);
                 if (fd.getFile() == null)
@@ -92,8 +92,8 @@ public class ImageCompress extends Frame {
             }
         });
         Button buttonResize = new Button("Resize");
-        buttonResize.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
+        buttonResize.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
                 ImageCompress.this.resizeImage(ImageCompress.this.file);
             }
         });
@@ -108,15 +108,15 @@ public class ImageCompress extends Frame {
         this.mControlPanel.add(statusLabel);
         add(this.mControlPanel, "South");
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
+        addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent e){
                 ImageCompress.this.dispose();
                 System.exit(0);
             }
         });
     }
 
-    private void resizeImage(String fileName) {
+    private void resizeImage(String fileName){
         try {
             Image image = ImageIO.read(new File(this.file));
             int imageWidth = image.getWidth(null);
@@ -138,20 +138,20 @@ public class ImageCompress extends Frame {
             ConvolveOp cOp = new ConvolveOp(kernel, 1, null);
             this.mBufferedImage = cOp.filter(this.mBufferedImage, null);
             repaint();
-        } catch (IOException localIOException) {
+        } catch (IOException localIOException){
         }
     }
 
-    private void loadImage(String fileName) {
+    private void loadImage(String fileName){
         Image image = Toolkit.getDefaultToolkit().getImage(fileName);
         MediaTracker mt = new MediaTracker(this);
         mt.addImage(image, 0);
         try {
             mt.waitForID(0);
-        } catch (InterruptedException ie) {
+        } catch (InterruptedException ie){
             return;
         }
-        if (mt.isErrorID(0)) {
+        if (mt.isErrorID(0)){
             return;
         }
         this.mBufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), 1);
@@ -164,7 +164,7 @@ public class ImageCompress extends Frame {
         setTitle("ImageCompress v1.0: " + fileName);
     }
 
-    private void adjustToImageSize() {
+    private void adjustToImageSize(){
         if (!isDisplayable())
             addNotify();
         Insets insets = getInsets();
@@ -178,7 +178,7 @@ public class ImageCompress extends Frame {
         setSize(w, h);
     }
 
-    private void center() {
+    private void center(){
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension d = getSize();
         int x = (screen.width - d.width) / 2;
@@ -186,14 +186,14 @@ public class ImageCompress extends Frame {
         setLocation(x, y);
     }
 
-    public void paint(Graphics g) {
+    public void paint(Graphics g){
         if (this.mBufferedImage == null)
             return;
         Insets insets = getInsets();
         g.drawImage(this.mBufferedImage, insets.left, insets.top, null);
     }
 
-    public static void ImageScale(String sourceImg, String targetImg, int width, int height) {
+    public static void ImageScale(String sourceImg, String targetImg, int width, int height){
         try {
             Image image = ImageIO.read(new File(sourceImg));
             int imageWidth = image.getWidth(null);
@@ -219,43 +219,43 @@ public class ImageCompress extends Frame {
             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
             encoder.encode(mBufferedImage);
             out.close();
-        } catch (FileNotFoundException localFileNotFoundException) {
-        } catch (IOException localIOException) {
+        } catch (FileNotFoundException localFileNotFoundException){
+        } catch (IOException localIOException){
         }
     }
 
-    public static float getRatio(int width, int height, int maxWidth, int maxHeight) {
+    public static float getRatio(int width, int height, int maxWidth, int maxHeight){
         float Ratio = 1.0F;
 
         float widthRatio = (float) maxWidth / width;
         float heightRatio = (float) maxHeight / height;
-        if ((widthRatio < 1.0D) || (heightRatio < 1.0D)) {
+        if ((widthRatio < 1.0D) || (heightRatio < 1.0D)){
             Ratio = widthRatio <= heightRatio ? widthRatio : heightRatio;
         }
 
         return Ratio;
     }
 
-    public static String getFileExt(String filePath) {
+    public static String getFileExt(String filePath){
         String tmp = filePath.substring(filePath.lastIndexOf(".") + 1);
 
         return tmp.toUpperCase();
     }
 
-    public static String getFileName(String filePath) {
+    public static String getFileName(String filePath){
         int pos = -1;
         int endPos = -1;
-        if (!filePath.equals("")) {
+        if (!filePath.equals("")){
             if (filePath.lastIndexOf("/") != -1)
                 pos = filePath.lastIndexOf("/") + 1;
-            else if (filePath.lastIndexOf("//") != -1) {
+           else if (filePath.lastIndexOf("//") != -1){
                 pos = filePath.lastIndexOf("//") + 1;
             }
             if (pos == -1)
                 pos = 0;
             filePath = filePath.substring(pos);
             endPos = filePath.lastIndexOf(".");
-            if (endPos == -1) {
+            if (endPos == -1){
                 return filePath;
             }
             return filePath.substring(0, endPos);
@@ -264,12 +264,12 @@ public class ImageCompress extends Frame {
         return "";
     }
 
-    public static String getFileFullName(String filePath) {
+    public static String getFileFullName(String filePath){
         int pos = -1;
-        if (!filePath.equals("")) {
+        if (!filePath.equals("")){
             if (filePath.lastIndexOf("/") != -1)
                 pos = filePath.lastIndexOf("/") + 1;
-            else if (filePath.lastIndexOf("//") != -1) {
+           else if (filePath.lastIndexOf("//") != -1){
                 pos = filePath.lastIndexOf("//") + 1;
             }
             if (pos == -1)
@@ -280,15 +280,15 @@ public class ImageCompress extends Frame {
         return "";
     }
 
-    public static String getFilePath(String filePath) {
+    public static String getFilePath(String filePath){
         int pos = -1;
-        if (!filePath.equals("")) {
+        if (!filePath.equals("")){
             if (filePath.lastIndexOf("/") != -1)
                 pos = filePath.lastIndexOf("/") + 1;
-            else if (filePath.lastIndexOf("//") != -1) {
+           else if (filePath.lastIndexOf("//") != -1){
                 pos = filePath.lastIndexOf("//") + 1;
             }
-            if (pos != -1) {
+            if (pos != -1){
                 return filePath.substring(0, pos);
             }
             return "";

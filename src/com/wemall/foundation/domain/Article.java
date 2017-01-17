@@ -39,59 +39,59 @@ public class Article extends IdEntity {
     @Column(columnDefinition = "LongText")
     private String content;
 
-    public String getTitle() {
+    public String getTitle(){
         return this.title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title){
         this.title = title;
     }
 
-    public ArticleClass getArticleClass() {
+    public ArticleClass getArticleClass(){
         return this.articleClass;
     }
 
-    public void setArticleClass(ArticleClass articleClass) {
+    public void setArticleClass(ArticleClass articleClass){
         this.articleClass = articleClass;
     }
 
-    public String getUrl() {
+    public String getUrl(){
         return this.url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(String url){
         this.url = url;
     }
 
-    public int getSequence() {
+    public int getSequence(){
         return this.sequence;
     }
 
-    public void setSequence(int sequence) {
+    public void setSequence(int sequence){
         this.sequence = sequence;
     }
 
-    public boolean isDisplay() {
+    public boolean isDisplay(){
         return this.display;
     }
 
-    public void setDisplay(boolean display) {
+    public void setDisplay(boolean display){
         this.display = display;
     }
 
-    public String getContent() {
+    public String getContent(){
         return this.content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String content){
         this.content = content;
     }
 
-    public String getMark() {
+    public String getMark(){
         return this.mark;
     }
 
-    public void setMark(String mark) {
+    public void setMark(String mark){
         this.mark = mark;
     }
 }

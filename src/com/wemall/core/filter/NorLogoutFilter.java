@@ -24,10 +24,10 @@ public class NorLogoutFilter extends LogoutFilter {
     @Autowired
     private IUserService userService;
 
-    public void saveLog(HttpServletRequest request) {
+    public void saveLog(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         User u = (User)session.getAttribute("user");
-        if (u != null) {
+        if (u != null){
             User user = this.userService.getObjById(u.getId());
             user.setLastLoginDate((Date)session.getAttribute("lastLoginDate"));
             user.setLastLoginIp((String)session.getAttribute("loginIp"));
@@ -44,26 +44,26 @@ public class NorLogoutFilter extends LogoutFilter {
         }
     }
 
-    public NorLogoutFilter(String logoutSuccessUrl, LogoutHandler[] handlers) {
+    public NorLogoutFilter(String logoutSuccessUrl, LogoutHandler[] handlers){
         super(logoutSuccessUrl, handlers);
     }
 
     public void doFilterHttp(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
     throws IOException, ServletException {
-        if (requiresLogout(request, response)) {
+        if (requiresLogout(request, response)){
             HttpSession session = request.getSession(false);
-            if (session != null) {
+            if (session != null){
                 saveLog(request);
             }
         }
         super.doFilterHttp(request, response, chain);
     }
 
-    protected boolean requiresLogout(HttpServletRequest request, HttpServletResponse response) {
+    protected boolean requiresLogout(HttpServletRequest request, HttpServletResponse response){
         return super.requiresLogout(request, response);
     }
 
-    protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response) {
+    protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response){
         return super.determineTargetUrl(request, response);
     }
 
@@ -72,23 +72,23 @@ public class NorLogoutFilter extends LogoutFilter {
         super.sendRedirect(request, response, url);
     }
 
-    public void setFilterProcessesUrl(String filterProcessesUrl) {
+    public void setFilterProcessesUrl(String filterProcessesUrl){
         super.setFilterProcessesUrl(filterProcessesUrl);
     }
 
-    protected String getLogoutSuccessUrl() {
+    protected String getLogoutSuccessUrl(){
         return super.getLogoutSuccessUrl();
     }
 
-    protected String getFilterProcessesUrl() {
+    protected String getFilterProcessesUrl(){
         return super.getFilterProcessesUrl();
     }
 
-    public void setUseRelativeContext(boolean useRelativeContext) {
+    public void setUseRelativeContext(boolean useRelativeContext){
         super.setUseRelativeContext(useRelativeContext);
     }
 
-    public int getOrder() {
+    public int getOrder(){
         return super.getOrder();
     }
 }

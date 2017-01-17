@@ -66,21 +66,21 @@ public class StoreViewAction {
     @Autowired
     private StoreViewTools storeViewTools;
 
-    @RequestMapping( {"/store.htm"})
-    public ModelAndView store(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/store.htm"})
+    public ModelAndView store(HttpServletRequest request, HttpServletResponse response, String id){
         String serverName = request.getServerName().toLowerCase();
         Store store = null;
         if ((id == null) && (serverName.indexOf(".") >= 0) &&
                 (serverName.indexOf(".") != serverName.lastIndexOf(".")) &&
-                (this.configService.getSysConfig().isSecond_domain_open())) {
+                (this.configService.getSysConfig().isSecond_domain_open())){
             String secondDomain = serverName.substring(0,
                                   serverName.indexOf("."));
             store = this.storeService.getObjByProperty("store_second_domain",
                     secondDomain);
-        } else {
+        }else{
             store = this.storeService.getObjById(CommUtil.null2Long(id));
         }
-        if (store == null) {
+        if (store == null){
             ModelAndView mv = new JModelAndView("error.html",
                                                 this.configService.getSysConfig(),
                                                 this.userConfigService.getUserConfig(), 1, request,
@@ -90,18 +90,18 @@ public class StoreViewAction {
             return mv;
         }
         String template = "default";
-        if ((store.getTemplate() != null) && (!store.getTemplate().equals(""))) {
+        if ((store.getTemplate() != null) && (!store.getTemplate().equals(""))){
             template = store.getTemplate();
         }
         ModelAndView mv = new JModelAndView(template + "/store_index.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request,
                                             response);
-        if (store.getStore_status() == 2) {
+        if (store.getStore_status() == 2){
             add_store_common_info(mv, store);
             mv.addObject("store", store);
             mv.addObject("nav_id", "store_index");
-        } else {
+        }else{
             mv = new JModelAndView("error.html",
                                    this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
@@ -114,13 +114,13 @@ public class StoreViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/store_left.htm"})
-    public ModelAndView store_left(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/store_left.htm"})
+    public ModelAndView store_left(HttpServletRequest request, HttpServletResponse response){
         Store store = this.storeService.getObjById(CommUtil.null2Long(request
                       .getAttribute("id")));
         String template = "default";
         if ((store != null) && (store.getTemplate() != null) &&
-                (!store.getTemplate().equals(""))) {
+                (!store.getTemplate().equals(""))){
             template = store.getTemplate();
         }
         ModelAndView mv = new JModelAndView(template + "/store_left.html",
@@ -140,13 +140,13 @@ public class StoreViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/store_left1.htm"})
-    public ModelAndView store_left1(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/store_left1.htm"})
+    public ModelAndView store_left1(HttpServletRequest request, HttpServletResponse response){
         Store store = this.storeService.getObjById(CommUtil.null2Long(request
                       .getAttribute("id")));
         String template = "default";
         if ((store != null) && (store.getTemplate() != null) &&
-                (!store.getTemplate().equals(""))) {
+                (!store.getTemplate().equals(""))){
             template = store.getTemplate();
         }
         ModelAndView mv = new JModelAndView(template + "/store_left1.html",
@@ -164,13 +164,13 @@ public class StoreViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/store_left2.htm"})
-    public ModelAndView store_left2(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/store_left2.htm"})
+    public ModelAndView store_left2(HttpServletRequest request, HttpServletResponse response){
         Store store = this.storeService.getObjById(CommUtil.null2Long(request
                       .getAttribute("id")));
         String template = "default";
         if ((store != null) && (store.getTemplate() != null) &&
-                (!store.getTemplate().equals(""))) {
+                (!store.getTemplate().equals(""))){
             template = store.getTemplate();
         }
         ModelAndView mv = new JModelAndView(template + "/store_left2.html",
@@ -182,18 +182,18 @@ public class StoreViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/store_nav.htm"})
-    public ModelAndView store_nav(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/store_nav.htm"})
+    public ModelAndView store_nav(HttpServletRequest request, HttpServletResponse response){
         Long id = CommUtil.null2Long(request.getAttribute("id"));
         Store store = this.storeService.getObjById(id);
         String template = "default";
-        if ((store.getTemplate() != null) && (!store.getTemplate().equals(""))) {
+        if ((store.getTemplate() != null) && (!store.getTemplate().equals(""))){
             template = store.getTemplate();
         }
         ModelAndView mv = new JModelAndView(template + "/store_nav.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
-        if (store.getStore_status() == 2) {
+        if (store.getStore_status() == 2){
             Map params = new HashMap();
             params.put("store_id", store.getId());
             params.put("display", Boolean.valueOf(true));
@@ -209,7 +209,7 @@ public class StoreViewAction {
                          CommUtil.null2String(request.getAttribute("goods_id")));
             mv.addObject("goods_list",
                          Boolean.valueOf(CommUtil.null2Boolean(request.getAttribute("goods_list"))));
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -220,17 +220,17 @@ public class StoreViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/store_credit.htm"})
-    public ModelAndView store_credit(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/store_credit.htm"})
+    public ModelAndView store_credit(HttpServletRequest request, HttpServletResponse response, String id){
         Store store = this.storeService.getObjById(CommUtil.null2Long(id));
         String template = "default";
-        if ((store.getTemplate() != null) && (!store.getTemplate().equals(""))) {
+        if ((store.getTemplate() != null) && (!store.getTemplate().equals(""))){
             template = store.getTemplate();
         }
         ModelAndView mv = new JModelAndView(template + "/store_credit.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
-        if (store.getStore_status() == 2) {
+        if (store.getStore_status() == 2){
             EvaluateQueryObject qo = new EvaluateQueryObject("1", mv,
                     "addTime", "desc");
             qo.addQuery("obj.of.store.id",
@@ -241,7 +241,7 @@ public class StoreViewAction {
             mv.addObject("store", store);
             mv.addObject("nav_id", "store_credit");
             mv.addObject("storeViewTools", this.storeViewTools);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -252,22 +252,22 @@ public class StoreViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/store_eva.htm"})
-    public ModelAndView store_eva(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String eva_val) {
+    @RequestMapping({"/store_eva.htm"})
+    public ModelAndView store_eva(HttpServletRequest request, HttpServletResponse response, String id, String currentPage, String eva_val){
         Store store = this.storeService.getObjById(Long.valueOf(Long.parseLong(id)));
         String template = "default";
-        if ((store.getTemplate() != null) && (!store.getTemplate().equals(""))) {
+        if ((store.getTemplate() != null) && (!store.getTemplate().equals(""))){
             template = store.getTemplate();
         }
         ModelAndView mv = new JModelAndView(template + "/store_eva.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
-        if (store.getStore_status() == 2) {
+        if (store.getStore_status() == 2){
             EvaluateQueryObject qo = new EvaluateQueryObject(currentPage, mv,
                     "addTime", "desc");
             qo.addQuery("obj.evaluate_goods.goods_store.id",
                         new SysMap("store_id", store.getId()), "=");
-            if (!CommUtil.null2String(eva_val).equals("")) {
+            if (!CommUtil.null2String(eva_val).equals("")){
                 qo.addQuery("obj.evaluate_buyer_val",
                             new SysMap("evaluate_buyer_val", Integer.valueOf(CommUtil.null2Int(eva_val))), "=");
             }
@@ -275,7 +275,7 @@ public class StoreViewAction {
             CommUtil.saveIPageList2ModelAndView(CommUtil.getURL(request) +
                                                 "/store_eva.htm", "",
                                                 "&eva_val=" + CommUtil.null2String(eva_val), pList, mv);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -286,21 +286,21 @@ public class StoreViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/store_info.htm"})
-    public ModelAndView store_info(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/store_info.htm"})
+    public ModelAndView store_info(HttpServletRequest request, HttpServletResponse response, String id){
         Store store = this.storeService.getObjById(Long.valueOf(Long.parseLong(id)));
         String template = "default";
-        if ((store.getTemplate() != null) && (!store.getTemplate().equals(""))) {
+        if ((store.getTemplate() != null) && (!store.getTemplate().equals(""))){
             template = store.getTemplate();
         }
         ModelAndView mv = new JModelAndView(template + "/store_info.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
-        if (store.getStore_status() == 2) {
+        if (store.getStore_status() == 2){
             mv.addObject("store", store);
             mv.addObject("nav_id", "store_info");
             mv.addObject("areaViewTools", this.areaViewTools);
-        } else {
+        }else{
             mv = new JModelAndView("error.html", this.configService.getSysConfig(),
                                    this.userConfigService.getUserConfig(), 1, request,
                                    response);
@@ -311,13 +311,13 @@ public class StoreViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/store_url.htm"})
-    public ModelAndView store_url(HttpServletRequest request, HttpServletResponse response, String id) {
+    @RequestMapping({"/store_url.htm"})
+    public ModelAndView store_url(HttpServletRequest request, HttpServletResponse response, String id){
         StoreNavigation nav = this.storenavigationService.getObjById(
                                   CommUtil.null2Long(id));
         String template = "default";
         if ((nav.getStore().getTemplate() != null) &&
-                (!nav.getStore().getTemplate().equals(""))) {
+                (!nav.getStore().getTemplate().equals(""))){
             template = nav.getStore().getTemplate();
         }
         ModelAndView mv = new JModelAndView(template + "/store_url.html",
@@ -330,7 +330,7 @@ public class StoreViewAction {
         return mv;
     }
 
-    private void add_store_common_info(ModelAndView mv, Store store) {
+    private void add_store_common_info(ModelAndView mv, Store store){
         Map params = new HashMap();
         params.put("user_id", store.getUser().getId());
         params.put("display", Boolean.valueOf(true));
@@ -358,8 +358,8 @@ public class StoreViewAction {
         mv.addObject("areaViewTools", this.areaViewTools);
     }
 
-    @RequestMapping( {"/store_list.htm"})
-    public ModelAndView store_list(HttpServletRequest request, HttpServletResponse response, String id, String sc_id, String currentPage, String orderType, String store_name, String store_ower, String type) {
+    @RequestMapping({"/store_list.htm"})
+    public ModelAndView store_list(HttpServletRequest request, HttpServletResponse response, String id, String sc_id, String currentPage, String orderType, String store_name, String store_ower, String type){
         ModelAndView mv = new JModelAndView("store_list.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
@@ -369,17 +369,17 @@ public class StoreViewAction {
         mv.addObject("scs", scs);
         StoreQueryObject sqo = new StoreQueryObject(currentPage, mv,
                 "store_credit", orderType);
-        if ((sc_id != null) && (!sc_id.equals(""))) {
+        if ((sc_id != null) && (!sc_id.equals(""))){
             sqo.addQuery("obj.sc.id",
                          new SysMap("sc_id", CommUtil.null2Long(sc_id)), "=");
         }
-        if ((store_name != null) && (!store_name.equals(""))) {
+        if ((store_name != null) && (!store_name.equals(""))){
             sqo.addQuery("obj.store_name",
                          new SysMap("store_name", "%" +
                                     store_name + "%"), "like");
             mv.addObject("store_name", store_name);
         }
-        if ((store_ower != null) && (!store_ower.equals(""))) {
+        if ((store_ower != null) && (!store_ower.equals(""))){
             sqo.addQuery("obj.store_ower",
                          new SysMap("store_ower", "%" +
                                     store_ower + "%"), "like");
@@ -394,11 +394,11 @@ public class StoreViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/store_goods_search.htm"})
-    public ModelAndView store_goods_search(HttpServletRequest request, HttpServletResponse response, String keyword, String store_id, String currentPage) {
+    @RequestMapping({"/store_goods_search.htm"})
+    public ModelAndView store_goods_search(HttpServletRequest request, HttpServletResponse response, String keyword, String store_id, String currentPage){
         Store store = this.storeService.getObjById(Long.valueOf(Long.parseLong(store_id)));
         String template = "default";
-        if ((store.getTemplate() != null) && (!store.getTemplate().equals(""))) {
+        if ((store.getTemplate() != null) && (!store.getTemplate().equals(""))){
             template = store.getTemplate();
         }
         ModelAndView mv = new JModelAndView(template +
@@ -420,8 +420,8 @@ public class StoreViewAction {
         return mv;
     }
 
-    @RequestMapping( {"/store_head.htm"})
-    public ModelAndView store_head(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping({"/store_head.htm"})
+    public ModelAndView store_head(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("store_head.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 1, request, response);
@@ -434,11 +434,11 @@ public class StoreViewAction {
         return mv;
     }
 
-    private void generic_evaluate(Store store, ModelAndView mv) {
+    private void generic_evaluate(Store store, ModelAndView mv){
         double description_result = 0.0D;
         double service_result = 0.0D;
         double ship_result = 0.0D;
-        if ((store != null) && (store.getSc() != null) && (store.getPoint() != null)) {
+        if ((store != null) && (store.getSc() != null) && (store.getPoint() != null)){
             StoreClass sc = this.storeClassService.getObjById(store.getSc()
                             .getId());
             float description_evaluate = CommUtil.null2Float(sc
@@ -460,7 +460,7 @@ public class StoreViewAction {
             ship_result = CommUtil.div(Float.valueOf(store_ship_evaluate - ship_evaluate),
                                        Float.valueOf(ship_evaluate));
         }
-        if (description_result > 0.0D) {
+        if (description_result > 0.0D){
             mv.addObject("description_css", "better");
             mv.addObject("description_type", "高于");
             mv.addObject(
@@ -469,12 +469,12 @@ public class StoreViewAction {
                                                     CommUtil.mul(Double.valueOf(description_result), Integer.valueOf(100)))) +
                 "%");
         }
-        if (description_result == 0.0D) {
+        if (description_result == 0.0D){
             mv.addObject("description_css", "better");
             mv.addObject("description_type", "持平");
             mv.addObject("description_result", "-----");
         }
-        if (description_result < 0.0D) {
+        if (description_result < 0.0D){
             mv.addObject("description_css", "lower");
             mv.addObject("description_type", "低于");
             mv.addObject(
@@ -482,37 +482,37 @@ public class StoreViewAction {
                 CommUtil.null2String(Double.valueOf(CommUtil.mul(Double.valueOf(-description_result), Integer.valueOf(100)))) +
                 "%");
         }
-        if (service_result > 0.0D) {
+        if (service_result > 0.0D){
             mv.addObject("service_css", "better");
             mv.addObject("service_type", "高于");
             mv.addObject("service_result",
                          CommUtil.null2String(Double.valueOf(CommUtil.mul(Double.valueOf(service_result), Integer.valueOf(100)))) +
                          "%");
         }
-        if (service_result == 0.0D) {
+        if (service_result == 0.0D){
             mv.addObject("service_css", "better");
             mv.addObject("service_type", "持平");
             mv.addObject("service_result", "-----");
         }
-        if (service_result < 0.0D) {
+        if (service_result < 0.0D){
             mv.addObject("service_css", "lower");
             mv.addObject("service_type", "低于");
             mv.addObject("service_result",
                          CommUtil.null2String(Double.valueOf(CommUtil.mul(Double.valueOf(-service_result), Integer.valueOf(100)))) +
                          "%");
         }
-        if (ship_result > 0.0D) {
+        if (ship_result > 0.0D){
             mv.addObject("ship_css", "better");
             mv.addObject("ship_type", "高于");
             mv.addObject("ship_result",
                          CommUtil.null2String(Double.valueOf(CommUtil.mul(Double.valueOf(ship_result), Integer.valueOf(100)))) + "%");
         }
-        if (ship_result == 0.0D) {
+        if (ship_result == 0.0D){
             mv.addObject("ship_css", "better");
             mv.addObject("ship_type", "持平");
             mv.addObject("ship_result", "-----");
         }
-        if (ship_result < 0.0D) {
+        if (ship_result < 0.0D){
             mv.addObject("ship_css", "lower");
             mv.addObject("ship_type", "低于");
             mv.addObject("ship_result",

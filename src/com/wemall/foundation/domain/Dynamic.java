@@ -80,107 +80,107 @@ public class Dynamic extends IdEntity {
     @Column(columnDefinition = "bit default true")
     private boolean display;
 
-    public boolean isDisplay() {
+    public boolean isDisplay(){
         return this.display;
     }
 
-    public void setDisplay(boolean display) {
+    public void setDisplay(boolean display){
         this.display = display;
     }
 
-    public boolean isLocked() {
+    public boolean isLocked(){
         return this.locked;
     }
 
-    public void setLocked(boolean locked) {
+    public void setLocked(boolean locked){
         this.locked = locked;
     }
 
-    public Accessory getImg() {
+    public Accessory getImg(){
         return this.img;
     }
 
-    public void setImg(Accessory img) {
+    public void setImg(Accessory img){
         this.img = img;
     }
 
-    public Store getStore() {
+    public Store getStore(){
         return this.store;
     }
 
-    public void setStore(Store store) {
+    public void setStore(Store store){
         this.store = store;
     }
 
-    public List<Dynamic> getChilds() {
+    public List<Dynamic> getChilds(){
         return this.childs;
     }
 
-    public void setChilds(List<Dynamic> childs) {
+    public void setChilds(List<Dynamic> childs){
         this.childs = childs;
     }
 
-    public Goods getGoods() {
+    public Goods getGoods(){
         return this.goods;
     }
 
-    public void setGoods(Goods goods) {
+    public void setGoods(Goods goods){
         this.goods = goods;
     }
 
-    public User getUser() {
+    public User getUser(){
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 
-    public String getContent() {
+    public String getContent(){
         return this.content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String content){
         this.content = content;
     }
 
-    public int getTurnNum() {
+    public int getTurnNum(){
         return this.turnNum;
     }
 
-    public void setTurnNum(int turnNum) {
+    public void setTurnNum(int turnNum){
         this.turnNum = turnNum;
     }
 
-    public int getDiscussNum() {
+    public int getDiscussNum(){
         return this.discussNum;
     }
 
-    public void setDiscussNum(int discussNum) {
+    public void setDiscussNum(int discussNum){
         this.discussNum = discussNum;
     }
 
-    public int getPraiseNum() {
+    public int getPraiseNum(){
         return this.praiseNum;
     }
 
-    public void setPraiseNum(int praiseNum) {
+    public void setPraiseNum(int praiseNum){
         this.praiseNum = praiseNum;
     }
 
-    public Dynamic getDissParent() {
+    public Dynamic getDissParent(){
         return this.dissParent;
     }
 
-    public void setDissParent(Dynamic dissParent) {
+    public void setDissParent(Dynamic dissParent){
         this.dissParent = dissParent;
     }
 
-    public Dynamic getTurnParent() {
+    public Dynamic getTurnParent(){
         return this.turnParent;
     }
 
-    public void setTurnParent(Dynamic turnParent) {
+    public void setTurnParent(Dynamic turnParent){
         this.turnParent = turnParent;
     }
 }

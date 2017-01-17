@@ -4,7 +4,7 @@ import com.wemall.uc.api.UCClient;
 import java.io.PrintStream;
 
 public class TestMd5 {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         String s = "admin1";
 
         UCClient client = new UCClient();

@@ -38,35 +38,35 @@ public class CouponInfo extends IdEntity {
     @Column(columnDefinition = "int default 0")
     private int status;
 
-    public int getStatus() {
+    public int getStatus(){
         return this.status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(int status){
         this.status = status;
     }
 
-    public String getCoupon_sn() {
+    public String getCoupon_sn(){
         return this.coupon_sn;
     }
 
-    public void setCoupon_sn(String coupon_sn) {
+    public void setCoupon_sn(String coupon_sn){
         this.coupon_sn = coupon_sn;
     }
 
-    public User getUser() {
+    public User getUser(){
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 
-    public Coupon getCoupon() {
+    public Coupon getCoupon(){
         return this.coupon;
     }
 
-    public void setCoupon(Coupon coupon) {
+    public void setCoupon(Coupon coupon){
         this.coupon = coupon;
     }
 }
