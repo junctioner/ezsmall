@@ -238,7 +238,7 @@ public class BaseManageAction {
         Properties props = System.getProperties();
         mv.addObject("os", props.getProperty("os.name"));
         mv.addObject("java_version", props.getProperty("java.version"));
-        mv.addObject("shop_version", Integer.valueOf(20140301));
+        mv.addObject("shop_version", Integer.valueOf(20170119));
         mv.addObject("database_version",
                      this.databaseTools.queryDatabaseVersion());
         mv.addObject("web_server_version", request.getSession(false)

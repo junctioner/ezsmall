@@ -1,19 +1,14 @@
 package com.wemall.foundation.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
+import com.wemall.core.domain.IdEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.wemall.core.domain.IdEntity;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 /**
- * 文章类
+ * 文章分类
  * @author
  *
  */

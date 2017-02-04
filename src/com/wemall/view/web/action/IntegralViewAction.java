@@ -98,9 +98,11 @@ public class IntegralViewAction {
                                     .query("select obj from IntegralGoods obj where obj.ig_recommend=:recommend and obj.ig_show=:show and  obj.ig_goods_integral>=:begin and obj.ig_goods_integral<:end order by obj.ig_sequence asc",
                                            params, 0, 10);
                 }
-            }elserecommend_igs = this.integralGoodsService
-                                       .query("select obj from IntegralGoods obj where obj.ig_recommend=:recommend and obj.ig_show=:show order by obj.ig_sequence asc",
-                                              params, 0, 10);
+            }else{
+                recommend_igs = this.integralGoodsService
+                        .query("select obj from IntegralGoods obj where obj.ig_recommend=:recommend and obj.ig_show=:show order by obj.ig_sequence asc",
+                                params, 0, 10);
+            }
 
             mv.addObject("recommend_igs", recommend_igs);
             params.clear();
@@ -120,9 +122,11 @@ public class IntegralViewAction {
                               .query("select obj from IntegralGoods obj where obj.ig_show=:show and  obj.ig_goods_integral>=:begin and obj.ig_goods_integral<:end order by obj.ig_sequence asc",
                                      params, 0, 15);
                 }
-            }elsenew_igs = this.integralGoodsService
-                                 .query("select obj from IntegralGoods obj where obj.ig_show=:show order by obj.ig_sequence asc",
-                                        params, 0, 15);
+            }else{
+                new_igs = this.integralGoodsService
+                        .query("select obj from IntegralGoods obj where obj.ig_show=:show order by obj.ig_sequence asc",
+                                params, 0, 15);
+            }
 
             mv.addObject("new_igs", new_igs);
             List exchange_igs = this.integralGoodsService
