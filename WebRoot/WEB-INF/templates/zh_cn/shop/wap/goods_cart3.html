@@ -30,27 +30,26 @@ jQuery(document).ready(function() {
 	if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
 	    var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
 	    if (browser.versions.ios) {
-	            //是否在IOS浏览器打开
+	        //是否在IOS浏览器打开
 	    	jQuery(" li[id^=wxpay_]").hide();
 	    	jQuery(" li[id^=alipay_]").show();
 	    } 
 	    if(browser.versions.android){
-	            //是否在安卓浏览器打开
+	        //是否在安卓浏览器打开
 	    	jQuery(" li[id^=wxpay_]").hide();
 	    	jQuery(" li[id^=alipay_]").show();
 	    }
 	    if (ua.match(/WeiBo/i) == "weibo") {
-	            //在新浪微博客户端打开
+			//在新浪微博客户端打开
 	    }
 	    if (ua.match(/QQ/i) == "qq") {
-	            //在QQ空间打开
+			//在QQ空间打开
 	    }
 	    if (ua.match(/MicroMessenger/i) == "micromessenger") {
-	            //在微信中打开
+			//在微信中打开
 	    	jQuery(" li[id^=wxpay_]").show();
 	    	jQuery(" li[id^=alipay_]").hide();
 	    }
-	    
 	} else {
 	    //否则就是PC浏览器打开
 		jQuery(" li[id^=wxpay_]").hide();
@@ -118,12 +117,12 @@ function order_pay(payType){
 				<!-- 平台统一支付 -->
                 #if($!paym==1)
 					<li id="wxpay_1" class="list-item pay-list-item">
-	                #set($install=$!paymentTools.queryShopPayment("weixin_wap").get("install"))
-	                #if($!install==true)                
+					#set($install=$!paymentTools.queryShopPayment("weixin_wap").get("install"))
+	                #if($!install==true)
 	                <a class="list-link" href="javascript:void(0)" onclick="order_pay('weixin_wap')">
 		                <span class="pay-icon-wx"></span>
 		                <span class="title-main">微信公众号支付</span>
-		                <span class="title-vice">微信支付服务</span>
+		                <span class="title-vice">微信公众号支付服务</span>
 	                </a>
 	                #end
 	                </li>
@@ -145,7 +144,7 @@ function order_pay(payType){
 	                <a class="list-link" href="javascript:void(0)" onclick="order_pay('weixin_wap')">
 		                <span class="pay-icon"></span>
 		                <span class="title-main">微信公众号支付</span>
-		                <span class="title-vice">微信支付服务</span>
+		                <span class="title-vice">微信公众号支付服务</span>
 	                </a>
 	                #end
 	                </li>
@@ -165,16 +164,11 @@ function order_pay(payType){
             <input name="order_id" type="hidden" id="order_id" value="$!{of.id}" />
             <input name="payType" type="hidden" id="payType" value="" />
           </div>
-          
         </div>
       </div>
       </form>
     </div>
-
-$!httpInclude.include("/footer.htm") 
-
-</div>	
-	
+$!httpInclude.include("/footer.htm")
+</div>
 </body>
-
 </html>

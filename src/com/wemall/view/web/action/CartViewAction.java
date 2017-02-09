@@ -1103,7 +1103,7 @@ public class CartViewAction {
                            + "/wechat/oauthCode.htm?sn="
                            + out_trade_no
                            + "&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
-                }else if (payType.equals("alipay_wap")){
+                }else if (payType.equals("alipay_wap")){// 支付宝手机网页支付
                     String siteURL = CommUtil.getURL(request);
                     AlipayConfig config = new AlipayConfig();
 
@@ -1378,12 +1378,12 @@ public class CartViewAction {
             List payments = new ArrayList();
             Map params = new HashMap();
             //判断是否平台支付
-            if (this.configService.getSysConfig().getConfig_payment_type() == 1){
+            if (this.configService.getSysConfig().getConfig_payment_type() == 1){// 平台统一支付
                 params.put("mark", "wxcodepay");
                 params.put("type", "admin");
                 payments = this.paymentService.query(
                                "select obj from Payment obj where obj.mark=:mark and obj.type=:type", params, -1, -1);
-            }else{
+            }else{// 店铺支付
                 params.put("mark", "wxcodepay");
                 params.put("store_id", of.getStore().getId());
                 payments = this.paymentService.query(
@@ -1458,7 +1458,6 @@ public class CartViewAction {
         } catch (IOException e){
             e.printStackTrace();
         }
-        //return returnhtml;
     }
 
     @SecurityMapping(display = false, rsequence = 0, title = "订单线下支付", value = "/order_pay_outline.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")

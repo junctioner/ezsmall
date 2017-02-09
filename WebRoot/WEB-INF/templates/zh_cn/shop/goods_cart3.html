@@ -33,10 +33,6 @@ function order_pay(){
 		jQuery(html).appendTo("#wxPayCode");
 		jQuery("#wxcodepay_overlay").show();
   	},"text");
-  	/* jQuery.ajax({type:'POST',url:"$!webPath/wechat/wxcodepay.htm",async:false,data:{"order_id":orderId},success:function(html){
-		jQuery("#wxPayCode").html(html);
-		jQuery("#wxcodepay_overlay").show();
-	}}); */ 
   } else {
   	jQuery('#pay_overlay').show();
   	jQuery('#theForm').submit();
@@ -86,7 +82,7 @@ $!httpInclude.include("/top.htm")
           </div>
           <div id="selectpay" class="bankcar">
             #set($paym=$!config.getConfig_payment_type())
-                
+              <!-- 平台统一支付 -->
               #if($!paym==1)
               <ul>
                 <li>
@@ -197,9 +193,8 @@ $!httpInclude.include("/top.htm")
                   #end 
                 </li>
               </ul>
-              
+              <!-- 店铺支付 -->
               #else
-              
               <ul>
                 <li>
                   <h1>在线支付</h1>
@@ -238,8 +233,7 @@ $!httpInclude.include("/top.htm")
                     <span class="bank_txt">$!content</span> 
                   </div>
                   #end
-                  
-                  
+
                   #set($install=$!paymentTools.queryStorePayment("chinabank","$!{of.store.id}").get("install"))
                   #set($content=$!paymentTools.queryStorePayment("chinabank","$!{of.store.id}").get("content"))
                   #if($!install==true)

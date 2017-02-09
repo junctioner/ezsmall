@@ -736,8 +736,7 @@ public class PayTools {
      * @return
      * @throws Exception
      */
-    public String genericAlipayWap(String url, String payment_id, String type, String id)
-    throws Exception {
+    public String genericAlipayWap(String url, String payment_id, String type, String id) throws Exception {
         String result = "";
         OrderForm of = null;
         Predeposit obj = null;
@@ -993,11 +992,8 @@ public class PayTools {
         }
 
         String ext2 = type;
-
         String payType = "00";
-
         String redoFlag = "0";
-
         String pid = "";
         if (config.getPid() != null){
             pid = config.getPid();
