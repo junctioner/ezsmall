@@ -37,13 +37,12 @@ public class SecureResourceFilterInvocationDefinitionSource implements FilterInv
         }
 
         if ("true".equals(Boolean.valueOf(this.lowercaseComparisons))){
-            if (!this.useAntPath)
-                ((RegexUrlPathMatcher)this.urlMatcher)
-                .setRequiresLowerCaseUrl(true);
-        }else if (("false".equals(Boolean.valueOf(this.lowercaseComparisons))) &&
-                   (this.useAntPath))
-            ((AntUrlPathMatcher)this.urlMatcher)
-            .setRequiresLowerCaseUrl(false);
+            if (!this.useAntPath) {
+                ((RegexUrlPathMatcher) this.urlMatcher).setRequiresLowerCaseUrl(true);
+            }
+        }else if (("false".equals(Boolean.valueOf(this.lowercaseComparisons))) && (this.useAntPath)) {
+            ((AntUrlPathMatcher) this.urlMatcher).setRequiresLowerCaseUrl(false);
+        }
     }
 
     public ConfigAttributeDefinition getAttributes(Object filter) throws IllegalArgumentException {
@@ -51,13 +50,11 @@ public class SecureResourceFilterInvocationDefinitionSource implements FilterInv
         String requestURI = filterInvocation.getRequestUrl();
         boolean verify = true;
         if ((verify) && (requestURI.indexOf("login.htm") < 0)){
-            Map urlAuthorities =
-                getUrlAuthorities(filterInvocation);
+            Map urlAuthorities = getUrlAuthorities(filterInvocation);
 
             String grantedAuthorities = null;
 
-            Iterator iter = urlAuthorities
-                            .entrySet().iterator();
+            Iterator iter = urlAuthorities.entrySet().iterator();
             while (iter.hasNext()){
                 Map.Entry entry = (Map.Entry)iter.next();
                 String url = (String)entry.getKey();
