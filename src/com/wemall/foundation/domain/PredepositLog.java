@@ -1,20 +1,15 @@
 package com.wemall.foundation.domain;
 
-import java.math.BigDecimal;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import com.wemall.core.domain.IdEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.wemall.core.domain.IdEntity;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@Table(name = "wemall_predeposit_Log")
+@Table(name = "wemall_predeposit_log")
 public class PredepositLog extends IdEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)

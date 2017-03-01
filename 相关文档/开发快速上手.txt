@@ -22,14 +22,16 @@ Lucene全文检索原生API深度开发，完美支持电商平台，支持自�
 PC端（见PayTools.java,shop/goods_cart3.html）：微信扫码支付、支付宝支付、财付通支付、网银在线支付、贝宝支付、快钱支付
 WAP端（见CartViewAction.java,wap/goods_cart3.html）：微信公众号支付（只有在微信内打开显示）、支付宝手机网页支付（只有普通浏览器内打开显示，微信内打开不显示）
 
-开发和推荐部署环境Windows操作系统64位版、jdk1.7 64位版和tomcat7 64位版
-PC前台首页：http://wemallwjb.vicp.io/index.htm
-手机WAP前台首页：http://wemallwjb.vicp.io/wap/index.htm
-管理员后台：http://wemallwjb.vicp.io/admin/login.htm
+推荐开发环境Windows7操作系统64位版、jdk1.7 64位版和tomcat7 64位版
+推荐生产环境Ubuntu14.04操作系统64位、jdk1.7 64位版和tomcat7 64位版
+
+PC前台首页：http://happyworld.vicp.io:8080/index.htm
+手机WAP前台首页：http://happyworld.vicp.io:8080/wap/index.htm
+管理员后台：http://happyworld.vicp.io:8080/admin/login.htm
 管理员：admin/123456
-买家中心：http://wemallwjb.vicp.io/buyer/index.htm
+买家中心：http://happyworld.vicp.io:8080/buyer/index.htm
 买家：zhangsan/123456、test3/123456
-卖家中心：http://wemallwjb.vicp.io/seller/index.htm
+卖家中心：http://happyworld.vicp.io:8080/seller/index.htm
 卖家：wemall/123456、liying/123456
 
 二次开发步骤：
