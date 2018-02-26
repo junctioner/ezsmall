@@ -3,15 +3,15 @@ package com.wemall.core.tools;
 import com.alibaba.druid.filter.config.ConfigTools;
 
 /**
-°¢Àï°Í°ÍÊı¾İ¿â¼ÓÃÜËã·¨£¬½«Êı¾İ¿âÃÜÂëÃ÷ÎÄÌæ»»¡°r2vv5fcp¡±£¬ÔËĞĞmain·½·¨ºó½«´òÓ¡µÄÃÜÎÄÌîÔÚjdbc.propertiesÄÚ
+é˜¿é‡Œå·´å·´æ•°æ®åº“åŠ å¯†ç®—æ³•ï¼Œå°†æ•°æ®åº“å¯†ç æ˜æ–‡æ›¿æ¢â€œr2vv5fcpâ€ï¼Œè¿è¡Œmainæ–¹æ³•åå°†æ‰“å°çš„å¯†æ–‡å¡«åœ¨jdbc.propertieså†…
 */
 @SuppressWarnings("all")
 public class DruidDecrypt {
 	public static void main(String[] args){
 		try {
 			ConfigTools configTools = new ConfigTools ();
-			System.out.println(configTools.encrypt("r2vv5fcp"));
-			
+			System.out.println(configTools.encrypt("root"));
+		//	System.out.println(configTools.encrypt("r2vv5fcp"));
 		} catch (Exception e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
