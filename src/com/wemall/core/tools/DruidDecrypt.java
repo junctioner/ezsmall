@@ -1,3 +1,4 @@
+
 package com.wemall.core.tools;
 
 import com.alibaba.druid.filter.config.ConfigTools;
@@ -10,8 +11,8 @@ public class DruidDecrypt {
 	public static void main(String[] args){
 		try {
 			ConfigTools configTools = new ConfigTools ();
-			System.out.println(configTools.encrypt("r2vv5fcp"));
-			
+			System.out.println(configTools.encrypt("root"));
+		//	System.out.println(configTools.encrypt("r2vv5fcp"));
 		} catch (Exception e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
