@@ -57,7 +57,8 @@ jQuery(document).ready(function(){
         <li><a href="javascript:void(0);" class="active" id="about_trade_menu" onclick="openURL('show','about_trade')">交易</a></li>
         <li><a href="javascript:void(0);" class="active" id="about_website_menu" onclick="openURL('show','about_website')">网站</a></li>
         <li><a href="javascript:void(0);" class="active" id="business_operation_menu" onclick="openURL('show','business_operation')">运营</a></li>
-         <li><a href="javascript:void(0);" class="active" id="sys_tool_menu" onclick="openURL('show','sys_tool')">工具</a></li>
+        <li><a href="javascript:void(0);" class="active" id="sys_tool_menu" onclick="openURL('show','sys_tool')">工具</a></li>
+        <li><a href="javascript:void(0);" class="active" id="sys_tool_cms" onclick="openURL('show','sys_cms')">CMS管理</a></li>
       </ul>
     </div>
   </div>
@@ -190,7 +191,33 @@ jQuery(document).ready(function(){
           <li><a href="javascript:void(0);" id="database_add_op" onclick="openURL('url','$!webPath/admin/database_add.htm','main_workspace','database_add_op')">数据库管理</a></li>
           <li><a href="javascript:void(0);" id="lucene_op" onclick="openURL('url','$!webPath/admin/lucene.htm','main_workspace','lucene_op')">全文检索</a></li>          
         </ul>
-        <!-- <div class="statement" style="font-size:12px; font-family:Arial, Helvetica, sans-serif;">Powered By<a href="#" target="_blank"> <strong><span style="color:#FD7C20;">wemall</span></strong></a> <sup>V2.0</sup>©2015 wemall Inc.</div> -->
+        <ul class="ulleft" style="display:none;" id="sys_cms">
+          <div class="leftone">CMS管理</div>
+           <li><a href="javascript:void(0);" id="complex_cms" suffix="cms_center_"><img id="cms_center_img" src="$!webPath/resources/style/system/manage/blue/images/contract.jpg" width="13" height="13" />栏目管理</a>
+	          <ul id="cms_center_info">
+	               <li><a href="javascript:void(0);" id="cms_rule_op" onclick="openURL('url','$!webPath/admin/operation_integral_rule.htm','main_workspace','cms_rule_op')">添加栏目</a></li>
+              </ul>
+          </li>
+          <li><a href="javascript:void(0);" id="complex_database_add_op" suffix="cms_a_" onclick="openURL('url','$!webPath/admin/database_add.htm','main_workspace','complex_database_add_op')"><img id="cms_a_img" src="$!webPath/resources/style/system/manage/blue/images/contract.jpg" width="13" height="13" />内容管理</a>
+              <ul id="cms_a_info">
+	               <li><a href="javascript:void(0);" id="cms_a_a" onclick="openURL('url','$!webPath/admin/operation_integral_rule.htm','main_workspace','cms_a_a')">添加文档</a></li>
+	               <li><a href="javascript:void(0);" id="cms_a_b" onclick="openURL('url','$!webPath/admin/operation_integral_rule.htm','main_workspace','cms_a_b')">文档审核</a></li>
+	               <li><a href="javascript:void(0);" id="complex_cms_a_c" suffix="cms_a_c_" onclick="openURL('url','$!webPath/admin/operation_integral_rule.htm','main_workspace','complex_cms_a_c')"><img id="cms_a_c_img" src="$!webPath/resources/style/system/manage/blue/images/contract.jpg" width="13" height="13" />专题管理</a>
+	                   <ul id="cms_a_c_info">
+			               <li><a href="javascript:void(0);" id="cms_a_d" onclick="openURL('url','$!webPath/admin/operation_integral_rule.htm','main_workspace','cms_a_d')">专题添加</a></li>
+		               </ul>
+	               </li>
+	               <li><a href="javascript:void(0);" id="cms_a_e" onclick="openURL('url','$!webPath/admin/operation_integral_rule.htm','main_workspace','cms_a_e')">文档回收站</a></li>
+	               <li><a href="javascript:void(0);" id="complex_cms_a_f" suffix="cms_a_f_" onclick="openURL('url','$!webPath/admin/operation_integral_rule.htm','main_workspace','complex_cms_a_f')"><img id="cms_a_f_img" src="$!webPath/resources/style/system/manage/blue/images/contract.jpg" width="13" height="13" />标签配置</a>
+	                   <ul id="cms_a_f_info">
+			               <li><a href="javascript:void(0);" id="cms_a_g" onclick="openURL('url','$!webPath/admin/operation_integral_rule.htm','main_workspace','cms_a_g')">分类列表</a></li>
+			               <li><a href="javascript:void(0);" id="cms_a_h" onclick="openURL('url','$!webPath/admin/operation_integral_rule.htm','main_workspace','cms_a_h')">编辑</a></li>
+		               </ul>
+	               </li>
+              </ul>
+          </li>
+          <li><a href="javascript:void(0);" id="lucene_op" onclick="openURL('url','$!webPath/admin/lucene.htm','main_workspace','lucene_op')">发布统计</a></li>          
+        </ul>
       </div>
     </div>
     <div class="content">

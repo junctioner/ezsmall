@@ -20,7 +20,7 @@ import com.wemall.core.domain.IdEntity;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "wemall_area")
-public class Area extends IdEntity {
+public class Area extends IdEntity{
     /**
      * UID
      */

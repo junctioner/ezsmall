@@ -14,7 +14,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+<<<<<<< HEAD:src/com/wemall/manage/seller/tools/BargainSellerTools.java
  * ���ҽ����ؼ۹������
+=======
+ * 卖家今日特价工具组件
+>>>>>>> 652716ebb6962ffc6f3e3cf166724fe7f4de983c:src/com/wemall/manage/seller/tools/BargainSellerTools.java
  */
 @Component
 public class BargainSellerTools {

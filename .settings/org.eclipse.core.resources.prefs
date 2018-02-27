@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/com/wemall/core/annotation/SecurityMapping.java=GBK
+encoding//src/com/wemall/core/tools/DruidDecrypt.java=UTF-8
+encoding//src/com/wemall/manage/seller/tools/BargainSellerTools.java=UTF-8
+encoding//src/com/wemall/manage/seller/tools/MenuTools.java=UTF-8
 encoding/<project>=UTF-8
