@@ -107,13 +107,6 @@ jQuery(document).ready(function(){
 }); 
 
 function saveForm(){
-   var arr=[]
-    $("#class_id11 option:selected").each(function() {
-	    var a=$(this).attr("value")
-	    arr.push(a)
-	});
-   var prepareColumn=arr.join(",")
-   $("input[name='prepareColumn']").attr("value",prepareColumn)
    $("#theForm").submit();
 }
 
@@ -122,84 +115,22 @@ function saveForm(){
 </head>
 <body>
 <div class="cont" >
-  <h1 class="seth1">文章管理</h1>
-  <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="$!webPath/admin/ezsColumn_list.htm">管理</a> | <a href="$!webPath/admin/loadAddEzsColumn.htm" #if(!$!edit)class="this"#end>新增</a> #if($!edit) <a href="javascript:void(0);" class="this">编辑</a> #end </span> <span class="tab-two"></span></div>
-  <form name="theForm" id="theForm" action="$!webPath/admin/addEzsColumn.htm" method="post">
-    <input name="prepareColumn" type="hidden" value="" />
+  <h1 class="seth1">新增标签</h1>
+  <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="$!webPath/admin/classify_list.htm">管理</a> | <a href="$!webPath/admin/loadAddSpecialSubject.htm" #if(!$!edit)class="this"#end>新增</a> #if($!edit) <a href="javascript:void(0);" class="this">编辑</a> #end </span> <span class="tab-two"></span></div>
+  <form name="theForm" id="theForm" action="$!webPath/admin/editClassify.htm" method="post">
+  <input type="hidden" value="$!classify.id" name="id"/>
     <div class="setcont">
       <ul class="set1">
-        <li><span>栏目类别：</span><span class="webnamesec sizese" style="margin-left: 10px">
-          <select name="columnLevel" id="class_id222">
-            <option value="1">一级栏目</option>
-            <option value="2">二级栏目</option>
-            <option value="3">三级栏目</option>
-          </select>
-          </span>
-          </li>
-          <li>
-            <span>栏目属性：</span>
+          <li><span>标签分类名称：</span><span><input type="text" size="40" name="name" value="$!classify.name"/></span></li>
+          <li><span>所属标签属性：</span>
             <span>
-              <ul>
-                <li @click="pink=1|formatType(1)"><input type="radio" name="attribute" checked="checked" value="1"/>最终列表栏目（允许在本栏目发布文档、并生成文档列表）</li>
-                <li @click="pink=2"><input type="radio" name="attribute" value="2"/>频道封面（栏目本身不允许发布文档）</li>
-                <li @click="pink=3|formatType(3)"><input type="radio" name="attribute" value="3"/>仅为单独内容页（关于我们、公司简介之类）</li>
-                <li @click="pink=4"><input type="radio" name="attribute" value="4"/>外部链接（需要在“访问路径”处填写外链地址）</li>
-              </ul>
-            </span>
-          </li>
-          <li v-if="pink==1">
-	          <span>最终栏目列表：</span><span class="webnamesec sizese" style="margin-left: 10px">
-	          <select id="class_id11" multiple="multiple">
-	         #foreach($goodsSpecification in $goodsSpecifications)
-			   <option value="$!goodsSpecification.id">$!goodsSpecification.name</option>
-			 #end
+	          <select name="classid" id="class_id222">
+	            #foreach ( $li in $list )
+	            <option value="$!li.id" #if($!li.id==$!classify.re.id)selected="selected"#end>$!li.name</option>
+	            #end
 	          </select>
-	          </span>
-          </li>
-          <li>
-	          <span>栏目分类：</span><span class="webnamesec sizese" style="margin-left: 10px">
-	          <select id="class_id" name="gc.id">
-	            <option >请选择...</option>
-		         #foreach($goodsClass in $goodsClasss)
-				   <option value="$!goodsClass.id">$!goodsClass.className</option>
-				 #end
-	          </select>
-	          </span>
-          </li>
-        <li><span>栏目名称：</span><span><input type="text" size="40" name="name"/></span></li>
-        <li><span>访问路径：</span><span><input type="text" size="40" name="accessPath"/></span></li>
-        <li><span>栏目模板：</span><span><input type="text" size="40" name="colTemplate"/></span>
-          <span>手机模板：</span><span><input type="text" size="40" name="phoTemplate"/></span>
-        </li>
-        <li><span>栏目排序：</span><span><input type="text" size="40" name="orderid"/></span>
-        <span>显示：</span><span><input type="radio" size="40" name="reveal" value="true"/>是<input type="radio" size="40" name="reveal" value="false"/>否</span>
-        </li>
-        <li><span>meta标签：</span><span><input type="text" size="40" name="title"/></span></li>
-        <li><span>meta关键字：</span><span><input type="text" size="40" name="keyWord"/></span></li>
-        <li><span>meta描述：</span><span><textarea cols="200" rows="10" name="description"></textarea></span></li>
-        <li>
-            <span>浏览权限：</span>
-            <span>
-              <ul>
-                <li><input type="radio" name="browsePower" value="1" checked="checked"/>所有人</li>
-                <li><input type="radio" name="browsePower" value="2"/>注册会员</li>
-                <li><input type="radio" name="browsePower" value="3"/>付费会员</li>
-              </ul>
-            </span>
-          </li>
-          <li>
-            <span>审核权限：</span>
-            <span>
-              <ul>
-                <li><input type="radio" name="review" checked="checked" value="false"/>不需要审核</li>
-                <li><input type="radio" name="review" value="true"/>需要审核</li>
-              </ul>
-            </span>
-          </li>
-          <li v-if="pink!=1&&pink!=2&&pink!=4"><strong class="orange fontsize20">*</strong>内容</li>
-	        <li v-show="pink!=1&&pink!=2&&pink!=4"><span class="webname">
-	          <textarea name="content" cols="40" id="content">$!obj.content</textarea>
-	          </span></li>
+            </span></li>
+          <li><span>标签值列表：</span><span><textarea rows="10" cols="10" name="remarkValue">$!classify.remarkValue</textarea></span></li>
       </ul>
     </div>
   </form>

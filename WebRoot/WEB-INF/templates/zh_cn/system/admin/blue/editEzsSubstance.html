@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+#macro ( genericTree $somelist ) 
+#foreach ( $some in $somelist )
+<option value="$!some.id">#if($!some.level>0)
+#foreach($count in [0..$!some.level])&nbsp;&nbsp;#end #end $!some.className</option>
+#genericTree($some.childs) 
+#end 
+#end
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+<script src="$!webPath/resources/js/vue.min.js"></script>
+<script charset="utf-8" src="$!webPath/resources/editor/kindeditor.js"></script>
+<script charset="utf-8" src="$!webPath/resources/editor/lang/zh_CN.js"></script>
+<script>
+//options为编辑配置属性
+var options = {
+        cssPath : '$!webPath/resources/editor/themes/default/default.css',
+        filterMode : true,
+		uploadJson:'$!webPath/upload.htm',
+		width : '700px',
+		height:'400px',
+		syncType:"form",
+		afterCreate : function() {
+							var self = this;
+							self.sync();
+						},
+		afterChange : function() {
+							var self = this;
+							self.sync();
+						},
+		afterBlur : function() {
+							var self = this;
+							self.sync();
+						},
+		items:['source', '|', 'fullscreen', 'undo', 'redo', 'print', 'cut', 'copy', 'paste',
+			'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+			'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+			'superscript', '|', 'selectall', 'clearhtml','quickformat','|',
+			'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+			'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'table', 'hr', 'emoticons', 'link', 'unlink', '|', 'about']
+};
+jQuery(document).ready(function(){
+//设置默认状态以及判断初始显示状态
+	var state = jQuery("#display").val();
+	if(state==""){
+		jQuery("#display").val("true");
+		jQuery("#displayOff").hide();
+	}else{
+		 if(state=="true"){
+			jQuery("#displayOff").hide();
+		}else{
+			jQuery("#displayOn").hide();
+		}
+	}	
+	jQuery("#theForm").validate({
+	    rules:{
+	     name:{required:true},
+		 ac_rebate:{required:true,max:9.9},	
+		 ac_begin_time:{required:true},
+	     #if(!$!obj.ac_acc)acc:{required:true,accept:"$!config.imageSuffix"},#end
+		 ac_end_time:{required:true}
+		 },
+	    messages:{
+	     name:{required:"不能为空"},
+		 ac_rebate:{required:"活动折扣不能为空",max:"请输入小于10的数"},		
+		 ac_begin_time:{required:"开始时间不能为空"},
+		 #if(!$!obj.ac_acc)acc:{required:"横幅不能为空",accept:"系统不允许上传该文件类型"},#end
+		 ac_end_time:{required:"结束时间不能为空"}
+		}
+	  });
+jQuery('#publicTime').attr("readonly","readonly").datepicker({
+	  dateFormat:"yy-mm-dd",
+	  changeMonth: true,
+	  changeYear: true
+});
+  editor = KindEditor.create('#content',options); 
+  jQuery("#class_id").val("$!obj.articleClass.id");
+  //
+   jQuery("#display_img").click(function(){
+    var display=jQuery("#display").val();
+	if(display=="true"){
+	  jQuery("#display_img").attr("src","$!webPath/resources/style/system/manage/blue/images/no.jpg");
+	  jQuery("#display").val("false");
+	}else{
+	  jQuery("#display_img").attr("src","$!webPath/resources/style/system/manage/$!{config.websiteCss}/images/yes.jpg");
+	  jQuery("#display").val("true");
+	}
+  }); 
+}); 
+
+function saveForm(){
+   $("#theForm").submit();
+}
+
+
+</script>
+</head>
+<body>
+<div class="cont" >
+  <h1 class="seth1">新增标签</h1>
+  <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="$!webPath/admin/ezsSubstance_list.htm">管理</a> | <a href="$!webPath/admin/loadAddSpecialSubject.htm" #if(!$!edit)class="this"#end>新增</a> #if($!edit) <a href="javascript:void(0);" class="this">编辑</a> #end </span> <span class="tab-two"></span></div>
+  <form name="theForm" id="theForm" action="$!webPath/admin/addEzsSubstance.htm" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="id" value="$!ezsSubstance.id"/>
+    <div class="setcont">
+      <ul class="set1"> 
+          <li>
+            <span>栏目选择：</span>
+            <span>
+               <select name="ecId" id="ec">
+                 #foreach ($ezsColumn in $ezsColumns)
+                   <option value="$!ezsColumn.id" #if($!ezsColumn.id==$!ezsSubstance.ec.id)selected="selected"#end>$!ezsColumn.name</option>
+                 #end
+               </select>
+            </span>
+            <span>副栏目</span>
+            <span>专题：</span>
+            <span>
+               <select name="ssId" id="ss">
+                  #foreach ($specialSubject in $specialSubjects)
+                    <option value="$!specialSubject.id" #if($!specialSubject.id==$!ezsSubstance.ss.id)selected="selected"#end>$!specialSubject.name</option>
+                  #end
+               </select>
+            </span>
+          </li>
+          <li><span>主标题：</span><span><input type="text" name="name" value="$!ezsSubstance.name"/></span><span>&nbsp;外部链接：</span><span><input checked="checked" type="radio" name="linkPort" value="true"/>有<input type="radio" name="linkPort" value="false"/>否</span></li>
+          <li><span>URL：</span><span><input type="text" size="40" name="linkUrl" value="$!ezsSubstance.linkUrl"/></span></li>
+          <li><span>副标题：</span><span><input type="text" name="subheading" value="$!ezsSubstance.subheading"/></span><span>标题颜色：</span><span><input type="text" name="titleColor" value="$!ezsSubstance.titleColor"/></span><span>加粗：</span><span><input checked="checked" type="radio" name="bold" value="true"/>是<input type="radio" name="bold" value="false"/>否</span></li>
+          <li><span>Tag标签：</span><span><input type="text" name="tagTitle" value="$!ezsSubstance.tagTitle"/></span></li>
+          <li><span>摘要：</span><span><textarea name="meta" cols="20" rows="20">$!ezsSubstance.meta</textarea></span></li>
+          <li><span>关键字：</span><span><input type="text" size="10" name="keyWord" value="$!ezsSubstance.keyWord"/></span><span>标签添加：</span></li>
+          <li><span>作者：</span><span><input type="text" name="author" :value="author"/></span><span>来源：</span><span><input type="text" name="origin" value="$!ezsSubstance.origin"/></span><span>URL：</span><span><input type="text" name="originUrl" value="$!ezsSubstance.originUrl"/></span></li>
+          <li><span>发布时间：</span><span><input type="text" id="publicTime" name="publicTime" value="$!ezsSubstance.publicTime"/></span><span>固定：</span>
+	          <span>
+	            <select name="fixedTime" id="">
+	              <option value="7天" #if($!ezsSubstance.fixedTime=='7天')selected="selected"#end>7天</option>
+	              <option value="15天" #if($!ezsSubstance.fixedTime=='15天')selected="selected"#end>15天</option>
+	              <option value="30天" #if($!ezsSubstance.fixedTime=='30天')selected="selected"#end>30天</option>
+	            </select>
+	          </span>
+	          <span>在手机端显示：</span>
+	          <span><input type="radio" checked="checked" name="pcView" value="true"/>是<input type="radio" name="pcView" value="false"/>否</span>
+          </li>
+          <li><span>自定义属性：</span>
+          <span>
+           <input type="radio" name="attribute" value="1" checked="checked"/>头条
+           <input type="radio" name="attribute" value="2"/>推荐
+           <input type="radio" name="attribute" value="3"/>图片
+           <input type="radio" name="attribute" value="4"/>幻灯
+           <input type="radio" name="attribute" value="5"/>滚动
+           <input type="radio" name="attribute" value="6"/>图文
+          </span></li>
+          <li><span>缩略图：</span><span><input type="file" name="a"/></span></li>
+          <li><span>附件：</span><span><input type="file" name="b" multiple="multiple"/></span></li>
+          <li><span>多媒体文件：</span><span><input type="file" name="c"/></span></li>
+          <li><span>图片集：</span><span><input type="file" name="d" multiple="multiple"/></span></li>
+          <li><span>文章内容：</span><span class="webname">
+	          <textarea name="content" cols="40" id="content">$!ezsSubstance.content</textarea>
+	          </span></li>
+      </ul>
+    </div>
+  </form>
+  <div class="submit">
+    <input name="" type="button" value="提交" onclick="saveForm()" />
+  </div>
+</div>
+<script>
+var vm=new Vue({
+    el:"#theForm",
+    data:{
+    	pink:1,
+    	author:""
+    },
+    mounted:function () {
+        this.$nextTick(function () {
+            this.init();
+        })
+    },
+    filters:{
+    	formatMoney(value){
+        }
+    },
+    methods:{
+        init:function (){
+        	this.author="$!ezsSubstance.author"
+        	var linkPort=$!ezsSubstance.linkPort;
+        	$("input[name='linkPort']").each(function(){
+        		var a=$(this).attr("value")
+        		if((linkPort+"")==a){
+        			$(this).attr("checked",true)
+        		}else{
+        			$(this).attr("checked",false)
+        		}
+        	});
+        	var bold=$!ezsSubstance.bold;
+        	$("input[name='bold']").each(function(){
+        		var a=$(this).attr("value")
+        		if((bold+"")==a){
+        			$(this).attr("checked",true)
+        		}else{
+        			$(this).attr("checked",false)
+        		}
+        	});
+        	var pcView=$!ezsSubstance.pcView;
+        	$("input[name='pcView']").each(function(){
+        		var a=$(this).attr("value")
+        		if((pcView+"")==a){
+        			$(this).attr("checked",true)
+        		}else{
+        			$(this).attr("checked",false)
+        		}
+        	});
+        	var attribute=$!ezsSubstance.attribute;
+        	$("input[name='attribute']").each(function(){
+        		var a=$(this).attr("value")
+        		if(attribute==a){
+        			$(this).attr("checked",true)
+        			this.pink=attribute
+        		}else{
+        			$(this).attr("checked",false)
+        		}
+        	});
+        },
+        formatType:function(v){
+            if(v==3){
+            	editor = KindEditor.create('#content',options); 
+            	//jQuery("#class_id").val("$!obj.articleClass.id");
+            }
+        }
+    }
+});	
+ </script>
+</body>
+</html>

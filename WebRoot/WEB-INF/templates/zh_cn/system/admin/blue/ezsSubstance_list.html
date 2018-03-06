@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.base.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+<style>
+table{
+width: 100%
+}
+table tr{
+width: 100%
+}
+table tr td{
+  margin-right: 10px;
+  font-size: 14px;
+  margin-top: 20px;
+  text-align: center;
+}
+</style>
+<script>
+function editColumn(a){
+	if($(a).attr("checked")){
+		$("input[name='a']").attr("checked",true)
+		$("input[name='b']").attr("checked",true)
+	}else{
+		$("input[name='a']").attr("checked",false)
+		$("input[name='b']").attr("checked",false)
+	}
+}
+function editEzs(a){
+	if($(a).attr("checked")){
+		$(this).attr("checked",false)
+	}else{
+		$(this).attr("checked",true)
+	}
+	var flag=false
+	$("input[name='b']").each(function(){
+		if(!$(this).attr("checked")){
+			flag=true
+		}
+	})
+	if(flag){
+		$("input[name='a']").attr("checked",false)
+	}else{
+		$("input[name='a']").attr("checked",true)
+	}
+	
+}
+
+</script>
+</head>
+<body>
+<div style="width: 100%;height: 100%">
+    <div style="width: 100%;height: 5%">
+    <button onclick="window.location.href='$!webPath/admin/loadAddEzsSubstance.htm'" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">添加文档</button>
+    <button onclick="window.location.href='$!webPath/admin/loadAddClassify.htm'" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">我的文档</button>
+    <button onclick="window.location.href='$!webPath/admin/loadAddClassify.htm'" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">待审核文档</button>
+    <button onclick="window.location.href='$!webPath/admin/loadAddClassify.htm'" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">退回文档</button>
+    <button onclick="window.location.href='$!webPath/admin/loadDeleteEzsSubstance.htm'" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">文档回收站</button>
+    </div>
+    <div style="width: 98%;height: 91%;margin-top: 2%;margin-left: 2%">
+      <table>
+        <tr>
+          <td><input type="checkbox" name="a" onclick="editColumn(this)"/></td>
+          <td>ID</td>
+          <td>标题</td>
+          <td>发布时间</td>
+          <td>类目</td>
+          <td>发布者</td>
+          <td>点击</td>
+          <td>状态</td>
+          <td>静态页</td>
+          <td>操作</td>
+        </tr>
+          #foreach($oj in $objs)
+          <tr>
+             <td><input type="checkbox" name="b" value="$!oj.id" onclick="editEzs(this)"/></td>
+             <td>$!oj.id</td>
+             <td>$!oj.name</td>
+             <td>$!oj.addTime</td>
+             <td>$!oj.ec.name</td>
+             <td>$!oj.u.userName</td>
+             <td>$!oj.clickRate</td>
+             <td>#if($!oj.status==1)未审核#elseif($!oj.status==2)已审核#else未知#end</td>
+             <td>#if($!oj.staticStatus==1)未生成#elseif($!oj.staticStatus==2)已生成#else未知#end</td>
+             <td><a onclick="window.location.href='$!webPath/admin/loadSeeEzsSubstance.htm?id=$!oj.id'">查看/</a><a onclick="window.location.href='$!webPath/admin/loadEditEzsSubstance.htm?id=$!oj.id'">修改/</a><a onclick="window.location.href='$!webPath/admin/deleteEzsSubstance.htm?id=$!oj.id'">删除</a></td>
+          </tr>
+          #end
+      </table>
+      <div class="fenye" align="right">
+       <span id="queryCondition" style="display:none">
+		   #foreach($sm in $sms)
+	<input name="$!sm.key" id="$!sm.key" type="hidden" value="$!sm.value"/>
+			   #end
+		 </span>
+		   <input name="currentPage" type="hidden" id="currentPage" value="$!currentPage" />
+	      $!gotoPageFormHTML </div>
+    </div>
+</div>
+</body>
+</html>
