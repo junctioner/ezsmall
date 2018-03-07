@@ -97,10 +97,10 @@ function editEzs(a){
           #end
       </table>
       <div class="fenye" align="right">
-       <span id="queryCondition" style="display:none">
+         <span id="queryCondition" style="display:none">
 		   #foreach($sm in $sms)
-	<input name="$!sm.key" id="$!sm.key" type="hidden" value="$!sm.value"/>
-			   #end
+	         <input name="$!sm.key" id="$!sm.key" type="hidden" value="$!sm.value"/>
+		   #end
 		 </span>
 		   <input name="currentPage" type="hidden" id="currentPage" value="$!currentPage" />
 	      $!gotoPageFormHTML </div>
