@@ -22,12 +22,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.wemall.core.annotation.SecurityMapping;
 import com.wemall.core.mv.JModelAndView;
 import com.wemall.core.query.support.IPageList;
 import com.wemall.core.tools.CommUtil;
+import com.wemall.core.tools.ObjectExcelRead;
+import com.wemall.core.tools.PageData;
 import com.wemall.core.tools.WebForm;
 import com.wemall.foundation.domain.CrmConsumer;
 import com.wemall.foundation.domain.CrmContacts;
@@ -208,16 +212,20 @@ public class CustomerManageAction {
 			}
 		    
 		    @RequestMapping("/admin/uploadFile.htm")
-			public ModelAndView uploadFile(HttpServletRequest request,HttpServletResponse response, PrintWriter out,HttpSession session) {
+			public ModelAndView uploadFile(@RequestParam("acceptDraftExcel") MultipartFile acceptDraftExcel ,HttpServletRequest request,HttpServletResponse response, PrintWriter out,HttpSession session)  throws IllegalStateException, IOException{
 		    	  ModelAndView mv = new JModelAndView("admin/blue/crm_down_list.html",
                           this.configService.getSysConfig(),
                           this.userConfigService.getUserConfig(), 0, request, response);
+		    	  //执行读EXCEL操作,读出的数据导入List 2:从第3行开始；0:从第A列开始；0:第0个sheet
+		            List<Object> listPageData = (List) ObjectExcelRead.readExcel(
+		                    acceptDraftExcel,1,0,0);
 			
-					String outPath = File.separator+"FileUpload"+File.separator+"temp"+File.separator;
-					//String saveFilePath = CommUtil.getRealPath(request, outPath);
-				/*	Map uploadFile = CommUtil.saveFileToServer(request, "importFile",saveFilePath, null, null);
-					File file = new File(uploadFile.get("path").toString());*/
-					 mv.addObject("op_title", "客户保存成功");
+//		            String outPath = File.separator+"FileUpload"+File.separator+"temp"+File.separator;
+//					String saveFilePath = CommUtil.getRealPath(request, outPath);
+//					Map uploadFile = CommUtil.saveFileToServer(request, "importFile",saveFilePath, null, null);
+//					File file = new File(uploadFile.get("path").toString());
+			
+					 mv.addObject("op_title", "客户保存成功acceptDraftExcel");
 						
 
 				        return mv;

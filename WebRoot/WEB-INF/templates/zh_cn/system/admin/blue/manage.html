@@ -59,6 +59,7 @@ jQuery(document).ready(function(){
         <li><a href="javascript:void(0);" class="active" id="business_operation_menu" onclick="openURL('show','business_operation')">运营</a></li>
         <li><a href="javascript:void(0);" class="active" id="sys_tool_menu" onclick="openURL('show','sys_tool')">工具</a></li>
         <li><a href="javascript:void(0);" class="active" id="sys_tool_cms" onclick="openURL('show','sys_cms')">CMS管理</a></li>
+        <li><a href="javascript:void(0);" class="active" id="crm_t_menu" onclick="openURL('show','crm_t')">客户管理</a></li>
       </ul>
     </div>
   </div>
@@ -217,6 +218,15 @@ jQuery(document).ready(function(){
           </li>
           <li><a href="javascript:void(0);" id="lucene_op" onclick="openURL('url','$!webPath/admin/lucene.htm','main_workspace','lucene_op')">发布统计</a></li>          
         </ul>
+        <ul class="ulleft" style="display: none;" id="crm_t">
+						<div class="leftone">客户管理</div>
+						<li><a href="javascript:void(0);" id="crm_down_list"
+							onclick="openURL('url','$!webPath/admin/crm_down_list.htm','main_workspace','crm_down_list')">导入客户</a></li>
+						<li><a href="javascript:void(0);" id="crm_t_list"
+							onclick="openURL('url','$!webPath/admin/crm_t_list.htm','main_workspace','crm_t_list')">客户列表</a></li>
+						<li><a href="javascript:void(0);" id="crm_audit_list"
+							onclick="openURL('url','$!webPath/admin/crm_audit_list.htm','main_workspace','crm_audit_list')">客户信息审核</a></li>
+					</ul>
       </div>
     </div>
     <div class="content">
@@ -819,6 +829,15 @@ $!uc_login_js
 				onclick="openURL('url','$!webPath/admin/crm_t_list.htm','main_workspace','crm_t_list','crm_t');">客户列表</a>
 				<a href="javascript:void(0);"
 				onclick="openURL('url','$!webPath/admin/crm_audit_list.htm','main_workspace','crm_audit_list','crm_t')">客户信息</a>
+			</span>
+			
+			<span class="weblist_sp">
+				<h5>客户管理</h5> <a href="javascript:void(0);"
+				onclick="openURL('url','$!webPath/admin/crm_down_list.htm','main_workspace','cache_list_op','crm_t');">导入客户</a>
+				<a href="javascript:void(0);"
+				onclick="openURL('url','$!webPath/admin/database_add.htm','main_workspace','database_add_op','crm_t');">客户列表</a>
+				<a href="javascript:void(0);"
+				onclick="openURL('url','$!webPath/admin/crm_audit_list.htm','main_workspace','lucene_op','crm_t')">客户信息</a>
 			</span>
 		</div>
 	</div> 
