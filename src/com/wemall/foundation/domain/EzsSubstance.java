@@ -81,7 +81,7 @@ public class EzsSubstance extends IdEntity{
 	
 	private int clickRate;//点击量
 	
-	private int status;//审核状态 1.未审核2.已审核
+	private int status;//审核状态 1.未审核2.已审核3.退回
 	
 	private int staticStatus;//静态页状态1.未生成 2.已生成
 	
