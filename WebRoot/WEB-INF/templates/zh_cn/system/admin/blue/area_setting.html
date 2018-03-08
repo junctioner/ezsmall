@@ -119,22 +119,16 @@ function save_form(){
             <option value="">省份</option>
             
      		#foreach($area in $areas)
-                
             <option value="$!area.id" #if($!{area.id}==$!{first.id}) selected="selected"#end>$!area.areaName</option>
-            
 			#end
           
           </select>
           </span> <span>
           <select size="1" id="tid1" name="tid1" onchange="load_area(this)">
             <option value="">城市</option>
-            
-		#foreach($area in $seconds)
-            
-            <option value="$!area.id"  #if($!{area.id}==$!{second.id}) selected="selected"#end>$!area.areaName</option>
-            
-		#end
-          
+				#foreach($area in $seconds)
+		            <option value="$!area.id"  #if($!{area.id}==$!{second.id}) selected="selected"#end>$!area.areaName</option>
+				#end
           </select>
           </span> <span>
           <select size="1" id="tid2" name="tid2" onchange="load_area(this)">

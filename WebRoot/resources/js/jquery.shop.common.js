@@ -27,6 +27,7 @@ function selectAllPage(obj){
 ajax分页跳转指定页面处理
 **/
 function goto_ajaxPage(url,currentPage,obj){
+	alert(11)
 		if(currentPage==""){
 		currentPage=jQuery(obj).parent().find(".ip_txt").val();
 		jQuery(obj).parent().find(".ip_txt").val("");
