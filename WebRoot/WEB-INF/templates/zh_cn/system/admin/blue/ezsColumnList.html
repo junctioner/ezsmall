@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.base.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+<style>
+table{
+width: 100%
+}
+table tr{
+width: 100%
+}
+table tr td{
+  margin-right: 10px;
+  font-size: 14px;
+  margin-top: 20px;
+  text-align: center;
+}
+</style>
+<script>
+function editColumn(a){
+	if($(a).attr("checked")){
+		$("input[name='a']").attr("checked",true)
+		$("input[name='b']").attr("checked",true)
+	}else{
+		$("input[name='a']").attr("checked",false)
+		$("input[name='b']").attr("checked",false)
+	}
+}
+function editEzs(a){
+	if($(a).attr("checked")){
+		$(this).attr("checked",false)
+	}else{
+		$(this).attr("checked",true)
+	}
+	var flag=false
+	$("input[name='b']").each(function(){
+		if(!$(this).attr("checked")){
+			flag=true
+		}
+	})
+	if(flag){
+		$("input[name='a']").attr("checked",false)
+	}else{
+		$("input[name='a']").attr("checked",true)
+	}
+	
+}
+</script>
+</head>
+<body>
+<div style="width: 100%;height: 100%">
+    <div style="width: 100%;height: 5%"><button onclick="window.location.href='$!webPath/admin/loadAddEzsColumn.htm'" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">添加栏目</button></div>
+    <div style="width: 98%;height: 91%;margin-top: 2%;margin-left: 2%">
+      <table>
+        <tr>
+          <td><input type="checkbox" name="a" onclick="editColumn(this)"/></td>
+          <td>ID</td>
+          <td>栏目名称</td>
+          <td>访问路径</td>
+          <td>排列顺序</td>
+          <td>显示</td>
+          <td>操作选项</td>
+        </tr>
+        #if($!ezsColumnList)
+          #foreach($ezsColumn in $ezsColumnList)
+          <tr>
+             <td><input type="checkbox" name="b" value="$!ezsColumn.id" onclick="editEzs(this)"/></td>
+             <td>$!ezsColumn.attribute</td>
+             <td>$!ezsColumn.name</td>
+             <td>$!ezsColumn.accessPath</td>
+             <td>$!ezsColumn.orderid</td>
+             <td>#if($!ezsColumn.reveal==true)是#else否#end</td>
+             <td><a onclick="window.location.href='$!webPath/admin/loadEditEzsColumn.htm?id=$!ezsColumn.id'">修改/</a><a onclick="window.location.href='$!ezsColumn.accessPath'">预览</a>#if($!ezsColumn.attribute==3)<a onclick="openURL('url','$!webPath/admin/loadSeeEzsColumn.htm?id=$!ezsColumn.id','main_workspace','complex_cms')">/内容</a>#end</td>
+          </tr>
+          #end
+        #end
+      </table>
+    </div>
+</div>
+</body>
+</html>

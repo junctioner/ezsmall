@@ -25,6 +25,8 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "ezs_column")
 public class EzsColumn extends IdEntity {
+	private int columnLevel;//栏目级别
+	private String prepareColumn;//备用字段
 	private String name;// 栏目名称
 	@Column(columnDefinition = "int default 0")
 	private int attribute;// 1.最终列表栏目,2.频道封面,3.仅为单独内容页，4.外部链接
@@ -43,16 +45,40 @@ public class EzsColumn extends IdEntity {
 	private boolean review;// 是否审核
 	@Column(columnDefinition = "int default 0")
 	private int examine;// 审核状态
+	private String content;//内容
 	@ManyToOne
 	private User user;
 	@ManyToMany
 	@JoinTable(name = "ezs_col_gsp", joinColumns = {
 			@javax.persistence.JoinColumn(name = "col_id") }, inverseJoinColumns = {
 					@javax.persistence.JoinColumn(name = "gsp_id") })
-	private List<GoodsSpecProperty> gsps = new ArrayList<GoodsSpecProperty>();
+	private List<GoodsSpecification> gsps = new ArrayList<GoodsSpecification>();
 	// 分类
 	@ManyToOne(fetch = FetchType.LAZY)
 	private GoodsClass gc;
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getPrepareColumn() {
+		return prepareColumn;
+	}
+
+	public void setPrepareColumn(String prepareColumn) {
+		this.prepareColumn = prepareColumn;
+	}
+
+	public int getColumnLevel() {
+		return columnLevel;
+	}
+
+	public void setColumnLevel(int columnLevel) {
+		this.columnLevel = columnLevel;
+	}
 
 	public int getAttribute() {
 		return attribute;
@@ -166,11 +192,11 @@ public class EzsColumn extends IdEntity {
 		this.user = user;
 	}
 
-	public List<GoodsSpecProperty> getGsps() {
+	public List<GoodsSpecification> getGsps() {
 		return gsps;
 	}
 
-	public void setGsps(List<GoodsSpecProperty> gsps) {
+	public void setGsps(List<GoodsSpecification> gsps) {
 		this.gsps = gsps;
 	}
 

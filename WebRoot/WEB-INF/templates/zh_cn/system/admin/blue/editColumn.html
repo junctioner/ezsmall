@@ -109,8 +109,8 @@ jQuery(document).ready(function(){
 function saveForm(){
    var arr=[]
     $("#class_id11 option:selected").each(function() {
-	    var a=$(this).attr("value")
-	    arr.push(a)
+	    var b=$(this).attr("value")
+	    arr.push(b)
 	});
    var prepareColumn=arr.join(",")
    $("input[name='prepareColumn']").attr("value",prepareColumn)
@@ -124,22 +124,23 @@ function saveForm(){
 <div class="cont" >
   <h1 class="seth1">文章管理</h1>
   <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="$!webPath/admin/ezsColumn_list.htm">管理</a> | <a href="$!webPath/admin/loadAddEzsColumn.htm" #if(!$!edit)class="this"#end>新增</a> #if($!edit) <a href="javascript:void(0);" class="this">编辑</a> #end </span> <span class="tab-two"></span></div>
-  <form name="theForm" id="theForm" action="$!webPath/admin/addEzsColumn.htm" method="post">
+  <form name="theForm" id="theForm" action="$!webPath/admin/editColumn.htm" method="post">
     <input name="prepareColumn" type="hidden" value="" />
+    <input name="id" type="hidden" value="$!ezsColumn.id" />
     <div class="setcont">
       <ul class="set1">
         <li><span>栏目类别：</span><span class="webnamesec sizese" style="margin-left: 10px">
           <select name="columnLevel" id="class_id222">
-            <option value="1">一级栏目</option>
-            <option value="2">二级栏目</option>
-            <option value="3">三级栏目</option>
+            <option value="1" #if($!ezsColumn.columnLevel==1)checked="checked"#end>一级栏目</option>
+            <option value="2" #if($!ezsColumn.columnLevel==2)checked="checked"#end>二级栏目</option>
+            <option value="3" #if($!ezsColumn.columnLevel==3)checked="checked"#end>三级栏目</option>
           </select>
           </span>
           </li>
           <li>
             <span>栏目属性：</span>
             <span>
-              <ul>
+              <ul id="attrbu">
                 <li @click="pink=1|formatType(1)"><input type="radio" name="attribute" checked="checked" value="1"/>最终列表栏目（允许在本栏目发布文档、并生成文档列表）</li>
                 <li @click="pink=2"><input type="radio" name="attribute" value="2"/>频道封面（栏目本身不允许发布文档）</li>
                 <li @click="pink=3|formatType(3)"><input type="radio" name="attribute" value="3"/>仅为单独内容页（关于我们、公司简介之类）</li>
@@ -158,29 +159,29 @@ function saveForm(){
           </li>
           <li>
 	          <span>栏目分类：</span><span class="webnamesec sizese" style="margin-left: 10px">
-	          <select id="class_id" name="gc.id">
-	            <option >请选择...</option>
+	          <select id="class_id">
+	            <option value="">请选择...</option>
 		         #foreach($goodsClass in $goodsClasss)
-				   <option value="$!goodsClass.id">$!goodsClass.className</option>
+				   <option value="$!goodsClass.id" #if($!ezsColumn.gc.id==$!goodsClass.id)checked='checked'#end>$!goodsClass.className</option>
 				 #end
 	          </select>
 	          </span>
           </li>
-        <li><span>栏目名称：</span><span><input type="text" size="40" name="name"/></span></li>
-        <li><span>访问路径：</span><span><input type="text" size="40" name="accessPath"/></span></li>
-        <li><span>栏目模板：</span><span><input type="text" size="40" name="colTemplate"/></span>
-          <span>手机模板：</span><span><input type="text" size="40" name="phoTemplate"/></span>
+        <li><span>栏目名称：</span><span><input type="text" size="40" name="name" value="$!ezsColumn.name"/></span></li>
+        <li><span>访问路径：</span><span><input type="text" size="40" name="accessPath" value="$!ezsColumn.accessPath"/></span></li>
+        <li><span>栏目模板：</span><span><input type="text" size="40" name="colTemplate" value="$!ezsColumn.colTemplate"/></span>
+          <span>手机模板：</span><span><input type="text" size="40" name="phoTemplate" value="$!ezsColumn.phoTemplate"/></span>
         </li>
-        <li><span>栏目排序：</span><span><input type="text" size="40" name="orderid"/></span>
-        <span>显示：</span><span><input type="radio" size="40" name="reveal" value="true"/>是<input type="radio" size="40" name="reveal" value="false"/>否</span>
+        <li><span>栏目排序：</span><span><input type="text" size="40" name="orderid" value="$!ezsColumn.orderid"/></span>
+        <span>显示：</span><span id="reveal"><input type="radio" size="40" name="reveal" value="true" checked="checked"/>是<input type="radio" size="40" name="reveal" value="false"/>否</span>
         </li>
-        <li><span>meta标签：</span><span><input type="text" size="40" name="title"/></span></li>
-        <li><span>meta关键字：</span><span><input type="text" size="40" name="keyWord"/></span></li>
-        <li><span>meta描述：</span><span><textarea cols="200" rows="10" name="description"></textarea></span></li>
+        <li><span>meta标签：</span><span><input type="text" size="40" name="title" value="$!ezsColumn.title"/></span></li>
+        <li><span>meta关键字：</span><span><input type="text" size="40" name="keyWord" value="$!ezsColumn.keyWord"/></span></li>
+        <li><span>meta描述：</span><span><textarea cols="200" rows="10" name="description">$!ezsColumn.description</textarea></span></li>
         <li>
             <span>浏览权限：</span>
             <span>
-              <ul>
+              <ul id="browsePower">
                 <li><input type="radio" name="browsePower" value="1" checked="checked"/>所有人</li>
                 <li><input type="radio" name="browsePower" value="2"/>注册会员</li>
                 <li><input type="radio" name="browsePower" value="3"/>付费会员</li>
@@ -190,7 +191,7 @@ function saveForm(){
           <li>
             <span>审核权限：</span>
             <span>
-              <ul>
+              <ul id="review">
                 <li><input type="radio" name="review" checked="checked" value="false"/>不需要审核</li>
                 <li><input type="radio" name="review" value="true"/>需要审核</li>
               </ul>
@@ -224,11 +225,58 @@ var vm=new Vue({
     },
     methods:{
         init:function (){
+        	var attribute=$!ezsColumn.attribute;
+        	$("#attrbu li input").each(function(){
+        		var a=$(this).attr("value")
+        		if(attribute==a){
+        			$(this).attr("checked",true)
+        			this.pink=attribute
+        		}else{
+        			$(this).attr("checked",false)
+        		}
+        	});
+        	var reveal=$!ezsColumn.reveal;
+        	$("#reveal input").each(function(){
+        		var a=$(this).attr("value")
+        		if((reveal+"")==a){
+        			$(this).attr("checked",true)
+        		}else{
+        			$(this).attr("checked",false)
+        		}
+        	})
+        	var browsePower=$!ezsColumn.browsePower
+        	$("#browsePower li input").each(function(){
+        		var a=$(this).attr("value")
+        		if(browsePower==a){
+        			$(this).attr("checked",true)
+        		}else{
+        			$(this).attr("checked",false)
+        		}
+        	})
+        	var review=$!ezsColumn.review
+        	$("#review li input").each(function(){
+        		var a=$(this).attr("value")
+        		if((review+"")==a){
+        			$(this).attr("checked",true)
+        		}else{
+        			$(this).attr("checked",false)
+        		}
+        	})
+        	var gsps=[];
+        	#foreach($gs in $!ezsColumn.gsps)
+	        	gsps.push($gs.id+"");
+        	#end
+        	$("#class_id11 option").each(function(){
+        		var id=$(this).attr("value")
+        		if(gsps.indexOf(id)>-1){
+        			$(this).attr("selected",true)
+        		}
+        	})
         },
         formatType:function(v){
             if(v==3){
             	editor = KindEditor.create('#content',options); 
-            	//jQuery("#class_id").val("$!obj.articleClass.id");
+            	jQuery("#class_id").val("$!obj.articleClass.id");
             }
         }
     }
