@@ -156,16 +156,6 @@ function saveForm(){
 	          </select>
 	          </span>
           </li>
-          <li>
-	          <span>栏目分类：</span><span class="webnamesec sizese" style="margin-left: 10px">
-	          <select id="class_id" name="gc.id">
-	            <option >请选择...</option>
-		         #foreach($goodsClass in $goodsClasss)
-				   <option value="$!goodsClass.id">$!goodsClass.className</option>
-				 #end
-	          </select>
-	          </span>
-          </li>
         <li><span>栏目名称：</span><span><input type="text" size="40" name="name"/></span></li>
         <li><span>访问路径：</span><span><input type="text" size="40" name="accessPath"/></span></li>
         <li><span>栏目模板：</span><span><input type="text" size="40" name="colTemplate"/></span>
