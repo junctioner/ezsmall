@@ -55,47 +55,43 @@ function editEzs(a){
 	}
 	
 }
-
+function saveForm(){
+	jQuery("#theForm").submit();
+}
 </script>
 </head>
 <body>
-<div style="width: 100%;height: 100%">
-    <div style="width: 100%;height: 5%">
+<div class="cont" >
+  <h1 class="seth1">移动</h1>
+  <form method="post" id="theForm" action="$!webPath/admin/moveEzsSubstance.htm">
+  <input type="hidden" name="id" value="$!ezsSubstance.id"/>
+  <input type="hidden" name="span" value="$!span"/>
+    <div class="setcont">
+      <ul class="set1">
+          <li><span>#if($!span==1)您目前的操作是移动文档，请选择目标栏目：#elseif($!span==2)您目前的操作是复制文档，请选择目标栏目：#elseif($!span==3)保存固顶#end</span>
+          <span>
+            #if($!span==1||$!span==2)
+	            <select id="ec" name="ecId">
+	            #foreach($ezsColumn in $ezsColumns)
+	             <option value="$!ezsColumn.id">$!ezsColumn.name</option>
+	            #end
+	            </select>
+	        #elseif($!span==3)
+	            <select name="fixedTime">
+	             <option value="7天">7天</option>
+	             <option value="15天">15天</option>
+	             <option value="30天">30天</option>
+	            </select>
+            #end
+          </span>
+          </li>
+      </ul>
     </div>
-    <div style="width: 98%;height: 91%;margin-top: 2%;margin-left: 2%">
-      <table>
-        <tr>
-          <td><input type="checkbox" name="a" onclick="editColumn(this)"/></td>
-          <td>ID</td>
-          <td>标题</td>
-          <td>发布时间</td>
-          <td>类目</td>
-          <td>发布者</td>
-          <td>点击</td>
-          <td>操作</td>
-        </tr>
-          #foreach($oj in $objs)
-          <tr>
-             <td><input type="checkbox" name="b" value="$!oj.id" onclick="editEzs(this)"/></td>
-             <td>$!oj.id</td>
-             <td>$!oj.name</td>
-             <td>$!oj.addTime</td>
-             <td>$!oj.ec.name</td>
-             <td>$!oj.u.userName</td>
-             <td>$!oj.clickRate</td>
-             <td><a onclick="window.location.href='$!webPath/admin/loadReturnEzsSubstance.htm?id=$!oj.id'">还原/</a><a onclick="window.location.href='$!webPath/admin/deleteTrueEzsSubstance.htm?id=$!oj.id'">删除</a></td>
-          </tr>
-          #end
-      </table>
-      <div class="fenye" align="right">
-       <span id="queryCondition" style="display:none">
-		   #foreach($sm in $sms)
-	<input name="$!sm.key" id="$!sm.key" type="hidden" value="$!sm.value"/>
-			   #end
-		 </span>
-		   <input name="currentPage" type="hidden" id="currentPage" value="$!currentPage" />
-	      $!gotoPageFormHTML </div>
+    <div class="submit">
+      <input name="" type="button" value="保存" style="cursor:pointer;" onclick="saveForm();"/>
     </div>
+  </form>
 </div>
+  
 </body>
 </html>

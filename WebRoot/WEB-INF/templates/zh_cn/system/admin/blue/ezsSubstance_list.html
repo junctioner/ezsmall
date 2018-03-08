@@ -12,9 +12,13 @@
 <script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
 <script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
 <script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+<script type="text/javascript" src="$!webPath/resources/js/layer/layer.js"></script>
+<script type="text/javascript" src="$!webPath/resources/js/layui/layui.js"></script>
+<link rel="stylesheet" href="$!webPath/resources/js/layui/css/layui.css" media="all">
 <style>
 table{
-width: 100%
+width: 100%;
+margin-top: 1%
 }
 table tr{
 width: 100%
@@ -55,19 +59,101 @@ function editEzs(a){
 	}
 	
 }
+//生成静态网页
+function saveStaticPage(){
+/* 	if($("input[name='b']:checked").length!=1){
+		alert("请选择一条数据")
+	}else{
+		window.location.href="$!webPath/admin/loadCheckEzsSubstance.htm?id="+$("input[name='b']:checked").attr("value")
+	} */
+}
+//移动
+function movePage(){
+	if($("input[name='b']:checked").length!=1){
+		alert("请选择一条数据")
+	}else{
+		window.location.href="$!webPath/admin/loadMoveEzsSubstance.htm?id="+$("input[name='b']:checked").attr("value")+"&span=1"
+	}
+}
+//复制
+function copyPage(){
+	if($("input[name='b']:checked").length!=1){
+		alert("请选择一条数据")
+	}else{
+		window.location.href="$!webPath/admin/loadMoveEzsSubstance.htm?id="+$("input[name='b']:checked").attr("value")+"&span=2"
+	}
+}
+//审核
+function signPage(){
+	if($("input[name='b']:checked").length!=1){
+		alert("请选择一条数据")
+	}else{
+		window.location.href="$!webPath/admin/loadCheckEzsSubstance.htm?id="+$("input[name='b']:checked").attr("value")
+	}
+}
+//保存固顶
+function saveTopPage(){
+	if($("input[name='b']:checked").length!=1){
+		alert("请选择一条数据")
+	}else{
+		window.location.href="$!webPath/admin/loadMoveEzsSubstance.htm?id="+$("input[name='b']:checked").attr("value")+"&span=3"
+	}
+}
 
+function searchEzs(){
+	var name=$("#name").attr("value")
+	var userName=$("#userName").attr("value")
+	var publicTime=$("#publicTime").attr("value")
+	var ec=$("#ec").attr("value")
+	var sUrl='$!webPath/admin/ezsSubstance_list.htm?'
+	if(name!=undefined&&name!=""){
+		sUrl+="name="+name+"&"
+	}
+	if(userName!=undefined&&userName!=""){
+		sUrl+="userName="+userName+"&"
+	}
+	if(publicTime!=undefined&&publicTime!=""){
+		sUrl+="publicTime="+publicTime+"&"
+	}
+	if(ec!=undefined&&ec!=""){
+		sUrl+="ec="+ec
+	}
+	window.location.href=sUrl
+}
 </script>
 </head>
 <body>
 <div style="width: 100%;height: 100%">
     <div style="width: 100%;height: 5%">
     <button onclick="window.location.href='$!webPath/admin/loadAddEzsSubstance.htm'" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">添加文档</button>
-    <button onclick="window.location.href='$!webPath/admin/loadAddClassify.htm'" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">我的文档</button>
-    <button onclick="window.location.href='$!webPath/admin/loadAddClassify.htm'" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">待审核文档</button>
-    <button onclick="window.location.href='$!webPath/admin/loadAddClassify.htm'" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">退回文档</button>
+    <button onclick="window.location.href='$!webPath/admin/ezsSubstance_list.htm?userId=1'" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">我的文档</button>
+    <button onclick="window.location.href='$!webPath/admin/ezsSubstance_list.htm?status=1'" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">待审核文档</button>
+    <button onclick="window.location.href='$!webPath/admin/ezsSubstance_list.htm?status=3'" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">退回文档</button>
     <button onclick="window.location.href='$!webPath/admin/loadDeleteEzsSubstance.htm'" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">文档回收站</button>
     </div>
-    <div style="width: 98%;height: 91%;margin-top: 2%;margin-left: 2%">
+    <div style="width: 98%;height: 91%;margin-top: 2%;margin-left: 1%">
+      <div>
+       <span>标题：</span><span><input type="text" id="name"/></span><span>&nbsp;&nbsp;发布者:&nbsp;</span><span><input type="text" id="userName"/></span>
+       <span>&nbsp;&nbsp;发布时间：</span>
+       <span>
+         <select id="publicTime">
+           <option value="">请选择时间</option>
+           <option value="7">一周</option>
+           <option value="15">半个月</option>
+           <option value="30">一个月</option>
+         </select>
+       </span>
+       <span>&nbsp;&nbsp;栏目：</span>
+       <span>
+         <select id="ec" name="ec">
+             <option value="">请选择栏目</option>
+           #foreach($ezsColumn in $ezsColumns)
+             <option value="$!ezsColumn.id">$!ezsColumn.name</option>
+           #end
+         </select>
+       </span>
+       <span><button onclick="searchEzs()" style="width: 50px;height: 25px;">&nbsp;搜索</button></span>
+      </div>
       <table>
         <tr>
           <td><input type="checkbox" name="a" onclick="editColumn(this)"/></td>
@@ -96,6 +182,13 @@ function editEzs(a){
           </tr>
           #end
       </table>
+      <div>
+        <button onclick="saveStaticPage()" style="width: 100px;height: 30px;border-radius:10%;margin-top: 1%;font-weight: bold;">生成静态页</button>
+        <button onclick="movePage()" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">移动</button>
+        <button onclick="copyPage()" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">复制</button>
+        <button onclick="signPage()" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">审核</button>
+        <button onclick="saveTopPage()" style="width: 100px;height: 30px;border-radius:10%;margin-left: 1%;margin-top: 1%;font-weight: bold;">保存固顶</button>
+      </div>
       <div class="fenye" align="right">
          <span id="queryCondition" style="display:none">
 		   #foreach($sm in $sms)
