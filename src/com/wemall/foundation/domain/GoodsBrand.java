@@ -53,9 +53,6 @@ public class GoodsBrand extends IdEntity {
     @Column(columnDefinition = "LongText")
     private String remark;
 
-    //商品种类集合
-    @ManyToMany(mappedBy = "gbs")
-    private List<GoodsType> types = new ArrayList<GoodsType>();
 
     //商品品牌种类
     @ManyToOne(fetch = FetchType.LAZY)
@@ -178,11 +175,5 @@ public class GoodsBrand extends IdEntity {
         this.audit = audit;
     }
 
-    public List<GoodsType> getTypes(){
-        return this.types;
-    }
-
-    public void setTypes(List<GoodsType> types){
-        this.types = types;
-    }
+ 
 }

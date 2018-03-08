@@ -8,7 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+<<<<<<< HEAD:src/com/wemall/manage/seller/tools/MenuTools.java
+ * �˵��������
+=======
  * 菜单工具组件
+>>>>>>> 652716ebb6962ffc6f3e3cf166724fe7f4de983c:src/com/wemall/manage/seller/tools/MenuTools.java
  */
 @Component
 public class MenuTools {

@@ -137,7 +137,6 @@ public class GoodsTypeManageAction {
             goodsType = (GoodsType)wf.toPo(request, obj);
         }
         goodsType.getGss().clear();
-        goodsType.getGbs().clear();
         String[] gs_ids = spec_ids.split(",");
         GoodsSpecification gs;
         for (String gs_id : gs_ids){
@@ -145,14 +144,6 @@ public class GoodsTypeManageAction {
                 gs = this.goodsSpecificationService
                      .getObjById(Long.valueOf(Long.parseLong(gs_id)));
                 goodsType.getGss().add(gs);
-            }
-        }
-        String[] gb_ids = brand_ids.split(",");
-        for (String gb_id : gb_ids){
-            if (!gb_id.equals("")){
-                GoodsBrand gb = this.goodsBrandService.getObjById(
-                                    Long.valueOf(Long.parseLong(gb_id)));
-                goodsType.getGbs().add(gb);
             }
         }
         if (id.equals(""))
@@ -214,7 +205,6 @@ public class GoodsTypeManageAction {
             if (!id.equals("")){
                 GoodsType goodsType = this.goodsTypeService.getObjById(
                                           Long.valueOf(Long.parseLong(id)));
-                goodsType.getGbs().clear();
                 goodsType.getGss().clear();
                 for (GoodsClass gc : goodsType.getGcs()){
                     gc.setGoodsType(null);

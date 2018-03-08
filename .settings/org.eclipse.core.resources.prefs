@@ -1,6 +1,13 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=branch 'master' of https\://gitee.com/EZS/shopping.git
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//src/com/wemall/core/annotation/SecurityMapping.java=gbk
 encoding//src/com/wemall/core/tools/DruidDecrypt.java=UTF-8
+=======
+encoding//src/com/wemall/core/annotation/SecurityMapping.java=GBK
+>>>>>>> branch 'master' of https://gitee.com/EZS/shopping.git
 encoding//src/com/wemall/manage/seller/tools/BargainSellerTools.java=UTF-8
 encoding//src/com/wemall/manage/seller/tools/MenuTools.java=UTF-8
 encoding//src/com/wemall/manage/seller/tools/TransportTools.java=UTF-8

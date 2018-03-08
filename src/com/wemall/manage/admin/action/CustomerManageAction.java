@@ -212,7 +212,7 @@ public class CustomerManageAction {
                           this.userConfigService.getUserConfig(), 0, request, response);
 			
 					String outPath = File.separator+"FileUpload"+File.separator+"temp"+File.separator;
-					String saveFilePath = CommUtil.getRealPath(request, outPath);
+					//String saveFilePath = CommUtil.getRealPath(request, outPath);
 				/*	Map uploadFile = CommUtil.saveFileToServer(request, "importFile",saveFilePath, null, null);
 					File file = new File(uploadFile.get("path").toString());*/
 					 mv.addObject("op_title", "客户保存成功");

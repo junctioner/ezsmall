@@ -1,20 +1,22 @@
 package com.wemall.view.web.tools;
 
-import com.wemall.foundation.domain.Navigation;
-import com.wemall.foundation.service.IActivityService;
-import com.wemall.foundation.service.IArticleService;
-import com.wemall.foundation.service.IGoodsClassService;
-import com.wemall.foundation.service.INavigationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.wemall.foundation.domain.GoodsClass;
+import com.wemall.foundation.domain.Navigation;
+import com.wemall.foundation.service.IActivityService;
+import com.wemall.foundation.service.IArticleService;
+import com.wemall.foundation.service.IGoodsClassService;
+import com.wemall.foundation.service.INavigationService;
+
 /**
- * µ¼º½¹¤¾ß×é¼þ
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 @Component
 public class NavViewTools {
@@ -40,6 +42,12 @@ public class NavViewTools {
                .query("select obj from Navigation obj where obj.display=:display and obj.location=:location and obj.type!=:type order by obj.sequence asc", params, 0, count);
 
         return navs;
+    }
+    public List<GoodsClass> queryParent(){
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	  params.put("display", Boolean.valueOf(true));
+    	 return  this.goodsClassService.query("select obj from GoodsClass obj where obj.parent.id is null and obj.display=:display order by obj.sequence asc", params,-1,-1);
+    	  
     }
 }
 

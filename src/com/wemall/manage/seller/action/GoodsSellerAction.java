@@ -124,6 +124,8 @@ public class GoodsSellerAction {
 
     @Autowired
     private DatabaseTools databaseTools;
+    @Autowired
+    private IAreaService areaService;
 
     /**
      * 发布新商品
@@ -170,27 +172,17 @@ public class GoodsSellerAction {
             int user_goods_count = user.getStore().getGoods_list().size();
             if ((grade.getGoodsCount() == 0)
                     || (user_goods_count < grade.getGoodsCount())){
-                List gcs = this.goodsClassService
-                           .query("select obj from GoodsClass obj where obj.parent.id is null order by obj.sequence asc",
-                                  null, -1, -1);
-                mv = new JModelAndView(
-                    "user/default/usercenter/add_goods_first.html",
-                    this.configService.getSysConfig(),
-                    this.userConfigService.getUserConfig(), 0, request,
-                    response);
+                List gcs = this.goodsClassService.query("select obj from GoodsClass obj where obj.parent.id is null order by obj.sequence asc",null, -1, -1);
+                mv = new JModelAndView("user/default/usercenter/add_goods_first.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
                 params.clear();
                 params.put("store_id", user.getStore().getId());
-                List staples = this.goodsclassstapleService
-                               .query("select obj from GoodsClassStaple obj where obj.store.id=:store_id order by obj.addTime desc",
-                                      params, -1, -1);
+                List staples = this.goodsclassstapleService.query("select obj from GoodsClassStaple obj where obj.store.id=:store_id order by obj.addTime desc",params, -1, -1);
                 mv.addObject("staples", staples);
                 mv.addObject("gcs", gcs);
                 mv.addObject("id", CommUtil.null2String(id));
             }else{
-                mv.addObject("op_title", "您的店铺等级只允许上传" + grade.getGoodsCount()
-                             + "件商品!");
-                mv.addObject("url", CommUtil.getURL(request)
-                             + "/seller/store_grade.htm");
+                mv.addObject("op_title", "您的店铺等级只允许上传" + grade.getGoodsCount() + "件商品!");
+                mv.addObject("url", CommUtil.getURL(request)+ "/seller/store_grade.htm");
             }
         }
         if (store_status == 0){
@@ -254,17 +246,13 @@ public class GoodsSellerAction {
             mv = new JModelAndView(
                 "user/default/usercenter/add_goods_second.html",
                 this.configService.getSysConfig(),
-                this.userConfigService.getUserConfig(), 0, request,
-                response);
+                this.userConfigService.getUserConfig(), 0, request, response);
             if (request.getSession(false).getAttribute("goods_class_info") != null){
-                GoodsClass gc = (GoodsClass) request.getSession(false)
-                                .getAttribute("goods_class_info");
+                GoodsClass gc = (GoodsClass) request.getSession(false).getAttribute("goods_class_info");
                 gc = this.goodsClassService.getObjById(gc.getId());
                 String goods_class_info = generic_goods_class_info(gc);
-                mv.addObject("goods_class",
-                             this.goodsClassService.getObjById(gc.getId()));
-                mv.addObject("goods_class_info", goods_class_info.substring(0,
-                             goods_class_info.length() - 1));
+                mv.addObject("goods_class",this.goodsClassService.getObjById(gc.getId()));
+                mv.addObject("goods_class_info", goods_class_info.substring(0,goods_class_info.length() - 1));
                 request.getSession(false).removeAttribute("goods_class_info");
             }
             String path = request.getSession().getServletContext()
@@ -276,30 +264,20 @@ public class GoodsSellerAction {
                           + File.separator + user.getStore().getId();
             double img_remain_size = 0.0D;
             if (user.getStore().getGrade().getSpaceSize() > 0.0F){
-                img_remain_size = user.getStore().getGrade().getSpaceSize()
-                                  - CommUtil.div(Double.valueOf(CommUtil
-                                                 .fileSize(new File(path))), Integer
-                                                 .valueOf(1024));
+                img_remain_size = user.getStore().getGrade().getSpaceSize() - CommUtil.div(Double.valueOf(CommUtil.fileSize(new File(path))), Integer.valueOf(1024));
             }
             Map params = new HashMap();
             params.put("user_id", user.getId());
             params.put("display", Boolean.valueOf(true));
-            List ugcs = this.userGoodsClassService
-                        .query("select obj from UserGoodsClass obj where obj.user.id=:user_id and obj.display=:display and obj.parent.id is null order by obj.sequence asc",
-                               params, -1, -1);
-            List gbs = this.goodsBrandService.query(
-                           "select obj from GoodsBrand obj order by obj.sequence asc",
-                           null, -1, -1);
+            List ugcs = this.userGoodsClassService.query("select obj from UserGoodsClass obj where obj.user.id=:user_id and obj.display=:display and obj.parent.id is null order by obj.sequence asc",params, -1, -1);
+            List gbs = this.goodsBrandService.query("select obj from GoodsBrand obj order by obj.sequence asc",null, -1, -1);
             mv.addObject("gbs", gbs);
             mv.addObject("ugcs", ugcs);
             mv.addObject("img_remain_size", Double.valueOf(img_remain_size));
-            mv.addObject("imageSuffix", this.storeViewTools
-                         .genericImageSuffix(this.configService.getSysConfig()
-                                             .getImageSuffix()));
+            mv.addObject("imageSuffix", this.storeViewTools.genericImageSuffix(this.configService.getSysConfig().getImageSuffix()));
             String goods_session = CommUtil.randomString(32);
             mv.addObject("goods_session", goods_session);
-            request.getSession(false).setAttribute("goods_session",
-                                                   goods_session);
+            request.getSession(false).setAttribute("goods_session",goods_session);
         }
         if (store_status == 0){
             mv.addObject("op_title", "您尚未开通店铺，不能发布商品");
@@ -313,7 +291,8 @@ public class GoodsSellerAction {
             mv.addObject("op_title", "您的店铺已被关闭，不能发布商品");
             mv.addObject("url", CommUtil.getURL(request) + "/seller/index.htm");
         }
-
+        List areas = this.areaService.query("select obj from Area obj where obj.parent.id is null", null,-1, -1);
+        mv.addObject("areas", areas);
         return mv;
     }
 
@@ -635,9 +614,8 @@ public class GoodsSellerAction {
     @RequestMapping({ "/seller/add_goods_finish.htm" })
     public ModelAndView add_goods_finish(HttpServletRequest request,
                                          HttpServletResponse response, String id, String goods_class_id,
-                                         String image_ids, String goods_main_img_id, String user_class_ids,
-                                         String goods_brand_id, String goods_spec_ids,
-                                         String goods_properties, String inventory_details,
+                                         String image_ids, String goods_main_img_id,  String goods_address,
+                                         String goods_properties, String goods_parameter_detail,
                                          String goods_session, String transport_type, String transport_id){
         ModelAndView mv = null;
         String goods_session1 = CommUtil.null2String(request.getSession(false).getAttribute("goods_session"));
@@ -658,7 +636,7 @@ public class GoodsSellerAction {
             }
             WebForm wf = new WebForm();
             Goods goods = null;
-            if (id.equals("")){
+            if (id==null||id.equals("")){
                 goods = (Goods) wf.toPo(request, Goods.class);
                 goods.setAddTime(new Date());
                 User user = this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId());
@@ -682,16 +660,15 @@ public class GoodsSellerAction {
             }
             goods.setGoods_main_photo(main_img);
             goods.getGoods_ugcs().clear();
-            String[] ugc_ids = user_class_ids.split(",");
-
-            for (int i = 0; i < ugc_ids.length; i++){
-                String ugc_id = ugc_ids[i];
-                if (!ugc_id.equals("")){
-                    UserGoodsClass ugc = this.userGoodsClassService
-                                         .getObjById(Long.valueOf(Long.parseLong(ugc_id)));
-                    goods.getGoods_ugcs().add(ugc);
-                }
-            }
+//            String[] ugc_ids = user_class_ids.split(",");
+//            for (int i = 0; i < ugc_ids.length; i++){
+//                String ugc_id = ugc_ids[i];
+//                if (!ugc_id.equals("")){
+//                    UserGoodsClass ugc = this.userGoodsClassService
+//                                         .getObjById(Long.valueOf(Long.parseLong(ugc_id)));
+//                    goods.getGoods_ugcs().add(ugc);
+//                }
+//            }
             String[] img_ids = image_ids.split(",");
             goods.getGoods_photos().clear();
 
@@ -702,23 +679,22 @@ public class GoodsSellerAction {
                     goods.getGoods_photos().add(img);
                 }
             }
-            if ((goods_brand_id != null) && (!goods_brand_id.equals(""))){
-                GoodsBrand goods_brand = this.goodsBrandService.getObjById(Long.valueOf(Long.parseLong(goods_brand_id)));
-                goods.setGoods_brand(goods_brand);
-            }
-            goods.getGoods_specs().clear();
-            String[] spec_ids = goods_spec_ids.split(",");
-
-            for (int i = 0; i < spec_ids.length; i++){
-                String spec_id = spec_ids[i];
-                if (!spec_id.equals("")){
-                    GoodsSpecProperty gsp = this.specPropertyService.getObjById(Long.valueOf(Long.parseLong(spec_id)));
-                    goods.getGoods_specs().add(gsp);
-                }
-            }
+//            if ((goods_brand_id != null) && (!goods_brand_id.equals(""))){
+//                GoodsBrand goods_brand = this.goodsBrandService.getObjById(Long.valueOf(Long.parseLong(goods_brand_id)));
+//                goods.setGoods_brand(goods_brand);
+//            }
+//            goods.getGoods_specs().clear();
+//            String[] spec_ids = goods_spec_ids.split(",");
+//
+//            for (int i = 0; i < spec_ids.length; i++){
+//                String spec_id = spec_ids[i];
+//                if (!spec_id.equals("")){
+//                    GoodsSpecProperty gsp = this.specPropertyService.getObjById(Long.valueOf(Long.parseLong(spec_id)));
+//                    goods.getGoods_specs().add(gsp);
+//                }
+//            }
 
             List maps = new ArrayList();
-
             // 组装商品属性
             if(org.apache.commons.lang.StringUtils.isNotEmpty(goods_properties)){
                 String[] properties = goods_properties.split(";");
@@ -729,8 +705,7 @@ public class GoodsSellerAction {
                         list = property.split(",");
                         Map map = new HashMap();
                         map.put("id", list[0]);
-                        map.put("val", list[1]);
-                        map.put("name", this.goodsTypePropertyService.getObjById(Long.valueOf(Long.parseLong(list[0]))).getName());
+                        map.put("name", list[1]);
                         maps.add(map);
                     }
                 }
@@ -738,23 +713,35 @@ public class GoodsSellerAction {
             }
 
             maps.clear();
-
-            // 组装商品多规格库存和价格
-            if(org.apache.commons.lang.StringUtils.isNotEmpty(inventory_details)){
-                String[] inventory_list = inventory_details.split(";");
-                for (int i = 0; i < inventory_list.length; i++){
-                    String inventory = inventory_list[i];
-                    if (org.apache.commons.lang.StringUtils.isNotEmpty(inventory)){
-                        String[] list1 = inventory.split(",");
-                        Map map = new HashMap();
-                        map.put("id", list1[0]);
-                        map.put("count", list1[1]);
-                        map.put("price", list1[2]);
-                        maps.add(map);
-                    }
-                }
-                goods.setGoods_inventory_detail(Json.toJson(maps, JsonFormat.compact()));
+             //商品的参数
+            if(org.apache.commons.lang.StringUtils.isNotEmpty(goods_parameter_detail)){
+            	String []goods_parameter_List = goods_parameter_detail.split(";");
+            	 String[] list;
+            	for (int i = 0; i < goods_parameter_List.length; i++){
+            		list = goods_parameter_List[i].split(",");
+            		Map map = new HashMap();
+            		 map.put("name", list[0]);
+                     map.put("val", list[1]);
+                     maps.add(map);
+            	}
+            	 goods.setGoods_parameter_detail(Json.toJson(maps, JsonFormat.compact()));
             }
+            // 组装商品多规格库存和价格
+//            if(org.apache.commons.lang.StringUtils.isNotEmpty(inventory_details)){
+//                String[] inventory_list = inventory_details.split(";");
+//                for (int i = 0; i < inventory_list.length; i++){
+//                    String inventory = inventory_list[i];
+//                    if (org.apache.commons.lang.StringUtils.isNotEmpty(inventory)){
+//                        String[] list1 = inventory.split(",");
+//                        Map map = new HashMap();
+//                        map.put("id", list1[0]);
+//                        map.put("count", list1[1]);
+//                        map.put("price", list1[2]);
+//                        maps.add(map);
+//                    }
+//                }
+//                goods.setGoods_inventory_detail(Json.toJson(maps, JsonFormat.compact()));
+//            }
 
             if (CommUtil.null2Int(transport_type) == 0){
                 Transport trans = this.transportService.getObjById(CommUtil.null2Long(transport_id));
@@ -763,9 +750,8 @@ public class GoodsSellerAction {
             if (CommUtil.null2Int(transport_type) == 1){
                 goods.setTransport(null);
             }
-            if (id.equals("")){
+            if (id==null||id.equals("")){
                 this.goodsService.save(goods);
-
                 String goods_lucene_path = (new StringBuilder(String.valueOf(System.getProperty("wemall.root")))).append(File.separator).append("lucene").append(File.separator).append("goods").toString();
                 File file = new File(goods_lucene_path);
                 if (!file.exists()){
@@ -844,20 +830,15 @@ public class GoodsSellerAction {
 
     @SecurityMapping(display = false, rsequence = 0, title = "添加用户常用商品分类", value = "/seller/load_goods_class.htm*", rtype = "seller", rname = "商品发布", rcode = "goods_seller", rgroup = "商品管理")
     @RequestMapping({ "/seller/add_goods_class_staple.htm" })
-    public void add_goods_class_staple(HttpServletRequest request,
-                                       HttpServletResponse response){
+    public void add_goods_class_staple(HttpServletRequest request,HttpServletResponse response){
         String ret = "error";
         if (request.getSession(false).getAttribute("goods_class_info") != null){
-            GoodsClass gc = (GoodsClass) request.getSession(false)
-                            .getAttribute("goods_class_info");
+            GoodsClass gc = (GoodsClass) request.getSession(false).getAttribute("goods_class_info");
             Map params = new HashMap();
-            User user = this.userService.getObjById(SecurityUserHolder
-                                                    .getCurrentUser().getId());
+            User user = this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId());
             params.put("store_id", user.getStore().getId());
             params.put("gc_id", gc.getId());
-            List gcs = this.goodsclassstapleService
-                       .query("select obj from GoodsClassStaple obj where obj.store.id=:store_id and obj.gc.id=:gc_id",
-                              params, -1, -1);
+            List gcs = this.goodsclassstapleService.query("select obj from GoodsClassStaple obj where obj.store.id=:store_id and obj.gc.id=:gc_id",params, -1, -1);
             if (gcs.size() == 0){
                 GoodsClassStaple staple = new GoodsClassStaple();
                 staple.setAddTime(new Date());
@@ -1124,19 +1105,11 @@ public class GoodsSellerAction {
 
     @SecurityMapping(display = false, rsequence = 0, title = "商品编辑", value = "/seller/goods_edit.htm*", rtype = "seller", rname = "商品编辑", rcode = "goods_edit_seller", rgroup = "商品管理")
     @RequestMapping({ "/seller/goods_edit.htm" })
-    public ModelAndView goods_edit(HttpServletRequest request,
-                                   HttpServletResponse response, String id){
-        ModelAndView mv = new JModelAndView(
-            "user/default/usercenter/add_goods_second.html",
-            this.configService.getSysConfig(),
-            this.userConfigService.getUserConfig(), 0, request, response);
-        Goods obj = this.goodsService.getObjById(Long.valueOf(Long
-                    .parseLong(id)));
-
-        if (obj.getGoods_store().getUser().getId()
-                .equals(SecurityUserHolder.getCurrentUser().getId())){
-            User user = this.userService.getObjById(SecurityUserHolder
-                                                    .getCurrentUser().getId());
+    public ModelAndView goods_edit(HttpServletRequest request, HttpServletResponse response, String id){
+        ModelAndView mv = new JModelAndView("user/default/usercenter/add_goods_second.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
+        Goods obj = this.goodsService.getObjById(Long.valueOf(Long.parseLong(id)));
+        if (obj.getGoods_store().getUser().getId().equals(SecurityUserHolder.getCurrentUser().getId())){
+            User user = this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId());
             String path = request.getSession().getServletContext()
                           .getRealPath("/")
                           + File.separator
@@ -1144,64 +1117,42 @@ public class GoodsSellerAction {
                           + File.separator
                           + "store"
                           + File.separator + user.getStore().getId();
-            double img_remain_size = user.getStore().getGrade().getSpaceSize()
-                                     - CommUtil.div(
-                                         Double.valueOf(CommUtil.fileSize(new File(path))),
-                                         Integer.valueOf(1024));
+            double img_remain_size = user.getStore().getGrade().getSpaceSize()- CommUtil.div(Double.valueOf(CommUtil.fileSize(new File(path))),Integer.valueOf(1024));
             Map params = new HashMap();
             params.put("user_id", user.getId());
             params.put("display", Boolean.valueOf(true));
-            List ugcs = this.userGoodsClassService
-                        .query("select obj from UserGoodsClass obj where obj.user.id=:user_id and obj.display=:display and obj.parent.id is null order by obj.sequence asc",
-                               params, -1, -1);
+            List ugcs = this.userGoodsClassService.query("select obj from UserGoodsClass obj where obj.user.id=:user_id and obj.display=:display and obj.parent.id is null order by obj.sequence asc", params, -1, -1);
             AccessoryQueryObject aqo = new AccessoryQueryObject();
             aqo.setPageSize(Integer.valueOf(8));
-            aqo.addQuery("obj.user.id", new SysMap("user_id", user.getId()),
-                         "=");
+            aqo.addQuery("obj.user.id", new SysMap("user_id", user.getId()), "=");
             aqo.setOrderBy("addTime");
             aqo.setOrderType("desc");
             IPageList pList = this.accessoryService.list(aqo);
-            String photo_url = CommUtil.getURL(request)
-                               + "/seller/load_photo.htm";
-            List gbs = this.goodsBrandService.query(
-                           "select obj from GoodsBrand obj order by obj.sequence asc",
-                           null, -1, -1);
+            String photo_url = CommUtil.getURL(request) + "/seller/load_photo.htm";
+            List gbs = this.goodsBrandService.query("select obj from GoodsBrand obj order by obj.sequence asc",null, -1, -1);
             mv.addObject("gbs", gbs);
             mv.addObject("photos", pList.getResult());
-            mv.addObject(
-                "gotoPageAjaxHTML",
-                CommUtil.showPageAjaxHtml(photo_url, "",
-                                          pList.getCurrentPage(), pList.getPages()));
+            mv.addObject("gotoPageAjaxHTML",CommUtil.showPageAjaxHtml(photo_url, "",pList.getCurrentPage(), pList.getPages()));
             mv.addObject("ugcs", ugcs);
             mv.addObject("img_remain_size", Double.valueOf(img_remain_size));
             mv.addObject("obj", obj);
             if (request.getSession(false).getAttribute("goods_class_info") != null){
-                GoodsClass session_gc = (GoodsClass) request.getSession(false)
-                                        .getAttribute("goods_class_info");
-                GoodsClass gc = this.goodsClassService.getObjById(session_gc
-                                .getId());
-                mv.addObject("goods_class_info",
-                             this.storeTools.generic_goods_class_info(gc));
+                GoodsClass session_gc = (GoodsClass) request.getSession(false) .getAttribute("goods_class_info");
+                GoodsClass gc = this.goodsClassService.getObjById(session_gc.getId());
+                mv.addObject("goods_class_info",this.storeTools.generic_goods_class_info(gc));
                 mv.addObject("goods_class", gc);
                 request.getSession(false).removeAttribute("goods_class_info");
             }else if (obj.getGc() != null){
-                mv.addObject("goods_class_info",
-                             this.storeTools.generic_goods_class_info(obj.getGc()));
+                mv.addObject("goods_class_info",this.storeTools.generic_goods_class_info(obj.getGc()));
                 mv.addObject("goods_class", obj.getGc());
             }
 
             String goods_session = CommUtil.randomString(32);
             mv.addObject("goods_session", goods_session);
-            request.getSession(false).setAttribute("goods_session",
-                                                   goods_session);
-            mv.addObject("imageSuffix", this.storeViewTools
-                         .genericImageSuffix(this.configService.getSysConfig()
-                                             .getImageSuffix()));
+            request.getSession(false).setAttribute("goods_session", goods_session);
+            mv.addObject("imageSuffix", this.storeViewTools.genericImageSuffix(this.configService.getSysConfig().getImageSuffix()));
         }else{
-            mv = new JModelAndView("error.html",
-                                   this.configService.getSysConfig(),
-                                   this.userConfigService.getUserConfig(), 1, request,
-                                   response);
+            mv = new JModelAndView("error.html",this.configService.getSysConfig(),this.userConfigService.getUserConfig(), 1, request,response);
             mv.addObject("op_title", "您没有该商品信息！");
             mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
         }
@@ -1373,7 +1324,7 @@ public class GoodsSellerAction {
                                             this.userConfigService.getUserConfig(), 0, request, response);
         AccessoryQueryObject aqo = new AccessoryQueryObject(currentPage, mv,
                 "addTime", "desc");
-        aqo.setPageSize(Integer.valueOf(16));
+        aqo.setPageSize(Integer.valueOf(7));
         aqo.addQuery("obj.user.id", new SysMap("user_id", SecurityUserHolder
                                                .getCurrentUser().getId()), "=");
         aqo.setOrderBy("addTime");

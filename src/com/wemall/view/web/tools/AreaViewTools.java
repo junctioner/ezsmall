@@ -3,11 +3,16 @@ package com.wemall.view.web.tools;
 import com.wemall.core.tools.CommUtil;
 import com.wemall.foundation.domain.Area;
 import com.wemall.foundation.service.IAreaService;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * µØÇø¹¤¾ß×é¼þ
+ * è¡Œæ”¿åŒºåˆ’å·¥å…·ç±»
  */
 @Component
 public class AreaViewTools {
@@ -27,6 +32,11 @@ public class AreaViewTools {
         }
 
         return area_info;
+    }
+    public List<Area> getAreaParentIsNull(int num){
+    	Map<String, Object> paramMap = new HashMap<String, Object>();
+    	paramMap.put("deleteStatus", Boolean.valueOf(false));
+    	return this.areaService.query("select obj from Area obj where obj.parent.id is null and obj.deleteStatus=:deleteStatus", paramMap, 0, num);
     }
 }
 

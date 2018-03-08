@@ -1,145 +1,60 @@
-
-<div class="top" style="">
-  <div class="top_page">
-    <div class="pageright" id="site-nav">
-      <ul class="quick-menu">
-        <li class="mytaobao menu-item menupx">
-          <div class="menu"> <a class="menu-hd" href="$!webPath/buyer/index.htm" rel="nofollow">我的订单<b></b></a>
-            <div class="menu-bd">
-              <div class="menu-bd-panel">
-              
-                <div>
-	                <!-- <a href="$!webPath/buyer/order.htm" rel="nofollow">已买到的宝贝</a>
-	                <a href="$!webPath/buyer/index.htm?type=4"  rel="nofollow">店铺动态</a>
-	                <a href="$!webPath/buyer/index.htm?type=2"  rel="nofollow">好友动态</a> -->
-                  <a href="$!webPath/buyer/order.htm?order_status=order_submit" rel="nofollow">待支付</a>
-		          <a href="$!webPath/buyer/order.htm?order_status=order_shipping" rel="nofollow">待收货</a>
-		          <a href="$!webPath/buyer/order.htm?order_status=order_receive" rel="nofollow">待评价</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-		<li class="mytaobao menu-item menupx">
-          <div class="menu"> <a class="menu-hd" href="$!webPath/seller/index.htm" rel="nofollow">商家支持<b></b></a>
-            <div class="menu-bd">
-              <div class="menu-bd-panel">
-                <div> 
-                <a href="$!webPath/seller/index.htm" rel="nofollow">商家中心</a>
-                <a href="$!webPath/seller/order.htm"  rel="nofollow">商家订单</a> 
-                <a href="$!webPath/seller/goods.htm" rel="nofollow">商家商品</a>
-                #if($!user.store)
-                <a href="$!webPath/store_$!{user.store.id}.htm" rel="nofollow">我的店铺</a>
-                #else
-                <a href="$!webPath/seller/store_create_first.htm" rel="nofollow">商家入驻</a>
-                #end
-                 </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <script>
-		 var goods_count=$!cart.size();
-		 var total_price=0;
-		 #set($total_price=0)
-		 #foreach($gc in $cart)
-		  #if($!gc.goods.group_buy==2)
-		    #set($total_price=$!{gc.goods.group_goods.gg_price}*$!{gc.count}+$total_price)
-		  #else
-		    #set($total_price=$!{gc.goods.store_price}*$!{gc.count}+$total_price)
-		  #end
-		 #end
-		function cart_remove(id,store_id){
-           jQuery.post('$!webPath/remove_goods_cart.htm',{"id":id,"store_id":store_id},function(data){
-           jQuery("div[class=table] tr[id="+id+"]").remove();
-		   jQuery(".wemall[id="+id+"]").remove();
-		   jQuery(".shopp_ingtop[id="+id+"]").remove();
-           jQuery("#cart_goods_count_top").html(data.count);
-           jQuery("#cart_goods_price_top").html(data.total_price);
-		   jQuery("#top_total_price_"+store_id).html(data.total_price);
-           if(store_id!=""){
-              jQuery("#total_price_"+store_id).html(data.sc_total_price);
-           }
-		   if( jQuery("form[id=cart_"+store_id+"]").find("tr[goods_list^=goods_info]").length==0){
-		  	 jQuery("form[id=cart_"+store_id+"]").remove();
-		   }
-           if(jQuery("tr[goods_list^=goods_info]").length==0){
-              jQuery(".car_nogoods").show();
-           }
-         },"json");
-       }
-	    jQuery(document).ready(function(){
-		   jQuery("#cart_goods_top_menu").mouseover(function(){
-			  jQuery.ajax({type:'POST',url:'$!webPath/cart_menu_detail.htm',data:'',
-						   beforeSend:function(){
-							     jQuery("#cart_goods_top_info").empty().html('<div class="menu-bd-panel"><div style="text-align:center;"><img src="$!webPath/resources/style/common/images/loader.gif" /></div></div>');
-							     jQuery("#cart_goods_top_info").show();
-							   },
-						  success:function(data){
-							     jQuery("#cart_goods_top_info").empty();
-								 jQuery("#cart_goods_top_info").html(data);
-							   }
-						});
-		   });
-		   jQuery("#cart_menu").mouseleave(function(){
-			  jQuery("#cart_goods_top_info").hide();
-		   });
-		});
-	   </script>
-        <li class="search menu-item menupx">
-          <div class="menu" id="cart_menu"><span class="menu-hd" id="cart_goods_top_menu"><s></s>购物车<span id="cart_goods_count_top" class="top_car">$!cart.size()</span>种商品<b></b></span>
-            <div class="menu-bd" id="cart_goods_top_info">
-             <div class="menu-bd-panel">
-                <div style="text-align:center;"><img src="$!webPath/resources/style/common/images/loader.gif" /></div>
-             </div>
-              
-            </div>
-          </div>
-        </li>
-        <li class="menupx"><a href="$!webPath/buyer/message.htm">站内短信#if($!msgs.size()>0)(<span style="color:#FF3300;">$!{msgs.size()}</span>)#end</a></li>
+<div class="msg-bg"></div>
+	<div class="msg-box"></div>
+	<div class="yzs-top-pannel">
+		<div class="yzs-top">
+			<div>
+			 <span><img style="margin-bottom:-13px;" src="$!webPath/resources/style/shop/default/img/icon_01.jpg"/> 手机版 <img style="margin-bottom:-13px;" src="$!webPath/resources/style/shop/default/img/icon_02.jpg"/> </span>
+				#if($!user)<span>$!CommUtil.substring("$!{user.userName}",12) 您好，欢迎来访$!CommUtil.substring("$!{config.websiteName}",30)！</span>
+				   <span><a href="$!webPath/wemall_logout.htm">[退出]</a> | </span>
+				  #else
+				    <span>您好，欢迎来访$!CommUtil.substring("$!{config.websiteName}",30)！</span>
+				    <span><a href="$!webPath/user/login.htm">请登录</a>| </span>
+					<span><a href="$!webPath/register.htm">免费注册</a></span>
+				#end 
+				<span style="color:#00897c;"><img style="margin-bottom:-13px;" src="$!webPath/resources/style/shop/default/img/icon_03.jpg"> 联系客服</span></div>
+			<div>
+				<nav>
+					<ul>
+				        <li><a href="#">采购单 <img style="margin-bottom:-13px;" src="$!webPath/resources/style/shop/default/img/icon_02.jpg"/></a> |
+					         <ul class="cgd">
+					             <li><a href="#">商品名称商品名称</a><span>￥110</span></li>
+					             <li><a href="#">商品名称商品</a><span>￥110</span></li>
+					             <li><a href="#">商品名称商品名称</a><span>￥110</span></li>
+					             <li><a href="#">商品名称</a><span>￥110</span></li>
+					             <li>共<i>4</i>件商品，总计￥440 <a href="" style="float:right; padding:3px 5px; border-radius:2px;background:#FC942D;">进入采购单</a></li>
+					         </ul>
+				        </li>
+				        <li><a href="#">我的订单<i>(5)</i>  <img style="margin-bottom:-13px;" src="$!webPath/resources/style/shop/default/img/icon_02.jpg"/></a> | 
+					         <ul class="wddd">
+					             <li><a href="#">采购样品订单</a><span>（0）</span></li>
+					             <li><a href="#">采购货品订单</a><span>（0）</span></li>
+					             <li><a href="#">销售样品订单</a><span>（0）</span></li>
+					             <li><a href="#">销售货品订单</a><span>（0）</span></li>
+					         </ul>
+				        </li>
+				        <li><a href="$!webPath/buyer/account.htm">会员中心 <img style="margin-bottom:-13px;" src="$!webPath/resources/style/shop/default/img/icon_02.jpg"/></a> | 
+				             <ul class="hyzx">
+				                 <li><a href="$!webPath/buyer/index.htm">采购商中心</a></li>
+				                 <li><a href="$!webPath/seller/index.htm">供应商中心</a></li>
+				            </ul>
+				     	</li>
+				     	<li><a href="#">网站导航 <img style="margin-bottom:-13px;" src="$!webPath/resources/style/shop/default/img/icon_02.jpg"/></a> | 
+					         <ul class="hyzx">
+					             <li><a href="#">自营商城</a></li>
+					             <li><a href="#">价格行情</a></li>
+					             <li><a href="#">物流运输</a></li>
+					             <li><a href="#">金融服务</a></li>
+					             <li><a href="#">行业资讯</a></li>
+					         </ul>
+				        </li>
+				        <li><a href="$!webPath/articlelist_help.htm" style="margin-top:3px;">帮助中心</a></li>
+				    </ul>
+			    </nav>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	jQuery(document).ready(function(){
 		
-		<li class="mytaobao menu-item menupx">
-          <div class="menu"> <a class="menu-hd" href="$!webPath/buyer/favorite_goods.htm" rel="nofollow">收藏夹<b></b></a>
-            <div class="menu-bd">
-              <div class="menu-bd-panel">
-                <div> 
-                <a href="$!webPath/buyer/favorite_goods.htm" rel="nofollow">收藏商品</a>
-                <a href="$!webPath/buyer/favorite_store.htm"  rel="nofollow">收藏店铺</a> 
-                
-                 </div>
-              </div>
-            </div>
-          </div>
-        </li>
-		
-        #if($!CommUtil.indexOf("$!user.userRole","ADMIN")>=0)
-		<li class="menupx"><a href="$!webPath/admin/index.htm" target="_blank">管理后台</a></li>
-		#end
-        #set($navs=$!navTools.queryNav(-1,-1))
-		#if($!navs.size()>0)
-        <li class="menupx"><a href="$!webPath/articlelist_help.htm">帮助中心</a></li>
-		#else
-        <li class="menupx" style="background:none;"><a href="$!webPath/articlelist_help.htm">帮助中心</a></li>
-        #end
-		#if($!navs.size()>0)
-		<li class="mytaobao menu-item menupx" style="background:none;">
-          <div class="menu"> <a class="menu-hd" href="$!webPath/buyer/index.htm" rel="nofollow">更多链接<b></b></a>
-            <div class="menu-bd" style="height:auto;">
-              <div class="menu-bd-panel">
-                <div>
-                #foreach($nav in $navs)
-                #set($map=$!navTools.genericURL("$!webPath","$!nav.id"))
-                #set($url=$!map.get("url"))
-                <a href="$!url"  #if($!new_win==1)target="_blank"#end  rel="nofollow">$!nav.title</a>
-                #end
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-		#end
-      </ul>
-    </div>
-    <div class="pageleft">#if($!user)<span>$!CommUtil.substring("$!{user.userName}",12)您好,欢迎来到$!CommUtil.substring("$!{config.websiteName}",30)！</span><a href="$!webPath/wemall_logout.htm" class="lightblue">[退出]</a> #else<span>亲，欢迎来到$!{config.websiteName}！</span><span class="pxlr"><a href="$!webPath/user/login.htm" class="lightblue">登录</a></span><span class="pxlr">或</span><span class="pxlr"><a href="$!webPath/register.htm" class="lightblue">注册</a></span>#end </div>
-  </div>
-</div>
+	});
+	</script>

@@ -167,15 +167,9 @@ $!httpInclude.include("/top.htm")
                 <td><span class="openselead">
                   <select name="area1" id="area1" level="2">
                     <option value="" selected="selected">请选择地区</option>
-                    
-                    
-				  #foreach($area in $areas)
-                    
-                    <option value="$!area.id">$!area.areaName</option>
-                    
-				  #end
-                  
-                  
+					  #foreach($area in $areas)
+	                    <option value="$!area.id">$!area.areaName</option>
+					  #end
                   </select>
                   <select name="area2" id="area2" style="display:none;" level="3">
                   </select>

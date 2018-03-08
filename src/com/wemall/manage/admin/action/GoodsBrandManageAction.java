@@ -268,9 +268,6 @@ public class GoodsBrandManageAction {
                     goods.setGoods_brand(null);
                     this.goodsService.update(goods);
                 }
-                for (GoodsType type : brand.getTypes()){
-                    type.getGbs().remove(brand);
-                }
                 this.goodsBrandService.delete(Long.valueOf(Long.parseLong(id)));
             }
         }
