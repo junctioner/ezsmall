@@ -60,30 +60,49 @@ function  doSomething(){
 	/*   var file = $("#acceptDraftExcel")
 	    file.after(file.clone().val("")); */
 	   /*  file.remove(); */
-	   /*  uploading(); */
+	
+     var file = $("#acceptDraftExcel")
+        file.after(file.clone().val(""));
+        file.remove();
+        $("#acceptDraftExcel").click();
+	 
+/* document.getElementById("acceptDraftExcel").click();  */
 
-	   
-	   alert(1111);
-document.getElementById("Attach").click(); 
 	
 } 
 
-function addImage(){  
+
+
+
+
+
+
+function uploadingExcel(){
+
 	
-	}  
+    var exeStr=$("#acceptDraftExcel").val();
+  	if(exeStr == ""){
+       
+        alert("请先选择要上传的EXCEL文件!")
+        return false;
+    }
+    var exeEx=exeStr.substring(exeStr.lastIndexOf("."));
+    if (!/\.(xls|xlsx|xlsm|XLS|XLSX|XLSM)$/.test(exeEx)) {
+      alert("请先选择正确的EXCEL文件!！！");
+        return false;
+    }
+  
 
-
-function uploading(){
     var form = $("<form>");
     form.attr('style', 'display:none');
     form.attr('target', '');
     form.attr('method', 'post');
-    form.attr('action', Context.PATH + "/acceptdraft/uploading.html");
-
+    form.attr('action', "$!webPath/admin/uploadFile.htm");
+   
     var input1 = $('<input>');
     input1.attr('type', 'file');
     input1.attr('name', 'file');
-    input1.attr('value', $("#file").val());
+    input1.attr('value', exeStr);
 
 
     $('body').append(form);
@@ -93,49 +112,24 @@ function uploading(){
     form.submit();
     form.remove();
 
-}
-
-function uploadingExcel(){
-    var exeStr=$("#acceptDraftExcel").val();
-  	if(exeStr == ""){
-        cbms.alert("请先选择要上传的EXCEL文件!");
-        return false;
-    }
-    var exeEx=exeStr.substring(exeStr.lastIndexOf("."));
-    if (!/\.(xls|xlsx|xlsm|XLS|XLSX|XLSM)$/.test(exeEx)) {
-        cbms.alert("请先选择正确的EXCEL文件!！！");
-        return false;
-    }
-    cbms.loading();
-
-  	$("#searchForm").ajaxSubmit({
+  	$("#searchForm").ajax({
         type: 'POST',
         url: Context.PATH + "/acceptdraft/uploading.html",
         dataType:"JSON",
         success: function(data){
             if (data) {
-               
-           /*      if (data.success) {
-                    if(data.data>0){
-                        cbms.confirm("有"+data.data+"条数据已存在，是否覆盖？",null,uploadingOk);
-                    }else{
-                        cbms.alert("上传成功");
-                        location.reload();
-                    }
-                } else {
-                    cbms.alert(data.data);
-                } */
+      
             }
         }
-    });
+    }); 
 }
 </script>
 <body>
 <div class="cont">
   <h1 class="seth1">客户管理</h1>
    
-   <input id="Attach" type="file" name="Attach" style=" display:none" />
-     <a onclick='javascript:document.getElementById("Attach").click'>2222</a>
+
+
     <input type="file" id="acceptDraftExcel" name="acceptDraftExcel" onchange="uploadingExcel()" style="display:none"/>
                                     
    <div class="settab"><span class="tab-one"></span> <span class="tabs"><a href="javascript:void(0)" onclick="doSomething()">导入客户</a>  | <a href="$!webPath/admin/dtemplateDown.htm">模板下载</a> </div> 

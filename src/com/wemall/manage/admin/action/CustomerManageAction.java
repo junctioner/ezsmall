@@ -123,7 +123,9 @@ public class CustomerManageAction {
 	    public ModelAndView crm_t_save(HttpServletRequest request, HttpServletResponse response, String id, CrmContacts crmContacts){
 	        WebForm wf = new WebForm();
 	        GoodsClass goodsClass = null;
-	      
+	        CrmContacts   Contacts=      this.crmContactsService.getObjById(Long.valueOf(id));
+	        if(null!=Contacts&&Contacts.getConsumer()!=null)
+	        	crmContacts.setConsumer(Contacts.getConsumer());
 	        if (id.equals(""))
 	            this.crmContactsService.save(crmContacts);
 	       else{
