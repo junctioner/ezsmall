@@ -1,5 +1,14 @@
 package com.wemall.foundation.service.impl;
 
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.wemall.core.dao.IGenericDAO;
 import com.wemall.core.query.GenericPageList;
 import com.wemall.core.query.PageObject;
@@ -7,12 +16,6 @@ import com.wemall.core.query.support.IPageList;
 import com.wemall.core.query.support.IQueryObject;
 import com.wemall.foundation.domain.GoodsTypeProperty;
 import com.wemall.foundation.service.IGoodsTypePropertyService;
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional

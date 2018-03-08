@@ -63,34 +63,72 @@ public class BaseSellerAction {
     @SecurityMapping(display = false, rsequence = 0, title = "卖家中心", value = "/seller/index.htm*", rtype = "buyer", rname = "卖家中心", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping({"/seller/index.htm"})
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response){
-        ModelAndView mv = new JModelAndView(
-            "user/default/usercenter/seller_index.html", this.configService.getSysConfig(),
-            this.userConfigService.getUserConfig(), 0, request, response);
-        User user = this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId());
-        List msgs = new ArrayList();
-        Map params = new HashMap();
-        params.put("status", Integer.valueOf(0));
-        params.put("user_id", SecurityUserHolder.getCurrentUser().getId());
-        msgs = this.messageService.query(
-                   "select obj from Message obj where obj.status=:status and obj.toUser.id=:user_id and obj.parent.id is null",
-                   params, -1, -1);
-        params.clear();
-        params.put("class_mark", "notice");
-        params.put("display", Boolean.valueOf(true));
-        List articles = this.articleService.query(
-                            "select obj from Article obj where obj.articleClass.mark=:class_mark and obj.display=:display order by obj.addTime desc",
-                            params, 0, 5);
-        mv.addObject("articles", articles);
-        mv.addObject("user", user);
-        mv.addObject("store", user.getStore());
-        mv.addObject("msgs", msgs);
-        mv.addObject("storeViewTools", this.storeViewTools);
-        mv.addObject("orderViewTools", this.orderViewTools);
-        mv.addObject("areaViewTools", this.areaViewTools);
+        ModelAndView mv = new JModelAndView("user/default/usercenter/seller_index.html", this.configService.getSysConfig(),this.userConfigService.getUserConfig(), 0, request, response);
+//        User user = this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId());
+//        List msgs = new ArrayList();
+//        Map params = new HashMap();
+//        params.put("status", Integer.valueOf(0));
+//        params.put("user_id", SecurityUserHolder.getCurrentUser().getId());
+//        msgs = this.messageService.query(
+//                   "select obj from Message obj where obj.status=:status and obj.toUser.id=:user_id and obj.parent.id is null",
+//                   params, -1, -1);
+//        params.clear();
+//        params.put("class_mark", "notice");
+//        params.put("display", Boolean.valueOf(true));
+//        List articles = this.articleService.query(
+//                            "select obj from Article obj where obj.articleClass.mark=:class_mark and obj.display=:display order by obj.addTime desc",
+//                            params, 0, 5);
+//        mv.addObject("articles", articles);
+//        mv.addObject("user", user);
+//        mv.addObject("store", user.getStore());
+//        mv.addObject("msgs", msgs);
+//        mv.addObject("storeViewTools", this.storeViewTools);
+//        mv.addObject("orderViewTools", this.orderViewTools);
+//        mv.addObject("areaViewTools", this.areaViewTools);
+        return mv;
+    }
+    @SecurityMapping(display = false, rsequence = 0, title = "卖家中心顶部", value = "/seller/top.htm*", rtype = "buyer", rname = "卖家中心顶部", rcode = "user_center", rgroup = "供应商中心")
+    @RequestMapping({"/seller/top.htm"})
+    public ModelAndView top(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView mv = new JModelAndView("user/default/usercenter/seller_top.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
+        return mv;
+    }
+    @SecurityMapping(display = false, rsequence = 0, title = "卖家中心头部", value = "/seller/head.htm*", rtype = "buyer", rname = "卖家中心头部", rcode = "user_center", rgroup = "供应商中心")
+    @RequestMapping({"/seller/head.htm"})
+    public ModelAndView head(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView mv = new JModelAndView("user/default/usercenter/seller_head.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
+        return mv;
+    }
+    @SecurityMapping(display = false, rsequence = 0, title = "卖家中心导航栏", value = "/seller/nav_title.htm*", rtype = "buyer", rname = "卖家中心导航栏", rcode = "user_center", rgroup = "供应商中心")
+    @RequestMapping({"/seller/nav_title.htm"})
+    public ModelAndView nav_title(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView mv = new JModelAndView("user/default/usercenter/seller_nav_title.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
+        String op = CommUtil.null2String(request.getAttribute("op"));
+        mv.addObject("op", op);
+        return mv;
+    }
+ 
+    @SecurityMapping(display = false, rsequence = 0, title = "卖家中心菜单", value = "/seller/seller_menu.htm*", rtype = "buyer", rname = "卖家中心菜单", rcode = "user_center", rgroup = "用户中心")
+    @RequestMapping({"/seller/seller_menu.htm"})
+    public ModelAndView menu(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView mv = new JModelAndView("user/default/usercenter/seller_menu.html", this.configService.getSysConfig(),this.userConfigService.getUserConfig(), 0, request, response);
+        String op = CommUtil.null2String(request.getAttribute("op"));
+        mv.addObject("op", op);
+        return mv;
+    }
+    
+    @SecurityMapping(display = false, rsequence = 0, title = "卖家中心导航", value = "/seller/head.htm*", rtype = "buyer", rname = "卖家中心导航", rcode = "user_center", rgroup = "用户中心")
+    @RequestMapping({"/seller/nav_head.htm"})
+    public ModelAndView nav_head(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView mv = new JModelAndView("user/default/usercenter/seller_head.html", this.configService.getSysConfig(),this.userConfigService.getUserConfig(), 0, request, response);
+        String type = CommUtil.null2String(request.getAttribute("type"));
+        mv.addObject("type", type.equals("") ? "goods" : type);
+        mv.addObject("menuTools", this.menuTools);
+        mv.addObject("user", this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId()));
 
         return mv;
     }
-
+    
     @SecurityMapping(display = false, rsequence = 0, title = "卖家中心导航", value = "/seller/nav.htm*", rtype = "buyer", rname = "卖家中心导航", rcode = "user_center", rgroup = "用户中心")
     @RequestMapping({"/seller/nav.htm"})
     public ModelAndView nav(HttpServletRequest request, HttpServletResponse response){
@@ -105,22 +143,6 @@ public class BaseSellerAction {
         mv.addObject("op", op);
         mv.addObject("store_status", Integer.valueOf(store_status));
         mv.addObject("user", this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId()));
-
-        return mv;
-    }
-
-    @SecurityMapping(display = false, rsequence = 0, title = "卖家中心导航", value = "/seller/head.htm*", rtype = "buyer", rname = "卖家中心导航", rcode = "user_center", rgroup = "用户中心")
-    @RequestMapping({"/seller/nav_head.htm"})
-    public ModelAndView nav_head(HttpServletRequest request, HttpServletResponse response){
-        ModelAndView mv = new JModelAndView(
-            "user/default/usercenter/seller_head.html", this.configService
-            .getSysConfig(),
-            this.userConfigService.getUserConfig(), 0, request, response);
-        String type = CommUtil.null2String(request.getAttribute("type"));
-        mv.addObject("type", type.equals("") ? "goods" : type);
-        mv.addObject("menuTools", this.menuTools);
-        mv.addObject("user", this.userService.getObjById(
-                         SecurityUserHolder.getCurrentUser().getId()));
 
         return mv;
     }

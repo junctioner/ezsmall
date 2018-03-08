@@ -27,14 +27,9 @@ public class GoodsType extends IdEntity {
     private List<GoodsSpecification> gss = new ArrayList();
 
     //商品品牌集合
-    @ManyToMany
-    @JoinTable(name = "wemall_goodstype_brand", joinColumns = {@javax.persistence.JoinColumn(name = "type_id")}, inverseJoinColumns = {@javax.persistence.JoinColumn(name = "brand_id")})
-    private List<GoodsBrand> gbs = new ArrayList();
-
-    //商品类型属性集合
-    @OneToMany(mappedBy = "goodsType", cascade = {javax.persistence.CascadeType.REMOVE})
-    private List<GoodsTypeProperty> properties = new ArrayList();
-
+//    @ManyToMany
+//    @JoinTable(name = "wemall_goodstype_brand", joinColumns = {@javax.persistence.JoinColumn(name = "type_id")}, inverseJoinColumns = {@javax.persistence.JoinColumn(name = "brand_id")})
+//    private List<GoodsBrand> gbs = new ArrayList();
     //商品类型
     @OneToMany(mappedBy = "goodsType")
     private List<GoodsClass> gcs = new ArrayList();
@@ -71,21 +66,7 @@ public class GoodsType extends IdEntity {
         this.gss = gss;
     }
 
-    public List<GoodsBrand> getGbs(){
-        return this.gbs;
-    }
 
-    public void setGbs(List<GoodsBrand> gbs){
-        this.gbs = gbs;
-    }
-
-    public List<GoodsTypeProperty> getProperties(){
-        return this.properties;
-    }
-
-    public void setProperties(List<GoodsTypeProperty> properties){
-        this.properties = properties;
-    }
 }
 
 
