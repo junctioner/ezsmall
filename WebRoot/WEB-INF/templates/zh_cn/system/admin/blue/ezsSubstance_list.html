@@ -133,14 +133,14 @@ function searchEzs(){
     </div>
     <div style="width: 98%;height: 91%;margin-top: 2%;margin-left: 1%">
       <div>
-       <span>标题：</span><span><input type="text" id="name"/></span><span>&nbsp;&nbsp;发布者:&nbsp;</span><span><input type="text" id="userName"/></span>
+       <span>标题：</span><span><input type="text" id="name" value="$!name"/></span><span>&nbsp;&nbsp;发布者:&nbsp;</span><span><input type="text" id="userName" value="$!userName"/></span>
        <span>&nbsp;&nbsp;发布时间：</span>
        <span>
          <select id="publicTime">
            <option value="">请选择时间</option>
-           <option value="7">一周</option>
-           <option value="15">半个月</option>
-           <option value="30">一个月</option>
+           <option value="7" #if($!publicTime==7)selected="selected"#end>一周</option>
+           <option value="15" #if($!publicTime==15)selected="selected"#end>半个月</option>
+           <option value="30" #if($!publicTime==30)selected="selected"#end>一个月</option>
          </select>
        </span>
        <span>&nbsp;&nbsp;栏目：</span>
@@ -148,7 +148,7 @@ function searchEzs(){
          <select id="ec" name="ec">
              <option value="">请选择栏目</option>
            #foreach($ezsColumn in $ezsColumns)
-             <option value="$!ezsColumn.id">$!ezsColumn.name</option>
+             <option value="$!ezsColumn.id" #if($!ecId==$!ezsColumn.id)selected="selected"#end>$!ezsColumn.name</option>
            #end
          </select>
        </span>

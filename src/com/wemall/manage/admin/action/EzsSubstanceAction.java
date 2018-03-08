@@ -85,16 +85,20 @@ public class EzsSubstanceAction {
         	name=new String(name.trim().getBytes("ISO-8859-1"), "UTF-8");
         	qo.addQuery("obj.name",new SysMap("name", "%" +
         			name.trim() + "%"), "like");
+        	mv.addObject("name", name);
         }
         if(userName!=null&&!"".equals(userName)){
         	qo.addQuery("obj.u.userName",new SysMap("userName", "%" +
         			userName.trim() + "%"), "like");
+        	mv.addObject("userName", userName);
         }
         if(publicTime!=null&&!"".equals(publicTime)){
         	qo.addQuery("obj.publicTime",new SysMap("publicTime",getPastDate(Integer.parseInt(publicTime))),">");
+        	mv.addObject("publicTime", Integer.parseInt(publicTime));
         }
         if(ec!=null&&!"".equals(ec)){
         	qo.addQuery("obj.ec.id",new SysMap("id",Long.parseLong(ec)),"=");
+        	mv.addObject("ecId", Long.parseLong(ec));
         }
         qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
         IPageList pList = this.ezsSubstanceService.list(qo);
@@ -117,6 +121,15 @@ public class EzsSubstanceAction {
 	     return today;
 	 }
     
+	 /**
+	  * 加载新增文档的页面
+	  * @param currentPage
+	  * @param orderBy
+	  * @param orderType
+	  * @param request
+	  * @param response
+	  * @return
+	  */
     @RequestMapping({ "/admin/loadAddEzsSubstance.htm" })
     public ModelAndView loadAddRemark(String currentPage, String orderBy, String orderType, HttpServletRequest request, HttpServletResponse response){
     	ModelAndView mv = new JModelAndView("admin/blue/addEzsSubstance.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
@@ -131,6 +144,19 @@ public class EzsSubstanceAction {
     	return mv;
     }
     
+    /**
+     * 新增文档
+     * @param ecId
+     * @param ssId
+     * @param currentPage
+     * @param orderBy
+     * @param orderType
+     * @param request
+     * @param response
+     * @return
+     * @throws IllegalStateException
+     * @throws IOException
+     */
     @RequestMapping({ "/admin/addEzsSubstance.htm" })
     public ModelAndView addEzsSubstance(String ecId,String ssId,String currentPage, String orderBy, String orderType, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{
         //检查form中是否有enctype="multipart/form-data"
@@ -231,6 +257,16 @@ public class EzsSubstanceAction {
         return mv;
     }
     
+    /**
+     * 加载修改文档的页面
+     * @param currentPage
+     * @param orderBy
+     * @param orderType
+     * @param ezsSubstance
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping({ "/admin/loadEditEzsSubstance.htm" })
     public ModelAndView loadEditEzsSubstance(String currentPage, String orderBy, String orderType,EzsSubstance ezsSubstance, HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new JModelAndView("admin/blue/editEzsSubstance.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
@@ -250,6 +286,20 @@ public class EzsSubstanceAction {
         return mv;
     }
     
+    /**
+     * 修改文档
+     * @param ecId
+     * @param ssId
+     * @param currentPage
+     * @param orderBy
+     * @param orderType
+     * @param columnid
+     * @param ssid
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
     @RequestMapping({ "/admin/editEzsSubstance.htm" })
     public ModelAndView editSpecialSubject(String ecId,String ssId,String currentPage, String orderBy, String orderType,String columnid,String ssid, HttpServletRequest request, HttpServletResponse response) throws IOException{
     	WebForm wf = new WebForm();
@@ -383,7 +433,7 @@ public class EzsSubstanceAction {
     }
     
     /**
-     * 文档回收钻删除文档
+     * 文档回收站删除实际文档
      * @param currentPage
      * @param orderBy
      * @param orderType
@@ -451,7 +501,7 @@ public class EzsSubstanceAction {
     }
     
     /**
-     * 文档审核
+     * 加载文档审核页面
      * @param currentPage
      * @param orderBy
      * @param orderType
@@ -486,6 +536,16 @@ public class EzsSubstanceAction {
         return mv;
     }
     
+    /**
+     * 审核文档
+     * @param currentPage
+     * @param orderBy
+     * @param orderType
+     * @param ezsSubstance
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping({ "/admin/checkEzsSubstance.htm" })
     public ModelAndView checkEzsSubstance(String currentPage, String orderBy, String orderType,EzsSubstance ezsSubstance, HttpServletRequest request, HttpServletResponse response){
     	Map<String, Object> map=new HashMap<String,Object>();
@@ -526,7 +586,11 @@ public class EzsSubstanceAction {
     @RequestMapping({ "/admin/loadReturnEzsSubstance.htm" })
     public ModelAndView loadReturnEzsSubstance(String status,String currentPage, String orderBy, String orderType,EzsSubstance ezsSubstance, HttpServletRequest request, HttpServletResponse response){
     	Map<String, Object> map=new HashMap<String,Object>();
-        map.put("deleteStatus", true);
+    	if(status!=null&&!"".equals(status)){
+        	map.put("deleteStatus", false);
+        }else{
+        	map.put("deleteStatus", true);
+        }
         map.put("id", ezsSubstance.getId());
         List<EzsSubstance> list=this.ezsSubstanceService.query("from EzsSubstance bean where bean.deleteStatus=:deleteStatus and bean.id=:id", map, -1, -1);
         EzsSubstance ezsSubstance2 = list.get(0);
@@ -555,7 +619,7 @@ public class EzsSubstanceAction {
     }
     
     /**
-     * 移动文档
+     * 加载移动,复制,保存固顶的页面
      * @param status
      * @param currentPage
      * @param orderBy
@@ -596,6 +660,18 @@ public class EzsSubstanceAction {
         return mv;
     }
     
+    /**
+     * 移动,复制,保存固顶
+     * @param span
+     * @param ecId
+     * @param currentPage
+     * @param orderBy
+     * @param orderType
+     * @param ezsSubstance
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping({ "/admin/moveEzsSubstance.htm" })
     public ModelAndView moveEzsSubstance(String span,String ecId,String currentPage, String orderBy, String orderType,EzsSubstance ezsSubstance, HttpServletRequest request, HttpServletResponse response){
     	    boolean flag=false;	
