@@ -4,11 +4,30 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
 </head>
+
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
 <link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
 <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
 <script src="$!webPath/resources/js/jquery.shop.common.js"></script>
 <script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
 <script>
+jQuery(document).ready(function(){
+	  jQuery('#beginTime').datepicker({
+		  dateFormat:"yy-mm-dd",
+		  changeMonth: true,
+		  changeYear: true
+	  });
+	  jQuery('#endTime').datepicker({
+		  dateFormat:"yy-mm-dd",
+		  changeMonth: true,
+		  changeYear: true
+	  });
+	  //
+	});
+	
 function addorsubtract(obj,id){
  var cls=jQuery(obj).attr("cls");
  var level=jQuery(obj).attr("level");
@@ -81,11 +100,13 @@ jQuery(document).ready(function(){
 
         </select>
         </span></li>
-      <li> <span>申请时间</span><span class="order_input size2">
+      <li> <span>申请时间</span>
+      <span class="order_input size2">
         <input name="beginTime" type="text" id="beginTime"  readonly="readonly"/>
         </span><span>—</span><span class="order_input size2">
         <input name="endTime" type="text" id="endTime" readonly="readonly" />
-        </span><span class="btn_search">
+        </span> 
+        <span class="btn_search">
         <input name="" type="submit"  value="搜索" style="cursor:pointer;"/>
       </span> </li>
     </ul>
@@ -102,11 +123,11 @@ jQuery(document).ready(function(){
         <td  width="140"  align="center">企业名称</td>
         <td width="70"  align="center">联系电话</td>
         <td width="50" align="center">联系人</td>
-        <td width="52" align="center">地域</td>
+        <td width="99" align="center">地域</td>
         <td width="99" align="center">申请时间</td>
         <td width="99" align="center">平台类型</td>
         <td width="99" align="center">经营范围</td>
-        <td width="99" align="center">等级</td>
+        <td width="55" align="center">等级</td>
         <td width="100" align="center">操作</td>
       </tr>
     
@@ -119,7 +140,7 @@ jQuery(document).ready(function(){
        
         <td align="center">$!obj.telephone</td>
          <td align="center">$!obj.truename</td>
-          <td align="center">$!obj.consumer.site_area</td>
+          <td align="center">$!obj.address</td>
            <td align="center">$!obj.consumer.addTime</td>
             <td align="center">$!obj.consumer.platform_type</td>
             <td align="center">$!obj.consumer.main_business</td>
@@ -141,6 +162,7 @@ jQuery(document).ready(function(){
         <td>&nbsp;</td>
       </tr>   
     </table>
+      
 	  <input type="hidden" name="currentPage" id="currentPage" value="$!currentPage" />
 	  <input name="mulitId" type="hidden" id="mulitId" />
 	  <div class="fenye"> $!gotoPageHTML</div>	 

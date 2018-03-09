@@ -89,13 +89,22 @@ public class CustomerManageAction {
 		return mv;
 	}
 
-	@SecurityMapping(display = false, rsequence = 0, title = "商品分类批量删除", value = "/admin/goods_class_del.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
+	@SecurityMapping(display = false, rsequence = 0, title = "客户删除", value = "/admin/goods_class_del.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
 	@RequestMapping({ "/admin/crm_t_del.htm" })
 	public String crm_t_del(HttpServletRequest request, String id, String currentPage) {
 		this.crmContactsService.delete(Long.valueOf(id));
 
 		return "redirect:crm_t_list.htm?currentPage=" + currentPage;
 	}
+	
+	@SecurityMapping(display = false, rsequence = 0, title = "企业删除", value = "/admin/crm_down_del.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
+	@RequestMapping({ "/admin/crm_down_del.htm" })
+	public String crm_down_del(HttpServletRequest request, String id, String currentPage) {
+		this.crmConsumerService.delete(Long.valueOf(id));
+
+		return "redirect:crm_down_list.htm?currentPage=" + currentPage;
+	}
+
 
 	@SecurityMapping(display = false, rsequence = 0, title = "客户编辑", value = "/admin/crm_t_edit.htm*", rtype = "admin", rname = "客户管理", rcode = "goods_class", rgroup = "商品")
 	@RequestMapping({ "/admin/crm_t_edit.htm" })
@@ -172,7 +181,7 @@ public class CustomerManageAction {
 	 */
 	@RequestMapping({ "/admin/dtemplateDown.htm" })
 	public void dtemplateDown(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		String path = session.getServletContext().getRealPath("/") + "/WEB-INF/dtemplate/客户导入模板.xlsx";
+		String path = session.getServletContext().getRealPath("/") + "/WEB-INF/dtemplate/客户导入模板.xls";
 		// String path = "C:/Users/wangxiao/Desktop/SIM卡信息20170306172813.xls";
 		try {
 			File file = new File(path);
@@ -271,14 +280,16 @@ public class CustomerManageAction {
 		// CrmConsumer consumer=
 		// this.crmConsumerService.getObjById(Long.valueOf(id));
 		String op_title = null;
+		
 		if (id.equals("")) {
+			crmContacts.setStatus("0");
 			crmContacts.setAddTime(new Date());
 			this.crmConsumerService.save(crmContacts);
-			op_title = "保存成功";
+			op_title = "新增成功";
 		} else {
 			crmContacts.setAddTime(new Date());
 			this.crmConsumerService.update(crmContacts);
-			op_title = "新增成功";
+			op_title = "保存成功";
 		}
 		ModelAndView mv = new JModelAndView("admin/blue/success.html", this.configService.getSysConfig(),
 				this.userConfigService.getUserConfig(), 0, request, response);

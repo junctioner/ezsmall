@@ -113,7 +113,7 @@ public class CrmConsumerServiceImpl implements ICrmConsumerService{
 	@Override
 	public boolean uploadingExcel(List<HashMap> listPageData) {
 		// TODO Auto-generated method stub
-		
+		try {
 		for (HashMap pageData : listPageData) {
 			CrmConsumer con= new    CrmConsumer();
 			CrmContacts crm= new    CrmContacts();
@@ -126,6 +126,16 @@ public class CrmConsumerServiceImpl implements ICrmConsumerService{
 			CrmDev dev7=new  CrmDev();
 			CrmDev dev8=new  CrmDev();
 			CrmDev dev9=new  CrmDev();*/
+			   crm.setTruename(pageData.get("var5")+"");
+			   crm.setMobile(pageData.get("var6")+"");
+			   crm.setTelephone(pageData.get("var7")+"");
+			   crm.setSex(pageData.get("var8")+"");
+			   crm.setDepartment(pageData.get("var9")+"");
+			   crm.setPost(pageData.get("var10")+"");
+			   crm.setEmail(pageData.get("var11")+"");
+			   crm.setAddress(pageData.get("var13")+"");
+			   crm.setConsumer(con);
+			
 			
 			    con.setEnt_name(String.valueOf(pageData.get("var0")));
 			    con.setClue_source(pageData.get("var1")+"");
@@ -143,16 +153,9 @@ public class CrmConsumerServiceImpl implements ICrmConsumerService{
 			    con.setMon_turnover(pageData.get("var67")+"");
 			    con.setAddTime(new Date());
 			    con.setStatus("0");
+			    this.crmContactsDao.save(crm);
 			    this.crmConsumerDao.save(con);
-			    crm.setTruename(pageData.get("var5")+"");
-			   crm.setMobile(pageData.get("var6")+"");
-			   crm.setTelephone(pageData.get("var7")+"");
-			   crm.setSex(pageData.get("var8")+"");
-			   crm.setDepartment(pageData.get("var9")+"");
-			   crm.setPost(pageData.get("var10")+"");
-			   crm.setEmail(pageData.get("var11")+"");
-			   crm.setAddress(pageData.get("var13")+"");
-			   this.crmContactsDao.save(crm);
+			 
 //			  dev.setDev_name("破碎机数量（台）");
 //			   dev.setNumber(Integer.parseInt(pageData.getString("var19")));
 //			   dev.setPro_capacity(pageData.getString("var20"));
@@ -188,7 +191,11 @@ public class CrmConsumerServiceImpl implements ICrmConsumerService{
 //			   dev9.setLoa_capacity_t(pageData.getString("var34"));
 			    
 		}
-		return false;
+		return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
 	}
 
 /*
