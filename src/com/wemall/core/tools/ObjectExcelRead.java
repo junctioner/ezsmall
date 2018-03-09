@@ -1,5 +1,6 @@
 package com.wemall.core.tools;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ObjectExcelRead {
@@ -44,7 +46,11 @@ public class ObjectExcelRead {
 
 			wb = new HSSFWorkbook(mFile.getInputStream());
 		} catch (Exception ex) {
+	       try {
+			wb  =  new  XSSFWorkbook(mFile.getInputStream());
+		} catch (Exception e) {
 		
+		}
 		}
 		Sheet sheet = wb.getSheetAt(sheetnum);
 		int rowNum = sheet.getLastRowNum() + 1; // 取得最后一行的行号
