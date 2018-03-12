@@ -51,7 +51,7 @@ public class ClassifyAction {
             url = CommUtil.getURL(request);
         }
         String params = "";
-        CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+        CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                 orderType);
         qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
         IPageList pList = this.classifyService.list(qo);
@@ -85,7 +85,7 @@ public class ClassifyAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
             IPageList pList = this.classifyService.list(qo);
@@ -133,7 +133,7 @@ public class ClassifyAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
             IPageList pList = this.classifyService.list(qo);
@@ -154,7 +154,7 @@ public class ClassifyAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
             IPageList pList = this.classifyService.list(qo);

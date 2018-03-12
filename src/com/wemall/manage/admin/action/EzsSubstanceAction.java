@@ -1,7 +1,11 @@
 package com.wemall.manage.admin.action;
 
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,6 +15,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +24,10 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -73,7 +80,7 @@ public class EzsSubstanceAction {
     	List<EzsColumn> ezsColumns=ezsColumnService.query("from EzsColumn bean where bean.deleteStatus=:deleteStatus", map, -1, -1);
     	mv.addObject("ezsColumns", ezsColumns);
         String params = "";
-        CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+        CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                 orderType);
         if(userId!=null&&!"".equals(userId)){
         	qo.addQuery("obj.u.id",new SysMap("id",((User) request.getSession().getAttribute("user")).getId()),"=");
@@ -187,25 +194,29 @@ public class EzsSubstanceAction {
             {
                 //一次遍历所有文件
                 MultipartFile file=multiRequest.getFile(iter.next().toString());
-                if(file!=null)
+                 if(file!=null)
                 {
                 	Map map = new HashMap();
                     String path=request.getSession().getServletContext().getRealPath("/")+"upload"+File.separator+file.getOriginalFilename();
                     //上传
-                    String fileName = file.getOriginalFilename() == null ? "" : file.getOriginalFilename();
-                    String b=file.getName();
-      		        map = CommUtil.saveFileToServer(request, file.getName(), saveFilePathName,
-      		                            fileName, null);
+                    String fileName = file.getOriginalFilename();
+                    if(fileName!=null&&!"".equals(fileName)){
+                    	fileName=UUID.randomUUID().toString() + fileName.substring(fileName.indexOf("."));
+                    }
+      		        //map = CommUtil.saveFileToServer(request, file.getName(), saveFilePathName,fileName, null);
       		        if("a".equals(file.getName()+"")){
-      		        	thumbnail.add(map.get("fileName"));
+      		        	thumbnail.add(fileName);
 	              	}else if("b".equals(file.getName()+"")){
-	              		attachment.add(map.get("fileName"));
+	              		attachment.add(fileName);
 	              	}else if("c".equals(file.getName()+"")){
-	              		multimediaFiles.add(map.get("fileName"));
+	              		multimediaFiles.add(fileName);
 	              	}else if("d".equals(file.getName()+"")){
-	              		photos.add(map.get("fileName"));
+	              		photos.add(fileName);
 	              	}
-                    //file.transferTo(new File(path));
+      		        if(fileName!=null&&!"".equals(fileName)){
+      		        	upload(saveFilePathName,fileName,file);
+      		        }
+                    //file.transferTo(new File(saveFilePathName+File.separator+fileName));
                 }
                  
             }
@@ -247,7 +258,7 @@ public class EzsSubstanceAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
             IPageList pList = this.ezsSubstanceService.list(qo);
@@ -255,6 +266,32 @@ public class EzsSubstanceAction {
                                                 params, pList, mv);
         }
         return mv;
+    }
+    
+    public void upload(String saveFilePathName,String fileName,MultipartFile file) throws IOException{
+    	File path = new File(saveFilePathName);
+        if (!path.exists()){
+            path.mkdir();
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        DataOutputStream out = new DataOutputStream(
+            new FileOutputStream(saveFilePathName + File.separator + fileName));
+        InputStream is = null;
+        try {
+            is = file.getInputStream();
+            byte[] buffer = new byte[1024];
+            while (is.read(buffer) > 0)
+                out.write(buffer);
+        } catch (IOException exception){
+            exception.printStackTrace();
+        } finally {
+            if (is != null){
+                is.close();
+            }
+            if (out != null){
+                out.close();
+            }
+        }
     }
     
     /**
@@ -317,7 +354,7 @@ public class EzsSubstanceAction {
 		String saveFilePathName = request.getSession().getServletContext()
 		                  .getRealPath("/") +
 		                  uploadFilePath + File.separator + "ezsSubstance";
-        if(multipartResolver.isMultipart(request))
+		if(multipartResolver.isMultipart(request))
         {
             //将request变成多部分request
             MultipartHttpServletRequest multiRequest=(MultipartHttpServletRequest)request;
@@ -328,24 +365,29 @@ public class EzsSubstanceAction {
             {
                 //一次遍历所有文件
                 MultipartFile file=multiRequest.getFile(iter.next().toString());
-                if(file!=null)
+                 if(file!=null)
                 {
                 	Map map = new HashMap();
                     String path=request.getSession().getServletContext().getRealPath("/")+"upload"+File.separator+file.getOriginalFilename();
                     //上传
-                    String fileName = file.getOriginalFilename() == null ? "" : file.getOriginalFilename();
-      		        map = CommUtil.saveFileToServer(request, file.getName(), saveFilePathName,
-      		                            fileName, null);
+                    String fileName = file.getOriginalFilename();
+                    if(fileName!=null&&!"".equals(fileName)){
+                    	fileName=UUID.randomUUID().toString() + fileName.substring(fileName.indexOf("."));
+                    }
+      		        //map = CommUtil.saveFileToServer(request, file.getName(), saveFilePathName,fileName, null);
       		        if("a".equals(file.getName()+"")){
-      		        	thumbnail.add(map.get("fileName"));
+      		        	thumbnail.add(fileName);
 	              	}else if("b".equals(file.getName()+"")){
-	              		attachment.add(map.get("fileName"));
+	              		attachment.add(fileName);
 	              	}else if("c".equals(file.getName()+"")){
-	              		multimediaFiles.add(map.get("fileName"));
+	              		multimediaFiles.add(fileName);
 	              	}else if("d".equals(file.getName()+"")){
-	              		photos.add(map.get("fileName"));
+	              		photos.add(fileName);
 	              	}
-                    //file.transferTo(new File(path));
+      		        if(fileName!=null&&!"".equals(fileName)){
+      		        	upload(saveFilePathName,fileName,file);
+      		        }
+                    //file.transferTo(new File(saveFilePathName+File.separator+fileName));
                 }
                  
             }
@@ -379,7 +421,10 @@ public class EzsSubstanceAction {
         List<EzsSubstance> list=this.ezsSubstanceService.query("from EzsSubstance bean where bean.deleteStatus=:deleteStatus and bean.id=:id", map, -1, -1);
         EzsSubstance ezsSubstance2 = list.get(0);
         ezsSubstance2.setAddTime(ezsSubstance.getAddTime());
-        ezsSubstance2.setAttachment(!"".equals(ezsSubstance.getAttachment())?ezsSubstance.getAttachment():"");
+        ezsSubstance2.setThumbnail(!"".equals(ezsSubstance.getThumbnail())?ezsSubstance.getThumbnail():ezsSubstance2.getThumbnail());
+        ezsSubstance2.setAttachment(!"".equals(ezsSubstance.getAttachment())?ezsSubstance.getAttachment():ezsSubstance2.getAttachment());
+        ezsSubstance2.setMultimediaFiles(!"".equals(ezsSubstance2.getMultimediaFiles())?ezsSubstance.getMultimediaFiles():ezsSubstance2.getMultimediaFiles());
+        ezsSubstance2.setPhotos(!"".equals(ezsSubstance.getPhotos())?ezsSubstance.getPhotos():ezsSubstance2.getPhotos());
         ezsSubstance2.setAttribute(ezsSubstance.getAttribute());
         ezsSubstance2.setAuthor(ezsSubstance.getAuthor());
         ezsSubstance2.setBold(ezsSubstance.isBold());
@@ -396,7 +441,7 @@ public class EzsSubstanceAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
             IPageList pList = this.ezsSubstanceService.list(qo);
@@ -453,7 +498,7 @@ public class EzsSubstanceAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",true),"=");
             IPageList pList = this.ezsSubstanceService.list(qo);
@@ -490,7 +535,7 @@ public class EzsSubstanceAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
             IPageList pList = this.ezsSubstanceService.list(qo);
@@ -526,7 +571,7 @@ public class EzsSubstanceAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
             IPageList pList = this.ezsSubstanceService.list(qo);
@@ -563,7 +608,7 @@ public class EzsSubstanceAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
             IPageList pList = this.ezsSubstanceService.list(qo);
@@ -608,7 +653,7 @@ public class EzsSubstanceAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",true),"=");
             IPageList pList = this.ezsSubstanceService.list(qo);
@@ -749,7 +794,7 @@ public class EzsSubstanceAction {
 	                url = CommUtil.getURL(request);
 	            }
 	            String params = "";
-	            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+	            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
 	                    orderType);
 	            qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
 	            IPageList pList = this.ezsSubstanceService.list(qo);

@@ -60,35 +60,23 @@ jQuery(document).ready(function(){
 		}
 	}	
 //
-  /* jQuery("#theForm").validate({
+  jQuery("#theForm").validate({
 	ignore: "",						  
     rules:{
-	  title:{
-	    required :true
-	  },
-	  class_id:{required:true},
-	  sequence:{number:true},
-	  content:{required:true},
-	  mark:{
-		    remote:{
-				   url: "$!webPath/admin/article_mark.htm",     //后台处理程序
-                   type: "post",               //数据发送方式
-                   dataType: "json",           //接受数据格式   
-                   data: {                     //要传递的数据
-                     "mark": function(){return jQuery("#mark").val();},
-					 "id":"$!obj.id"
-		           }
-				}
-		  }
+    	name:{required :true},
+    	accessPath:{required :true},
+    	colTemplate:{required :true},
+    	phoTemplate:{required :true},
+    	orderid:{number:true}
 	 },
 	messages:{
-	  title:{required:"文章标题不能为空"},
-	  class_id:{required:"文章分类不能为空"},
-	  sequence:{number:"序号只能为数字"},
-	  content:{required:"文章内容不能为空"},
-	  mark:{remote:"文章标识已经存在"}
+		name:{required:"栏目名称不能为空"},
+		accessPath:{required:"访问路径不能为空"},
+		colTemplate:{required:"栏目模板不能为空"},
+		phoTemplate:{required:"手机模板不能为空"},
+		orderid:{number:"排列顺序不能为空并且为数字"}
 	}
-  }); */
+  }); 
   //
 
   editor = KindEditor.create('#content',options); 
@@ -116,7 +104,6 @@ function saveForm(){
    $("input[name='prepareColumn']").attr("value",prepareColumn)
    $("#theForm").submit();
 }
-
 
 </script>
 </head>
@@ -154,16 +141,6 @@ function saveForm(){
 	         #foreach($goodsSpecification in $goodsSpecifications)
 			   <option value="$!goodsSpecification.id">$!goodsSpecification.name</option>
 			 #end
-	          </select>
-	          </span>
-          </li>
-          <li>
-	          <span>栏目分类：</span><span class="webnamesec sizese" style="margin-left: 10px">
-	          <select id="class_id">
-	            <option value="">请选择...</option>
-		         #foreach($goodsClass in $goodsClasss)
-				   <option value="$!goodsClass.id" #if($!ezsColumn.gc.id==$!goodsClass.id)checked='checked'#end>$!goodsClass.className</option>
-				 #end
 	          </select>
 	          </span>
           </li>

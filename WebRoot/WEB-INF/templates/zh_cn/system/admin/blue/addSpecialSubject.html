@@ -59,37 +59,17 @@ jQuery(document).ready(function(){
 			jQuery("#displayOn").hide();
 		}
 	}	
-//
-  /* jQuery("#theForm").validate({
-	ignore: "",						  
-    rules:{
-	  title:{
-	    required :true
-	  },
-	  class_id:{required:true},
-	  sequence:{number:true},
-	  content:{required:true},
-	  mark:{
-		    remote:{
-				   url: "$!webPath/admin/article_mark.htm",     //后台处理程序
-                   type: "post",               //数据发送方式
-                   dataType: "json",           //接受数据格式   
-                   data: {                     //要传递的数据
-                     "mark": function(){return jQuery("#mark").val();},
-					 "id":"$!obj.id"
-		           }
-				}
-		  }
-	 },
-	messages:{
-	  title:{required:"文章标题不能为空"},
-	  class_id:{required:"文章分类不能为空"},
-	  sequence:{number:"序号只能为数字"},
-	  content:{required:"文章内容不能为空"},
-	  mark:{remote:"文章标识已经存在"}
-	}
-  }); */
-  //
+	jQuery("#theForm").validate({
+		ignore: "",						  
+	    rules:{
+	    	name:{required :true},
+	    	orderid:{number:true}
+		 },
+		messages:{
+			name:{required:"专题名称不能为空"},
+			orderid:{number:"排列顺序不能为空并且为数字"}
+		}
+	  }); 
 
   editor = KindEditor.create('#content',options); 
   jQuery("#class_id").val("$!obj.articleClass.id");
@@ -116,8 +96,6 @@ function saveForm(){
    $("input[name='prepareColumn']").attr("value",prepareColumn)
    $("#theForm").submit();
 }
-
-
 </script>
 </head>
 <body>

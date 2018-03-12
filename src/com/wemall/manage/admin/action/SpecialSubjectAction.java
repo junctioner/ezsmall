@@ -1,13 +1,19 @@
 package com.wemall.manage.admin.action;
 
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,8 +70,8 @@ public class SpecialSubjectAction {
             url = CommUtil.getURL(request);
         }
         String params = "";
-        CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
-                orderType);
+        CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "orderid",
+        		orderType);
         qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
         /*if (!CommUtil.null2String(coupon_begin_time).equals("")){
             qo.addQuery("obj.coupon_begin_time",
@@ -106,7 +112,7 @@ public class SpecialSubjectAction {
 		String saveFilePathName = request.getSession().getServletContext()
 		                  .getRealPath("/") +
 		                  uploadFilePath + File.separator + "specialSubject";
-        if(multipartResolver.isMultipart(request))
+		if(multipartResolver.isMultipart(request))
         {
             //将request变成多部分request
             MultipartHttpServletRequest multiRequest=(MultipartHttpServletRequest)request;
@@ -117,24 +123,29 @@ public class SpecialSubjectAction {
             {
                 //一次遍历所有文件
                 MultipartFile file=multiRequest.getFile(iter.next().toString());
-                if(file!=null)
+                 if(file!=null)
                 {
                 	Map map = new HashMap();
                     String path=request.getSession().getServletContext().getRealPath("/")+"upload"+File.separator+file.getOriginalFilename();
                     //上传
-                    String fileName = file.getOriginalFilename() == null ? "" : file.getOriginalFilename();
-      		        map = CommUtil.saveFileToServer(request, file.getName(), saveFilePathName,
-      		                            fileName, null);
+                    String fileName = file.getOriginalFilename();
+                    if(fileName!=null&&!"".equals(fileName)){
+                    	fileName=UUID.randomUUID().toString() + fileName.substring(fileName.indexOf("."));
+                    }
+      		        //map = CommUtil.saveFileToServer(request, file.getName(), saveFilePathName,fileName, null);
       		        if("a".equals(file.getName()+"")){
-              		    pcTitlePhoto.add(map.get("fileName"));
+      		        	pcTitlePhoto.add(fileName);
 	              	}else if("b".equals(file.getName()+"")){
-	              		phoneTitlePhoto.add(map.get("fileName"));
+	              		phoneTitlePhoto.add(fileName);
 	              	}else if("c".equals(file.getName()+"")){
-	              		pcContentPhoto.add(map.get("fileName"));
+	              		pcContentPhoto.add(fileName);
 	              	}else if("d".equals(file.getName()+"")){
-	              		phoneContentPhoto.add(map.get("fileName"));
+	              		phoneContentPhoto.add(fileName);
 	              	}
-                    //file.transferTo(new File(path));
+      		        if(fileName!=null&&!"".equals(fileName)){
+      		        	upload(saveFilePathName,fileName,file);
+      		        }
+                    //file.transferTo(new File(saveFilePathName+File.separator+fileName));
                 }
                  
             }
@@ -162,7 +173,7 @@ public class SpecialSubjectAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "orderid",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
             /*if (!CommUtil.null2String(coupon_begin_time).equals("")){
@@ -180,6 +191,32 @@ public class SpecialSubjectAction {
                                                 params, pList, mv);
         }
         return mv;
+    }
+    
+    public void upload(String saveFilePathName,String fileName,MultipartFile file) throws IOException{
+    	File path = new File(saveFilePathName);
+        if (!path.exists()){
+            path.mkdir();
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        DataOutputStream out = new DataOutputStream(
+            new FileOutputStream(saveFilePathName + File.separator + fileName));
+        InputStream is = null;
+        try {
+            is = file.getInputStream();
+            byte[] buffer = new byte[1024];
+            while (is.read(buffer) > 0)
+                out.write(buffer);
+        } catch (IOException exception){
+            exception.printStackTrace();
+        } finally {
+            if (is != null){
+                is.close();
+            }
+            if (out != null){
+                out.close();
+            }
+        }
     }
     
     @RequestMapping({ "/admin/loadEditSpecialSubject.htm" })
@@ -218,27 +255,33 @@ public class SpecialSubjectAction {
             {
                 //一次遍历所有文件
                 MultipartFile file=multiRequest.getFile(iter.next().toString());
-                if(file!=null)
+                 if(file!=null)
                 {
                 	Map map = new HashMap();
                     String path=request.getSession().getServletContext().getRealPath("/")+"upload"+File.separator+file.getOriginalFilename();
                     //上传
-                    String fileName = file.getOriginalFilename() == null ? "" : file.getOriginalFilename();
-      		        map = CommUtil.saveFileToServer(request, file.getName(), saveFilePathName,
-      		                            fileName, null);
+                    String fileName = file.getOriginalFilename();
+                    if(fileName!=null&&!"".equals(fileName)){
+                    	fileName=UUID.randomUUID().toString() + fileName.substring(fileName.indexOf("."));
+                    }
+      		        //map = CommUtil.saveFileToServer(request, file.getName(), saveFilePathName,fileName, null);
       		        if("a".equals(file.getName()+"")){
-              		    pcTitlePhoto.add(map.get("fileName"));
+      		        	pcTitlePhoto.add(fileName);
 	              	}else if("b".equals(file.getName()+"")){
-	              		phoneTitlePhoto.add(map.get("fileName"));
+	              		phoneTitlePhoto.add(fileName);
 	              	}else if("c".equals(file.getName()+"")){
-	              		pcContentPhoto.add(map.get("fileName"));
+	              		pcContentPhoto.add(fileName);
 	              	}else if("d".equals(file.getName()+"")){
-	              		phoneContentPhoto.add(map.get("fileName"));
+	              		phoneContentPhoto.add(fileName);
 	              	}
-                    //file.transferTo(new File(path));
+      		        if(fileName!=null&&!"".equals(fileName)){
+      		        	upload(saveFilePathName,fileName,file);
+      		        }
+                    //file.transferTo(new File(saveFilePathName+File.separator+fileName));
                 }
                  
             }
+           
         }
         if(pcTitlePhoto!=null&&pcTitlePhoto.size()>0){
         	specialSubject.setPcTitlePhoto(StringUtils.join(pcTitlePhoto.toArray(),","));
@@ -281,7 +324,7 @@ public class SpecialSubjectAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "orderid",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
             /*if (!CommUtil.null2String(coupon_begin_time).equals("")){
@@ -312,7 +355,7 @@ public class SpecialSubjectAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "orderid",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
             /*if (!CommUtil.null2String(coupon_begin_time).equals("")){

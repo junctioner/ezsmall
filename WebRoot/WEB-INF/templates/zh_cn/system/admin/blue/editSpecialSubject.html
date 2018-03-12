@@ -17,7 +17,6 @@
 <script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
 <script src="$!webPath/resources/js/vue.min.js"></script>
 <script charset="utf-8" src="$!webPath/resources/editor/kindeditor.js"></script>
-<script charset="utf-8" src="$!webPath/resources/editor/lang/zh_CN.js"></script>
 <script>
 //options为编辑配置属性
 var options = {
@@ -61,17 +60,16 @@ jQuery(document).ready(function(){
 	}	
 //
    jQuery("#theForm").validate({
-	ignore: "",						  
-	rules: {
-		username: "required",
-		password: "required"#if($!config.securityCodeLogin),
-		code:"required"#end},
-	messages: {
-		username: "用户名不能为空",
-		password: "密码不能为空"#if($!config.securityCodeLogin),
-		code:"验证码不能为空"#end
-				}
-  }); 
+		ignore: "",						  
+	    rules:{
+	    	name:{required :true},
+	    	orderid:{number:true}
+		 },
+		messages:{
+			name:{required:"专题名称不能为空"},
+			orderid:{number:"排列顺序不能为空并且为数字"}
+		}
+	  }); 
   //
 
   editor = KindEditor.create('#content',options); 
@@ -99,7 +97,6 @@ function saveForm(){
    $("input[name='prepareColumn']").attr("value",prepareColumn)
    $("#theForm").submit();
 }
-
 
 </script>
 </head>
