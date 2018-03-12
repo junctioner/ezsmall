@@ -393,17 +393,54 @@ public class EzsSubstanceAction {
             }
            
         }
+		Map<String, Object> map=new HashMap<String,Object>();
+        map.put("deleteStatus", false);
+        map.put("id", ezsSubstance.getId());
+        List<EzsSubstance> list=this.ezsSubstanceService.query("from EzsSubstance bean where bean.deleteStatus=:deleteStatus and bean.id=:id", map, -1, -1);
+        EzsSubstance ezsSubstance2 = list.get(0);
         if(thumbnail!=null&&thumbnail.size()>0){
         	ezsSubstance.setThumbnail(StringUtils.join(thumbnail.toArray(),","));
+        	String string=ezsSubstance2.getThumbnail();
+        	String [] strings=string.split(",");
+        	for (String string2 : strings) {
+				File file = new File(saveFilePathName+File.separator+string2);
+				if(file.exists()){
+					file.delete();
+				}
+			}
         }
         if(attachment!=null&&attachment.size()>0){
         	ezsSubstance.setAttachment(StringUtils.join(attachment.toArray(),","));
+        	String string=ezsSubstance2.getAttachment();
+        	String [] strings=string.split(",");
+        	for (String string2 : strings) {
+				File file = new File(saveFilePathName+File.separator+string2);
+				if(file.exists()){
+					file.delete();
+				}
+			}
         }
         if(multimediaFiles!=null&&multimediaFiles.size()>0){
         	ezsSubstance.setMultimediaFiles(StringUtils.join(multimediaFiles.toArray(),","));
+        	String string=ezsSubstance2.getMultimediaFiles();
+        	String [] strings=string.split(",");
+        	for (String string2 : strings) {
+				File file = new File(saveFilePathName+File.separator+string2);
+				if(file.exists()){
+					file.delete();
+				}
+			}
         }
         if(photos!=null&&photos.size()>0){
         	ezsSubstance.setPhotos(StringUtils.join(photos.toArray(),","));
+        	String string=ezsSubstance2.getPhotos();
+        	String [] strings=string.split(",");
+        	for (String string2 : strings) {
+				File file = new File(saveFilePathName+File.separator+string2);
+				if(file.exists()){
+					file.delete();
+				}
+			}
         }
         EzsColumn ezsColumn=new EzsColumn();
         if(!"".equals(ecId)){
@@ -415,12 +452,6 @@ public class EzsSubstanceAction {
         	specialSubject.setId(Long.parseLong(ssId));
         	ezsSubstance.setSs(specialSubject);
         }
-    	Map<String, Object> map=new HashMap<String,Object>();
-        map.put("deleteStatus", false);
-        map.put("id", ezsSubstance.getId());
-        List<EzsSubstance> list=this.ezsSubstanceService.query("from EzsSubstance bean where bean.deleteStatus=:deleteStatus and bean.id=:id", map, -1, -1);
-        EzsSubstance ezsSubstance2 = list.get(0);
-        ezsSubstance2.setAddTime(ezsSubstance.getAddTime());
         ezsSubstance2.setThumbnail(!"".equals(ezsSubstance.getThumbnail())?ezsSubstance.getThumbnail():(!"".equals(ezsSubstance2.getThumbnail())?ezsSubstance2.getThumbnail():""));
         ezsSubstance2.setAttachment(!"".equals(ezsSubstance.getAttachment())?ezsSubstance.getAttachment():(!"".equals(ezsSubstance2.getAttachment())?ezsSubstance2.getAttachment():""));
         ezsSubstance2.setMultimediaFiles(!"".equals(ezsSubstance2.getMultimediaFiles())?ezsSubstance.getMultimediaFiles():(!"".equals(ezsSubstance2.getMultimediaFiles())?ezsSubstance2.getMultimediaFiles():""));
@@ -489,6 +520,56 @@ public class EzsSubstanceAction {
      */
     @RequestMapping({ "/admin/deleteTrueEzsSubstance.htm" })
     public ModelAndView deleteTrueEzsSubstance(String currentPage, String orderBy, String orderType,EzsSubstance ezsSubstance, HttpServletRequest request, HttpServletResponse response){
+    	Map<String, Object> map=new HashMap<String,Object>();
+        map.put("deleteStatus", false);
+        map.put("id", ezsSubstance.getId());
+        List<EzsSubstance> list=this.ezsSubstanceService.query("from EzsSubstance bean where bean.deleteStatus=:deleteStatus and bean.id=:id", map, -1, -1);
+        EzsSubstance ezsSubstance2 = list.get(0);
+        String uploadFilePath = this.configService.getSysConfig()
+                .getUploadFilePath();
+		String saveFilePathName = request.getSession().getServletContext()
+                .getRealPath("/") +
+                uploadFilePath + File.separator + "ezsSubstance";
+    	if(ezsSubstance2!=null&&!"".equals(ezsSubstance2.getThumbnail())){
+        	String string=ezsSubstance2.getThumbnail();
+        	String [] strings=string.split(",");
+        	for (String string2 : strings) {
+				File file = new File(saveFilePathName+File.separator+string2);
+				if(file.exists()){
+					file.delete();
+				}
+			}
+        }
+    	if(ezsSubstance2!=null&&!"".equals(ezsSubstance2.getAttachment())){
+        	String string=ezsSubstance2.getAttachment();
+        	String [] strings=string.split(",");
+        	for (String string2 : strings) {
+				File file = new File(saveFilePathName+File.separator+string2);
+				if(file.exists()){
+					file.delete();
+				}
+			}
+        }
+    	if(ezsSubstance2!=null&&!"".equals(ezsSubstance2.getMultimediaFiles())){
+        	String string=ezsSubstance2.getMultimediaFiles();
+        	String [] strings=string.split(",");
+        	for (String string2 : strings) {
+				File file = new File(saveFilePathName+File.separator+string2);
+				if(file.exists()){
+					file.delete();
+				}
+			}
+        }
+    	if(ezsSubstance2!=null&&!"".equals(ezsSubstance2.getPhotos())){
+        	String string=ezsSubstance2.getPhotos();
+        	String [] strings=string.split(",");
+        	for (String string2 : strings) {
+				File file = new File(saveFilePathName+File.separator+string2);
+				if(file.exists()){
+					file.delete();
+				}
+			}
+        }
     	boolean flag=ezsSubstanceService.delete(ezsSubstance.getId());
         ModelAndView mv=null;
         if(flag){

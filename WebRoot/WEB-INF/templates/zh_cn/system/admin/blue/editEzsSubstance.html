@@ -109,7 +109,7 @@ function saveForm(){
 <div class="cont" >
   <h1 class="seth1">修改文档</h1>
   <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="$!webPath/admin/ezsSubstance_list.htm">管理</a> | <a href="$!webPath/admin/loadAddSpecialSubject.htm" #if(!$!edit)class="this"#end>新增</a> #if($!edit) <a href="javascript:void(0);" class="this">编辑</a> #end </span> <span class="tab-two"></span></div>
-  <form name="theForm" id="theForm" action="$!webPath/admin/addEzsSubstance.htm" method="post" enctype="multipart/form-data">
+  <form name="theForm" id="theForm" action="$!webPath/admin/editEzsSubstance.htm" method="post" enctype="multipart/form-data">
   <input type="hidden" name="id" value="$!ezsSubstance.id"/>
     <div class="setcont">
       <ul class="set1"> 
