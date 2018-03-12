@@ -309,10 +309,10 @@ public class SpecialSubjectAction {
         specialSubject2.setKeyWord(!"".equals(specialSubject.getKeyWord())?specialSubject.getKeyWord():"");
         specialSubject2.setName(!"".equals(specialSubject.getName())?specialSubject.getName():"");
         specialSubject2.setOrderid(!"".equals(specialSubject.getOrderid())?specialSubject.getOrderid():1);
-        specialSubject2.setPcContentPhoto(!"".equals(specialSubject.getPcContentPhoto())?specialSubject.getPcContentPhoto():"");
-        specialSubject2.setPcTitlePhoto(!"".equals(specialSubject.getPcTitlePhoto())?specialSubject.getPcTitlePhoto():"");
-        specialSubject2.setPhoneContentPhoto(!"".equals(specialSubject.getPhoneContentPhoto())?specialSubject.getPhoneContentPhoto():"");
-        specialSubject2.setPhoneTitlePhoto(!"".equals(specialSubject.getPhoneTitlePhoto())?specialSubject.getPhoneTitlePhoto():"");
+        specialSubject2.setPcContentPhoto(!"".equals(specialSubject.getPcContentPhoto())?specialSubject.getPcContentPhoto():(!"".equals(specialSubject2.getPcContentPhoto())?specialSubject2.getPcContentPhoto():""));
+        specialSubject2.setPcTitlePhoto(!"".equals(specialSubject.getPcTitlePhoto())?specialSubject.getPcTitlePhoto():(!"".equals(specialSubject2.getPcTitlePhoto())?specialSubject2.getPcTitlePhoto():""));
+        specialSubject2.setPhoneContentPhoto(!"".equals(specialSubject.getPhoneContentPhoto())?specialSubject.getPhoneContentPhoto():(!"".equals(specialSubject2.getPhoneContentPhoto())?specialSubject2.getPhoneContentPhoto():""));
+        specialSubject2.setPhoneTitlePhoto(!"".equals(specialSubject.getPhoneTitlePhoto())?specialSubject.getPhoneTitlePhoto():(!"".equals(specialSubject2.getPhoneTitlePhoto())?specialSubject2.getPhoneTitlePhoto():""));
         specialSubject2.setPhoTemplate(!"".equals(specialSubject.getPhoTemplate())?specialSubject.getPhoTemplate():"");
         specialSubject2.setRecommend(specialSubject.isRecommend());
         boolean flag=specialSubjectService.update(specialSubject2);

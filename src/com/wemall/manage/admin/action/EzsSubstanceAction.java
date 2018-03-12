@@ -421,10 +421,10 @@ public class EzsSubstanceAction {
         List<EzsSubstance> list=this.ezsSubstanceService.query("from EzsSubstance bean where bean.deleteStatus=:deleteStatus and bean.id=:id", map, -1, -1);
         EzsSubstance ezsSubstance2 = list.get(0);
         ezsSubstance2.setAddTime(ezsSubstance.getAddTime());
-        ezsSubstance2.setThumbnail(!"".equals(ezsSubstance.getThumbnail())?ezsSubstance.getThumbnail():ezsSubstance2.getThumbnail());
-        ezsSubstance2.setAttachment(!"".equals(ezsSubstance.getAttachment())?ezsSubstance.getAttachment():ezsSubstance2.getAttachment());
-        ezsSubstance2.setMultimediaFiles(!"".equals(ezsSubstance2.getMultimediaFiles())?ezsSubstance.getMultimediaFiles():ezsSubstance2.getMultimediaFiles());
-        ezsSubstance2.setPhotos(!"".equals(ezsSubstance.getPhotos())?ezsSubstance.getPhotos():ezsSubstance2.getPhotos());
+        ezsSubstance2.setThumbnail(!"".equals(ezsSubstance.getThumbnail())?ezsSubstance.getThumbnail():(!"".equals(ezsSubstance2.getThumbnail())?ezsSubstance2.getThumbnail():""));
+        ezsSubstance2.setAttachment(!"".equals(ezsSubstance.getAttachment())?ezsSubstance.getAttachment():(!"".equals(ezsSubstance2.getAttachment())?ezsSubstance2.getAttachment():""));
+        ezsSubstance2.setMultimediaFiles(!"".equals(ezsSubstance2.getMultimediaFiles())?ezsSubstance.getMultimediaFiles():(!"".equals(ezsSubstance2.getMultimediaFiles())?ezsSubstance2.getMultimediaFiles():""));
+        ezsSubstance2.setPhotos(!"".equals(ezsSubstance.getPhotos())?ezsSubstance.getPhotos():(!"".equals(ezsSubstance2.getPhotos())?ezsSubstance2.getPhotos():""));
         ezsSubstance2.setAttribute(ezsSubstance.getAttribute());
         ezsSubstance2.setAuthor(ezsSubstance.getAuthor());
         ezsSubstance2.setBold(ezsSubstance.isBold());
