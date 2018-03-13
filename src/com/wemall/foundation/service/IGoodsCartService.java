@@ -21,6 +21,8 @@ public abstract interface IGoodsCartService {
     public abstract boolean update(GoodsCart paramGoodsCart);
 
     public abstract List<GoodsCart> query(String paramString, Map paramMap, int paramInt1, int paramInt2);
+
+	public abstract void deleteGoodsCart(Long id);
 }
 
 

@@ -1598,4 +1598,18 @@ public class CommUtil {
 
         return system_domain;
     }
+    public static Map getStrMap(String str){
+    	Map map = new HashMap();
+    	map.put("aread_id", 0);
+    	if(str!=null&&!"".equals(str)){
+    		String[] strs = StringUtils.split(str, ",");
+    		if(strs!=null&&strs.length>0){
+    			for(String s :strs){
+        			String[] ms = s.split(":");
+        			map.put(ms[0], ms[1]);
+        		}
+    		}
+    	}
+    	return map;
+    }
 }

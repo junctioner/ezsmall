@@ -99,5 +99,10 @@
 		<from>^/sparegoods_([0-9]+).htm$</from>
 		<to type="forward">/sparegoods_detail.htm?id=$1</to>
 	</rule>
+	<rule>
+		<note>商品立即购买</note>
+		<from>^/good_buy/([0-9]+)/([0-9]+).htm$</from>
+		<to type="forward">/good_buy.htm?id=$1&amp;account=$2</to>
+	</rule>
 </urlrewrite>
 

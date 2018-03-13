@@ -179,7 +179,7 @@
 							#end
 							<div class="yzs-market-left-img"> <img src="$!img"> </div>
 							<div class="yzs-market-left-title"> $!yg.goods_name </div>
-							<div class="yzs-market-left-price"> #if($!yg.lookStatus==1)#if($!user) <span>$!yg.goods_price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!yg.goods_price</span> #end<span>邢台</span> </div>
+							<div class="yzs-market-left-price"> #if($!yg.lookStatus==1)#if($!user) <span>$!yg.goods_price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!yg.goods_price</span> #end<span>#set($av=$!areaViewTools.getStrArea($!yg.goods_address)) $!CommUtil.substring("$!{av}",6)</span> </div>
 						    </a>
 						</div>
 					    #end
@@ -213,7 +213,7 @@
 										#end
 										<div class="yzs-market-left-img"> <img src="$!img"> </div>
 										<div class="yzs-market-left-title"> $!hs.goods_name </div>
-										<div class="yzs-market-left-price"> #if($!hs.lookStatus==1)#if($!user) <span>$!hs.goods_price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!hs.goods_price</span> #end<span>邢台</span> </div>
+										<div class="yzs-market-left-price"> #if($!hs.lookStatus==1)#if($!user) <span>$!hs.goods_price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!hs.goods_price</span> #end<span>#set($av=$!areaViewTools.getStrArea($!hs.goods_address)) $!CommUtil.substring("$!{av}",6)</span> </div>
 									</a>
 								</div>
 							</li>
@@ -251,7 +251,7 @@
 							#end
 							 <div class="yzs-market-left-img"> <img src="$!img"> </div>
 							 <div class="yzs-market-left-title"> $!cs.goods_name </div>
-							 <div class="yzs-market-left-price"> #if($!cs.lookStatus==1)#if($!user) <span>$!cs.goods_price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!cs.goods_price</span> #end<span>邢台</span> </div>
+							 <div class="yzs-market-left-price"> #if($!cs.lookStatus==1)#if($!user) <span>$!cs.goods_price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!cs.goods_price</span> #end<span>#set($av=$!areaViewTools.getStrArea($!cs.goods_address)) $!CommUtil.substring("$!{av}",6)</span> </div>
 						 </a>	
 					</div>
 				#end

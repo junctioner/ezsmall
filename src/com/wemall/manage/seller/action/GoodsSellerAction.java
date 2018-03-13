@@ -720,8 +720,13 @@ public class GoodsSellerAction {
             	for (int i = 0; i < goods_parameter_List.length; i++){
             		list = goods_parameter_List[i].split(",");
             		Map map = new HashMap();
-            		 map.put("name", list[0]);
-                     map.put("val", list[1]);
+            		if(list.length>=2){
+            			map.put("name", list[0]);
+            			map.put("val", list[1]);
+            		}else{
+            			map.put("name", list[0]);
+            			map.put("val", "");
+            		}
                      maps.add(map);
             	}
             	 goods.setGoods_parameter_detail(Json.toJson(maps, JsonFormat.compact()));
@@ -1260,8 +1265,6 @@ public class GoodsSellerAction {
                     for (Evaluate e : evaluates){
                         this.evaluateService.delete(e.getId());
                     }
-                    goods.getGoods_ugcs().clear();
-                    goods.getGoods_ugcs().clear();
                     goods.getGoods_photos().clear();
                     goods.getGoods_ugcs().clear();
                     goods.getGoods_specs().clear();

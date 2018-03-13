@@ -1,112 +1,134 @@
-<link href="$!webPath/resources/style/common/css/window.css" type="text/css" rel="stylesheet" />
-<script>
-jQuery.validator.addMethod("mobile_telephone",function(value,element){
-  if(jQuery("#telephone").val()==""&&jQuery("#mobile").val()==""){
-     return false;
-	 
-  }else return true;
-});
-jQuery(document).ready(function(){
-  //								
- jQuery("#theForm").validate({
-	ignore: "",
-    rules:{
-	  trueName:{required :true},
-	  area_id:{required :true},
-	  area_info:{required :true},
-	  telephone:{mobile_telephone :true}
-	 },
-	messages:{
-	  trueName:{required :"收货人不能为空"},
-	  area_id:{required :"请选择详细区域"},
-	  area_info:{required :"详细地址不能为空"},
-	  telephone:{mobile_telephone :"联系电话、手机至少填写一项"}
-	}
-  });
-    //
- jQuery("select").change(function(){
-     var level=jQuery(this).attr("level");
-	 var id=jQuery(this).val();
-	 if(id!=""){
-	  jQuery.post("$!webPath/load_area.htm",{"pid":id},function(data){
-	     jQuery("#area"+level).empty();
-		  jQuery("#area"+level).append("<option value=''>请选择</option>");
-	    jQuery.each(data, function(index,item){
-		  jQuery("#area"+level).append("<option value='"+item.id+"'>"+item.areaName+"</option>");
-		  jQuery("#area"+level).show();
-		});
-	  },"json");
-	 }else{
-	   for(var i=level;i<=3;i++){
-	    jQuery("#area"+i).empty();
-	    jQuery("#area"+i).hide();
-	   }
-	 }
-  });
-  //
- jQuery("#area3").change(function(){
-   var id=jQuery(this).val();
-   jQuery("#area_id").val(id);
- });
-});
-</script>
-<form action="$!webPath/cart_address_save.htm" method="post" id="theForm">
-  <table style="float:left;" width="460" border="0" cellspacing="0" cellpadding="0" class="box_table">
-    <tr>
-      <td width="100" align="right" valign="top"><span class="hui_table">收货人姓名</span>：
-        <input name="id" type="hidden" id="id" value="$!obj.id" />
-      </td>
-      <td align="left"><span class="dia_txt">
-        <input name="trueName" type="text" id="trueName" size="35" />
-      </span></td>
-    </tr>
-    <tr>
-      <td align="right" valign="top"><span class="hui_table">所在区域：</span></td>
-      <td align="left">
-      <select name="area1" id="area1" level="2" style="width:100px;">
-                    <option value="" selected="selected">请选择地区</option>
- 				  #foreach($area in $areas)
-                     <option value="$!area.id">$!area.areaName</option>
-				  #end
-                   </select>
-                  <input type="button" name="area_edit" id="area_edit" value="修改" style="display:none;" onclick="javascript:jQuery('#area1').show();jQuery('#area_info').empty();jQuery(this).hide();" />
-                  <select name="area2" id="area2" style="display:none;width:60px;" level="3">
-                  </select>
-                <select name="area3" id="area3" style="display:none;width:60px;" level="4">
-                  </select>
-                  <input name="area_id" type="hidden" id="area_id"  value=""/>
-      </td>
-    </tr>
-    <tr>
-      <td align="right" valign="top"><span class="hui_table">详细地址</span>：</td>
-      <td align="left"><span class="dia_txt">
-        <input name="area_info" type="text" id="area_info" size="35" />
-      </span></td>
-    </tr>
-    <tr>
-      <td align="right" valign="top"><span class="hui_table">邮政编码</span>：</td>
-      <td align="left"><span class="dia_txt">
-        <input name="zip" type="text" id="zip" size="35" />
-      </span></td>
-    </tr>
-    <tr>
-      <td align="right" valign="top"><span class="hui_table">联系电话</span>：</td>
-      <td align="left" id="other_reason2"><span class="dia_txt">
-        <input name="telephone" type="text" id="telephone" size="35" />
-      </span></td>
-    </tr>
-    <tr>
-      <td align="right" valign="top"><span class="hui_table">手机号码</span>：</td>
-      <td align="left"><span class="dia_txt">
-        <input name="mobile" type="text" id="mobile" size="35" />
-      </span></td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center"><span class="inputbtn">
-        <input name="" type="submit" value="提交" style="cursor:pointer;"/>
-        <input name="currentPage" type="hidden" id="currentPage" value="$!currentPage" />
-        <input name="store_id" type="hidden" id="store_id" value="$!store_id" />
-      </span></td>
-    </tr>
-  </table>
-</form>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>$!{config.bargain_title} - $!config.title - Powered by ezsheng</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="ezs 2.0" />
+<meta name="author" content="www.ezsheng.com"/>
+<meta name="copyright" content="ezs Inc. All Rights Reserved"/>
+<link href="$!webPath/resources/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <form class="layui-form layui-form-pane"  method="post">
+       <input type="hidden" name="area_id"/>
+       <input type="hidden" name="id" value=""/>
+       <div class="layui-form-item">
+		    <label class="layui-form-label">收货人姓名</label>
+		    <div class="layui-input-block">
+		       <input name="trueName" autocomplete="off" placeholder="请输入收货人姓名" class="layui-input" type="text" lay-verify="required" />
+		    </div>
+	   </div>
+	  <div class="layui-form-item">
+    	<label class="layui-form-label">收货地址</label>
+	    <div class="layui-input-inline" style="width: 140px;">
+	      <select  lay-verify="required" lay-filter="shengDome">
+	        <option value="">请选择省</option>
+	        #foreach($as in $!areas)
+		        <option value="$!as.id">$!as.areaName</option>
+	         #end
+	      </select>
+	    </div>
+	    <div class="layui-input-inline" style="width: 130px;">
+	      <select name="quDome" lay-verify="required" lay-filter="quDome">
+	        <option value="">请选择市</option>
+	      </select>
+	    </div>
+	    <div class="layui-input-inline" style="width: 120px;">
+	      <select name="xianDome" lay-verify="required" lay-filter="xianDome">
+	        <option value="">请选择县/区</option>
+	      </select>
+	    </div>
+	    <div class="layui-input-inline" style="margin-left: 20px;width: 470px;margin-top: 10px;">
+	        <textarea placeholder="请输入详情地址" class="layui-textarea" name="area_info" lay-verify="required"></textarea>
+	    </div>
+	    <div class="layui-form-item">
+		    <label class="layui-form-label">手机号码</label>
+		    <div class="layui-input-block">
+		       <input name="telephone" autocomplete="off" placeholder="请输入手机号码" class="layui-input" type="text" lay-verify="required|phone"/>
+		    </div>
+	   </div>
+	   <div class="layui-form-item">
+		    <label class="layui-form-label">备用号码</label>
+		    <div class="layui-input-block">
+		       <input name="mobile" autocomplete="off" placeholder="请输入备用号码" class="layui-input" type="text" lay-verify="phone"/>
+		    </div>
+	   </div>
+	    <div class="layui-form-item">
+		    <div class="layui-input-block">
+		      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+		      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		    </div>
+  		</div>
+    </div>
+    </form>
+   <script src="$!webPath/resources/layui/layui.all.js" charset="utf-8"></script>
+   <script type="text/javascript" charset="utf-8">
+     layui.use(["form"], function(){
+	   var form = layui.form;
+	   var jQuery = layui.jquery;
+	   form.verify({
+		    phone: function(value){
+		      var pattern = /^1[34578]\d{9}$/; 
+		      if(!pattern.test(value)){
+		        return '请输入正确的手机号码!';
+		      }
+		    }
+		  });
+	   form.on('select(shengDome)', function(data){
+		      jQuery.post("$!webPath/load_area.htm",{"pid":data.value},function(data){
+			     jQuery("select[name='quDome']").empty();
+			     jQuery("select[name='areaid']").empty();
+			     jQuery("select[name='quDome']").append("<option value=''>请选择市</option>");
+			    jQuery.each(data, function(index,item){
+			    	jQuery("select[name='quDome']").append("<option value='"+item.id+"'>"+item.areaName+"</option>");
+			    	 form.render(); 
+				});
+			  },"json");
+		     
+	  });  
+	  form.on("select(quDome)",function(data){
+		  jQuery.post("$!webPath/load_area.htm",{"pid":data.value},function(data){
+			     jQuery("select[name='xianDome']").empty();
+			     jQuery("select[name='xianDome']").append("<option value=''>请选择县/区</option>");
+			    jQuery.each(data, function(index,item){
+			    	jQuery("select[name='xianDome']").append("<option value='"+item.id+"'>"+item.areaName+"</option>");
+			    	form.render(); 
+				});
+			  },"json");
+	  });
+	  form.on("select(xianDome)",function(data){
+		  jQuery("input[name='area_id']").val(data.value);
+	  })
+	  form.on('submit(formDemo)', function(data){
+		  var index = layer.load(1, {shade: [0.1,'#fff']});
+		  jQuery.ajax({
+				  url:"$!webPath/cart_address_save_ajax.htm",
+				  data:data.field,
+				  type:"post",
+				  dataType:"json",
+				  success:function(reslut){
+					  layer.close(index);
+					  if(reslut.code =="success"){
+						  parent.msgCode = "success";
+						  var pindex = parent.layer.getFrameIndex(window.name);
+						  parent.layer.close(pindex);
+						  top.layer.alert(reslut.msg,{icon:1});
+					  }else if(reslut.code =="noSession"){
+						  parent.msgCode = "noSession";
+						  var pindex = parent.layer.getFrameIndex(window.name);
+						  parent.layer.close(pindex);
+						  top.layer.alert(reslut.msg,{icon:4});
+					  }else{
+						  top.layer.alert(reslut.msg,{icon:2}); 
+					  } 
+				  }
+			});
+		   return false;
+	  });
+	})
+
+	</script>
+</body>
+</html>
