@@ -19,6 +19,7 @@
 <script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
 <script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
 <script src="$!webPath/resources/js/vue.min.js"></script>
+<script src="$!webPath/resources/js/axios.js"></script>
 <script charset="utf-8" src="$!webPath/resources/editor/kindeditor.js"></script>
 <script charset="utf-8" src="$!webPath/resources/editor/lang/zh_CN.js"></script>
 <script>
@@ -63,31 +64,32 @@ jQuery(document).ready(function(){
 		}
 	}	
 	jQuery("#theForm").validate({
+		ignore: "",						  
 	    rules:{
-	     name:{required:true},
-		 ac_rebate:{required:true,max:9.9},	
-		 ac_begin_time:{required:true},
-	     #if(!$!obj.ac_acc)acc:{required:true,accept:"$!config.imageSuffix"},#end
-		 ac_end_time:{required:true}
+	    	name:{required :true},
+	    	linkUrl:{required :true},
+	    	subheading:{required :true},
+	    	meta:{required :true},
+	    	keyWord:{required:true}
 		 },
-	    messages:{
-	     name:{required:"不能为空"},
-		 ac_rebate:{required:"活动折扣不能为空",max:"请输入小于10的数"},		
-		 ac_begin_time:{required:"开始时间不能为空"},
-		 #if(!$!obj.ac_acc)acc:{required:"横幅不能为空",accept:"系统不允许上传该文件类型"},#end
-		 ac_end_time:{required:"结束时间不能为空"}
+		messages:{
+			name:{required:"主标题不能为空"},
+			linkUrl:{required:"URL不能为空"},
+			subheading:{required:"副标题不能为空"},
+			meta:{required:"手机模板不能为空"},
+			orderid:{number:"关键字不能为空"}
 		}
-	  });
+	  }); 
 jQuery('#publicTime').attr("readonly","readonly").datepicker({
 	  dateFormat:"yy-mm-dd",
 	  changeMonth: true,
 	  changeYear: true
 });
-  editor = KindEditor.create('#content',options); 
-  jQuery("#class_id").val("$!obj.articleClass.id");
-  //
-   jQuery("#display_img").click(function(){
-    var display=jQuery("#display").val();
+editor = KindEditor.create('#content',options); 
+jQuery("#class_id").val("$!obj.articleClass.id");
+//
+ jQuery("#display_img").click(function(){
+  var display=jQuery("#display").val();
 	if(display=="true"){
 	  jQuery("#display_img").attr("src","$!webPath/resources/style/system/manage/blue/images/no.jpg");
 	  jQuery("#display").val("false");
@@ -95,13 +97,12 @@ jQuery('#publicTime').attr("readonly","readonly").datepicker({
 	  jQuery("#display_img").attr("src","$!webPath/resources/style/system/manage/$!{config.websiteCss}/images/yes.jpg");
 	  jQuery("#display").val("true");
 	}
-  }); 
+}); 
 }); 
 
 function saveForm(){
    $("#theForm").submit();
 }
-
 
 </script>
 </head>
@@ -121,8 +122,8 @@ function saveForm(){
                  #end
                </select>
             </span>
-            <span>副栏目</span>
-            <span>专题：</span>
+            <span>&nbsp;&nbsp;副栏目</span>
+            <span>&nbsp;&nbsp;专题：</span>
             <span>
                <select name="ssId" id="ss">
                   #foreach ($specialSubject in $specialSubjects)
@@ -131,14 +132,28 @@ function saveForm(){
                </select>
             </span>
           </li>
-          <li><span>主标题：</span><span><input type="text" name="name"/></span><span>外部链接：</span><span><input checked="checked" type="radio" name="linkPort" value="true"/>有<input type="radio" name="linkPort" value="false"/>否</span></li>
+          <li><span>主标题：</span><span><input type="text" name="name"/></span><span>&nbsp;&nbsp;外部链接：</span><span><input checked="checked" type="radio" name="linkPort" value="true"/>有&nbsp;<input type="radio" name="linkPort" value="false"/>否</span></li>
           <li><span>URL：</span><span><input type="text" size="40" name="linkUrl"/></span></li>
-          <li><span>副标题：</span><span><input type="text" name="subheading"/></span><span>标题颜色：</span><span><input type="text" name="titleColor"/></span><span>加粗：</span><span><input checked="checked" type="radio" name="bold" value="true"/>加粗<input type="radio" name="bold" value="false"/>否</span></li>
+          <li><span>副标题：</span><span><input type="text" name="subheading"/></span><span>&nbsp;&nbsp;标题颜色：</span><span><input type="text" name="titleColor"/></span><span>&nbsp;&nbsp;加粗：</span><span><input checked="checked" type="radio" name="bold" value="true"/>是&nbsp;&nbsp;<input type="radio" name="bold" value="false"/>否</span></li>
           <li><span>Tag标签：</span><span><input type="text" name="tagTitle"/></span></li>
           <li><span>摘要：</span><span><textarea name="meta" cols="20" rows="20"></textarea></span></li>
-          <li><span>关键字：</span><span><input type="text" size="10" name="keyWord"/></span><span>标签添加：</span></li>
-          <li><span>作者：</span><span><input type="text" name="author"/></span><span>来源：</span><span><input type="text" name="origin"/></span><span>URL：</span><span><input type="text" name="originUrl"/></span></li>
-          <li><span>发布时间：</span><span><input type="text" id="publicTime" name="publicTime"/></span><span>固定：</span>
+          <li><span>关键字：</span><span><input type="text" size="10" name="keyWord"/></span><span>&nbsp;&nbsp;标签添加：</span><span @click="pink=true"><input checked="checked" name="a" type="radio" value="true"/>需要</span><span @click="pink=false"><input name="a" type="radio" value="false"/>不需要</span></li>
+          <li v-if="pink" id="classify">
+                 #foreach($remark in $remarks)
+                    <span>$!remark.name：</span>
+                     #foreach($o in $!remark.cla)
+                      <span><input #if($!remark.name=='品类')@click="changeRemark($o.id)"#end type="radio" #if($!remark.name=='品类')name="b"#else name="d"#end  #if(${velocityCount}==1)checked="checked"#end/>$!o.name&nbsp;</span>
+	                      #if($!remark.name=='品类'&&${velocityCount}==1)
+		                      #foreach($b in $o.remarkValue.split(","))
+		                       <span class="ck"><input type="checkbox" name="c" #if(${velocityCount}==1)checked="checked"#end/>$!b&nbsp;</span>
+		                      #end
+		                  #end
+		             #end
+		             <br/>
+                 #end
+          </li>
+          <li><span>作者：</span><span><input type="text" name="author"/></span><span>&nbsp;&nbsp;来源：</span><span><input type="text" name="origin"/></span><span>&nbsp;&nbsp;URL：</span><span><input type="text" name="originUrl"/></span></li>
+          <li><span>发布时间：</span><span><input type="text" id="publicTime" name="publicTime"/></span><span>&nbsp;&nbsp;固定：</span>
 	          <span>
 	            <select name="fixedTime" id="">
 	              <option value="7天">7天</option>
@@ -146,8 +161,8 @@ function saveForm(){
 	              <option value="30天">30天</option>
 	            </select>
 	          </span>
-	          <span>在手机端显示：</span>
-	          <span><input type="radio" checked="checked" name="pcView" value="true"/>是<input type="radio" name="pcView" value="false"/>否</span>
+	          <span>&nbsp;&nbsp;在手机端显示：</span>
+	          <span><input type="radio" checked="checked" name="pcView" value="true"/>是&nbsp;&nbsp;<input type="radio" name="pcView" value="false"/>否</span>
           </li>
           <li><span>自定义属性：</span>
           <span>
@@ -159,8 +174,8 @@ function saveForm(){
            <input type="radio" name="attribute" value="6"/>图文
           </span></li>
           <li><span>缩略图：</span><span><input type="file" name="a"/></span></li>
-          <li><span>附件：</span><span><input type="file" name="b" multiple="multiple"/></span></li>
-          <li><span>多媒体文件：</span><span><input type="file" name="c"/></span></li>
+          <li><span>附件：</span><span><input type="file" name="b" multiple="multiple" accept=".ppt,.pptx,.doc,.docx,.xls,.xlsx,.pdf,.zip"/>支持word、excel、ppt、pdf、zip</span></li>
+          <li><span>多媒体文件：</span><span><input type="file" name="c" accept=".mp4"/>支持MP4格式文件</span></li>
           <li><span>图片集：</span><span><input type="file" name="d" multiple="multiple"/></span></li>
           <li><span>文章内容：</span><span class="webname">
 	          <textarea name="content" cols="40" id="content"></textarea>
@@ -176,7 +191,8 @@ function saveForm(){
 var vm=new Vue({
     el:"#theForm",
     data:{
-    	pink:1
+    	pink:true,
+    	dataList:[]
     },
     mounted:function () {
         this.$nextTick(function () {
@@ -195,6 +211,19 @@ var vm=new Vue({
             	editor = KindEditor.create('#content',options); 
             	//jQuery("#class_id").val("$!obj.articleClass.id");
             }
+        },
+        changeRemark:function(v){
+        	 jQuery.ajax({
+        		 type: "post",
+                 url: "$!webPath/admin/getClassify.htm",
+                 data: {id:v},
+                 dataType: "html",
+                 success: function(data){
+                	 $(".ck").remove()
+                	 $("#classify").append(data)
+                 }
+        	     
+        	 })
         }
     }
 });	

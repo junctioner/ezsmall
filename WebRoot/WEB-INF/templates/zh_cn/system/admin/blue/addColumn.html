@@ -18,6 +18,7 @@
 <script src="$!webPath/resources/js/vue.min.js"></script>
 <script charset="utf-8" src="$!webPath/resources/editor/kindeditor.js"></script>
 <script charset="utf-8" src="$!webPath/resources/editor/lang/zh_CN.js"></script>
+<script src="$!webPath/resources/layui/layui.all.js"></script>
 <script>
 //options为编辑配置属性
 var options = {
@@ -59,37 +60,23 @@ jQuery(document).ready(function(){
 			jQuery("#displayOn").hide();
 		}
 	}	
-//
-  /* jQuery("#theForm").validate({
-	ignore: "",						  
+	
+  jQuery("#theForm").validate({
     rules:{
-	  title:{
-	    required :true
-	  },
-	  class_id:{required:true},
-	  sequence:{number:true},
-	  content:{required:true},
-	  mark:{
-		    remote:{
-				   url: "$!webPath/admin/article_mark.htm",     //后台处理程序
-                   type: "post",               //数据发送方式
-                   dataType: "json",           //接受数据格式   
-                   data: {                     //要传递的数据
-                     "mark": function(){return jQuery("#mark").val();},
-					 "id":"$!obj.id"
-		           }
-				}
-		  }
+    	name:{required :true},
+    	accessPath:{required :true},
+    	colTemplate:{required :true},
+    	phoTemplate:{required :true},
+    	orderid:{number:true}
 	 },
 	messages:{
-	  title:{required:"文章标题不能为空"},
-	  class_id:{required:"文章分类不能为空"},
-	  sequence:{number:"序号只能为数字"},
-	  content:{required:"文章内容不能为空"},
-	  mark:{remote:"文章标识已经存在"}
+		name:{required:"栏目名称不能为空"},
+		accessPath:{required:"访问路径不能为空"},
+		colTemplate:{required:"栏目模板不能为空"},
+		phoTemplate:{required:"手机模板不能为空"},
+		orderid:{number:"排列顺序不能为空并且为数字"}
 	}
-  }); */
-  //
+  }); 
 
   editor = KindEditor.create('#content',options); 
   jQuery("#class_id").val("$!obj.articleClass.id");
@@ -116,7 +103,6 @@ function saveForm(){
    $("input[name='prepareColumn']").attr("value",prepareColumn)
    $("#theForm").submit();
 }
-
 
 </script>
 </head>
@@ -156,23 +142,13 @@ function saveForm(){
 	          </select>
 	          </span>
           </li>
-          <li>
-	          <span>栏目分类：</span><span class="webnamesec sizese" style="margin-left: 10px">
-	          <select id="class_id" name="gc.id">
-	            <option >请选择...</option>
-		         #foreach($goodsClass in $goodsClasss)
-				   <option value="$!goodsClass.id">$!goodsClass.className</option>
-				 #end
-	          </select>
-	          </span>
-          </li>
         <li><span>栏目名称：</span><span><input type="text" size="40" name="name"/></span></li>
         <li><span>访问路径：</span><span><input type="text" size="40" name="accessPath"/></span></li>
         <li><span>栏目模板：</span><span><input type="text" size="40" name="colTemplate"/></span>
-          <span>手机模板：</span><span><input type="text" size="40" name="phoTemplate"/></span>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;手机模板：</span><span><input type="text" size="40" name="phoTemplate"/></span>
         </li>
-        <li><span>栏目排序：</span><span><input type="text" size="40" name="orderid"/></span>
-        <span>显示：</span><span><input type="radio" size="40" name="reveal" value="true"/>是<input type="radio" size="40" name="reveal" value="false"/>否</span>
+        <li><span>栏目排序：</span><span><input type="text" size="40" name="orderid"/>（由低 -> 高）</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;显示：</span><span><input type="radio" size="40" name="reveal" value="true" checked="checked"/>是&nbsp;&nbsp;<input type="radio" size="40" name="reveal" value="false"/>否</span>
         </li>
         <li><span>meta标签：</span><span><input type="text" size="40" name="title"/></span></li>
         <li><span>meta关键字：</span><span><input type="text" size="40" name="keyWord"/></span></li>
@@ -203,9 +179,9 @@ function saveForm(){
       </ul>
     </div>
   </form>
-  <div class="submit">
-    <input name="" type="button" value="提交" onclick="saveForm()" />
-  </div>
+    <div class="submit">
+    <input name="" type="button" value="保存" style="cursor:pointer;" onclick="saveForm();"/>
+    </div>
 </div>
 <script>
 var vm=new Vue({

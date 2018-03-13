@@ -55,6 +55,7 @@ function editEzs(a){
 	}
 	
 }
+
 </script>
 </head>
 <body>
@@ -75,7 +76,7 @@ function editEzs(a){
           #foreach($ezsColumn in $ezsColumnList)
           <tr>
              <td><input type="checkbox" name="b" value="$!ezsColumn.id" onclick="editEzs(this)"/></td>
-             <td>$!ezsColumn.attribute</td>
+             <td>$!ezsColumn.id</td>
              <td>$!ezsColumn.name</td>
              <td>$!ezsColumn.accessPath</td>
              <td>$!ezsColumn.orderid</td>

@@ -1,6 +1,7 @@
 package com.wemall.manage.admin.action;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,7 @@ import com.wemall.foundation.service.IRemarkService;
 import com.wemall.foundation.service.ISysConfigService;
 import com.wemall.foundation.service.IUserConfigService;
 
+
 @Controller
 public class ClassifyAction {
 	
@@ -51,7 +53,7 @@ public class ClassifyAction {
             url = CommUtil.getURL(request);
         }
         String params = "";
-        CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+        CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                 orderType);
         qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
         IPageList pList = this.classifyService.list(qo);
@@ -85,7 +87,7 @@ public class ClassifyAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
             IPageList pList = this.classifyService.list(qo);
@@ -133,7 +135,7 @@ public class ClassifyAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
             IPageList pList = this.classifyService.list(qo);
@@ -154,7 +156,7 @@ public class ClassifyAction {
                 url = CommUtil.getURL(request);
             }
             String params = "";
-            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, orderBy,
+            CouponQueryObject qo = new CouponQueryObject(currentPage, mv, "id",
                     orderType);
             qo.addQuery("obj.deleteStatus",new SysMap("deleteStatus",false),"=");
             IPageList pList = this.classifyService.list(qo);
@@ -162,6 +164,18 @@ public class ClassifyAction {
                                                 params, pList, mv);
         }
         return mv;
+    }
+    
+    @RequestMapping({ "/admin/getClassify.htm" })
+    public ModelAndView getClassify(Classify classify, HttpServletRequest request, HttpServletResponse response){
+    	ModelAndView mv = new JModelAndView("admin/blue/classifyValue.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
+		Map map = new HashMap();
+		map.put("deleteStatus", false);
+		map.put("id", classify.getId());
+		mv.addObject("list", this.classifyService.query(
+				"from Classify bean where bean.deleteStatus=:deleteStatus and bean.id=:id", map, -1, -1));
+		return mv;
+        
     }
 
 }
