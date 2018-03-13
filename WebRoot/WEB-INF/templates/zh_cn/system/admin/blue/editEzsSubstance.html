@@ -63,21 +63,22 @@ jQuery(document).ready(function(){
 		}
 	}	
 	jQuery("#theForm").validate({
+		ignore: "",						  
 	    rules:{
-	     name:{required:true},
-		 ac_rebate:{required:true,max:9.9},	
-		 ac_begin_time:{required:true},
-	     #if(!$!obj.ac_acc)acc:{required:true,accept:"$!config.imageSuffix"},#end
-		 ac_end_time:{required:true}
+	    	name:{required :true},
+	    	linkUrl:{required :true},
+	    	subheading:{required :true},
+	    	meta:{required :true},
+	    	keyWord:{required:true}
 		 },
-	    messages:{
-	     name:{required:"不能为空"},
-		 ac_rebate:{required:"活动折扣不能为空",max:"请输入小于10的数"},		
-		 ac_begin_time:{required:"开始时间不能为空"},
-		 #if(!$!obj.ac_acc)acc:{required:"横幅不能为空",accept:"系统不允许上传该文件类型"},#end
-		 ac_end_time:{required:"结束时间不能为空"}
+		messages:{
+			name:{required:"主标题不能为空"},
+			linkUrl:{required:"URL不能为空"},
+			subheading:{required:"副标题不能为空"},
+			meta:{required:"手机模板不能为空"},
+			orderid:{number:"关键字不能为空"}
 		}
-	  });
+	  }); 
 jQuery('#publicTime').attr("readonly","readonly").datepicker({
 	  dateFormat:"yy-mm-dd",
 	  changeMonth: true,
@@ -102,14 +103,13 @@ function saveForm(){
    $("#theForm").submit();
 }
 
-
 </script>
 </head>
 <body>
 <div class="cont" >
-  <h1 class="seth1">新增标签</h1>
+  <h1 class="seth1">修改文档</h1>
   <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="$!webPath/admin/ezsSubstance_list.htm">管理</a> | <a href="$!webPath/admin/loadAddSpecialSubject.htm" #if(!$!edit)class="this"#end>新增</a> #if($!edit) <a href="javascript:void(0);" class="this">编辑</a> #end </span> <span class="tab-two"></span></div>
-  <form name="theForm" id="theForm" action="$!webPath/admin/addEzsSubstance.htm" method="post" enctype="multipart/form-data">
+  <form name="theForm" id="theForm" action="$!webPath/admin/editEzsSubstance.htm" method="post" enctype="multipart/form-data">
   <input type="hidden" name="id" value="$!ezsSubstance.id"/>
     <div class="setcont">
       <ul class="set1"> 
@@ -160,8 +160,8 @@ function saveForm(){
            <input type="radio" name="attribute" value="6"/>图文
           </span></li>
           <li><span>缩略图：</span><span><input type="file" name="a"/></span></li>
-          <li><span>附件：</span><span><input type="file" name="b" multiple="multiple"/></span></li>
-          <li><span>多媒体文件：</span><span><input type="file" name="c"/></span></li>
+          <li><span>附件：</span><span><input type="file" name="b" multiple="multiple" accept=".ppt,.pptx,.doc,.docx,.xls,.xlsx,.pdf,.zip"/>支持word、excel、ppt、pdf、zip</span></li>
+          <li><span>多媒体文件：</span><span><input type="file" name="c" accept=".mp4"/>支持MP4格式文件</span></li>
           <li><span>图片集：</span><span><input type="file" name="d" multiple="multiple"/></span></li>
           <li><span>文章内容：</span><span class="webname">
 	          <textarea name="content" cols="40" id="content">$!ezsSubstance.content</textarea>

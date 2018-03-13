@@ -47,6 +47,8 @@ public class CrmConsumer extends IdEntity {
 
 	private String tax_point; // 税点
 	
+	private String oper_scope; // 经营范围
+	
 	private String num_workers; // 工人数量
 	
 	private String mon_turnover; // 月营业额
@@ -231,6 +233,14 @@ public class CrmConsumer extends IdEntity {
 
 	public void setQua_sewage_treatment(String qua_sewage_treatment) {
 		Qua_sewage_treatment = qua_sewage_treatment;
+	}
+
+	public String getOper_scope() {
+		return oper_scope;
+	}
+
+	public void setOper_scope(String oper_scope) {
+		this.oper_scope = oper_scope;
 	}
 	
 

@@ -2,11 +2,13 @@ package com.wemall.foundation.service;
 
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.wemall.core.query.support.IPageList;
 import com.wemall.core.query.support.IQueryObject;
+import com.wemall.core.tools.PageData;
 import com.wemall.foundation.domain.CrmConsumer;
 import com.wemall.foundation.domain.Document;
 
@@ -24,4 +26,6 @@ public interface ICrmConsumerService {
     public abstract CrmConsumer getObjByProperty(String paramString, Object paramObject);
 
 	public abstract CrmConsumer getObjById(Long id);
+
+	public abstract boolean uploadingExcel(List<HashMap> listPageData);
 }

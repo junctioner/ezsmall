@@ -4,11 +4,30 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
 </head>
+
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
 <link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
 <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
 <script src="$!webPath/resources/js/jquery.shop.common.js"></script>
 <script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
 <script>
+jQuery(document).ready(function(){
+	  jQuery('#beginTime').datepicker({
+		  dateFormat:"yy-mm-dd",
+		  changeMonth: true,
+		  changeYear: true
+	  });
+	  jQuery('#endTime').datepicker({
+		  dateFormat:"yy-mm-dd",
+		  changeMonth: true,
+		  changeYear: true
+	  });
+	  //
+	});
+	
 function addorsubtract(obj,id){
  var cls=jQuery(obj).attr("cls");
  var level=jQuery(obj).attr("level");
@@ -57,17 +76,14 @@ jQuery(document).ready(function(){
 <body>
 <div class="cont">
   <h1 class="seth1">客户管理</h1>
-    <form action="$!webPath/admin/order_list2.htm" method="post" id="queryForm" >
+    <form action="" method="post" id="queryForm" >
   <div class="orders">
     <ul>
       <li> <span>状态</span><span class="ordersel">
         <select name="order_status" id="order_status">
           <option value="">所有状态</option>
           <option value="10">待付款</option>
-        <!--   <option value="20">待发货</option>
-          <option value="30">已发货</option>
-          <option value="40">已收货</option> -->
-          <option value="50">已完成</option>
+         <option value="50">已完成</option>
           <option value="0">已取消</option>
         </select>
       </span><span>类型</span><span>
@@ -81,21 +97,16 @@ jQuery(document).ready(function(){
       </span> <span>渠道</span><span>
         <select name="payment" id="payment">
           <option value="">所有渠道</option>
-    <!--       <option value="alipay">支付宝</option>
-          <option value="wxcodepay">微信扫码支付</option>
-      		<option value="weixin_wap">微信公众号支付</option>
-          <option value="chinabank">网银在线</option>
-          <option value="bill">快钱</option>
-          <option value="tenpay">财付通</option>
-          <option value="outline">线下支付</option>
-          <option value="balance">预付款支付</option> -->
+
         </select>
         </span></li>
-      <li> <span>申请时间</span><span class="order_input size2">
+      <li> <span>申请时间</span>
+      <span class="order_input size2">
         <input name="beginTime" type="text" id="beginTime"  readonly="readonly"/>
         </span><span>—</span><span class="order_input size2">
         <input name="endTime" type="text" id="endTime" readonly="readonly" />
-        </span><span class="btn_search">
+        </span> 
+        <span class="btn_search">
         <input name="" type="submit"  value="搜索" style="cursor:pointer;"/>
       </span> </li>
     </ul>
@@ -112,11 +123,11 @@ jQuery(document).ready(function(){
         <td  width="140"  align="center">企业名称</td>
         <td width="70"  align="center">联系电话</td>
         <td width="50" align="center">联系人</td>
-        <td width="52" align="center">地域</td>
+        <td width="99" align="center">地域</td>
         <td width="99" align="center">申请时间</td>
         <td width="99" align="center">平台类型</td>
         <td width="99" align="center">经营范围</td>
-        <td width="99" align="center">等级</td>
+        <td width="55" align="center">等级</td>
         <td width="100" align="center">操作</td>
       </tr>
     
@@ -129,13 +140,13 @@ jQuery(document).ready(function(){
        
         <td align="center">$!obj.telephone</td>
          <td align="center">$!obj.truename</td>
-          <td align="center">$!obj.consumer.site_area</td>
+          <td align="center">$!obj.address</td>
            <td align="center">$!obj.consumer.addTime</td>
             <td align="center">$!obj.consumer.platform_type</td>
             <td align="center">$!obj.consumer.main_business</td>
             <td align="center">$!obj.consumer.grade</td>
   
-        <td align="left" class="ac8"><a href="$!webPath/admin/crm_t_edit.htm?id=$!obj.id&currentPage=$!currentPage">编辑</a>|<a href="javascript:void(0);" onclick="if(confirm('删除分类会同时删除该分类的所有下级，是否继续?'))window.location.href='$!webPath/admin/goods_class_del.htm?mulitId=$!obj.id&currentPage=$!currentPage'">删除</a></td>
+        <td align="left" class="ac8"><a href="$!webPath/admin/crm_t_edit.htm?id=$!obj.id&currentPage=$!currentPage">编辑</a>|<a href="javascript:void(0);" onclick="if(confirm('删除分类会同时删除该分类的所有下级，是否继续?'))window.location.href='$!webPath/admin/crm_t_del.htm?id=$!obj.id&currentPage=$!currentPage'">删除</a></td>
       </tr>
       #end  
       <tr style="background:#F2F2F2; height:30px;">
@@ -151,6 +162,7 @@ jQuery(document).ready(function(){
         <td>&nbsp;</td>
       </tr>   
     </table>
+      
 	  <input type="hidden" name="currentPage" id="currentPage" value="$!currentPage" />
 	  <input name="mulitId" type="hidden" id="mulitId" />
 	  <div class="fenye"> $!gotoPageHTML</div>	 
