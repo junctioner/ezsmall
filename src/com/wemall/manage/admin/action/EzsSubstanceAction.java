@@ -45,12 +45,16 @@ import com.wemall.foundation.domain.User;
 import com.wemall.foundation.domain.query.CouponQueryObject;
 import com.wemall.foundation.service.IEzsColumnService;
 import com.wemall.foundation.service.IEzsSubstanceService;
+import com.wemall.foundation.service.IRemarkService;
 import com.wemall.foundation.service.ISpecialSubjectService;
 import com.wemall.foundation.service.ISysConfigService;
 import com.wemall.foundation.service.IUserConfigService;
 
 @Controller
 public class EzsSubstanceAction {
+	
+	@Autowired
+	private IRemarkService remarkService;
 
 	@Autowired
 	private IEzsSubstanceService ezsSubstanceService;
@@ -148,6 +152,10 @@ public class EzsSubstanceAction {
     	map2.put("deleteStatus", false);
     	List<SpecialSubject> specialSubjects=specialSubjectService.query("from SpecialSubject bean where bean.deleteStatus=:deleteStatus", map2, -1, -1);
     	mv.addObject("specialSubjects", specialSubjects);
+    	Map map3=new HashMap();
+    	map3.put("deleteStatus", false);
+        List<Remark> list=this.remarkService.query("from Remark bean where bean.deleteStatus=:deleteStatus", map, -1, -1);
+        mv.addObject("remarks", list);
     	return mv;
     }
     

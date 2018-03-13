@@ -1,0 +1,5 @@
+#foreach($classify in $list)
+	#foreach($b in $classify.remarkValue.split(","))
+	 <span class="ck"><input type="checkbox" name="c" #if(${velocityCount}==1)checked="checked"#end/>$!b&nbsp;</span>
+	#end
+#end
