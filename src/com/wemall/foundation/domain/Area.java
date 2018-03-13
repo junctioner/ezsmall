@@ -1,5 +1,6 @@
 package com.wemall.foundation.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -20,7 +21,7 @@ import com.wemall.core.domain.IdEntity;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "wemall_area")
-public class Area extends IdEntity{
+public class Area extends IdEntity implements Serializable{
     /**
      * UID
      */
