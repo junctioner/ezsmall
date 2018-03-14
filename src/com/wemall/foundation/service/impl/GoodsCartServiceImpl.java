@@ -95,6 +95,17 @@ public class GoodsCartServiceImpl
     public List<GoodsCart> query(String query, Map params, int begin, int max){
         return this.goodsCartDao.query(query, params, begin, max);
     }
+
+	@Override
+	public void deleteGoodsCart(Long id) {
+		  GoodsCart goodsCart  = getObjById(id);
+		  if(goodsCart!=null){
+			  goodsCart.getGsps().clear();
+			  goodsCartDao.update(goodsCart);
+			  goodsCartDao.remove(id);
+		  }
+		
+	}
 }
 
 

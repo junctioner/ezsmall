@@ -274,7 +274,7 @@ public class CustomerManageAction {
 	@SecurityMapping(display = false, rsequence = 0, title = "企业保存", value = "/admin/crm_down_save.htm*", rtype = "admin", rname = "客户管理", rcode = "", rgroup = "客户")
 	@RequestMapping({ "/admin/crm_down_save.htm" })
 	public ModelAndView crm_down_save(HttpServletRequest request, HttpServletResponse response, String id,
-			CrmConsumer crmContacts,String oper_life) {
+			CrmConsumer crmContacts) {
 		// WebForm wf = new WebForm();
 		// GoodsClass goodsClass = null;
 		// CrmConsumer consumer=
@@ -294,22 +294,6 @@ public class CustomerManageAction {
 		ModelAndView mv = new JModelAndView("admin/blue/success.html", this.configService.getSysConfig(),
 				this.userConfigService.getUserConfig(), 0, request, response);
 		mv.addObject("op_title", op_title);
-
-		return mv;
-	}
-	
-	@SecurityMapping(display = false, rsequence = 0, title = "客户新增", value = "/admin/crm_down_ent.htm*", rtype = "admin", rname = "客户管理", rcode = "goods_class", rgroup = "商品")
-	@RequestMapping({ "/admin/crm_down_ent.htm" })
-	public ModelAndView crm_down_ent(HttpServletRequest request, HttpServletResponse response, String id,
-			String currentPage) {
-		ModelAndView mv = new JModelAndView("admin/blue/crm_down_ent.html", this.configService.getSysConfig(),
-				this.userConfigService.getUserConfig(), 0, request, response);
-		if ((id != null) && (!id.equals(""))) {
-			CrmConsumer crmConsumer = this.crmConsumerService.getObjById(Long.valueOf(Long.parseLong(id)));
-			mv.addObject("obj", crmConsumer);
-			mv.addObject("currentPage", currentPage);
-			mv.addObject("edit", Boolean.valueOf(true));
-		}
 
 		return mv;
 	}

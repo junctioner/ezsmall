@@ -69,14 +69,16 @@ jQuery(document).ready(function(){
 	    	linkUrl:{required :true},
 	    	subheading:{required :true},
 	    	meta:{required :true},
-	    	keyWord:{required:true}
+	    	keyWord:{required:true},
+	    	content:{required:true}
 		 },
 		messages:{
 			name:{required:"主标题不能为空"},
 			linkUrl:{required:"URL不能为空"},
 			subheading:{required:"副标题不能为空"},
 			meta:{required:"手机模板不能为空"},
-			orderid:{number:"关键字不能为空"}
+			orderid:{number:"关键字不能为空"},
+			content:{required:"文档内容不能为空"}
 		}
 	  }); 
 jQuery('#publicTime').attr("readonly","readonly").datepicker({
@@ -100,6 +102,15 @@ jQuery('#publicTime').attr("readonly","readonly").datepicker({
 }); 
 
 function saveForm(){
+	var reid=$("#classify input[name='f']:checked").attr("value")
+	   var nameid=$("#classify input[name='e']:checked").attr("value");
+	   var arr=[]
+	   $("#classify input[name='"+nameid+"']:checked").each(function(k,v){
+		   var a=$(this).attr("value");
+		   arr.push(a)
+	   })
+	   var obj={remarkId:reid,classifyId:nameid,value:arr.join(",")}
+	   $("#remarkValue").attr("value",JSON.stringify(obj))
    $("#theForm").submit();
 }
 
@@ -110,7 +121,8 @@ function saveForm(){
   <h1 class="seth1">修改文档</h1>
   <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="$!webPath/admin/ezsSubstance_list.htm">管理</a> | <a href="$!webPath/admin/loadAddSpecialSubject.htm" #if(!$!edit)class="this"#end>新增</a> #if($!edit) <a href="javascript:void(0);" class="this">编辑</a> #end </span> <span class="tab-two"></span></div>
   <form name="theForm" id="theForm" action="$!webPath/admin/editEzsSubstance.htm" method="post" enctype="multipart/form-data">
-  <input type="hidden" name="id" value="$!ezsSubstance.id"/>
+   <input type="hidden" name="id" value="$!ezsSubstance.id"/>
+   <input type="hidden" name="remarkValue" value="" id="remarkValue"/>
     <div class="setcont">
       <ul class="set1"> 
           <li>
@@ -123,6 +135,13 @@ function saveForm(){
                </select>
             </span>
             <span>副栏目</span>
+            <span>
+               <select name="childEcId" id="childEcId">
+                 #foreach ($ezsColumn in $ezsColumns)
+                   <option value="$!ezsColumn.id" #if($!ezsColumn.id==$!ezsSubstance.childEc.id)selected="selected"#end>$!ezsColumn.name</option>
+                 #end
+               </select>
+            </span>
             <span>专题：</span>
             <span>
                <select name="ssId" id="ss">
@@ -137,7 +156,23 @@ function saveForm(){
           <li><span>副标题：</span><span><input type="text" name="subheading" value="$!ezsSubstance.subheading"/></span><span>标题颜色：</span><span><input type="text" name="titleColor" value="$!ezsSubstance.titleColor"/></span><span>加粗：</span><span><input checked="checked" type="radio" name="bold" value="true"/>是<input type="radio" name="bold" value="false"/>否</span></li>
           <li><span>Tag标签：</span><span><input type="text" name="tagTitle" value="$!ezsSubstance.tagTitle"/></span></li>
           <li><span>摘要：</span><span><textarea name="meta" cols="20" rows="20">$!ezsSubstance.meta</textarea></span></li>
-          <li><span>关键字：</span><span><input type="text" size="10" name="keyWord" value="$!ezsSubstance.keyWord"/></span><span>标签添加：</span></li>
+          <li><span>关键字：</span><span><input type="text" size="10" name="keyWord" value="$!ezsSubstance.keyWord"/></span><span>标签添加：</span><span><input @click="pink=true" checked="checked" name="a" type="radio" value="true"/>需要</span><span><input  @click="pink=false" name="a" type="radio" value="false"/>不需要</span></li>
+          <li v-if="pink" id="classify">
+                 #foreach($remark in $remarks)
+                    <span>$!remark.name：</span>
+                     #foreach($o in $!remark.cla)
+                      <span><input value="$o.id" #if($!remark.name=='品类')@click="changeRemark($o.id)"#end type="radio" #if($!remark.name=='品类')name="e"#else name="f"#end  #if(${velocityCount}==1)checked="checked"#end/>$!o.name&nbsp;</span>
+	                      #if($!remark.name=='品类'&&${velocityCount}==1)
+	                      <span class="ck">
+		                      #foreach($b in $o.remarkValue.split(","))
+		                       <input value="$!b" type="checkbox" name="$o.id" #if(${velocityCount}==1)checked="checked"#end/>$!b&nbsp;
+		                      #end
+		                  </span>
+		                  #end
+		             #end
+		             <br/>
+                 #end
+          </li>
           <li><span>作者：</span><span><input type="text" name="author" :value="author"/></span><span>来源：</span><span><input type="text" name="origin" value="$!ezsSubstance.origin"/></span><span>URL：</span><span><input type="text" name="originUrl" value="$!ezsSubstance.originUrl"/></span></li>
           <li><span>发布时间：</span><span><input type="text" id="publicTime" name="publicTime" value="$!ezsSubstance.publicTime"/></span><span>固定：</span>
 	          <span>
@@ -162,7 +197,7 @@ function saveForm(){
           <li><span>缩略图：</span><span><input type="file" name="a"/></span></li>
           <li><span>附件：</span><span><input type="file" name="b" multiple="multiple" accept=".ppt,.pptx,.doc,.docx,.xls,.xlsx,.pdf,.zip"/>支持word、excel、ppt、pdf、zip</span></li>
           <li><span>多媒体文件：</span><span><input type="file" name="c" accept=".mp4"/>支持MP4格式文件</span></li>
-          <li><span>图片集：</span><span><input type="file" name="d" multiple="multiple"/></span></li>
+          <li><span>图片集：</span><span><input type="file" name="d" multiple="multiple" accept="image/*"/></span></li>
           <li><span>文章内容：</span><span class="webname">
 	          <textarea name="content" cols="40" id="content">$!ezsSubstance.content</textarea>
 	          </span></li>
@@ -177,8 +212,9 @@ function saveForm(){
 var vm=new Vue({
     el:"#theForm",
     data:{
-    	pink:1,
-    	author:""
+    	pink:true,
+    	author:"",
+    	remarkValue:{}
     },
     mounted:function () {
         this.$nextTick(function () {
@@ -191,8 +227,33 @@ var vm=new Vue({
     },
     methods:{
         init:function (){
+        	this.remarkValue=eval('('+'$!ezsSubstance.remarkValue'+')');
+        	var reid=this.remarkValue.remarkId
+        	$("#classify input[name='f']").each(function(k,v){
+        		if($(this).attr("value")==reid){
+        			$(this).attr("checked",true)
+        		}else{
+        			$(this).attr("checked",false)
+        		}
+        	})
+        	var nameid=this.remarkValue.classifyId
+        	$("#classify input[name='e']").each(function(k,v){
+        		if($(this).attr("value")==nameid){
+        			$(this).attr("checked",true)
+        		}else{
+        			$(this).attr("checked",false)
+        		}
+        	})
+        	var value=this.remarkValue.value.split(",")
+       		$("#classify input[name='"+nameid+"']").each(function(k,v){
+       			for(var i in value){
+	       			if($(this).attr("value")==value[i]){
+	           			$(this).attr("checked",true)
+	           		}
+       			}
+       		 })
         	this.author="$!ezsSubstance.author"
-        	var linkPort=$!ezsSubstance.linkPort;
+        	var linkPort="$!ezsSubstance.linkPort"
         	$("input[name='linkPort']").each(function(){
         		var a=$(this).attr("value")
         		if((linkPort+"")==a){
@@ -235,7 +296,20 @@ var vm=new Vue({
             	editor = KindEditor.create('#content',options); 
             	//jQuery("#class_id").val("$!obj.articleClass.id");
             }
-        }
+        },
+        changeRemark:function(v){
+       	 jQuery.ajax({
+       		 type: "post",
+                url: "$!webPath/admin/getClassify.htm",
+                data: {id:v},
+                dataType: "html",
+                success: function(data){
+               	 $(".ck").remove()
+               	 $("#classify").append(data)
+                }
+       	     
+       	 })
+       }
     }
 });	
  </script>

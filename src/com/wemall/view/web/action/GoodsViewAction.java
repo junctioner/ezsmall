@@ -263,19 +263,19 @@ public class GoodsViewAction {
 				}
 				request.getSession(false).setAttribute("user_viewed_goods", user_viewed_goods);
 
-				IpAddress ipAddr = IpAddress.getInstance();
-				String current_ip = CommUtil.getIpAddr(request);
-				String current_city = ipAddr.IpStringToAddress(current_ip);
-				if ((current_city == null) || (current_city.equals(""))) {
-					current_city = "全国";
-				}
+//				IpAddress ipAddr = IpAddress.getInstance();
+//				String current_ip = CommUtil.getIpAddr(request);
+//				String current_city = ipAddr.IpStringToAddress(current_ip);
+//				if ((current_city == null) || (current_city.equals(""))) {
+//					current_city = "全国";
+//				}
+//
+//				mv.addObject("current_city", current_city);
 
-				mv.addObject("current_city", current_city);
-
-				List areas = this.areaService.query(
-						"select obj from Area obj where obj.parent.id is null order by obj.sequence asc", null, -1, -1);
-				mv.addObject("areas", areas);
-				generic_evaluate(obj.getGoods_store(), mv);
+//				List areas = this.areaService.query(
+//						"select obj from Area obj where obj.parent.id is null order by obj.sequence asc", null, -1, -1);
+//				mv.addObject("areas", areas);
+//				generic_evaluate(obj.getGoods_store(), mv);
 			} else {// 店铺状态异常
 				mv = new JModelAndView("error.html", this.configService.getSysConfig(),
 						this.userConfigService.getUserConfig(), 1, request, response);
