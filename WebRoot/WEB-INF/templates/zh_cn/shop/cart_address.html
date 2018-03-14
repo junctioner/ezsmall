@@ -12,47 +12,60 @@
 </head>
 <body>
     <form class="layui-form layui-form-pane"  method="post">
-       <input type="hidden" name="area_id"/>
-       <input type="hidden" name="id" value=""/>
+       <input type="hidden" name="area_id" value="$!obj.area.id"/>
+       <input type="hidden" name="id" value="$!obj.id"/>
+       <input type="hidden" name="bestow" value="#if($!obj&&$!obj.bestow)true #else false #end"/>
        <div class="layui-form-item">
 		    <label class="layui-form-label">收货人姓名</label>
 		    <div class="layui-input-block">
-		       <input name="trueName" autocomplete="off" placeholder="请输入收货人姓名" class="layui-input" type="text" lay-verify="required" />
+		       <input name="trueName" autocomplete="off" placeholder="请输入收货人姓名" class="layui-input" type="text" lay-verify="required" value="$!obj.trueName"/>
 		    </div>
 	   </div>
 	  <div class="layui-form-item">
     	<label class="layui-form-label">收货地址</label>
 	    <div class="layui-input-inline" style="width: 140px;">
-	      <select  lay-verify="required" lay-filter="shengDome">
-	        <option value="">请选择省</option>
+	      <select  lay-verify="required" name="shengDome" lay-filter="shengDome">
+	        <option value="" >请选择省</option>
 	        #foreach($as in $!areas)
-		        <option value="$!as.id">$!as.areaName</option>
+		        <option value="$!as.id" #if($!as.id==$!obj.area.parent.parent.id) selected="selected" #end>$!as.areaName</option>
 	         #end
 	      </select>
 	    </div>
 	    <div class="layui-input-inline" style="width: 130px;">
 	      <select name="quDome" lay-verify="required" lay-filter="quDome">
-	        <option value="">请选择市</option>
+	        <option value="" >请选择市</option>
+	        #if($!obj)
+	            #set($qus=$!areaViewTools.getAreaBypid($!obj.area.parent.parent.id))
+	            #foreach($qu in $!qus)
+	               <option value="$!qu.id" #if($!qu.id==$!obj.area.parent.id) selected="selected" #end>$!qu.areaName</option>
+	            #end
+	        #end
 	      </select>
 	    </div>
-	    <div class="layui-input-inline" style="width: 120px;">
+	    <div class="layui-input-inline" style="width:120px;">
 	      <select name="xianDome" lay-verify="required" lay-filter="xianDome">
 	        <option value="">请选择县/区</option>
+	          #if($!obj)
+	            #set($xians=$!areaViewTools.getAreaBypid($!obj.area.parent.id))
+	            #foreach($xian in $!xians)
+	               <option value="$!xian.id" #if($!xian.id==$!obj.area.id) selected="selected" #end>$!xian.areaName</option>
+	            #end
+	        #end
 	      </select>
 	    </div>
 	    <div class="layui-input-inline" style="margin-left: 20px;width: 470px;margin-top: 10px;">
-	        <textarea placeholder="请输入详情地址" class="layui-textarea" name="area_info" lay-verify="required"></textarea>
+	        <textarea placeholder="请输入详情地址" class="layui-textarea" name="area_info" lay-verify="required">$!obj.area_info</textarea>
 	    </div>
 	    <div class="layui-form-item">
 		    <label class="layui-form-label">手机号码</label>
 		    <div class="layui-input-block">
-		       <input name="telephone" autocomplete="off" placeholder="请输入手机号码" class="layui-input" type="text" lay-verify="required|phone"/>
+		       <input name="telephone" autocomplete="off" placeholder="请输入手机号码" class="layui-input" type="text" lay-verify="required|phone" value="$!obj.telephone"/>
 		    </div>
 	   </div>
 	   <div class="layui-form-item">
 		    <label class="layui-form-label">备用号码</label>
 		    <div class="layui-input-block">
-		       <input name="mobile" autocomplete="off" placeholder="请输入备用号码" class="layui-input" type="text" lay-verify="phone"/>
+		       <input name="mobile" autocomplete="off" placeholder="请输入备用号码" class="layui-input" type="text" lay-verify="phone" value="$!obj.mobile"/>
 		    </div>
 	   </div>
 	    <div class="layui-form-item">
@@ -82,7 +95,7 @@
 			     jQuery("select[name='areaid']").empty();
 			     jQuery("select[name='quDome']").append("<option value=''>请选择市</option>");
 			    jQuery.each(data, function(index,item){
-			    	jQuery("select[name='quDome']").append("<option value='"+item.id+"'>"+item.areaName+"</option>");
+				     jQuery("select[name='quDome']").append("<option value='"+item.id+"'>"+item.areaName+"</option>");
 			    	 form.render(); 
 				});
 			  },"json");
@@ -93,7 +106,7 @@
 			     jQuery("select[name='xianDome']").empty();
 			     jQuery("select[name='xianDome']").append("<option value=''>请选择县/区</option>");
 			    jQuery.each(data, function(index,item){
-			    	jQuery("select[name='xianDome']").append("<option value='"+item.id+"'>"+item.areaName+"</option>");
+			        jQuery("select[name='xianDome']").append("<option value='"+item.id+"'>"+item.areaName+"</option>");
 			    	form.render(); 
 				});
 			  },"json");
@@ -128,7 +141,6 @@
 		   return false;
 	  });
 	})
-
 	</script>
 </body>
 </html>

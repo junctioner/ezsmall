@@ -700,6 +700,11 @@ public class CartViewAction {
 			}
 			request.getSession(false).setAttribute("cart", cart);
 			mv.addObject("cart", cart);
+			// 查詢地址
+			Map paramMap = new HashMap();
+			paramMap.put("userid", SecurityUserHolder.getCurrentUser().getId());
+			List<Address> addresses = addressService.query("from Address bean where bean.user.id =:userid order by bean.bestow desc,bean.addTime desc", paramMap, -1, -1);
+			mv.addObject("addresses", addresses);
 			mv.addObject("goodsViewTools", this.goodsViewTools);
 			mv.addObject("areaViewTools", this.areaViewTools);
 		} else {
@@ -1689,8 +1694,7 @@ public class CartViewAction {
 
 	@SecurityMapping(display = false, rsequence = 0, title = "地址新增", value = "/cart_address.htm*", rtype = "buyer", rname = "购物流程3", rcode = "goods_cart", rgroup = "在线购物")
 	@RequestMapping({ "/cart_address.htm" })
-	public ModelAndView cart_address(HttpServletRequest request, HttpServletResponse response, String id,
-			String store_id) {
+	public ModelAndView cart_address(HttpServletRequest request, HttpServletResponse response,String id) {
 		ModelAndView mv = new JModelAndView("cart_address.html", this.configService.getSysConfig(),
 				this.userConfigService.getUserConfig(), 1, request, response);
 		String wemall_view_type = CommUtil.null2String(request.getSession().getAttribute("wemall_view_type"));
@@ -1698,10 +1702,12 @@ public class CartViewAction {
 			mv = new JModelAndView("wap/cart_address.html", this.configService.getSysConfig(),
 					this.userConfigService.getUserConfig(), 1, request, response);
 		}
+		if(id!=null&&!"".equals(id)){
+			mv.addObject("obj", addressService.getObjById(CommUtil.null2Long(id)));
+			mv.addObject("areaViewTools", areaViewTools);
+		}
 		List areas = this.areaService.query("select obj from Area obj where obj.parent.id is null", null, -1, -1);
 		mv.addObject("areas", areas);
-		mv.addObject("store_id", store_id);
-
 		return mv;
 	}
 
@@ -1801,7 +1807,7 @@ public class CartViewAction {
 		mv.addObject("areas", areas);
 		mv.addObject("store_id", store_id);
 		mv.addObject("currentPage", currentPage);
-
+        mv.addObject("areaViewTools", areaViewTools);
 		return mv;
 	}
 
@@ -1892,7 +1898,8 @@ public class CartViewAction {
 	}
 
 	@RequestMapping("/cart_address_save_ajax.htm")
-	public void cart_address_save_ajax(HttpServletRequest request, HttpServletResponse response, String id, String area_id) {
+	public void cart_address_save_ajax(HttpServletRequest request, HttpServletResponse response, String id,
+			String area_id) {
 		JSONObject msgMap = new JSONObject();
 		try {
 			if (SecurityUserHolder.getCurrentUser() != null) {
@@ -1921,7 +1928,7 @@ public class CartViewAction {
 				msgMap.put("code", "noSession");
 				msgMap.put("msg", "用户登陆超时！");
 			}
-			
+
 			response.setContentType("text/plain");
 			response.setHeader("Cache-Control", "no-cache");
 			response.setCharacterEncoding("UTF-8");
@@ -1938,6 +1945,82 @@ public class CartViewAction {
 				e.printStackTrace();
 			}
 		}
+	}
 
+	/**
+	 * 切换收货地址
+	 * 
+	 * @param request
+	 * @param response
+	 * @param id
+	 */
+	@SecurityMapping(display = false, rsequence = 0, title = "切換收货地址", value = "/cut_address.htm*", rtype = "buyer", rname = "切換收货地址", rcode = "cut_address", rgroup = "在线购物")
+	@RequestMapping("/cut_address.htm")
+	public void cut_address(HttpServletRequest request, HttpServletResponse response, String id) {
+		JSONObject jsonObject = new JSONObject();
+		Address address = addressService.getObjById(CommUtil.null2Long(id));
+		if (address != null) {
+			address.setBestow(true);
+			addressService.update(address);
+		}
+		Map map = new HashMap();
+		map.put("userid", SecurityUserHolder.getCurrentUser().getId());
+		map.put("id", CommUtil.null2Long(id));
+		List<Address> addressesList = addressService.query("from Address bean where bean.user.id=:userid and bean.id!=:id", map, -1, -1);
+		if (addressesList != null && addressesList.size() > 0) {
+			for (Address add : addressesList) {
+				add.setBestow(false);
+				addressService.update(add);
+			}
+		}
+		jsonObject.put("code", "success");
+		jsonObject.put("msg", "切换收货地址成功！");
+		response.setContentType("text/plain");
+		response.setHeader("Cache-Control", "no-cache");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter writer;
+		try {
+			writer = response.getWriter();
+			writer.print(Json.toJson(jsonObject, JsonFormat.compact()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 切换收货地址
+	 * 
+	 * @param request
+	 * @param response
+	 * @param id
+	 */
+	@SecurityMapping(display = false, rsequence = 0, title = "收货地址删除", value = "/address_del.htm*", rtype = "buyer", rname = "用户中心", rcode = "user_center", rgroup = "用户中心")
+    @RequestMapping("/del_address.htm")
+	public void del_address(HttpServletRequest request, HttpServletResponse response, String id) {
+		JSONObject jsonObject = new JSONObject();
+		Address address = null;
+		if (id != null) {
+			address = addressService.getObjById(CommUtil.null2Long(id));
+			this.addressService.delete(Long.valueOf(Long.parseLong(id)));
+		}
+		Map map = new HashMap();
+		map.put("userid", SecurityUserHolder.getCurrentUser().getId());
+		List<Address> addressesList = addressService.query("from Address bean where bean.user.id=:userid", map, -1, -1);
+		if (address!=null&&address.isBestow()&&addressesList != null && addressesList.size() > 0) {
+			Address tempAddress = addressesList.get(0);
+			tempAddress.setBestow(true);
+			addressService.update(address);
+		}
+		jsonObject.put("code", "success");
+		jsonObject.put("msg", "删除收货地址成功！");
+		response.setContentType("text/plain");
+		response.setHeader("Cache-Control", "no-cache");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter writer;
+		try {
+			writer = response.getWriter();
+			writer.print(Json.toJson(jsonObject, JsonFormat.compact()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -4,17 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>易再生-中国再生资源交易平台</title>
+    <link rel="stylesheet" href="$!webPath/resources/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="$!webPath/resources/style/shop/default/css/yzs.css?v=1" />
     <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
     <script src="$!webPath/resources/layui/layui.all.js"></script>
     <script type="text/javascript">
     	 var falg = true;
     	 var msgCode="";
-         $(function(){
-        	 //layer.msg("sxxxx");
-         });
+    	 var cartAddLeng = $!addresses.size();
          function address(){
-        	 falg = true;
+	       	if(cartAddLeng>8){
+	       		 layer.msg("联系地址最多新增8个！",{icon:7});
+	       		 return;
+	       	}
+        	falg = true;
        	    layer.open({
        	        type: 2,
        	        title: '新增收货地址',
@@ -35,6 +38,77 @@
        	        }
        	    });
          }
+         jQuery(function(){
+	        jQuery(".yzs-order-address .more").click(function(){
+	        	 if(jQuery(this).siblings().hasClass("hide")){
+	        		 jQuery(this).siblings(".hide").addClass("show").removeClass("hide");
+	        		 jQuery(this).html("收起&nbsp;<i class='fa fa-angle-double-up'></i>");
+	        	 }else{
+	        		 jQuery(this).siblings(".show").addClass("hide").removeClass("show");
+	        		 jQuery(this).html("更多地址&nbsp;<i class='fa fa-angle-double-down'></i>");
+	        	 }
+	        })
+         })
+        function defaltFun(addr_id){
+            var index;
+       	   jQuery.ajax({type:'POST',url:'$!webPath/cut_address.htm',data:{'id':addr_id},dataType:'json',
+				  beforeSend:function(){
+					  index = layer.load(1, {shade: [0.1,'#fff']});
+				  },success:function(data){
+					  layer.close(index);
+					  var icon = data.code=="success"?1:2;
+					  layer.msg(data.msg,{icon:icon});
+					  if(data.code=="success"){
+						  window.location.reload();
+					  }
+			  },error:function(){
+				 window.location.reload();
+			  }
+ 	  	  });
+        }
+        
+       function updateAddress(id){
+    	   falg = true;
+    	   layer.open({
+      	        type: 2,
+      	        title: '修改收货地址',
+      	        shadeClose: false,
+      	        shade: 0.8,
+      	        area: ['560px', '420px'],
+      	        content: '$!webPath/cart_address.htm?id='+id,
+      	     	end:function(){
+      	        	if(falg){
+      	        		if(msgCode=="noSession"){
+      	        			window.location.href="$!webPath/index.htm";
+      	        		}else if(msgCode=="success"){
+      	        			window.location.reload()
+      	        		}
+      	        	}
+      	        },cancel:function(index,layero){
+      	        	falg = false;
+      	        }
+      	    });
+       }
+       function delAddress(id){
+    	   layer.confirm('是否删除改条数据？', {
+    		   btn: ['确定','取消'] //按钮
+    		 }, function(){
+    		     jQuery.ajax({type:'POST',url:'$!webPath/del_address.htm',data:{'id':id},dataType:'json',
+    					success:function(data){
+    						  var icon = data.code=="success"?1:2;
+    						  layer.msg(data.msg,{icon:icon});
+    						  if(data.code=="success"){
+    	      	        			window.location.reload()
+    	      	        	}
+    				  },error:function(){
+    					 window.location.reload();
+    				  }
+    	 	  	  });
+    			 
+    		 }, function(){
+    		   
+    	  });
+       }
     </script>
 </head>
 <body>
@@ -50,17 +124,14 @@
 			<div class="yzs-order-content">
 				<div class="yzs-order-title-sub">收货信息<span style="cursor: pointer" onclick="address();">新增收货地址</span></div>
 				<div class="yzs-order-address">
-					<div class="yzs-order-address-item">
-						<div class="yzs-order-address-sel">韩梅梅</div>
-						<div>北京 通州 马驹桥金桥产业基地环宇路3号桑德集团  韩梅梅  18611892672  <span style="margin-left: 10px;cursor: pointer;">默认地址</span></div>
-						<div><span style="cursor: pointer;">编辑</span>  <span style="cursor: pointer;">删除</span></div>
-					</div>
-					<div class="yzs-order-address-item">
-						<div >韩梅梅</div>
-						<div>北京 通州 马驹桥金桥产业基地环宇路3号桑德集团  韩梅梅  18611892672  <span style="margin-left: 10px;cursor: pointer">默认地址</span></div>
-						<div><span style="cursor: pointer;">修改</span>  <span style="cursor: pointer;">删除</span></div>
-					</div>
-					<div class="blank20" style="cursor: pointer;">更多地址 <img style="margin-bottom:-13px;" src="$!webPath/resources/style/shop/default/img/icon_06.png"/></div>
+				    #foreach($addx in $!addresses)
+						<div class="yzs-order-address-item #if($!velocityCount>1)hide#end"  >
+							<div class="#if($!velocityCount==1)yzs-order-address-sel#end">$!addx.trueName</div>
+							<div>#if($!addx.area) $!addx.area.parent.parent.areaName &nbsp;&nbsp; $!addx.area.parent.areaName &nbsp;&nbsp;$!addx.area.areaName &nbsp;&nbsp;$!addx.area_info &nbsp;&nbsp;$!addx.trueName&nbsp;&nbsp;$!addx.telephone #end<span style="margin-left: 10px;cursor: pointer;" onclick="defaltFun($!addx.id)">默认地址</span></div>
+							<div><span style="cursor: pointer;" onclick="updateAddress($!addx.id);">编辑</span>  <span style="cursor: pointer;" onclick="delAddress($!addx.id);">删除</span></div>
+						</div>
+					#end
+					<div class="blank20 more" style="cursor: pointer;" >更多地址<i class="fa fa-angle-double-down"></i></div>
 				</div>
 				<div class="yzs-order-title-sub">货品清单<span>返回修改采购单</span></div>
 				<div class="yzs-order-list">
@@ -85,7 +156,6 @@
 									<div class="yzs-order-list-status">#if($!obj.count<$!obj.goods.goods_inventory)有货#else 缺货 #end</div>
 							   </li>
 					      #end
-					      
 					   #end
 					</ul>
 				</div>

@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+ <title>易再生-中国再生资源交易平台</title>
+ <meta name="keywords" content="$!config.keywords" />
+ <meta name="description" content="$!config.description" />
+<meta name="generator" content="ezaisheng 1.0" />
+<meta name="author" content="www.ezaisheng.com">
+<meta name="copyright" content="ezaisheng Inc. All Rights Reserved">
+<link href="$!webPath/resources/style/shop/default/css/yzs.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/goods.css" type="text/css" rel="stylesheet" />
+<link href="$!webPath/resources/style/system/front/default/css/index.css" type="text/css" rel="stylesheet" />
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script src="$!webPath/resources/js/layui/layui.all.js"></script>
+    <style type="text/css">
+      #btn{
+         	border: 1px solid #00897c;
+		    border-radius: 4px;
+		    color: #000;
+		    cursor: pointer;
+		    height: 40px;
+		    line-height: 40px;
+		    text-align: center;
+		    width: 150px;
+      }
+    </style>
+    <script>
+        var tel = "";
+        var pwd = "";
+		function Page_ToNext(){
+			//debugger;
+			tel = document.getElementById("telNum").value;
+			//手机号的验证
+			var telstr = /^((1[3,5,8][0-9])|(14[5,7])|(166)|(17[0,6,7,8])|(19[7,8,9]))\d{8}$/;
+			if(tel==""){
+				layer.msg("手机号不能为空！",{icon:2,time:1000});
+				return false;
+			}
+			if(!telstr.test(tel)){
+				layer.msg("手机号格式错误！",{icon:2,time:1000});
+				return false;		
+			}
+			//验证码
+			var verification = document.getElementById("verification").value;
+			if(verification==""){
+				layer.msg("验证码不能为空！",{icon:2,time:1000});
+				return false;
+			}
+			jQuery.ajax({
+				url : "$!webPath/buyer/verify.htm",
+				data : {
+					"verification":verification,
+					"tel":tel  
+				},
+				type : "POST",
+				dataType : "json",
+				error : function() {
+					return false;
+				},
+				success : function(data) {					
+				    if(data==0){
+				    	document.getElementById("newTel").innerHTML=tel;
+				    	$(".yzs-reg-con").css("display","none");
+						$("#con_B").css("display","block");
+						$(".yzs-reg-tab").addClass("yzs-reg-tab2");
+						$("#lib").addClass("yzs-reg-tab-sel");
+				    }else if(data==1){
+				    	layer.msg("该手机号已注册！",{icon:2,time:1000});
+						return false;
+				    }else if(data==2){
+				    	layer.msg("验证码错误！",{icon:2,time:1000});
+						return false;
+				    }
+					 
+				}
+		    });						
+
+		}
+		
+		function Page_ToLast(){
+			//debugger;
+		    pwd=document.getElementById("pwd").value;
+			var pwdstr=/^\w{6,12}$/;   
+			if(pwd==""){
+				layer.msg("登录密码不能为空！",{icon:2,time:1000});
+				return false;		
+			}
+			if(!pwdstr.test(pwd)){
+				layer.msg("登录密码必须是6至12位的数字或字母！",{icon:2,time:1000});
+				return false;		
+			}
+			var pwd2 = document.getElementById("pwd2").value;
+			if(pwd!=pwd2){
+				layer.msg("两次密码输入不一致！",{icon:2,time:1000});
+				return false;
+			}
+		    $(".yzs-reg-con").css("display","none");
+			$("#con_C").css("display","block");
+			$(".yzs-reg-tab").removeClass("yzs-reg-tab2");
+			$(".yzs-reg-tab").addClass("yzs-reg-tab3");
+			$("#lic").addClass("yzs-reg-tab-sel");
+		}
+		
+		function Page_submit(){
+			//debugger;
+			var people = $('input[name="people"]:checked').val();
+// 			var checks = $('input[name="people"]:checked');
+// 			if(checks.length!=1){
+// 				alert("请选择一个角色");
+// 				return false;
+// 			}
+			var company = document.getElementById("company").value;
+			if(company==""){
+				layer.msg("公司名称不能为空！",{icon:2,time:1000});
+				return false;
+			}
+			//请选择地区
+			//var area1 = document.getElementById("area1").value;
+			var area1=$("#area1 option:selected").text();
+			//var area2 = document.getElementById("area2").value;
+			var area2=$("#area2 option:selected").text();
+			//var area3 = document.getElementById("area3").value;
+			var area3=$("#area3 option:selected").text();
+			if(area1=="请选择地区"||area2=="请选择地区"||area3=="请选择地区"){
+				layer.msg("请选择地区！",{icon:2,time:1000});
+				return false;
+			}
+			var address = document.getElementById("address").value;
+			if(address==""){
+				layer.msg("详细地址不能为空！",{icon:2,time:1000});
+				return false;
+			}
+			address = area1+area2+area3+address;
+			var username = document.getElementById("userName").value;
+			if(username==""){
+				layer.msg("姓名不能为空！",{icon:2,time:1000});
+				return false;
+			}
+			//固定电话区号的验证
+			var areaNum = document.getElementById("areaNum").value;
+			var areaNumstr =  /^\d{3,4}$/;
+			if(areaNum!=""&&!areaNumstr.test(areaNum)){
+				layer.msg("固定电话区号格式错误！",{icon:2,time:1000});
+				return false; 			   		
+			}
+			//固定电话号码的验证
+			var phoneNum = document.getElementById("phoneNum").value;
+			var phoneNumstr =  /^\d{7,8}$/;
+			if(phoneNum!=""&&!phoneNumstr.test(phoneNum)){
+				layer.msg("固定电话号码格式错误！",{icon:2,time:1000});
+				return false; 			   		
+			}
+			if(areaNum!=""&&phoneNum!=""){
+				phoneNum = areaNum+"-"+phoneNum;
+			}
+			//邮箱的验证
+			var email = document.getElementById("emailNum").value;
+			if(email==""){
+				layer.msg("邮箱不能为空！",{icon:2,time:1000});
+				return false;
+			}
+			var emailstr=/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;	
+			if(!emailstr.test(email)){
+				layer.msg("邮箱格式错误！",{icon:2,time:1000});
+				return false; 			   		
+			}
+			//经营主体 --(个体工商户、企业)
+			var factory = $('input[name="factory"]:checked').val();
+			//主营行业
+			var main_business=$("#main_business option:selected").text();
+			//身份证上姓名
+			var userName = document.getElementById("userName").value;
+			//性别 
+			var sex = $('input[name="sex"]:checked').val();
+			//邮箱
+			var emailNum = document.getElementById("emailNum").value;
+			//跳到后台处理       
+			url="$!webPath/buyer/addMember.htm?ent_name="+company+"&platform_type="+people+"&oper_address="+address+"&per_subject="+factory+"&main_business="+main_business+"&userName="+userName+"&sex="+sex+"&phoneNum="+phoneNum+"&emailNum="+emailNum+"&tel="+tel+"&pwd="+pwd;
+			$("#theForm").attr("action",url);
+			$("#theForm").submit(); 
+		}
+		
+		function refreshCode(){
+            jQuery("#code_img").attr("src","$!webPath/verify.htm?d"+new Date().getTime());
+        }
+		//js 短信服务写法
+		var countdown=60;
+		function settime(obj) {
+		    if (countdown == 0) {
+		        obj.removeAttribute("disabled");    
+		        obj.value="免费获取验证码";
+		        countdown = 60;
+		        return;
+		    } else {
+		        obj.setAttribute("disabled", true);
+		        obj.value="重新发送(" + countdown + ")";
+		        countdown--;
+		    }
+		    //1秒钟调用函数或计算表达式。
+		    setTimeout(function(){settime(obj)},1000)
+		}
+		
+		
+		
+		$(function(){
+			//默认不选中
+			$("#sel_xieyi").prop("checked", false);
+			
+			$("#sel_xieyi").change(function(){
+				if($("#sel_xieyi").is(':checked')){
+					$("#btn_first_next").css("background-color","#00897c");
+					$("#btn_first_next").attr("onclick","Page_ToNext()");
+				}else{
+					$("#btn_first_next").css("background-color","#ccc");
+					$("#btn_first_next").attr("onclick","");
+				}
+			});
+			//区域的选择
+			jQuery("select").change(
+					function() {
+						var level = jQuery(this).attr("level");
+						var id = jQuery(this).val();
+						if (level == 4){
+							$("#area_id").val(id);
+						 	$("#address").removeAttr("readonly");
+						}
+						if (id != "") {
+							jQuery.post("$!webPath/load_area.htm", {
+								"pid" : id
+							}, function(data) {
+								jQuery("#area" + level).empty();
+								jQuery("#area" + level).append(
+										"<option value=''>请选择</option>");
+								jQuery.each(data, function(index, item) {
+									jQuery("#area" + level).append(
+											"<option value='"+item.id+"'>"
+													+ item.areaName + "</option>");
+									jQuery("#area" + level).show();
+								});
+							}, "json");
+						} else {
+							for (var i = level; i <= 3; i++) {
+								jQuery("#area" + i).empty();
+								jQuery("#area" + i).hide();
+							}
+						}
+					});
+			
+		});
+		
+	
+    </script>
+</head>
+<body style="background:#F1F1F1;">
+     $!httpInclude.include("/top.htm")
+    <form action="" method="post" name="theForm" id="theForm"></form>
+	<div class="yzs-head2-pannel">
+		<div class="yzs-head2">
+			<div class="yzs-head2-top">
+				<div class="yzs-head2-logo">注册账号</div>
+				<div class="yzs-head2-search">
+					
+				</div>
+				<div style="float:right;height:90px;line-height:90px;">我的会员，点击 <span style="color:#00897A;cursor:pointer;">登录</span></div>
+			</div>
+		</div>
+	</div>
+	<div class="yzs-reg-pannel">
+		<div class="yzs-reg-box">		    
+			<div class="yzs-reg-tit">
+				<div class="yzs-reg-tab">
+					<ul>
+						<li id="lia" data-id="A" class="yzs-reg-tab-sel">1</li>
+						<li id="lib" data-id="B">2</li>
+						<li id="lic" data-id="B">3</li>
+					</ul>
+				</div>
+				<div class="yzs-reg-tabinfo">
+					<ul>
+						<li>设置手机</li>
+						<li>填写账号信息</li>
+						<li>注册成功</li>
+					</ul>
+				</div>
+			</div>
+			<div class="yzs-reg-con" id="con_A">
+				<table>
+					<tr><td width="80px"><span style="color:#FE6700;margin-right:5px;">*</span>手机号：</td><td colspan="2"><input type="text" id="telNum" name="telNum" placeholder="请输入手机号"/></td></tr>
+					<tr><td><span style="color:#FE6700;margin-right:5px;">*</span>验证码：</td><td><input type="text" id="verification" placeholder="请输入验证码"/></td><td><img style="cursor:pointer;" src="$!webPath/verify.htm" id="code_img"  width="59" height="27" /><span onclick="refreshCode();">换一换</span></td></tr>
+					<tr><td>推荐码：</td><td><input type="text" id="phonenum" placeholder="请输入推荐码"/></td><td></td></tr>
+				</table>
+				<div class="yzs-reg-tools">
+					<input type="checkbox" id="sel_xieyi"> 您确认阅读并接受<span style="float:none;color:#007064;">《易再生网注册协议》</span>
+				</div>
+				<div id="btn_first_next" class="yzs-reg-btn" style="background-color:#ccc;">下一步</div>
+				<div class="blank0c"></div>
+			</div>
+			<div class="yzs-reg-con" id="con_B" style="display:none;">
+				<table>
+					<tr><td width="80px">手机号：</td><td colspan="2"><span id="newTel"></span></td></tr>
+					<tr><td><span style="color:#FE6700;margin-right:5px;">*</span>校验码：</td><td><input type="text" id="phonenum22" placeholder="请输入校验码"/></td><td>
+                        <div><input type="button" id="btn" value="获取手机验证码" onclick="settime(this)" /></div>
+					</td></tr>
+					<tr><td><span style="color:#FE6700;margin-right:5px;">*</span>登录密码：</td><td colspan="2"><input type="password" id="pwd" placeholder="设置您的登录密码"/></td></tr>
+					<tr><td><span style="color:#FE6700;margin-right:5px;">*</span>再次确认：</td><td colspan="2"><input type="password" id="pwd2" placeholder="再次确认您的登录密码"/></td></tr>
+					
+				</table>
+				<div class="yzs-reg-btn" onclick="Page_ToLast();">下一步</div>
+				<div class="blank0c"></div>
+			</div>
+			<div class="yzs-reg-con" id="con_C" style="display:none;">
+				<table>
+					<tr><td width="80px"><span style="color:#FE6700;margin-right:5px;">*</span>角色选择：</td><td colspan="2"><input type="radio" name="people" checked value="买家"> 我是买家  <input type="radio" name="people" value="卖家"> 我是卖家 （如果您即买也卖，请您选择卖家）</td></tr>
+					<tr><td width="80px"><span style="color:#FE6700;margin-right:5px;">*</span>公司名称：</td><td colspan="2"><input type="text" id="company" placeholder="请完整输入在工商局注册的公司全称"/></td></tr>
+					<tr><td width="80px"><span style="color:#FE6700;margin-right:5px;">*</span>经营地址：</td><td colspan="2">
+					<select name="area1" id="area1" level="2"  style="width: 110px">
+								<option value="" selected="selected">请选择地区</option>
+								#foreach($area in $areas)
+								<option value="$!area.id">$!area.areaName</option> #end
+						</select> <select name="area2" id="area2"
+							style="display: none; width: 110px;" level="3"></select> <select
+							name="area3" id="area3" style="display: none; width: 110px;"
+							level="4"></select> <input name="area_id" type="hidden"
+							id="area_id" value="$!obj.area.id" /> <input
+							 type="text" id="address" name="address" placeholder="详细地址" >
+					</td></tr>
+					<tr><td width="80px"><span style="color:#FE6700;margin-right:5px;">*</span>主营行业：</td><td colspan="2"><select id="main_business">
+					#foreach($mb in $mainbusiness)
+					<option value="$!mb.id">$!mb.main_business</option> #end</select></td></tr>
+					<tr><td width="80px"><span style="color:#FE6700;margin-right:5px;">*</span>公司类型：</td><td colspan="2"><input type="radio" name="factory" checked value="原料提供商"> 原料提供商  <input type="radio" name="factory" value="造粒企业"> 造粒企业  <input type="radio" name="factory" value="改性企业"> 改性企业  <input type="radio" name="factory" value="加工企业"> 加工企业</td></tr>
+					<tr><td width="80px"><span style="color:#FE6700;margin-right:5px;">*</span>姓名：</td><td colspan="2"><input type="text" id="userName" placeholder="请输入身份证上的姓名"/></td></tr>
+					<tr><td width="80px">性别：</td><td colspan="2"><input type="radio" checked name="sex" value="男"> 男  <input type="radio" name="sex" value="女"> 女</td></tr>
+					<tr><td width="80px">固定电话：</td><td colspan="2"><input type="text" style="width:90px;" id="areaNum" placeholder="区号"/> - <input type="text" style="width:215px;" id="phoneNum" placeholder="号码"/></td></tr>
+					<tr><td width="80px"><span style="color:#FE6700;margin-right:5px;">*</span>邮箱：</td><td colspan="2"><input type="text" id="emailNum" placeholder="请输入您的邮箱"/></td></tr>
+				</table>
+				<div class="yzs-reg-btn" onclick="Page_submit();">完成</div>
+				<div class="blank0c"></div>
+			</div>
+		</div>
+	</div>
+	 $!httpInclude.include("/footer.htm") 
+
+</body>
+</html>
