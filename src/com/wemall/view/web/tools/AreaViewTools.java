@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.xmlbeans.impl.jam.mutable.MPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -73,5 +74,10 @@ public class AreaViewTools {
 			str = province + "-" + city + "-" + street + "-" + map.get("address");
 		}
 		return str;
+	}
+	public List<Area> getAreaBypid(long pid){
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("pid", pid);
+		return areaService.query("from Area obj where obj.parent.id =:pid ", map, -1, -1);
 	}
 }

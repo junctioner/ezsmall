@@ -1,5 +1,6 @@
 package com.wemall.foundation.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -8,8 +9,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
+
 /**
  * 地址
+ * 
  * @author wemall
  *
  */
@@ -17,81 +20,92 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "wemall_address")
 public class Address extends IdEntity {
-    /**
-     * UID
-     */
-    private static final long serialVersionUID = -754369306890462179L;
+	/**
+	 * UID
+	 */
+	private static final long serialVersionUID = -754369306890462179L;
+	private String trueName;
+	// 地区
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Area area;
+	// 地址信息
+	private String area_info;
+	// 邮编
+	private String zip;
+	// 电话
+	private String telephone;
+	// 手机
+	private String mobile;
+	// 是否默认使用
+	@Column(columnDefinition = "bit default false")
+	private boolean bestow;
 
-    private String trueName;
+	@ManyToOne(fetch = FetchType.LAZY)
+	private User user;
 
-    //地区
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Area area;
-    //地址信息
-    private String area_info;
-    //邮编
-    private String zip;
-    //电话
-    private String telephone;
-    //手机
-    private String mobile;
+	public User getUser() {
+		return this.user;
+	}
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public User getUser(){
-        return this.user;
-    }
+	public String getTrueName() {
+		return this.trueName;
+	}
 
-    public void setUser(User user){
-        this.user = user;
-    }
+	public void setTrueName(String trueName) {
+		this.trueName = trueName;
+	}
 
-    public String getTrueName(){
-        return this.trueName;
-    }
+	public Area getArea() {
+		return this.area;
+	}
 
-    public void setTrueName(String trueName){
-        this.trueName = trueName;
-    }
+	public void setArea(Area area) {
+		this.area = area;
+	}
 
-    public Area getArea(){
-        return this.area;
-    }
+	public String getArea_info() {
+		return this.area_info;
+	}
 
-    public void setArea(Area area){
-        this.area = area;
-    }
+	public void setArea_info(String area_info) {
+		this.area_info = area_info;
+	}
 
-    public String getArea_info(){
-        return this.area_info;
-    }
+	public String getZip() {
+		return this.zip;
+	}
 
-    public void setArea_info(String area_info){
-        this.area_info = area_info;
-    }
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
 
-    public String getZip(){
-        return this.zip;
-    }
+	public String getTelephone() {
+		return this.telephone;
+	}
 
-    public void setZip(String zip){
-        this.zip = zip;
-    }
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
 
-    public String getTelephone(){
-        return this.telephone;
-    }
+	public String getMobile() {
+		return this.mobile;
+	}
 
-    public void setTelephone(String telephone){
-        this.telephone = telephone;
-    }
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
-    public String getMobile(){
-        return this.mobile;
-    }
+	public boolean isBestow() {
+		return bestow;
+	}
 
-    public void setMobile(String mobile){
-        this.mobile = mobile;
-    }
+	public void setBestow(boolean bestow) {
+		this.bestow = bestow;
+	}
+
+
 }
