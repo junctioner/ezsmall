@@ -32,6 +32,10 @@ public class EzsSubstance extends IdEntity{
 	@ManyToOne(fetch = FetchType.LAZY)
 	private EzsColumn ec;
 	
+	// 副栏目
+	@ManyToOne(fetch = FetchType.LAZY)
+	private EzsColumn childEc;
+	
 	//专题
 	@ManyToOne(fetch = FetchType.LAZY)
 	private SpecialSubject ss;
@@ -85,9 +89,7 @@ public class EzsSubstance extends IdEntity{
 	
 	private int staticStatus;//静态页状态1.未生成 2.已生成
 	
-    //标签集合
-    @OneToMany(mappedBy = "substance")
-    private List<Remark> re = new ArrayList<Remark>();
+    private String remarkValue;//标签集合
     
     @OneToOne
     private User u;
@@ -308,12 +310,20 @@ public class EzsSubstance extends IdEntity{
 		this.content = content;
 	}
 
-	public List<Remark> getRe() {
-		return re;
+	public String getRemarkValue() {
+		return remarkValue;
 	}
 
-	public void setRe(List<Remark> re) {
-		this.re = re;
+	public void setRemarkValue(String remarkValue) {
+		this.remarkValue = remarkValue;
+	}
+
+	public EzsColumn getChildEc() {
+		return childEc;
+	}
+
+	public void setChildEc(EzsColumn childEc) {
+		this.childEc = childEc;
 	}
 	
 }

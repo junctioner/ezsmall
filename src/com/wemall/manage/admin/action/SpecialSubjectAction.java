@@ -295,7 +295,7 @@ public class SpecialSubjectAction {
         	String [] strings=string.split(",");
         	for (String string2 : strings) {
 				File file = new File(saveFilePathName+File.separator+string2);
-				if(file.exists()){
+				if(file.exists()&&file.isFile()){
 					file.delete();
 				}
 			}
@@ -306,7 +306,7 @@ public class SpecialSubjectAction {
         	String [] strings=string.split(",");
         	for (String string2 : strings) {
 				File file = new File(saveFilePathName+File.separator+string2);
-				if(file.exists()){
+				if(file.exists()&&file.isFile()){
 					file.delete();
 				}
 			}
@@ -317,7 +317,7 @@ public class SpecialSubjectAction {
         	String [] strings=string.split(",");
         	for (String string2 : strings) {
 				File file = new File(saveFilePathName+File.separator+string2);
-				if(file.exists()){
+				if(file.exists()&&file.isFile()){
 					file.delete();
 				}
 			}
@@ -328,7 +328,7 @@ public class SpecialSubjectAction {
         	String [] strings=string.split(",");
         	for (String string2 : strings) {
 				File file = new File(saveFilePathName+File.separator+string2);
-				if(file.exists()){
+				if(file.exists()&&file.isFile()){
 					file.delete();
 				}
 			}

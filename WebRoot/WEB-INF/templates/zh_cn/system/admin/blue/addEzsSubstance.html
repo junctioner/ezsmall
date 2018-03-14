@@ -70,14 +70,16 @@ jQuery(document).ready(function(){
 	    	linkUrl:{required :true},
 	    	subheading:{required :true},
 	    	meta:{required :true},
-	    	keyWord:{required:true}
+	    	keyWord:{required:true},
+	    	content:{required:true}
 		 },
 		messages:{
 			name:{required:"主标题不能为空"},
 			linkUrl:{required:"URL不能为空"},
 			subheading:{required:"副标题不能为空"},
 			meta:{required:"手机模板不能为空"},
-			orderid:{number:"关键字不能为空"}
+			orderid:{number:"关键字不能为空"},
+			content:{required:"文档内容不能为空"}
 		}
 	  }); 
 jQuery('#publicTime').attr("readonly","readonly").datepicker({
@@ -101,6 +103,15 @@ jQuery("#class_id").val("$!obj.articleClass.id");
 }); 
 
 function saveForm(){
+   var reid=$("#classify input[name='f']:checked").attr("value")
+   var nameid=$("#classify input[name='e']:checked").attr("value");
+   var arr=[]
+   $("#classify input[name='"+nameid+"']:checked").each(function(k,v){
+	   var a=$(this).attr("value");
+	   arr.push(a)
+   })
+   var obj={remarkId:reid,classifyId:nameid,value:arr.join(",")}
+   $("#remarkValue").attr("value",JSON.stringify(obj))
    $("#theForm").submit();
 }
 
@@ -111,6 +122,7 @@ function saveForm(){
   <h1 class="seth1">新增标签</h1>
   <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="$!webPath/admin/ezsSubstance_list.htm">管理</a> | <a href="$!webPath/admin/loadAddSpecialSubject.htm" #if(!$!edit)class="this"#end>新增</a> #if($!edit) <a href="javascript:void(0);" class="this">编辑</a> #end </span> <span class="tab-two"></span></div>
   <form name="theForm" id="theForm" action="$!webPath/admin/addEzsSubstance.htm" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="remarkValue" value="" id="remarkValue"/>
     <div class="setcont">
       <ul class="set1">
           <li>
@@ -123,6 +135,13 @@ function saveForm(){
                </select>
             </span>
             <span>&nbsp;&nbsp;副栏目</span>
+            <span>
+               <select name="childEcId" id="childEcId">
+                 #foreach ($ezsColumn in $ezsColumns)
+                   <option value="$!ezsColumn.id">$!ezsColumn.name</option>
+                 #end
+               </select>
+            </span>
             <span>&nbsp;&nbsp;专题：</span>
             <span>
                <select name="ssId" id="ss">
@@ -137,16 +156,18 @@ function saveForm(){
           <li><span>副标题：</span><span><input type="text" name="subheading"/></span><span>&nbsp;&nbsp;标题颜色：</span><span><input type="text" name="titleColor"/></span><span>&nbsp;&nbsp;加粗：</span><span><input checked="checked" type="radio" name="bold" value="true"/>是&nbsp;&nbsp;<input type="radio" name="bold" value="false"/>否</span></li>
           <li><span>Tag标签：</span><span><input type="text" name="tagTitle"/></span></li>
           <li><span>摘要：</span><span><textarea name="meta" cols="20" rows="20"></textarea></span></li>
-          <li><span>关键字：</span><span><input type="text" size="10" name="keyWord"/></span><span>&nbsp;&nbsp;标签添加：</span><span @click="pink=true"><input checked="checked" name="a" type="radio" value="true"/>需要</span><span @click="pink=false"><input name="a" type="radio" value="false"/>不需要</span></li>
+          <li><span>关键字：</span><span><input type="text" size="10" name="keyWord"/></span><span>&nbsp;&nbsp;标签添加：</span><span><input @click="pink=true" checked="checked" name="a" type="radio" value="true"/>需要</span><span><input  @click="pink=false" name="a" type="radio" value="false"/>不需要</span></li>
           <li v-if="pink" id="classify">
                  #foreach($remark in $remarks)
                     <span>$!remark.name：</span>
                      #foreach($o in $!remark.cla)
-                      <span><input #if($!remark.name=='品类')@click="changeRemark($o.id)"#end type="radio" #if($!remark.name=='品类')name="b"#else name="d"#end  #if(${velocityCount}==1)checked="checked"#end/>$!o.name&nbsp;</span>
+                      <span><input value="$o.id" #if($!remark.name=='品类')@click="changeRemark($o.id)"#end type="radio" #if($!remark.name=='品类')name="e"#else name="f"#end  #if(${velocityCount}==1)checked="checked"#end/>$!o.name&nbsp;</span>
 	                      #if($!remark.name=='品类'&&${velocityCount}==1)
+	                      <span class="ck">
 		                      #foreach($b in $o.remarkValue.split(","))
-		                       <span class="ck"><input type="checkbox" name="c" #if(${velocityCount}==1)checked="checked"#end/>$!b&nbsp;</span>
+		                       <input value="$!b" type="checkbox" name="$o.id" #if(${velocityCount}==1)checked="checked"#end/>$!b&nbsp;
 		                      #end
+		                  </span>
 		                  #end
 		             #end
 		             <br/>

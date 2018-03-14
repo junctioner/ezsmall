@@ -154,7 +154,7 @@ public class EzsSubstanceAction {
     	mv.addObject("specialSubjects", specialSubjects);
     	Map map3=new HashMap();
     	map3.put("deleteStatus", false);
-        List<Remark> list=this.remarkService.query("from Remark bean where bean.deleteStatus=:deleteStatus", map, -1, -1);
+        List<Remark> list=this.remarkService.query("from Remark bean where bean.deleteStatus=:deleteStatus", map3, -1, -1);
         mv.addObject("remarks", list);
     	return mv;
     }
@@ -173,7 +173,7 @@ public class EzsSubstanceAction {
      * @throws IOException
      */
     @RequestMapping({ "/admin/addEzsSubstance.htm" })
-    public ModelAndView addEzsSubstance(String ecId,String ssId,String currentPage, String orderBy, String orderType, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{
+    public ModelAndView addEzsSubstance(String childEcId,String ecId,String ssId,String currentPage, String orderBy, String orderType, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{
         //检查form中是否有enctype="multipart/form-data"
     	 //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
     	WebForm wf = new WebForm();
@@ -246,6 +246,11 @@ public class EzsSubstanceAction {
         if(!"".equals(ecId)){
         	ezsColumn.setId(Long.parseLong(ecId));
         	ezsSubstance.setEc(ezsColumn);
+        }
+        EzsColumn ezsColumn2=new EzsColumn();
+        if(!"".equals(childEcId)){
+        	ezsColumn2.setId(Long.parseLong(childEcId));
+        	ezsSubstance.setChildEc(ezsColumn2);
         }
         SpecialSubject specialSubject=new SpecialSubject();
         if(!"".equals(ssId)){
@@ -328,6 +333,10 @@ public class EzsSubstanceAction {
     	map3.put("deleteStatus", false);
     	List<SpecialSubject> specialSubjects=specialSubjectService.query("from SpecialSubject bean where bean.deleteStatus=:deleteStatus", map3, -1, -1);
     	mv.addObject("specialSubjects", specialSubjects);
+    	Map map4=new HashMap();
+    	map4.put("deleteStatus", false);
+        List<Remark> list4=this.remarkService.query("from Remark bean where bean.deleteStatus=:deleteStatus", map4, -1, -1);
+        mv.addObject("remarks", list4);
         return mv;
     }
     
@@ -412,7 +421,7 @@ public class EzsSubstanceAction {
         	String [] strings=string.split(",");
         	for (String string2 : strings) {
 				File file = new File(saveFilePathName+File.separator+string2);
-				if(file.exists()){
+				if(file.exists()&&file.isFile()){
 					file.delete();
 				}
 			}
@@ -423,7 +432,7 @@ public class EzsSubstanceAction {
         	String [] strings=string.split(",");
         	for (String string2 : strings) {
 				File file = new File(saveFilePathName+File.separator+string2);
-				if(file.exists()){
+				if(file.exists()&&file.isFile()){
 					file.delete();
 				}
 			}
@@ -434,7 +443,7 @@ public class EzsSubstanceAction {
         	String [] strings=string.split(",");
         	for (String string2 : strings) {
 				File file = new File(saveFilePathName+File.separator+string2);
-				if(file.exists()){
+				if(file.exists()&&file.isFile()){
 					file.delete();
 				}
 			}
@@ -445,7 +454,7 @@ public class EzsSubstanceAction {
         	String [] strings=string.split(",");
         	for (String string2 : strings) {
 				File file = new File(saveFilePathName+File.separator+string2);
-				if(file.exists()){
+				if(file.exists()&&file.isFile()){
 					file.delete();
 				}
 			}
@@ -471,6 +480,7 @@ public class EzsSubstanceAction {
         ezsSubstance2.setDeleteStatus(ezsSubstance.isDeleteStatus());
         ezsSubstance2.setEc(ezsSubstance.getEc());
         ezsSubstance2.setSs(ezsSubstance.getSs());
+        ezsSubstance2.setRemarkValue(ezsSubstance.getRemarkValue());
         boolean flag=ezsSubstanceService.update(ezsSubstance2);
         ModelAndView mv=null;
         if(flag){
@@ -851,11 +861,7 @@ public class EzsSubstanceAction {
     			ezsSubstance3.setPcView(ezsSubstance2.isPcView());
     			ezsSubstance3.setPhotos(ezsSubstance2.getPhotos());
     			ezsSubstance3.setPublicTime(ezsSubstance2.getPublicTime());
-    			List<Remark> list2 =new ArrayList<Remark>();
-    			for(Remark r : ezsSubstance2.getRe()){
-    				list2.add(r);
-    			}
-    			ezsSubstance3.setRe(list2);
+    			ezsSubstance3.setRemarkValue(ezsSubstance2.getRemarkValue());
     			ezsSubstance3.setSs(ezsSubstance2.getSs());
     			ezsSubstance3.setStaticStatus(ezsSubstance2.getStaticStatus());
     			ezsSubstance3.setStatus(1);
