@@ -111,6 +111,7 @@ public class PriceQuotationsAction {
     	map2.put("deleteStatus", false);
     	map2.put("name", "市场调研");
     	List<EzsColumn> list = this.ezsColumnService.query("from EzsColumn bean where bean.deleteStatus=:deleteStatus and bean.name=:name", map2, -1, -1);
+    	mv.addObject("scdy", list.get(0).getId());
         return mv;
     }
     
