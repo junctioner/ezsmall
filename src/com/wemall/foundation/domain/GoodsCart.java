@@ -38,11 +38,7 @@ public class GoodsCart extends IdEntity {
 
     //商品规格属性
     @ManyToMany
-    @JoinTable(name = "wemall_cart_gsp", joinColumns = {
-        @javax.persistence.JoinColumn(name = "cart_id")
-    }, inverseJoinColumns = {
-        @javax.persistence.JoinColumn(name = "gsp_id")
-    })
+    @JoinTable(name = "wemall_cart_gsp", joinColumns = {@javax.persistence.JoinColumn(name = "cart_id")}, inverseJoinColumns = { @javax.persistence.JoinColumn(name = "gsp_id")})
     private List<GoodsSpecProperty> gsps = new ArrayList<GoodsSpecProperty>();
 
     //商品规格

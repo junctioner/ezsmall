@@ -2,6 +2,8 @@ package com.wemall.foundation.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -16,61 +18,69 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "wemall_goodsspecification")
 public class GoodsSpecification extends IdEntity {
-    //名称
-    private String name;
-    //序列
-    private int sequence;
-    //类型
-    private String type;
-    //类型集合
-    @ManyToMany(mappedBy = "gss")
-    private List<GoodsType> types = new ArrayList();
-    //商品规格集合
-    @OneToMany(mappedBy = "spec")
-    @OrderBy("sequence asc")
-    private List<GoodsSpecProperty> properties = new ArrayList();
+	// 名称
+	private String name;
+	// 序列
+	private int sequence;
+	// 类型
+	private String type;
+	// 类型集合
+	@ManyToMany(mappedBy = "gss")
+	private List<GoodsType> types = new ArrayList();
+	// 商品规格集合
+	@OneToMany(mappedBy = "spec")
+	@OrderBy("sequence asc")
+	private List<GoodsSpecProperty> properties = new ArrayList();
+	
+	@Column(columnDefinition = "bit default false")
+	private boolean display;
 
-    public String getName(){
-        return this.name;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public void setName(String name){
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public int getSequence(){
-        return this.sequence;
-    }
+	public int getSequence() {
+		return this.sequence;
+	}
 
-    public void setSequence(int sequence){
-        this.sequence = sequence;
-    }
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
+	}
 
-    public String getType(){
-        return this.type;
-    }
+	public String getType() {
+		return this.type;
+	}
 
-    public void setType(String type){
-        this.type = type;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public List<GoodsType> getTypes(){
-        return this.types;
-    }
+	public List<GoodsType> getTypes() {
+		return this.types;
+	}
 
-    public void setTypes(List<GoodsType> types){
-        this.types = types;
-    }
+	public void setTypes(List<GoodsType> types) {
+		this.types = types;
+	}
 
-    public List<GoodsSpecProperty> getProperties(){
-        return this.properties;
-    }
+	public List<GoodsSpecProperty> getProperties() {
+		return this.properties;
+	}
 
-    public void setProperties(List<GoodsSpecProperty> properties){
-        this.properties = properties;
-    }
+	public void setProperties(List<GoodsSpecProperty> properties) {
+		this.properties = properties;
+	}
+
+	public boolean isDisplay() {
+		return display;
+	}
+
+	public void setDisplay(boolean display) {
+		this.display = display;
+	}
+	
 }
-
-
-
-

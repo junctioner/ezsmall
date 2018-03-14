@@ -89,7 +89,7 @@ public class CustomerManageAction {
 		return mv;
 	}
 
-	@SecurityMapping(display = false, rsequence = 0, title = "客户删除", value = "/admin/goods_class_del.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
+	@SecurityMapping(display = false, rsequence = 0, title = "客户删除", value = "/admin/crm_t_del.htm*", rtype = "admin", rname = "分类管理", rcode = "goods_class", rgroup = "商品")
 	@RequestMapping({ "/admin/crm_t_del.htm" })
 	public String crm_t_del(HttpServletRequest request, String id, String currentPage) {
 		this.crmContactsService.delete(Long.valueOf(id));

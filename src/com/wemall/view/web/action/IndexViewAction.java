@@ -168,11 +168,11 @@ public class IndexViewAction {
 							"select obj from StoreCart obj where (obj.cart_session_id=:cart_session_id or obj.user.id=:user_id) and obj.sc_status=:sc_status and obj.store.id=:store_id",
 							params, -1, -1);
 					for (StoreCart sc : store_cookie_cart) {
-						for (GoodsCart gc : ((StoreCart) sc).getGcs()) {
+						for (GoodsCart gc : sc.getGcs()) {
 							gc.getGsps().clear();
 							this.goodsCartService.delete(gc.getId());
 						}
-						this.storeCartService.delete(((StoreCart) sc).getId());
+						this.storeCartService.delete(sc.getId());
 					}
 				}
 
@@ -413,6 +413,7 @@ public class IndexViewAction {
 			}
 		}
 		mv.addObject("cais", store_guess_goods);
+		
 		//
 		// // 推荐品牌
 		// params.put("audit", Integer.valueOf(1));
