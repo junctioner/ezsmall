@@ -31,7 +31,7 @@
 						<div class="yzs-analysis-list">
 							<ul>
 							    #foreach($ob in $objs)
-								<li>
+								<li onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'">
 									<div class="yzs-analysis-list-img">
 										<img src="$!webPath/upload/ezsSubstance/$!ob.thumbnail">
 									</div>
@@ -44,16 +44,16 @@
 							</ul>
 							<div class="yzs-analysis-list-page">
 								<ul>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=1&#if($!childEc)ecId=$!ecId#else childEc=$!childEc#end'">1</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=2&#if($!childEc)ecId=$!ecId#else childEc=$!childEc#end'">2</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=3&#if($!childEc)ecId=$!ecId#else childEc=$!childEc#end'">3</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=4&#if($!childEc)ecId=$!ecId#else childEc=$!childEc#end'">4</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=5&#if($!childEc)ecId=$!ecId#else childEc=$!childEc#end'">5</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=6&#if($!childEc)ecId=$!ecId#else childEc=$!childEc#end'">6</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=7&#if($!childEc)ecId=$!ecId#else childEc=$!childEc#end'">7</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=8&#if($!childEc)ecId=$!ecId#else childEc=$!childEc#end'">8</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=9&#if($!childEc)ecId=$!ecId#else childEc=$!childEc#end'">9</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=10&#if($!childEc)ecId=$!ecId#else childEc=$!childEc#end'">10</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=1#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">1</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=2#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">2</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=3#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">3</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=4#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">4</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=5#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">5</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=6#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">6</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=7#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">7</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=8#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">8</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=9#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">9</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=10#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">10</li>
 								</ul>
 							</div>
 						</div>
@@ -64,9 +64,9 @@
 				<div class="yzs-analysis-right">
 					<div class="yzs-analysis-model">
 						<ul>
-							<li><div class="yzs-analysis-model-sel">全部</div><div>市场调研</div></li>
-							<li><div>分析预测</div><div>政策解读</div></li>
-							<li><div>专访报道</div></li>
+							<li><div class="yzs-analysis-model-sel">全部</div><div onclick="window.location.href='$!webPath/changePage.htm?childEc=$!scdy'">市场调研</div></li>
+							<li><div onclick="window.location.href='$!webPath/changePage.htm?childEc=$!fxyc'">分析预测</div><div onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zcjd'">政策解读</div></li>
+							<li><div onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zfbd'">专访报道</div></li>
 						</ul>
 					</div>
 					<div class="yzs-analysis-box2">
@@ -76,7 +76,7 @@
 						<div class="yzs-analysis-box2-list1">
 							<ul>
 							    #foreach($ezsSubstance in $ezsSubstances)
-								<li><div>$!{velocityCount}</div>$!ezsSubstance.name</li>
+								<li onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ezsSubstance.id'"><div>$!{velocityCount}</div>$!ezsSubstance.name</li>
 								#end
 							</ul>
 						</div>
@@ -99,7 +99,7 @@
 			</div>
 		</div>
 		<div class="blank50"></div>		
-	</div>pat
+	</div>
 	$!httpInclude.include("/footer.htm") 
 	<script type="text/javascript">
 	new Vue({

@@ -62,10 +62,6 @@
 			#if($!ob.ec.name=='月评')#set($yp=$ob.ec.id)#end
 			#if($!ob.ec.name=='年评')#set($np=$ob.ec.id)#end
 			#if($!ob.ec.name=='研究报告')#set($yjbg=$ob.ec.id)#end
-			#if($!ob.ec.name=='市场调研')#set($scdy=$ob.childEc.id)#end
-			#if($!ob.ec.name=='分析预测')#set($fxyc=$ob.childEc.id)#end
-			#if($!ob.ec.name=='政策解读')#set($zcjd=$ob.childEc.id)#end
-			#if($!ob.ec.name=='专访报道')#set($zfbd=$ob.childEc.id)#end
 			#end
 			<div class="blank5"></div>
 			<div class="yzs-shopdetail-left">
@@ -75,7 +71,7 @@
 							<ul>
 							    #foreach($ob in $objs)
 							      #if($!ob.ec.name=='日评')
-								  <li value="$!ob.id"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
 								  #end
 								#end
 							</ul>
@@ -87,7 +83,7 @@
 							<ul>
 								#foreach($ob in $objs)
 							      #if($!ob.ec.name=='周评')
-								  <li value="$!ob.id"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
 								  #end
 								#end
 							</ul>
@@ -99,7 +95,7 @@
 							<ul>
 								#foreach($ob in $objs)
 							      #if($!ob.ec.name=='月评')
-								  <li value="$!ob.id"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
 								  #end
 								#end
 							</ul>
@@ -111,19 +107,19 @@
 							<ul>
 								#foreach($ob in $objs)
 							      #if($!ob.ec.name=='年评')
-								  <li value="$!ob.id"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
 								  #end
 								#end
 							</ul>
 						</div>
 					</div>
 					<div class="yzs-quotes-analysis-box2">
-						<div class="yzs-quotes-analysis-tit2">研究报告 <span><span class="yzs-quotes-analysis-tit2-sel">全部</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!scdy'">市场调研</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!fxyc'">分析预测</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zcjd'">政策解读</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zfbd'">专访报道</span></span><div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!yjbg'"></div></div>
+						<div class="yzs-quotes-analysis-tit2">研究报告 <span><span class="yzs-quotes-analysis-tit2-sel">全部</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!scdy'">市场调研</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!fxyc'">分析预测</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zcjd'">政策解读</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zfbd'">专访报道</span></span></div>
 						<div class="yzs-quotes-analysis-list2">
 							<ul>
 								#foreach($ob in $objs)
 							      #if($!ob.ec.name=='研究报告')
-								  <li value="$!ob.id"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span>
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span>
 								  <span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
 								  #end
 								#end
@@ -137,17 +133,17 @@
 					</div>
 					<div class="yzs-shopdetail-right-con">
 						<div class="yzs-shopdetail-right-box">
-							<div class="yzs-shopdetail-right-img"> <img src="img/shop05.jpg"> </div>
+							<div class="yzs-shopdetail-right-img"> <img src="$!webPath/resources/style/shop/default/img/shop05.jpg"> </div>
 							<div class="yzs-shopdetail-right-title"> PEEX复合料 </div>
 							<div class="yzs-shopdetail-right-price"> <span>登录看价</span> <span>邢台</span> </div>
 						</div>
 						<div class="yzs-shopdetail-right-box">
-							<div class="yzs-shopdetail-right-img"> <img src="img/shop05.jpg"> </div>
+							<div class="yzs-shopdetail-right-img"> <img src="$!webPath/resources/style/shop/default/img/shop05.jpg"> </div>
 							<div class="yzs-shopdetail-right-title"> PEEX复合料 </div>
 							<div class="yzs-shopdetail-right-price"> <span>登录看价</span> <span>邢台</span> </div>
 						</div>
 						<div class="yzs-shopdetail-right-box">
-							<div class="yzs-shopdetail-right-img"> <img src="img/shop05.jpg"> </div>
+							<div class="yzs-shopdetail-right-img"> <img src="$!webPath/resources/style/shop/default/img/shop05.jpg"> </div>
 							<div class="yzs-shopdetail-right-title"> PEEX复合料 </div>
 							<div class="yzs-shopdetail-right-price"> <span>登录看价</span> <span>邢台</span> </div>
 						</div>
