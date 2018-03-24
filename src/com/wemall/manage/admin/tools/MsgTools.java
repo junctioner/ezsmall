@@ -1,20 +1,31 @@
 package com.wemall.manage.admin.tools;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Properties;
+
+import javax.activation.DataHandler;
+import javax.mail.Authenticator;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.wemall.core.tools.PopupAuthenticator;
 import com.wemall.core.tools.SmsBase;
 import com.wemall.foundation.service.ISysConfigService;
 import com.wemall.foundation.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import javax.activation.DataHandler;
-import javax.mail.*;
-import javax.mail.internet.*;
-import java.io.UnsupportedEncodingException;
-import java.util.Properties;
 
 /**
- * ∂Ãœ˚œ¢π§æﬂ◊Èº˛
+ * Áü≠Ê∂àÊÅØÂ∑•ÂÖ∑ÁªÑ‰ª∂
  */
 @Component
 public class MsgTools {

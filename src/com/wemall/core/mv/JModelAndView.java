@@ -1,13 +1,15 @@
 package com.wemall.core.mv;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.ModelAndView;
+
 import com.wemall.core.security.support.SecurityUserHolder;
 import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.HttpInclude;
 import com.wemall.foundation.domain.SysConfig;
 import com.wemall.foundation.domain.UserConfig;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.servlet.ModelAndView;
 
 public class JModelAndView extends ModelAndView {
     public JModelAndView(String viewName){

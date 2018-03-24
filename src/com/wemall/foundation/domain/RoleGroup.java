@@ -1,63 +1,52 @@
 package com.wemall.foundation.domain;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 
+/**
+ * 角色组
+ * 
+ * @author 刘恒福
+ *
+ */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@Table(name = "wemall_rolegroup")
+@Table(name = "ezs_role_group")
 public class RoleGroup extends IdEntity {
-    //名称
-    private String name;
-    //序列
-    private int sequence;
-    //类型
-    private String type;
+	// 名称
+	private String name;
+	// 序列
+	private int sequence;
+	// 类型
+	private String type;
 
-    //角色
-    @OneToMany(mappedBy = "rg")
-    private List<Role> roles = new ArrayList();
+	public String getName() {
+		return name;
+	}
 
-    public String getName(){
-        return this.name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setName(String name){
-        this.name = name;
-    }
+	public int getSequence() {
+		return sequence;
+	}
 
-    public int getSequence(){
-        return this.sequence;
-    }
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
+	}
 
-    public void setSequence(int sequence){
-        this.sequence = sequence;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public List<Role> getRoles(){
-        return this.roles;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public void setRoles(List<Role> roles){
-        this.roles = roles;
-    }
-
-    public String getType(){
-        return this.type;
-    }
-
-    public void setType(String type){
-        this.type = type;
-    }
 }
-
-
-
-

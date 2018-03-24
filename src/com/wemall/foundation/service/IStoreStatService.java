@@ -1,11 +1,12 @@
 package com.wemall.foundation.service;
 
-import com.wemall.core.query.support.IPageList;
-import com.wemall.core.query.support.IQueryObject;
-import com.wemall.foundation.domain.StoreStat;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+
+import com.wemall.core.query.support.IPageList;
+import com.wemall.core.query.support.IQueryObject;
+import com.wemall.foundation.domain.StoreStat;
 
 public abstract interface IStoreStatService {
     public abstract boolean save(StoreStat paramStoreStat);

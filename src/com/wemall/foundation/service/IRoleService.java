@@ -1,10 +1,11 @@
 package com.wemall.foundation.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.wemall.core.query.support.IPageList;
 import com.wemall.core.query.support.IQueryObject;
 import com.wemall.foundation.domain.Role;
-import java.util.List;
-import java.util.Map;
 
 public abstract interface IRoleService {
     public abstract boolean save(Role paramRole);

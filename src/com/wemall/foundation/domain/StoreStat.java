@@ -9,10 +9,14 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
-
+/**
+ * 商品统计
+ * @author lianfu
+ *
+ */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@Table(name = "wemall_store_stat")
+@Table(name = "ezs_store_stat")
 public class StoreStat extends IdEntity {
     //一周用户
     private int week_user;

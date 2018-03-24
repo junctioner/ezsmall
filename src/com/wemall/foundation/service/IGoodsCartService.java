@@ -1,30 +1,27 @@
 package com.wemall.foundation.service;
 
-import com.wemall.core.query.support.IPageList;
-import com.wemall.core.query.support.IQueryObject;
-import com.wemall.foundation.domain.GoodsCart;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public abstract interface IGoodsCartService {
-    public abstract boolean save(GoodsCart paramGoodsCart);
+import com.wemall.core.query.support.IPageList;
+import com.wemall.core.query.support.IQueryObject;
+import com.wemall.foundation.domain.GoodsCart;
 
-    public abstract GoodsCart getObjById(Long paramLong);
+public interface IGoodsCartService {
+	 public abstract boolean save(GoodsCart paramGoodsCart);
 
-    public abstract boolean delete(Long paramLong);
+	    public abstract GoodsCart getObjById(Long paramLong);
 
-    public abstract boolean batchDelete(List<Serializable> paramList);
+	    public abstract boolean delete(Long paramLong);
 
-    public abstract IPageList list(IQueryObject paramIQueryObject);
+	    public abstract boolean batchDelete(List<Serializable> paramList);
 
-    public abstract boolean update(GoodsCart paramGoodsCart);
+	    public abstract IPageList list(IQueryObject paramIQueryObject);
 
-    public abstract List<GoodsCart> query(String paramString, Map paramMap, int paramInt1, int paramInt2);
+	    public abstract boolean update(GoodsCart paramGoodsCart);
 
-	public abstract void deleteGoodsCart(Long id);
+	    public abstract List<GoodsCart> query(String paramString, Map paramMap, int paramInt1, int paramInt2);
+
+		public abstract void deleteGoodsCart(Long id);
 }
-
-
-
-

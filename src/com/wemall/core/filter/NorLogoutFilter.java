@@ -1,21 +1,24 @@
 package com.wemall.core.filter;
 
 
-import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.SysLog;
-import com.wemall.foundation.domain.User;
-import com.wemall.foundation.service.ISysLogService;
-import com.wemall.foundation.service.IUserService;
 import java.io.IOException;
 import java.util.Date;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.ui.logout.LogoutFilter;
 import org.springframework.security.ui.logout.LogoutHandler;
+
+import com.wemall.core.tools.CommUtil;
+import com.wemall.foundation.domain.SysLog;
+import com.wemall.foundation.domain.User;
+import com.wemall.foundation.service.ISysLogService;
+import com.wemall.foundation.service.IUserService;
 
 public class NorLogoutFilter extends LogoutFilter {
     @Autowired

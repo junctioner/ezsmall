@@ -4,418 +4,256 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.wemall.core.annotation.Lock;
 import com.wemall.core.domain.IdEntity;
 
+/**
+ * 订单信息
+ * 
+ * @author 刘恒福
+ *
+ */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@Table(name = "wemall_orderform")
+@Table(name = "ezs_orderform")
 public class OrderForm extends IdEntity {
-    //订单id
-    private String order_id;
-    private String out_order_id;
-    //订单类型
-    private String order_type;
+	// 订单编号
+	private String order_no;
+	// 订单类型
+	private String order_type;
+	// 商品运送集合
+	@OneToMany(mappedBy = "of")
+	List<GoodsCart> gcs = new ArrayList<GoodsCart>();
+	// 总价
+	private BigDecimal total_price;
+	// 用户
+	@ManyToOne
+	private User user;
+	// 运送会话ID
+	private String cart_session_id;
+	// 运送状态
+	@Column(columnDefinition = "int default 0")
+	private int sc_status;
+	// 支付方式（0.全款，1：首款+尾款，2.线下）
+	private int pay_mode;
+	// 商品量
+	@Column(precision = 12, scale = 2)
+	private BigDecimal goods_amount;
+	// 信息
+	@Lob
+	@Column(columnDefinition = "LongText")
+	private String msg;
+	// 票据
+	@ManyToOne
+	private Accessory bill;
+	private int order_status;// 订单状态
+	// 首付款
+	private BigDecimal first_price;
+	// 尾款
+	private BigDecimal end_price;
+	// 合同编号
+	private String pact_no;
+	// 合同附件
+	@ManyToMany(targetEntity = Accessory.class, fetch = FetchType.LAZY)
+	@JoinTable(name = "ezs_order_pact", joinColumns = {
+			@javax.persistence.JoinColumn(name = "order_id") }, inverseJoinColumns = {
+					@javax.persistence.JoinColumn(name = "pact_id") })
+	private List<Accessory> pact_file;
+	// 合同状态
+	private int pact_status;
+	// 收货地址
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Address address;
+	// 订单完成时
+	private Date finishtime;
+	// 开票信息
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Invoice invoice;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Logistics logistics;
+
+	public String getOrder_no() {
+		return order_no;
+	}
+
+	public void setOrder_no(String order_no) {
+		this.order_no = order_no;
+	}
+
+	public String getOrder_type() {
+		return order_type;
+	}
+
+	public void setOrder_type(String order_type) {
+		this.order_type = order_type;
+	}
+
+
+
+	public List<Accessory> getPact_file() {
+		return pact_file;
+	}
+
+	public void setPact_file(List<Accessory> pact_file) {
+		this.pact_file = pact_file;
+	}
+
+	public BigDecimal getTotal_price() {
+		return total_price;
+	}
+
+	public void setTotal_price(BigDecimal total_price) {
+		this.total_price = total_price;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getCart_session_id() {
+		return cart_session_id;
+	}
+
+	public void setCart_session_id(String cart_session_id) {
+		this.cart_session_id = cart_session_id;
+	}
+
+	public int getSc_status() {
+		return sc_status;
+	}
+
+	public void setSc_status(int sc_status) {
+		this.sc_status = sc_status;
+	}
+
+	public int getPay_mode() {
+		return pay_mode;
+	}
+
+	public void setPay_mode(int pay_mode) {
+		this.pay_mode = pay_mode;
+	}
+
+	public BigDecimal getGoods_amount() {
+		return goods_amount;
+	}
+
+	public void setGoods_amount(BigDecimal goods_amount) {
+		this.goods_amount = goods_amount;
+	}
 
-    //商品运送集合
-    @OneToMany(mappedBy = "of")
-    List<GoodsCart> gcs = new ArrayList();
+	public String getMsg() {
+		return msg;
+	}
 
-    //总价
-    @Column(precision = 12, scale = 2)
-    private BigDecimal totalPrice;
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 
-    //商品量
-    @Column(precision = 12, scale = 2)
-    private BigDecimal goods_amount;
+	public Accessory getBill() {
+		return bill;
+	}
 
-    //信息
-    @Lob
-    @Column(columnDefinition = "LongText")
-    private String msg;
+	public void setBill(Accessory bill) {
+		this.bill = bill;
+	}
 
-    //支付
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Payment payment;
-    //运送
-    private String transport;
-    private String shipCode;
-    private String return_shipCode;
-    private Date return_shipTime;
+	public int getOrder_status() {
+		return order_status;
+	}
 
-    @Lob
-    @Column(columnDefinition = "LongText")
-    private String return_content;
+	public void setOrder_status(int order_status) {
+		this.order_status = order_status;
+	}
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private ExpressCompany ec;
+	public BigDecimal getFirst_price() {
+		return first_price;
+	}
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private ExpressCompany return_ec;
+	public void setFirst_price(BigDecimal first_price) {
+		this.first_price = first_price;
+	}
 
-    @Column(precision = 12, scale = 2)
-    private BigDecimal ship_price;
+	public BigDecimal getEnd_price() {
+		return end_price;
+	}
 
-    @Lock
-    private int order_status;
+	public void setEnd_price(BigDecimal end_price) {
+		this.end_price = end_price;
+	}
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+	public String getPact_no() {
+		return pact_no;
+	}
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Store store;
-    private Date payTime;
-    private Date shipTime;
-    private Date finishTime;
+	public void setPact_no(String pact_no) {
+		this.pact_no = pact_no;
+	}
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Address addr;
-    private int invoiceType;
-    private String invoice;
+	public int getPact_status() {
+		return pact_status;
+	}
 
-    @OneToMany(mappedBy = "of", cascade = {javax.persistence.CascadeType.REMOVE})
-    private List<OrderFormLog> ofls = new ArrayList();
+	public void setPact_status(int pact_status) {
+		this.pact_status = pact_status;
+	}
 
-    @OneToMany(mappedBy = "of", cascade = {javax.persistence.CascadeType.REMOVE})
-    private List<RefundLog> rls = new ArrayList();
+	public Address getAddress() {
+		return address;
+	}
 
-    @Lob
-    @Column(columnDefinition = "LongText")
-    private String pay_msg;
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
-    @Column(precision = 12, scale = 2)
-    private BigDecimal refund;
-    private String refund_type;
+	public Date getFinishtime() {
+		return finishtime;
+	}
 
-    @Column(columnDefinition = "bit default 0")
-    private boolean auto_confirm_email;
+	public void setFinishtime(Date finishtime) {
+		this.finishtime = finishtime;
+	}
 
-    @Column(columnDefinition = "bit default 0")
-    private boolean auto_confirm_sms;
+	public Invoice getInvoice() {
+		return invoice;
+	}
 
-    @OneToMany(mappedBy = "of", cascade = {javax.persistence.CascadeType.REMOVE})
-    private List<GoodsReturnLog> grls = new ArrayList();
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
+	}
 
-    @OneToMany(mappedBy = "of", cascade = {javax.persistence.CascadeType.REMOVE})
-    private List<Evaluate> evas = new ArrayList();
+	public Logistics getLogistics() {
+		return logistics;
+	}
 
-    @OneToMany(mappedBy = "of", cascade = {javax.persistence.CascadeType.REMOVE})
-    private List<Complaint> complaints = new ArrayList();
+	public void setLogistics(Logistics logistics) {
+		this.logistics = logistics;
+	}
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private CouponInfo ci;
+	public List<GoodsCart> getGcs() {
+		return gcs;
+	}
 
-    @Column(columnDefinition = "LongText")
-    private String order_seller_intro;
+	public void setGcs(List<GoodsCart> gcs) {
+		this.gcs = gcs;
+	}
 
-    public String getOrder_type(){
-        return this.order_type;
-    }
-
-    public void setOrder_type(String order_type){
-        this.order_type = order_type;
-    }
-
-    public String getReturn_content(){
-        return this.return_content;
-    }
-
-    public void setReturn_content(String return_content){
-        this.return_content = return_content;
-    }
-
-    public Date getReturn_shipTime(){
-        return this.return_shipTime;
-    }
-
-    public void setReturn_shipTime(Date return_shipTime){
-        this.return_shipTime = return_shipTime;
-    }
-
-    public String getReturn_shipCode(){
-        return this.return_shipCode;
-    }
-
-    public void setReturn_shipCode(String return_shipCode){
-        this.return_shipCode = return_shipCode;
-    }
-
-    public ExpressCompany getReturn_ec(){
-        return this.return_ec;
-    }
-
-    public void setReturn_ec(ExpressCompany return_ec){
-        this.return_ec = return_ec;
-    }
-
-    public CouponInfo getCi(){
-        return this.ci;
-    }
-
-    public void setCi(CouponInfo ci){
-        this.ci = ci;
-    }
-
-    public List<Complaint> getComplaints(){
-        return this.complaints;
-    }
-
-    public void setComplaints(List<Complaint> complaints){
-        this.complaints = complaints;
-    }
-
-    public List<Evaluate> getEvas(){
-        return this.evas;
-    }
-
-    public void setEvas(List<Evaluate> evas){
-        this.evas = evas;
-    }
-
-    public List<GoodsReturnLog> getGrls(){
-        return this.grls;
-    }
-
-    public void setGrls(List<GoodsReturnLog> grls){
-        this.grls = grls;
-    }
-
-    public BigDecimal getRefund(){
-        return this.refund;
-    }
-
-    public void setRefund(BigDecimal refund){
-        this.refund = refund;
-    }
-
-    public String getRefund_type(){
-        return this.refund_type;
-    }
-
-    public void setRefund_type(String refund_type){
-        this.refund_type = refund_type;
-    }
-
-    public String getOrder_id(){
-        return this.order_id;
-    }
-
-    public void setOrder_id(String order_id){
-        this.order_id = order_id;
-    }
-
-    public BigDecimal getTotalPrice(){
-        return this.totalPrice;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice){
-        this.totalPrice = totalPrice;
-    }
-
-    public BigDecimal getShip_price(){
-        return this.ship_price;
-    }
-
-    public void setShip_price(BigDecimal ship_price){
-        this.ship_price = ship_price;
-    }
-
-    public int getOrder_status(){
-        return this.order_status;
-    }
-
-    public void setOrder_status(int order_status){
-        this.order_status = order_status;
-    }
-
-    public String getMsg(){
-        return this.msg;
-    }
-
-    public void setMsg(String msg){
-        this.msg = msg;
-    }
-
-    public Payment getPayment(){
-        return this.payment;
-    }
-
-    public void setPayment(Payment payment){
-        this.payment = payment;
-    }
-
-    public User getUser(){
-        return this.user;
-    }
-
-    public void setUser(User user){
-        this.user = user;
-    }
-
-    public Date getPayTime(){
-        return this.payTime;
-    }
-
-    public void setPayTime(Date payTime){
-        this.payTime = payTime;
-    }
-
-    public List<GoodsCart> getGcs(){
-        return this.gcs;
-    }
-
-    public void setGcs(List<GoodsCart> gcs){
-        this.gcs = gcs;
-    }
-
-    public Address getAddr(){
-        return this.addr;
-    }
-
-    public void setAddr(Address addr){
-        this.addr = addr;
-    }
-
-    public String getShipCode(){
-        return this.shipCode;
-    }
-
-    public void setShipCode(String shipCode){
-        this.shipCode = shipCode;
-    }
-
-    public Date getShipTime(){
-        return this.shipTime;
-    }
-
-    public void setShipTime(Date shipTime){
-        this.shipTime = shipTime;
-    }
-
-    public Date getFinishTime(){
-        return this.finishTime;
-    }
-
-    public void setFinishTime(Date finishTime){
-        this.finishTime = finishTime;
-    }
-
-    public int getInvoiceType(){
-        return this.invoiceType;
-    }
-
-    public void setInvoiceType(int invoiceType){
-        this.invoiceType = invoiceType;
-    }
-
-    public String getInvoice(){
-        return this.invoice;
-    }
-
-    public void setInvoice(String invoice){
-        this.invoice = invoice;
-    }
-
-    public Store getStore(){
-        return this.store;
-    }
-
-    public void setStore(Store store){
-        this.store = store;
-    }
-
-    public List<OrderFormLog> getOfls(){
-        return this.ofls;
-    }
-
-    public void setOfls(List<OrderFormLog> ofls){
-        this.ofls = ofls;
-    }
-
-    public String getPay_msg(){
-        return this.pay_msg;
-    }
-
-    public void setPay_msg(String pay_msg){
-        this.pay_msg = pay_msg;
-    }
-
-    public BigDecimal getGoods_amount(){
-        return this.goods_amount;
-    }
-
-    public void setGoods_amount(BigDecimal goods_amount){
-        this.goods_amount = goods_amount;
-    }
-
-    public List<RefundLog> getRls(){
-        return this.rls;
-    }
-
-    public void setRls(List<RefundLog> rls){
-        this.rls = rls;
-    }
-
-    public boolean isAuto_confirm_email(){
-        return this.auto_confirm_email;
-    }
-
-    public void setAuto_confirm_email(boolean auto_confirm_email){
-        this.auto_confirm_email = auto_confirm_email;
-    }
-
-    public boolean isAuto_confirm_sms(){
-        return this.auto_confirm_sms;
-    }
-
-    public void setAuto_confirm_sms(boolean auto_confirm_sms){
-        this.auto_confirm_sms = auto_confirm_sms;
-    }
-
-    public String getTransport(){
-        return this.transport;
-    }
-
-    public void setTransport(String transport){
-        this.transport = transport;
-    }
-
-    public ExpressCompany getEc(){
-        return this.ec;
-    }
-
-    public void setEc(ExpressCompany ec){
-        this.ec = ec;
-    }
-
-    public String getOut_order_id(){
-        return this.out_order_id;
-    }
-
-    public void setOut_order_id(String out_order_id){
-        this.out_order_id = out_order_id;
-    }
-
-    public String getOrder_seller_intro(){
-        return this.order_seller_intro;
-    }
-
-    public void setOrder_seller_intro(String order_seller_intro){
-        this.order_seller_intro = order_seller_intro;
-    }
 }
-
-
-
-

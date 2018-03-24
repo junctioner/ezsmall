@@ -1,12 +1,8 @@
 package com.wemall.core.filter;
 
 
-import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.domain.SysConfig;
-import com.wemall.foundation.domain.User;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.foundation.service.IUserService;
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -16,9 +12,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.wemall.core.tools.CommUtil;
+import com.wemall.foundation.domain.User;
+import com.wemall.foundation.service.ISysConfigService;
+import com.wemall.foundation.service.IUserService;
 
 @Component
 public class SecondDomainFilter

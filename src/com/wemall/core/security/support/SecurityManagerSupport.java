@@ -1,11 +1,12 @@
 package com.wemall.core.security.support;
 
-import com.wemall.core.security.SecurityManager;
-import com.wemall.foundation.domain.Res;
-import com.wemall.foundation.domain.Role;
-import com.wemall.foundation.domain.User;
-import com.wemall.foundation.service.IResService;
-import com.wemall.foundation.service.IUserService;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.GrantedAuthority;
@@ -14,7 +15,12 @@ import org.springframework.security.userdetails.UserDetails;
 import org.springframework.security.userdetails.UserDetailsService;
 import org.springframework.security.userdetails.UsernameNotFoundException;
 
-import java.util.*;
+import com.wemall.core.security.SecurityManager;
+import com.wemall.foundation.domain.Res;
+import com.wemall.foundation.domain.Role;
+import com.wemall.foundation.domain.User;
+import com.wemall.foundation.service.IResService;
+import com.wemall.foundation.service.IUserService;
 
 public class SecurityManagerSupport implements UserDetailsService, SecurityManager {
     @Autowired
@@ -32,12 +38,10 @@ public class SecurityManagerSupport implements UserDetailsService, SecurityManag
         }
         Map params = new HashMap();
         params.put("userName", userName);
-        List users = this.userService.query(
-                         "select obj from User obj where obj.userName =:userName ",
+        List users = this.userService.query("select obj from User obj where obj.name =:userName ",
                          params, -1, -1);
         if (users.isEmpty()){
-            throw new UsernameNotFoundException("User " + userName +
-                                                " has no GrantedAuthority");
+            throw new UsernameNotFoundException("User " + userName +" has no GrantedAuthority");
         }
         User user = (User)users.get(0);
         Set authorities = new HashSet();
@@ -46,12 +50,10 @@ public class SecurityManagerSupport implements UserDetailsService, SecurityManag
             while (roleIterator.hasNext()){
                 Role role = (Role)roleIterator.next();
                 if (loginRole.equalsIgnoreCase("ADMIN")){
-                    GrantedAuthority grantedAuthority = new GrantedAuthorityImpl(
-                        role.getRoleCode().toUpperCase());
+                    GrantedAuthority grantedAuthority = new GrantedAuthorityImpl(role.getRoleCode().toUpperCase());
                     authorities.add(grantedAuthority);
                 }else if (!role.getType().equals("ADMIN")){
-                    GrantedAuthority grantedAuthority = new GrantedAuthorityImpl(
-                        role.getRoleCode().toUpperCase());
+                    GrantedAuthority grantedAuthority = new GrantedAuthorityImpl(role.getRoleCode().toUpperCase());
                     authorities.add(grantedAuthority);
                 }
             }
@@ -67,9 +69,7 @@ public class SecurityManagerSupport implements UserDetailsService, SecurityManag
         Map<String, String> urlAuthorities = new HashMap<String, String>();
         Map<String, String> params = new HashMap<String, String>();
         params.put("type", "URL");
-        List<Res> urlResources = this.resService.query(
-                                     "select obj from Res obj where obj.type = :type", params, -1,
-                                     -1);
+        List<Res> urlResources = this.resService.query("select obj from Res obj where obj.type = :type", params, -1,-1);
         for (Res res : urlResources){
             urlAuthorities.put(res.getValue(), res.getRoleAuthorities());
         }

@@ -1,14 +1,15 @@
 package com.wemall.foundation.service;
 
-import com.wemall.core.query.support.IPageList;
-import com.wemall.core.query.support.IQueryObject;
-import com.wemall.foundation.domain.StoreCart;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public abstract interface IStoreCartService {
-    public abstract boolean save(StoreCart paramStoreCart);
+import com.wemall.core.query.support.IPageList;
+import com.wemall.core.query.support.IQueryObject;
+import com.wemall.foundation.domain.StoreCart;
+
+public interface IStoreCartService {
+	public abstract boolean save(StoreCart paramStoreCart);
 
     public abstract StoreCart getObjById(Long paramLong);
 
@@ -22,7 +23,3 @@ public abstract interface IStoreCartService {
 
     public abstract List<StoreCart> query(String paramString, Map paramMap, int paramInt1, int paramInt2);
 }
-
-
-
-

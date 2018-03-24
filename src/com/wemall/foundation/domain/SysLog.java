@@ -10,10 +10,14 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
-
+/**
+ * 系统日志
+ * @author lianfu
+ *
+ */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@Table(name = "wemall_syslog")
+@Table(name = "ezs_syslog")
 public class SysLog extends IdEntity {
 
     private String title;

@@ -5,25 +5,20 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
-
 /**
- * 地址
- * 
- * @author wemall
+ * 收货地址
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@Table(name = "wemall_address")
-public class Address extends IdEntity {
-	/**
-	 * UID
-	 */
-	private static final long serialVersionUID = -754369306890462179L;
+@Table(name = "ezs_address")
+public class Address extends IdEntity{
 	private String trueName;
 	// 地区
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -43,16 +38,8 @@ public class Address extends IdEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public String getTrueName() {
-		return this.trueName;
+		return trueName;
 	}
 
 	public void setTrueName(String trueName) {
@@ -60,7 +47,7 @@ public class Address extends IdEntity {
 	}
 
 	public Area getArea() {
-		return this.area;
+		return area;
 	}
 
 	public void setArea(Area area) {
@@ -68,7 +55,7 @@ public class Address extends IdEntity {
 	}
 
 	public String getArea_info() {
-		return this.area_info;
+		return area_info;
 	}
 
 	public void setArea_info(String area_info) {
@@ -76,7 +63,7 @@ public class Address extends IdEntity {
 	}
 
 	public String getZip() {
-		return this.zip;
+		return zip;
 	}
 
 	public void setZip(String zip) {
@@ -84,7 +71,7 @@ public class Address extends IdEntity {
 	}
 
 	public String getTelephone() {
-		return this.telephone;
+		return telephone;
 	}
 
 	public void setTelephone(String telephone) {
@@ -92,7 +79,7 @@ public class Address extends IdEntity {
 	}
 
 	public String getMobile() {
-		return this.mobile;
+		return mobile;
 	}
 
 	public void setMobile(String mobile) {
@@ -107,5 +94,12 @@ public class Address extends IdEntity {
 		this.bestow = bestow;
 	}
 
+	public User getUser() {
+		return user;
+	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 }

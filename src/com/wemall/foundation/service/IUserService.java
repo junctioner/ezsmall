@@ -1,10 +1,11 @@
 package com.wemall.foundation.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.wemall.core.query.support.IPageList;
 import com.wemall.core.query.support.IQueryObject;
 import com.wemall.foundation.domain.User;
-import java.util.List;
-import java.util.Map;
 
 public abstract interface IUserService {
     public abstract boolean save(User paramUser);

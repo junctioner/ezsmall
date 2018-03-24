@@ -37,14 +37,12 @@ import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.WebForm;
 import com.wemall.core.tools.database.DatabaseTools;
 import com.wemall.foundation.domain.Accessory;
-import com.wemall.foundation.domain.IntegralLog;
 import com.wemall.foundation.domain.LogType;
 import com.wemall.foundation.domain.StoreStat;
 import com.wemall.foundation.domain.SysConfig;
 import com.wemall.foundation.domain.User;
 import com.wemall.foundation.service.IAccessoryService;
 import com.wemall.foundation.service.IGoodsService;
-import com.wemall.foundation.service.IIntegralLogService;
 import com.wemall.foundation.service.IStoreService;
 import com.wemall.foundation.service.IStoreStatService;
 import com.wemall.foundation.service.ISysConfigService;
@@ -76,15 +74,14 @@ public class BaseManageAction {
 
     @Autowired
     private IStoreService storeService;
-
     @Autowired
-    private IIntegralLogService integralLogService;
+    private IStoreStatService storeStatService;
+ 
 
     @Autowired
     private DatabaseTools databaseTools;
 
-    @Autowired
-    private IStoreStatService storeStatService;
+
 
     @Autowired
     private MsgTools msgTools;
@@ -97,20 +94,6 @@ public class BaseManageAction {
     public void login_success(HttpServletRequest request, HttpServletResponse response)
     throws IOException {
         User user = this.userService.getObjById(SecurityUserHolder.getCurrentUser().getId());
-        if ((this.configService.getSysConfig().isIntegral()) && ((user.getLoginDate() == null) ||
-                (user.getLoginDate().before(CommUtil.formatDate(CommUtil.formatShortDate(new Date())))))){
-            user.setIntegral(user.getIntegral() +
-                             this.configService.getSysConfig().getMemberDayLogin());
-            IntegralLog log = new IntegralLog();
-            log.setAddTime(new Date());
-            log.setContent("用户" + CommUtil.formatLongDate(new Date()) +
-                           "登录增加" + this.configService.getSysConfig().getMemberDayLogin() + "分");
-            log.setIntegral(this.configService.getSysConfig().getMemberRegister());
-            log.setIntegral_user(user);
-            log.setType("login");
-            this.integralLogService.save(log);
-        }
-
         user.setLoginDate(new Date());
         user.setLoginIp(CommUtil.getIpAddr(request));
         user.setLoginCount(user.getLoginCount() + 1);

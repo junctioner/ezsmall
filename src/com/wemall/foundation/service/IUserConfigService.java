@@ -1,11 +1,12 @@
 package com.wemall.foundation.service;
 
-import com.wemall.core.query.support.IPageList;
-import com.wemall.core.query.support.IQueryObject;
-import com.wemall.foundation.domain.UserConfig;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+
+import com.wemall.core.query.support.IPageList;
+import com.wemall.core.query.support.IQueryObject;
+import com.wemall.foundation.domain.UserConfig;
 
 public abstract interface IUserConfigService {
     public abstract boolean save(UserConfig paramUserConfig);

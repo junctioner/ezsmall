@@ -1,9 +1,12 @@
 package com.wemall.core.security.support;
 
-import com.wemall.core.tools.CommUtil;
-import com.wemall.foundation.service.ISysConfigService;
-import com.wemall.uc.api.UCClient;
-import com.wemall.uc.api.XMLHelper;
+import java.io.IOException;
+import java.util.LinkedList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.Authentication;
 import org.springframework.security.AuthenticationException;
@@ -11,11 +14,10 @@ import org.springframework.security.providers.UsernamePasswordAuthenticationToke
 import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
 import org.springframework.security.util.TextUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.LinkedList;
+import com.wemall.core.tools.CommUtil;
+import com.wemall.foundation.service.ISysConfigService;
+import com.wemall.uc.api.UCClient;
+import com.wemall.uc.api.XMLHelper;
 
 public class LoginAuthenticationFilter extends AuthenticationProcessingFilter {
     @Autowired

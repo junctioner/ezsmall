@@ -20,7 +20,7 @@ import com.wemall.core.domain.IdEntity;
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@Table(name = "wemall_area")
+@Table(name = "ezs_area")
 public class Area extends IdEntity implements Serializable{
     /**
      * UID

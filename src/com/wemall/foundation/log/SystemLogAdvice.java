@@ -45,7 +45,8 @@ public class SystemLogAdvice {
     throws Exception {
     }
 
-    private void saveLog(JoinPoint joinPoint, Log annotation, HttpServletRequest request)
+    @SuppressWarnings("unused")
+	private void saveLog(JoinPoint joinPoint, Log annotation, HttpServletRequest request)
     throws Exception {
         String title = annotation.title();
 

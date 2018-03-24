@@ -1,11 +1,8 @@
 package com.wemall.foundation.domain;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -13,84 +10,37 @@ import com.wemall.core.domain.IdEntity;
 
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@Table(name = "wemall_group")
+@Table(name = "ezs_group")
 public class Group extends IdEntity {
-    //分组名称
-    private String group_name;
-    //开始时间
-    private Date beginTime;
-    //结束时间
-    private Date endTime;
-    //加入结束时间
-    private Date joinEndTime;
-    //状态
-    private int status;
+	// 客戶分组名称
+	private String name;
+	// 角色卖家、买家
+	private String role;
+	// 客戶状态（0.线索，1.注册，2.认证，3.激活）
+	private int cus_status;
 
-    //商品集合
-    @OneToMany(mappedBy = "group")
-    private List<Goods> goods_list = new ArrayList();
+	public String getName() {
+		return name;
+	}
 
-    //分组商品集合
-    @OneToMany(mappedBy = "group")
-    private List<GroupGoods> gg_list = new ArrayList();
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public List<Goods> getGoods_list(){
-        return this.goods_list;
-    }
+	public String getRole() {
+		return role;
+	}
 
-    public void setGoods_list(List<Goods> goods_list){
-        this.goods_list = goods_list;
-    }
+	public void setRole(String role) {
+		this.role = role;
+	}
 
-    public List<GroupGoods> getGg_list(){
-        return this.gg_list;
-    }
+	public int getCus_status() {
+		return cus_status;
+	}
 
-    public void setGg_list(List<GroupGoods> gg_list){
-        this.gg_list = gg_list;
-    }
+	public void setCus_status(int cus_status) {
+		this.cus_status = cus_status;
+	}
 
-    public int getStatus(){
-        return this.status;
-    }
-
-    public void setStatus(int status){
-        this.status = status;
-    }
-
-    public String getGroup_name(){
-        return this.group_name;
-    }
-
-    public void setGroup_name(String group_name){
-        this.group_name = group_name;
-    }
-
-    public Date getBeginTime(){
-        return this.beginTime;
-    }
-
-    public void setBeginTime(Date beginTime){
-        this.beginTime = beginTime;
-    }
-
-    public Date getEndTime(){
-        return this.endTime;
-    }
-
-    public void setEndTime(Date endTime){
-        this.endTime = endTime;
-    }
-
-    public Date getJoinEndTime(){
-        return this.joinEndTime;
-    }
-
-    public void setJoinEndTime(Date joinEndTime){
-        this.joinEndTime = joinEndTime;
-    }
 }
-
-
-
-
