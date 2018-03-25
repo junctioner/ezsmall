@@ -1,0 +1,71 @@
+	<div class="yzs-head-pannel">
+		<div class="yzs-head">
+			<div class="yzs-head-top">
+				<div class="yzs-head-logo"></div>
+				<div class="yzs-head-search">
+				   <form action="$!webPath/search.htm" method="post" target="_blank" id="searchForm">
+					<div class="yzs-head-search-item"><span class="yzs-head-search-item-sel" type="goods">自营商城</span> &nbsp; | &nbsp; <span type="trade">价格行情</span></div>
+					<div class="yzs-head-search-box">
+						 <div><input type="text" name="keyword" id="keyword"/></div>
+						 <div id="btn-search" onclick="search_form();">搜索</div>
+					</div>
+					<div class="keyword">#foreach($info in $CommUtil.splitByChar("$!config.hotSearch",",")) <a href="javascript:void(0);" onclick="search_form('$info','goods');">$!info</a> #end</div>
+				    <input name="type" type="hidden" id="type" value="$!type" />
+				    </form>
+				</div>
+				<div class="yzs-head-tel"></div>
+			</div>
+			<div class="yzs-head-menu">
+				<div class="yzs-head-type">再生塑料品类</div>
+				<ul>
+					<li><a href="$!webPath/index.htm">首页</a></li>
+					<li><a href="$!webPath/zysc.htm">自营商城</a></li>
+					<li>价格行情</li>
+					<li>物流运输</li>
+					<li>金融服务</li>
+					<li>行业资讯</li>
+					<li><img style="margin-bottom:-13px;" src="$!webPath/resources/style/shop/default/img/icon_04.jpg"/> 供应合作</li>
+					<li><img style="margin-bottom:-13px;" src="$!webPath/resources/style/shop/default/img/icon_05.jpg"/> 采购定制</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script src="$!webPath/resources/js/jquery.cookie.js"></script>
+	<script type="text/javascript">
+	   $(function(){
+		   $(".yzs-head-search-item>span").mouseover(function(){
+			    $(this).addClass("yzs-head-search-item-sel").siblings().removeClass("yzs-head-search-item-sel");
+		   });
+		   $(".yzs-head-menu ul>li").hover(function(){
+			   $(this).addClass("yzs-head-search-item-sel").siblings().removeClass("yzs-head-search-item-sel");
+		   });
+		   var ina=false,showed=false;
+		   $(".yzs-head-type").mouseenter(function(){
+			   ina = true;
+			   if(!showed){
+					$(".yzs-market-item-top-pannel").slideDown(200);
+					$('.yzs-location-panner').animate({marginTop:145},200);
+					showed = true;
+			   }
+		   });
+		   $(".yzs-head-type").mouseleave(function(){
+			   ina = false;
+		   });
+		   $(".yzs-market-item-top").mouseleave(function(){	
+				setTimeout(function(){
+					if(!ina){
+						$(".yzs-market-item-top-pannel").slideUp(200);
+						$('.yzs-location-panner').animate({marginTop:5},200);
+						showed = false;
+					}
+				},100);
+			   
+		   });
+		   
+	   });
+	   function search_form(){
+		   $(".yzs-head-search-item-sel").attr("type");
+		   //jQuery("#searchForm").submit();
+		   jQuery("#keyword").val("");
+	   }
+	</script>

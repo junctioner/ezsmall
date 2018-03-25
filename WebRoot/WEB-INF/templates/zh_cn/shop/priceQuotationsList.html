@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>易再生-中国再生资源交易平台</title>
+    <link rel="stylesheet" href="$!webPath/resources/style/shop/default/css/yzs.css?v=1" />
+    <script src="$!webPath/resources/js/jquery-1.9.1.min.js"></script>
+    <script src="$!webPath/resources/js/vue.min.js"></script>
+    <script>
+    </script>
+</head>
+<body>
+    $!httpInclude.include("/top.htm")
+    $!httpInclude.include("/head.htm")
+    $!httpInclude.include("/nav.htm")
+	<div class="yzs-quotes-banner"><div></div></div>
+	<div class="yzs-location-panner" style="background:#fff;" id="pat">
+		<div class="yzs-location">首页 &gt;  行情分析 &gt;  {{pink}}</div>
+	</div>
+	
+	<div class="yzs-container-pannel" id="theForm">
+		<div class="yzs-container">
+			<div class="blank5"></div>
+			<div class="yzs-analysis-pannel">
+				<div class="yzs-analysis-left">
+					<div class="yzs-analysis-box">
+						<div class="yzs-analysis-tit">
+							全部{{pink}}
+						</div>
+						<div class="yzs-analysis-list">
+							<ul>
+							    #foreach($ob in $objs)
+								<li onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'">
+									<div class="yzs-analysis-list-img">
+										<img src="$!webPath/upload/ezsSubstance/$!ob.thumbnail">
+									</div>
+									<div class="yzs-analysis-list-info">
+										<div class="yzs-analysis-list-tit">$!ob.name</div>
+										<div class="yzs-analysis-list-desc">$!ob.content</div>
+									</div>
+								</li>
+								#end
+							</ul>
+							<div class="yzs-analysis-list-page">
+								<ul>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=1#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">1</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=2#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">2</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=3#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">3</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=4#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">4</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=5#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">5</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=6#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">6</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=7#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">7</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=8#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">8</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=9#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">9</li>
+									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=10#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">10</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="yzs-analysis-right">
+					<div class="yzs-analysis-model">
+						<ul>
+							<li><div class="yzs-analysis-model-sel">全部</div><div onclick="window.location.href='$!webPath/changePage.htm?childEc=$!scdy'">市场调研</div></li>
+							<li><div onclick="window.location.href='$!webPath/changePage.htm?childEc=$!fxyc'">分析预测</div><div onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zcjd'">政策解读</div></li>
+							<li><div onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zfbd'">专访报道</div></li>
+						</ul>
+					</div>
+					<div class="yzs-analysis-box2">
+						<div class="yzs-analysis-box2-tit">
+							<div class="yzs-analysis-tit2">点击排行</div>
+						</div>
+						<div class="yzs-analysis-box2-list1">
+							<ul>
+							    #foreach($ezsSubstance in $ezsSubstances)
+								<li onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ezsSubstance.id'"><div>$!{velocityCount}</div>$!ezsSubstance.name</li>
+								#end
+							</ul>
+						</div>
+					</div>
+					<div class="yzs-analysis-box2">
+						<div class="yzs-analysis-box2-tit">
+							<div class="yzs-analysis-tit2">热点评析</div>
+						</div>
+						<div class="yzs-analysis-box2-list2">
+							<ul>
+								<li>聚丙烯粉料市场周烯粉201场周烯粉</li>
+								<li>聚丙烯粉料市场周报告</li>
+								<li>聚丙烯粉料市场周报告</li>
+								<li>聚丙烯粉料市场周报告</li>
+								<li>聚丙烯粉料市场周报告</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="blank50"></div>		
+	</div>
+	$!httpInclude.include("/footer.htm") 
+	<script type="text/javascript">
+	new Vue({
+	    el:"#theForm",
+	    data:{
+	    	pink:""
+	    },
+	    mounted:function () {
+	        this.$nextTick(function () {
+	            this.init();
+	        })
+	    },
+	    filters:{
+	    	formatMoney(value){
+	        }
+	    },
+	    methods:{
+	        init:function (){
+	        	#foreach($ob in $objs)
+	        	this.pink='$!ob.ec.name'
+	        	vm.pink='$!ob.ec.name'
+	        	#end
+	        },
+	        formatType:function(v){
+	            
+	        },
+	        pagination:function(v){
+	        	 jQuery.ajax({
+	        		 type: "post",
+	                 url: "$!webPath/changePage.htm",
+	                 data: {currentPage:v},
+	                 dataType: "html",
+	                 success: function(data){
+	                	 $(".ck").remove()
+	                	 $("#classify").append(data)
+	                 }
+	        	     
+	        	 })
+	        }
+	    }
+	});	
+	var vm=new Vue({
+	    el:"#pat",
+	    data:{
+	    	pink:""
+	    },
+	    mounted:function () {
+	        this.$nextTick(function () {
+	            this.init();
+	        })
+	    },
+	    filters:{
+	    	formatMoney(value){
+	        }
+	    },
+	    methods:{
+	        init:function (){
+	        },
+	        formatType:function(v){
+	            
+	        },
+	        pagination:function(v){
+	        	 jQuery.ajax({
+	        		 type: "post",
+	                 url: "$!webPath/changePage.htm",
+	                 data: {currentPage:v},
+	                 dataType: "html",
+	                 success: function(data){
+	                	 $(".ck").remove()
+	                	 $("#classify").append(data)
+	                 }
+	        	     
+	        	 })
+	        }
+	    }
+	});	
+    </script>
+</body>
+</html>

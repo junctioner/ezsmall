@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8" />
+    <title>$!config.title - Powered by wemall</title>
+	<meta name="keywords" content="$!config.keywords" >
+	<meta name="description" content="$!config.description" >
+	<meta name="generator" content="yzs 1.0">
+	<meta name="author" content="www.ezaisheng.com">
+	<meta name="copyright" content="wemall Inc. All Rights Reserved">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    #if($!config.sina_domain_code)
+	$!{config.sina_domain_code}
+	#end
+	#if($!config.qq_domain_code)
+	$!{config.qq_domain_code}
+	#end
+	<link rel="stylesheet" href="$!webPath/resources/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="$!webPath/resources/style/shop/default/css/yzs.css?v=1" />
+    <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+    <script>
+		$(function(){
+			$(".multiSelBtn").hover(function(){
+				$(this).addClass("hover");
+			},function(){
+				$(this).removeClass("hover");
+			});
+			$(".lx-con-op span").hover(function(){
+				$(this).addClass("hover");
+			},function(){
+				$(this).removeClass("hover");
+			});
+			$(".multiSelBtn").click(function(){
+				$(".multiSel").removeClass("multiSel");
+				var pdiv = $(this).parent().parent().parent();
+				pdiv.addClass("multiSel");
+				pdiv.height(pdiv.height() + 44);
+				
+			});
+			$("#more-condition-btn").click(function(){
+				if($($(".more-condition")[0]).css("display")=="none"){
+					$(".more-condition").slideDown(200);
+					$("#more-condition-btn").html("<i class='fa fa-angle-double-up'></i>&nbsp;收起");
+				}else{
+					$(".more-condition").slideUp(200);
+					$("#more-condition-btn").html("<i class='fa fa-angle-double-down'></i>&nbsp;更多选项");
+				}
+				
+			});
+			$(".lx-con-op .mitbtn").click(function(){
+				var selected = $(".mitbtn.selected");
+				if(selected.hasClass("selected") && !$(this).hasClass("selected")){
+					selected.removeClass("selected");
+					selected.parent().parent().removeClass("multiSel");
+					selected.parent().parent().find(".lx-btn-op").remove();
+					selected.parent().parent().find(".lx-con-value p i").remove();
+				}
+				
+				if($(this).hasClass("selected")){
+					$(this).removeClass("selected");
+					$(this).parent().parent().removeClass("multiSel");
+					$(this).parent().parent().find(".lx-btn-op").remove();
+					$(this).parent().parent().find(".lx-con-value p i").remove();
+				}else{
+					$(this).addClass("selected");
+					$(this).parent().parent().addClass("multiSel").append('<div class="lx-btn-op"><span>确定</span><span class="cancel">取消</span><div class="lx-clear"></div></div>');
+					$(this).parent().parent().find(".lx-btn-op").slideDown(200);
+					$(".lx-btn-op .cancel").click(function(){
+						$(this).parent().parent().find(".lx-con-op .mitbtn").click();
+					});
+					$(this).parent().parent().find(".lx-con-value p span").before("<i class='fa fa-square-o'></i>");
+					$(this).parent().parent().find(".lx-con-value p").removeClass("selected");
+				}
+			});
+			$(".lx-con-value p").click(function(){
+				if($(this).parent().parent().find(".lx-con-op .mitbtn").hasClass("selected")){
+					if($(this).find(".fa").hasClass("fa-check-square-o")){
+						$(this).find(".fa").removeClass("fa-check-square-o").addClass("fa-square-o");
+					}else{
+						$(this).find(".fa").removeClass("fa-square-o").addClass("fa-check-square-o");
+					}
+				}else{
+					$(this).siblings(".selected").removeClass("selected");
+					$(this).addClass("selected");
+				}
+				
+			});
+		});
+		
+    </script>
+</head>
+<body>
+    $!httpInclude.include("/top.htm")
+    $!httpInclude.include("/head.htm")
+    $!httpInclude.include("/nav.htm")
+	<div class="yzs-location-panner" style="background:#fff;margin-top:135px;">
+		<div class="yzs-location">首页 &gt;  自营商城
+			<ul class="seleced-condition">
+				<li>品类：<span>再生通用塑料、再生特种塑料、再生工程塑料</span>&nbsp;<i class="fa fa-trash"></i></li>
+				<li>地区：<span>湖北省、广西壮族自治区、广西壮族自治区</span>&nbsp;<i class="fa fa-trash"></i></li>
+				<li>颜色：<span>湖北省、广西壮族自治区、广西壮族自治区</span>&nbsp;<i class="fa fa-trash"></i></li>
+			</ul>
+		</div>
+	</div>
+	<div class="yzs-container-pannel">
+		<div class="yzs-container">
+			<hr class="lx-hr"/>
+			<div calss="lx-condition">
+				<div class="lx-con-row">
+					<div class="lx-con-name">品类：</div>
+					<div class="lx-con-value">
+						#set($navs=$!navTools.queryNav(0,-1))
+						#foreach($gc in $!gcs)
+							<p><span>$!gc.className</span></p>
+						#end
+						<div class="lx-clear"></div>
+					</div>
+					<div class="lx-con-op"><span class="mitbtn">+&nbsp;多选</span></div>
+					<div class="lx-clear"></div>
+				</div>
+				<div class="lx-con-row">
+					<div class="lx-con-name">地区：</div>
+					<div class="lx-con-value">
+						#set($areas=$!areaViewTools.getAreaParentIsNull(24))
+						#foreach($ar in $!areas)
+						   <p><span>$!ar.areaName</span></p>
+						#end
+						<div class="lx-clear"></div>
+					</div>
+					<div class="lx-con-op"><span class="mitbtn">+&nbsp;多选</span><span class="morebtn" mit="0">+&nbsp;更多</span></div>
+					<div class="lx-clear"></div>
+				</div>
+				<div class="lx-con-row more-condition">
+					<div class="lx-con-name">颜色：</div>
+					<div class="lx-con-value">
+						<p><span>红色</span></p>
+						<p><span>蓝色</span></p>
+						<p><span>黄色</span></p>
+						<p><span>黑色</span></p>
+						<p><span>绿色</span></p>
+						<p><span>白色</span></p>
+						<div class="lx-clear"></div>
+					</div>
+					<div class="lx-con-op"><span class="mitbtn">+&nbsp;多选</span></div>
+					<div class="lx-clear"></div>
+				</div>
+				<div class="lx-con-row more-condition">
+					<div class="lx-con-name">形态：</div>
+					<div class="lx-con-value">
+						<p><span>圆形</span></p>
+						<p><span>颗粒状</span></p>
+						<p><span>编织袋</span></p>
+						<div class="lx-clear"></div>
+					</div>
+					<div class="lx-con-op"><span class="mitbtn">+&nbsp;多选</span></div>
+					<div class="lx-clear"></div>
+				</div>
+			</div>
+			<div id="more-condition-btn" class="yzs-market-item2-more"><i class="fa fa-angle-double-down"></i>&nbsp;更多选项</div>
+			
+			<div class="yzs-market-content">
+				<div class="yzs-market-left">
+					<div class="yzs-market-left-top">
+						<div>优品推荐</div>
+						<div>广告</div>
+					</div>
+					<div class="yzs-market-left-con">
+					    #foreach($yg in $!store_reommend_goods_list)
+					    <div class="yzs-market-left-box">
+					         #set($goods_url="$!webPath/goods_$!{yg.id}.htm")
+				             #if($!config.second_domain_open)
+				             #set($goods_url="http://$!{yg.goods_store.store_second_domain}.$!{domainPath}/goods_$!{yg.id}.htm")
+				             #end
+					       <a href="$goods_url">
+							 #if($!yg.goods_main_photo)
+							  #set($img="$!webPath/$!{yg.goods_main_photo.path}/$!{yg.goods_main_photo.name}_small.$!{yg.goods_main_photo.ext}")
+							#else
+							  #set($img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+							#end
+							<div class="yzs-market-left-img"> <img src="$!img"> </div>
+							<div class="yzs-market-left-title"> $!yg.goods_name </div>
+							<div class="yzs-market-left-price"> #if($!yg.lookStatus==1)#if($!user) <span>$!yg.goods_price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!yg.goods_price</span> #end<span>#set($av=$!areaViewTools.getStrArea($!yg.goods_address)) $!CommUtil.substring("$!{av}",6)</span> </div>
+						    </a>
+						</div>
+					    #end
+					</div>
+				</div>
+				<div class="yzs-market-right">
+					<div class="yzs-market-right-top">
+						<div id="item_default">默认</div>
+						<div id="item_price">价格</div>
+						<div id="item_hubnum">库存</div>
+						<input type="text" placeholder="¥最低单价"/>
+						<div style="width:20px;text-align:right;"> - </div>
+						<input type="text" placeholder="¥最高单价"/>
+						<input type="text" placeholder="输入货品关键字"/>
+						<div id="btn_sure">确定</div>
+					</div>
+					<div class="yzs-market-right-con">
+						<ul>
+						   #foreach($hs in $!hots)
+							<li>
+								<div class="yzs-market-right-box">
+								       #set($goods_url="$!webPath/goods_$!{hs.id}.htm")
+						               #if($!config.second_domain_open)
+						               #set($goods_url="http://$!{hs.goods_store.store_second_domain}.$!{domainPath}/goods_$!{hs.id}.htm")
+						               #end
+									<a href="$goods_url">
+								        #if($!hs.goods_main_photo)
+										  #set($img="$!webPath/$!{hs.goods_main_photo.path}/$!{hs.goods_main_photo.name}_small.$!{hs.goods_main_photo.ext}")
+										#else
+										  #set($img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+										#end
+										<div class="yzs-market-left-img"> <img src="$!img"> </div>
+										<div class="yzs-market-left-title"> $!hs.goods_name </div>
+										<div class="yzs-market-left-price"> #if($!hs.lookStatus==1)#if($!user) <span>$!hs.goods_price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!hs.goods_price</span> #end<span>#set($av=$!areaViewTools.getStrArea($!hs.goods_address)) $!CommUtil.substring("$!{av}",6)</span> </div>
+									</a>
+								</div>
+							</li>
+						    #end
+						</ul>
+					</div>
+				</div>
+				<div class="blank0c"></div>
+			</div>
+			<div class="yzs-market-bottom">
+				<div class="yzs-market-bottom-box">
+					<div><img src='$!webPath/resources/style/shop/default/img/icon_07.png'>供货合作</div>
+					<div class="yzs-market-bottom-box-sel"><img src='$!webPath/resources/style/shop/default/img/icon_10.png'>采购助手</div>
+					<div><img src='$!webPath/resources/style/shop/default/img/icon_11.png'>行情订阅</div>
+				</div>
+			</div>
+			
+			<div class="yzs-guestlike-title">猜你喜欢<span> | 足迹 | 收藏</span>
+				<div>
+					<ul><li class="yzs-guestlike-title-li-sel"></li><li></li><li></li></ul>
+				</div>
+			</div>
+			<div class="yzs-guestlike-box">
+			    #foreach($cs in $cais)
+					<div class="yzs-guestlike-cell">
+					      #set($goods_url="$!webPath/goods_$!{cs.id}.htm")
+			               #if($!config.second_domain_open)
+			               #set($goods_url="http://$!{hs.goods_store.store_second_domain}.$!{domainPath}/goods_$!{cs.id}.htm")
+			               #end
+						 <a href="$!goods_url">
+						    #if($!cs.goods_main_photo)
+							  #set($img="$!webPath/$!{cs.goods_main_photo.path}/$!{cs.goods_main_photo.name}_small.$!{cs.goods_main_photo.ext}")
+							#else
+							  #set($img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+							#end
+							 <div class="yzs-market-left-img"> <img src="$!img"> </div>
+							 <div class="yzs-market-left-title"> $!cs.goods_name </div>
+							 <div class="yzs-market-left-price"> #if($!cs.lookStatus==1)#if($!user) <span>$!cs.goods_price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!cs.goods_price</span> #end<span>#set($av=$!areaViewTools.getStrArea($!cs.goods_address)) $!CommUtil.substring("$!{av}",6)</span> </div>
+						 </a>	
+					</div>
+				#end
+			</div>
+		</div>
+		<div class="blank40"></div>		
+	</div>
+	$!httpInclude.include("/footer.htm") 
+</body>
+</html>

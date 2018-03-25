@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+#macro ( genericTree $somelist ) 
+#foreach ( $some in $somelist )
+<option value="$!some.id">#if($!some.level>0)
+#foreach($count in [0..$!some.level])&nbsp;&nbsp;#end #end $!some.className</option>
+#genericTree($some.childs) 
+#end 
+#end
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+<script src="$!webPath/resources/js/vue.min.js"></script>
+<script src="$!webPath/resources/js/axios.js"></script>
+<script charset="utf-8" src="$!webPath/resources/editor/kindeditor.js"></script>
+<script charset="utf-8" src="$!webPath/resources/editor/lang/zh_CN.js"></script>
+<script>
+//options为编辑配置属性
+var options = {
+        cssPath : '$!webPath/resources/editor/themes/default/default.css',
+        filterMode : true,
+		uploadJson:'$!webPath/upload.htm',
+		width : '700px',
+		height:'400px',
+		syncType:"form",
+		afterCreate : function() {
+							var self = this;
+							self.sync();
+						},
+		afterChange : function() {
+							var self = this;
+							self.sync();
+						},
+		afterBlur : function() {
+							var self = this;
+							self.sync();
+						},
+		items:['source', '|', 'fullscreen', 'undo', 'redo', 'print', 'cut', 'copy', 'paste',
+			'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+			'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+			'superscript', '|', 'selectall', 'clearhtml','quickformat','|',
+			'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+			'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'table', 'hr', 'emoticons', 'link', 'unlink', '|', 'about']
+};
+jQuery(document).ready(function(){
+//设置默认状态以及判断初始显示状态
+	var state = jQuery("#display").val();
+	if(state==""){
+		jQuery("#display").val("true");
+		jQuery("#displayOff").hide();
+	}else{
+		 if(state=="true"){
+			jQuery("#displayOff").hide();
+		}else{
+			jQuery("#displayOn").hide();
+		}
+	}	
+	jQuery("#theForm").validate({
+		ignore: "",						  
+	    rules:{
+	    	name:{required :true},
+	    	linkUrl:{required :true},
+	    	subheading:{required :true},
+	    	meta:{required :true},
+	    	keyWord:{required:true},
+	    	content:{required:true}
+		 },
+		messages:{
+			name:{required:"主标题不能为空"},
+			linkUrl:{required:"URL不能为空"},
+			subheading:{required:"副标题不能为空"},
+			meta:{required:"手机模板不能为空"},
+			orderid:{number:"关键字不能为空"},
+			content:{required:"文档内容不能为空"}
+		}
+	  }); 
+jQuery('#publicTime').attr("readonly","readonly").datepicker({
+	  dateFormat:"yy-mm-dd",
+	  changeMonth: true,
+	  changeYear: true
+});
+editor = KindEditor.create('#content',options); 
+jQuery("#class_id").val("$!obj.articleClass.id");
+//
+ jQuery("#display_img").click(function(){
+  var display=jQuery("#display").val();
+	if(display=="true"){
+	  jQuery("#display_img").attr("src","$!webPath/resources/style/system/manage/blue/images/no.jpg");
+	  jQuery("#display").val("false");
+	}else{
+	  jQuery("#display_img").attr("src","$!webPath/resources/style/system/manage/$!{config.websiteCss}/images/yes.jpg");
+	  jQuery("#display").val("true");
+	}
+}); 
+}); 
+
+function saveForm(){
+   var reid=$("#classify input[name='f']:checked").attr("value")
+   var nameid=$("#classify input[name='e']:checked").attr("value");
+   var arr=[]
+   $("#classify input[name='"+nameid+"']:checked").each(function(k,v){
+	   var a=$(this).attr("value");
+	   arr.push(a)
+   })
+   var obj={remarkId:reid,classifyId:nameid,value:arr.join(",")}
+   $("#remarkValue").attr("value",JSON.stringify(obj))
+   $("#theForm").submit();
+}
+
+</script>
+</head>
+<body>
+<div class="cont" >
+  <h1 class="seth1">新增标签</h1>
+  <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="$!webPath/admin/ezsSubstance_list.htm">管理</a> | <a href="$!webPath/admin/loadAddSpecialSubject.htm" #if(!$!edit)class="this"#end>新增</a> #if($!edit) <a href="javascript:void(0);" class="this">编辑</a> #end </span> <span class="tab-two"></span></div>
+  <form name="theForm" id="theForm" action="$!webPath/admin/addEzsSubstance.htm" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="remarkValue" value="" id="remarkValue"/>
+    <div class="setcont">
+      <ul class="set1">
+          <li>
+            <span>栏目选择：</span>
+            <span>
+               <select name="ecId" id="ec">
+                 #foreach ($ezsColumn in $ezsColumns)
+                   <option value="$!ezsColumn.id">$!ezsColumn.name</option>
+                 #end
+               </select>
+            </span>
+            <span>&nbsp;&nbsp;副栏目</span>
+            <span>
+               <select name="childEcId" id="childEcId">
+                 #foreach ($ezsColumn in $ezsColumns)
+                   <option value="$!ezsColumn.id">$!ezsColumn.name</option>
+                 #end
+               </select>
+            </span>
+            <span>&nbsp;&nbsp;专题：</span>
+            <span>
+               <select name="ssId" id="ss">
+                  #foreach ($specialSubject in $specialSubjects)
+                    <option value="$!specialSubject.id">$!specialSubject.name</option>
+                  #end
+               </select>
+            </span>
+          </li>
+          <li><span>主标题：</span><span><input type="text" name="name"/></span><span>&nbsp;&nbsp;外部链接：</span><span><input checked="checked" type="radio" name="linkPort" value="true"/>有&nbsp;<input type="radio" name="linkPort" value="false"/>否</span></li>
+          <li><span>URL：</span><span><input type="text" size="40" name="linkUrl"/></span></li>
+          <li><span>副标题：</span><span><input type="text" name="subheading"/></span><span>&nbsp;&nbsp;标题颜色：</span><span><input type="text" name="titleColor"/></span><span>&nbsp;&nbsp;加粗：</span><span><input checked="checked" type="radio" name="bold" value="true"/>是&nbsp;&nbsp;<input type="radio" name="bold" value="false"/>否</span></li>
+          <li><span>Tag标签：</span><span><input type="text" name="tagTitle"/></span></li>
+          <li><span>摘要：</span><span><textarea name="meta" cols="20" rows="20"></textarea></span></li>
+          <li><span>关键字：</span><span><input type="text" size="10" name="keyWord"/></span><span>&nbsp;&nbsp;标签添加：</span><span><input @click="pink=true" checked="checked" name="a" type="radio" value="true"/>需要</span><span><input  @click="pink=false" name="a" type="radio" value="false"/>不需要</span></li>
+          <li v-if="pink" id="classify">
+                 #foreach($remark in $remarks)
+                    <span>$!remark.name：</span>
+                     #foreach($o in $!remark.cla)
+                      <span><input value="$o.id" #if($!remark.name=='品类')@click="changeRemark($o.id)"#end type="radio" #if($!remark.name=='品类')name="e"#else name="f"#end  #if(${velocityCount}==1)checked="checked"#end/>$!o.name&nbsp;</span>
+	                      #if($!remark.name=='品类'&&${velocityCount}==1)
+	                      <span class="ck">
+		                      #foreach($b in $o.remarkValue.split(","))
+		                       <input value="$!b" type="checkbox" name="$o.id" #if(${velocityCount}==1)checked="checked"#end/>$!b&nbsp;
+		                      #end
+		                  </span>
+		                  #end
+		             #end
+		             <br/>
+                 #end
+          </li>
+          <li><span>作者：</span><span><input type="text" name="author"/></span><span>&nbsp;&nbsp;来源：</span><span><input type="text" name="origin"/></span><span>&nbsp;&nbsp;URL：</span><span><input type="text" name="originUrl"/></span></li>
+          <li><span>发布时间：</span><span><input type="text" id="publicTime" name="publicTime"/></span><span>&nbsp;&nbsp;固定：</span>
+	          <span>
+	            <select name="fixedTime" id="">
+	              <option value="7天">7天</option>
+	              <option value="15天">15天</option>
+	              <option value="30天">30天</option>
+	            </select>
+	          </span>
+	          <span>&nbsp;&nbsp;在手机端显示：</span>
+	          <span><input type="radio" checked="checked" name="pcView" value="true"/>是&nbsp;&nbsp;<input type="radio" name="pcView" value="false"/>否</span>
+          </li>
+          <li><span>自定义属性：</span>
+          <span>
+           <input type="radio" name="attribute" value="1" checked="checked"/>头条
+           <input type="radio" name="attribute" value="2"/>推荐
+           <input type="radio" name="attribute" value="3"/>图片
+           <input type="radio" name="attribute" value="4"/>幻灯
+           <input type="radio" name="attribute" value="5"/>滚动
+           <input type="radio" name="attribute" value="6"/>图文
+          </span></li>
+          <li><span>缩略图：</span><span><input type="file" name="a"/></span></li>
+          <li><span>附件：</span><span><input type="file" name="b" multiple="multiple" accept=".ppt,.pptx,.doc,.docx,.xls,.xlsx,.pdf,.zip"/>支持word、excel、ppt、pdf、zip</span></li>
+          <li><span>多媒体文件：</span><span><input type="file" name="c" accept=".mp4"/>支持MP4格式文件</span></li>
+          <li><span>图片集：</span><span><input type="file" name="d" multiple="multiple"/></span></li>
+          <li><span>文章内容：</span><span class="webname">
+	          <textarea name="content" cols="40" id="content"></textarea>
+	          </span></li>
+      </ul>
+    </div>
+  </form>
+  <div class="submit">
+    <input name="" type="button" value="提交" onclick="saveForm()" />
+  </div>
+</div>
+<script>
+var vm=new Vue({
+    el:"#theForm",
+    data:{
+    	pink:true,
+    	dataList:[]
+    },
+    mounted:function () {
+        this.$nextTick(function () {
+            this.init();
+        })
+    },
+    filters:{
+    	formatMoney(value){
+        }
+    },
+    methods:{
+        init:function (){
+        },
+        formatType:function(v){
+            if(v==3){
+            	editor = KindEditor.create('#content',options); 
+            	//jQuery("#class_id").val("$!obj.articleClass.id");
+            }
+        },
+        changeRemark:function(v){
+        	 jQuery.ajax({
+        		 type: "post",
+                 url: "$!webPath/admin/getClassify.htm",
+                 data: {id:v},
+                 dataType: "html",
+                 success: function(data){
+                	 $(".ck").remove()
+                	 $("#classify").append(data)
+                 }
+        	     
+        	 })
+        }
+    }
+});	
+ </script>
+</body>
+</html>

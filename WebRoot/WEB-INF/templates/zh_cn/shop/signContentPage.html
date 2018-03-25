@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>易再生-中国再生资源交易平台</title>
+    <link rel="stylesheet" href="$!webPath/resources/style/shop/default/css/yzs.css?v=1" />
+    <script src="$!webPath/resources/js/jquery-1.9.1.min.js"></script>
+    <script src="$!webPath/resources/js/vue.min.js"></script>
+    <script>
+    </script>
+</head>
+<body>
+	$!httpInclude.include("/top.htm")
+    $!httpInclude.include("/head.htm")
+    $!httpInclude.include("/nav.htm")
+	<div class="yzs-quotes-banner"><div></div></div>
+	<div class="yzs-location-panner" style="background:#fff;" id="pat">
+		<div class="yzs-location">首页 &gt;  行情分析 &gt;  行情分析 &gt;  {{pink}}</div>
+	</div>
+	
+	<div class="yzs-container-pannel" id="theForm">
+		<div class="yzs-container">
+			<div class="blank5"></div>
+			<div class="yzs-analysis-pannel">
+				<div class="yzs-analysis-left">
+					<div class="yzs-analysis-box">
+						<div class="yzs-analysis-tit">
+							全部{{pink}}
+						</div>
+						<div class="yzs-analysis-con-info">
+							<div><span>来源：$!ezsSubstance.origin</span><span>发布时间：$CommUtil.formatLongDate($!ezsSubstance.addTime)</span></div>
+							<div><span @click="giveOrUp(1,1)"><img src="$!webPath/resources/style/shop/default/img/icon_15.png">收藏</span> | <span><img src="$!webPath/resources/style/shop/default/img/icon_16.png">分享</span></div>
+						</div>
+						<div class="yzs-analysis-con">
+							<p>$!ezsSubstance.content</p>
+						</div>
+						<div class="yzs-analysis-con-tools">
+							<div><span @click="giveOrUp(2,1)">赞 <img src="#if($!documentShare.give==1)$!webPath/resources/style/shop/default/img/icon_35.png#else$!webPath/resources/style/shop/default/img/icon_34.png#end"></span> <span @click="giveOrUp(2,2)">踩 <img src="#if($!documentShare.give==1)$!webPath/resources/style/shop/default/img/icon_37.png#else$!webPath/resources/style/shop/default/img/icon_36.png#end"></span></div>
+						</div>
+						<div class="yzs-analysis-con-page">
+							<div>上一篇：钢厂限产，10月双焦承压回落</div>
+							<div>下一篇：玉米深加工行业继续向好发</div>
+						</div>
+						<div class="yzs-analysis-con-msg">本信息仅供您参考。未经允许，不得转载</div>
+					</div>
+					
+				</div>
+				
+				<div class="yzs-analysis-right">
+					<div class="yzs-analysis-model">
+						<ul>
+							<li><div class="yzs-analysis-model-sel">全部</div><div onclick="window.location.href='$!webPath/changePage.htm?childEc=$!scdy'">市场调研</div></li>
+							<li><div onclick="window.location.href='$!webPath/changePage.htm?childEc=$!fxyc'">分析预测</div><div onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zcjd'">政策解读</div></li>
+							<li><div onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zfbd'">专访报道</div></li>  
+						</ul>
+					</div>
+					<div class="yzs-analysis-box2">
+						<div class="yzs-analysis-box2-tit">
+							<div class="yzs-analysis-tit2">点击排行</div>
+						</div>
+						<div class="yzs-analysis-box2-list1">
+							<ul>
+							    #foreach($ob in $objs)
+								<li onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><div>$!{velocityCount}</div>$!ob.name</li>
+								#end
+							</ul>
+						</div>
+					</div>
+					<div class="yzs-analysis-box2">
+						<div class="yzs-analysis-box2-tit">
+							<div class="yzs-analysis-tit2">热点评析</div>
+						</div>
+						<div class="yzs-analysis-box2-list2">
+							<ul>
+								<li>聚丙烯粉料市场周烯粉201场周烯粉</li>
+								<li>聚丙烯粉料市场周报告</li>
+								<li>聚丙烯粉料市场周报告</li>
+								<li>聚丙烯粉料市场周报告</li>
+								<li>聚丙烯粉料市场周报告</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="blank50"></div>		
+	</div>
+	$!httpInclude.include("/footer.htm") 
+	<script type="text/javascript">
+	new Vue({
+	    el:"#theForm",
+	    data:{
+	    	pink:""
+	    },
+	    mounted:function () {
+	        this.$nextTick(function () {
+	            this.init();
+	        })
+	    },
+	    filters:{
+	    	formatMoney(value){
+	        }
+	    },
+	    methods:{
+	        init:function (){
+	        	this.pink='$!ezsSubstance.ec.name'
+	        	vm.pink='$!ezsSubstance.ec.name'
+	        },
+	        formatType:function(v){
+	            
+	        },
+	        giveOrUp:function(type,value){
+	        	if(type==1){
+	        		jQuery.ajax({
+		        		 type: "post",
+		                 url: "$!webPath/giveOrUp.htm",
+		                 data: {id:$!ezsSubstance.id,house:value},
+		                 dataType: "json",
+		                 success: function(data){
+		                	 if(data.flag){
+		                		 var house=data.houseStatus
+		                		 if(house){
+		                			 
+		                		 }else{
+		                			 
+		                		 }
+		                	 }
+		                 }
+		        	     
+		        	 })
+	        	}else if(type==2){
+	        		jQuery.ajax({
+		        		 type: "post",
+		                 url: "$!webPath/giveOrUp.htm",
+		                 data: {id:$!ezsSubstance.id,give:value},
+		                 dataType: "json",
+		                 success: function(data){
+		                	 if(data.flag){
+		                		 var give=data.give;
+		                		 var giveStatus=data.giveStatus
+		                		 if(giveStatus&&give==1){
+		                			 $("div.yzs-analysis-con-tools").find("div span:eq(0) img").attr("src","$!webPath/resources/style/shop/default/img/icon_35.png")
+		                			 $("div.yzs-analysis-con-tools").find("div span:eq(1) img").attr("src","$!webPath/resources/style/shop/default/img/icon_36.png")
+		                		 }else if(giveStatus&&give==2){
+		                			 $("div.yzs-analysis-con-tools").find("div span:eq(1) img").attr("src","$!webPath/resources/style/shop/default/img/icon_37.png")
+		                			 $("div.yzs-analysis-con-tools").find("div span:eq(0) img").attr("src","$!webPath/resources/style/shop/default/img/icon_34.png")
+		                		 }else if(!giveStatus&&give==1){
+		                			 $("div.yzs-analysis-con-tools").find("div span:eq(0) img").attr("src","$!webPath/resources/style/shop/default/img/icon_34.png")
+		                		 }else if(!giveStatus&&give==2){
+		                			 $("div.yzs-analysis-con-tools").find("div span:eq(1) img").attr("src","$!webPath/resources/style/shop/default/img/icon_36.png")
+		                		 }
+		                	 }
+		                 }
+		        	 })
+	        	}
+	        	 
+	        }
+	    }
+	});	
+	var vm=new Vue({
+	    el:"#pat",
+	    data:{
+	    	pink:""
+	    },
+	    mounted:function () {
+	        this.$nextTick(function () {
+	            this.init();
+	        })
+	    },
+	    filters:{
+	    	formatMoney(value){
+	        }
+	    },
+	    methods:{
+	        init:function (){
+	        },
+	        formatType:function(v){
+	            
+	        }
+	    }
+	});	
+    </script>
+</body>
+</html>

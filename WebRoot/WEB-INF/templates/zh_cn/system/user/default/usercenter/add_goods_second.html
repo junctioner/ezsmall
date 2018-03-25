@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<title>卖家中心-$!{config.title}-Powered by wemall</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="ezaisheng v.0" />
+<meta name="author" content="www.ezaisheng.com">
+<meta name="copyright" content="ezaisheng Inc. All Rights Reserved">
+<link rel="stylesheet"
+	href="$!webPath/resources/style/shop/default/css/yzs.css?v=1" />
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script charset="utf-8" src="$!webPath/resources/editor/kindeditor.js"></script>
+<script charset="utf-8" src="$!webPath/resources/editor/lang/zh_CN.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.base.js"></script>
+<script src="$!webPath/resources/layui/layui.all.js"></script>
+<script type="text/javascript">
+	var photo_count = 0;
+	var options = {
+		cssPath : '$!webPath/resources/editor/plugins/code/prettify.css',
+		filterMode : true,
+		uploadJson : '$!webPath/seller/upload.htm',
+		width : '735px',
+		height : '400px',
+		resizeType : 1,
+		allowImageUpload : true,
+		allowFlashUpload : true,
+		allowMediaUpload : true,
+		allowFileManager : false,
+		syncType : "form",
+		afterCreate : function() {
+			var self = this;
+			self.sync();
+		},
+		afterChange : function() {
+			var self = this;
+			self.sync();
+		},
+		afterBlur : function() {
+			var self = this;
+			self.sync();
+		},
+		items : [ 'source', '|', 'fullscreen', 'undo', 'redo', 'print', 'cut',
+				'copy', 'paste', 'plainpaste', 'wordpaste', '|', 'justifyleft',
+				'justifycenter', 'justifyright', 'justifyfull',
+				'insertorderedlist', 'insertunorderedlist', 'indent',
+				'outdent', 'subscript', 'superscript', '|', 'selectall',
+				'clearhtml', 'quickformat', '|', 'formatblock', 'fontname',
+				'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic',
+				'underline', 'strikethrough', 'lineheight', 'removeformat',
+				'|', 'image', 'flash', 'media', 'table', 'hr', 'emoticons',
+				'link', 'unlink', '|', 'about' ]
+	};
+	$(function() {
+		$(".yzs-g-head-menu li").click(function() {
+			$(".yzs-g-head-menu li").removeClass("yzs-g-head-menu-sel");
+			$(this).addClass("yzs-g-head-menu-sel");
+		});
+
+		$(".yzs-g-con-left-menu li").click(
+				function() {
+					$(".yzs-g-con-left-menu li").removeClass(
+							"yzs-g-con-left-menu-sel");
+					$(this).addClass("yzs-g-con-left-menu-sel");
+
+				});
+	    //默认值设置
+	    $("#address").attr("readonly","readonly");
+		//初始化
+		editor = KindEditor.create('#goods_details', options);
+		jQuery("select").change(
+				function() {
+					var level = jQuery(this).attr("level");
+					var id = jQuery(this).val();
+					if (level == 4){
+						$("#area_id").val(id);
+					 	$("#address").removeAttr("readonly");
+					}
+					if (id != "") {
+						jQuery.post("$!webPath/load_area.htm", {
+							"pid" : id
+						}, function(data) {
+							jQuery("#area" + level).empty();
+							jQuery("#area" + level).append(
+									"<option value=''>请选择</option>");
+							jQuery.each(data, function(index, item) {
+								jQuery("#area" + level).append(
+										"<option value='"+item.id+"'>"
+												+ item.areaName + "</option>");
+								jQuery("#area" + level).show();
+							});
+						}, "json");
+					} else {
+						for (var i = level; i <= 3; i++) {
+							jQuery("#area" + i).empty();
+							jQuery("#area" + i).hide();
+						}
+					}
+				});
+		//表单验证
+		jQuery("#theForm").validate({
+			onkeyup : false,
+			onfocusout : false,
+			showErrors : function(errorMap, errorList) {
+				if (errorList.length > 0) {
+					layer.msg(errorList[0].message, {
+						icon : 2,
+						time : 1500,
+						skin : 'layer-ext-moon'
+					});
+				}
+			},
+			rules : {
+				goods_class_id : {
+					isKong : true
+				},
+				goods_name : {
+					required : true,
+					minlength : 3,
+					maxlength : 50
+				},
+				goods_price : {
+					required : true,
+					number : true,
+					range : [ 0.01, 1000000 ]
+				},
+				goods_inventory : {
+					number : true,
+					range : [ 1, 1000000000 ]
+				},
+				address:{
+					required : true
+				},
+				from:{
+					required:true
+				},
+				purpose:{
+					required:true
+				},
+				density:{
+					range : [ 0.01, 100 ]
+				},
+				xblqkcj:{
+					range:[0.01,100 ]
+				},
+				jzlqkcj:{
+					range:[0.01,100 ]
+				},
+				solute:{
+					range:[0.01,100 ]
+				},
+				content:{
+					range:[1,100 ]
+				},water:{
+					range:[1,100 ]
+				},
+				tensile:{
+					range:[1,100 ]
+				},
+				elongation:{
+					range:[0.01,100 ]
+				},
+				wqqd:{
+					range:[1,100 ]
+				},
+				modulus:{
+					range:[1,100]
+				},
+				burning:{
+					range:[1,10]
+				}
+			},
+			messages : {
+				goods_name : {
+					required : "商品名不能为空",
+					minlength : "商品名最少为3个字符",
+					maxlength : "商品名最多为50个字符"
+				},
+				goods_price : {
+					required : "商品原价不能为空",
+					number : "商品原价只能是数字格式",
+					range : "商品价格只能在0.01-1000000之间"
+				},
+				goods_inventory : {
+					number : "商品库存只能为数字",
+					range : "商品库存数量只能在0-1000000000之间"
+				},
+				address:{
+					required : "仓库所在地不能为空"
+				},
+				from:{
+					required:'来源不能为空'
+				},
+				purpose:{
+					required:'用途不能为空'
+				},
+				density:{
+					range : "密度只能在0.01-100之间"
+				},
+				xblqkcj:{
+					range : "悬臂梁缺口冲击只能在0.01-100之间"
+				},
+				jzlqkcj:{
+					range : "简支梁缺口冲击只能在0.01-100之间"
+				},
+				solute:{
+					range : "溶指只能在0.01-100之间"
+				},
+				content:{
+					range : "灰分只能在1-100"
+				},
+				water:{
+					range : "水分只能在1-100"
+				},
+				tensile:{
+					range : "拉伸强度只能在1-100"
+				},
+				elongation:{
+					range : "断裂伸长率只能在0.01-100"
+				},
+				wqqd:{
+					range : "弯曲强度只能在1-100"
+				},modulus:{
+					range : "弯曲模量只能在1-100"
+				},
+				burning:{
+					range:'燃烧等级只能在1-10'
+				}
+			}
+		});
+	});
+	function switch_editor_photo() {
+		var dis = jQuery(".editor_photo_detail").css("display");
+		if (dis == "none") {
+			jQuery.post("$!webPath/seller/goods_img_album.htm", {
+				"type" : "goods_detail_album"
+			}, function(text) {
+				jQuery(".editor_photo_detail").empty();
+				jQuery(".editor_photo_detail").append(text);
+			}, "text");
+			jQuery(".editor_photo_detail").show();
+		} else {
+			jQuery(".editor_photo_detail").hide();
+		}
+	}
+	function photo_switch(clz, obj) {
+		jQuery(".tabbody_ul li").removeClass("this");
+		jQuery(".tab_body_b").hide();
+		jQuery(obj).addClass("this");
+		if (clz == "tab_body_b") {
+			jQuery.post("$!webPath/seller/goods_img_album.htm", {
+				"type" : "goods_img_album"
+			}, function(text) {
+				jQuery(".tab_body_b").empty();
+				jQuery(".tab_body_b").append(text);
+			}, "text");
+		}
+		jQuery("." + clz).show();
+	}
+	function arrow_del(id) {
+		if (confirm("删除后不可恢复，是否继续？")) {
+			var image_id = jQuery("#goods_image_" + id).attr("image_id");
+			jQuery
+					.post(
+							"$!webPath/seller/goods_image_del.htm",
+							{
+								"image_id" : image_id
+							},
+							function(data) {
+								if (data.result == true) {
+									jQuery("#img_remain_size").html(
+											data.remainSpace + "M");
+									jQuery("#goods_image_" + id)
+											.attr("src",
+													"$!webPath/resources/style/system/front/default/images/usercenter/smallimg.jpg");
+									jQuery("#goods_image_" + id).attr(
+											"image_id", "");
+									if (id == 1) {
+										jQuery("#goods_image_0")
+												.attr("src",
+														"$!webPath/resources/style/system/front/default/images/usercenter/img.jpg");
+									}
+									photo_count--;
+									var i = parseInt(id);
+									while (i < 5) {
+										var image_id = jQuery(
+												"#goods_image_" + (i + 1))
+												.attr("image_id");
+										var image_src = jQuery(
+												"#goods_image_" + (i + 1))
+												.attr("src");
+
+										if (image_id != "") {
+											jQuery("#goods_image_" + i).attr(
+													"image_id", image_id);
+											jQuery("#goods_image_" + i).attr(
+													"src", image_src);
+											if (i == 1) {
+												jQuery("#goods_image_0").attr(
+														"image_id", image_id);
+												jQuery("#goods_image_0").attr(
+														"src", image_src);
+											}
+											jQuery("#goods_image_" + (i + 1))
+													.attr("image_id", "");
+											jQuery("#goods_image_" + (i + 1))
+													.attr("src",
+															"$!webPath/resources/style/system/front/default/images/usercenter/smallimg.jpg");
+										}
+										i++;
+									}
+								} else
+									alert("删除失败，请重新删除！");
+							}, "json");
+		}
+	}
+	function arrow_remove(id) {
+		var image_id = jQuery("#goods_image_" + id).attr("image_id");
+		jQuery("#goods_image_" + id)
+				.attr("src",
+						"$!webPath/resources/style/system/front/default/images/usercenter/smallimg.jpg");
+		jQuery("#goods_image_" + id).attr("image_id", "");
+		if (id == 1) {
+			jQuery("#goods_image_0")
+					.attr("src",
+							"$!webPath/resources/style/system/front/default/images/usercenter/img.jpg");
+		}
+		photo_count--;
+		var i = parseInt(id);
+		while (i < 5) {
+			var image_id = jQuery("#goods_image_" + (i + 1)).attr("image_id");
+			var image_src = jQuery("#goods_image_" + (i + 1)).attr("src");
+			if (image_id != "") {
+				jQuery("#goods_image_" + i).attr("image_id", image_id);
+				jQuery("#goods_image_" + i).attr("src", image_src);
+				if (i == 1) {
+					jQuery("#goods_image_0").attr("image_id", image_id);
+					jQuery("#goods_image_0").attr("src", image_src);
+				}
+				jQuery("#goods_image_" + (i + 1)).attr("image_id", "");
+				jQuery("#goods_image_" + (i + 1))
+						.attr("src",
+								"$!webPath/resources/style/system/front/default/images/usercenter/smallimg.jpg");
+			}
+			i++;
+		}
+	}
+	function arrow_left(id) {
+		var i = parseInt(id);
+		if (i > 1) {
+			var temp_src = jQuery("#goods_image_" + (i - 1)).attr("src");
+			var temp_id = jQuery("#goods_image_" + (i - 1)).attr("image_id");
+			var the_src = jQuery("#goods_image_" + i).attr("src");
+			var the_id = jQuery("#goods_image_" + i).attr("image_id");
+			if (temp_id != "" && temp_id != undefined && the_id != ""
+					&& the_id != undefined) {
+				jQuery("#goods_image_" + (i - 1)).attr("src", the_src);
+				jQuery("#goods_image_" + (i - 1)).attr("image_id", the_id);
+				jQuery("#goods_image_" + i).attr("src", temp_src);
+				jQuery("#goods_image_" + i).attr("image_id", temp_id);
+				if (i == 2) {
+					jQuery("#goods_image_0").attr("src", the_src);
+					jQuery("#goods_image_0").attr("image_id", the_id);
+				}
+			}
+		}
+	}
+	function arrow_right(id) {
+		var i = parseInt(id);
+		if (i < 4) {
+			var temp_src = jQuery("#goods_image_" + (i + 1)).attr("src");
+			var temp_id = jQuery("#goods_image_" + (i + 1)).attr("image_id");
+			var the_src = jQuery("#goods_image_" + i).attr("src");
+			var the_id = jQuery("#goods_image_" + i).attr("image_id");
+			if (temp_id != "" && temp_id != undefined && the_id != ""
+					&& the_id != undefined) {
+				jQuery("#goods_image_" + (i + 1)).attr("src", the_src);
+				jQuery("#goods_image_" + (i + 1)).attr("image_id", the_id);
+				jQuery("#goods_image_" + i).attr("src", temp_src);
+				jQuery("#goods_image_" + i).attr("image_id", temp_id);
+				if (i == 1) {
+					jQuery("#goods_image_0").attr("src", temp_src);
+					jQuery("#goods_image_0").attr("image_id", temp_id);
+				}
+			}
+		}
+	}
+	function saveForm() {
+		editor.sync();//同步编辑器的数据到textarea
+		var image_ids = "";
+		for (var i = 2; i <= 4; i++) {
+			var image_id = jQuery("#goods_image_" + i).attr("image_id");
+			if (image_id != "" && image_id != undefined) {
+				image_ids = image_id + "," + image_ids;
+			}
+		}
+		jQuery("#image_ids").val(image_ids);
+		var main_image_id = jQuery("#goods_image_1").attr("image_id");
+		jQuery("#goods_main_img_id").val(main_image_id);
+		var goods_parameter_detail = "";
+		jQuery(".inputparam").each(
+				function(index, item) {
+					goods_parameter_detail += jQuery(item).attr("name") + ","
+							+ jQuery(item).attr("value") + ";";
+				});
+		$("#goods_parameter_detail").val(goods_parameter_detail);
+		var goods_properties = "";
+		jQuery("select[id^=property_]").each(
+				function() {
+					if (jQuery(this).val() != "") {
+						goods_properties += jQuery(this).attr("id")
+								.substring(9)
+								+ "," + jQuery(this).val() + ";";
+					}
+				});
+		jQuery("#goods_properties").val(goods_properties);
+		var goods_address = "";
+		if (jQuery("#area_id").val()) {
+			goods_address = "aread_id:" + jQuery("#area_id").val()
+					+ ",address:" + $("#address").val();
+		}
+		jQuery("#goods_address").val(goods_address);
+		if($('#theForm').valid()){
+			if(!jQuery("#goods_class_id").val()){
+				layer.msg('商品分类不能为空', {icon : 2,time : 1500,skin : 'layer-ext-moon'});
+				 return;
+			}
+			
+		    jQuery("#theForm").submit();
+		}
+		
+	}
+</script>
+</head>
+<body style="background: #F7F7F7;">
+	$!httpInclude.include("/seller/top.htm")
+	$!httpInclude.include("/seller/head.htm")
+	$!httpInclude.include("/seller/nav_title.htm?op=货品信息发布")
+	<div class="yzs-g-container">
+		<div class="yzs-g-con-left">
+			<div class="yzs-g-con-left-menu">
+				<div class="yzs-g-con-left-top">供应商中心</div>
+				$!httpInclude.include("/seller/seller_menu.htm?op=hpxxfb")
+			</div>
+		</div>
+		<div class="yzs-g-con-right">
+			<div class="yzs-g-con-right-top">货品信息发布</div>
+			<div class="navdetail">
+				<span class="navadd1 addcolor">选择商品所在分类</span> <span
+					class="navadd2 white">填写商品详细信息</span> <span
+					class="navadd3 addcolor">商品发布成功</span>
+			</div>
+			<form action="$!webPath/seller/add_goods_finish.htm" method="post"
+				enctype="multipart/form-data" name="theForm" id="theForm">
+				<table>
+					<tr>
+						<td><span>*</span>商品分类：</td>
+						<td>
+							<div>
+								<span>$!goods_class_info</span> <span class="editbtn"> <input
+									name="goods_class_id" type="hidden" id="goods_class_id"
+									value="$!{goods_class.id}" /> <input name="goods_main_img_id"
+									type="hidden" id="goods_main_img_id" /> <input
+									name="image_ids" type="hidden" id="image_ids" /> <input
+									name="goods_properties" type="hidden" id="goods_properties" />
+									<input name="goods_parameter_detail" type="hidden"
+									id="goods_parameter_detail" /> <input type="hidden"
+									name="goods_address" id="goods_address" /> <input
+									name="edit_class" type="button" id="edit_class" value="编辑"
+									style="cursor: pointer;"
+									onclick="window.location.href='$!webPath/seller/add_goods_first.htm?id=$!{obj.id}'" />
+									<input name="goods_session" type="hidden" id="goods_session"
+									value="$!goods_session" />
+								</span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><span>*</span>商品名称：</td>
+						<td><input type="text" placeholder="如：黑色PP颗粒耐冲击A类"
+							name="goods_name"><span
+							style="margin-left: 10px; margin-right: 10px;">*</span>商品有效期 <select
+							style="width: 150px;" name="effective_day"><option>3</option>
+								<option>7</option>
+								<option>15</option></select>天</td>
+					</tr>
+					<tr>
+						<td><span>*</span>商品价格：</td>
+						<td><input type="text" placeholder="请输入商品价格"
+							name="goods_price"><span>元/吨（含税价格）</span></td>
+					</tr>
+					<tr>
+						<td><span>*</span>商品库存：</td>
+						<td><input type="text" placeholder="请输入库存量"
+							name="goods_inventory">吨</td>
+					</tr>
+					<tr>
+						<td><span>*</span>库存所在地：</td>
+						<td><select name="area1" id="area1" level="2"
+							style="width: 120px">
+								<option value="" selected="selected">请选择地区</option>
+								#foreach($area in $areas)
+								<option value="$!area.id">$!area.areaName</option> #end
+						</select> <select name="area2" id="area2"
+							style="display: none; width: 120px;" level="3"></select> <select
+							name="area3" id="area3" style="display: none; width: 120px;"
+							level="4"></select> <input name="area_id" type="hidden"
+							id="area_id" value="$!obj.area.id" /> <input
+							style="width: 200px;" type="text" id="address" name="address" placeholder="详细地址" readonly="readonly">
+						</td>
+					</tr>
+					<tr>
+					    <td>
+					   		商品查看权限：
+					   </td>
+					    <td>
+						   <input type="radio" value="0"  name="lookStatus" checked="checked"/>所有人 <input type="radio" value="1" name="lookStatus" />会员
+					   </td>
+					</tr>
+					#set($ggss = $!goods_class.goodsType.gss) #foreach($gc in $!ggss)
+					<tr>
+						<td><span>*</span>$gc.name：</td>
+						<td><select id="property_$!velocityCount">
+								#foreach($gp in $!gc.properties)
+								<option value="$!gp.value">$!gp.value</option> #end
+						</select></td>
+					</tr>
+					#end
+					<tr>
+						<td><span>*</span>来源：</td>
+						<td><input type="text" class="inputparam" name="from"></td>
+					</tr>
+					<tr>
+						<td><span>*</span>用途：</td>
+						<td><input type="text" class="inputparam" name="purpose"
+							placeholder=""></td>
+					</tr>
+					<tr>
+						<td>密度：</td>
+						<td><input type="text" class="inputparam" name="density"
+							placeholder="具体数值或区间数值"><span>g/cm<sup>3</sup></span></td>
+					</tr>
+					<tr>
+						<td>悬臂梁缺口冲击：</td>
+						<td><input type="text" name="xblqkcj" class="inputparam"
+							placeholder="具体数值或区间数值"><span>Kg/M<sup>2</sup></span></td>
+					</tr>
+					<tr>
+						<td>简支梁缺口冲击：</td>
+						<td><input type="text" name="jzlqkcj" class="inputparam"
+							placeholder="具体数值或区间数值"><span>Kg/M<sup>2</sup></td>
+					</tr>
+					<tr>
+						<td>溶指：</td>
+						<td><input type="text" name="solute" class="inputparam"
+							placeholder="具体数值或区间数值"><span>g/10min</span></span></td>
+					</tr>
+					<tr>
+						<td>灰分：</td>
+						<td><input type="text" name="content" class="inputparam"
+							placeholder="具体数值或区间数值"><span>%</span></td>
+					</tr>
+					<tr>
+						<td>水分：</td>
+						<td><input type="text" name="water" class="inputparam"
+							placeholder="具体数值或区间数值"><span>%</span></td>
+					</tr>
+					<tr>
+						<td>拉伸强度：</td>
+						<td><input type="text" name="tensile" class="inputparam"
+							placeholder="具体数值或区间数值"><span>MPa</span></td>
+					</tr>
+					<tr>
+						<td>断裂伸长率：</td>
+						<td><input type="text" name="elongation" class="inputparam"
+							placeholder="具体数值或区间数值"><span>%</span></td>
+					</tr>
+					<tr>
+						<td>弯曲强度：</td>
+						<td><input type="text" name="wqqd" class="inputparam"
+							placeholder="具体数值或区间数值"><span>MPa</span></td>
+					</tr>
+					<tr>
+						<td>弯曲模量：</td>
+						<td><input type="text" name="modulus" class="inputparam"
+							placeholder="具体数值或区间数值"><span>MPa</span></td>
+					</tr>
+					<tr>
+						<td>燃烧等级：</td>
+						<td><input type="text" name="burning" class="inputparam"
+							placeholder=""></td>
+					</tr>
+					<tr>
+						<td>环保：</td>
+						<td><input type="radio" value="1" class="inputparam"
+							name="huanbao" />环保 <input type="radio" value="2" name="huanbao" />不环保</td>
+					</tr>
+					<tr>
+						<td><div>
+								<span>*</span>商品图片：
+							</div></td>
+						<td>
+							<div class="tab_body">
+								<ul class="tabbody_ul">
+									<li class="this" style="cursor: pointer;"
+										onclick="photo_switch('tab_body_a',this)">上传图片</li>
+									<li style="cursor: pointer;"
+										onclick="photo_switch('tab_body_b',this)">从用户相册选择</li>
+								</ul>
+								<div class="tabbodys">
+									<div class="tab_body_b" style="display: none;"></div>
+									<div class="tab_body_a">
+										<div class="tabimg">
+											#if($!obj.goods_main_photo)
+											#set($img="$!webPath/$!{obj.goods_main_photo.path}/$!{obj.goods_main_photo.name}")
+											#else
+											#set($img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+											#end
+											<div class="tabimgbig">
+												<img id="goods_image_0" src="$!img" width="197" height="196" />
+											</div>
+											<div class="tabimgcent">
+												<div class="tabupload">
+													<a href="javascript:void(0);"><span id="upload_imgs"></span><img
+														id="upload_wait" style="display: none;"
+														src="$!webPath/resources/style/common/images/loader.gif" /></a>
+												</div>
+												<div class="tabimgsmall">
+													<ul>
+														<li class="tabimgs"><img id="goods_image_1"
+															image_id="$!obj.goods_main_photo.id" src="$!img"
+															width="73" height="73" /></li>
+														<li class="taboper"><a href="javascript:void(0);"
+															title="左移" onclick="arrow_left('1');" class="tableft"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_left.png"
+																width="16" height="16" /></a><a href="javascript:void(0);"
+															title="从服务器删除" onclick="arrow_del('1');" class="tabdel"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_del.gif"
+																width="15" height="13" /></a><a href="javascript:void(0);"
+															title="从商品删除" onclick="arrow_remove('1');" class="tabdel"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_remove.gif"
+																width="15" height="13" /></a><a href="javascript:void(0);"
+															title="右移" onclick="arrow_right('1');" class="tabright"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_right.png"
+																width="16" height="16" /></a></li>
+													</ul>
+													#set($img2="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+													#set($img2_id="")
+													#set($img3="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+													#set($img3_id="")
+													#set($img4="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+													#set($img4_id="")
+													#set($img5="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+													#set($img5_id="") #foreach($img in $obj.goods_photos)
+													#if($velocityCount==1)
+													#set($img2="$!webPath/$!{img.path}/$!{img.name}")
+													#set($img2_id="$!img.id") #end #if($velocityCount==2)
+													#set($img3="$!webPath/$!{img.path}/$!{img.name}")
+													#set($img3_id="$!img.id") #end #if($velocityCount==3)
+													#set($img4="$!webPath/$!{img.path}/$!{img.name}")
+													#set($img4_id="$!img.id") #end #end
+													<ul>
+														<li class="tabimgs"><img id="goods_image_2"
+															image_id="$!img2_id" src="$!img2" width="73" height="73" /></li>
+														<li class="taboper"><a href="javascript:void(0);"
+															title="左移" onclick="arrow_left('2');" class="tableft"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_left.png"
+																width="16" height="16" /></a><a href="javascript:void(0);"
+															title="从服务器删除" onclick="arrow_del('2');" class="tabdel"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_del.gif"
+																width="15" height="13" /></a><a href="javascript:void(0);"
+															title="从商品删除" onclick="arrow_remove('2');" class="tabdel"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_remove.gif"
+																width="15" height="13" /></a><a href="javascript:void(0);"
+															title="右移" onclick="arrow_right('2');" class="tabright"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_right.png"
+																width="16" height="16" /></a></li>
+													</ul>
+													<ul>
+														<li class="tabimgs"><img id="goods_image_3"
+															image_id="$!img3_id" src="$!img3" width="73" height="73" /></li>
+														<li class="taboper"><a href="javascript:void(0);"
+															title="左移" onclick="arrow_left('3');" class="tableft"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_left.png"
+																width="16" height="16" /></a><a href="javascript:void(0);"
+															title="从服务器删除" onclick="arrow_del('3');" class="tabdel"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_del.gif"
+																width="15" height="13" /></a><a href="javascript:void(0);"
+															title="从商品删除" onclick="arrow_remove('3');" class="tabdel"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_remove.gif"
+																width="15" height="13" /></a><a href="javascript:void(0);"
+															title="右移" onclick="arrow_right('5');" class="tabright"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_right.png"
+																width="16" height="16" /></a></li>
+													</ul>
+													<ul>
+														<li class="tabimgs"><img id="goods_image_4"
+															image_id="$!img4_id" src="$!img4" width="73" height="73" /></li>
+														<li class="taboper"><a href="javascript:void(0);"
+															title="左移" onclick="arrow_left('4');" class="tableft"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_left.png"
+																width="16" height="16" /></a><a href="javascript:void(0);"
+															title="从服务器删除" onclick="arrow_del('4');" class="tabdel"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_del.gif"
+																width="15" height="13" /></a><a href="javascript:void(0);"
+															title="从商品删除" onclick="arrow_remove('4');" class="tabdel"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_remove.gif"
+																width="15" height="13" /></a><a href="javascript:void(0);"
+															title="右移" onclick="arrow_right('5');" class="tabright"><img
+																src="$!webPath/resources/style/system/front/default/images/usercenter/arrow_right.png"
+																width="16" height="16" /></a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+										<div class="warning">
+											<h2>最多可发布5张商品图片</h2>
+											<ul>
+												<li>支持多图片同时选取上传。支持$!imageSuffix格式上传，建议选择尺寸300x300以上、大小2M内的图片。</li>
+												<li>用户图空间剩余:<span style="color: #FF0000;"
+													id="img_remain_size">#if($!{img_remain_size}==0)空间不限制大小#else$!{img_remain_size}M#end</span>，空间不足时将无法上传图片
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>商品描述：</td>
+						<td><textarea name="goods_details"
+								style="width: 100%; height: 400px; visibility: hidden;"
+								id="goods_details"></textarea></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="photoimg">
+								<div class="addphoto">
+									<a href="javascript:void(0);" onclick="switch_editor_photo();">插入相册图片</a>
+								</div>
+								<div class="editor_photo_detail" style="display: none;"></div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>SEO关键字</td>
+						<td>
+							<div class="tabbodys">
+								<input name="seo_keywords" type="text" id="seo_keywords"
+									value="" />
+								<div class="warning">
+									<ul>
+										<li>SEO关键字 (keywords) 出现在商品详细页面头部的 Meta
+											标签中，用于记录本页面商品的关键字，多个关键字间请用半角逗号 "," 隔开</li>
+									</ul>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>SEO描述</td>
+						<td>
+							<div class="tabbodys">
+								<input name="seo_keywords" type="text" id="seo_keywords"
+									value="" />
+								<div class="warning">
+									<ul>
+										<li>SEO关键字 (keywords) 出现在商品详细页面头部的 Meta
+											标签中，用于记录本页面商品的关键字，多个关键字间请用半角逗号 "," 隔开</li>
+									</ul>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<div class="yzs-g-con-btn1" onclick="saveForm();">确认发布</div>
+							<div class="yzs-g-con-btn2">重置</div>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div class="blank50"></div>
+	</div>
+</body>
+</html>

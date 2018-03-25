@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.base.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+<style>
+table{
+width: 100%
+}
+table tr{
+width: 100%
+}
+table tr td{
+  margin-right: 10px;
+  font-size: 14px;
+  margin-top: 20px;
+  text-align: center;
+}
+</style>
+<script>
+function editColumn(a){
+	if($(a).attr("checked")){
+		$("input[name='a']").attr("checked",true)
+		$("input[name='b']").attr("checked",true)
+	}else{
+		$("input[name='a']").attr("checked",false)
+		$("input[name='b']").attr("checked",false)
+	}
+}
+function editEzs(a){
+	if($(a).attr("checked")){
+		$(this).attr("checked",false)
+	}else{
+		$(this).attr("checked",true)
+	}
+	var flag=false
+	$("input[name='b']").each(function(){
+		if(!$(this).attr("checked")){
+			flag=true
+		}
+	})
+	if(flag){
+		$("input[name='a']").attr("checked",false)
+	}else{
+		$("input[name='a']").attr("checked",true)
+	}
+	
+}
+function saveForm(){
+	jQuery("#theForm").submit();
+}
+</script>
+</head>
+<body>
+<div class="cont" >
+  <h1 class="seth1">移动</h1>
+  <form method="post" id="theForm" action="$!webPath/admin/moveEzsSubstance.htm">
+  <input type="hidden" name="id" value="$!ezsSubstance.id"/>
+  <input type="hidden" name="span" value="$!span"/>
+    <div class="setcont">
+      <ul class="set1">
+          <li><span>#if($!span==1)您目前的操作是移动文档，请选择目标栏目：#elseif($!span==2)您目前的操作是复制文档，请选择目标栏目：#elseif($!span==3)保存固顶#end</span>
+          <span>
+            #if($!span==1||$!span==2)
+	            <select id="ec" name="ecId">
+	            #foreach($ezsColumn in $ezsColumns)
+	             <option value="$!ezsColumn.id">$!ezsColumn.name</option>
+	            #end
+	            </select>
+	        #elseif($!span==3)
+	            <select name="fixedTime">
+	             <option value="7天">7天</option>
+	             <option value="15天">15天</option>
+	             <option value="30天">30天</option>
+	            </select>
+            #end
+          </span>
+          </li>
+      </ul>
+    </div>
+    <div class="submit">
+      <input name="" type="button" value="保存" style="cursor:pointer;" onclick="saveForm();"/>
+    </div>
+  </form>
+</div>
+  
+</body>
+</html>

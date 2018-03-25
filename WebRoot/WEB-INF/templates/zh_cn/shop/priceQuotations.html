@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>易再生-中国再生资源交易平台</title>
+    <link rel="stylesheet" href="$!webPath/resources/style/shop/default/css/yzs.css?v=1" />
+    <script src="$!webPath/resources/js/jquery-1.9.1.min.js"></script>
+    <script src="$!webPath/resources/js/vue.min.js"></script>
+    <script>
+		$(function(){
+			$(".yzs-market-item2-more").click(function(){
+				if($("#item2_color").css("display")=='none'){
+					$("#item2_color").css("display","block");
+					$("#item2_xingzhuang").css("display","block");
+				}else{
+					$("#item2_color").css("display","none");
+					$("#item2_xingzhuang").css("display","none");
+				}
+			});
+			$(".yzs-market-item2-con span").click(function(){
+				$(this).parent().find("span").removeClass("yzs-market-item2-con-sel");
+				$(this).addClass("yzs-market-item2-con-sel");
+			});
+			
+			$(".yzs-quotes-analysis-tit2 span span").click(function(){
+				$(".yzs-quotes-analysis-tit2 span span").removeClass("yzs-quotes-analysis-tit2-sel");
+				$(this).addClass("yzs-quotes-analysis-tit2-sel");
+			});
+			
+		});
+    </script>
+</head>
+<body>
+	$!httpInclude.include("/top.htm")
+    $!httpInclude.include("/head.htm")
+    $!httpInclude.include("/nav.htm")
+	<div class="yzs-quotes-banner"><div></div></div>
+	<div class="yzs-location-panner" style="background:#fff;">
+		<div class="yzs-location">首页 &gt;  行情分析</div>
+	</div>
+	<div class="yzs-container-pannel" id="theForm">
+		<div class="yzs-container">
+			<div class="yzs-market-item2-box">
+			    #foreach($remark in $remarks)
+				<div class="yzs-market-item2">
+					<div class="yzs-market-item2-tag" value="$!remark.id">$remark.name：</div>
+					<div class="yzs-market-item2-con">
+						<div>
+							<span class="yzs-market-item2-con-sel">全部</span>
+							#foreach($o in $!remark.cla)<span value="$!o.id">$o.name</span>#end
+						</div>
+						<div><span>+多选</span><span>+更多</span></div>
+					</div>
+					<div class="blank0c"></div>
+				</div>
+				#end
+			</div>
+			#foreach($ob in $objs)
+			#if($!ob.ec.name=='日评')#set($rp=$ob.ec.id)#end
+			#if($!ob.ec.name=='周评')#set($zp=$ob.ec.id)#end
+			#if($!ob.ec.name=='月评')#set($yp=$ob.ec.id)#end
+			#if($!ob.ec.name=='年评')#set($np=$ob.ec.id)#end
+			#if($!ob.ec.name=='研究报告')#set($yjbg=$ob.ec.id)#end
+			#end
+			<div class="blank5"></div>
+			<div class="yzs-shopdetail-left">
+					<div class="yzs-quotes-analysis-box">
+						<div class="yzs-quotes-analysis-tit">日评<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!rp'"></div></div>
+						<div class="yzs-quotes-analysis-list">
+							<ul>
+							    #foreach($ob in $objs)
+							      #if($!ob.ec.name=='日评')
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
+								  #end
+								#end
+							</ul>
+						</div>
+					</div>
+					<div class="yzs-quotes-analysis-box">
+						<div class="yzs-quotes-analysis-tit">周评<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!zp'"></div></div>
+						<div class="yzs-quotes-analysis-list">
+							<ul>
+								#foreach($ob in $objs)
+							      #if($!ob.ec.name=='周评')
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
+								  #end
+								#end
+							</ul>
+						</div>
+					</div>
+					<div class="yzs-quotes-analysis-box">
+						<div class="yzs-quotes-analysis-tit">月评<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!yp'"></div></div>
+						<div class="yzs-quotes-analysis-list">
+							<ul>
+								#foreach($ob in $objs)
+							      #if($!ob.ec.name=='月评')
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
+								  #end
+								#end
+							</ul>
+						</div>
+					</div>
+					<div class="yzs-quotes-analysis-box">
+						<div class="yzs-quotes-analysis-tit">年评<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!np'"></div></div>
+						<div class="yzs-quotes-analysis-list">
+							<ul>
+								#foreach($ob in $objs)
+							      #if($!ob.ec.name=='年评')
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
+								  #end
+								#end
+							</ul>
+						</div>
+					</div>
+					<div class="yzs-quotes-analysis-box2">
+						<div class="yzs-quotes-analysis-tit2">研究报告 <span><span class="yzs-quotes-analysis-tit2-sel">全部</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!scdy'">市场调研</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!fxyc'">分析预测</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zcjd'">政策解读</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zfbd'">专访报道</span></span></div>
+						<div class="yzs-quotes-analysis-list2">
+							<ul>
+								#foreach($ob in $objs)
+							      #if($!ob.ec.name=='研究报告')
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span>
+								  <span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
+								  #end
+								#end
+							</ul>
+						</div>
+					</div>
+			</div>
+			<div class="yzs-shopdetail-right">
+				<div class="yzs-shopdetail-right-top">
+						<div>优品推荐</div>
+					</div>
+					<div class="yzs-shopdetail-right-con">
+						<div class="yzs-shopdetail-right-box">
+							<div class="yzs-shopdetail-right-img"> <img src="$!webPath/resources/style/shop/default/img/shop05.jpg"> </div>
+							<div class="yzs-shopdetail-right-title"> PEEX复合料 </div>
+							<div class="yzs-shopdetail-right-price"> <span>登录看价</span> <span>邢台</span> </div>
+						</div>
+						<div class="yzs-shopdetail-right-box">
+							<div class="yzs-shopdetail-right-img"> <img src="$!webPath/resources/style/shop/default/img/shop05.jpg"> </div>
+							<div class="yzs-shopdetail-right-title"> PEEX复合料 </div>
+							<div class="yzs-shopdetail-right-price"> <span>登录看价</span> <span>邢台</span> </div>
+						</div>
+						<div class="yzs-shopdetail-right-box">
+							<div class="yzs-shopdetail-right-img"> <img src="$!webPath/resources/style/shop/default/img/shop05.jpg"> </div>
+							<div class="yzs-shopdetail-right-title"> PEEX复合料 </div>
+							<div class="yzs-shopdetail-right-price"> <span>登录看价</span> <span>邢台</span> </div>
+						</div>
+					</div>
+			</div>
+			<div class="blank10"></div>
+			<div class="yzs-quotes-history">
+				<div class="yzs-quotes-history-tit">足迹</div>
+				<div class="yzs-quotes-history-con">
+					<div>实时报价 > 华北 > PET</div>
+					<div>实时报价 > 华北 > PET</div>
+					<div>实时报价 > 华北 > PET</div>
+					<div>实时报价 > 华北 > PET</div>
+					<div>实时报价 > 华北 > PET</div>
+					<div>实时报价 > 华北 > PET</div>
+					<div>实时报价 > 华北 > PET</div>
+					<div>实时报价 > 华北 > PET</div>
+					<div>实时报价 > 华北 > PET</div>
+					<div>实时报价 > 华北 > PET</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="blank50"></div>		
+	</div>
+	
+	$!httpInclude.include("/footer.htm") 
+<script type="text/javascript">
+	var vm=new Vue({
+	    el:"#theForm",
+	    data:{
+	    	pink:true,
+	    	dataList:[]
+	    },
+	    mounted:function () {
+	        this.$nextTick(function () {
+	            this.init();
+	        })
+	    },
+	    filters:{
+	    	formatMoney(value){
+	        }
+	    },
+	    methods:{
+	        init:function (){
+	        },
+	        formatType:function(v){
+	            if(v==3){
+	            	editor = KindEditor.create('#content',options); 
+	            	//jQuery("#class_id").val("$!obj.articleClass.id");
+	            }
+	        },
+	        changeRemark:function(v){
+	        	 jQuery.ajax({
+	        		 type: "post",
+	                 url: "$!webPath/admin/getClassify.htm",
+	                 data: {id:v},
+	                 dataType: "html",
+	                 success: function(data){
+	                	 $(".ck").remove()
+	                	 $("#classify").append(data)
+	                 }
+	        	     
+	        	 })
+	        }
+	    }
+	});	
+</script>
+</body>
+</html>

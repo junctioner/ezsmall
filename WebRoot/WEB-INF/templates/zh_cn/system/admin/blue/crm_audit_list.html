@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script>
+function addorsubtract(obj,id){
+ var cls=jQuery(obj).attr("cls");
+ var level=jQuery(obj).attr("level");
+  if(cls=="jian"){
+  jQuery.ajax({type:'POST',
+		       url:'$!webPath/admin/goods_class_data.htm',
+		        data:{"pid":id,"currentPage":"$!currentPage"},
+				success:function(data){
+	                jQuery("#"+id).after(data);
+					jQuery(obj).attr("src","$!webPath/resources/style/system/manage/blue/images/add.jpg");
+					jQuery(obj).attr("cls","add");
+					tipStyle();
+              }
+  });
+  }else{
+       if(level=="0_"+id){
+	    jQuery("tr[level=child_"+id+"]").remove();
+	   }else
+	   jQuery("tr[parent="+id+"]").remove();
+	   jQuery(obj).attr("src","$!webPath/resources/style/system/manage/blue/images/jian.jpg");
+	   jQuery(obj).attr("cls","jian");
+  }
+  //
+}
+function ajax_update(id,fieldName,obj){
+   var val=jQuery(obj).val();
+    jQuery.ajax({type:'POST',
+	              url:'$!webPath/admin/goods_class_ajax.htm',
+				  data:{"id":id,"fieldName":fieldName,"value":val},
+				beforeSend:function(){
+				  
+				},
+			   success:function(data){
+	             if(val==""){
+				   jQuery(obj).attr("src","$!webPath/resources/style/system/manage/blue/images/"+data+".png");
+				 }else{
+				   jQuery(obj).val(val);
+				 }      
+              }
+	    });
+}
+jQuery(document).ready(function(){
+ 
+});
+</script>
+<body>
+<div class="cont">
+  <h1 class="seth1">客户管理</h1>
+   <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="javascript:void(0);"  class="this">认证审核</a> | <a href="javascript:void(0);">激活审核</a>  | <a href="javascript:void(0);">客户管理员调整审核</a>  | <a href="javascript:void(0);">未通过</a>  | <a href="$!webPath/admin/crm_down_edit.htm">新增</a></span> <span class="tab-two"></span></div> 
+  
+  <div class="classtable">
+  	<FORM name="ListForm" id="ListForm"
+				action="$!webPath/admin/goods_class_list.htm" method="post">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0"
+					class="class_table">
+					<tr
+						style="background: #if($!config.websiteCss=='blue') #2A7AD2 #end #if($!config.websiteCss=='black') #333 #end; height: 30px; color: #FFF">
+						<!-- <td width="38">&nbsp;</td> -->
+						<td width="200" align="center">企业名称</td>
+						<td width="90" align="center">线索</td>
+						<td width="90" align="center">等级</td>
+						<td width="92" align="center">主营行业</td>
+						<td width="129" align="center">申请时间</td>
+						<td width="120" align="center">经营地址</td>
+						<td width="110" align="center">经营范围</td>
+                       <td width="110" align="center">是否租用场地</td>
+						<td width="200" align="center">操作</td>
+					</tr>
+
+					#foreach($obj in $objs)
+					<tr id="$!obj.id">
+
+
+					<!-- 	<td align="center"><input name="ids" id="ids" type="checkbox"
+							value="$!obj.id" /></td> -->
+						<td align="center">$!obj.ent_name</td>
+
+						<td align="center">$!obj.clue_source</td>   #if($!obj.grade == 1) 
+						   
+						<td align="center">意见一般</td>   #elseif($!obj.grade == 2)       
+						<td align="center">意见强烈</td>   #elseif($!obj.grade == 0)     
+						<td align="center">无意见</td>   #end  
+						<td align="center">$!obj.main_business</td>
+
+						<td align="center">$!obj.addTime</td>
+						<td align="center">$!obj.oper_address</td>
+						<td align="center">$!obj.oper_scope</td>
+                        #if($!obj.rented == true)
+                        <td align="center">是</td>
+                         #else
+                         <td align="center">否</td>
+                          #end
+						<td align="center" class="ac8">
+						  #if($!obj.status == 0)
+                        <a href="javascript:void(0);">审核通过</a><a href="javascript:void(0);">审核不通过</a>
+                         #elseif($!obj.status == 1)
+                         <a href="javascript:void(0);">激活</a>
+                          #elseif($!obj.status == 2)
+                         <a href="javascript:void(0);">重新审核</a>
+                          #elseif($!obj.status == 3)
+                         <a href="javascript:void(0);">认证</a>
+                       
+                          #end
+						<!-- <a href="$!webPath/admin/crm_down_edit.htm?id=$!obj.id&currentPage=$!currentPage">编辑</a> -->
+							<!--    <a href="javascript:void(0);" onclick="if(confirm('删除分类会同时删除该分类的所有下级，是否继续?'))window.location.href='$!webPath/admin/goods_class_del.htm?mulitId=$!obj.id&currentPage=$!currentPage'">删除</a> --></td>
+					</tr>
+					#end
+				
+				</table>
+				<input type="hidden" name="currentPage" id="currentPage"
+					value="$!currentPage" /> <input name="mulitId" type="hidden"
+					id="mulitId" />
+				<div class="fenye">$!gotoPageHTML</div>
+			</FORM>
+  </div>  
+</div>
+</body>
+</html>

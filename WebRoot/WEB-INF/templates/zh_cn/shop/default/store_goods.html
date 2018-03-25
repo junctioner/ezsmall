@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>$!obj.goods_name - $!config.title - Powered by ezaisheng</title>
+<meta name="keywords" content="$!obj.seo_keywords" />
+<meta name="description" content="$!obj.seo_description" />
+<meta name="generator" content="ezaisheng2.0" />
+<meta name="author" content="www.ezaisheng.com">
+<meta name="copyright" content="ezaisheng Inc. All Rights Reserved">
+<link rel="stylesheet" href="$!webPath/resources/style/shop/default/css/yzs.css?v=1" />
+<style type="text/css">
+ .gw_num{border: 1px solid #dbdbdb;width: 110px;line-height: 26px;overflow: hidden;}
+ .gw_num em{display: block;height: 26px;width: 26px;float: left;color: #7A7979;border-right: 1px solid #dbdbdb;text-align: center;cursor: pointer;}
+ .gw_num .num{display: block;float: left;text-align: center;width: 52px;font-style: normal;font-size: 14px;line-height: 24px;border: 0;}
+ .gw_num em.add{float: right;border-right: 0;border-left: 1px solid #dbdbdb;}
+</style>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/layui/layui.all.js"></script>
+<script type="text/javascript">
+		$(function(){
+			$(".yzs-shopdetail-left-tab ul li").click(function(){
+				if($(this).attr("id")=='tab_info'){
+					$(".yzs-shopdetail-left-tab ul li").removeClass("yzs-shopdetail-left-tab-sel");
+					$(this).addClass("yzs-shopdetail-left-tab-sel");
+					$("#con_evaluate").css("display","none");
+					$("#con_info").css("display","block");
+				}
+				if($(this).attr("id")=='tab_evaluate'){
+					$(".yzs-shopdetail-left-tab ul li").removeClass("yzs-shopdetail-left-tab-sel");
+					$(this).addClass("yzs-shopdetail-left-tab-sel");
+					$("#con_evaluate").css("display","block");
+					$("#con_info").css("display","none");
+				}
+			});
+			
+			$(".yzs-shopdetail-left-top-ul ul li img").click(function(){
+				$(".yzs-shopdetail-left-top-ul ul li").removeClass("yzs-shopdetail-left-top-ul-sel");
+				$(this).parent("li").addClass("yzs-shopdetail-left-top-ul-sel");
+				var src = $(this).attr("src");
+				$(".yzs-shopdetail-left-top-img img").attr("src",src);
+			});
+			
+			$("#btn_prve").click(function(){
+				var ifocus = 0;
+				var num = 0;
+				$(".yzs-shopdetail-left-top-ul ul li").each(function(i){
+					if($(this).attr("class")=="yzs-shopdetail-left-top-ul-sel"){
+						ifocus = i;
+					}
+					num ++;
+				});
+				if(ifocus>0){
+					$(".yzs-shopdetail-left-top-ul-sel").removeClass("yzs-shopdetail-left-top-ul-sel");
+					$(".yzs-shopdetail-left-top-ul li").eq(ifocus-1).addClass("yzs-shopdetail-left-top-ul-sel");
+					var src = $(".yzs-shopdetail-left-top-ul li").eq(ifocus-1).find("img").attr("src");
+					$(".yzs-shopdetail-left-top-img img").attr("src",src);
+				}
+			});
+			$("#btn_next").click(function(){
+				var ifocus = 0;
+				var num = 0;
+				$(".yzs-shopdetail-left-top-ul ul li").each(function(i){
+					if($(this).attr("class")=="yzs-shopdetail-left-top-ul-sel"){
+						ifocus = i;
+					}
+					num ++;
+				});
+				if(ifocus<(num-1)){
+					$(".yzs-shopdetail-left-top-ul-sel").removeClass("yzs-shopdetail-left-top-ul-sel");
+					$(".yzs-shopdetail-left-top-ul li").eq(ifocus+1).addClass("yzs-shopdetail-left-top-ul-sel");
+					var src = $(".yzs-shopdetail-left-top-ul li").eq(ifocus+1).find("img").attr("src");
+					$(".yzs-shopdetail-left-top-img img").attr("src",src);
+				}
+			});
+			 $("input[name='number']").keyup(function(){     
+					 var goods_inventory = $!obj.goods_inventory;
+			         var tmptxt=$(this).val();
+			         $(this).val(tmptxt.replace(/\D|^0/g,''));
+			         if(tmptxt>goods_inventory){
+			        	 layer.msg("您所填写的商品数量超过库存!",{icon:2});
+			        	 $(this).val(goods_inventory);
+			         }
+			    });
+			 $(".add").click(function(){
+				     var goods_inventory = $!obj.goods_inventory;
+					 var n=$(this).prev().val();
+					 var num=parseInt(n)+1;
+					 if(num>goods_inventory){ return;}
+					 $(this).prev().val(num);
+				 });
+				 //减的效果
+				 $(".jian").click(function(){
+					 var n=$(this).next().val();
+					 var num=parseInt(n)-1;
+					 if(num==0){ return}
+					 $(this).next().val(num);
+				 });
+		});
+		function buy_good(){
+			#if($!user.id==$!obj.goods_store.user.id);
+				layer.alert('不能购买自己的商品!', { icon: 5});
+			 #else
+				 var add=true
+				 if($!obj.goods_inventory==0){
+					 add=false;
+					 layer.alert('商品库存为0,不能购买!', { icon: 5});
+					 return;
+				 }
+			     if(add){
+		    		jQuery.post("$!webPath/add_goods_cart.htm",{"id":"$!obj.id","count":$(".num").val(),"price":$!obj.goods_price},function(data){
+		    			window.location.href="$!webPath/goods_cart1.htm";
+		    			// 更新顶部购物车信息
+		    			//jQuery("#cart_goods_count_top").html(data.count);
+		    		},"json");
+			     }
+		    #end
+		}
+		// 商品添加到购物车
+	 function add_cart(){
+		#if($!user.id==$!obj.goods_store.user.id)
+		 alert("不能购买自己的商品！");
+		#else
+		  var add=true
+		  var gsp="";
+		  if(jQuery(".colordate").length==0){
+		    add=true;
+		  }else{
+			jQuery(".colordate").each(function(){
+			   jQuery.each(jQuery(this).find("a[class=this]"),function(){
+				  gsp=jQuery(this).attr("gsp")+","+gsp; 
+			   });
+		       if(jQuery(this).find("a[class=this]").length==0) add=false;
+			});
+		  } 
+		  var count=jQuery("#goods_count").val();
+		  if(count==0){
+		    add=false;
+			alert("至少购买一件商品!");
+			return;
+		  }
+		  if(goods_inventory==0){
+		    add=false;
+			alert("商品库存为0,不能购买!");
+			return;
+		  }  
+		  if(add){
+			jQuery.post("$!webPath/add_goods_cart.htm",{"id":"$!obj.id","count":count,"price":store_price,"gsp":gsp},function(data){
+			     jQuery("#cart_goods_count").html(data.count);
+				 jQuery("#cart_goods_totalprice").html(data.total_price);
+				 jQuery(".goodscar").fadeIn();
+			     time_id=window.setInterval(cart_fadeOut,1000);
+				 //更新顶部购物车信息
+				 jQuery("#cart_goods_count_top").html(data.count);
+			},"json");
+		  }else{
+		    jQuery("#goods_spec_info").removeClass().addClass("detailsbottom detailsbottom_hover");  
+			jQuery("#goods_spec_info_close").show();
+			jQuery("#goods_spec_chose").show();
+		  }
+		 #end
+		}
+    </script>
+</head>
+<body>
+	$!httpInclude.include("/top.htm")
+    $!httpInclude.include("/head.htm")
+    $!httpInclude.include("/nav.htm")
+	<div class="yzs-location-panner">
+		<div class="yzs-location">首页 &gt;  自营商城</div>
+	</div>
+	<div class="yzs-container-pannel">
+		<div class="yzs-container">
+			<div class="yzs-shopdetail-left">
+				<div class="yzs-shopdetail-left-top">
+					<div class="yzs-shopdetail-left-top-left">
+						<div class="yzs-shopdetail-left-top-img">
+						   #if($!obj.goods_main_photo)
+				            #set($small_img="$!webPath/$!{obj.goods_main_photo.path}/$!{obj.goods_main_photo.name}_small.$!{obj.goods_main_photo.ext}")
+				            #set($big_img="$!webPath/$!{obj.goods_main_photo.path}/$!{obj.goods_main_photo.name}")
+				            #else
+				            #set($small_img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+				            #set($big_img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+						    #end
+							 <img src="$!small_img">
+						</div>
+						<div class="yzs-shopdetail-left-top-change">
+							<div id="btn_prve"></div>
+							<div class="yzs-shopdetail-left-top-ul">
+								<ul>
+								 #foreach($img in $obj.goods_photos) 
+									<li #if($velocityCount==$obj.goods_photos.size()) class="yzs-shopdetail-left-top-ul-sel" #end><img src="$!webPath/$!img.path/$!{img.name}"></li>
+								 #end
+							   </ul>
+							</div>
+							<div id="btn_next"></div>
+						</div>
+						<div class="yzs-shopdetail-left-top-tools">
+							<div><img src="$!webPath/resources/style/shop/default/img/icon_15.png"> 收藏</div>
+							<div><img src="$!webPath/resources/style/shop/default/img/icon_16.png"> 分享</div>
+						</div>
+					</div>
+					<div class="yzs-shopdetail-left-top-right">
+						<div class="yzs-shopdetail-left-top-title">$!obj.goods_name</div>
+						<div class="yzs-shopdetail-left-top-info">
+							<div>单价</div>
+							<div style="color:#FF6602;font-size:20px;font-weight:bold;">#if($!obj.lookStatus==1)#if($!user) ¥<span>$!{obj.goods_price}</span> #else<span><a href="$!webPath/user/login.htm" style="color: red;">登录看价</a></span>#end #else¥<span>$!{obj.goods_price}</span> #end <img src="$!webPath/resources/style/shop/default/img/icon_12.png"><br>
+								<span style="font-size:12px;font-weight:normal;">含税，不含物流费</span></div>
+							<div>
+								<span style="color:#098B7F;"><img src="$!webPath/resources/style/shop/default/img/icon_13.png">查看质检报告</span> 
+								<span style="color:#098B7F;"><img src="$!webPath/resources/style/shop/default/img/icon_14.png">联系客服</span><br>
+								<span style="color:#A3A3A3;font-size:12px;">推荐度</span> <span style="color:#FF6602;font-weight:bold;">98%</span>
+							</div>
+						</div>
+						<div class="yzs-shopdetail-left-top-param">
+							<table>
+								<tr> <td>库存量</td> <td><span style="color:#FF6602;font-weight:bold;">$!obj.goods_inventory</span> <span>吨</span></td> <td>库存地</td> <td><span>#set($ars=$!areaViewTools.getDepotStr($!obj.goods_address)) $!ars</span></td> </tr>
+								<tr> #set($sx=$!goodsViewTools.getStrMaps($!obj.goods_property)) #foreach($s in $!sx)<td>$!s.val</td><td><span>$!s.name</span></td> #end </tr>
+								<tr> <td>数量</td> <td ><div class="gw_num"><em class="jian">-</em><input type="text" value="1" class="num" name="number"/><em class="add">+</em></div></td> <td>吨</td> <td></td></tr>
+							</table>
+						</div>
+						<div class="yzs-shopdetail-left-top-btn">
+							<div onclick="buy_good();">立即购买</div>
+							<div onclick="add_cart();">加入采购单</div>
+							<div onclick="sample();">我要试样</div>
+						</div>
+					</div>
+				</div>
+				<div class="yzs-shopdetail-left-tab">
+					<ul>
+						<li id="tab_info" class="yzs-shopdetail-left-tab-sel">描述说明</li>
+						<li id="tab_evaluate"  uri="$!webPath/goods_evaluation.htm?goods_id=$!{obj.id}&id=$!{store.id}">评价</li>
+					</ul>
+				</div>
+				
+				<div class="yzs-shopdetail-left-con" id="con_info" style="display:block;">
+					<div class="yzs-shopdetail-left-con-box">
+						<div class="yzs-shopdetail-left-con-title">重要参数</div>
+						<div class="yzs-shopdetail-left-con-con">
+							<table>
+								<tr> <td style="width:200px;">密度（g/cm<sup>3</sup>）：</td> <td style="width:200px;">#set($md=$!goodsViewTools.getParamStr($!obj.goods_parameter_detail,'density')) $!md</td> <td style="width:200px;">是否环保：#set($hb=$!goodsViewTools.getParamStr($!obj.goods_parameter_detail,'huanbao')) #if($!hb==1) 是 #else 否 #end</td> <td style="width:200px;"></td> </tr>
+								<tr> <td>悬臂梁缺口冲击（KJ/m<sup>3</sup>）：</td> <td>#set($xb=$!goodsViewTools.getParamStr($!obj.goods_parameter_detail,'xblqkcj')) $!xb</td> <td>简支梁缺口冲击（KJ/m<sup>3</sup>）：</td> <td>#set($jz=$!goodsViewTools.getParamStr($!obj.goods_parameter_detail,'jzlqkcj')) $!jz</td> </tr>
+								<tr> <td>溶脂（g/10min）</td> <td>#set($rz=$!goodsViewTools.getParamStr($!obj.goods_parameter_detail,'solute')) $!rz</td> <td>灰分（%）：</td> <td>#set($hf=$!goodsViewTools.getParamStr($!obj.goods_parameter_detail,'content')) $!hf</td> </tr>
+								<tr> <td>水分（%）：</td> <td>#set($sf=$!goodsViewTools.getParamStr($!obj.goods_parameter_detail,'water')) $!sf</td> <td>拉伸强度（MPa）：</td> <td>#set($ls=$!goodsViewTools.getParamStr($!obj.goods_parameter_detail,'tensile')) $!ls</td> </tr>
+								<tr> <td>断裂伸长率（%）：</td> <td>#set($dl=$!goodsViewTools.getParamStr($!obj.goods_parameter_detail,'elongation')) $!dl</td> <td>弯曲强度（MPa）：</td> <td>#set($qdx=$!goodsViewTools.getParamStr($!obj.goods_parameter_detail,'wqqd')) $!qdx</td> </tr>
+								<tr> <td>弯曲模量（MPa）：</td> <td>#set($wdx=$!goodsViewTools.getParamStr($!obj.goods_parameter_detail,'modulus')) $!wdx</td> <td>燃烧登记：</td> <td>#set($rd=$!goodsViewTools.getParamStr($!obj.goods_parameter_detail,'burning')) $!rd</td> </tr>
+								<tr> <td>来源：</td> <td>#set($md=$!goodsViewTools.getParamStr($!obj.goods_parameter_detail,'from')) $!md</td> <td>用途：</td> <td>#set($md=$!goodsViewTools.getParamStr($!obj.goods_parameter_detail,'purpose')) $!md</td> </tr>
+							</table>
+						</div>
+					</div>
+					<div class="yzs-shopdetail-left-con-box">
+						<div class="yzs-shopdetail-left-con-title">详细描述</div>
+						<div class="yzs-shopdetail-left-con-con">
+						   $!obj.goods_details
+						</div>
+					</div>
+				</div>
+				
+				<div class="yzs-shopdetail-left-con" id="con_evaluate" style="display:none;">
+					<div class="yzs-shopdetail-left-con-box">
+						<div class="yzs-shopdetail-left-con-title">货品评价</div>
+						<div class="yzs-shopdetail-left-con-con">
+							<div class="yzs-shopdetail-left-con-top">
+								好评率 <span style="font-size:20px;color:#FF6600;font-weight:bold;margin-right:50px;">100%</span>
+								推荐度 <span style="font-size:14px;color:#FF6600;font-weight:bold;">98%</span>
+								<span style="float:right;">共计 <span style="font-size:12px;color:#FF6600;font-weight:bold;">2</span> 评价</span>
+							</div>
+							<ul>
+								<li>
+									<div><span>ge**n</span>的评价<img src="$!webPath/resources/style/shop/default/img/icon_19.png"><span>2018-03-01</span></div>
+									<div>未输入评价未输入评价未输入评价入评价未输入评价未输入评价未输入评价未输入评价未输入评价未输入评价未输入评价未输入评价未输入评价未输入评价未输入评价未输入评价</div>
+								</li>
+								<li>
+									<div><span>ge**n</span>的评价<img src="$!webPath/resources/style/shop/default/img/icon_20.png"><span>2018-03-01</span></div>
+									<div>未输入评价未输入评价未输入评价入评价未输入评价未输入评价未输入评价未输入评价未输入评价未输入评价未输入评价未输入评价未输入评价未输入评价未输入评价未输入评价</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+				<div class="yzs-shopdetail-left-con">
+				</div>
+			</div>
+			<div class="yzs-shopdetail-right">
+				<div class="yzs-shopdetail-right-top">
+						<div>优品推荐</div>
+					</div>
+					<div class="yzs-shopdetail-right-con">
+					  #foreach($grl in $!goods_recommend_list)
+							<div class="yzs-market-right-box">
+							       #set($goods_url="$!webPath/goods_$!{grl.id}.htm")
+					               #if($!config.second_domain_open)
+					               #set($goods_url="http://$!{grl.goods_store.store_second_domain}.$!{domainPath}/goods_$!{grl.id}.htm")
+					               #end
+								<a href="$goods_url">
+							        #if($!grl.goods_main_photo)
+									  #set($img="$!webPath/$!{$grl.goods_main_photo.path}/$!{grl.goods_main_photo.name}_small.$!{grl.goods_main_photo.ext}")
+									#else
+									  #set($img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+									#end
+									<div class="yzs-market-left-img"> <img src="$!img"> </div>
+									<div class="yzs-market-left-title"> $!grl.goods_name </div>
+									<div class="yzs-market-left-price"> #if($!grl.lookStatus==1)#if($!user) <span>$!grl.goods_price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!grl.goods_price</span> #end<span>#set($av=$!areaViewTools.getStrArea($!grl.goods_address)) $!CommUtil.substring("$!{av}",6)</span> </div>
+								</a>
+							</div>
+					   #end
+					</div>
+			</div>
+			
+		</div>
+		<div class="blank40"></div>		
+	</div>
+	$!httpInclude.include("/footer.htm") 
+</body>
+</html>

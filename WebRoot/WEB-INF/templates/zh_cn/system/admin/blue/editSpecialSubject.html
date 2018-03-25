@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+#macro ( genericTree $somelist ) 
+#foreach ( $some in $somelist )
+<option value="$!some.id">#if($!some.level>0)
+#foreach($count in [0..$!some.level])&nbsp;&nbsp;#end #end $!some.className</option>
+#genericTree($some.childs) 
+#end 
+#end
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/vue.min.js"></script>
+<script charset="utf-8" src="$!webPath/resources/editor/kindeditor.js"></script>
+<script>
+//options为编辑配置属性
+var options = {
+        cssPath : '$!webPath/resources/editor/themes/default/default.css',
+        filterMode : true,
+		uploadJson:'$!webPath/upload.htm',
+		width : '700px',
+		height:'400px',
+		syncType:"form",
+		afterCreate : function() {
+							var self = this;
+							self.sync();
+						},
+		afterChange : function() {
+							var self = this;
+							self.sync();
+						},
+		afterBlur : function() {
+							var self = this;
+							self.sync();
+						},
+		items:['source', '|', 'fullscreen', 'undo', 'redo', 'print', 'cut', 'copy', 'paste',
+			'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+			'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+			'superscript', '|', 'selectall', 'clearhtml','quickformat','|',
+			'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+			'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'table', 'hr', 'emoticons', 'link', 'unlink', '|', 'about']
+};
+jQuery(document).ready(function(){
+//设置默认状态以及判断初始显示状态
+	var state = jQuery("#display").val();
+	if(state==""){
+		jQuery("#display").val("true");
+		jQuery("#displayOff").hide();
+	}else{
+		 if(state=="true"){
+			jQuery("#displayOff").hide();
+		}else{
+			jQuery("#displayOn").hide();
+		}
+	}	
+//
+   jQuery("#theForm").validate({
+		ignore: "",						  
+	    rules:{
+	    	name:{required :true},
+	    	orderid:{number:true}
+		 },
+		messages:{
+			name:{required:"专题名称不能为空"},
+			orderid:{number:"排列顺序不能为空并且为数字"}
+		}
+	  }); 
+  //
+
+  editor = KindEditor.create('#content',options); 
+  jQuery("#class_id").val("$!obj.articleClass.id");
+  //
+   jQuery("#display_img").click(function(){
+    var display=jQuery("#display").val();
+	if(display=="true"){
+	  jQuery("#display_img").attr("src","$!webPath/resources/style/system/manage/blue/images/no.jpg");
+	  jQuery("#display").val("false");
+	}else{
+	  jQuery("#display_img").attr("src","$!webPath/resources/style/system/manage/$!{config.websiteCss}/images/yes.jpg");
+	  jQuery("#display").val("true");
+	}
+  }); 
+}); 
+
+function saveForm(){
+   var arr=[]
+    $("#class_id11 option:selected").each(function() {
+	    var a=$(this).attr("value")
+	    arr.push(a)
+	});
+   var prepareColumn=arr.join(",")
+   $("input[name='prepareColumn']").attr("value",prepareColumn)
+   $("#theForm").submit();
+}
+
+</script>
+</head>
+<body>
+<div class="cont" >
+  <h1 class="seth1">文章管理</h1>
+  <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="$!webPath/admin/specialSubject_list.htm">管理</a> | <a href="$!webPath/admin/loadAddSpecialSubject.htm" #if(!$!edit)class="this"#end>新增</a> #if($!edit) <a href="javascript:void(0);" class="this">编辑</a> #end </span> <span class="tab-two"></span></div>
+  <form name="theForm" id="theForm" action="$!webPath/admin/editSpecialSubject.htm" method="post" enctype="multipart/form-data">
+  <input type="hidden" value="$!specialSubject.id" name="id"/>
+    <div class="setcont">
+      <ul class="set1">
+          <li><span>专题名称：</span><span><input type="text" size="40" name="name" value="$!specialSubject.name"/></span></li>
+          <li><span>简称：</span><span><input type="text" size="40" name="abbreviation" value="$!specialSubject.abbreviation"/></span></li>
+          <li><span>关键字：</span><span><input type="text" size="40" name="keyWord" value="$!specialSubject.keyWord"/></span></li>
+          <li><span>描述：</span><span><textarea cols="200" rows="10" name="description">$!specialSubject.description</textarea></span></li>
+          <li><span>标题图pc端：</span><span><input type="file" size="40" name="a"/></span><span>上传</span><span>删除</span></li>
+          <li><span>标题图手机端：</span><span><input type="file" size="40" name="b"/></span><span>上传</span><span>删除</span></li>
+          <li><span>内容图pc端：</span><span><input type="file" size="40" name="c" multiple="multiple"/></span><span>上传</span><span>删除</span></li>
+          <li><span>内容图手机端：</span><span><input type="file" size="40" name="d" multiple="multiple"/></span><span>上传</span><span>删除</span></li>
+          <li><span>排列顺序：</span><span><input type="text" size="40" name="orderid" value="$!specialSubject.orderid"/></span><span>推荐：</span><span><input type="radio" name="recommend" checked="checked"/>是<input type="radio" name="recommend"/>否</span></li>
+          <li><span>专题模板：</span><span><input type="text" size="40" name="colTemplate" value="$!specialSubject.colTemplate"/></span></li>
+          <li><span>手机模板：</span><span><input type="text" size="40" name="phoTemplate" value="$!specialSubject.phoTemplate"/></span></li>
+      </ul>
+    </div>
+  </form>
+  <div class="submit">
+    <input name="" type="button" value="提交" onclick="saveForm()" />
+  </div>
+</div>
+<script>
+var vm=new Vue({
+    el:"#theForm",
+    data:{
+    	pink:1
+    },
+    mounted:function () {
+        this.$nextTick(function () {
+            this.init();
+        })
+    },
+    filters:{
+    	formatMoney(value){
+        }
+    },
+    methods:{
+        init:function (){
+        },
+        formatType:function(v){
+            if(v==3){
+            	editor = KindEditor.create('#content',options); 
+            	//jQuery("#class_id").val("$!obj.articleClass.id");
+            }
+        }
+    }
+});	
+ </script>
+</body>
+</html>

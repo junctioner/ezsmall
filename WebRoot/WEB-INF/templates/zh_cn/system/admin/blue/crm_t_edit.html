@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script>
+jQuery(document).ready(function(){
+//设置默认状态以及判断初始显示状态
+	var state = jQuery("#display").val();
+	if(state==""){
+		jQuery("#display").val("true");
+		jQuery("#displayOff").hide();
+	}else{
+		 if(state=="true"){
+			jQuery("#displayOff").hide();
+		}else{
+			jQuery("#displayOn").hide();
+		}
+	}
+	
+	var state1 = jQuery("#recommend").val();
+	if(state1==""){
+		jQuery("#recommend").val("true");
+		jQuery("#recommendOff").hide();
+	}else{
+		 if(state1=="true"){
+			jQuery("#recommendOff").hide();
+		}else{
+			jQuery("#recommendOn").hide();
+		}	
+	}	
+//
+ 	//改变系统提示的样式
+  jQuery("span .w").mousemove(function(){
+	var id=jQuery(this.parentNode).attr("id");
+	if(id="nothis"){
+	   jQuery(this.parentNode).attr("id","this")
+	}
+  }).mouseout(function(){
+     var id=jQuery(this.parentNode).attr("id");
+	 if(id="this"){
+	   jQuery(this.parentNode).attr("id","nothis")
+	 }
+  });
+jQuery("#pid").val("$!obj.parent.id");
+jQuery("#goodsTypeId").val("$!obj.goodsType.id");
+//
+  jQuery("#theForm").validate({
+    rules:{
+	  className:{
+	    required :true,
+	     remote:{
+		    url: "$!webPath/admin/goods_class_verify.htm",     //后台处理程序
+            type: "post",               //数据发送方式
+            dataType: "json",           //接受数据格式   
+            data: {                     //要传递的数据
+                  "className": function(){return jQuery("#className").val();},
+				  "id":function(){return jQuery("#id").val()},
+				  "pid":function(){return jQuery("#pid").val()}
+		     }
+			}
+	  }
+	 },
+	messages:{
+	  className:{required:"分类名称不能为空",remote:"该分类已经存在"}
+	}
+  });
+  //图标
+  jQuery("#pid").change(function(){
+	 var val = jQuery(this).val();
+	  if(val==""){
+		 jQuery("#icon").show(); 
+		 jQuery("#icon_sys_ul").show();
+		  }else{
+		 jQuery("#icon").hide();	
+		 jQuery("#icon_sys_ul").hide();  
+		 jQuery("#icon_acc_ul").hide(); 
+			  }
+	  });
+  jQuery("input[type='radio']").click(function(){
+	 var val = jQuery(this).attr("value");
+	  if(val==1){
+	  jQuery("#icon_sys_ul").hide();
+	  jQuery("#icon_acc_ul").show();	  
+	  }else{
+	  jQuery("#icon_sys_ul").show();
+	  jQuery("#icon_acc_ul").hide();		  
+	  }
+  });
+  jQuery(".icon_sys a").click(function(){
+	  jQuery("#icon_sys").val(jQuery(this).attr("icon"));
+	  jQuery(this).parent().find("a").removeClass("this");
+	  jQuery(this).addClass("this");
+	  });
+   jQuery("#icon_acc").change(function(){
+	 jQuery("#textfield1").val(jQuery("#icon_acc").val());
+   })
+     jQuery("#logoShow").mouseover(function(){
+	    jQuery("#logoImg").css('display','block');
+   }).mouseout(function(){
+		jQuery("#logoImg").css('display','none');
+	});
+#if($!obj.icon_type)	
+#if($!obj.icon_type==0)
+jQuery("#icon_sys_ul").show();
+jQuery("#icon_acc_ul").hide();
+jQuery(".icon_sys a").removeClass("this");
+jQuery(".icon_sys a[icon='$!obj.icon_sys']").addClass("this");
+#else
+jQuery("#icon_sys_ul").hide();
+jQuery("#icon_acc_ul").show();
+#end
+#end
+#if($!obj.parent.id)
+jQuery("#icon").hide();	
+jQuery("#icon_sys_ul").hide();  
+jQuery("#icon_acc_ul").hide();
+#end	
+});
+
+
+function saveForm(method){
+   jQuery("#theForm").submit();
+}
+
+//设置显示开关
+function displayState(){
+	var state = jQuery("#display").val();
+	if(state=="true"){
+		jQuery("#display").val("false");
+		jQuery("#displayOff").show();
+		jQuery("#displayOn").hide();
+	}else{
+		jQuery("#display").val("true");
+		jQuery("#displayOff").hide();
+		jQuery("#displayOn").show();
+	}
+}
+
+//设置推荐开关
+function recommendState(){
+	var state = jQuery("#recommend").val();
+	if(state=="true"){
+		jQuery("#recommend").val("false");
+		jQuery("#recommendOff").show();
+		jQuery("#recommendOn").hide();
+	}else{
+		jQuery("#recommend").val("true");
+		jQuery("#recommendOff").hide();
+		jQuery("#recommendOn").show();
+	}
+}
+</script>
+</head>
+<body>
+<div class="cont">
+  <h1 class="seth1">客户编辑</h1>
+  <div class="settab"><span class="tab-one"></span>
+      <span class="tabs">
+       <a href="$!webPath/admin/crm_t_list.htm">管理</a> 
+         
+       #if($!edit) | 
+	   <a href="javascript:void(0);" class="this">编辑</a>
+	   #end
+	   </span>
+      
+      <span class="tab-two"></span></div>
+ <form name="theForm" id="theForm" action="$!webPath/admin/crm_t_save.htm" method="post" enctype="multipart/form-data">
+ <input name="id" type="hidden" id="id" value="$!obj.id" />
+
+  <input name="currentPage" type="hidden" id="currentPage" value="$!currentPage" />
+  <input name="list_url" type="hidden" id="list_url" value="$!webPath/admin/goods_class_list.htm" />
+  <input name="add_url" type="hidden" id="add_url" value="$!webPath/admin/goods_class_add.htm" />
+  <div class="setcont">
+    <ul class="set1">
+      <li><strong class="orange fontsize20"></strong>企业名称</li>
+      <li><span class="webname">
+      
+        <input name="truename"  disabled="disabled"  "text" id="truename" value=" $!obj.consumer.ent_name" size="40" />
+      </span></li>
+      
+    </ul>
+      <ul class="set1">
+      <li><strong class="orange fontsize20">*</strong>客户名称 </li>
+      <li><span class="webname">
+        <input name="truename" type="text" id="truename" value="$!obj.truename" size="40" />
+      </span></li>
+        </ul>
+         <ul class="set1">
+      <li><strong class="orange fontsize20"></strong>部门 </li>
+      <li><span class="webname">
+        <input name="department" type="text" id="department" value="$!obj.department" size="40" />
+      </span></li>
+        </ul>
+         <ul class="set1">
+      <li><strong class="orange fontsize20"></strong>email </li>
+      <li><span class="webname">
+        <input name="email" type="text" id="email" value="$!obj.email" size="40" />
+      </span></li>
+        </ul> <ul class="set1">
+      <li><strong class="orange fontsize20"></strong>职业 </li>
+      <li><span class="webname">
+        <input name="post" type="text" id="post" value="$!obj.post" size="40" />
+      </span></li>
+        </ul> <ul class="set1">
+      <li><strong class="orange fontsize20"></strong>性别 </li>
+      <li><span class="webname">
+        <input name="sex" type="text" id="sex" value="$!obj.sex" size="40" />
+      </span></li>
+        </ul>
+      <ul class="set1">
+      <li><strong class="orange fontsize20"></strong>联系电话</li>
+      <li><span class="webname">
+        <input name="telephone" type="text" id="telephone" value="$!obj.telephone" size="40" />
+      </span></li>
+      
+    </ul>
+      <ul class="set1">
+      <li><strong class="orange fontsize20"></strong>地域</li>
+      <li><span class="webname">
+        <input name="address" type="text" id="address" value="$!obj.address" size="40" />
+      </span></li>
+      
+    </ul>
+     </ul>
+    
+  
+	
+	
+	
+
+   
+     
+      
+      
+       
+    
+   
+    </div>
+  </form>
+  <div class="submit">
+    <input name="save" type="button" value="提交" onclick="saveForm()" />
+  </div>
+</div>
+</body>
+</html>

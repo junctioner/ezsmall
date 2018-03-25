@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户登录 - $!config.title - Powered by ezaisheng</title>
+<meta name="keywords" content="$!config.keywords" />
+<meta name="description" content="$!config.description" />
+<meta name="generator" content="ezaisheng 1.0" />
+<meta name="author" content="www.ezaisheng.com">
+<meta name="copyright" content="ezaisheng Inc. All Rights Reserved">
+ <link rel="stylesheet" href="$!webPath/resources/style/shop/default/css/yzs.css?v=1" />
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script src="$!webPath/resources/layui/layui.all.js"></script>
+<script>
+jQuery(document).ready(function(){
+	jQuery(".yzs-login-tab li").click(function(){
+		$(".yzs-login-tab li").removeClass("yzs-login-tab-sel");
+		$(this).addClass("yzs-login-tab-sel");
+		$(".yzs-login-con").css("display","none");
+		var id = $(this).attr("data-id");
+		if(id=="A"){
+			$("#lia img").attr("src","$!webPath/resources/style/shop/default/img/icon_25.png");
+			$("#lib img").attr("src","$!webPath/resources/style/shop/default/img/icon_26.png");
+		}
+		if(id=="B"){
+			$("#lia img").attr("src","$!webPath/resources/style/shop/default/img/icon_24.png");
+			$("#lib img").attr("src","$!webPath/resources/style/shop/default/img/icon_27.png");
+		}
+		$("#con_"+id).css("display","block");
+	});
+  jQuery("#theForm").validate({
+	  onkeyup:false,
+	  onfocusout:false,
+	  showErrors:function(errorMap,errorList) {
+		if(errorList.length > 0){
+			layer.msg(errorList[0].message,{icon:2,time:800,skin:'layer-ext-moon'});
+		}
+    },
+	rules: {
+			username: "required",
+			password: "required"#if($!config.securityCodeLogin),
+			code:"required"#end},
+		messages: {
+			username: "用户名不能为空",
+			password: "密码不能为空"#if($!config.securityCodeLogin),
+			code:"验证码不能为空"#end
+		  }
+  });
+  jQuery("#theForm2").validate({
+	  onkeyup:false,
+	  onfocusout:false,
+	  showErrors:function(errorMap,errorList) {
+		if(errorList.length > 0){
+			layer.msg(errorList[0].message,{icon:2,time:800,skin:'layer-ext-moon'});
+		}
+    },
+	rules: {
+			phone:"required"#if($!config.securityCodeLogin),
+			phoCode:"required"#end,
+			phoCheck:"required"},
+		messages: {
+			phone: "手机号不能为空"
+			#if($!config.securityCodeLogin),
+			phoCode:"验证码不能为空"#end,
+			phoCheck:"手机验证码不能为空"
+		  }
+  });
+  //回车键登陆
+  $(document).keyup(function(event){
+	  if(event.keyCode ==13){
+		  var fromid = "theForm";
+	      if($(".yzs-login-tab-sel").attr("data-id")=="B"){
+	    	  fromid = "theForm2";
+	      };
+	      login(fromid);
+	  }
+	});
+});
+layer.use(["layer"],function(){
+	layer = layui.layer;
+})
+function login(fromid){
+	$("#"+fromid).submit();
+}
+function refreshCode(){
+    jQuery(".yzs-login-con img").attr("src","$!webPath/verify.htm?d"+new Date().getTime());
+}
+
+</script>
+</head>
+<body>
+    $!httpInclude.include("/top.htm")
+    <div class="yzs-head2-pannel">
+		<div class="yzs-head2">
+			<div class="yzs-head2-top">
+				<div class="yzs-head2-logo">注册登录</div>
+				<div class="yzs-head2-search">
+					
+				</div>
+				<div class="yzs-head2-tel"></div>
+			</div>
+		</div>
+	</div>
+	<div class="yzs-login-pannel">
+		<div class="yzs-login-box">
+		  <form action="$!webPath/wemall_login.htm" method="post" name="theForm" id="theForm">
+			<div class="yzs-login-tit">
+				<div class="yzs-login-tab">
+					<ul>
+						<li id="lia" data-id="A" class="yzs-login-tab-sel"><img src="$!webPath/resources/style/shop/default/img/icon_25.png"/>密码登录</li>
+						<li id="lib" data-id="B"><img src="$!webPath/resources/style/shop/default/img/icon_26.png"/>短信快捷登录</li>
+					</ul>
+				</div>
+			</div>
+			<div class="yzs-login-con" id="con_A">
+				<table>
+					<tr><td width="80px">登录名：</td><td colspan="2"><input type="text" name="username" id="username" placeholder="请输入用户账号"/></td></tr>
+					<tr><td>登录密码：</td><td colspan="2"><input type="password" id="password" name="password" placeholder="请输入登录密码"/></td><td></td></tr>
+					#if($!config.securityCodeLogin)<tr><td>验证码：</td><td><input type="text" name="code" id="code" placeholder="请输入验证码"/></td><td><img src="$!webPath/verify.htm" id="code_img"/><span onclick="refreshCode();">换一换</span></td></tr>#end
+				</table>
+				<div class="yzs-login-btn" onclick="login('theForm');">登录</div>
+				<div class="yzs-login-tools">
+					<span>忘记密码？</span>
+					<span>新用户注册</span>
+				</div>
+			</div>
+			</form>
+			<form action="$!webPath/wemall_login.htm" method="post" name="theForm2" id="theForm2">
+			<div class="yzs-login-con" id="con_B" style="display:none;">
+				<table>
+					<tr><td width="80px">手机号：</td><td colspan="2"><input type="text" name="phone" id="phone" placeholder="请输入手机号"/></td></tr>
+					#if($!config.securityCodeLogin)<tr><td>验证码：</td><td><input type="text" name="phoCode" id="phoCode" placeholder="请输入验证码"/></td><td><img src="$!webPath/verify.htm" id="checkCode" /><span onclick="refreshCode();">换一换</span></td></tr>#end
+					<tr><td>校验码：</td><td><input type="text" name="phoCheck" id="phoCheck" placeholder="请输入校验码"/></td><td><div>获取手机验证码</div></td></tr>
+				</table>
+				<div class="yzs-login-btn" onclick="login('theForm2');">登录</div>
+				<div class="yzs-login-tools">
+					<span>忘记密码？</span>
+					<span>新用户注册</span>
+				</div>
+			</div>
+		</form>
+		</div>
+	</div>
+    $!httpInclude.include("/footer.htm") 
+</body>
+</html>
