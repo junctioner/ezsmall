@@ -2,10 +2,10 @@
 		<div class="yzs-market-item-top">
 		#foreach($gc in $!gcs)
 		     <div class="yzs-market-item">
-				<div>$!gc.className</div>
+				<div>$!gc.name</div>
 					<div>
 						#foreach($gc1 in $gc.childs)
-						    <span>$!gc1.className</span>
+						    <span>$!gc1.name</span>
 						#end
 					</div>
 			</div>

@@ -42,13 +42,13 @@ public class Goods extends IdEntity {
 	private Date recommend_time;// 推荐日期
 	private int click;// 商品点击量
 	private int collect;// 商品收藏量
-	private int status;// 商品状态
+	private int status;// 商品状态 2.正常上架
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Dict logistics;// 物流方式
+	private Dict logistics;// 物流方式 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Dict supply;// 供货方式
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Dict color;// 颜色
+	private Dict color;// 颜色 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Area region;// 地区
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -72,7 +72,7 @@ public class Goods extends IdEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;// 发布人
 	@ManyToOne(fetch = FetchType.LAZY)
-	private GoodClass goodClass;// 商品分类
+	private GoodsClass goodClass;// 商品分类
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Quality quality;// 质检
 	@ManyToOne(cascade = { javax.persistence.CascadeType.REMOVE })
@@ -407,11 +407,11 @@ public class Goods extends IdEntity {
 	}
 
 
-	public GoodClass getGoodClass() {
+	public GoodsClass getGoodClass() {
 		return goodClass;
 	}
 
-	public void setGoodClass(GoodClass goodClass) {
+	public void setGoodClass(GoodsClass goodClass) {
 		this.goodClass = goodClass;
 	}
 

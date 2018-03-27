@@ -62,7 +62,7 @@ public class Store extends IdEntity {
 			@javax.persistence.JoinColumn(name = "store_id") }, inverseJoinColumns = {
 					@javax.persistence.JoinColumn(name = "accessory_id") })
 	private List<Accessory> idCard_imgs;// 身份证图片
-	private int status;// 商品状态
+	private int status;// 商铺状态 2.正常
 	private Date registerDate;// 注册时间
 
 	public String getCompanyName() {
