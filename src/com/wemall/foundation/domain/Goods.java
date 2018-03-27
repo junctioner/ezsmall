@@ -44,11 +44,11 @@ public class Goods extends IdEntity {
 	private int collect;// 商品收藏量
 	private int status;// 商品状态 2.正常上架
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Dict logistics;// 物流方式 
+	private Dict logistics;// 物流方式
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Dict supply;// 供货方式
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Dict color;// 颜色 
+	private Dict color;// 颜色
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Area region;// 地区
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -78,13 +78,18 @@ public class Goods extends IdEntity {
 	@ManyToOne(cascade = { javax.persistence.CascadeType.REMOVE })
 	private Accessory goods_main_photo;// 主图片
 	private boolean memberLook;// 是否会员查看
-	private int goods_salenum;//销量数
+	private int goods_salenum;// 销量数
 	// 照片
 	@ManyToMany
 	@JoinTable(name = "ezs_goods_photo", joinColumns = {
 			@javax.persistence.JoinColumn(name = "goods_id") }, inverseJoinColumns = {
 					@javax.persistence.JoinColumn(name = "photo_id") })
 	private List<Accessory> goods_photos = new ArrayList<Accessory>();
+	@ManyToMany
+	@JoinTable(name = "ezs_goods_cartography", joinColumns = {
+			@javax.persistence.JoinColumn(name = "goods_id") }, inverseJoinColumns = {
+					@javax.persistence.JoinColumn(name = "cartography_id") })
+	private List<Accessory> cartographys = new ArrayList<Accessory>();
 
 	public String getName() {
 		return name;
@@ -406,7 +411,6 @@ public class Goods extends IdEntity {
 		this.goods_photos = goods_photos;
 	}
 
-
 	public GoodsClass getGoodClass() {
 		return goodClass;
 	}
@@ -429,6 +433,14 @@ public class Goods extends IdEntity {
 
 	public void setGoods_salenum(int goods_salenum) {
 		this.goods_salenum = goods_salenum;
+	}
+
+	public List<Accessory> getCartographys() {
+		return cartographys;
+	}
+
+	public void setCartographys(List<Accessory> cartographys) {
+		this.cartographys = cartographys;
 	}
 
 }

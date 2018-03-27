@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.geostar.gtgh.DataCenter_util.JsonHelper;
+import com.wemall.core.tools.bean.ColumnEc;
 import com.wemall.core.tools.bean.GoodEc;
 import com.wemall.core.tools.bean.GoodPec;
 
@@ -109,6 +110,18 @@ public class MapTools {
 		}
     	return goodPecs;
     }
+    public static List<ColumnEc> getColumnStr(String jsonStr) {
+		List<ColumnEc> columnEc = null;
+		if (jsonStr != null && !"".equals(jsonStr)) {
+			columnEc = new ArrayList<ColumnEc>();
+			JSONArray jsonArray = JsonHelper.String2JSONArray(jsonStr);
+			for (int i = 0; i < jsonArray.size(); i++) {
+				ColumnEc goodEc = (ColumnEc) JSONObject.toBean(jsonArray.getJSONObject(i), ColumnEc.class);
+				columnEc.add(goodEc);
+			}
+		}
+		return columnEc;
+	}
 	public static void main(String[] args) {
 		String xx = "[{\"val\":\"121\",\"name\":\"from\"},{\"val\":\"121\",\"name\":\"from\"}]";
 		JSONArray jsonArray = JsonHelper.String2JSONArray(xx);

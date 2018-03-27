@@ -1,5 +1,9 @@
 package com.wemall.web.action;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,6 +29,14 @@ public class GoodsViewAction {
 	@Autowired
 	private IGoodsService goodsService;
 
+	/**
+	 * 商品详情页面
+	 * 
+	 * @param id
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/goods.htm")
 	public ModelAndView goods(String id, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new JModelAndView("default" + "/store_goods.html", this.configService.getSysConfig(),
@@ -35,29 +47,52 @@ public class GoodsViewAction {
 			mv = new JModelAndView("wap/store_goods.html", this.configService.getSysConfig(),
 					this.userConfigService.getUserConfig(), 1, request, response);
 		}
-		if (obj.getStatus() == 2) {
-			obj.setClick(obj.getClick() + 1);
-			if (obj.getUser() != null && obj.getUser().getStore() != null&& obj.getUser().getStore().getStatus() == 2) {
-				mv.addObject("obj", obj);
-				//评论列表
-				
-			} else {
-				mv = new JModelAndView("error.html", this.configService.getSysConfig(),this.userConfigService.getUserConfig(), 1, request, response);
-				if ((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))) {
-					mv = new JModelAndView("wap/error.html", this.configService.getSysConfig(),this.userConfigService.getUserConfig(), 1, request, response);
+		if(obj!=null){
+			if (obj.getStatus() == 2) {
+				obj.setClick(obj.getClick() + 1);
+				if (obj.getUser() != null && obj.getUser().getStore() != null
+						&& obj.getUser().getStore().getStatus() == 2) {
+					mv.addObject("obj", obj);
+					Map<String, Object> paramMap = new HashMap<String, Object>();
+					// 优品推荐
+					paramMap.put("deleteStatus", false);
+					paramMap.put("stroeid", obj.getUser().getStore().getId());
+					paramMap.put("recommend", Boolean.valueOf(true));
+					List<Goods> goods_reommend_list = goodsService.query(
+							"select obj from Goods obj where obj.deleteStatus =:deleteStatus and obj.user.store.id =:stroeid and obj.recommend =:recommend",
+							paramMap, 0, 4);
+					mv.addObject("goods_reommend_list", goods_reommend_list);
+				} else {
+					mv = new JModelAndView("error.html", this.configService.getSysConfig(),
+							this.userConfigService.getUserConfig(), 1, request, response);
+					if ((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))) {
+						mv = new JModelAndView("wap/error.html", this.configService.getSysConfig(),
+								this.userConfigService.getUserConfig(), 1, request, response);
+					}
+					mv.addObject("op_title", "店铺未开通，拒绝访问");
+					mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
 				}
-				mv.addObject("op_title", "店铺未开通，拒绝访问");
+			} else {
+				mv = new JModelAndView("error.html", this.configService.getSysConfig(),
+						this.userConfigService.getUserConfig(), 1, request, response);
+				if ((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))) {
+					mv = new JModelAndView("wap/error.html", this.configService.getSysConfig(),
+							this.userConfigService.getUserConfig(), 1, request, response);
+				}
+				mv.addObject("op_title", "该商品未上架，不允许查看");
 				mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
 			}
-		} else {
-			mv = new JModelAndView("error.html", this.configService.getSysConfig(),this.userConfigService.getUserConfig(), 1, request, response);
+		}else{
+			mv = new JModelAndView("error.html", this.configService.getSysConfig(),
+					this.userConfigService.getUserConfig(), 1, request, response);
 			if ((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))) {
 				mv = new JModelAndView("wap/error.html", this.configService.getSysConfig(),
 						this.userConfigService.getUserConfig(), 1, request, response);
 			}
-			mv.addObject("op_title", "该商品未上架，不允许查看");
+			mv.addObject("op_title", "该商品在商城中尚未找到！");
 			mv.addObject("url", CommUtil.getURL(request) + "/index.htm");
 		}
 		return mv;
 	}
+
 }

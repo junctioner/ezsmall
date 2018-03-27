@@ -57,69 +57,74 @@
 				#end
 			</div>
 			#foreach($ob in $objs)
-			#if($!ob.ec.name=='日评')#set($rp=$ob.ec.id)#end
-			#if($!ob.ec.name=='周评')#set($zp=$ob.ec.id)#end
-			#if($!ob.ec.name=='月评')#set($yp=$ob.ec.id)#end
-			#if($!ob.ec.name=='年评')#set($np=$ob.ec.id)#end
-			#if($!ob.ec.name=='研究报告')#set($yjbg=$ob.ec.id)#end
-			#end
+				#if($!ob.ec.name==$!ezsColumn0.name)#set($ecId0=$ob.ec.id)#set($ecObject0=$ob)#end
+				#if($!ob.ec.name==$!ezsColumn1.name)#set($ecId1=$ob.ec.id)#set($ecObject1=$ob)#end
+				#if($!ob.ec.name==$!ezsColumn2.name)#set($ecId2=$ob.ec.id)#set($ecObject2=$ob)#end
+				#if($!ob.ec.name==$!ezsColumn3.name)#set($ecId3=$ob.ec.id)#set($ecObject3=$ob)#end
+				#if($!ob.ec.name==$!ezsColumn4.name)#set($ecId4=$ob.ec.id)#set($ecObject4=$ob)#end
+	        #end
 			<div class="blank5"></div>
 			<div class="yzs-shopdetail-left">
 					<div class="yzs-quotes-analysis-box">
-						<div class="yzs-quotes-analysis-tit">日评<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!rp'"></div></div>
+						<div class="yzs-quotes-analysis-tit">$!ezsColumn0.name<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!ecId0&ecId=$!ecId0'"></div></div>
 						<div class="yzs-quotes-analysis-list">
 							<ul>
+							    #set($numbera=0)
 							    #foreach($ob in $objs)
-							      #if($!ob.ec.name=='日评')
-								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
+							      #if($!ob.ec.name==$!ezsColumn0.name&&$numbera<9)
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"> #set($numbera=$numbera+1)<span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
 								  #end
 								#end
 							</ul>
 						</div>
 					</div>
 					<div class="yzs-quotes-analysis-box">
-						<div class="yzs-quotes-analysis-tit">周评<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!zp'"></div></div>
+						<div class="yzs-quotes-analysis-tit">$!ezsColumn1.name<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!ecId1&ecId=$!ecId1'"></div></div>
 						<div class="yzs-quotes-analysis-list">
 							<ul>
+							    #set($numberb=0)
 								#foreach($ob in $objs)
-							      #if($!ob.ec.name=='周评')
-								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
+							      #if($!ob.ec.name==$!ezsColumn1.name&&$numberb<9)
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'">#set($numberb=$numberb+1)<span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
 								  #end
 								#end
 							</ul>
 						</div>
 					</div>
 					<div class="yzs-quotes-analysis-box">
-						<div class="yzs-quotes-analysis-tit">月评<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!yp'"></div></div>
+						<div class="yzs-quotes-analysis-tit">$!ezsColumn2.name<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!ecId2&ecId=$!ecId2'"></div></div>
 						<div class="yzs-quotes-analysis-list">
 							<ul>
+							    #set($numberc=0)
 								#foreach($ob in $objs)
-							      #if($!ob.ec.name=='月评')
-								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
+							      #if($!ob.ec.name==$!ezsColumn2.name&&$numberc<9)
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'">#set($numberc=$numberc+1)<span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
 								  #end
 								#end
 							</ul>
 						</div>
 					</div>
 					<div class="yzs-quotes-analysis-box">
-						<div class="yzs-quotes-analysis-tit">年评<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!np'"></div></div>
+						<div class="yzs-quotes-analysis-tit">$!ezsColumn3.name<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!ecId3&ecId=$!ecId3'"></div></div>
 						<div class="yzs-quotes-analysis-list">
 							<ul>
+							    #set($numberd=0)
 								#foreach($ob in $objs)
-							      #if($!ob.ec.name=='年评')
-								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
+							      #if($!ob.ec.name==$!ezsColumn3.name&&$numberd<9)
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'">#set($numberd=$numberd+1)<span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span><span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
 								  #end
 								#end
 							</ul>
 						</div>
 					</div>
 					<div class="yzs-quotes-analysis-box2">
-						<div class="yzs-quotes-analysis-tit2">研究报告 <span><span class="yzs-quotes-analysis-tit2-sel">全部</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!scdy'">市场调研</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!fxyc'">分析预测</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zcjd'">政策解读</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zfbd'">专访报道</span></span></div>
+						<div class="yzs-quotes-analysis-tit2">$!ezsColumn4.name <span><span class="yzs-quotes-analysis-tit2-sel">全部</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!scdy'">市场调研</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!fxyc'">分析预测</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zcjd'">政策解读</span>/<span onclick="window.location.href='$!webPath/changePage.htm?childEc=$!zfbd'">专访报道</span></span></div>
 						<div class="yzs-quotes-analysis-list2">
 							<ul>
+							    #set($numbere=0)
 								#foreach($ob in $objs)
-							      #if($!ob.ec.name=='研究报告')
-								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'"><span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span>
+							      #if($!ob.ec.name==$!ezsColumn4.name&&$numbere<9)
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id'">#set($numbere=$numbere+1)<span>$!ob.name&nbsp;($CommUtil.formatTime("yyyy",$!ob.addTime))</span>
 								  <span>$CommUtil.formatShortDate($!ob.addTime)</span></li>
 								  #end
 								#end

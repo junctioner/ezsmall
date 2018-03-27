@@ -5,9 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>易再生-中国再生资源交易平台</title>
     <link rel="stylesheet" href="$!webPath/resources/style/shop/default/css/yzs.css?v=1" />
+    <link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+    <link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+    <link rel="stylesheet" href="$!webPath/resources/js/layui/css/layui.css" media="all">
     <script src="$!webPath/resources/js/jquery-1.9.1.min.js"></script>
     <script src="$!webPath/resources/js/vue.min.js"></script>
+    <link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+
     <script>
+    function gotoPage(vs){
+    	window.location.href="$!webPath/changePage.htm?currentPage="+vs+"&ecId=$ecId";
+    }
     </script>
 </head>
 <body>
@@ -42,20 +56,35 @@
 								</li>
 								#end
 							</ul>
-							<div class="yzs-analysis-list-page">
-								<ul>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=1#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">1</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=2#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">2</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=3#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">3</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=4#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">4</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=5#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">5</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=6#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">6</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=7#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">7</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=8#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">8</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=9#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">9</li>
-									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=10#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">10</li>
-								</ul>
-							</div>
+<!-- 							<div class="yzs-analysis-list-page"> -->
+<!-- 								<ul> -->
+<!-- 									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=1#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">1</li> -->
+<!-- 									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=2#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">2</li> -->
+<!-- 									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=3#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">3</li> -->
+<!-- 									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=4#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">4</li> -->
+<!-- 									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=5#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">5</li> -->
+<!-- 									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=6#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">6</li> -->
+<!-- 									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=7#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">7</li> -->
+<!-- 									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=8#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">8</li> -->
+<!-- 									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=9#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">9</li> -->
+<!-- 									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=10#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">10</li> -->
+<!--                                     <li onclick="window.location.href='$!webPath/changePage.htm?currentPage=$velocityCount#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">上一页</li> -->
+<!-- 								    #foreach($ob in [1..$totalPage]) -->
+<!-- 									   <li onclick="window.location.href='$!webPath/changePage.htm?currentPage=$velocityCount#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">$!ob</li> -->
+<!-- 									#end -->
+<!-- 									<li onclick="window.location.href='$!webPath/changePage.htm?currentPage=$velocityCount#if($ecId)&ecId=$!ecId#else&childEc=$!childEc#end'">下 -->
+<!-- 									一页</li>								 -->
+<!-- 								</ul> -->
+<!-- 							</div> -->
+							<div class="fenye" align="center">
+						         <span id="queryCondition" style="display:none">
+								   #foreach($sm in $sms)
+							         <input name="$!sm.key" id="$!sm.key" type="hidden" value="$!sm.value"/>
+								   #end
+								 </span>
+								   <input name="currentPage" type="hidden" id="currentPage" value="$!currentPage" />
+							      $!gotoPageFormHTML </div>
+						    
 						</div>
 					</div>
 					
@@ -87,11 +116,14 @@
 						</div>
 						<div class="yzs-analysis-box2-list2">
 							<ul>
-								<li>聚丙烯粉料市场周烯粉201场周烯粉</li>
-								<li>聚丙烯粉料市场周报告</li>
-								<li>聚丙烯粉料市场周报告</li>
-								<li>聚丙烯粉料市场周报告</li>
-								<li>聚丙烯粉料市场周报告</li>
+<!-- 								<li>聚丙烯粉料市场周烯粉201场周烯粉</li> -->
+<!-- 								<li>聚丙烯粉料市场周报告</li> -->
+<!-- 								<li>聚丙烯粉料市场周报告</li> -->
+<!-- 								<li>聚丙烯粉料市场周报告</li> -->
+<!-- 								<li>聚丙烯粉料市场周报告</li> -->
+								#foreach($dc in $dcs)
+                                    <li onclick="window.location.href='$!webPath/signContentPage.htm?id=$!dc.e.id'">$!dc.e.name</li>
+                                  #end
 							</ul>
 						</div>
 					</div>

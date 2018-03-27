@@ -181,6 +181,7 @@ li{list-style-type:none;}
 .yzs-market-left-price span:last-child{float:right;color:#C7C7C7;font-size:12px;}
 .yzs-market-right{float:right;width:1000px;}
 .yzs-market-right-top{width:998px;height:40px;border:1px solid #EDEDED;background:#F5F5F5;}
+.yzs-market-right-top .selected{background:#00887c;color: white;}
 .yzs-market-right-top div{float:left;height:26px;line-height:26px;text-align:center;margin-top:7px;}
 .yzs-market-right-top #item_default{float:left;width:70px;height:26px;line-height:26px;font-size:12px;margin-left:10px;border:1px solid #CCCCCC;cursor:pointer;}
 .yzs-market-right-top #item_price{float:left;width:70px;height:26px;line-height:26px;font-size:12px;border-top:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;cursor:pointer;}
@@ -285,6 +286,12 @@ li{list-style-type:none;}
 .yzs-shopdetail-left-con-con ul li div:first-child span:first-child{float:left;color:#000;font-weight:bold;margin-right:10px;}
 .yzs-shopdetail-left-con-con ul li div:first-child span:last-child{float:right;}
 .yzs-shopdetail-left-con-con ul li div:first-child img{margin-left:10px;}
+.yzs-shopdetail-left-con-imgul{width:940px;margin:10px auto;}
+.yzs-shopdetail-left-con-imgul ul{width:100%;height:170px;}
+.yzs-shopdetail-left-con-imgul ul li{float:left;width:150px;height:150px;margin:0px 23px;cursor:pointer;}
+.yzs-shopdetail-left-con-imgul ul li img{width:150px;height:150px;}
+.yzs-shopdetail-left-con-imgul ul li:first-child{margin-left:0px;}
+.yzs-shopdetail-left-con-imgul ul li:last-child{margin-right:0px;}
 
 .yzs-shopdetail-right{float:right;width:180px;border:1px solid #ccc;margin-top:30px;box-shadow:0px 0px 8px #ccc;}
 .yzs-shopdetail-right-top div:first-child{float:left;height:40px;line-height:40px;padding-left:10px;}

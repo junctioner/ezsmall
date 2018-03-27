@@ -47,6 +47,8 @@ var options = {
 			'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'table', 'hr', 'emoticons', 'link', 'unlink', '|', 'about']
 };
 jQuery(document).ready(function(){
+	getParentLevel();
+	//finalSection();
 //设置默认状态以及判断初始显示状态
 	var state = jQuery("#display").val();
 	if(state==""){
@@ -93,17 +95,107 @@ jQuery(document).ready(function(){
 	}
   }); 
 }); 
+function finalSection(){
+	   //var vsize = jQuery("#vsize").attr("vsize");
+	   //for(var i=1;i<=vsize;i++){
+		   //jQuery("#sss"+i).attr("selected",true);
+	   //}
+	   var finalSection = $!ezsColumn.finalSection;
+	   var remarkSize = jQuery("#rsize").attr("remarkSize");
+	   var obj;
+	   for(var i=1;i<=remarkSize;i++){
+		   
+//		   var remarkName=jQuery("#rs"+i).html();
+// 		   var v='1,2,3'//这个为保存的值，自己从数据库读取来赋值给v变量
+// 		   v=','+v+',';//添加分隔符号，好indexOf进行比较
+// 		   var arr=v.split(',');           
+           obj = finalSection[i-1].remarkValue;
+           var obj2;
+// 		   jQuery("#rem"+i).each(function(){
+// 			     obj2 = jQuery(this).text();
+// 		         if(obj.indexOf(obj2)==-1){
+// 		    	   this.selected=false;
+// 		    	 }
+// 		   });
+	   }
+}
 
 function saveForm(){
    var arr=[]
-    $("#class_id11 option:selected").each(function() {
-	    var b=$(this).attr("value")
-	    arr.push(b)
-	});
-   var prepareColumn=arr.join(",")
+//     $("#class_id11 option:selected").each(function() {
+// 	    var b=$(this).attr("value")
+// 	    arr.push(b)
+// 	});
+//    var prepareColumn=arr.join(",")
+   var remarkSize = jQuery("#rsize").attr("remarkSize");
+   for(var i=1;i<=remarkSize;i++){
+	    var id=i;
+  	    var remarkName=jQuery("#rs"+id).html();
+  	    var name = jQuery("#sel"+id).find("option:selected").text();
+  	    var remarkValue = "";
+  	    jQuery("#rem"+id).find("option:selected").each(function(){
+  	    	remarkValue = remarkValue+"，"+jQuery(this).text();
+  	    });
+  	    remarkValue = remarkValue.substring(1);
+  	    var temp = {
+	    		"id":id,
+	    		"remarkName":remarkName,
+	    		"name":name,
+	    		"remarkValue":remarkValue
+	    }
+  	    arr.push(temp);
+   }
+   //对象转json字符串
+   var prepareColumn = JSON.stringify(arr);
    $("input[name='prepareColumn']").attr("value",prepareColumn)
    $("#theForm").submit();
 }
+
+function abcd(id){
+	//debugger;
+	var remark = jQuery("#sel"+id).find("option:selected").attr("remarkvalue");
+	var data = remark.split("，");
+	jQuery("#rem"+id).html("");
+	jQuery.each(data, function(i, item){
+    	jQuery("#rem"+id).append("<option value='"+item+"'>"+item+"</option>"); 
+	});
+	
+	
+}
+
+function getParentLevel(){
+	var columnLevel = jQuery("#columnLevel").val();
+	if(columnLevel==1){
+		jQuery("#parentLevel").html("");
+		return false;
+	}
+	jQuery.ajax({
+		url : "$!webPath/admin/parentLevel.htm",
+		data : {
+			"columnLevel":columnLevel
+		},
+		type : "POST",
+		dataType : "json",
+		error : function() {
+			return false;
+		},
+		success : function(data) {
+			//debugger;
+			jQuery("#parentLevel").html("");
+			//each的写法
+			var pid=jQuery("#pid").val();
+            jQuery.each(data, function(i, item){     
+            	if(item.id==pid){      
+            	   jQuery("#parentLevel").append("<option selected='selected' value='"+item.id+"'>"+item.name+"</option>");     
+            	}else{
+            	   jQuery("#parentLevel").append("<option value='"+item.id+"'>"+item.name+"</option>");     
+            	}
+            });
+			 
+		}
+    });					
+}
+
 
 </script>
 </head>
@@ -116,11 +208,20 @@ function saveForm(){
     <input name="id" type="hidden" value="$!ezsColumn.id" />
     <div class="setcont">
       <ul class="set1">
-        <li><span>栏目类别：</span><span class="webnamesec sizese" style="margin-left: 10px">
-          <select name="columnLevel" id="class_id222">
-            <option value="1" #if($!ezsColumn.columnLevel==1)checked="checked"#end>一级栏目</option>
-            <option value="2" #if($!ezsColumn.columnLevel==2)checked="checked"#end>二级栏目</option>
-            <option value="3" #if($!ezsColumn.columnLevel==3)checked="checked"#end>三级栏目</option>
+        <li>
+          <span>栏目类别：</span><span class="webnamesec sizese" style="margin-left: 10px">
+          <input id="pid" type="hidden" value="$!ezsColumn.parentEzsColumn.id" />
+          <select name="columnLevel" id="columnLevel" onchange="getParentLevel();">
+            <option value="1" #if($!ezsColumn.columnLevel==1) selected="selected" #end>一级栏目</option>
+            <option value="2" #if($!ezsColumn.columnLevel==2) selected="selected" #end>二级栏目</option>
+            <option value="3" #if($!ezsColumn.columnLevel==3) selected="selected" #end>三级栏目</option>
+          </select>
+          </span>
+          <span style="margin-left: 10px">上级栏目：</span><span class="webnamesec sizese" style="margin-left: 10px">
+          <select name="parentLevel" id="parentLevel">
+<!--             <option value="1">一级栏目</option> -->
+<!--             <option value="2">二级栏目</option> -->
+<!--             <option value="3">三级栏目</option> -->
           </select>
           </span>
           </li>
@@ -136,14 +237,27 @@ function saveForm(){
             </span>
           </li>
           <li v-if="pink==1">
-	          <span>最终栏目列表：</span><span class="webnamesec sizese" style="margin-left: 10px">
-	          <select id="class_id11" multiple="multiple">
-	         #foreach($goodsSpecification in $goodsSpecifications)
-			   <option value="$!goodsSpecification.id">$!goodsSpecification.name</option>
-			 #end
-	          </select>
-	          </span>
-          </li>
+	          <span id="rsize" remarkSize="$!{remarks.size()}">最终栏目列表：</span><span class="webnamesec sizese" style="margin-left: 10px">
+	            #foreach($rs in $!remarks)
+	              <span id="rs$velocityCount">$rs.name</span> 
+	              <select id="sel$velocityCount" onchange="abcd($velocityCount)">
+		              #foreach($ca in $!rs.cla) 
+		               #if($velocityCount==1) 
+		                 #set($rvs =$!CommUtil.splitByChar($!ca.remarkValue,',') ) 
+		               #end
+		                <option remarkvalue="$!ca.remarkValue">$!ca.name</option> 
+		               #end
+	              </select>
+	              <br/>
+	              <span>标签</span> 
+	              <select id="rem$velocityCount" multiple="multiple">
+	                #foreach($vs in $!rvs)
+	                #set($bl = $!columnTool.getChek($!vs,$!ezsColumn.finalSection))
+	                <option id="sss$velocityCount" #if($bl) selected="selected" #end  >$vs</option>
+	                #end
+	              </select><br />            
+	            #end	            
+	       </li>
         <li><span>栏目名称：</span><span><input type="text" size="40" name="name" value="$!ezsColumn.name"/></span></li>
         <li><span>访问路径：</span><span><input type="text" size="40" name="accessPath" value="$!ezsColumn.accessPath"/></span></li>
         <li><span>栏目模板：</span><span><input type="text" size="40" name="colTemplate" value="$!ezsColumn.colTemplate"/></span>

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>易再生-中国再生资源交易平台</title>
+    <link rel="stylesheet" href="$!webPath/resources/style/shop/default/css/yzs.css?v=1" />
+    <script src="$!webPath/resources/js/jquery-1.9.1.min.js"></script>
+    <script src="$!webPath/resources/js/vue.min.js"></script>
+    <script>
+		$(function(){
+			$(".yzs-help-left-ul div").click(function(){
+				$(".yzs-help-left-ul li").removeClass("yzs-help-left-ul-li-sel");
+				$(this).parent().addClass("yzs-help-left-ul-li-sel");
+				$(".yzs-help-left-ul li ul").css("display","none");
+				$(this).parent("li").children("ul").css("display","block");
+			});
+			$(".yzs-help-left-ul li ul li").click(function(){
+				$(".yzs-help-left-ul li ul li").removeClass("yzs-help-left-ul-li-ul-li-sel");
+				$(this).addClass("yzs-help-left-ul-li-ul-li-sel");
+			});
+		});
+		
+    </script>
+</head>
+<body>
+	 $!httpInclude.include("/top.htm")
+     $!httpInclude.include("/head.htm")
+	<div class="yzs-location-panner">
+		<div class="yzs-location">首页 &gt;  帮助中心</div>
+	</div>
+	
+	<div class="yzs-container-pannel">
+		<div class="yzs-container">
+			<div class="blank5"></div>
+			<div class="yzs-help-box">
+				<div class="yzs-help-left">
+					<div class="yzs-help-left-title">帮助中心</div>
+					<div class="yzs-help-left-menu">
+						<ul class="yzs-help-left-ul">
+							<li><div>$!ezsColumn0.name</div></li>
+							<li class="yzs-help-left-ul-li-sel">
+								<div>$!ezsColumn1.name</div>
+								<ul>
+									<li>二级分类1</li>
+									<li class="yzs-help-left-ul-li-ul-li-sel">二级分类2</li>
+									<li>二级分类3</li>
+								</ul>
+							</li>
+							<li>
+								<div>$!ezsColumn2.name</div>
+								<ul>
+									<li>二级分类4</li>
+									<li class="yzs-help-left-ul-li-ul-li-sel">二级分类5</li>
+									<li>二级分类6</li>
+								</ul>
+							</li>
+							<li><div>$!ezsColumn3.name</div></li>
+						</ul>
+					</div>
+				</div>
+				<div class="yzs-help-right">
+					<div class="yzs-help-right-tit">
+						<div>搜索结果</div>
+						<div class="yzs-help-right-search">
+							<input type="text" placeholder="输入问题关键词，如密码"/>
+							<div></div>
+						</div>
+					</div>
+					<div class="yzs-help-right-list">
+						<div class="yzs-help-right-list-con">
+							<ul>
+								<li>下载易再生交易手册</li>
+								<li>下载易再生交易手册</li>
+								<li>下载易再生交易手册</li>
+								<li>下载易再生交易手册</li>
+								<li>下载易再生交易手册</li>
+							</ul>
+						</div>
+						<div class="yzs-help-right-list-page">
+							<ul>
+								<li>1</li>
+								<li>2</li>
+								<li>3</li>
+								<li>4</li>
+								<li>5</li>
+								<li>6</li>
+								<li>7</li>
+								<li>8</li>
+								<li>9</li>
+								<li>10</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="blank40"></div>		
+	</div>
+	
+	$!httpInclude.include("/footer.htm") 
+	<script type="text/javascript">
+		
+    </script>
+</body>
+</html>

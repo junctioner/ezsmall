@@ -69,8 +69,6 @@
 				}
 			});
 		});
-
-
     </script>
 </head>
 <body>
@@ -87,11 +85,9 @@
 					<div class="yzs-shopdetail-left-top-left">
 						<div class="yzs-shopdetail-left-top-img">
 						   #if($!obj.goods_main_photo)
-				            #set($small_img="$!webPath/$!{obj.goods_main_photo.path}/$!{obj.goods_main_photo.name}_small.$!{obj.goods_main_photo.ext}")
-				            #set($big_img="$!webPath/$!{obj.goods_main_photo.path}/$!{obj.goods_main_photo.name}")
+				            #set($small_img="$!imageWebServer/$!{obj.goods_main_photo.path}/$!{obj.goods_main_photo.name}_small.$!{obj.goods_main_photo.ext}")
 				            #else
-				            #set($small_img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
-				            #set($big_img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+				            #set($small_img="$!imageWebServer/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
 						    #end
 							 <img src="$!small_img">
 						</div>
@@ -100,7 +96,8 @@
 							<div class="yzs-shopdetail-left-top-ul">
 								<ul>
 								 #foreach($img in $obj.goods_photos) 
-									<li #if($velocityCount==$obj.goods_photos.size()) class="yzs-shopdetail-left-top-ul-sel" #end><img src="$!webPath/$!img.path/$!{img.name}"></li>
+								      #set($small_img="$!imageWebServer/$!{img.path}/$!{img.name}_small.$!{img.ext}")
+									<li #if($velocityCount==$obj.goods_photos.size()) class="yzs-shopdetail-left-top-ul-sel" #end><img src="$!small_img"></li>
 								 #end
 							   </ul>
 							</div>
@@ -131,9 +128,9 @@
 							</table>
 						</div>
 						<div class="yzs-shopdetail-left-top-btn">
-							<div onclick="">立即购买</div>
-							<div onclick="">加入采购单</div>
-							<div onclick="">我要试样</div>
+							<div><a href="#if($!user)$!webPath/good_buy_$!{obj.id}.htm#else$!webPath/user/login.htm#end" style="color: white;">立即购买</a></div>
+							<div><a href="$!webPath/add_goodscat.htm" style="color: white;">加入采购单</a></div>
+							<div><a href="#if($!user)$!webPath/sample_buy_$!{obj.id}.htm#else$!webPath/user/login.htm#end" style="color: #179388;">我要试样</a></div>
 						</div>
 					</div>
 				</div>
@@ -147,8 +144,7 @@
 				<div class="yzs-shopdetail-left-con" id="con_info" style="display:block;">
 					<div class="yzs-shopdetail-left-con-box">
 						<div class="yzs-shopdetail-left-con-title">重要参数</div>
-						<div class="yzs-shopdetail-left-con-con">
-							<table>
+						<div class="yzs-shopdetail-left-con-con"><table>
 								<tr> <td style="width:200px;">密度（g/cm<sup>3</sup>）：</td> <td style="width:200px;">$!obj.density</td> <td style="width:200px;">是否环保： #if($!obj.protection)是 #else 否 #end</td> <td style="width:200px;"></td> </tr>
 								<tr> <td>悬臂梁缺口冲击（KJ/m<sup>3</sup>）：</td> <td>$!obj.cantilever</td> <td>简支梁缺口冲击（KJ/m<sup>3</sup>）：</td> <td>$!obj.freely</td> </tr>
 								<tr> <td>溶脂（g/10min）</td> <td>$!obj.lipolysis</td> <td>灰分（%）：</td> <td>$!obj.ash</td> </tr>
@@ -189,8 +185,18 @@
 						</div>
 					</div>
 				</div>
-				
 				<div class="yzs-shopdetail-left-con">
+				    	<div class="yzs-shopdetail-left-con-box">
+						<div class="yzs-shopdetail-left-con-title">制作案例</div>
+						<div class="yzs-shopdetail-left-con-imgul">
+							<ul>
+							  #foreach($!img in $!obj.cartographys)
+							        #set($small_img="$!imageWebServer/$!{img.path}/$!{img.name}_small.$!{img.ext}")
+									<li><img src="$!small_img"></li>
+							  #end
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="yzs-shopdetail-right">
@@ -198,22 +204,22 @@
 						<div>优品推荐</div>
 					</div>
 					<div class="yzs-shopdetail-right-con">
-					  #foreach($grl in $!goods_recommend_list)
+					  #foreach($grl in $!goods_reommend_list)
 							<div class="yzs-market-right-box">
 							       #set($goods_url="$!webPath/goods_$!{grl.id}.htm")
 					               #if($!config.second_domain_open)
 					               #set($goods_url="http://$!{grl.goods_store.store_second_domain}.$!{domainPath}/goods_$!{grl.id}.htm")
 					               #end
 								<a href="$goods_url">
-							        #if($!grl.goods_main_photo)
-									  #set($img="$!webPath/$!{$grl.goods_main_photo.path}/$!{grl.goods_main_photo.name}_small.$!{grl.goods_main_photo.ext}")
-									#else
-									  #set($img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
-									#end
-									<div class="yzs-market-left-img"> <img src="$!img"> </div>
-									<div class="yzs-market-left-title"> $!grl.goods_name </div>
-									<div class="yzs-market-left-price"> #if($!grl.lookStatus==1)#if($!user) <span>$!grl.goods_price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!grl.goods_price</span> #end<span>#set($av=$!areaViewTools.getStrArea($!grl.goods_address)) $!CommUtil.substring("$!{av}",6)</span> </div>
-								</a>
+								        #if($!grl.goods_main_photo)
+										  #set($img="$!imageWebServer/$!{gs.goods_main_photo.path}/$!{grl.goods_main_photo.name}_small.$!{grl.goods_main_photo.ext}")
+										#else
+										  #set($img="$!imageWebServer/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+										#end
+										<div class="yzs-market-left-img"> <img src="$!img"> </div>
+										<div class="yzs-market-left-title"> $!gs.name </div>
+										<div class="yzs-market-left-price"> #if($!grl.memberLook)#if($!user) <span>$!gs.price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!grl.price</span> #end<span>#set($av=$!grl.area.areaName) $!CommUtil.substring("$!{av}",6)</span> </div>
+									</a>
 							</div>
 					   #end
 					</div>
