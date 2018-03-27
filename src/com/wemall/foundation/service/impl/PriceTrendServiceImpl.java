@@ -20,7 +20,7 @@ import com.wemall.foundation.service.IPriceTrendService;
 @Service
 @Transactional
 public class PriceTrendServiceImpl implements IPriceTrendService {
-	@Resource(name = "PriceTrendDao")
+	@Resource(name = "priceTrendDao")
 	private IGenericDAO<PriceTrend> priceTrendDao;
 
 
