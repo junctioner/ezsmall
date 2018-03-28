@@ -3,7 +3,7 @@ package com.wemall.manage.admin.tools;
 import org.springframework.stereotype.Component;
 
 /**
- * 缁熻宸ュ叿缁勪欢
+ * 统计工具组件
  */
 @Component
 public class StatTools {

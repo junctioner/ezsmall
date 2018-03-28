@@ -6,7 +6,7 @@ import com.wemall.core.tools.CommUtil;
 import java.util.List;
 
 /**
- * ç’æ¿†ç–‚é€îˆ™ç²¯å®¸ãƒ¥å¿
+ * ±´±¦Ö§¸¶¹¤¾ß
  */
 public class PaypalTools {
     public static String buildForm(List<SysMap> list){

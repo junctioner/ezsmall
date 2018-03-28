@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * 鍦ㄧ嚎鏀粯宸ュ叿缁勪欢
+ * 在线支付工具组件
  */
 @Component
 public class PayTools {
@@ -46,7 +46,7 @@ public class PayTools {
 //    private ISysConfigService configService;
 //
 //    /**
-//     * 鏀粯瀹濇敮浠榩c鐗?
+//     * 支付宝支付pc版
 //     * @param url
 //     * @param payment_id
 //     * @param type
@@ -77,7 +77,7 @@ public class PayTools {
 //        if (payment == null)
 //            payment = new Payment();
 //
-//        int interfaceType = payment.getInterfaceType();// 鏀粯鎺ュ彛绫诲瀷 0锛氩嵆镞跺埌璐︼绂1锛氭媴淇濅氦鏄掳绂2锛氭爣娉ㄥ弻鎺ュ彛
+//        int interfaceType = payment.getInterfaceType();// 支付接口类型 0：即时到账；1：担保交易；2：标注双接口
 //
 //        AlipayConfig config = new AlipayConfig();
 //        Map params = new HashMap();
@@ -107,7 +107,7 @@ public class PayTools {
 //        if (sys_config.getAlipay_fenrun() == 1){
 //            interfaceType = 0;
 //        }
-//        if (interfaceType == 0){// 鍗虫椂鍒拌处
+//        if (interfaceType == 0){// 即时到账
 //            if (sys_config.getAlipay_fenrun() == 1){
 //                config.setKey(shop_payment.getSafeKey());
 //                config.setPartner(shop_payment.getPartner());
@@ -172,7 +172,7 @@ public class PayTools {
 //                double shop_fee = CommUtil.null2Double(total_fee) * (1.0D - alipay_rate);
 //                shop_fee *= fenrun_rate;
 //                double seller_fee = CommUtil.null2Double(total_fee) * (1.0D - alipay_rate) - shop_fee;
-//                royalty_parameters = payment.getSeller_email() + "^" + String.format("%.2f", new Object[] { Double.valueOf(seller_fee) }) + "^鍟嗗";
+//                royalty_parameters = payment.getSeller_email() + "^" + String.format("%.2f", new Object[] { Double.valueOf(seller_fee) }) + "^商家";
 //            }
 //
 //            Map sParaTemp = new HashMap();
@@ -195,7 +195,7 @@ public class PayTools {
 //
 //            result = AlipayService.create_direct_pay_by_user(config, sParaTemp);
 //        }
-//        if (interfaceType == 1){// 鎷呬缭浜ゆ槗
+//        if (interfaceType == 1){// 担保交易
 //            String out_trade_no = "";
 //            if (type.equals("goods")){
 //                out_trade_no = of.getId().toString();
@@ -273,7 +273,7 @@ public class PayTools {
 //
 //            result = AlipayService.create_partner_trade_by_buyer(config, sParaTemp);
 //        }
-//        if (interfaceType == 2){// 镙囨敞鍙屾帴鍙?
+//        if (interfaceType == 2){// 标注双接口
 //            String out_trade_no = "";
 //            if (type.equals("goods")){
 //                out_trade_no = of.getId().toString();
@@ -356,7 +356,7 @@ public class PayTools {
 //    }
 //
 //    /**
-//     * 蹇局鏀粯pc鐗?
+//     * 快钱支付pc版
 //     * @param url
 //     * @param payment_id
 //     * @param type
@@ -531,12 +531,12 @@ public class PayTools {
 //        sParaTemp.put("payType", payType);
 //        sParaTemp.put("redoFlag", redoFlag);
 //        sParaTemp.put("pid", pid);
-//        result = BillService.buildForm(config, sParaTemp, "post", "纭畾");
+//        result = BillService.buildForm(config, sParaTemp, "post", "确定");
 //        return result;
 //    }
 //
 //    /**
-//     * 缃戦摱鍦ㄧ嚎鏀粯pc鐗?
+//     * 网银在线支付pc版
 //     * @param url
 //     * @param payment_id
 //     * @param type
@@ -633,7 +633,7 @@ public class PayTools {
 //    }
 //
 //    /**
-//     * 璐濆疂鏀粯pc鐗?
+//     * 贝宝支付pc版
 //     * @param url
 //     * @param payment_id
 //     * @param type
@@ -726,7 +726,7 @@ public class PayTools {
 //    }
 //
 //    /**
-//     * 鏀粯瀹濇敮浠樻坠链蓑ap鐗?
+//     * 支付宝支付手机wap版
 //     * @param url
 //     * @param payment_id
 //     * @param type
@@ -865,13 +865,13 @@ public class PayTools {
 //        sParaTemp.put("req_data", req_data);
 //
 //        String WAP_ALIPAY_GATEWAY_NEW = "http://wappaygw.alipay.com/service/rest.htm?";
-//        result = AlipaySubmit.buildForm(config, sParaTemp, WAP_ALIPAY_GATEWAY_NEW, "get", "纭");
+//        result = AlipaySubmit.buildForm(config, sParaTemp, WAP_ALIPAY_GATEWAY_NEW, "get", "确认");
 //
 //        return result;
 //    }
 //
 //    /**
-//     * 蹇局鏀粯镓嬫満wap鐗?
+//     * 快钱支付手机wap版
 //     * @param url
 //     * @param payment_id
 //     * @param type
@@ -1054,12 +1054,12 @@ public class PayTools {
 //        sParaTemp.put("payType", payType);
 //        sParaTemp.put("redoFlag", redoFlag);
 //        sParaTemp.put("pid", pid);
-//        result = BillService.buildForm(config, sParaTemp, "post", "纭畾");
+//        result = BillService.buildForm(config, sParaTemp, "post", "确定");
 //        return result;
 //    }
 //
 //    /**
-//     * 缃戦摱鍦ㄧ嚎鏀粯镓嬫満wap鐗?
+//     * 网银在线支付手机wap版
 //     * @param url
 //     * @param payment_id
 //     * @param type
@@ -1156,7 +1156,7 @@ public class PayTools {
 //    }
 //
 //    /**
-//     * 璐濆疂鏀粯镓嬫満wap鐗?
+//     * 贝宝支付手机wap版
 //     * @param url
 //     * @param payment_id
 //     * @param type

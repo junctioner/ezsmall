@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * UCenterå®¸ãƒ¥å¿
+ * UCenter¹¤¾ß
  */
 @Component
 public class UCTools {

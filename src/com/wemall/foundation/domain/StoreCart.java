@@ -17,9 +17,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 鍟嗗簵璩肩墿杌?
+ * 商店購物車
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -27,23 +27,23 @@ import com.wemall.core.domain.IdEntity;
 @Table(name = "ezs_storeCart")
 public class StoreCart extends IdEntity {
 
-	// 搴楅摵
+	// 店铺
 	@ManyToOne
 	private Store store;
 
-	// 鍟嗗搧杩愰€?
+	// 商品运送
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "sc")
 	private List<GoodsCart> gcs = new ArrayList<GoodsCart>();
-	// 镐讳环
+	// 总价
 	private BigDecimal total_price;
 
-	// 鐢ㄦ埛
+	// 用户
 	@ManyToOne
 	private User user;
-	// 杩愰€佷细璇滻D
+	// 运送会话ID
 	private String cart_session_id;
 
-	// 杩愰€佺姸镐?
+	// 运送状态
 	@Column(columnDefinition = "int default 0")
 	private int sc_status;
 

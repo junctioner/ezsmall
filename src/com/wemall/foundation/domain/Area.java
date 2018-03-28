@@ -14,7 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 /**
- * 鍦板尯
+ * 地区
  * @author
  *
  */
@@ -26,21 +26,21 @@ public class Area extends IdEntity implements Serializable{
      * UID
      */
     private static final long serialVersionUID = -3166365941305570434L;
-    //鍦板尯鍚岖О
+    //地区名称
     private String areaName;
 
-    //鍦板尯瀛愮被
+    //地区子类
     @OneToMany(mappedBy = "parent", cascade = { javax.persistence.CascadeType.REMOVE })
     private List<Area> childs = new ArrayList<Area>();
-    //鍦板尯鐖剁被
+    //地区父类
     @ManyToOne(fetch = FetchType.LAZY)
     private Area parent;
-    //鍦板尯搴忓垪
+    //地区序列
     private int sequence;
-    //鍦板尯绛夌骇
+    //地区等级
     private int level;
 
-    //鏄惁甯哥敤鍦板尯
+    //是否常用地区
     @Column(columnDefinition = "bit default false")
     private boolean common;
 

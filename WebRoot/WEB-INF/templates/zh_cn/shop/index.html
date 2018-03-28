@@ -85,6 +85,10 @@
 				}
 				
 			});
+			$(".yzs-market-right-top>div").click(function(){
+				 $(this).addClass("selected").siblings().removeClass("selected");
+			});
+			
 		});
 		
     </script>
@@ -109,9 +113,8 @@
 				<div class="lx-con-row">
 					<div class="lx-con-name">品类：</div>
 					<div class="lx-con-value">
-						#set($navs=$!navTools.queryNav(0,-1))
 						#foreach($gc in $!gcs)
-							<p><span>$!gc.className</span></p>
+							<p><span>$!gc.name</span></p>
 						#end
 						<div class="lx-clear"></div>
 					</div>
@@ -133,12 +136,9 @@
 				<div class="lx-con-row more-condition">
 					<div class="lx-con-name">颜色：</div>
 					<div class="lx-con-value">
-						<p><span>红色</span></p>
-						<p><span>蓝色</span></p>
-						<p><span>黄色</span></p>
-						<p><span>黑色</span></p>
-						<p><span>绿色</span></p>
-						<p><span>白色</span></p>
+					   #foreach($cs in $!colors)
+						<p><span>$!cs.name</span></p>
+					   #end
 						<div class="lx-clear"></div>
 					</div>
 					<div class="lx-con-op"><span class="mitbtn">+&nbsp;多选</span></div>
@@ -147,9 +147,9 @@
 				<div class="lx-con-row more-condition">
 					<div class="lx-con-name">形态：</div>
 					<div class="lx-con-value">
-						<p><span>圆形</span></p>
-						<p><span>颗粒状</span></p>
-						<p><span>编织袋</span></p>
+					  #foreach($fs in $!forms)
+						<p><span>$fs.name</span></p>
+					  #end
 						<div class="lx-clear"></div>
 					</div>
 					<div class="lx-con-op"><span class="mitbtn">+&nbsp;多选</span></div>
@@ -165,29 +165,29 @@
 						<div>广告</div>
 					</div>
 					<div class="yzs-market-left-con">
-					    #foreach($yg in $!store_reommend_goods_list)
+					    #foreach($yg in $!goods_reommend_list)
 					    <div class="yzs-market-left-box">
 					         #set($goods_url="$!webPath/goods_$!{yg.id}.htm")
 				             #if($!config.second_domain_open)
 				             #set($goods_url="http://$!{yg.goods_store.store_second_domain}.$!{domainPath}/goods_$!{yg.id}.htm")
 				             #end
-					       <a href="$goods_url">
-							 #if($!yg.goods_main_photo)
-							  #set($img="$!webPath/$!{yg.goods_main_photo.path}/$!{yg.goods_main_photo.name}_small.$!{yg.goods_main_photo.ext}")
-							#else
-							  #set($img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
-							#end
-							<div class="yzs-market-left-img"> <img src="$!img"> </div>
-							<div class="yzs-market-left-title"> $!yg.goods_name </div>
-							<div class="yzs-market-left-price"> #if($!yg.lookStatus==1)#if($!user) <span>$!yg.goods_price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!yg.goods_price</span> #end<span>#set($av=$!areaViewTools.getStrArea($!yg.goods_address)) $!CommUtil.substring("$!{av}",6)</span> </div>
-						    </a>
+					      	<a href="$goods_url">
+						        #if($!gs.goods_main_photo)
+								  #set($img="$!imageWebServer/$!{gs.goods_main_photo.path}/$!{yg.goods_main_photo.name}_small.$!{yg.goods_main_photo.ext}")
+								#else
+								  #set($img="$!imageWebServer/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+								#end
+								<div class="yzs-market-left-img"> <img src="$!img"> </div>
+								<div class="yzs-market-left-title"> $!yg.name </div>
+								<div class="yzs-market-left-price"> #if($!yg.memberLook)#if($!user) <span>$!yg.price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!yg.price</span> #end<span>#set($av=$!gs.area.areaName) $!CommUtil.substring("$!{av}",6)</span> </div>
+							</a>
 						</div>
 					    #end
 					</div>
 				</div>
 				<div class="yzs-market-right">
 					<div class="yzs-market-right-top">
-						<div id="item_default">默认</div>
+						<div id="item_default" class="selected">默认</div>
 						<div id="item_price">价格</div>
 						<div id="item_hubnum">库存</div>
 						<input type="text" placeholder="¥最低单价"/>
@@ -198,22 +198,22 @@
 					</div>
 					<div class="yzs-market-right-con">
 						<ul>
-						   #foreach($hs in $!hots)
+						   #foreach($gs in $!goods)
 							<li>
 								<div class="yzs-market-right-box">
-								       #set($goods_url="$!webPath/goods_$!{hs.id}.htm")
+								       #set($goods_url="$!webPath/goods_$!{gs.id}.htm")
 						               #if($!config.second_domain_open)
-						               #set($goods_url="http://$!{hs.goods_store.store_second_domain}.$!{domainPath}/goods_$!{hs.id}.htm")
+						               #set($goods_url="http://$!{gs.goods_store.store_second_domain}.$!{domainPath}/goods_$!{gs.id}.htm")
 						               #end
 									<a href="$goods_url">
-								        #if($!hs.goods_main_photo)
-										  #set($img="$!webPath/$!{hs.goods_main_photo.path}/$!{hs.goods_main_photo.name}_small.$!{hs.goods_main_photo.ext}")
+								        #if($!gs.goods_main_photo)
+										  #set($img="$!imageWebServer/$!{gs.goods_main_photo.path}/$!{gs.goods_main_photo.name}_small.$!{gs.goods_main_photo.ext}")
 										#else
-										  #set($img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+										  #set($img="$!imageWebServer/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
 										#end
 										<div class="yzs-market-left-img"> <img src="$!img"> </div>
-										<div class="yzs-market-left-title"> $!hs.goods_name </div>
-										<div class="yzs-market-left-price"> #if($!hs.lookStatus==1)#if($!user) <span>$!hs.goods_price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!hs.goods_price</span> #end<span>#set($av=$!areaViewTools.getStrArea($!hs.goods_address)) $!CommUtil.substring("$!{av}",6)</span> </div>
+										<div class="yzs-market-left-title"> $!gs.name </div>
+										<div class="yzs-market-left-price"> #if($!gs.memberLook)#if($!user) <span>$!gs.price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!gs.price</span> #end<span>#set($av=$!gs.area.areaName) $!CommUtil.substring("$!{av}",6)</span> </div>
 									</a>
 								</div>
 							</li>
@@ -237,27 +237,27 @@
 				</div>
 			</div>
 			<div class="yzs-guestlike-box">
-			    #foreach($cs in $cais)
+			    #foreach($cs in $!guess_goods)
 					<div class="yzs-guestlike-cell">
 					      #set($goods_url="$!webPath/goods_$!{cs.id}.htm")
 			               #if($!config.second_domain_open)
 			               #set($goods_url="http://$!{hs.goods_store.store_second_domain}.$!{domainPath}/goods_$!{cs.id}.htm")
 			               #end
-						 <a href="$!goods_url">
-						    #if($!cs.goods_main_photo)
-							  #set($img="$!webPath/$!{cs.goods_main_photo.path}/$!{cs.goods_main_photo.name}_small.$!{cs.goods_main_photo.ext}")
+						 <a href="$goods_url">
+					        #if($!cs.goods_main_photo)
+							  #set($img="$!imageWebServer/$!{cs.goods_main_photo.path}/$!{gs.goods_main_photo.name}_small.$!{cs.goods_main_photo.ext}")
 							#else
-							  #set($img="$!webPath/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+							  #set($img="$!imageWebServer/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
 							#end
-							 <div class="yzs-market-left-img"> <img src="$!img"> </div>
-							 <div class="yzs-market-left-title"> $!cs.goods_name </div>
-							 <div class="yzs-market-left-price"> #if($!cs.lookStatus==1)#if($!user) <span>$!cs.goods_price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!cs.goods_price</span> #end<span>#set($av=$!areaViewTools.getStrArea($!cs.goods_address)) $!CommUtil.substring("$!{av}",6)</span> </div>
-						 </a>	
+							<div class="yzs-market-left-img"> <img src="$!img"> </div>
+							<div class="yzs-market-left-title"> $!cs.name </div>
+							<div class="yzs-market-left-price"> #if($!cs.memberLook)#if($!user) <span>$!cs.price</span> #else<span><a href="$!webPath/user/login.htm">登录看价</a></span>#end #else<span>$!cs.price</span> #end<span>#set($av=$!cs.area.areaName) $!CommUtil.substring("$!{av}",6)</span> </div>
+						</a>
 					</div>
 				#end
 			</div>
 		</div>
-		<div class="blank40"></div>		
+		<div class="blank40"></div>	
 	</div>
 	$!httpInclude.include("/footer.htm") 
 </body>

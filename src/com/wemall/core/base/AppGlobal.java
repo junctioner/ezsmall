@@ -1,7 +1,7 @@
 package com.wemall.core.base;
 
 /**
- * 绯荤粺鍏叡闱欐€佸弬鏁?
+ * 系统公共静态参数
  * @author Auser
  *
  */
@@ -14,39 +14,39 @@ public class AppGlobal {
     public static final String COOKIE_ANONYMOUS_ID = "anonymousId";
 
     /**
-     * 璺缎鍒嗛殧绗?
+     * 路径分隔符
      */
     public static final String SPT = "/";
     /**
-     * 绱㈠紩椤?
+     * 索引页
      */
     public static final String INDEX = "index";
     /**
-     * 榛樿妯℃澘
+     * 默认模板
      */
     public static final String DEFAULT = "default";
     /**
-     * UTF-8缂栫爜
+     * UTF-8编码
      */
     public static final String UTF8 = "UTF-8";
     /**
-     * 鎻愮ず淇℃伅
+     * 提示信息
      */
     public static final String MESSAGE = "message";
     /**
-     * cookie涓殑JSESSIONID鍚岖О
+     * cookie中的JSESSIONID名称
      */
     public static final String JSESSION_COOKIE = "JSESSIONID";
     /**
-     * url涓殑jsessionid鍚岖О
+     * url中的jsessionid名称
      */
     public static final String JSESSION_URL = "jsessionid";
     /**
-     * HTTP POST璇锋眰
+     * HTTP POST请求
      */
     public static final String POST = "POST";
     /**
-     * HTTP GET璇锋眰
+     * HTTP GET请求
      */
     public static final String GET = "GET";
 }

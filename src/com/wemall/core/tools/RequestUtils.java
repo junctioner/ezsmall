@@ -17,17 +17,17 @@ import java.util.StringTokenizer;
 
 
 /**
- * HttpServletRequest甯侄绫?
+ * HttpServletRequest帮助类
  */
 public class RequestUtils {
     private static final Logger log = LoggerFactory.getLogger(RequestUtils.class);
 
     /**
-     * 銮峰彇QueryString镄勫弬鏁帮紝骞朵娇鐢║RLDecoder浠TF-8镙煎纺杞爜銆傚鏋滆姹傛槸浠ost鏂规硶鎻愪氦镄勶紝
-     * 闾ｄ箞灏嗛€氲绷HttpServletRequest#getParameter銮峰彇銆?
+     * 获取QueryString的参数，并使用URLDecoder以UTF-8格式转码。如果请求是以post方法提交的，
+     * 那么将通过HttpServletRequest#getParameter获取。
      *
-     * @param request web璇锋眰
-     * @param name    鍙傛暟鍚岖О
+     * @param request web请求
+     * @param name    参数名称
      * @return
      */
     public static String getQueryParam(HttpServletRequest request, String name){
@@ -167,12 +167,12 @@ public class RequestUtils {
     }
 
     /**
-     * 銮峰彇璁块棶钥匢P
+     * 获取访问者IP
      * <p/>
-     * 鍦ㄤ竴鑸儏鍐典笅浣跨敤Request.getRemoteAddr()鍗冲彲锛屼絾鏄粡杩噉ginx绛夊弽鍚戜唬鐞呜蒋浠跺悗锛岃繖涓柟娉曚细澶辨晥銆?
+     * 在一般情况下使用Request.getRemoteAddr()即可，但是经过nginx等反向代理软件后，这个方法会失效。
      * <p/>
-     * 链柟娉曞厛浠嶩eader涓幏鍙术-Real-IP锛屽鏋滀笉瀛桦湪鍐崭粠X-Forwarded-For銮峰缑绗竴涓狪P(鐢?鍒嗗壊)锛?
-     * 濡傛灉杩树笉瀛桦湪鍒栾皟鐢≧equest .getRemoteAddr()銆?
+     * 本方法先从Header中获取X-Real-IP，如果不存在再从X-Forwarded-For获得第一个IP(用,分割)，
+     * 如果还不存在则调用Request .getRemoteAddr()。
      *
      * @param request
      * @return
@@ -184,7 +184,7 @@ public class RequestUtils {
         }
         ip = request.getHeader("X-Forwarded-For");
         if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)){
-            // 澶氭鍙嶅悜浠ｇ悊鍚庝细链夊涓狪P链硷紝绗竴涓负鐪熷疄IP銆?
+            // 多次反向代理后会有多个IP值，第一个为真实IP。
             int index = ip.indexOf(',');
             if (index != -1){
                 return ip.substring(0, index);
@@ -197,7 +197,7 @@ public class RequestUtils {
     }
 
     /**
-     * 銮峰缑褰撶殑璁块棶璺缎
+     * 获得当的访问路径
      * <p/>
      * HttpServletRequest.getRequestURL+"?"+HttpServletRequest.getQueryString
      *
@@ -219,8 +219,8 @@ public class RequestUtils {
     }
 
     /**
-     * 銮峰缑璇锋眰镄剆ession id锛屼絾鏄疕ttpServletRequest#getRequestedSessionId()鏂规硶链変竴浜涢棶棰朴€?
-     * 褰揿瓨鍦ㄩ儴缃茶矾寰勭殑镞跺€欙紝浼氲幏鍙栧埌镙硅矾寰勪笅镄刯sessionid銆?
+     * 获得请求的session id，但是HttpServletRequest#getRequestedSessionId()方法有一些问题。
+     * 当存在部署路径的时候，会获取到根路径下的jsessionid。
      *
      * @param request
      * @return
@@ -229,11 +229,11 @@ public class RequestUtils {
     public static String getRequestedSessionId(HttpServletRequest request){
         String sid = request.getRequestedSessionId();
         String ctx = request.getContextPath();
-        // 濡傛灉session id鏄粠url涓幏鍙栵紝鎴栬€呴儴缃茶矾寰勪负绌猴紝闾ｄ箞鏄湪姝ｇ‘镄勩€?
+        // 如果session id是从url中获取，或者部署路径为空，那么是在正确的。
         if (request.isRequestedSessionIdFromURL() || StringUtils.isBlank(ctx)){
             return sid;
         }else{
-            // 镓嫔姩浠巆ookie銮峰彇
+            // 手动从cookie获取
             Cookie cookie = CookieUtil.getCookieByName(request, AppGlobal.JSESSION_COOKIE);
             if (cookie != null){
                 return cookie.getValue();

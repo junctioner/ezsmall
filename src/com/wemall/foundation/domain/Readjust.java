@@ -11,26 +11,26 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 /**
- *  璋冧环
- * @author 鍒樻亽绂?
+ *  调价
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_readjust")
 public class Readjust extends IdEntity {
-	// 璁㈠崟璇︽儏
+	// 订单详情
 	@ManyToOne
 	private OrderForm orderForm;
-	// 璋冧环閲戦
+	// 调价金额
 	private BigDecimal price;
-	// 璋冧环铡熷洜
+	// 调价原因
 	@ManyToOne
 	private Dict cause;
-	// 涓娄紶鍑嵁
+	// 上传凭据
 	@ManyToOne
 	private Accessory proof;
-	//鎻忚堪
+	//描述
 	private String msg;
 	public OrderForm getOrderForm() {
 		return orderForm;

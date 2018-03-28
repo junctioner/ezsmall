@@ -15,10 +15,10 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "ezs_paper")
 public class Paper extends IdEntity {
-	// 姝ｅ皢
+	// 正将
 	@ManyToOne
 	public Accessory certificate;
-	// 璇佷欢链夋晥链?
+	// 证件有效期
 	private Date validDate;
 
 	public Accessory getCertificate() {

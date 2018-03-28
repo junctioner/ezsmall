@@ -11,21 +11,21 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 瀛楀吀
+ * 字典
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_dict")
 public class Dict extends IdEntity {
-	private String name;// 鍚岖О
-	private String code;// 缂栧佛
-	private String content;// 鎻忚堪
+	private String name;// 名称
+	private String code;// 编号
+	private String content;// 描述
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Dict parent;// 鐖剁被
-	private int sequence;// 鎺掑簭sequence
+	private Dict parent;// 父类
+	private int sequence;// 排序sequence
 
 	public String getName() {
 		return name;

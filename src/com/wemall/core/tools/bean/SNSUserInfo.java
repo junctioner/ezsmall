@@ -6,21 +6,21 @@ import java.util.List;
  * Created by John on 2016/1/13.
  */
 public class SNSUserInfo {
-    // 鐢ㄦ埛镙囱瘑
+    // 用户标识
     private String openId;
-    // 鐢ㄦ埛鏄电О
+    // 用户昵称
     private String nickname;
-    // 镐у埆锛?鏄敺镐э紝2鏄コ镐э紝0鏄湭鐭ワ级
+    // 性别（1是男性，2是女性，0是未知）
     private int sex;
-    // 锲藉
+    // 国家
     private String country;
-    // 鐪佷唤
+    // 省份
     private String province;
-    // 鍩庡竞
+    // 城市
     private String city;
-    // 鐢ㄦ埛澶村儚阈炬帴
+    // 用户头像链接
     private String headImgUrl;
-    // 鐢ㄦ埛鐗规潈淇℃伅
+    // 用户特权信息
     private List<String> privilegeList;
 
     public String getOpenId(){

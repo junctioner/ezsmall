@@ -12,11 +12,11 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "ezs_group")
 public class Group extends IdEntity {
-	// 瀹㈡埗鍒嗙粍鍚岖О
+	// 客戶分组名称
 	private String name;
-	// 瑙掕壊鍗栧銆佷拱瀹?
+	// 角色卖家、买家
 	private String role;
-	// 瀹㈡埗钟舵€侊纸0.绾跨储锛?.娉ㄥ唽锛?.璁よ瘉锛?.婵€娲伙级
+	// 客戶状态（0.线索，1.注册，2.认证，3.激活）
 	private int cus_status;
 
 	public String getName() {

@@ -15,7 +15,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 /**
- * 璐粯阃氭敮浠?
+ * �Ƹ�֧ͨ��
  */
 public class TenpayHttpClient {
     private static final String USER_AGENT_VALUE = "Mozilla/4.0 (compatible; MSIE 6.0; Windows XP)";

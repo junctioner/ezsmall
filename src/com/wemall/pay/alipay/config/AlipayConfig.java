@@ -20,10 +20,10 @@ public class AlipayConfig {
 
     private String transport = "http";
 
-    // 鍟嗘埛镄勭阍?闇€瑕丳KCS8镙煎纺锛孯SA鍏阍ョ敓鎴愶细https://doc.open.alipay.com/doc2/detail.htm?spm=a219a.7629140.0.0.nBDxfy&treeId=58&articleId=103242&docType=1
+    // 商户的私钥,需要PKCS8格式，RSA公私钥生成：https://doc.open.alipay.com/doc2/detail.htm?spm=a219a.7629140.0.0.nBDxfy&treeId=58&articleId=103242&docType=1
     public static String private_key = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBANSWE16Htx6Y9nuSrci+1PwvjONjlQQK5BOMuGOnv9IM85HfX6gaomAwXwaJlnvBI05KJOw+bPaEc7EqnKnl6WynBuLalbvH8xPnsCp4Nl4lfAzl1jAveV3lQNIka6sLDc+Fsj90lZwPbYEc532IWdzF2nGtDZzdeUzR8O0Cj50DAgMBAAECgYBMAfya59tJTVeThzYreE+ee0Hca1Z0Q5CYjM/AkdG7wHW1yi/hYuR7j8/p/neXd86vx0K8VPWQjnru9VVeSZ3TW8DS5clFlmDPBrZPt96vR78dmt2c4C0HcyQo5VSmDjb/XQYPlaS08yR9iP/r1ydDCTDVvYDggQwvjJQpEgzgQQJBAP+Xhzx4pP1cz8ToQpz5/6Bwi4it2OVOO7axI/0eAmHh6taZPVtesH8onV8HUljqLE+1VI+j9QiQKHcAFSQD9T0CQQDU7PgVBaDj3RcKr+MoFFk0kLwTh7L/mApRvqiLJKFgDF4g7EumfxX0gNcCKg7KMOkuK8SYUJfQ7SfuLCCbcX8/AkAKQMTfCyPrOf7nsj2B2JGFmR4v1HF/+Vxx3rdH3x1PWeW2yBzq/mhsIW/2sO9/u50dcXO782LP/iBxbaJreHEtAkEAnX+vvfUM3qAitCAIehQbLBvHUvb0e8WeFHtgNpRg3ign1FiVWNH2joZjBFHR4NOvGBz97eDne36BI9b2Q6T/hwJBAPcAdO9Kd3M3reiI7Flhtsps769w6K5h+trplkC2ZBdJHMEpMLHzJtdYJW9i9tc7C7FbX8dRvk/66hl7kEXM9Y4=";
 
-    // 鏀粯瀹濈殑鍏挜,镆ョ湅鍦板潃锛歨ttps://b.alipay.com/order/pidAndKey.htm
+    // 支付宝的公钥,查看地址：https://b.alipay.com/order/pidAndKey.htm
     public static String ali_public_key = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDUlhNeh7cemPZ7kq3IvtT8L4zjY5UECuQTjLhjp7/SDPOR31+oGqJgMF8GiZZ7wSNOSiTsPmz2hHOxKpyp5elspwbi2pW7x/MT57AqeDZeJXwM5dYwL3ld5UDSJGurCw3PhbI/dJWcD22BHOd9iFncxdpxrQ2c3XlM0fDtAo+dAwIDAQAB";
 
 

@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.util.*;
 
 /**
- * ç»›æƒ§æ‚•é”·â•‚å 
+ * Ç©ÃûÖúÊÖ
  */
 public class SignatureHelper {
     public static String sign(Map params, String privateKey){

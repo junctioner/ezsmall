@@ -10,8 +10,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 /**
- * 鐢ㄦ埛璁剧疆
- * @author 鍒樻亽绂?
+ * 用户设置
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

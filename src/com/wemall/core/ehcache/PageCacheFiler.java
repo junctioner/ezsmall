@@ -1,25 +1,22 @@
 package com.wemall.core.ehcache;
 
 
+import com.wemall.core.tools.CommUtil;
 import java.util.Enumeration;
-
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringUtils;
-
-import com.wemall.core.tools.CommUtil;
-
 import net.sf.ehcache.CacheException;
 import net.sf.ehcache.constructs.blocking.LockTimeoutException;
 import net.sf.ehcache.constructs.web.AlreadyCommittedException;
 import net.sf.ehcache.constructs.web.AlreadyGzippedException;
 import net.sf.ehcache.constructs.web.filter.FilterNonReentrantException;
 import net.sf.ehcache.constructs.web.filter.SimplePageFragmentCachingFilter;
+import org.apache.commons.lang.StringUtils;
 
 public class PageCacheFiler extends SimplePageFragmentCachingFilter {
-    // private static final String FILTER_URL_PATTERNS = "patterns";
+    private static final String FILTER_URL_PATTERNS = "patterns";
     private static String[] cacheURLs;
 
     private void init()
@@ -62,7 +59,7 @@ public class PageCacheFiler extends SimplePageFragmentCachingFilter {
 
     private boolean headerContains(HttpServletRequest request, String header, String value){
         logRequestHeaders(request);
-        Enumeration<?> accepted = request.getHeaders(header);
+        Enumeration accepted = request.getHeaders(header);
         while (accepted.hasMoreElements()){
             String headerValue = (String)accepted.nextElement();
             if (headerValue.indexOf(value) != -1){
@@ -81,7 +78,7 @@ public class PageCacheFiler extends SimplePageFragmentCachingFilter {
     }
 
     protected String calculateKey(HttpServletRequest httpRequest){
-        // String url = httpRequest.getRequestURI();
+        String url = httpRequest.getRequestURI();
         String include_url = CommUtil.null2String(httpRequest
                              .getAttribute("javax.servlet.include.request_uri"));
         StringBuffer stringBuffer = new StringBuffer();

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>易再生-中国再生资源交易平台</title>
+    <link rel="stylesheet" href="$!webPath/resources/style/shop/default/css/yzs.css?v=1" />
+    <script src="$!webPath/resources/js/jquery-1.9.1.min.js"></script>
+    <script src="$!webPath/resources/js/vue.min.js"></script>
+    <script>
+		$(function() {
+			var sWidth = $("#yzs_report_focus").width(); //获取焦点图的宽度（显示面积）
+			var len = $("#yzs_report_focus ul li").length; //获取焦点图个数
+			var index = 0;
+			var picTimer;
+			
+			//以下代码添加数字按钮和按钮后的半透明条，还有上一页、下一页两个按钮
+			var btn = "<div class='btnBg'></div><div class='btn'>";
+			for(var i=0; i < len; i++) {
+				btn += "<span></span>";
+			}
+			btn += "</div></div>";
+			$("#yzs_report_focus").append(btn);
+			//$("#yzs_report_focus .btnBg").css("opacity",0.5);
+
+			//为小按钮添加鼠标滑入事件，以显示相应的内容
+			$("#yzs_report_focus .btn span").css("background","#555").mouseenter(function() {
+				index = $("#yzs_report_focus .btn span").index(this);
+				showPics(index);
+			}).eq(0).trigger("mouseenter");
+
+
+			//本例为左右滚动，即所有li元素都是在同一排向左浮动，所以这里需要计算出外围ul元素的宽度
+			$("#yzs_report_focus ul").css("width",sWidth * (len));
+			
+			//鼠标滑上焦点图时停止自动播放，滑出时开始自动播放
+			$("#yzs_report_focus").hover(function() {
+				clearInterval(picTimer);
+			},function() {
+				picTimer = setInterval(function() {
+					showPics(index);
+					index++;
+					if(index == len) {index = 0;}
+				},4000); //此4000代表自动播放的间隔，单位：毫秒
+			}).trigger("mouseleave");
+			
+			//显示图片函数，根据接收的index值显示相应的内容
+			function showPics(index) { //普通切换
+				var nowLeft = -index*sWidth; //根据index值计算ul元素的left值
+				$("#yzs_report_focus ul").stop(true,false).animate({"left":nowLeft},300); //通过animate()调整ul元素滚动到计算出的position
+				$("#yzs_report_focus .btn span").stop(true,false).css({"background":"#555555"}).eq(index).stop(true,false).css({"background":"#ffffff"}); //为当前的按钮切换到选中的效果
+			}
+		});
+		
+    </script>
+</head>
+<body>
+     $!httpInclude.include("/top.htm")
+     $!httpInclude.include("/head.htm")
+     $!httpInclude.include("/nav.htm")
+	<div class="yzs-location-panner" style="background:#fff;">
+		<div class="yzs-location">首页 &gt;  价格行情</div>
+	</div>
+	#foreach($ob in $objs)
+			#if($!ob.ec.name==$!ezsColumn0.name)#set($ecId0=$ob.ec.id)#set($ecObject0=$ob)#end
+			#if($!ob.ec.name==$!ezsColumn1.name)#set($ecId1=$ob.ec.id)#set($ecObject1=$ob)#end
+			#if($!ob.ec.name==$!ezsColumn2.name)#set($ecId2=$ob.ec.id)#set($ecObject2=$ob)#end
+			#if($!ob.ec.name==$!ezsColumn3.name)#set($ecId3=$ob.ec.id)#set($ecObject3=$ob)#end
+	#end
+	<div class="yzs-container-pannel">
+		<div class="yzs-container">
+			<div class="blank5"></div>
+			<div class="yzs-quotes-pannel">
+				<div class="yzs-quotes-left">
+					<div class="yzs-quotes-box">
+						<div class="yzs-quotes-tit">
+<!-- 							再生塑料每日评析 -->
+							$!ezsColumn0.name
+							<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!ecId0'"></div>
+						</div>
+						<div class="yzs-quotes-list">
+							<div class="yzs-quotes-list-top">
+								<div class="yzs-quotes-list-tit" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ecObject0.id&ecId=$!ecId0'">$!ecObject0.name&nbsp;($CommUtil.formatTime("yyyyMMdd",$!ecObject0.addTime))</div>
+								<div class="yzs-quotes-list-desc">
+									$!ecObject0.content
+								</div>
+							</div>
+							<ul>
+							    #set($numberDay=0)
+								#foreach($ob in $objs)
+							      #if($!ob.ec.name==$!ezsColumn0.name&&$ob.id!=$ecObject0.id&&$numberDay<9)
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id&ecId=$!ecId0'">#set($numberDay=$numberDay+1)<span>$!ob.name</span></li>
+								  #end
+								#end
+							</ul>
+						</div>
+					</div>
+					<div class="yzs-quotes-box">
+						<div class="yzs-quotes-tit">
+<!-- 							再生塑料每周评析 -->
+                             $!ezsColumn1.name
+							<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!ecId1'"></div>
+						</div>
+						<div class="yzs-quotes-list">
+							<div class="yzs-quotes-list-top">
+								<div class="yzs-quotes-list-tit" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ecObject1.id&ecId=$!ecId1'">$!ecObject1.name&nbsp;($CommUtil.formatTime("yyyyMMdd",$!ecObject1.addTime))</div>
+								<div class="yzs-quotes-list-desc">
+									 $!ecObject1.content
+								</div>
+							</div>
+							<ul>
+							    #set($numberWeek=0)
+								#foreach($ob in $objs)
+							      #if($!ob.ec.name==$!ezsColumn1.name&&$ob.id!=$ecObject1.id&&$numberWeek<9)
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id&ecId=$!ecId1'">#set($numberWeek=$numberWeek+1)<span>$!ob.name</span></li>
+								  #end
+								#end
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="yzs-quotes-center">
+					<div class="yzs-quotes-box-report" id="yzs_report_focus">
+						<!--<img src="img/report01.png">-->
+						<ul>
+							<li>
+								<h2><a href="#">
+								<img src="$!webPath/resources/style/shop/default/img/report01.png"/></a></h2>
+							</li>
+							<li>
+								<h2><a href="#">
+								<img src="$!webPath/resources/style/shop/default/img/report01.png"/></a></h2>
+								
+							</li>
+							<li>
+								<h2><a href="#">
+								<img src="$!webPath/resources/style/shop/default/img/report01.png"/></a></h2>
+								
+							</li>
+						</ul>
+					</div>
+					<div class="yzs-quotes-box">
+						<div class="yzs-quotes-tit">
+<!-- 							价格走势 -->
+                                $!ezsColumn2.name
+							<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!ecId2'"></div>
+						</div>
+						<div class="yzs-quotes-list">
+							<div class="yzs-quotes-list-top">
+								<div class="yzs-quotes-list-tit" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ecObject2.id&ecId=$!ecId2'">$!ecObject2.name&nbsp;($CommUtil.formatTime("yyyyMMdd",$!ecObject2.addTime))</div>
+								<div class="yzs-quotes-list-desc">
+									$!ecObject2.content
+								</div>
+							</div>
+							<ul>
+							    #set($numberPrice=0)
+								#foreach($ob in $objs)
+							      #if($!ob.ec.name==$!ezsColumn2.name&&$ob.id!=$ecObject2.id&&$numberPrice<9)
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id&ecId=$!ecId2'">#set($numberPrice=$numberPrice+1)<span>$!ob.name</span></li>
+								  #end
+								#end
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="yzs-quotes-right">
+					<div class="yzs-quotes-box">
+						<div class="yzs-quotes-tit">
+<!-- 							研究报告 -->
+                                 $!ezsColumn3.name
+							<div onclick="window.location.href='$!webPath/changePage.htm?ecId=$!ecId3'"></div>
+						</div>
+						<div class="yzs-quotes-list">
+							<div class="yzs-quotes-list-top">
+								<div class="yzs-quotes-list-tit" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ecObject3.id&ecId=$!ecId3'">$!ecObject3.name&nbsp;($CommUtil.formatTime("yyyyMMdd",$!ecObject3.addTime))</div>
+								<div class="yzs-quotes-list-desc">
+									$!ecObject3.content
+								</div>
+							</div>
+							<ul>
+							    #set($numberReport=0)
+								#foreach($ob in $objs)
+							      #if($!ob.ec.name==$!ezsColumn3.name&&$ob.id!=$ecObject3.id&&$numberReport<9)
+								  <li value="$!ob.id" onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ob.id&ecId=$!ecId3'">#set($numberReport=$numberReport+1)<span>$!ob.name</span></li>
+								  #end
+								#end
+							</ul>
+						</div>
+					</div>
+					<div class="yzs-quotes-box2">
+						<div class="yzs-quotes-box2-tit">
+							<div class="yzs-quotes-tit2">
+								实时报价
+								<div></div>
+							</div>
+						</div>
+						<div class="yzs-quotes-box2-img">
+							<img src="$!webPath/resources/style/shop/default/img/report04.png">
+						</div>
+						<div class="yzs-quotes-box2-list">
+							<ul>
+								<li><div>华北再生工程塑料PET</div><div>华北再生工程塑料PET</div></li>
+								<li><div>华北再生工程塑料PET</div><div>华北再生工程塑料PET</div></li>
+								<li><div>华北再生工程塑料PET</div><div>华北再生工程塑料PET</div></li>
+								<li><div>华北再生工程塑料PET</div><div>华北再生工程塑料PET</div></li>
+							</ul>
+							<div class="blank0c"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="blank50"></div>		
+	</div>
+	
+$!httpInclude.include("/footer.htm") 
+<script type="text/javascript">
+	var vm=new Vue({
+	    el:"#theForm",
+	    data:{
+	    	pink:true,
+	    	dataList:[]
+	    },
+	    mounted:function () {
+	        this.$nextTick(function () {
+	            this.init();
+	        })
+	    },
+	    filters:{
+	    	formatMoney(value){
+	        }
+	    },
+	    methods:{
+	        init:function (){
+	        },
+	        formatType:function(v){
+	            if(v==3){
+	            	editor = KindEditor.create('#content',options); 
+	            	//jQuery("#class_id").val("$!obj.articleClass.id");
+	            }
+	        },
+	        changeRemark:function(v){
+	        	 jQuery.ajax({
+	        		 type: "post",
+	                 url: "$!webPath/admin/getClassify.htm",
+	                 data: {id:v},
+	                 dataType: "html",
+	                 success: function(data){
+	                	 $(".ck").remove()
+	                	 $("#classify").append(data)
+	                 }
+	        	     
+	        	 })
+	        }
+	    }
+	});	
+</script>
+</body>
+</html>

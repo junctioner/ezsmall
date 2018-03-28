@@ -31,9 +31,9 @@ public class ObjectExcelRead {
 
 	/**
 	 * @param startrow
-	 *            寮€濮嬭鍙?
+	 *            开始行号
 	 * @param startcol
-	 *            寮€濮嫔垪鍙?
+	 *            开始列号
 	 * @param sheetnum
 	 *            sheet
 	 * @return
@@ -52,16 +52,16 @@ public class ObjectExcelRead {
 		}
 		}
 		Sheet sheet = wb.getSheetAt(sheetnum);
-		int rowNum = sheet.getLastRowNum() + 1; // 鍙栧缑链€鍚庝竴琛岀殑琛屽佛
-		for (int i = startrow; i < rowNum; i++) { // 琛屽惊鐜紑濮?
+		int rowNum = sheet.getLastRowNum() + 1; // 取得最后一行的行号
+		for (int i = startrow; i < rowNum; i++) { // 行循环开始
 			HashMap varpd = new HashMap();
-			Row row = sheet.getRow(i); // 琛?
-			int cellNum = row.getLastCellNum(); // 姣忚镄勬渶鍚庝竴涓崟鍏冩牸浣岖疆
-			for (int j = startcol; j < cellNum; j++) { // 鍒楀惊鐜紑濮?
+			Row row = sheet.getRow(i); // 行
+			int cellNum = row.getLastCellNum(); // 每行的最后一个单元格位置
+			for (int j = startcol; j < cellNum; j++) { // 列循环开始
 				Cell cell = row.getCell(Short.parseShort(j + ""));
 				String cellValue = null;
 				if (null != cell) {
-					switch (cell.getCellType()) { // 鍒ゆ柇excel鍗曞厓镙煎唴瀹圭殑镙煎纺锛屽苟瀵瑰叾杩涜杞崲锛屼互渚挎彃鍏ユ暟鎹簱
+					switch (cell.getCellType()) { // 判断excel单元格内容的格式，并对其进行转换，以便插入数据库
 					case 0:
 						cellValue = String.valueOf((int) cell.getNumericCellValue());
 						break;

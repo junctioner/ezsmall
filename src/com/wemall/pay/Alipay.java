@@ -7,7 +7,7 @@ import java.net.URLEncoder;
 import java.util.*;
 
 /**
- * é€îˆ™ç²¯ç€¹æ¿‡æ•®æµ ?
+ * Ö§¸¶±¦Ö§¸¶
  */
 public class Alipay {
     public static String CreateUrl_type1(String paygateway, String service, String sign_type, String out_trade_no, String input_charset, String partner, String agent, String key, String seller_email, String body, String subject, String price, String quantity, String show_url, String payment_type, String discount, String logistics_type, String logistics_fee, String logistics_payment, String return_url){

@@ -55,7 +55,7 @@ public class QQLoginPlug {
 //                               access_token + "&oauth_consumer_key=" + me_map.get("client_id") + "&openid=" + qq_openid;
 //        String user_info_callback = getHttpContent(user_info_url, "UTF-8", "GET");
 //        Map user_map = (Map)Json.fromJson(HashMap.class, user_info_callback);
-//        System.out.println("鐢ㄦ埛鍚嶏细" + user_map.get("nickname"));
+//        System.out.println("用户名：" + user_map.get("nickname"));
 //        if (SecurityUserHolder.getCurrentUser() == null){
 //            String userName = generic_username(CommUtil.null2String(user_map.get("nickname")));
 //            User user = this.userService.getObjByProperty("qq_openid", qq_openid);
@@ -76,7 +76,7 @@ public class QQLoginPlug {
 //                    this.userService.save(user);
 //                    IntegralLog log = new IntegralLog();
 //                    log.setAddTime(new Date());
-//                    log.setContent("娉ㄥ唽璧犻€佺Н鍒?" + this.configService.getSysConfig().getMemberRegister());
+//                    log.setContent("注册赠送积分:" + this.configService.getSysConfig().getMemberRegister());
 //                    log.setIntegral(this.configService.getSysConfig().getMemberRegister());
 //                    log.setIntegral_user(user);
 //                    log.setType("reg");
@@ -88,7 +88,7 @@ public class QQLoginPlug {
 //                Album album = new Album();
 //                album.setAddTime(new Date());
 //                album.setAlbum_default(true);
-//                album.setAlbum_name("榛樿鐩稿唽");
+//                album.setAlbum_name("默认相册");
 //                album.setAlbum_sequence(-10000);
 //                album.setUser(user);
 //                this.albumService.save(album);
@@ -116,7 +116,7 @@ public class QQLoginPlug {
 //        if (!CommUtil.null2String(bind_already).equals("")){
 //            User user = this.userService.getObjByProperty("userName", userName);
 //            if (user == null){
-//                request.getSession(false).setAttribute("op_title", "鐢ㄦ埛缁戝畾澶辫触");
+//                request.getSession(false).setAttribute("op_title", "用户绑定失败");
 //                request.getSession(false).setAttribute("url", url);
 //                url = "redirect:" + CommUtil.getURL(request) + "/error.htm";
 //            }else if (Md5Encrypt.md5(password).toLowerCase().equals(
@@ -128,7 +128,7 @@ public class QQLoginPlug {
 //                url = "redirect:" + CommUtil.getURL(request) + "/wemall_login.htm?username=" +
 //                      CommUtil.encode(user.getUsername()) + "&password=" + password;
 //            }else{
-//                request.getSession(false).setAttribute("op_title", "鐢ㄦ埛缁戝畾澶辫触");
+//                request.getSession(false).setAttribute("op_title", "用户绑定失败");
 //                request.getSession(false).setAttribute("url", CommUtil.getURL(request) + "/index.htm");
 //                url = "redirect:" + CommUtil.getURL(request) + "/error.htm";
 //            }
@@ -216,7 +216,7 @@ public class QQLoginPlug {
 //
 //        String user_info_url = "https://graph.qq.com/user/get_user_info?access_token=1CA359B424836978AAA1424B83C1B5A3&oauth_consumer_key=100359491&openid=9A6383AD4B58E8B1ACF65DC68E0B3B68";
 //
-//        System.out.println("杩斿洖链间负锛? + getHttpContent(user_info_url, "UTF-8", "GET"));
+//        System.out.println("返回值为：" + getHttpContent(user_info_url, "UTF-8", "GET"));
 //    }
 }
 

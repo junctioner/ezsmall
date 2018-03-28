@@ -23,7 +23,7 @@ public class LoginAuthenticationFilter extends AuthenticationProcessingFilter {
     @Autowired
     private ISysConfigService configService;
 
-    /** 鐧诲綍楠岃瘉
+    /** 登录验证
      *
      * @param request
      * @return
@@ -39,7 +39,7 @@ public class LoginAuthenticationFilter extends AuthenticationProcessingFilter {
         session.setAttribute("ajax_login", Boolean.valueOf(CommUtil.null2Boolean(request.getParameter("ajax_login"))));
         session.setAttribute("wemall_view_type", wemall_view_type);
 
-        // 楠岃瘉镰佹牎楠?
+        // 验证码校验
         boolean flag = true;
         if (session.getAttribute("verify_code") != null){
             String code = request.getParameter("code") != null ? request.getParameter("code").toUpperCase() : "";
@@ -48,7 +48,7 @@ public class LoginAuthenticationFilter extends AuthenticationProcessingFilter {
             }
         }
 
-        // 鐢ㄦ埛杈揿叆楠岃瘉镰侀敊璇?
+        // 用户输入验证码错误
         if (!flag){
             String username = obtainUsername(request);
             String password = "";
@@ -114,7 +114,7 @@ public class LoginAuthenticationFilter extends AuthenticationProcessingFilter {
             if (uid > 0){
                 ucsynlogin = e.uc_user_synlogin(uid);
             }else if (uid == -1){
-                System.out.println("鐢ㄦ埛涓嶅瓨鍦?鎴栬€呰鍒犻櫎");
+                System.out.println("用户不存在,或者被删除");
             }
         }
 

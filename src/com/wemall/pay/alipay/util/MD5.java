@@ -23,7 +23,7 @@ public class MD5 {
             return content.getBytes(charset);
         } catch (UnsupportedEncodingException e){
         }
-        throw new RuntimeException("MD5绛惧悕杩囩▼涓嚭鐜伴敊璇?鎸囧畾镄勭紪镰侀泦涓嶅,镇ㄧ洰鍓嶆寚瀹氱殑缂栫爜板嗘槸:" + charset);
+        throw new RuntimeException("MD5签名过程中出现错误,指定的编码集不对,您目前指定的编码集是:" + charset);
     }
 }
 

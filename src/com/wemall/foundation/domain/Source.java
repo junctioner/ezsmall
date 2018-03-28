@@ -6,8 +6,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
- * 绾跨储鏉ユ簮
- * @author 鍒樻亽绂?
+ * 线索来源
+ * @author 刘恒福
  *
  */
 
@@ -17,13 +17,13 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "ezs_source")
 public class Source extends IdEntity {
-	// 鍚岖О
+	// 名称
 	private String name;
-	// 镙囱瘑
+	// 标识
 	private String identifying;
-	//鎻忚堪
+	//描述
 	private String msg;
-	//鏄惁鍚敤
+	//是否启用
 	private boolean enable;
 	public String getName() {
 		return name;

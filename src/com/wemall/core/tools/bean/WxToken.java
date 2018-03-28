@@ -4,9 +4,9 @@ package com.wemall.core.tools.bean;
  * Created by John on 2016/1/13.
  */
 public class WxToken {
-    // 鎺ュ彛璁块棶鍑瘉
+    // 接口访问凭证
     private String accessToken;
-    // 鍑瘉链夋晥链燂紝鍗曚綅锛氱
+    // 凭证有效期，单位：秒
     private int expiresIn;
 
     public String getAccessToken(){

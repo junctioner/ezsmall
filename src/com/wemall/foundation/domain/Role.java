@@ -16,25 +16,25 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 瑙掕壊
+ * 角色
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_role")
 public class Role extends IdEntity {
-	private String name;// 瑙掕壊鍚岖О
-	private String roleCode;// 瑙掕壊浠ｅ佛
-	private String type;// 绫诲瀷
-	private String info;// 淇℃伅
-	private boolean display;// 灞旷ず
-	private int sequence;// 搴忓垪
-	// 瑙掕壊缁?
+	private String name;// 角色名称
+	private String roleCode;// 角色代号
+	private String type;// 类型
+	private String info;// 信息
+	private boolean display;// 展示
+	private int sequence;// 序列
+	// 角色组
 	@ManyToOne(fetch = FetchType.LAZY)
 	private RoleGroup roleGroup;
-	//璧勬簮
+	//资源
 	@ManyToMany(targetEntity = Res.class, fetch = FetchType.LAZY)
 	@JoinTable(name = "ezs_role_res", joinColumns = {
 			@javax.persistence.JoinColumn(name = "role_id") }, inverseJoinColumns = {

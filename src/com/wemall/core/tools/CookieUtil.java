@@ -8,21 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Cookie宸ュ叿绫?
+ * Cookie工具类
  */
 public class CookieUtil {
     /**
-     * 璁剧疆cookie
+     * 设置cookie
      *
      * @param response
      * @param path
-     *            璺缎锛?/"琛ㄧず璇ュ伐绋嬩笅閮藉彲浠ヨ闂cookie 濡傛灉涓嶈缃矾寰勶紝闾ｄ箞鍙湁璁剧疆璇ookie璺缎鍙婂叾瀛愯矾寰勫彲浠ヨ闂?
+     *            路径，"/"表示该工程下都可以访问该cookie 如果不设置路径，那么只有设置该cookie路径及其子路径可以访问
      * @param name
-     *            cookie鍚嶅瓧
+     *            cookie名字
      * @param value
-     *            cookie链?
+     *            cookie值
      * @param maxAge
-     *            cookie鐢熷懡锻ㄦ湡 浠ョ涓哄崟浣?
+     *            cookie生命周期 以秒为单位
      */
     public static void addCookie(HttpServletResponse response, String path, String name, String value, int maxAge){
         Cookie cookie = new Cookie(name, value);
@@ -33,11 +33,11 @@ public class CookieUtil {
     }
 
     /**
-     * 镙规嵁鍚嶅瓧銮峰彇cookie
+     * 根据名字获取cookie
      *
      * @param request
      * @param name
-     *            cookie鍚嶅瓧
+     *            cookie名字
      * @return
      */
     public static Cookie getCookieByName(HttpServletRequest request, String name){
@@ -52,7 +52,7 @@ public class CookieUtil {
     }
 
     /**
-     * 灏哻ookie灏佽鍒癕ap閲岄溃
+     * 将cookie封装到Map里面
      *
      * @param request
      * @return

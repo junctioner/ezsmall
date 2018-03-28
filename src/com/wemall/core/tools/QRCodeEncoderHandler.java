@@ -59,7 +59,7 @@ public class QRCodeEncoderHandler {
     }
 
     /**
-    * 鐢熸垚浜岀淮镰佸浘鐗囩殑浜岃繘鍒?
+    * 生成二维码图片的二进制
     * @param content
     * @return
     */
@@ -108,7 +108,7 @@ public class QRCodeEncoderHandler {
         return result;
     }
     /**
-    * 镙规嵁锲剧墖镄勪簩杩涘埗鐢熸垚涓€涓浘鐗?
+    * 根据图片的二进制生成一个图片
     * @param data
     * @param fileName
     * @param type

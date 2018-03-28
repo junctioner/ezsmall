@@ -11,7 +11,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 /**
- * 绯荤粺镞ュ织
+ * 系统日志
  * @author lianfu
  *
  */

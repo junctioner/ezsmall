@@ -24,9 +24,9 @@ public class AlipayCore {
     }
 
     /**
-     * 闄ゅ幓鏁扮粍涓殑绌哄€煎拰绛惧悕鍙傛暟
-     * @param sArray 绛惧悕鍙傛暟缁?
-     * @return 铡绘帀绌哄€间笌绛惧悕鍙傛暟鍚庣殑鏂扮鍚嶅弬鏁扮粍
+     * 除去数组中的空值和签名参数
+     * @param sArray 签名参数组
+     * @return 去掉空值与签名参数后的新签名参数组
      */
     public static Map<String, String> paraFilter(Map<String, String> sArray){
 
@@ -48,9 +48,9 @@ public class AlipayCore {
         return result;
     }
     /**
-     * 鎶婃暟缁勬墍链夊厓绱犳帓搴忥紝骞舵寜镦р€滃弬鏁?鍙傛暟链尖€濈殑妯″纺鐢ㄢ€?钬濆瓧绗︽嫾鎺ユ垚瀛楃涓?
-     * @param params 闇€瑕佹帓搴忓苟鍙备笌瀛楃鎷兼帴镄勫弬鏁扮粍
-     * @return 鎷兼帴鍚庡瓧绗︿覆
+     * 把数组所有元素排序，并按照“参数=参数值”的模式用“&”字符拼接成字符串
+     * @param params 需要排序并参与字符拼接的参数组
+     * @return 拼接后字符串
      */
     public static String createLinkString(Map<String, String> params){
 
@@ -63,7 +63,7 @@ public class AlipayCore {
             String key = keys.get(i);
             String value = params.get(key);
 
-            if (i == keys.size() - 1){ //鎷兼帴镞讹紝涓嶅寘鎷渶鍚庝竴涓?瀛楃
+            if (i == keys.size() - 1){ //拼接时，不包括最后一个&字符
                 prestr = prestr + key + "=" + value;
             }else{
                 prestr = prestr + key + "=" + value + "&";
@@ -104,8 +104,8 @@ public class AlipayCore {
         return prestr;
     }
     /**
-     * 鍐欐棩蹇楋紝鏂逛究娴嬭瘯锛堢湅缃戠珯闇€姹傦紝涔熷彲浠ユ敼鎴愭妸璁板綍瀛桦叆鏁版嵁搴掳级
-     * @param sWord 瑕佸啓鍏ユ棩蹇楅噷镄勬枃链唴瀹?
+     * 写日志，方便测试（看网站需求，也可以改成把记录存入数据库）
+     * @param sWord 要写入日志里的文本内容
      */
     public static void logResult(AlipayConfig config, String sWord){
         FileWriter writer = null;
@@ -132,10 +132,10 @@ public class AlipayCore {
     }
 
     /**
-     * 鐢熸垚鏂囦欢鎽樿
-     * @param strFilePath 鏂囦欢璺缎
-     * @param file_digest_type 鎽樿绠楁硶
-     * @return 鏂囦欢鎽樿缁撴灉
+     * 生成文件摘要
+     * @param strFilePath 文件路径
+     * @param file_digest_type 摘要算法
+     * @return 文件摘要结果
      */
     public static String getAbstract(String strFilePath, String file_digest_type) throws IOException {
         PartSource file = new FilePartSource(new File(strFilePath));

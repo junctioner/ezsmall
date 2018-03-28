@@ -11,31 +11,31 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 /**
- * 鐗╂祦
- * @author 鍒樻亽绂?
+ * 物流
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_logistics")
 public class Logistics extends IdEntity {
-	// 鐗╂祦鍗曞佛
+	// 物流单号
 	private String logistics_no;
-	// 鐗╂祦鍏徃鍚岖О
+	// 物流公司名称
 	private String logistics_name;
-	// 杞︾墝鍙峰涓溅鐗岀敤鑻辨枃钬?钬濋殧寮€
+	// 车牌号多个车牌用英文“,”隔开
 	private String car_no;
-	// 鐗╂祦浜哄憳澶氢釜浜哄憳鑻辨枃钬?钬濋殧寮€
+	// 物流人员多个人员英文“,”隔开
 	private String proples;
-	// 鐗╂祦璐圭敤
+	// 物流费用
 	private BigDecimal total_price;
-	// 棰勮阃佽揪镞堕棿
+	// 预警送达时间
 	private Date service_time;
-	// 阃佽揪镞堕棿
+	// 送达时间
 	private Date end_time;
-	// 鐗╂祦钟舵€?
+	// 物流状态
 	private int status;
-	// 澶囨敞
+	// 备注
 	private String msg;
 
 	public String getLogistics_no() {

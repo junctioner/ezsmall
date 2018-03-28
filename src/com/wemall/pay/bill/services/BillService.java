@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * è¹‡î‚¦å±€é€îˆ™ç²¯é“¾å¶…å§Ÿ
+ * ¿ìÇ®Ö§¸¶·şÎñ
  */
 public class BillService {
     private static final String BILL_GATEWAY_NEW = "https://www.99bill.com/gateway/recvMerchantInfoAction.htm";

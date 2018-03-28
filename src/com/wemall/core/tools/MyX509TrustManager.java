@@ -9,15 +9,15 @@ import javax.net.ssl.X509TrustManager;
  */
 public class MyX509TrustManager implements X509TrustManager {
 
-    // 妫€镆ュ鎴风璇佷功
+    // 检查客户端证书
     public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
     }
 
-    // 妫€镆ユ湇锷″櫒绔瘉涔?
+    // 检查服务器端证书
     public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
     }
 
-    // 杩斿洖鍙椾俊浠荤殑X509璇佷功鏁扮粍
+    // 返回受信任的X509证书数组
     public X509Certificate[] getAcceptedIssuers(){
         return null;
     }

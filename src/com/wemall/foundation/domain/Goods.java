@@ -17,74 +17,79 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 鍟嗗搧
+ * 商品
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_goods")
 public class Goods extends IdEntity {
-	private String good_no;// 鍟嗗搧缂栧佛
-	private String name;// 鍟嗗搧鍚岖О
-	private double price;// 鍟嗗搧鍗曚环
-	private int validity;// 鍟嗗搧链夋晥链?
-	private double inventory;// 鍟嗗搧搴揿瓨閲?
+	private String good_no;// 商品编号
+	private String name;// 商品名称
+	private double price;// 商品单价
+	private int validity;// 商品有效期
+	private double inventory;// 商品库存量
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Area area;// 鍟嗗搧搴揿瓨鍖哄幙
-	private String addess;// 搴揿瓨镓€鍦ㄥ湴
-	private String seo_description;// 鍟嗗搧SEO鎻忚堪
-	private String keyword;// 鍟嗗搧鎼灭储鍏抽敭瀛?
+	private Area area;// 商品库存区县
+	private String addess;// 库存所在地
+	private String seo_description;// 商品SEO描述
+	private String keyword;// 商品搜索关键字
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Dict util;// 鍗曚綅
-	private boolean recommend;// 鏄惁鎺ㄨ崘
-	private Date recommend_time;// 鎺ㄨ崘镞ユ湡
-	private int click;// 鍟嗗搧镣瑰向閲?
-	private int collect;// 鍟嗗搧鏀惰棌閲?
-	private int status;// 鍟嗗搧钟舵€?
+	private Dict util;// 单位
+	private boolean recommend;// 是否推荐
+	private Date recommend_time;// 推荐日期
+	private int click;// 商品点击量
+	private int collect;// 商品收藏量
+	private int status;// 商品状态 2.正常上架
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Dict logistics;// 鐗╂祦鏂瑰纺
+	private Dict logistics;// 物流方式
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Dict supply;// 渚涜揣鏂瑰纺
+	private Dict supply;// 供货方式
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Dict color;// 棰滆壊
+	private Dict color;// 颜色
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Area region;// 鍦板尯
+	private Area region;// 地区
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Dict form;// 褰㈡€?
-	private String source;// 鏉ユ簮
-	private String purpose;// 鍟嗗搧鐢ㄩ€?
-	private String density;// 鍟嗗搧瀵嗗害
-	private String cantilever;// 镇哕姊佺己鍙ｅ啿鍑?
-	private String lipolysis;// 婧惰刚
-	private String ash;// 鐏板垎
-	private String freely;// j绠€鏀娓犲彛鍐插向
-	private String water;// 姘村垎
-	private String tensile;// 鎷変几寮哄害
-	private String crack;// 鏂浼搁昵鐜?
-	private String bending;// 寮洸寮哄害
-	private String flexural;// 寮洸妯￠噺
-	private String burning;// 鐕幂儳绛夌骇
-	private boolean protection;// 鏄惁鐜缭
-	private String content;// 鎻忚堪
-	private double cncl_num;// 镙峰搧搴揿瓨
+	private Dict form;// 形态
+	private String source;// 来源
+	private String purpose;// 商品用途
+	private String density;// 商品密度
+	private String cantilever;// 悬臂梁缺口冲击
+	private String lipolysis;// 溶脂
+	private String ash;// 灰分
+	private String freely;// j简支梁渠口冲击
+	private String water;// 水分
+	private String tensile;// 拉伸强度
+	private String crack;// 断裂伸长率
+	private String bending;// 弯曲强度
+	private String flexural;// 弯曲模量
+	private String burning;// 燃烧等级
+	private boolean protection;// 是否环保
+	private String content;// 描述
+	private double cncl_num;// 样品库存
 	@ManyToOne(fetch = FetchType.LAZY)
-	private User user;// 鍙戝竷浜?
+	private User user;// 发布人
 	@ManyToOne(fetch = FetchType.LAZY)
-	private GoodClass goodClass;// 鍟嗗搧鍒嗙被
+	private GoodsClass goodClass;// 商品分类
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Quality quality;// 璐ㄦ
+	private Quality quality;// 质检
 	@ManyToOne(cascade = { javax.persistence.CascadeType.REMOVE })
-	private Accessory goods_main_photo;// 涓诲浘鐗?
-	private boolean memberLook;// 鏄惁浼氩憳镆ョ湅
-	private int goods_salenum;//阌€閲忔暟
-	// 镦х墖
+	private Accessory goods_main_photo;// 主图片
+	private boolean memberLook;// 是否会员查看
+	private int goods_salenum;// 销量数
+	// 照片
 	@ManyToMany
 	@JoinTable(name = "ezs_goods_photo", joinColumns = {
 			@javax.persistence.JoinColumn(name = "goods_id") }, inverseJoinColumns = {
 					@javax.persistence.JoinColumn(name = "photo_id") })
 	private List<Accessory> goods_photos = new ArrayList<Accessory>();
+	@ManyToMany
+	@JoinTable(name = "ezs_goods_cartography", joinColumns = {
+			@javax.persistence.JoinColumn(name = "goods_id") }, inverseJoinColumns = {
+					@javax.persistence.JoinColumn(name = "cartography_id") })
+	private List<Accessory> cartographys = new ArrayList<Accessory>();
 
 	public String getName() {
 		return name;
@@ -406,12 +411,11 @@ public class Goods extends IdEntity {
 		this.goods_photos = goods_photos;
 	}
 
-
-	public GoodClass getGoodClass() {
+	public GoodsClass getGoodClass() {
 		return goodClass;
 	}
 
-	public void setGoodClass(GoodClass goodClass) {
+	public void setGoodClass(GoodsClass goodClass) {
 		this.goodClass = goodClass;
 	}
 
@@ -429,6 +433,14 @@ public class Goods extends IdEntity {
 
 	public void setGoods_salenum(int goods_salenum) {
 		this.goods_salenum = goods_salenum;
+	}
+
+	public List<Accessory> getCartographys() {
+		return cartographys;
+	}
+
+	public void setCartographys(List<Accessory> cartographys) {
+		this.cartographys = cartographys;
 	}
 
 }

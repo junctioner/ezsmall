@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 鏀粯瀹濇敮浠樻湇锷?
+ * 支付宝支付服务
  */
 public class AlipayService {
     private static final String ALIPAY_GATEWAY_NEW = "https://mapi.alipay.com/gateway.do?";
@@ -27,7 +27,7 @@ public class AlipayService {
         sParaTemp.put("seller_email", config.getSeller_email());
         sParaTemp.put("_input_charset", config.getInput_charset());
 
-        String strButtonName = "纭";
+        String strButtonName = "确认";
 
         return AlipaySubmit.buildForm(config, sParaTemp, "https://mapi.alipay.com/gateway.do?",
                                       "get", strButtonName);
@@ -67,7 +67,7 @@ public class AlipayService {
         sParaTemp.put("seller_email", config.getSeller_email());
         sParaTemp.put("_input_charset", config.getInput_charset());
 
-        String strButtonName = "纭";
+        String strButtonName = "确认";
 
         return AlipaySubmit.buildForm(config, sParaTemp, "https://mapi.alipay.com/gateway.do?",
                                       "get", strButtonName);
@@ -81,7 +81,7 @@ public class AlipayService {
         sParaTemp.put("seller_email", config.getSeller_email());
         sParaTemp.put("_input_charset", config.getInput_charset());
 
-        String strButtonName = "纭";
+        String strButtonName = "确认";
 
         return AlipaySubmit.buildForm(config, sParaTemp, "https://mapi.alipay.com/gateway.do?",
                                       "get", strButtonName);

@@ -110,14 +110,14 @@ public class AlipaySubmit {
     }
 
     /**
-     * wap寤虹珛璇锋眰锛屼互琛ㄥ崟HTML褰㈠纺鏋勯€狅纸榛樿锛?
-     * @param sParaTemp 璇锋眰鍙傛暟鏁扮粍
-     * @param strMethod 鎻愪氦鏂瑰纺銆备袱涓€煎彲阃夛细post銆乬et
-     * @param strButtonName 纭鎸夐挳鏄剧ず鏂囧瓧
-     * @return 鎻愪氦琛ㄥ崟HTML鏂囨湰
+     * wap建立请求，以表单HTML形式构造（默认）
+     * @param sParaTemp 请求参数数组
+     * @param strMethod 提交方式。两个值可选：post、get
+     * @param strButtonName 确认按钮显示文字
+     * @return 提交表单HTML文本
      */
     public static String buildRequestWap(AlipayConfig config, Map<String, String> sParaTemp, String strMethod, String strButtonName){
-        //寰呰姹傚弬鏁版暟缁?
+        //待请求参数数组
         Map<String, String> sPara = buildRequestParaWap(config, sParaTemp);
         List<String> keys = new ArrayList<String>(sPara.keySet());
 
@@ -134,7 +134,7 @@ public class AlipaySubmit {
             sbHtml.append("<input type=\"hidden\" name=\"" + name + "\" value=\"" + value + "\"/>");
         }
 
-        //submit鎸夐挳鎺т欢璇蜂笉瑕佸惈链塶ame灞炴€?
+        //submit按钮控件请不要含有name属性
         sbHtml.append("<input type=\"submit\" value=\"" + strButtonName + "\" style=\"display:none;\"></form>");
         sbHtml.append("<script>document.forms['alipaysubmit'].submit();</script>");
 
@@ -142,17 +142,17 @@ public class AlipaySubmit {
     }
 
     /**
-     * 鐢熸垚瑕佽姹傜粰鏀粯瀹濈殑鍙傛暟鏁扮粍
-     * @param sParaTemp 璇锋眰鍓岖殑鍙傛暟鏁扮粍
-     * @return 瑕佽姹傜殑鍙傛暟鏁扮粍
+     * 生成要请求给支付宝的参数数组
+     * @param sParaTemp 请求前的参数数组
+     * @return 要请求的参数数组
      */
     private static Map<String, String> buildRequestParaWap(AlipayConfig config, Map<String, String> sParaTemp){
-        //闄ゅ幓鏁扮粍涓殑绌哄€煎拰绛惧悕鍙傛暟
+        //除去数组中的空值和签名参数
         Map<String, String> sPara = AlipayCore.paraFilter(sParaTemp);
-        //鐢熸垚绛惧悕缁撴灉
+        //生成签名结果
         String mysign = buildRequestMysign(config, sPara);
 
-        //绛惧悕缁撴灉涓庣鍚嶆柟寮忓姞鍏ヨ姹傛彁浜ゅ弬鏁扮粍涓?
+        //签名结果与签名方式加入请求提交参数组中
         sPara.put("sign", mysign);
         //sPara.put("sign_type", AlipayConfig.sign_type);
         sPara.put("sign_type", config.getSign_type());
@@ -175,12 +175,12 @@ public class AlipaySubmit {
     }
 
     /**
-     * 鐢熸垚绛惧悕缁撴灉
-     * @param sPara 瑕佺鍚岖殑鏁扮粍
-     * @return 绛惧悕缁撴灉瀛楃涓?
+     * 生成签名结果
+     * @param sPara 要签名的数组
+     * @return 签名结果字符串
      */
     public static String buildRequestMysign(AlipayConfig config, Map<String, String> sPara){
-        String prestr = AlipayCore.createLinkString(sPara); //鎶婃暟缁勬墍链夊厓绱狅紝鎸夌収钬滃弬鏁?鍙傛暟链尖€濈殑妯″纺鐢ㄢ€?钬濆瓧绗︽嫾鎺ユ垚瀛楃涓?
+        String prestr = AlipayCore.createLinkString(sPara); //把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串
         String mysign = "";
         if(config.getSign_type().equals("RSA")){
             mysign = RSA.signWap(prestr, AlipayConfig.private_key, config.getInput_charset());
@@ -190,16 +190,16 @@ public class AlipaySubmit {
 
 
     /**
-     * 鐢ㄤ簬阒查挀楸硷紝璋幂敤鎺ュ彛query_timestamp鏉ヨ幏鍙栨椂闂存埑镄勫鐞嗗嚱鏁?
-     * 娉ㄦ剰锛氲繙绋嬭В鏋怷ML鍑洪敊锛屼笌链嶅姟鍣ㄦ槸鍚︽敮鎸丼SL绛夐厤缃湁鍏?
-     * @return 镞堕棿鎴冲瓧绗︿覆
+     * 用于防钓鱼，调用接口query_timestamp来获取时间戳的处理函数
+     * 注意：远程解析XML出错，与服务器是否支持SSL等配置有关
+     * @return 时间戳字符串
      * @throws IOException
      * @throws DocumentException
      * @throws MalformedURLException
      */
     public static String query_timestamp(AlipayConfig config) throws Exception {
 
-        //鏋勯€犺闂畄uery_timestamp鎺ュ彛镄刄RL涓?
+        //构造访问query_timestamp接口的URL串
         String strUrl = ALIPAY_GATEWAY_NEW + "service=query_timestamp&partner=" + config.getPartner() + "&_input_charset" + config.getInput_charset();
         StringBuffer result = new StringBuffer();
 
@@ -209,9 +209,9 @@ public class AlipaySubmit {
         List<Node> nodeList = doc.selectNodes("//alipay/*");
 
         for (Node node : nodeList){
-            // 鎴彇閮ㄥ垎涓嶉渶瑕佽В鏋愮殑淇℃伅
+            // 截取部分不需要解析的信息
             if (node.getName().equals("is_success") && node.getText().equals("T")){
-                // 鍒ゆ柇鏄惁链夋垚锷熸爣绀?
+                // 判断是否有成功标示
                 List<Node> nodeList1 = doc.selectNodes("//response/timestamp/*");
                 for (Node node1 : nodeList1){
                     result.append(node1.getText());

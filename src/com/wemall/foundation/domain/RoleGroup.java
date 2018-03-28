@@ -9,20 +9,20 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 瑙掕壊缁?
+ * 角色组
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_role_group")
 public class RoleGroup extends IdEntity {
-	// 鍚岖О
+	// 名称
 	private String name;
-	// 搴忓垪
+	// 序列
 	private int sequence;
-	// 绫诲瀷
+	// 类型
 	private String type;
 
 	public String getName() {

@@ -8,12 +8,12 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 
 /**
- * 鎷奸煶宸ュ叿绫?
+ * 拼音工具类
  */
 public class PinYinUtil {
     /**
      *
-     * 灏嗗瓧绗︿覆涓殑涓枃杞寲涓烘嫾阔?鍏朵粬瀛楃涓嶅彉
+     * 将字符串中的中文转化为拼音,其他字符不变
      *
      * @param inputString
      *
@@ -43,12 +43,12 @@ public class PinYinUtil {
 
     /**
      *
-     * 銮峰彇姹夊瓧涓叉嫾阔抽瀛楁瘝锛岃嫳鏂囧瓧绗︿笉鍙?
+     * 获取汉字串拼音首字母，英文字符不变
      *
      * @param chinese
-     *            姹夊瓧涓?
+     *            汉字串
      *
-     * @return 姹夎鎷奸煶棣栧瓧姣?
+     * @return 汉语拼音首字母
      */
     public static String getFirstSpell(String chinese){
         StringBuffer pybf = new StringBuffer();
@@ -76,12 +76,12 @@ public class PinYinUtil {
 
     /**
      *
-     * 銮峰彇姹夊瓧涓叉嫾阔筹紝鑻辨枃瀛楃涓嶅彉
+     * 获取汉字串拼音，英文字符不变
      *
      * @param chinese
-     *            姹夊瓧涓?
+     *            汉字串
      *
-     * @return 姹夎鎷奸煶
+     * @return 汉语拼音
      */
     public static String getFullSpell(String chinese){
         StringBuffer pybf = new StringBuffer();

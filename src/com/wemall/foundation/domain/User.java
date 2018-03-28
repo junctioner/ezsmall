@@ -27,46 +27,46 @@ import com.wemall.core.annotation.Lock;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 鐢ㄦ埛鐧婚檰淇℃伅
+ * 用户登陆信息
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_user")
 public class User extends IdEntity implements UserDetails {
-	public String name;// 鐢ㄦ埛鐧婚檰鍚岖О
-	private String trueName;// 鐢ㄦ埛鐪熷疄鍚岖О
+	public String name;// 用户登陆名称
+	private String trueName;// 用户真实名称
 	 @Lock
-	private String password;// 鐢ㄦ埛瀵嗙爜
-	private String userRole;// ADMIN(鍚庡彴鐢ㄦ埛)锛孊UYER(涔板)锛孲ELLER锛埚岽瀹讹级锛岃嫢涓€涓汉涓や釜瑙掕壊锛埚悗鍙扮鐞?涔板锛夌敤ADMIN_BUYER
+	private String password;// 用户密码
+	private String userRole;// ADMIN(后台用户)，BUYER(买家)，SELLER（卖家），若一个人两个角色（后台管理+买家）用ADMIN_BUYER
 	@OneToOne
-	private UserInfo userInfo;// 鐢ㄦ埛璇︽儏
+	private UserInfo userInfo;// 用户详情
 	@ManyToOne(fetch = FetchType.LAZY)
-	private User parent;// 鐖剁被璐﹀佛
+	private User parent;// 父类账号
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Store store;// 鐢ㄦ埛搴楅摵
-	// 涓婃鐧诲綍镞堕棿
+	private Store store;// 用户店铺
+	// 上次登录时间
 	private Date lastLoginDate;
-	// 鐧诲綍镞堕棿
+	// 登录时间
 	private Date loginDate;
-	// 涓婃鐧诲綍IP
+	// 上次登录IP
 	private String lastLoginIp;
-	// 鐧诲綍IP
+	// 登录IP
 	private String loginIp;
-	// 鐧诲綍娆℃暟
+	// 登录次数
 	private int loginCount;
-	// 瑙掕壊
+	// 角色
 	@ManyToMany(targetEntity = Role.class, fetch = FetchType.LAZY)
 	@JoinTable(name = "ezs_user_role", joinColumns = {
 			@javax.persistence.JoinColumn(name = "user_id") }, inverseJoinColumns = {
 					@javax.persistence.JoinColumn(name = "role_id") })
 	private Set<Role> roles = new TreeSet<Role>();
-	// 閰岖疆
+	// 配置
 	@OneToOne(mappedBy = "user")
 	private UserConfig config;
-	// 瑙掕壊璧勬簮
+	// 角色资源
 	@Transient
 	private Map<String, List<Res>> roleResources;
 	@Transient

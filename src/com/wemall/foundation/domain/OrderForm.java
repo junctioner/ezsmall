@@ -21,65 +21,65 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 璁㈠崟淇℃伅
+ * 订单信息
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_orderform")
 public class OrderForm extends IdEntity {
-	// 璁㈠崟缂栧佛
+	// 订单编号
 	private String order_no;
-	// 璁㈠崟绫诲瀷
+	// 订单类型
 	private String order_type;
-	// 鍟嗗搧杩愰€侀泦鍚?
+	// 商品运送集合
 	@OneToMany(mappedBy = "of")
 	List<GoodsCart> gcs = new ArrayList<GoodsCart>();
-	// 镐讳环
+	// 总价
 	private BigDecimal total_price;
-	// 鐢ㄦ埛
+	// 用户
 	@ManyToOne
 	private User user;
-	// 杩愰€佷细璇滻D
+	// 运送会话ID
 	private String cart_session_id;
-	// 杩愰€佺姸镐?
+	// 运送状态
 	@Column(columnDefinition = "int default 0")
 	private int sc_status;
-	// 鏀粯鏂瑰纺锛?.鍏ㄦ锛?锛氶娆?灏炬锛?.绾夸笅锛?
+	// 支付方式（0.全款，1：首款+尾款，2.线下）
 	private int pay_mode;
-	// 鍟嗗搧閲?
+	// 商品量
 	@Column(precision = 12, scale = 2)
 	private BigDecimal goods_amount;
-	// 淇℃伅
+	// 信息
 	@Lob
 	@Column(columnDefinition = "LongText")
 	private String msg;
-	// 绁ㄦ嵁
+	// 票据
 	@ManyToOne
 	private Accessory bill;
-	private int order_status;// 璁㈠崟钟舵€?
-	// 棣栦粯娆?
+	private int order_status;// 订单状态
+	// 首付款
 	private BigDecimal first_price;
-	// 灏炬
+	// 尾款
 	private BigDecimal end_price;
-	// 鍚埚悓缂栧佛
+	// 合同编号
 	private String pact_no;
-	// 鍚埚悓闄勪欢
+	// 合同附件
 	@ManyToMany(targetEntity = Accessory.class, fetch = FetchType.LAZY)
 	@JoinTable(name = "ezs_order_pact", joinColumns = {
 			@javax.persistence.JoinColumn(name = "order_id") }, inverseJoinColumns = {
 					@javax.persistence.JoinColumn(name = "pact_id") })
 	private List<Accessory> pact_file;
-	// 鍚埚悓钟舵€?
+	// 合同状态
 	private int pact_status;
-	// 鏀惰揣鍦板潃
+	// 收货地址
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Address address;
-	// 璁㈠崟瀹屾垚镞?
+	// 订单完成时
 	private Date finishtime;
-	// 寮€绁ㄤ俊鎭?
+	// 开票信息
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Invoice invoice;
 

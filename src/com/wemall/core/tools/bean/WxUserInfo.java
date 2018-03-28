@@ -4,25 +4,25 @@ package com.wemall.core.tools.bean;
  * Created by John on 2016/1/13.
  */
 public class WxUserInfo {
-    // 鐢ㄦ埛镄勬爣璇?
+    // 用户的标识
     private String openId;
-    // 鍏虫敞钟舵€侊纸1鏄叧娉紝0鏄湭鍏虫敞锛夛紝链叧娉ㄦ椂銮峰彇涓嶅埌鍏朵綑淇℃伅
+    // 关注状态（1是关注，0是未关注），未关注时获取不到其余信息
     private int subscribe;
-    // 鐢ㄦ埛鍏虫敞镞堕棿锛屼负镞堕棿鎴炽€傚鏋灭敤鎴锋浘澶氭鍏虫敞锛屽垯鍙栨渶鍚庡叧娉ㄦ椂闂?
+    // 用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间
     private String subscribeTime;
-    // 鏄电О
+    // 昵称
     private String nickname;
-    // 鐢ㄦ埛镄勬€у埆锛?鏄敺镐э紝2鏄コ镐э紝0鏄湭鐭ワ级
+    // 用户的性别（1是男性，2是女性，0是未知）
     private int sex;
-    // 鐢ㄦ埛镓€鍦ㄥ浗瀹?
+    // 用户所在国家
     private String country;
-    // 鐢ㄦ埛镓€鍦ㄧ渷浠?
+    // 用户所在省份
     private String province;
-    // 鐢ㄦ埛镓€鍦ㄥ煄甯?
+    // 用户所在城市
     private String city;
-    // 鐢ㄦ埛镄勮瑷€锛岀亩浣扑腑鏂囦负zh_CN
+    // 用户的语言，简体中文为zh_CN
     private String language;
-    // 鐢ㄦ埛澶村儚
+    // 用户头像
     private String headImgUrl;
 
     public String getOpenId(){

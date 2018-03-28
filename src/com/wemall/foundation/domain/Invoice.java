@@ -13,21 +13,21 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 寮€绁ㄤ俊鎭?
+ * 开票信息
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_invoice")
 public class Invoice extends IdEntity {
-	private String express_name;// 闾瘎鏂瑰纺
-	private String express_no;// 蹇€掑佛
-	private Date express_time;// 寮€绁ㄦ椂闂?
-	private int invoice_status;// 寮€绁ㄧ姸镐?
+	private String express_name;// 邮寄方式
+	private String express_no;// 快递号
+	private Date express_time;// 开票时间
+	private int invoice_status;// 开票状态
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Accessory receipt;// 绁ㄦ嵁
+	private Accessory receipt;// 票据
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 

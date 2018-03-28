@@ -144,7 +144,7 @@ public class FileSorter
     }
 
     private static void printFileArray(File[] list){
-        System.out.println("鏂囦欢澶у皬\t\t鏂囦欢淇敼镞ユ湡\t\t鏂囦欢绫诲瀷\t\t鏂囦欢鍚岖О");
+        System.out.println("文件大小\t\t文件修改日期\t\t文件类型\t\t文件名称");
 
         File[] arrayOfFile = list;
         int j = list.length;
@@ -152,7 +152,7 @@ public class FileSorter
             File f = arrayOfFile[i];
             System.out.println(f.length() + "\t\t" +
                                new Date(f.lastModified()).toString() + "\t\t" + (
-                                   f.isDirectory() ? "鐩綍" : "鏂囦欢") + "\t\t" + f.getName());
+                                   f.isDirectory() ? "目录" : "文件") + "\t\t" + f.getName());
         }
     }
 }

@@ -94,16 +94,143 @@ jQuery(document).ready(function(){
 }); 
 
 function saveForm(){
-   var arr=[]
-    $("#class_id11 option:selected").each(function() {
-	    var a=$(this).attr("value")
-	    arr.push(a)
-	});
-   var prepareColumn=arr.join(",")
-   $("input[name='prepareColumn']").attr("value",prepareColumn)
-   $("#theForm").submit();
+   //debugger;
+   var arr=[];
+   var remarkSize = jQuery("#rsize").attr("remarkSize");
+   for(var i=1;i<=remarkSize;i++){
+	    var id=i;
+  	    var remarkName=jQuery("#rs"+id).html();
+  	    var name = jQuery("#sel"+id).find("option:selected").text();
+  	    var remarkValue = "";
+  	    jQuery("#rem"+id).find("option:selected").each(function(){
+  	    	remarkValue = remarkValue+"，"+jQuery(this).text();
+  	    });
+  	    remarkValue = remarkValue.substring(1);
+  	    var temp = {
+	    		"id":id,
+	    		"remarkName":remarkName,
+	    		"name":name,
+	    		"remarkValue":remarkValue
+	    }
+  	    arr.push(temp);
+   }
+  
+//    jQuery("#class_id11 option:selected").each(function() {
+// 	    var a=$(this).attr("value")
+// 	    arr.push(a)
+// 	});
+   var prepareColumn = JSON.stringify(arr);
+   //var prepareColumn=arr.join(",");
+   jQuery("input[name='prepareColumn']").attr("value",prepareColumn);
+   jQuery("#theForm").submit();
 }
 
+function getParentLevel(){
+	var columnLevel = jQuery("#columnLevel").val();
+	if(columnLevel==1){
+		jQuery("#parentLevel").html("");
+		return false;
+	}
+	jQuery.ajax({
+		url : "$!webPath/admin/parentLevel.htm",
+		data : {
+			"columnLevel":columnLevel
+		},
+		type : "POST",
+		dataType : "json",
+		error : function() {
+			return false;
+		},
+		success : function(data) {
+			//debugger;
+			jQuery("#parentLevel").html("");
+			//each的写法
+            jQuery.each(data, function(i, item){     
+            	//var node="<option value="+item.id+">"+item.name+"</option>";       
+            	jQuery("#parentLevel").append("<option value='"+item.id+"'>"+item.name+"</option>");     
+        	});
+			 
+		}
+    });					
+}
+
+
+function getRemark(){
+	//debugger;
+	var remarkId = jQuery("#remark").val();
+	if(remarkId==""){
+		return false;
+	}
+	jQuery.ajax({
+		url : "$!webPath/admin/remarkName.htm",
+		data : {
+			"remarkId":remarkId,
+			"method" :"1"
+		},
+		type : "POST",
+		dataType : "json",
+		error : function() {
+			return false;
+		},
+		success : function(data) {
+			//debugger;
+			jQuery("#remarkValue").html("<option value=''>请选择</option>");
+			//each的写法
+            jQuery.each(data, function(i, item){     
+            	jQuery("#remarkValue").append("<option value='"+item.id+"'>"+item.name+"</option>"); 
+        	});
+			 
+		}
+    });					
+}
+
+function getRemarkValue(){
+	var remarkId = jQuery("#remarkValue").val();
+	if(remarkId==""){
+		return false;
+	}
+	jQuery.ajax({
+		url : "$!webPath/admin/remarkName.htm",
+		data : {
+			"remarkId":remarkId,
+			"method" :"2"
+		},
+		type : "POST",
+		dataType : "json",
+		error : function() {
+			return false;
+		},
+		success : function(data) {
+			//debugger;
+			jQuery("#class_id11").html("");
+			//each的写法
+            jQuery.each(data, function(i, item){     
+            	jQuery("#class_id11").append("<option value='"+item+"'>"+item+"</option>"); 
+        	});
+			
+			 
+		}
+    });					
+}
+
+function chooseIt(){
+	if(jQuery("#comb")[0].checked){
+		jQuery("#doctitle").removeAttr("disabled");
+	}else{
+		jQuery("#doctitle").attr("disabled","disabled");
+	}
+}
+function abcd(id){
+	//debugger;
+	var remark = jQuery("#sel"+id).find("option:selected").attr("remarkvalue");
+	var data = remark.split("，");
+	jQuery("#rem"+id).html("");
+	jQuery.each(data, function(i, item){
+    	jQuery("#rem"+id).append("<option value='"+item+"'>"+item+"</option>"); 
+	});
+	
+	
+}
 </script>
 </head>
 <body>
@@ -114,11 +241,18 @@ function saveForm(){
     <input name="prepareColumn" type="hidden" value="" />
     <div class="setcont">
       <ul class="set1">
-        <li><span>栏目类别：</span><span class="webnamesec sizese" style="margin-left: 10px">
-          <select name="columnLevel" id="class_id222">
+          <li><span>栏目类别：</span><span class="webnamesec sizese" style="margin-left: 10px">
+          <select name="columnLevel" id="columnLevel" onchange="getParentLevel();">
             <option value="1">一级栏目</option>
             <option value="2">二级栏目</option>
             <option value="3">三级栏目</option>
+          </select>
+          </span>
+          <span style="margin-left: 10px">上级栏目：</span><span class="webnamesec sizese" style="margin-left: 10px">
+          <select name="parentLevel" id="parentLevel">
+<!--             <option value="1">一级栏目</option> -->
+<!--             <option value="2">二级栏目</option> -->
+<!--             <option value="3">三级栏目</option> -->
           </select>
           </span>
           </li>
@@ -134,15 +268,25 @@ function saveForm(){
             </span>
           </li>
           <li v-if="pink==1">
-	          <span>最终栏目列表：</span><span class="webnamesec sizese" style="margin-left: 10px">
-	          <select id="class_id11" multiple="multiple">
-	         #foreach($goodsSpecification in $goodsSpecifications)
-			   <option value="$!goodsSpecification.id">$!goodsSpecification.name</option>
-			 #end
-	          </select>
-	          </span>
-          </li>
-        <li><span>栏目名称：</span><span><input type="text" size="40" name="name"/></span></li>
+	          <span id="rsize" remarkSize="$!{remarks.size()}">最终栏目列表：</span><span class="webnamesec sizese" style="margin-left: 10px">
+	            #foreach($rs in $!remarks)
+	              <span id="rs$velocityCount">$rs.name</span> 
+	              <select id="sel$velocityCount" onchange="abcd($velocityCount)">
+		              #foreach($ca in $!rs.cla) 
+		               #if($velocityCount==1) #set($rvs =$!CommUtil.splitByChar($!ca.remarkValue,',') ) #end
+		                <option remarkvalue="$!ca.remarkValue">$!ca.name</option> 
+		               #end
+	              </select>
+	              <br/>
+	              <span>标签</span> 
+	              <select id="rem$velocityCount" multiple="multiple">
+	                #foreach($vs in $!rvs)
+	                <option>$vs</option>
+	                #end
+	              </select><br />            
+	            #end	            
+	       </li>
+	             <li><span>栏目名称：</span><span><input type="text" size="40" name="name"/></span></li>
         <li><span>访问路径：</span><span><input type="text" size="40" name="accessPath"/></span></li>
         <li><span>栏目模板：</span><span><input type="text" size="40" name="colTemplate"/></span>
           <span>&nbsp;&nbsp;&nbsp;&nbsp;手机模板：</span><span><input type="text" size="40" name="phoTemplate"/></span>

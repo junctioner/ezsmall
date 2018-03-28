@@ -11,6 +11,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,7 +36,7 @@ public class SecondDomainFilter
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
     throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest)req;
-        // HttpServletResponse response = (HttpServletResponse)res;
+        HttpServletResponse response = (HttpServletResponse)res;
         if (this.configService.getSysConfig().isSecond_domain_open()){
             Cookie[] cookies = request.getCookies();
             String id = "";

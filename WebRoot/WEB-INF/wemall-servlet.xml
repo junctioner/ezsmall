@@ -13,7 +13,7 @@
 		<context:annotation-config />   -->
 	<!--开启AOP自动代理-->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-            <property name="defaultEncoding" value="UTF-8" />
+	<bean id="multipartResolver" class="com.wemall.manage.admin.tools.MultiCommonsMultipartResolver">
+         <property name="defaultEncoding" value="UTF-8" />
 </bean>
 </beans>

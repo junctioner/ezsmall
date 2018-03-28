@@ -8,50 +8,50 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * HttpServletResponse甯侄绫?
+ * HttpServletResponse帮助类
  */
 public final class ResponseUtils {
     public static final Logger log = LoggerFactory
                                      .getLogger(ResponseUtils.class);
 
     /**
-     * 鍙戦€佹枃链€备娇鐢║TF-8缂栫爜銆?
+     * 发送文本。使用UTF-8编码。
      *
      * @param response
      *            HttpServletResponse
      * @param text
-     *            鍙戦€佺殑瀛楃涓?
+     *            发送的字符串
      */
     public static void renderText(HttpServletResponse response, String text){
         render(response, "text/plain;charset=UTF-8", text);
     }
 
     /**
-     * 鍙戦€乯son銆备娇鐢║TF-8缂栫爜銆?
+     * 发送json。使用UTF-8编码。
      *
      * @param response
      *            HttpServletResponse
      * @param text
-     *            鍙戦€佺殑瀛楃涓?
+     *            发送的字符串
      */
     public static void renderJson(HttpServletResponse response, String text){
         render(response, "application/json;charset=UTF-8", text);
     }
 
     /**
-     * 鍙戦€亁ml銆备娇鐢║TF-8缂栫爜銆?
+     * 发送xml。使用UTF-8编码。
      *
      * @param response
      *            HttpServletResponse
      * @param text
-     *            鍙戦€佺殑瀛楃涓?
+     *            发送的字符串
      */
     public static void renderXml(HttpServletResponse response, String text){
         render(response, "text/xml;charset=UTF-8", text);
     }
 
     /**
-     * 鍙戦€佸唴瀹广€备娇鐢║TF-8缂栫爜銆?
+     * 发送内容。使用UTF-8编码。
      *
      * @param response
      * @param contentType

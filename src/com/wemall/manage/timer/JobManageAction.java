@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 瀹氭椂浠诲姟job缁勪欢
+ * 定时任务job组件
  */
 @Component("shop_job")
 @Transactional

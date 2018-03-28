@@ -20,176 +20,176 @@ import com.wemall.core.annotation.Lock;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 绯荤粺閰岖疆
+ * 系统配置
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_sysconfig")
 public class SysConfig extends IdEntity {
-	// 镙囬
+	// 标题
 	private String title;
-	// 鍏抽敭瀛?
+	// 关键字
 	private String keywords;
-	// 鎻忚堪
+	// 描述
 	private String description;
-	// 鍦板潃
+	// 地址
 	private String address;
-	// 鐗堟潈
+	// 版权
 	private String copyRight;
-	// 涓嬭浇璺缎
+	// 下载路径
 	private String uploadFilePath;
-	// 绯荤粺璇█
+	// 系统语言
 	private String sysLanguage;
 	private int integralRate;
 	private boolean smsEnbale;
 	private String smsURL;
-	// 鐢ㄦ埛鍚?
+	// 用户名
 	private String smsUserName;
-	// 瀵嗙爜
+	// 密码
 	private String smsPassword;
-	// 娴嬭瘯
+	// 测试
 	private String smsTest;
 
 	private boolean emailEnable;
-	// email涓讳汉
+	// email主人
 	private String emailHost;
-	// email鎺ュ彛
+	// email接口
 	private int emailPort;
-	// email浣跨敤钥?
+	// email使用者
 	private String emailUser;
-	// email浣跨敤钥呭悕绉?
+	// email使用者名称
 	private String emailUserName;
-	// email瀵嗙爜
+	// email密码
 	private String emailPws;
-	// email娴嬭瘯
+	// email测试
 	private String emailTest;
-	// 缃戠珯鍚岖О
+	// 网站名称
 	private String websiteName;
-	// 鐑悳
+	// 热搜
 	private String hotSearch;
 
 	@Column(columnDefinition = "varchar(255) default 'blue' ")
 	private String websiteCss;
 
-	// 缃戠珯logo
+	// 网站logo
 	@OneToOne(fetch = FetchType.LAZY)
 	private Accessory websiteLogo;
 
 	@Lob
 	@Column(columnDefinition = "LongText")
 	private String codeStat;
-	// 缃戠珯钟舵€?
+	// 网站状态
 	private boolean websiteState;
-	// 娓稿鏄惁鍙互鍜ㄨ
+	// 游客是否可以咨询
 	private boolean visitorConsult;
 
-	// 鍏抽棴铡熷洜
+	// 关闭原因
 	@Lob
 	@Column(columnDefinition = "LongText")
 	private String closeReason;
-	// 瀹夊叏镰佺被鍨?
+	// 安全码类型
 	private String securityCodeType;
-	// 鏄惁娉ㄥ唽瀹夊叏镰?
+	// 是否注册安全码
 	private boolean securityCodeRegister;
-	// 鏄惁鍙互浣跨敤瀹夊叏镰佺橱褰?
+	// 是否可以使用安全码登录
 	private boolean securityCodeLogin;
 	private boolean securityCodeConsult;
-	// 锲剧墖鍚庣紑鍚?
+	// 图片后缀名
 	private String imageSuffix;
-	// 锲剧墖web链嶅姟
+	// 图片web服务
 	private String imageWebServer;
-	// 锲剧墖鏂囦欢澶у皬
+	// 图片文件大小
 	private int imageFilesize;
-	// 灏忓搴?
+	// 小宽度
 	private int smallWidth;
-	// 灏忛佩搴?
+	// 小高度
 	private int smallHeight;
-	// 涓瓑瀹藉害
+	// 中等宽度
 	private int middleWidth;
-	// 涓瓑楂桦害
+	// 中等高度
 	private int middleHeight;
-	// 澶у搴?
+	// 大宽度
 	private int bigWidth;
-	// 澶ч佩搴?
+	// 大高度
 	private int bigHeight;
 	private boolean integral;
 	private boolean integralStore;
-	// 鏄惁链夎瘉浠?
+	// 是否有证件
 	private boolean voucher;
-	// 鏄惁链変缭璇侀噾
+	// 是否有保证金
 	private boolean deposit;
-	// 鏄惁锲㈣喘
+	// 是否团购
 	private boolean groupBuy;
-	// 鏄惁鏀寔閲戝竵
+	// 是否支持金币
 	private boolean gold;
-	// 閲戝竵链?
+	// 金币值
 	private int goldMarketValue;
-	// 浼氩憳娉ㄥ唽
+	// 会员注册
 	private int memberRegister;
-	// 浼氩憳鐧诲綍
+	// 会员登录
 	private int memberDayLogin;
 	private int indentComment;
-	// 鍚堢悊娑堣垂
+	// 合理消费
 	private int consumptionRatio;
 	private int everyIndentLimit;
-	// 锲剧墖淇濆瓨绫诲瀷
+	// 图片保存类型
 	private String imageSaveType;
-	// 鎶曡瘔镞堕棿
+	// 投诉时间
 	private int complaint_time;
 
-	// 搴楅摵锲剧墖
+	// 店铺图片
 	@OneToOne(cascade = { javax.persistence.CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Accessory storeImage;
 
-	// 鍟嗗搧锲剧墖
+	// 商品图片
 	@OneToOne(cascade = { javax.persistence.CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Accessory goodsImage;
 
-	// 浼氩憳锲炬爣
+	// 会员图标
 	@OneToOne(cascade = { javax.persistence.CascadeType.ALL }, fetch = FetchType.LAZY)
 	private Accessory memberIcon;
 	private boolean store_allow;
 
-	// 淇＄敤瑙勫垯
+	// 信用规则
 	@Lob
 	@Column(columnDefinition = "LongText")
 	private String creditrule;
 
-	// 鐢ㄦ埛淇＄敤瑙勫垯
+	// 用户信用规则
 	@Lob
 	@Column(columnDefinition = "LongText")
 	private String user_creditrule;
 
-	// 妯℃澘
+	// 模板
 	@Lob
 	@Column(columnDefinition = "LongText")
 	private String templates;
 
-	// 搴楅摵鏀粯
+	// 店铺支付
 	@Lob
 	@Column(columnDefinition = "LongText")
 	private String store_payment;
 
-	// 鍒嗕韩镰?
+	// 分享码
 	@Lob
 	@Column(columnDefinition = "LongText")
 	private String share_code;
-	// ztc钟舵€?
+	// ztc状态
 	private boolean ztc_status;
 
-	// ztc鍟嗗搧娴忚
+	// ztc商品浏览
 	@Column(columnDefinition = "int default 0")
 	private int ztc_goods_view;
-	// ztc浠锋牸
+	// ztc价格
 	private int ztc_price;
 
 	@Column(columnDefinition = "bit default 0")
 	private boolean second_domain_open;
 
-	// 鍏佽鏁伴噺
+	// 允许数量
 	@Column(columnDefinition = "int default 0")
 	@Lock
 	private int domain_allow_count;
@@ -198,7 +198,7 @@ public class SysConfig extends IdEntity {
 	@Lock
 	private String sys_domain;
 
-	// qq鐧诲綍
+	// qq登录
 	@Column(columnDefinition = "bit default 0")
 	private boolean qq_login;
 	// qqID
@@ -208,10 +208,10 @@ public class SysConfig extends IdEntity {
 	@Column(columnDefinition = "LongText")
 	private String qq_domain_code;
 
-	// 鏂版氮鐧诲綍
+	// 新浪登录
 	@Column(columnDefinition = "bit default 0")
 	private boolean sina_login;
-	// 鏂版氮ID
+	// 新浪ID
 	private String sina_login_id;
 	private String sina_login_key;
 
@@ -226,96 +226,96 @@ public class SysConfig extends IdEntity {
 	@Column(columnDefinition = "int default 0")
 	@Lock
 	private int balance_fenrun;
-	// 浜ゆ槗镙囬
+	// 交易标题
 	private String bargain_title;
 
-	// 浜ゆ槗钟舵€?
+	// 交易状态
 	@Column(columnDefinition = "int default 0")
 	private int bargain_status;
 
-	// 浜ゆ槗鍚堟硶
+	// 交易合法
 	@Column(columnDefinition = "int default 3")
 	private int bargain_validity;
 
-	// 浜ゆ槗鎶樻墸
+	// 交易折扣
 	@Column(precision = 3, scale = 2)
 	private BigDecimal bargain_rebate;
 
-	// 浜ゆ槗链€澶у€?
+	// 交易最大值
 	@Column(columnDefinition = "int default 0")
 	private int bargain_maximum;
 
-	// 浜ゆ槗钟舵€?
+	// 交易状态
 	@Column(columnDefinition = "LongText")
 	private String bargain_state;
-	// 閰嶉€佹爣棰?
+	// 配送标题
 	private String delivery_title;
 
-	// 閰嶉€佺姸镐?
+	// 配送状态
 	@Column(columnDefinition = "int default 0")
 	private int delivery_status;
 
-	// 閰嶉€佹暟閲?
+	// 配送数量
 	@Column(columnDefinition = "int default 50")
 	private int delivery_amount;
 
-	// 缁勫悎閲?
+	// 组合量
 	@Column(columnDefinition = "int default 50")
 	private int combin_amount;
 
-	// 缁勫悎鏁伴噺
+	// 组合数量
 	@Column(columnDefinition = "int default 3")
 	private int combin_count;
 
-	// 鐧诲綍锲剧墖
+	// 登录图片
 	@OneToMany(mappedBy = "config")
 	private List<Accessory> login_imgs = new ArrayList();
 
-	// 链嶅姟鐢佃瘽鍒楄〃
+	// 服务电话列表
 	@Column(columnDefinition = "LongText")
 	private String service_telphone_list;
 
-	// 链嶅姟QQ鍒楄〃
+	// 服务QQ列表
 	@Column(columnDefinition = "LongText")
 	private String service_qq_list;
 
 	@Column(columnDefinition = "bit default 0")
 	private boolean uc_bbs;
-	// uc鏁版嵁
+	// uc数据
 	private String uc_database = "";
-	// uc琛ㄥ墠缂€
+	// uc表前缀
 	private String uc_table_preffix = "";
-	// uc鏁版嵁鍦板潃
+	// uc数据地址
 	private String uc_database_url = "";
-	// uc鏁版嵁绔彛
+	// uc数据端口
 	private String uc_database_port = "";
-	// uc鏁版嵁鐢ㄦ埛鍚?
+	// uc数据用户名
 	private String uc_database_username = "";
-	// uc鏁版嵁瀵嗙爜
+	// uc数据密码
 	private String uc_database_pws = "";
-	// uc鏂囨。
+	// uc文档
 	private String uc_api;
-	// ucIP鍦板潃
+	// ucIP地址
 	private String uc_ip;
 	private String uc_key;
-	// uc搴旗敤ID
+	// uc应用ID
 	private String uc_appid;
 
 	@Column(columnDefinition = "int default 3")
 	@Lock
 	private int auto_order_notice;
 
-	// 镊姩纭璁㈠崟
+	// 自动确认订单
 	@Column(columnDefinition = "int default 7")
 	@Lock
 	private int auto_order_confirm;
 
-	// 镊姩杩斿洖璁㈠崟
+	// 自动返回订单
 	@Column(columnDefinition = "int default 7")
 	@Lock
 	private int auto_order_return;
 
-	// 镊姩璇勪环璁㈠崟
+	// 自动评价订单
 	@Column(columnDefinition = "int default 7")
 	@Lock
 	private int auto_order_evaluate;
@@ -323,49 +323,49 @@ public class SysConfig extends IdEntity {
 	@Column(columnDefinition = "LongText")
 	private String kuaidi_id;
 
-	// 璐у竵镰?
-	@Column(columnDefinition = "varchar(255) default '锟?")
+	// 货币码
+	@Column(columnDefinition = "varchar(255) default '￥'")
 	private String currency_code;
 
-	// 寰俊搴楅摵
+	// 微信店铺
 	@Lock
 	@Column(columnDefinition = "bit default 0")
 	private boolean weixin_store;
 
-	// 寰俊閲?
+	// 微信量
 	@Lock
 	@Column(columnDefinition = "int default 50")
 	private int weixin_amount;
 
-	// 鏀粯绫诲瀷閰岖疆
+	// 支付类型配置
 	@Lock
 	@Column(columnDefinition = "int default 0")
 	private int config_payment_type;
 
-	// 寰俊锲剧墖闄勪欢
+	// 微信图片附件
 	@OneToOne
 	private Accessory weixin_qr_img;
 
-	// 寰俊璐︽埛
+	// 微信账户
 	@Lock
 	private String weixin_account;
 
 	@Lock
 	private String weixin_token;
 
-	// 寰俊搴旗敤鍦板潃
+	// 微信应用地址
 	@Lock
 	private String weixin_appId;
 
 	@Lock
 	private String weixin_appSecret;
 
-	// 寰俊娆㈣繋鍐呭
+	// 微信欢迎内容
 	@Lock
 	@Column(columnDefinition = "LongText")
 	private String weixin_welecome_content;
 
-	// 寰俊搴楅摵logo
+	// 微信店铺logo
 	@Lock
 	@OneToOne(fetch = FetchType.LAZY)
 	private Accessory store_weixin_logo;

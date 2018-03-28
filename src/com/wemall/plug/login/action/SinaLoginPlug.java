@@ -104,7 +104,7 @@ public class SinaLoginPlug {
 //                    this.userService.save(user);
 //                    IntegralLog log = new IntegralLog();
 //                    log.setAddTime(new Date());
-//                    log.setContent("娉ㄥ唽璧犻€佺Н鍒?" +
+//                    log.setContent("注册赠送积分:" +
 //                                   this.configService.getSysConfig()
 //                                   .getMemberRegister());
 //                    log.setIntegral(this.configService.getSysConfig()
@@ -119,7 +119,7 @@ public class SinaLoginPlug {
 //                Album album = new Album();
 //                album.setAddTime(new Date());
 //                album.setAlbum_default(true);
-//                album.setAlbum_name("榛樿鐩稿唽");
+//                album.setAlbum_name("默认相册");
 //                album.setAlbum_sequence(-10000);
 //                album.setUser(user);
 //                this.albumService.save(album);
@@ -152,7 +152,7 @@ public class SinaLoginPlug {
 //        if (!CommUtil.null2String(bind_already).equals("")){
 //            User user = this.userService.getObjByProperty("userName", userName);
 //            if (user == null){
-//                request.getSession(false).setAttribute("op_title", "鐢ㄦ埛缁戝畾澶辫触");
+//                request.getSession(false).setAttribute("op_title", "用户绑定失败");
 //                request.getSession(false).setAttribute("url", url);
 //                url = "redirect:" + CommUtil.getURL(request) + "/error.htm";
 //            }else if (Md5Encrypt.md5(password).toLowerCase().equals(
@@ -169,7 +169,7 @@ public class SinaLoginPlug {
 //                      "&password=" + password;
 //            }else{
 //                request.getSession(false)
-//                .setAttribute("op_title", "鐢ㄦ埛缁戝畾澶辫触");
+//                .setAttribute("op_title", "用户绑定失败");
 //                request.getSession(false).setAttribute("url",
 //                                                       CommUtil.getURL(request) + "/index.htm");
 //                url = "redirect:" + CommUtil.getURL(request) + "/error.htm";

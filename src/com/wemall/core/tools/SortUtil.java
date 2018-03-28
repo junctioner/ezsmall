@@ -1,13 +1,13 @@
 package com.wemall.core.tools;
 
 /**
- * 鎺掑簭宸ュ叿绫?
+ * 排序工具类
  */
 public class SortUtil {
     /**
-     * 鍐掓场鎺掑簭
+     * 冒泡排序
      *
-     * @paramsrc寰呮帓搴忔暟缁?
+     * @paramsrc待排序数组
      */
     public static void doBubbleSort(int[] src){
         int len = src.length;
@@ -24,9 +24,9 @@ public class SortUtil {
     }
 
     /**
-     * 阃夋嫨鎺掑簭
+     * 选择排序
      *
-     * @paramsrc寰呮帓搴忕殑鏁扮粍
+     * @paramsrc待排序的数组
      */
     public static void doChooseSort(int[] src){
         int len = src.length;
@@ -34,11 +34,11 @@ public class SortUtil {
         for (int i = 0; i < len; i++){
             temp = src[i];
             int j;
-            int samllestLocation = i;// 链€灏忔暟镄勪笅镙?
+            int samllestLocation = i;// 最小数的下标
             for (j = i + 1; j < len; j++){
                 if (src[j] < temp){
-                    temp = src[j];// 鍙栧嚭链€灏忓€?
-                    samllestLocation = j;// 鍙栧嚭链€灏忓€兼墍鍦ㄤ笅镙?
+                    temp = src[j];// 取出最小值
+                    samllestLocation = j;// 取出最小值所在下标
                 }
             }
             src[samllestLocation] = src[i];
@@ -47,9 +47,9 @@ public class SortUtil {
     }
 
     /**
-     * 鎻掑叆鎺掑簭
+     * 插入排序
      *
-     * @paramsrc寰呮帓搴忔暟缁?
+     * @paramsrc待排序数组
      */
     public static void doInsertSort1(int[] src){
         int len = src.length;

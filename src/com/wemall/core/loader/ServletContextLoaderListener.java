@@ -1,15 +1,13 @@
 package com.wemall.core.loader;
 
 
+import com.wemall.core.security.SecurityManager;
 import java.util.Map;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import com.wemall.core.security.SecurityManager;
 
 public class ServletContextLoaderListener
     implements ServletContextListener {
@@ -17,7 +15,7 @@ public class ServletContextLoaderListener
         ServletContext servletContext = servletContextEvent.getServletContext();
         SecurityManager securityManager =
             getSecurityManager(servletContext);
-        Map<String, String> urlAuthorities = securityManager
+        Map urlAuthorities = securityManager
                              .loadUrlAuthorities();
         servletContext.setAttribute("urlAuthorities", urlAuthorities);
     }

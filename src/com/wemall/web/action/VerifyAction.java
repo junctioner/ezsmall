@@ -26,7 +26,7 @@ import com.wemall.foundation.service.IStoreService;
 import com.wemall.foundation.service.IUserService;
 
 /**
- * 楠岃瘉镰佹带鍒跺櫒
+ * 验证码控制器
  */
 @Controller
 public class VerifyAction {

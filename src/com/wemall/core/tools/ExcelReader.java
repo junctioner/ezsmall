@@ -21,7 +21,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 /**
- * Excel鏂囦欢瀵煎叆澶勭悊镄勫伐鍏风被(鏆备笉鏀寔Excel 2007镙煎纺镄勬枃浠?.
+ * Excel文件导入处理的工具类(暂不支持Excel 2007格式的文件).
  *
  * @author Kanine
  */
@@ -29,12 +29,12 @@ public class ExcelReader {
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
-     * 瑙ｆ瀽澶勭悊鎸囧畾璺缎镄别xcel鏂囦欢
+     * 解析处理指定路径的excel文件
      *
      * @param excelFilePath
-     *            - excel鏂囦欢镓€鍦ㄨ矾寰?
+     *            - excel文件所在路径
      * @param firstLineIncluded
-     *            - 瑙ｆ瀽鏁版嵁镞舵槸鍚﹀寘鍚琛?
+     *            - 解析数据时是否包含首行
      */
     @SuppressWarnings("unchecked")
     public List<List<Entry>> parse(String excelFilePath, boolean firstLineIncluded) throws FileNotFoundException, IOException {
@@ -46,13 +46,13 @@ public class ExcelReader {
         HSSFSheet sheet = workbook.getSheetAt(0);
         int indexOfFieldName = 0;
         int physicalNumberOfCells = 0;
-        /** 棣栬浣滀负镙囬镞讹紝璇诲彇鍒楀悕闇€璺宠绷璇ヨ */
+        /** 首行作为标题时，读取列名需跳过该行 */
         if (!firstLineIncluded)
             indexOfFieldName = 1;
 
         HSSFRow rowOfFieldName = sheet.getRow(indexOfFieldName);
         Iterator cit = rowOfFieldName.cellIterator();
-        // 璇诲彇鍒楀悕
+        // 读取列名
         while (cit.hasNext()){
             HSSFCell cell = (HSSFCell) cit.next();
             keys.add(cell.getRichStringCellValue().toString());
@@ -60,7 +60,7 @@ public class ExcelReader {
         }
 
         int physicalNumberOfRows = sheet.getPhysicalNumberOfRows();
-        // 阆嶅巻姣忚鏁版嵁
+        // 遍历每行数据
         for (int i = indexOfFieldName + 1; i < physicalNumberOfRows; i++){
             HSSFRow row = sheet.getRow(i);
             Map<String, String> map = new HashMap<String, String>();
@@ -69,7 +69,7 @@ public class ExcelReader {
                 map.put(keys.get(m), match(row, cell, m));
             }
             /**
-             * 鐢变簬Map瀛樻斁镄勫璞℃槸镞犲簭镄勶紝闇€閲嶆柊灏嗙粨鏋滈泦鎺掑簭
+             * 由于Map存放的对象是无序的，需重新将结果集排序
              */
             List<Entry> data = new ArrayList<Entry>(map.entrySet());
             Collections.sort(data, new Comparator<Entry>(){
@@ -84,14 +84,14 @@ public class ExcelReader {
     }
 
     /**
-     * 镙规嵁鍗曞厓镙兼牸寮忚繑锲炴纭殑缁撴灉
+     * 根据单元格格式返回正确的结果
      *
      * @param row
-     *            - 鍗曞厓镙兼墍鍦ㄨ
+     *            - 单元格所在行
      * @param cell
-     *            - 鍗曞厓镙?
+     *            - 单元格
      * @param columnNo
-     *            - 鍗曞厓镙兼墍鍦ㄥ垪
+     *            - 单元格所在列
      */
     private String match(HSSFRow row, HSSFCell cell, int columnNo){
         String value = "";
@@ -113,13 +113,13 @@ public class ExcelReader {
                 value = Boolean.toString(cell.getBooleanCellValue());
                 break;
             case HSSFCell.CELL_TYPE_NUMERIC:
-                if (HSSFDateUtil.isCellDateFormatted(cell)){ // 鏄惁涓烘棩链熷瀷
+                if (HSSFDateUtil.isCellDateFormatted(cell)){ // 是否为日期型
                     value = sdf.format(cell.getDateCellValue());
-                }else{ // 鏄惁涓烘暟链煎瀷
+                }else{ // 是否为数值型
                     double d = cell.getNumericCellValue();
-                    if (d - (int) d < Double.MIN_VALUE){ // 鏄惁涓篿nt鍨?
+                    if (d - (int) d < Double.MIN_VALUE){ // 是否为int型
                         value = Integer.toString((int) d);
-                    }else{ // 鏄惁涓篸ouble鍨?
+                    }else{ // 是否为double型
                         value = Double.toString(cell.getNumericCellValue());
                     }
                 }

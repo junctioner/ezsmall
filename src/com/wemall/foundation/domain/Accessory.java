@@ -11,41 +11,41 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 /**
- * 闄勪欢
- * @author 鍒樻亽绂?
+ * 附件
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_accessory")
 public class Accessory extends IdEntity {
-	// 闄勮繎鍚岖О
+	// 附近名称
 	private String name;
-	// 闄勪欢璺缎
+	// 附件路径
 	private String path;
-	// 澶у皬
+	// 大小
 	private float size;
-	// 瀹藉害
+	// 宽度
 	private int width;
-	// 楂桦害
+	// 高度
 	private int height;
-	// 镓╁睍鍚?
+	// 扩展名
 	private String ext;
-	// 鍚岖О璇︽儏
+	// 名称详情
 	private String info;
 
-	// 镓€灞炰汉
+	// 所属人
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 
-	// 鐩稿唽
+	// 相册
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Album album;
 
 	@OneToOne(mappedBy = "album_cover", fetch = FetchType.LAZY)
 	private Album cover_album;
 
-	// 绯荤粺閰岖疆
+	// 系统配置
 	@ManyToOne(fetch = FetchType.LAZY)
 	private SysConfig config;
 

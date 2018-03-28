@@ -63,7 +63,7 @@ public class StoreServiceImpl
         return true;
     }
 
-    /** 锟斤拷询锟斤拷锟斤拷
+    /** ��ѯ����
      *
      * @param properties
      * @return

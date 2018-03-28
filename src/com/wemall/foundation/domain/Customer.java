@@ -17,44 +17,44 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 瀹㈡埛
+ * 客户
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_customer")
 public class Customer extends IdEntity {
-	// 浼佷笟鍚岖О
+	// 企业名称
 	private String companyName;
-	// 鏉ユ簮
+	// 来源
 	@ManyToOne
 	private Source source;
-	// 鍗栧銆佷拱瀹躲€侀兘鏄?
+	// 卖家、买家、都是
 	private String role;
-	// 涓昏惀琛屼笟
+	// 主营行业
 	private String mianIndustry;
 	@ManyToOne
 	private Level level;
-	// 钀ヤ笟鍦板潃鍖哄幙
+	// 营业地址区县
 	@ManyToOne
 	private Area area;
-	// 缁忚惀鍦板潃
+	// 经营地址
 	private String address;
-	// 缁忚惀涓讳綋
+	// 经营主体
 	private int mainDody;
-	// 缁忚惀骞撮檺
+	// 经营年限
 	private String year;
-	// 鍦哄湴闱㈢Н
+	// 场地面积
 	private String site;
-	// 鍦哄湴鏄惁绉熺敤
+	// 场地是否租用
 	private boolean enable;
-	// 鏄惁鎻愪緵鍙戠エ
+	// 是否提供发票
 	private boolean bill;
-	// 绋庣偣
+	// 税点
 	private double point;
-	// 璇佷欢绫诲瀷
+	// 证件类型
 	@ManyToOne
 	private Dict paper;
 	@ManyToMany(targetEntity = Paper.class, fetch = FetchType.LAZY)
@@ -62,51 +62,51 @@ public class Customer extends IdEntity {
 			@javax.persistence.JoinColumn(name = "cus_id") }, inverseJoinColumns = {
 					@javax.persistence.JoinColumn(name = "paper_id") })
 	private List<Paper> certificate = new ArrayList<Paper>();
-	// 镊敱璁惧
+	// 自由设备
 	private String haveDevice;
-	// 妫€楠岃澶?
+	// 检验设备
 	private String testDevice;
-	// 镰寸链哄彴鏁?
+	// 破碎机台数
 	private String crusher_num;
-	// 镰寸链鸿兘锷?
+	// 破碎机能力
 	private String crusher_ability;
-	// 娓呮礂鐢熶骇绾胯兘锷?
+	// 清洗生产线能力
 	private String clean_num;
-	// 娓呮礂鐢熶骇绾胯兘锷?
+	// 清洗生产线能力
 	private String clean_ability;
-	// 阃犵矑鐢熶骇绾垮彴鏁?
+	// 造粒生产线台数
 	private String granulation_num;
-	// 阃犵矑鐢熶骇绾胯兘锷?
+	// 造粒生产线能力
 	private String granulation_ability;
-	// 娉ㄥ璁惧鍙版暟
+	// 注塑设备台数
 	private String mold_num;
-	// 娉ㄥ璁惧鑳藉姏
+	// 注塑设备能力
 	private String mold_ability;
-	// 姹℃按澶勭悊绯荤粺
+	// 污水处理系统
 	private String sewage;
-	// 镊湁璐ц溅鏁伴噺
+	// 自有货车数量
 	private String truck_num;
-	// 镊湁璐ц溅杞浇鑳藉姏
+	// 自有货车转载能力
 	private String truck_load;
-	// 镊湁璐ц溅鍗歌浇鑳藉姏
+	// 自有货车卸载能力
 	private String truck_uninstall;
-	// 鍚堜綔璐ц溅鑱旗郴浜?
+	// 合作货车联系人
 	private String hz_truck_lxr;
-	// 鍚堜綔璐ц溅鑱旗郴浜?
+	// 合作货车联系人1
 	private String hz_truck_lxr1;
-	// 鍚堜綔璐ц溅鑱旗郴鐢佃瘽鍙?
+	// 合作货车联系电话号
 	private String hz_truck_tel;
-	// 鍚堜綔璐ц溅鑱旗郴鐢佃瘽鍙?
+	// 合作货车联系电话号1
 	private String hz_truck_tel1;
-	// 鍚堜綔璐ц溅澶勭悊鑳藉姏
+	// 合作货车处理能力
 	private String hz_truck_ability;
-	// 鍚堜綔璐ц溅澶勭悊鑳藉姏
+	// 合作货车处理能力
 	private String hz_truck_ability1;
-	// 瀵煎叆镞堕棿
+	// 导入时间
 	private Date importDate;
-	// 绠＄悊钟舵€?1.鍒嗘淳锛?.璁ら)
+	// 管理状态(1.分派，2.认领)
 	private int admin_status;
-	// 瀹㈡埗钟舵€侊纸0.绾跨储锛?.娉ㄥ唽锛?.璁よ瘉锛?.婵€娲伙级
+	// 客戶状态（0.线索，1.注册，2.认证，3.激活）
 	private int cus_status;
 	@ManyToOne
 	private Group group;

@@ -4,9 +4,9 @@ package com.wemall.core.tools.bean;
  * Created by John on 2016/1/13.
  */
 public class WxQRCode {
-    // 銮峰彇镄勪簩缁寸爜ticket
+    // 获取的二维码ticket
     private String ticket;
-    // 浜岀淮镰佺殑链夋晥镞堕棿锛屽崟浣崭负绉掞紝链€澶т笉瓒呰绷1800
+    // 二维码的有效时间，单位为秒，最大不超过1800
     private int expireSeconds;
 
     public String getTicket(){

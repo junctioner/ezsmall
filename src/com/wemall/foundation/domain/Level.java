@@ -10,29 +10,29 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 /**
- * 瀹㈡埛鐧昏
- * @author 鍒樻亽绂?
+ * 客户登记
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_Level")
 public class Level extends IdEntity {
-	// 鍚岖О
+	// 名称
 	private String name;
-	// 绾у埆
+	// 级别
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Dict grade;
-	// 瀹㈡埗钟舵€?
+	// 客戶状态
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Dict cus_status;
-	// 鏄惁榛樿獚
+	// 是否默認
 	private boolean initial;
-	// 鏄惁鍚敤
+	// 是否启用
 	private boolean enable;
-	// 涔板銆佸岽瀹?
+	// 买家、卖家
 	private String role;
-	// 鎻忚堪
+	// 描述
 	private String msg;
 
 	public String getName() {

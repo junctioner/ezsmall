@@ -30,8 +30,8 @@ import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 /**
- * @author John澧炲姞
- * 鍒涘缓镞ユ湡 2015-10-16
+ * @author John增加
+ * 创建日期 2015-10-16
  */
 public class OperateImage {
     public OperateImage(){
@@ -39,15 +39,15 @@ public class OperateImage {
     }
 
     /**
-     * 瀵瑰浘鐗囱鍓紝骞舵妸瑁佸壀鏂板浘鐗囦缭瀛?
-     * @param srcPath 璇诲彇婧愬浘鐗囱矾寰?
-     * @param toPath	鍐椤叆锲剧墖璺缎
-     * @param x 鍓垏璧峰镣箈鍧愭爣
-     * @param y 鍓垏璧峰镣箉鍧愭爣
-     * @param width 鍓垏瀹藉害
-     * @param height	 鍓垏楂桦害
-     * @param readImageFormat  璇诲彇锲剧墖镙煎纺
-     * @param writeImageFormat 鍐椤叆锲剧墖镙煎纺
+     * 对图片裁剪，并把裁剪新图片保存
+     * @param srcPath 读取源图片路径
+     * @param toPath	写入图片路径
+     * @param x 剪切起始点x坐标
+     * @param y 剪切起始点y坐标
+     * @param width 剪切宽度
+     * @param height	 剪切高度
+     * @param readImageFormat  读取图片格式
+     * @param writeImageFormat 写入图片格式
      * @throws IOException
      */
     public void cropImage(String srcPath, String toPath,
@@ -56,20 +56,20 @@ public class OperateImage {
         FileInputStream fis = null ;
         ImageInputStream iis = null ;
         try {
-            //璇诲彇锲剧墖鏂囦欢
+            //读取图片文件
             fis = new FileInputStream(srcPath);
             Iterator it = ImageIO.getImageReadersByFormatName(readImageFormat);
             ImageReader reader = (ImageReader) it.next();
-            //銮峰彇锲剧墖娴?
+            //获取图片流
             iis = ImageIO.createImageInputStream(fis);
             reader.setInput(iis, true) ;
             ImageReadParam param = reader.getDefaultReadParam();
-            //瀹氢箟涓€涓烦褰?
+            //定义一个矩形
             Rectangle rect = new Rectangle(x, y, width, height);
-            //鎻愪緵涓€涓?BufferedImage锛屽皢鍏剁敤浣滆В镰佸儚绱犳暟鎹殑鐩爣銆?
+            //提供一个 BufferedImage，将其用作解码像素数据的目标。
             param.setSourceRegion(rect);
             BufferedImage bi = reader.read(0, param);
-            //淇濆瓨鏂板浘鐗?
+            //保存新图片
             ImageIO.write(bi, writeImageFormat, new File(toPath));
         } finally {
             if(fis != null)
@@ -80,25 +80,25 @@ public class OperateImage {
     }
 
     /**
-     * 鎸夊€岖巼缂╁皬锲剧墖
-     * @param srcImagePath 璇诲彇锲剧墖璺缎
-     * @param toImagePath 鍐椤叆锲剧墖璺缎
-     * @param widthRatio	瀹藉害缂╁皬姣斾緥
-     * @param heightRatio	 楂桦害缂╁皬姣斾緥
+     * 按倍率缩小图片
+     * @param srcImagePath 读取图片路径
+     * @param toImagePath 写入图片路径
+     * @param widthRatio	宽度缩小比例
+     * @param heightRatio	 高度缩小比例
      * @throws IOException
      */
     public void reduceImageByRatio(String srcImagePath, String toImagePath, int widthRatio, int heightRatio) throws IOException {
         FileOutputStream out = null;
         try {
-            //璇诲叆鏂囦欢
+            //读入文件
             File file = new File(srcImagePath);
-            // 鏋勯€营mage瀵硅薄
+            // 构造Image对象
             BufferedImage src = javax.imageio.ImageIO.read(file);
             int width = src.getWidth();
             int height = src.getHeight();
-            // 缂╁皬杈归昵
+            // 缩小边长
             BufferedImage tag = new BufferedImage(width / widthRatio, height / heightRatio, BufferedImage.TYPE_INT_RGB);
-            // 缁桦埗 缂╁皬  鍚庣殑锲剧墖
+            // 绘制 缩小  后的图片
             tag.getGraphics().drawImage(src, 0, 0, width / widthRatio, height / heightRatio, null);
             out = new FileOutputStream(toImagePath);
             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
@@ -113,24 +113,24 @@ public class OperateImage {
     }
 
     /**
-     * 闀块佩绛夋瘮渚嬬缉灏忓浘鐗?
-     * @param srcImagePath 璇诲彇锲剧墖璺缎
-     * @param toImagePath 鍐椤叆锲剧墖璺缎
-     * @param ratio 缂╁皬姣斾緥
+     * 长高等比例缩小图片
+     * @param srcImagePath 读取图片路径
+     * @param toImagePath 写入图片路径
+     * @param ratio 缩小比例
      * @throws IOException
      */
     public void reduceImageEqualProportion(String srcImagePath, String toImagePath, int ratio) throws IOException {
         FileOutputStream out = null;
         try {
-            //璇诲叆鏂囦欢
+            //读入文件
             File file = new File(srcImagePath);
-            // 鏋勯€营mage瀵硅薄
+            // 构造Image对象
             BufferedImage src = javax.imageio.ImageIO.read(file);
             int width = src.getWidth();
             int height = src.getHeight();
-            // 缂╁皬杈归昵
+            // 缩小边长
             BufferedImage tag = new BufferedImage(width / ratio, height / ratio, BufferedImage.TYPE_INT_RGB);
-            // 缁桦埗 缂╁皬  鍚庣殑锲剧墖
+            // 绘制 缩小  后的图片
             tag.getGraphics().drawImage(src, 0, 0, width / ratio, height / ratio, null);
             out = new FileOutputStream(toImagePath);
             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
@@ -145,25 +145,25 @@ public class OperateImage {
     }
 
     /**
-     * 鎸夊€岖巼鏀惧ぇ锲剧墖
-     * @param srcImagePath 璇诲彇锲惧舰璺缎
-     * @param toImagePath 鍐椤叆鍏ヨ璺缎
-     * @param widthRatio	瀹藉害鏀惧ぇ姣斾緥
-     * @param heightRatio 楂桦害鏀惧ぇ姣斾緥
+     * 按倍率放大图片
+     * @param srcImagePath 读取图形路径
+     * @param toImagePath 写入入行路径
+     * @param widthRatio	宽度放大比例
+     * @param heightRatio 高度放大比例
      * @throws IOException
      */
     public void enlargementImageByRatio(String srcImagePath, String toImagePath, int widthRatio, int heightRatio) throws IOException {
         FileOutputStream out = null;
         try {
-            //璇诲叆鏂囦欢
+            //读入文件
             File file = new File(srcImagePath);
-            // 鏋勯€营mage瀵硅薄
+            // 构造Image对象
             BufferedImage src = javax.imageio.ImageIO.read(file);
             int width = src.getWidth();
             int height = src.getHeight();
-            // 鏀惧ぇ杈归昵
+            // 放大边长
             BufferedImage tag = new BufferedImage(width * widthRatio, height * heightRatio, BufferedImage.TYPE_INT_RGB);
-            //缁桦埗鏀惧ぇ鍚庣殑锲剧墖
+            //绘制放大后的图片
             tag.getGraphics().drawImage(src, 0, 0, width * widthRatio, height * heightRatio, null);
             out = new FileOutputStream(toImagePath);
             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
@@ -179,24 +179,24 @@ public class OperateImage {
 
 
     /**
-     * 闀块佩绛夋瘮渚嬫斁澶у浘鐗?
-     * @param srcImagePath 璇诲彇锲惧舰璺缎
-     * @param toImagePath 鍐椤叆鍏ヨ璺缎
-     * @param ratio	鏀惧ぇ姣斾緥
+     * 长高等比例放大图片
+     * @param srcImagePath 读取图形路径
+     * @param toImagePath 写入入行路径
+     * @param ratio	放大比例
      * @throws IOException
      */
     public void enlargementImageEqualProportion(String srcImagePath, String toImagePath, int ratio) throws IOException {
         FileOutputStream out = null;
         try {
-            //璇诲叆鏂囦欢
+            //读入文件
             File file = new File(srcImagePath);
-            // 鏋勯€营mage瀵硅薄
+            // 构造Image对象
             BufferedImage src = javax.imageio.ImageIO.read(file);
             int width = src.getWidth();
             int height = src.getHeight();
-            // 鏀惧ぇ杈归昵
+            // 放大边长
             BufferedImage tag = new BufferedImage(width * ratio, height * ratio, BufferedImage.TYPE_INT_RGB);
-            //缁桦埗鏀惧ぇ鍚庣殑锲剧墖
+            //绘制放大后的图片
             tag.getGraphics().drawImage(src, 0, 0, width * ratio, height * ratio, null);
             out = new FileOutputStream(toImagePath);
             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
@@ -211,7 +211,7 @@ public class OperateImage {
     }
 
     /**
-     * 閲岖疆锲惧舰镄勮竟闀垮ぇ灏?
+     * 重置图形的边长大小
      * @param srcImagePath
      * @param toImagePath
      * @param width
@@ -221,13 +221,13 @@ public class OperateImage {
     public void resizeImage(String srcImagePath, String toImagePath, int width, int height) throws IOException {
         FileOutputStream out = null;
         try {
-            //璇诲叆鏂囦欢
+            //读入文件
             File file = new File(srcImagePath);
-            // 鏋勯€营mage瀵硅薄
+            // 构造Image对象
             BufferedImage src = javax.imageio.ImageIO.read(file);
-            // 鏀惧ぇ杈归昵
+            // 放大边长
             BufferedImage tag = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-            //缁桦埗鏀惧ぇ鍚庣殑锲剧墖
+            //绘制放大后的图片
             tag.getGraphics().drawImage(src, 0, 0, width, height, null);
             out = new FileOutputStream(toImagePath);
             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
@@ -242,24 +242,24 @@ public class OperateImage {
     }
 
     /**
-     * 妯悜鎷兼帴锲剧墖锛堜袱寮狅级
-     * @param firstSrcImagePath 绗竴寮犲浘鐗囩殑璺缎
-     * @param secondSrcImagePath	绗簩寮犲浘鐗囩殑璺缎
-     * @param imageFormat	鎷兼帴鐢熸垚锲剧墖镄勬牸寮?
-     * @param toPath	鎷兼帴鐢熸垚锲剧墖镄勮矾寰?
+     * 横向拼接图片（两张）
+     * @param firstSrcImagePath 第一张图片的路径
+     * @param secondSrcImagePath	第二张图片的路径
+     * @param imageFormat	拼接生成图片的格式
+     * @param toPath	拼接生成图片的路径
      */
     public void joinImagesHorizontal(String firstSrcImagePath, String secondSrcImagePath, String imageFormat, String toPath){
         try {
-            //璇诲彇绗竴寮犲浘鐗?
+            //读取第一张图片
             File  fileOne  =  new  File(firstSrcImagePath);
             BufferedImage  imageOne = ImageIO.read(fileOne);
-            int  width  =  imageOne.getWidth();//锲剧墖瀹藉害
-            int  height  =  imageOne.getHeight();//锲剧墖楂桦害
-            //浠庡浘鐗囦腑璇诲彇RGB
+            int  width  =  imageOne.getWidth();//图片宽度
+            int  height  =  imageOne.getHeight();//图片高度
+            //从图片中读取RGB
             int[]  imageArrayOne  =  new  int[width * height];
             imageArrayOne  =  imageOne.getRGB(0, 0, width, height, imageArrayOne, 0, width);
 
-            //瀵圭浜屽紶锲剧墖锅氱浉鍚岀殑澶勭悊
+            //对第二张图片做相同的处理
             File  fileTwo  =  new  File(secondSrcImagePath);
             BufferedImage  imageTwo  =  ImageIO.read(fileTwo);
             int width2 = imageTwo.getWidth();
@@ -268,26 +268,26 @@ public class OperateImage {
             ImageArrayTwo  =  imageTwo.getRGB(0, 0, width, height, ImageArrayTwo, 0, width);
             //ImageArrayTwo  =  imageTwo.getRGB(0,0,width2,height2,ImageArrayTwo,0,width2);
 
-            //鐢熸垚鏂板浘鐗?
+            //生成新图片
             //int height3 = (height>height2 || height==height2)?height:height2;
             BufferedImage  imageNew  =  new  BufferedImage(width * 2, height, BufferedImage.TYPE_INT_RGB);
             //BufferedImage  imageNew  =  new  BufferedImage(width+width2,height3,BufferedImage.TYPE_INT_RGB);
-            imageNew.setRGB(0, 0, width, height, imageArrayOne, 0, width); //璁剧疆宸﹀崐閮ㄥ垎镄凴GB
-            imageNew.setRGB(width, 0, width, height, ImageArrayTwo, 0, width); //璁剧疆鍙冲崐閮ㄥ垎镄凴GB
-            //imageNew.setRGB(width,0,width2,height2,ImageArrayTwo,0,width2);//璁剧疆鍙冲崐閮ㄥ垎镄凴GB
+            imageNew.setRGB(0, 0, width, height, imageArrayOne, 0, width); //设置左半部分的RGB
+            imageNew.setRGB(width, 0, width, height, ImageArrayTwo, 0, width); //设置右半部分的RGB
+            //imageNew.setRGB(width,0,width2,height2,ImageArrayTwo,0,width2);//设置右半部分的RGB
 
             File  outFile  =  new  File(toPath);
-            ImageIO.write(imageNew,  imageFormat,  outFile);//鍐椤浘鐗?
+            ImageIO.write(imageNew,  imageFormat,  outFile);//写图片
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
     /**
-     * 妯悜鎷兼帴涓€缁勶纸澶氩紶锛夊浘镀?
-     * @param pics  灏呜鎷兼帴镄勫浘镀?
-     * @param type 锲惧儚鍐椤叆镙煎纺
-     * @param dst_pic 锲惧儚鍐椤叆璺缎
+     * 横向拼接一组（多张）图像
+     * @param pics  将要拼接的图像
+     * @param type 图像写入格式
+     * @param dst_pic 图像写入路径
      * @return
      */
     public  boolean joinImageListHorizontal(String[] pics, String type, String dst_pic){
@@ -305,7 +305,7 @@ public class OperateImage {
                 images[i] = ImageIO.read(src[i]);
                 int width = images[i].getWidth();
                 int height = images[i].getHeight();
-                imageArrays[i] = new int[width * height];// 浠庡浘鐗囦腑璇诲彇RGB
+                imageArrays[i] = new int[width * height];// 从图片中读取RGB
                 imageArrays[i] = images[i].getRGB(0, 0, width, height,  imageArrays[i], 0, width);
             }
 
@@ -322,7 +322,7 @@ public class OperateImage {
                 return false;
             }
             /*
-             * 鐢熸垚鏂板浘鐗?
+             * 生成新图片
              */
             BufferedImage ImageNew = new BufferedImage(dst_width, dst_height,  BufferedImage.TYPE_INT_RGB);
             int width_i = 0;
@@ -331,7 +331,7 @@ public class OperateImage {
                 width_i += images[i].getWidth();
             }
             File outFile = new File(dst_pic);
-            ImageIO.write(ImageNew, type, outFile);// 鍐椤浘鐗?
+            ImageIO.write(ImageNew, type, outFile);// 写图片
         } catch (Exception e){
             e.printStackTrace();
             return false;
@@ -341,24 +341,24 @@ public class OperateImage {
     }
 
     /**
-     * 绾靛悜鎷兼帴锲剧墖锛堜袱寮狅级
-     * @param firstSrcImagePath 璇诲彇镄勭涓€寮犲浘鐗?
-     * @param secondSrcImagePath	璇诲彇镄勭浜屽紶锲剧墖
-     * @param imageFormat 锲剧墖鍐椤叆镙煎纺
-     * @param toPath	锲剧墖鍐椤叆璺缎
+     * 纵向拼接图片（两张）
+     * @param firstSrcImagePath 读取的第一张图片
+     * @param secondSrcImagePath	读取的第二张图片
+     * @param imageFormat 图片写入格式
+     * @param toPath	图片写入路径
      */
     public void joinImagesVertical(String firstSrcImagePath, String secondSrcImagePath, String imageFormat, String toPath){
         try {
-            //璇诲彇绗竴寮犲浘鐗?
+            //读取第一张图片
             File  fileOne  =  new  File(firstSrcImagePath);
             BufferedImage  imageOne = ImageIO.read(fileOne);
-            int  width  =  imageOne.getWidth();//锲剧墖瀹藉害
-            int  height  =  imageOne.getHeight();//锲剧墖楂桦害
-            //浠庡浘鐗囦腑璇诲彇RGB
+            int  width  =  imageOne.getWidth();//图片宽度
+            int  height  =  imageOne.getHeight();//图片高度
+            //从图片中读取RGB
             int[]  imageArrayOne  =  new  int[width * height];
             imageArrayOne  =  imageOne.getRGB(0, 0, width, height, imageArrayOne, 0, width);
 
-            //瀵圭浜屽紶锲剧墖锅氱浉鍚岀殑澶勭悊
+            //对第二张图片做相同的处理
             File  fileTwo  =  new  File(secondSrcImagePath);
             BufferedImage  imageTwo  =  ImageIO.read(fileTwo);
             int width2 = imageTwo.getWidth();
@@ -367,26 +367,26 @@ public class OperateImage {
             ImageArrayTwo  =  imageTwo.getRGB(0, 0, width, height, ImageArrayTwo, 0, width);
             //ImageArrayTwo  =  imageTwo.getRGB(0,0,width2,height2,ImageArrayTwo,0,width2);
 
-            //鐢熸垚鏂板浘鐗?
+            //生成新图片
             //int width3 = (width>width2 || width==width2)?width:width2;
             BufferedImage  imageNew  =  new  BufferedImage(width, height * 2, BufferedImage.TYPE_INT_RGB);
             //BufferedImage  imageNew  =  new  BufferedImage(width3,height+height2,BufferedImage.TYPE_INT_RGB);
-            imageNew.setRGB(0, 0, width, height, imageArrayOne, 0, width); //璁剧疆涓婂崐閮ㄥ垎镄凴GB
-            imageNew.setRGB(0, height, width, height, ImageArrayTwo, 0, width); //璁剧疆涓嫔崐閮ㄥ垎镄凴GB
-            //imageNew.setRGB(0,height,width2,height2,ImageArrayTwo,0,width2);//璁剧疆涓嫔崐閮ㄥ垎镄凴GB
+            imageNew.setRGB(0, 0, width, height, imageArrayOne, 0, width); //设置上半部分的RGB
+            imageNew.setRGB(0, height, width, height, ImageArrayTwo, 0, width); //设置下半部分的RGB
+            //imageNew.setRGB(0,height,width2,height2,ImageArrayTwo,0,width2);//设置下半部分的RGB
 
             File  outFile  =  new  File(toPath);
-            ImageIO.write(imageNew,  imageFormat,  outFile);//鍐椤浘鐗?
+            ImageIO.write(imageNew,  imageFormat,  outFile);//写图片
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
     /**
-     * 绾靛悜鎷兼帴涓€缁勶纸澶氩紶锛夊浘镀?
-     * @param pics		灏呜鎷兼帴镄勫浘镀忔暟缁?
-     * @param type	鍐椤叆锲惧儚绫诲瀷
-     * @param dst_pic	鍐椤叆锲惧儚璺缎
+     * 纵向拼接一组（多张）图像
+     * @param pics		将要拼接的图像数组
+     * @param type	写入图像类型
+     * @param dst_pic	写入图像路径
      * @return
      */
     public  boolean joinImageListVertical(String[] pics, String type, String dst_pic){
@@ -405,7 +405,7 @@ public class OperateImage {
                 images[i] = ImageIO.read(src[i]);
                 int width = images[i].getWidth();
                 int height = images[i].getHeight();
-                imageArrays[i] = new int[width * height];// 浠庡浘鐗囦腑璇诲彇RGB
+                imageArrays[i] = new int[width * height];// 从图片中读取RGB
                 imageArrays[i] = images[i].getRGB(0, 0, width, height,  imageArrays[i], 0, width);
             }
 
@@ -422,7 +422,7 @@ public class OperateImage {
                 return false;
             }
             /*
-             * 鐢熸垚鏂板浘鐗?
+             * 生成新图片
              */
             BufferedImage ImageNew = new BufferedImage(dst_width, dst_height,  BufferedImage.TYPE_INT_RGB);
             int height_i = 0;
@@ -431,7 +431,7 @@ public class OperateImage {
                 height_i += images[i].getHeight();
             }
             File outFile = new File(dst_pic);
-            ImageIO.write(ImageNew, type, outFile);// 鍐椤浘鐗?
+            ImageIO.write(ImageNew, type, outFile);// 写图片
         } catch (Exception e){
             e.printStackTrace();
             return false;
@@ -441,12 +441,12 @@ public class OperateImage {
     }
 
     /**
-     * 鍚埚苟锲剧墖(鎸夋寚瀹氩垵濮媥銆乱鍧愭爣灏嗛檮锷犲浘鐗囱创鍒板簳锲句箣涓?
-     * @param negativeImagePath 鑳屾櫙锲剧墖璺缎
-     * @param additionImagePath	闄勫姞锲剧墖璺缎
-     * @param x 闄勫姞锲剧墖镄勮捣濮嬬偣x鍧愭爣
-     * @param y  闄勫姞锲剧墖镄勮捣濮嬬偣y鍧愭爣
-     * @param toPath 锲剧墖鍐椤叆璺缎
+     * 合并图片(按指定初始x、y坐标将附加图片贴到底图之上)
+     * @param negativeImagePath 背景图片路径
+     * @param additionImagePath	附加图片路径
+     * @param x 附加图片的起始点x坐标
+     * @param y  附加图片的起始点y坐标
+     * @param toPath 图片写入路径
      * @throws IOException
      */
     public void mergeBothImage(String negativeImagePath, String additionImagePath, int x, int y, String toPath) throws IOException {
@@ -479,11 +479,11 @@ public class OperateImage {
     }
 
     /**
-     * 灏嗕竴缁勫浘鐗囦竴娆℃€ч檮锷犲悎骞跺埌搴曞浘涓?
-     * @param negativeImagePath		婧愬浘镀忥纸搴曞浘锛夎矾寰?
-     * @param additionImageList	闄勫姞锲惧儚淇℃伅鍒楄〃
-     * @param imageFormat	锲惧儚鍐椤叆镙煎纺
-     * @param toPath	锲惧儚鍐椤叆璺缎
+     * 将一组图片一次性附加合并到底图上
+     * @param negativeImagePath		源图像（底图）路径
+     * @param additionImageList	附加图像信息列表
+     * @param imageFormat	图像写入格式
+     * @param toPath	图像写入路径
      * @throws IOException
      */
     public void mergeImageList(String negativeImagePath, List additionImageList, String imageFormat, String toPath) throws IOException {
@@ -498,13 +498,13 @@ public class OperateImage {
             BufferedImage image2 = null;
             if(additionImageList != null){
                 for(int i = 0; i < additionImageList.size(); i++){
-                    //瑙ｆ瀽闄勫姞锲剧墖淇℃伅锛歺鍧愭爣銆?y鍧愭爣銆?additionImagePath闄勫姞锲剧墖璺缎
-                    //锲剧墖淇℃伅瀛桦偍鍦ㄤ竴涓暟缁勪腑
+                    //解析附加图片信息：x坐标、 y坐标、 additionImagePath附加图片路径
+                    //图片信息存储在一个数组中
                     String[] additionImageInfo = (String[]) additionImageList.get(i);
                     int x = Integer.parseInt(additionImageInfo[0]);
                     int y = Integer.parseInt(additionImageInfo[1]);
                     String additionImagePath = additionImageInfo[2];
-                    //璇诲彇鏂囦欢杈揿叆娴侊紝骞跺悎骞跺浘鐗?
+                    //读取文件输入流，并合并图片
                     is2 = new FileInputStream(additionImagePath);
                     //System.out.println(x+"  :  "+y+"  :  "+additionImagePath);
                     image2 = ImageIO.read(is2);
@@ -512,7 +512,7 @@ public class OperateImage {
                 }
             }
             os = new FileOutputStream(toPath);
-            ImageIO.write(image,  imageFormat,  os);//鍐椤浘鐗?
+            ImageIO.write(image,  imageFormat,  os);//写图片
             //JPEGImageEncoder enc=JPEGCodec.createJPEGEncoder(os);
             //enc.encode(image);
         } catch(Exception e){
@@ -531,10 +531,10 @@ public class OperateImage {
     }
 
     /**
-     * 灏嗛檮锷犲浘鐗囧悎骞跺埌搴曞浘镄勫乏涓婅
-     * @param negativeImagePath 搴曞浘璺缎
-     * @param additionImagePath	闄勫姞锲剧墖璺缎
-     * @param toPath	鍚堟垚锲剧墖鍐椤叆璺缎
+     * 将附加图片合并到底图的左上角
+     * @param negativeImagePath 底图路径
+     * @param additionImagePath	附加图片路径
+     * @param toPath	合成图片写入路径
      * @throws IOException
      */
     public void mergeBothImageTopleftcorner(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
@@ -567,10 +567,10 @@ public class OperateImage {
     }
 
     /**
-     * 灏嗛檮锷犲浘鐗囧悎骞跺埌搴曞浘镄勫彸涓婅
-     * @param negativeImagePath 搴曞浘璺缎
-     * @param additionImagePath	闄勫姞锲剧墖璺缎
-     * @param toPath	鍚堟垚锲剧墖鍐椤叆璺缎
+     * 将附加图片合并到底图的右上角
+     * @param negativeImagePath 底图路径
+     * @param additionImagePath	附加图片路径
+     * @param toPath	合成图片写入路径
      * @throws IOException
      */
     public void mergeBothImageToprightcorner(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
@@ -603,10 +603,10 @@ public class OperateImage {
     }
 
     /**
-     * 灏嗛檮锷犲浘鐗囧悎骞跺埌搴曞浘镄勫乏涓嬭
-     * @param negativeImagePath 搴曞浘璺缎
-     * @param additionImagePath	闄勫姞锲剧墖璺缎
-     * @param toPath	鍚堟垚锲剧墖鍐椤叆璺缎
+     * 将附加图片合并到底图的左下角
+     * @param negativeImagePath 底图路径
+     * @param additionImagePath	附加图片路径
+     * @param toPath	合成图片写入路径
      * @throws IOException
      */
     public void mergeBothImageLeftbottom(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
@@ -639,10 +639,10 @@ public class OperateImage {
     }
 
     /**
-     * 灏嗛檮锷犲浘鐗囧悎骞跺埌搴曞浘镄勫乏涓嬭
-     * @param negativeImagePath 搴曞浘璺缎
-     * @param additionImagePath	闄勫姞锲剧墖璺缎
-     * @param toPath	鍚堟垚锲剧墖鍐椤叆璺缎
+     * 将附加图片合并到底图的左下角
+     * @param negativeImagePath 底图路径
+     * @param additionImagePath	附加图片路径
+     * @param toPath	合成图片写入路径
      * @throws IOException
      */
     public void mergeBothImageRightbottom(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
@@ -675,10 +675,10 @@ public class OperateImage {
     }
 
     /**
-     * 灏嗛檮锷犲浘鐗囧悎骞跺埌搴曞浘镄勬涓ぎ
-     * @param negativeImagePath 搴曞浘璺缎
-     * @param additionImagePath	闄勫姞锲剧墖璺缎
-     * @param toPath	鍚堟垚锲剧墖鍐椤叆璺缎
+     * 将附加图片合并到底图的正中央
+     * @param negativeImagePath 底图路径
+     * @param additionImagePath	附加图片路径
+     * @param toPath	合成图片写入路径
      * @throws IOException
      */
     public void mergeBothImageCenter(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
@@ -711,10 +711,10 @@ public class OperateImage {
     }
 
     /**
-     * 灏嗛檮锷犲浘鐗囧悎骞跺埌搴曞浘镄勪笂杈逛腑澶?
-     * @param negativeImagePath 搴曞浘璺缎
-     * @param additionImagePath	闄勫姞锲剧墖璺缎
-     * @param toPath	鍚堟垚锲剧墖鍐椤叆璺缎
+     * 将附加图片合并到底图的上边中央
+     * @param negativeImagePath 底图路径
+     * @param additionImagePath	附加图片路径
+     * @param toPath	合成图片写入路径
      * @throws IOException
      */
     public void mergeBothImageTopcenter(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
@@ -747,10 +747,10 @@ public class OperateImage {
     }
 
     /**
-     * 灏嗛檮锷犲浘鐗囧悎骞跺埌搴曞浘镄勪笅杈逛腑澶?
-     * @param negativeImagePath 搴曞浘璺缎
-     * @param additionImagePath	闄勫姞锲剧墖璺缎
-     * @param toPath	鍚堟垚锲剧墖鍐椤叆璺缎
+     * 将附加图片合并到底图的下边中央
+     * @param negativeImagePath 底图路径
+     * @param additionImagePath	附加图片路径
+     * @param toPath	合成图片写入路径
      * @throws IOException
      */
     public void mergeBothImageBottomcenter(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
@@ -783,10 +783,10 @@ public class OperateImage {
     }
 
     /**
-     * 灏嗛檮锷犲浘鐗囧悎骞跺埌搴曞浘镄勫乏杈逛腑澶?
-     * @param negativeImagePath 搴曞浘璺缎
-     * @param additionImagePath	闄勫姞锲剧墖璺缎
-     * @param toPath	鍚堟垚锲剧墖鍐椤叆璺缎
+     * 将附加图片合并到底图的左边中央
+     * @param negativeImagePath 底图路径
+     * @param additionImagePath	附加图片路径
+     * @param toPath	合成图片写入路径
      * @throws IOException
      */
     public void mergeBothImageLeftcenter(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
@@ -819,10 +819,10 @@ public class OperateImage {
     }
 
     /**
-     * 灏嗛檮锷犲浘鐗囧悎骞跺埌搴曞浘镄勫彸杈逛腑澶?
-     * @param negativeImagePath 搴曞浘璺缎
-     * @param additionImagePath	闄勫姞锲剧墖璺缎
-     * @param toPath	鍚堟垚锲剧墖鍐椤叆璺缎
+     * 将附加图片合并到底图的右边中央
+     * @param negativeImagePath 底图路径
+     * @param additionImagePath	附加图片路径
+     * @param toPath	合成图片写入路径
      * @throws IOException
      */
     public void mergeBothImageRightcenter(String negativeImagePath, String additionImagePath, String toPath) throws IOException {
@@ -855,10 +855,10 @@ public class OperateImage {
     }
 
     /**
-     * 锲剧墖鐏板寲鎿崭綔
-     * @param srcImage 璇诲彇锲剧墖璺缎
-     * @param toPath	鍐椤叆鐏板寲鍚庣殑锲剧墖璺缎
-     * @param imageFormat 锲剧墖鍐椤叆镙煎纺
+     * 图片灰化操作
+     * @param srcImage 读取图片路径
+     * @param toPath	写入灰化后的图片路径
+     * @param imageFormat 图片写入格式
      */
     public void grayImage(String srcImage, String toPath, String imageFormat){
         try {
@@ -873,18 +873,18 @@ public class OperateImage {
     }
 
     /**
-     * 鍦ㄦ簮锲剧墖涓婅缃按鍗版枃瀛?
-     * @param srcImagePath	婧愬浘鐗囱矾寰?
-     * @param alpha	阃忔槑搴︼纸0<alpha<1锛?
-     * @param font	瀛椾綋锛堜緥濡傦细瀹嬩綋锛?
-     * @param fontStyle		瀛椾綋镙煎纺(渚嫔锛氭櫘阃氭牱寮?-Font.PLAIN銆佺矖浣?-Font.BOLD)
-     * @param fontSize	瀛椾綋澶у皬
-     * @param color	瀛椾綋棰滆壊(渚嫔锛氶粦鑹?-Color.BLACK)
-     * @param inputWords		杈揿叆鏄剧ず鍦ㄥ浘鐗囦笂镄勬枃瀛?
-     * @param x		鏂囧瓧鏄剧ず璧峰镄刹鍧愭爣
-     * @param y		鏂囧瓧鏄剧ず璧峰镄剏鍧愭爣
-     * @param imageFormat	鍐椤叆锲剧墖镙煎纺锛坧ng/jpg绛夛级
-     * @param toPath	鍐椤叆锲剧墖璺缎
+     * 在源图片上设置水印文字
+     * @param srcImagePath	源图片路径
+     * @param alpha	透明度（0<alpha<1）
+     * @param font	字体（例如：宋体）
+     * @param fontStyle		字体格式(例如：普通样式--Font.PLAIN、粗体--Font.BOLD)
+     * @param fontSize	字体大小
+     * @param color	字体颜色(例如：黑色--Color.BLACK)
+     * @param inputWords		输入显示在图片上的文字
+     * @param x		文字显示起始的x坐标
+     * @param y		文字显示起始的y坐标
+     * @param imageFormat	写入图片格式（png/jpg等）
+     * @param toPath	写入图片路径
      * @throws IOException
      */
     public void alphaWords2Image(String srcImagePath, float alpha,
@@ -893,17 +893,17 @@ public class OperateImage {
         FileOutputStream fos = null;
         try {
             BufferedImage image = ImageIO.read(new File(srcImagePath));
-            //鍒涘缓java2D瀵硅薄
+            //创建java2D对象
             Graphics2D g2d = image.createGraphics();
-            //鐢ㄦ簮锲惧儚濉厖鑳屾櫙
+            //用源图像填充背景
             g2d.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), null, null);
-            //璁剧疆阃忔槑搴?
+            //设置透明度
             AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
             g2d.setComposite(ac);
-            //璁剧疆鏂囧瓧瀛椾綋鍚岖О銆佹牱寮忋€佸ぇ灏?
+            //设置文字字体名称、样式、大小
             g2d.setFont(new Font(font, fontStyle, fontSize));
-            g2d.setColor(color);//璁剧疆瀛椾綋棰滆壊
-            g2d.drawString(inputWords, x, y); //杈揿叆姘村嵃鏂囧瓧鍙婂叾璧峰x銆乱鍧愭爣
+            g2d.setColor(color);//设置字体颜色
+            g2d.drawString(inputWords, x, y); //输入水印文字及其起始x、y坐标
             g2d.dispose();
             fos = new FileOutputStream(toPath);
             ImageIO.write(image, imageFormat, fos);
@@ -917,17 +917,17 @@ public class OperateImage {
     }
 
     /**
-     * 鍦ㄦ簮锲惧儚涓婅缃浘鐗囨按鍗?
-     * 	---- 褰揳lpha==1镞舵枃瀛椾笉阃忔槑锛埚拰鍦ㄥ浘鐗囦笂鐩存帴杈揿叆鏂囧瓧鏁堟灉涓€镙凤级
-     * @param srcImagePath	婧愬浘鐗囱矾寰?
-     * @param appendImagePath	姘村嵃锲剧墖璺缎
-     * @param alpha	阃忔槑搴?
-     * @param x		姘村嵃锲剧墖镄勮捣濮媥鍧愭爣
-     * @param y		姘村嵃锲剧墖镄勮捣濮媦鍧愭爣
-     * @param width	姘村嵃锲剧墖镄勫搴?
-     * @param height		姘村嵃锲剧墖镄勯佩搴?
-     * @param imageFormat	锲惧儚鍐椤叆锲剧墖镙煎纺
-     * @param toPath	锲惧儚鍐椤叆璺缎
+     * 在源图像上设置图片水印
+     * 	---- 当alpha==1时文字不透明（和在图片上直接输入文字效果一样）
+     * @param srcImagePath	源图片路径
+     * @param appendImagePath	水印图片路径
+     * @param alpha	透明度
+     * @param x		水印图片的起始x坐标
+     * @param y		水印图片的起始y坐标
+     * @param width	水印图片的宽度
+     * @param height		水印图片的高度
+     * @param imageFormat	图像写入图片格式
+     * @param toPath	图像写入路径
      * @throws IOException
      */
     public void alphaImage2Image(String srcImagePath, String appendImagePath,
@@ -936,14 +936,14 @@ public class OperateImage {
         FileOutputStream fos = null;
         try {
             BufferedImage image = ImageIO.read(new File(srcImagePath));
-            //鍒涘缓java2D瀵硅薄
+            //创建java2D对象
             Graphics2D g2d = image.createGraphics();
-            //鐢ㄦ簮锲惧儚濉厖鑳屾櫙
+            //用源图像填充背景
             g2d.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), null, null);
-            //璁剧疆阃忔槑搴?
+            //设置透明度
             AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
             g2d.setComposite(ac);
-            //璁剧疆姘村嵃锲剧墖镄勮捣濮媥/y鍧愭爣銆佸搴︺€侀佩搴?
+            //设置水印图片的起始x/y坐标、宽度、高度
             BufferedImage appendImage = ImageIO.read(new File(appendImagePath));
             g2d.drawImage(appendImage, x, y, width, height, null, null);
             g2d.dispose();
@@ -959,27 +959,27 @@ public class OperateImage {
     }
 
     /**
-     * 鐢诲崟镣?---- 瀹为台涓婃槸鐢讳竴涓～鍏呴鑹茬殑鍦?
-     * ---- 浠ユ寚瀹氱偣鍧愭爣涓轰腑蹇幂敾涓€涓皬鍗婂缎镄勫浑褰紝骞跺～鍏呭叾棰滆壊鏉ュ厖褰撶偣
-     * @param srcImagePath	 婧愬浘鐗囬鑹?
-     * @param x		镣圭殑x鍧愭爣
-     * @param y		镣圭殑y鍧愭爣
-     * @param width	濉厖镄勫搴?
-     * @param height	濉厖镄勯佩搴?
-     * @param ovalColor	濉厖棰滆壊
-     * @param imageFormat	鍐椤叆锲剧墖镙煎纺
-     * @param toPath	鍐椤叆璺缎
+     * 画单点 ---- 实际上是画一个填充颜色的圆
+     * ---- 以指定点坐标为中心画一个小半径的圆形，并填充其颜色来充当点
+     * @param srcImagePath	 源图片颜色
+     * @param x		点的x坐标
+     * @param y		点的y坐标
+     * @param width	填充的宽度
+     * @param height	填充的高度
+     * @param ovalColor	填充颜色
+     * @param imageFormat	写入图片格式
+     * @param toPath	写入路径
      * @throws IOException
      */
     public void drawPoint(String srcImagePath, int x, int y, int width, int height, Color ovalColor, String imageFormat, String toPath) throws IOException {
         FileOutputStream fos = null;
         try {
-            //銮峰彇婧愬浘鐗?
+            //获取源图片
             BufferedImage image = ImageIO.read(new File(srcImagePath));
-            //镙规嵁xy镣瑰潗镙囩粯鍒惰繛鎺ョ嚎
+            //根据xy点坐标绘制连接线
             Graphics2D g2d = image.createGraphics();
             g2d.setColor(ovalColor);
-            //濉厖涓€涓き鍦嗗舰
+            //填充一个椭圆形
             g2d.fillOval(x, y, width, height);
             fos = new FileOutputStream(toPath);
             ImageIO.write(image, imageFormat, fos);
@@ -993,26 +993,26 @@ public class OperateImage {
     }
 
     /**
-     * 鐢讳竴缁勶纸澶氢釜锛夌偣---- 瀹为台涓婃槸鐢讳竴缁勶纸澶氢釜锛夊～鍏呴鑹茬殑鍦?
-     * ---- 浠ユ寚瀹氱偣鍧愭爣涓轰腑蹇幂敾涓€涓皬鍗婂缎镄勫浑褰紝骞跺～鍏呭叾棰滆壊鏉ュ厖褰撶偣
-     * @param srcImagePath	铡熷浘鐗囱矾寰?
-     * @param pointList	镣瑰垪琛?
-     * @param width	瀹藉害
-     * @param height		楂桦害
-     * @param ovalColor 濉厖棰滆壊
-     * @param imageFormat	鍐椤叆锲剧墖棰滆壊
-     * @param toPath	鍐椤叆璺缎
+     * 画一组（多个）点---- 实际上是画一组（多个）填充颜色的圆
+     * ---- 以指定点坐标为中心画一个小半径的圆形，并填充其颜色来充当点
+     * @param srcImagePath	原图片路径
+     * @param pointList	点列表
+     * @param width	宽度
+     * @param height		高度
+     * @param ovalColor 填充颜色
+     * @param imageFormat	写入图片颜色
+     * @param toPath	写入路径
      * @throws IOException
      */
     public void drawPoints(String srcImagePath, List pointList, int width, int height, Color ovalColor, String imageFormat, String toPath) throws IOException {
         FileOutputStream fos = null;
         try {
-            //銮峰彇婧愬浘鐗?
+            //获取源图片
             BufferedImage image = ImageIO.read(new File(srcImagePath));
-            //镙规嵁xy镣瑰潗镙囩粯鍒惰繛鎺ョ嚎
+            //根据xy点坐标绘制连接线
             Graphics2D g2d = image.createGraphics();
             g2d.setColor(ovalColor);
-            //濉厖涓€涓き鍦嗗舰
+            //填充一个椭圆形
             if(pointList != null){
                 for(int i = 0; i < pointList.size(); i++){
                     Point point = (Point)pointList.get(i);
@@ -1033,23 +1033,23 @@ public class OperateImage {
     }
 
     /**
-     * 鐢荤嚎娈?
-     * @param srcImagePath	婧愬浘鐗囱矾寰?
-     * @param x1	绗竴涓偣x鍧愭爣
-     * @param y1	绗竴涓偣y鍧愭爣
-     * @param x2	绗簩涓偣x鍧愭爣
-     * @param y2	绗簩涓偣y鍧愭爣
-     * @param lineColor 绾挎浔棰滆壊
-     * @param toPath	锲惧儚鍐椤叆璺缎
-     * @param imageFormat	锲惧儚鍐椤叆镙煎纺
+     * 画线段
+     * @param srcImagePath	源图片路径
+     * @param x1	第一个点x坐标
+     * @param y1	第一个点y坐标
+     * @param x2	第二个点x坐标
+     * @param y2	第二个点y坐标
+     * @param lineColor 线条颜色
+     * @param toPath	图像写入路径
+     * @param imageFormat	图像写入格式
      * @throws IOException
      */
     public void drawLine(String srcImagePath, int x1, int y1, int x2, int y2, Color lineColor, String toPath, String imageFormat) throws IOException {
         FileOutputStream fos = null;
         try {
-            //銮峰彇婧愬浘鐗?
+            //获取源图片
             BufferedImage image = ImageIO.read(new File(srcImagePath));
-            //镙规嵁xy镣瑰潗镙囩粯鍒惰繛鎺ョ嚎
+            //根据xy点坐标绘制连接线
             Graphics2D g2d = image.createGraphics();
             g2d.setColor(lineColor);
             g2d.drawLine(x1, y1, x2, y2);
@@ -1065,28 +1065,28 @@ public class OperateImage {
     }
 
     /**
-     * 鐢绘姌绾?/ 绾挎
-     * ---- 2涓偣鍗崇敾绾挎锛屽涓偣鐢绘姌绾?
-     * @param srcImagePath	婧愬浘鐗囱矾寰?
-     * @param xPoints	x鍧愭爣鏁扮粍
-     * @param yPoints	y鍧愭爣鏁扮粍
-     * @param nPoints	镣圭殑鏁伴噺
-     * @param lineColor	绾挎浔棰滆壊
-     * @param toPath	锲惧儚鍐椤叆璺缎
-     * @param imageFormat	锲剧墖鍐椤叆镙煎纺
+     * 画折线 / 线段
+     * ---- 2个点即画线段，多个点画折线
+     * @param srcImagePath	源图片路径
+     * @param xPoints	x坐标数组
+     * @param yPoints	y坐标数组
+     * @param nPoints	点的数量
+     * @param lineColor	线条颜色
+     * @param toPath	图像写入路径
+     * @param imageFormat	图片写入格式
      * @throws IOException
      */
     public void drawPolyline(String srcImagePath, int[] xPoints, int[] yPoints, int nPoints, Color lineColor, String toPath, String imageFormat) throws IOException {
         FileOutputStream fos = null;
         try {
-            //銮峰彇婧愬浘鐗?
+            //获取源图片
             BufferedImage image = ImageIO.read(new File(srcImagePath));
-            //镙规嵁xy镣瑰潗镙囩粯鍒惰繛鎺ョ嚎
+            //根据xy点坐标绘制连接线
             Graphics2D g2d = image.createGraphics();
-            //璁剧疆绾挎浔棰滆壊
+            //设置线条颜色
             g2d.setColor(lineColor);
             g2d.drawPolyline(xPoints, yPoints, nPoints);
-            //锲惧儚鍐椤嚭璺缎
+            //图像写出路径
             fos = new FileOutputStream(toPath);
             ImageIO.write(image, imageFormat, fos);
         } catch (IOException e){
@@ -1099,33 +1099,33 @@ public class OperateImage {
     }
 
     /**
-     * 缁桦埗鎶樼嚎锛屽苟绐佸嚭鏄剧ず杞姌镣?
-     * @param srcImagePath	婧愬浘鐗囱矾寰?
-     * @param xPoints	x鍧愭爣鏁扮粍
-     * @param yPoints	y鍧愭爣鏁扮粍
-     * @param nPoints	镣圭殑鏁伴噺
-     * @param lineColor	杩炵嚎棰滆壊
-     * @param width	镣圭殑瀹藉害
-     * @param height		镣圭殑楂桦害
-     * @param ovalColor	镣圭殑濉厖棰滆壊
-     * @param toPath	锲惧儚鍐椤叆璺缎
-     * @param imageFormat	锲惧儚鍐椤叆镙煎纺
+     * 绘制折线，并突出显示转折点
+     * @param srcImagePath	源图片路径
+     * @param xPoints	x坐标数组
+     * @param yPoints	y坐标数组
+     * @param nPoints	点的数量
+     * @param lineColor	连线颜色
+     * @param width	点的宽度
+     * @param height		点的高度
+     * @param ovalColor	点的填充颜色
+     * @param toPath	图像写入路径
+     * @param imageFormat	图像写入格式
      * @throws IOException
      */
     public void drawPolylineShowPoints(String srcImagePath, int[] xPoints, int[] yPoints, int nPoints, Color lineColor, int width, int height, Color ovalColor, String toPath, String imageFormat) throws IOException {
         FileOutputStream fos = null;
         try {
-            //銮峰彇婧愬浘鐗?
+            //获取源图片
             BufferedImage image = ImageIO.read(new File(srcImagePath));
-            //镙规嵁xy镣瑰潗镙囩粯鍒惰繛鎺ョ嚎
+            //根据xy点坐标绘制连接线
             Graphics2D g2d = image.createGraphics();
-            //璁剧疆绾挎浔棰滆壊
+            //设置线条颜色
             g2d.setColor(lineColor);
-            //鐢荤嚎鏉?
+            //画线条
             g2d.drawPolyline(xPoints, yPoints, nPoints);
-            //璁剧疆鍦嗙偣棰滆壊
+            //设置圆点颜色
             g2d.setColor(ovalColor);
-            //鐢诲浑镣?
+            //画圆点
             if(xPoints != null){
                 for(int i = 0; i < xPoints.length; i++){
                     int x = xPoints[i];
@@ -1133,7 +1133,7 @@ public class OperateImage {
                     g2d.fillOval(x, y, width, height);
                 }
             }
-            //锲惧儚鍐椤嚭璺缎
+            //图像写出路径
             fos = new FileOutputStream(toPath);
             ImageIO.write(image, imageFormat, fos);
         } catch (IOException e){
@@ -1147,22 +1147,22 @@ public class OperateImage {
 
 
     /**
-     * 缁桦埗涓€涓敱 x 鍜?y 鍧愭爣鏁扮粍瀹氢箟镄勯棴鍚埚杈瑰舰
-     * @param srcImagePath 婧愬浘鐗囱矾寰?
-     * @param xPoints	x鍧愭爣鏁扮粍
-     * @param yPoints	y鍧愭爣鏁扮粍
-     * @param nPoints	鍧愭爣镣圭殑涓暟
-     * @param polygonColor	绾挎浔棰滆壊
-     * @param imageFormat	锲惧儚鍐椤叆镙煎纺
-     * @param toPath	锲惧儚鍐椤叆璺缎
+     * 绘制一个由 x 和 y 坐标数组定义的闭合多边形
+     * @param srcImagePath 源图片路径
+     * @param xPoints	x坐标数组
+     * @param yPoints	y坐标数组
+     * @param nPoints	坐标点的个数
+     * @param polygonColor	线条颜色
+     * @param imageFormat	图像写入格式
+     * @param toPath	图像写入路径
      * @throws IOException
      */
     public void drawPolygon(String srcImagePath, int[] xPoints, int[] yPoints, int nPoints, Color polygonColor, String imageFormat, String toPath) throws IOException {
         FileOutputStream fos = null;
         try {
-            //銮峰彇锲剧墖
+            //获取图片
             BufferedImage image = ImageIO.read(new File(srcImagePath));
-            //镙规嵁xy镣瑰潗镙囩粯鍒堕棴鍚埚杈瑰舰
+            //根据xy点坐标绘制闭合多边形
             Graphics2D g2d = image.createGraphics();
             g2d.setColor(polygonColor);
             g2d.drawPolygon(xPoints, yPoints, nPoints);
@@ -1179,26 +1179,26 @@ public class OperateImage {
     }
 
     /**
-     * 缁桦埗骞跺～鍏呭杈瑰舰
-     * @param srcImagePath	婧愬浘镀忚矾寰?
-     * @param xPoints	x鍧愭爣鏁扮粍
-     * @param yPoints	y鍧愭爣鏁扮粍
-     * @param nPoints	鍧愭爣镣逛釜鏁?
-     * @param polygonColor	澶氲竟褰㈠～鍏呴鑹?
-     * @param alpha	澶氲竟褰㈤儴鍒嗛€忔槑搴?
-     * @param imageFormat	鍐椤叆锲惧舰镙煎纺
-     * @param toPath	鍐椤叆锲惧舰璺缎
+     * 绘制并填充多边形
+     * @param srcImagePath	源图像路径
+     * @param xPoints	x坐标数组
+     * @param yPoints	y坐标数组
+     * @param nPoints	坐标点个数
+     * @param polygonColor	多边形填充颜色
+     * @param alpha	多边形部分透明度
+     * @param imageFormat	写入图形格式
+     * @param toPath	写入图形路径
      * @throws IOException
      */
     public void drawAndAlphaPolygon(String srcImagePath, int[] xPoints, int[] yPoints, int nPoints, Color polygonColor, float alpha, String imageFormat, String toPath) throws IOException {
         FileOutputStream fos = null;
         try {
-            //銮峰彇锲剧墖
+            //获取图片
             BufferedImage image = ImageIO.read(new File(srcImagePath));
-            //镙规嵁xy镣瑰潗镙囩粯鍒堕棴鍚埚杈瑰舰
+            //根据xy点坐标绘制闭合多边形
             Graphics2D g2d = image.createGraphics();
             g2d.setColor(polygonColor);
-            //璁剧疆阃忔槑搴?
+            //设置透明度
             AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
             g2d.setComposite(ac);
             g2d.fillPolygon(xPoints, yPoints, nPoints);
@@ -1226,33 +1226,33 @@ public class OperateImage {
         int height = 200 ;
         String readImageFormat = "jpg";
         String writeImageFormat = "jpg"*/;
-        //imageObj.cropImage(srcPath, toPath, x, y, width, height,readImageFormat,writeImageFormat);//鍓垏锲剧墖
-        //imageObj.resizeImage(srcPath, toPath, 400, 400);//鎸夋寚瀹氱殑闀垮閲岖疆锲惧舰澶у皬
-        //imageObj.reduceImageByRatio(srcPath, toPath, 3, 3);//鎸夋寚瀹氶昵鍜屽镄勬瘮渚嬬缉灏忓浘褰?
-        //imageObj.enlargementImageByRatio(srcPath, toPath, 2, 2);//鎸夋寚瀹氶昵鍜屽镄勬瘮渚嬫斁澶у浘褰?
-        //imageObj.reduceImageEqualProportion(srcPath, toPath, 4);//闀块佩绛夋瘮渚嬬缉灏?
-        //imageObj.enlargementImageEqualProportion(srcPath, toPath, 2);//闀块佩绛夋瘮渚嬫斁澶?
+        //imageObj.cropImage(srcPath, toPath, x, y, width, height,readImageFormat,writeImageFormat);//剪切图片
+        //imageObj.resizeImage(srcPath, toPath, 400, 400);//按指定的长宽重置图形大小
+        //imageObj.reduceImageByRatio(srcPath, toPath, 3, 3);//按指定长和宽的比例缩小图形
+        //imageObj.enlargementImageByRatio(srcPath, toPath, 2, 2);//按指定长和宽的比例放大图形
+        //imageObj.reduceImageEqualProportion(srcPath, toPath, 4);//长高等比例缩小
+        //imageObj.enlargementImageEqualProportion(srcPath, toPath, 2);//长高等比例放大
         /* String negativeImagePath = "D:/test/fileSource/004.jpg";
          String additionImagePath = "D:/test/fileSource/005.jpg";
          int x = 200;
          int y = 200;
          String toPath = "D:/test/desk/004+005-rightcenter.jpg";*/
-        //imageObj.mergeBothImage(negativeImagePath, additionImagePath, x, y, toPath); //鎸夋寚瀹氩潗镙囧悎骞跺浘鐗?
-        //imageObj.mergeBothImageTopleftcorner(negativeImagePath, additionImagePath, toPath);//鍚埚苟鍒板乏涓婅
-        //imageObj.mergeBothImageToprightcorner(negativeImagePath, additionImagePath, toPath);//鍚埚苟鍒板彸涓婅
-        //imageObj.mergeBothImageLeftbottom(negativeImagePath, additionImagePath, toPath);//鍚埚苟鍒板乏涓嬭
-        //imageObj.mergeBothImageRightbottom(negativeImagePath, additionImagePath, toPath);//鍚埚苟鍒板彸涓嬭
-        //imageObj.mergeBothImageCenter(negativeImagePath, additionImagePath, toPath);//鍚埚苟鍒版涓ぎ
-        //imageObj.mergeBothImageTopcenter(negativeImagePath, additionImagePath, toPath);//鍚埚苟鍒颁笂杈逛腑澶?
-        //imageObj.mergeBothImageBottomcenter(negativeImagePath, additionImagePath, toPath);//鍚埚苟鍒颁笅杈逛腑澶?
-        //imageObj.mergeBothImageLeftcenter(negativeImagePath, additionImagePath, toPath);//鍚埚苟鍒板乏杈逛腑澶?
-        //imageObj.mergeBothImageRightcenter(negativeImagePath, additionImagePath, toPath);//鍚埚苟鍒板彸杈逛腑澶?
+        //imageObj.mergeBothImage(negativeImagePath, additionImagePath, x, y, toPath); //按指定坐标合并图片
+        //imageObj.mergeBothImageTopleftcorner(negativeImagePath, additionImagePath, toPath);//合并到左上角
+        //imageObj.mergeBothImageToprightcorner(negativeImagePath, additionImagePath, toPath);//合并到右上角
+        //imageObj.mergeBothImageLeftbottom(negativeImagePath, additionImagePath, toPath);//合并到左下角
+        //imageObj.mergeBothImageRightbottom(negativeImagePath, additionImagePath, toPath);//合并到右下角
+        //imageObj.mergeBothImageCenter(negativeImagePath, additionImagePath, toPath);//合并到正中央
+        //imageObj.mergeBothImageTopcenter(negativeImagePath, additionImagePath, toPath);//合并到上边中央
+        //imageObj.mergeBothImageBottomcenter(negativeImagePath, additionImagePath, toPath);//合并到下边中央
+        //imageObj.mergeBothImageLeftcenter(negativeImagePath, additionImagePath, toPath);//合并到左边中央
+        //imageObj.mergeBothImageRightcenter(negativeImagePath, additionImagePath, toPath);//合并到右边中央
 
         /*
         String srcImage = "D:/test/fileSource/001.jpg";
         String toPath = "D:/test/desk/001-gray.jpg";
         String imageFormat = "jpg";
-        imageObj.grayImage(srcImage, toPath, imageFormat);//锲剧墖鐏板寲
+        imageObj.grayImage(srcImage, toPath, imageFormat);//图片灰化
          */
 
         /*
@@ -1260,7 +1260,7 @@ public class OperateImage {
         String secondSrcImagePath = "D:/test/desk/004.jpg";
         String imageFormat = "jpg";
         String toPath = "D:/test/desk/003-004-join.jpg";
-        imageObj.joinImagesHorizontal(firstSrcImagePath, secondSrcImagePath, imageFormat, toPath);//妯悜鎷兼帴锲剧墖
+        imageObj.joinImagesHorizontal(firstSrcImagePath, secondSrcImagePath, imageFormat, toPath);//横向拼接图片
         */
 
         /*
@@ -1268,7 +1268,7 @@ public class OperateImage {
         String secondSrcImagePath = "D:/test/desk/003-004-join.jpg";
         String imageFormat = "jpg";
         String toPath = "D:/test/desk/all-join.jpg";
-        imageObj.joinImagesVertical(firstSrcImagePath, secondSrcImagePath, imageFormat, toPath);//绾靛悜鎷兼帴锲剧墖
+        imageObj.joinImagesVertical(firstSrcImagePath, secondSrcImagePath, imageFormat, toPath);//纵向拼接图片
         */
 
         /*String srcImagePath = "D:/test/fileSource/002.jpg";
@@ -1276,23 +1276,23 @@ public class OperateImage {
         int[] yPoints = {30,150,172,295,615};
         int nPoints = 5;
         String toPath = "D:/test/desk/polygon-002.png";
-        imageObj.drawPolygon(srcImagePath, xPoints, yPoints, nPoints, Color.MAGENTA, "jpg", toPath); //镙规嵁鍧愭爣鏁扮粍缁桦埗澶氲竟褰?
+        imageObj.drawPolygon(srcImagePath, xPoints, yPoints, nPoints, Color.MAGENTA, "jpg", toPath); //根据坐标数组绘制多边形
         */
 
         /*String srcImagePath = "D:/test/fileSource/004.jpg";
         String appendImagePath = "D:/test/fileSource/005.jpg";
         float alpha = 0.2F;
-        String  font = "瀹嬩綋";
+        String  font = "宋体";
         int fontStyle = Font.PLAIN;
         int fontSize = 32;
         Color color = Color.RED;
-        String inputWords = "锲剧墖涓婅缃按鍗版枃瀛?---- 瀹嬩綋 鏅€氩瓧浣?32鍙峰瓧 绾㈣壊 阃忔槑搴?.5";
+        String inputWords = "图片上设置水印文字 ---- 宋体 普通字体 32号字 红色 透明度0.5";
         int x = 20;
         int y = 40;
         String imageFormat = "jpg";
         String toPath = "D:/test/desk/alphaI2I-001.png";*/
-        //imageObj.alphaWords2Image(srcImagePath, alpha, font, fontStyle, fontSize, color, inputWords, x, y, imageFormat, toPath); //璁剧疆鏂囧瓧姘村嵃
-        //imageObj.alphaImage2Image(srcImagePath, appendImagePath, alpha, x, y, 300, 200, imageFormat, toPath);//璁剧疆锲剧墖姘村嵃
+        //imageObj.alphaWords2Image(srcImagePath, alpha, font, fontStyle, fontSize, color, inputWords, x, y, imageFormat, toPath); //设置文字水印
+        //imageObj.alphaImage2Image(srcImagePath, appendImagePath, alpha, x, y, 300, 200, imageFormat, toPath);//设置图片水印
 
         /*
         String srcImagePath = "D:/test/fileSource/003.jpg";
@@ -1302,7 +1302,7 @@ public class OperateImage {
         Color lineColor = Color.RED;
         String toPath = "D:/test/desk/polyline-003.jpg";
         String imageFormat = "jpg";
-        imageObj.drawPolyline(srcImagePath, xPoints, yPoints, nPoints, lineColor,toPath, imageFormat);//鐢绘姌绾?
+        imageObj.drawPolyline(srcImagePath, xPoints, yPoints, nPoints, lineColor,toPath, imageFormat);//画折线
          */
 
         /*
@@ -1311,7 +1311,7 @@ public class OperateImage {
         int x2 = 600;
         int y2 = 150;
         Color lineColor = Color.BLUE;
-        imageObj.drawLine(srcImagePath, x1, y1, x2, y2, lineColor,toPath, imageFormat);//鐢荤嚎娈?
+        imageObj.drawLine(srcImagePath, x1, y1, x2, y2, lineColor,toPath, imageFormat);//画线段
          */
 
         /*
@@ -1323,7 +1323,7 @@ public class OperateImage {
         Color ovalColor = Color.RED;
         String imageFormat = "jpg";
         String toPath = "D:/test/desk/point-002.jpg";
-        imageObj.drawPoint(srcImagePath, x, y, width, height, ovalColor, imageFormat, toPath);//鐢讳竴涓浑镣?
+        imageObj.drawPoint(srcImagePath, x, y, width, height, ovalColor, imageFormat, toPath);//画一个圆点
         */
 
         /*List pointList = new ArrayList();
@@ -1343,7 +1343,7 @@ public class OperateImage {
         Color ovalColor = Color.RED;
         String imageFormat = "jpg";
         String toPath = "D:/test/desk/points-004.jpg";
-        imageObj.drawPoints(srcImagePath, pointList, width, height, ovalColor, imageFormat, toPath);//鐢诲嚭涓€缁勶纸澶氢釜锛夌偣
+        imageObj.drawPoints(srcImagePath, pointList, width, height, ovalColor, imageFormat, toPath);//画出一组（多个）点
          */
 
         /*
@@ -1353,7 +1353,7 @@ public class OperateImage {
         Color lineColor = Color.PINK;
         String srcImagePath = "D:/test/fileSource/003.jpg";
         String toPath = "D:/test/desk/showpoints-003.jpg";
-        imageObj.drawPolylineShowPoints(srcImagePath, xPoints, yPoints, nPoints, lineColor, width, height, ovalColor, toPath, imageFormat);//鐢绘姌绾垮苟绐佸嚭鏄剧ず镣?
+        imageObj.drawPolylineShowPoints(srcImagePath, xPoints, yPoints, nPoints, lineColor, width, height, ovalColor, toPath, imageFormat);//画折线并突出显示点
          */
 
         /*
@@ -1376,23 +1376,23 @@ public class OperateImage {
         	Random rand = new Random();
         	int x = rand.nextInt(1024);
         	int y =  rand.nextInt(768);
-        	imageObj.mergeBothImage(negativeImagePath, additionImagePath, x, y, toPath);//姣忔闄勫姞鍚埚苟涓€寮犲浘鐗?寰幆鑻ュ共娆?
+        	imageObj.mergeBothImage(negativeImagePath, additionImagePath, x, y, toPath);//每次附加合并一张图片(循环若干次)
         }
         long end = System.currentTimeMillis();
         System.out.println(end-start);*/
         //100 -- 45844
         //1000 -- 411156
-        /*鏀硅繘镐濊矾锛氩皢mergeBothImage鏂规硶 淇敼涓簃ergeImageList鏂规硶锛?
-        阃氲绷灏嗗浘鐗囩殑鍧愭爣镣硅鍏ist瀹瑰櫒锛岀劧鍚庡啀鍙栧嚭涓€鏉ュ湪鏂规硶涓竴娆℃€т笌锲剧墖鍚埚苟,
-        涓嶅啀姣忔閮芥墦寮€搴曞浘銆佷缭瀛桦悎鎴愬浘鐗囷紝鍏抽棴娴?/
+        /*改进思路：将mergeBothImage方法 修改为mergeImageList方法，
+        通过将图片的坐标点装入list容器，然后再取出一来在方法中一次性与图片合并,
+        不再每次都打开底图、保存合成图片，关闭流*/
 
-        //鍙犲姞缁勫悎锲惧儚
+        //叠加组合图像
         /*String negativeImagePath = "D:/test/fileSource/001.jpg";
         String  toPath = "D:/test/fileSource/001.jpg";
         String additionImagePath = "D:/test/fileSource/007.png";
         List additionImageList = new ArrayList();
         int count = 0;
-        for(int i=0;i<100;i++){//涓轰粈涔堟€绘槸杩炵画鐢熸垚涓€镙风殑闅忔満鏁帮紵锛燂紵
+        for(int i=0;i<100;i++){//为什么总是连续生成一样的随机数？？？
         	Random rand = new Random();
         	int x = rand.nextInt(1020);
         	String xStr = x+"";
@@ -1408,12 +1408,12 @@ public class OperateImage {
         imageObj.mergeImageList(negativeImagePath, additionImageList,"jpg", toPath);
         long end = System.currentTimeMillis();
         System.out.println(end-start);*/
-        //                                绗竴娆?       绗簩娆?     绗笁娆?
-        //100寮犺€楁椂(姣)		--2003			1792			1869           1747        	1871        	1793
-        //1000寮犺€楁椂(姣)	--15334			15200		15236         15903			16028		15545
-        //10000寮犺€楁椂(姣)	--153010		153340 		152673       154978  		156506 		154854
-        //濡傛灉list.size()<=100,鍒栾皟鐢ㄦ鏂规硶锛?
-        //濡傛灉list.size()>100,鍒栾皟鐢↗magick镄勬柟娉曘€?
+        //                                第一次        第二次      第三次
+        //100张耗时(毫秒)		--2003			1792			1869           1747        	1871        	1793
+        //1000张耗时(毫秒)	--15334			15200		15236         15903			16028		15545
+        //10000张耗时(毫秒)	--153010		153340 		152673       154978  		156506 		154854
+        //如果list.size()<=100,则调用此方法，
+        //如果list.size()>100,则调用Jmagick的方法。
 
         /*List iamgePathList = new ArrayList();		// D:/test/16a/
         iamgePathList.add("D:/test/16a/12384_2492.jpg");
@@ -1484,7 +1484,7 @@ public class OperateImage {
         long end = System.currentTimeMillis();
         System.out.println(end-start);*/
 
-        String str = "鍖椾含\n涓婃捣\n骞垮窞\n娣卞湷";
+        String str = "北京\n上海\n广州\n深圳";
         System.out.println(str);
         String path = "c:/relevantdata.txt";
         FileOutputStream fops = new FileOutputStream(path);
@@ -1496,7 +1496,7 @@ public class OperateImage {
             System.out.println(mrMsg);
         }
     }
-    //鏁伴噺		11			11x6
-    //绾靛悜		375
-    //妯悜		391		3250
+    //数量		11			11x6
+    //纵向		375
+    //横向		391		3250
 }

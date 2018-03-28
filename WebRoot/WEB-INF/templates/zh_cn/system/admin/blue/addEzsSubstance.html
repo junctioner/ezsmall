@@ -103,6 +103,12 @@ jQuery("#class_id").val("$!obj.articleClass.id");
 }); 
 
 function saveForm(){
+	   if($('#c')[0]!=undefined&&$('#c')[0].files[0]!=undefined&&$('#c')[0].files[0].size>209715200){ //209715200
+		   alert("您选择的多媒体文件过大，无法上传，请重新选择,文件允许上传的大小上限为200M")
+	       return false;
+	   }
+
+   //debugger;
    var reid=$("#classify input[name='f']:checked").attr("value")
    var nameid=$("#classify input[name='e']:checked").attr("value");
    var arr=[]
@@ -114,6 +120,56 @@ function saveForm(){
    $("#remarkValue").attr("value",JSON.stringify(obj))
    $("#theForm").submit();
 }
+
+//在input file内容改变的时候触发事件
+$(function(){
+	$('#d').change(function(){
+		$("#box img").remove()
+		    //获取input file的files文件数组;
+		    //$('#filed')获取的是jQuery对象，.get(0)转为原生对象;
+		    //这边默认只能选一个，但是存放形式仍然是数组，所以取第一个元素使用[0];
+		      //var file = $('#d').get(0).files[0];
+			var darr=$('#d')[0].files;
+		    var html=null
+		    var nameArr=[]
+		    for(var j=0;j<darr.length;j++){
+			    //创建用来读取此文件的对象
+			      var reader = new FileReader();
+			    //使用该对象读取file文件
+			      nameArr.push(darr[j].name)
+			      reader.readAsDataURL(darr[j]);
+		    	//读取文件成功后执行的方法函数
+		          reader.onload=function(e){
+			    //读取成功后返回的一个参数e，整个的一个进度事件
+			       // console.log(e);
+    	           html="<img style='width:100px;heght:80px;float:left' src="+e.target.result+">"
+	    	          $("#box").append(html)
+			     //选择所要显示图片的img，要赋值给img的src就是e中target下result里面
+			     //的base64编码格式的地址
+		         //$('#imgshow').get(0).src = e.target.result;
+		         }
+		    }
+            $("#e").attr("value",nameArr.join(" "))
+		    
+		    })
+		
+		$('#b').change(function(){
+		    //获取input file的files文件数组;
+		    //$('#filed')获取的是jQuery对象，.get(0)转为原生对象;
+		    //这边默认只能选一个，但是存放形式仍然是数组，所以取第一个元素使用[0];
+		      //var file = $('#d').get(0).files[0];
+			var darr=$('#b')[0].files;
+		    var html=null
+		    var nameArr=[]
+		    for(var j=0;j<darr.length;j++){
+			    //创建用来读取此文件的对象
+			    //使用该对象读取file文件
+			      nameArr.push(darr[j].name)
+		    }
+            $("#f").attr("value",nameArr.join(" "))
+		    
+		    })
+})
 
 </script>
 </head>
@@ -155,7 +211,7 @@ function saveForm(){
           <li><span>URL：</span><span><input type="text" size="40" name="linkUrl"/></span></li>
           <li><span>副标题：</span><span><input type="text" name="subheading"/></span><span>&nbsp;&nbsp;标题颜色：</span><span><input type="text" name="titleColor"/></span><span>&nbsp;&nbsp;加粗：</span><span><input checked="checked" type="radio" name="bold" value="true"/>是&nbsp;&nbsp;<input type="radio" name="bold" value="false"/>否</span></li>
           <li><span>Tag标签：</span><span><input type="text" name="tagTitle"/></span></li>
-          <li><span>摘要：</span><span><textarea name="meta" cols="20" rows="20"></textarea></span></li>
+          <li><span>摘要：</span><span><textarea name="meta" cols="95" rows="5"></textarea></span></li>
           <li><span>关键字：</span><span><input type="text" size="10" name="keyWord"/></span><span>&nbsp;&nbsp;标签添加：</span><span><input @click="pink=true" checked="checked" name="a" type="radio" value="true"/>需要</span><span><input  @click="pink=false" name="a" type="radio" value="false"/>不需要</span></li>
           <li v-if="pink" id="classify">
                  #foreach($remark in $remarks)
@@ -194,10 +250,16 @@ function saveForm(){
            <input type="radio" name="attribute" value="5"/>滚动
            <input type="radio" name="attribute" value="6"/>图文
           </span></li>
-          <li><span>缩略图：</span><span><input type="file" name="a"/></span></li>
-          <li><span>附件：</span><span><input type="file" name="b" multiple="multiple" accept=".ppt,.pptx,.doc,.docx,.xls,.xlsx,.pdf,.zip"/>支持word、excel、ppt、pdf、zip</span></li>
-          <li><span>多媒体文件：</span><span><input type="file" name="c" accept=".mp4"/>支持MP4格式文件</span></li>
-          <li><span>图片集：</span><span><input type="file" name="d" multiple="multiple"/></span></li>
+          <li><span>缩略图：</span><span><input type="file" id="a"
+							name="a" /></span></li>
+					<li><span>附件：</span><span><input type="file" id="b"
+							name="b" multiple="multiple"
+							accept=".ppt,.pptx,.doc,.docx,.xls,.xlsx,.pdf,.zip" />支持word、excel、ppt、pdf、zip<input type="text" size="100" id="f" readonly="readonly"/></span></li>
+					<li><span>多媒体文件：</span><span><input type="file" id="c"
+							name="c" accept=".mp4" />支持MP4格式文件</span></li>
+					<li><span>图片集：</span><span><input type="file" id="d"
+							name="d" multiple="multiple" /><input type="text" size="100" id="e" readonly="readonly"/></span></li>
+					<li id="box"></li>
           <li><span>文章内容：</span><span class="webname">
 	          <textarea name="content" cols="40" id="content"></textarea>
 	          </span></li>

@@ -60,27 +60,26 @@ public class JModelAndView extends ModelAndView {
         super.addObject("second_domain_view", Boolean.valueOf(second_domain_view));
     }
 
-    public JModelAndView(String viewName, SysConfig config, UserConfig uconfig, int type,
-            HttpServletRequest request, HttpServletResponse response) {
+    public JModelAndView(String viewName, SysConfig config, UserConfig uconfig, int type, HttpServletRequest request, HttpServletResponse response){
         if (config.getSysLanguage() != null){
             if (config.getSysLanguage().equals("zh_cn")){
                 if (type == 0){
                     super.setViewName("WEB-INF/templates/zh_cn/system/" + viewName);
-                } else
+                }
                 if (type == 1){
                     super.setViewName("WEB-INF/templates/zh_cn/shop/" + viewName);
-                } else
+                }
                 if (type > 1)
                     super.setViewName(viewName);
             }else{
                 if (type == 0){
                     super.setViewName("WEB-INF/templates/" +
                                       config.getSysLanguage() + "/system/" + viewName);
-                } else
+                }
                 if (type == 1){
                     super.setViewName("WEB-INF/templates/" +
                                       config.getSysLanguage() + "/shop/" + viewName);
-                } else
+                }
                 if (type > 1)
                     super.setViewName(viewName);
             }

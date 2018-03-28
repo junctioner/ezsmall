@@ -11,8 +11,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 /**
- * 鏀惰揣鍦板潃
- * @author 鍒樻亽绂?
+ * 收货地址
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -20,18 +20,18 @@ import com.wemall.core.domain.IdEntity;
 @Table(name = "ezs_address")
 public class Address extends IdEntity{
 	private String trueName;
-	// 鍦板尯
+	// 地区
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Area area;
-	// 鍦板潃淇℃伅
+	// 地址信息
 	private String area_info;
-	// 闾紪
+	// 邮编
 	private String zip;
-	// 鐢佃瘽
+	// 电话
 	private String telephone;
-	// 镓嬫満
+	// 手机
 	private String mobile;
-	// 鏄惁榛樿浣跨敤
+	// 是否默认使用
 	@Column(columnDefinition = "bit default false")
 	private boolean bestow;
 

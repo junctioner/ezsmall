@@ -1,20 +1,20 @@
 package com.wemall.core.base;
 
+import com.easyjf.util.CommUtil;
+import com.wemall.core.exception.CanotRemoveObjectException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Set;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-
 import org.springframework.orm.jpa.JpaCallback;
+import org.springframework.orm.jpa.JpaTemplate;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
-
-import com.easyjf.util.CommUtil;
-import com.wemall.core.exception.CanotRemoveObjectException;
 
 public class GenericEntityDao extends JpaDaoSupport {
     public Object get(Class clazz, Serializable id){

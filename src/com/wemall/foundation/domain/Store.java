@@ -16,54 +16,54 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 鍟嗗煄搴楅摵
+ * 商城店铺
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_store")
 public class Store extends IdEntity {
-	private String companyName;// 浼佷笟鍚岖О
+	private String companyName;// 企业名称
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Area area;// 缁忚惀鍦板潃鍖哄幙
-	private String address;// 缁忚惀鍦板潃
+	private Area area;// 经营地址区县
+	private String address;// 经营地址
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Dict mianIndustry;// 涓昏惀琛屼笟
+	private Dict mianIndustry;// 主营行业
 	@ManyToMany(targetEntity = Role.class, fetch = FetchType.LAZY)
 	@JoinTable(name = "ezs_store_dict", joinColumns = {
 			@javax.persistence.JoinColumn(name = "store_id") }, inverseJoinColumns = {
 					@javax.persistence.JoinColumn(name = "dict_id") })
-	private List<Dict> companyType;// 鍏徃绫诲瀷
-	private double yTurnover;// 骞磋惀涓氶
-	private double covered;// 鍗犲湴闱㈢Н
-	private boolean rent;// 绉熺敤
-	private int device_num;// 璁惧鏁伴噺
-	private int employee_num;// 锻桦伐鏁伴噺
-	private double assets;// 镐昏祫浜?
-	private double fixed_assets;// 锲哄畾璧勪骇
-	private int obtainYear;// 瀹为台鎺у埗浜轰粠涓氩勾闄?
-	private String open_bank_name;// 寮€鎴疯鍚岖О
-	private String openBankNo;// 寮€鎴疯璐﹀佛
-	private String open_branch_name;// 寮€鎴烽摱琛屾敮琛屽悕绉?
-	private String open_branch_no;// 寮€鎴锋敮琛岃处鍙?
-	private Area location;// 寮€鎴烽摱琛屽尯铡?
-	private String location_detail;// 寮€鎴烽摱琛屾墍鍦ㄥ湴
+	private List<Dict> companyType;// 公司类型
+	private double yTurnover;// 年营业额
+	private double covered;// 占地面积
+	private boolean rent;// 租用
+	private int device_num;// 设备数量
+	private int employee_num;// 员工数量
+	private double assets;// 总资产
+	private double fixed_assets;// 固定资产
+	private int obtainYear;// 实际控制人从业年限
+	private String open_bank_name;// 开户行名称
+	private String openBankNo;// 开户行账号
+	private String open_branch_name;// 开户银行支行名称
+	private String open_branch_no;// 开户支行账号
+	private Area location;// 开户银行区县
+	private String location_detail;// 开户银行所在地
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Dict cardType;// 璇佷欢绫诲瀷
+	private Dict cardType;// 证件类型
 	@ManyToMany(targetEntity = Accessory.class, fetch = FetchType.LAZY)
 	@JoinTable(name = "ezs_card_dict", joinColumns = {
 			@javax.persistence.JoinColumn(name = "store_id") }, inverseJoinColumns = {
 					@javax.persistence.JoinColumn(name = "accessory_id") })
-	private List<Accessory> card_imgs;// 璇佷欢锲剧墖
+	private List<Accessory> card_imgs;// 证件图片
 	@ManyToMany(targetEntity = Accessory.class, fetch = FetchType.LAZY)
 	@JoinTable(name = "ezs_idcard_dict", joinColumns = {
 			@javax.persistence.JoinColumn(name = "store_id") }, inverseJoinColumns = {
 					@javax.persistence.JoinColumn(name = "accessory_id") })
-	private List<Accessory> idCard_imgs;// 韬唤璇佸浘鐗?
-	private int status;// 鍟嗗搧钟舵€?
-	private Date registerDate;// 娉ㄥ唽镞堕棿
+	private List<Accessory> idCard_imgs;// 身份证图片
+	private int status;// 商铺状态 2.正常
+	private Date registerDate;// 注册时间
 
 	public String getCompanyName() {
 		return companyName;

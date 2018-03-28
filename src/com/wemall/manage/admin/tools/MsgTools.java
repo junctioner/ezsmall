@@ -25,7 +25,7 @@ import com.wemall.foundation.service.ISysConfigService;
 import com.wemall.foundation.service.IUserService;
 
 /**
- * 鐭秷鎭伐鍏风粍浠?
+ * 短消息工具组件
  */
 @Component
 public class MsgTools {

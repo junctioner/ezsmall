@@ -10,15 +10,15 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 /**
- * 鑱屼綅
- * @author 鍒樻亽绂?
+ * 职位
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_position")
 public class Position extends IdEntity {
-	private String name;// 鑱屼綅鍚岖О
+	private String name;// 职位名称
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Store store;
 

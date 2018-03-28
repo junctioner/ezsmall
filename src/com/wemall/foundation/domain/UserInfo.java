@@ -14,28 +14,28 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 鐢ㄦ埛鏄庣粏
+ * 用户明细
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_userinfo")
 public class UserInfo extends IdEntity {
-	private String email;// 鐢ㄦ埛闾
-	private String phone;// 鐢ㄦ埛鐢佃瘽鍙风爜
-	private Date entryTime;// 鍏ヨ亴镞堕棿
+	private String email;// 用户邮箱
+	private String phone;// 用户电话号码
+	private Date entryTime;// 入职时间
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Dict sex;// 镐у埆
+	private Dict sex;// 性别
 	@Column(columnDefinition = "int default 0")
-	private Integer status;// 鐢ㄦ埛钟舵€?
+	private Integer status;// 用户状态
 	@Column(columnDefinition = "bit default false")
-	private Boolean enable;// 鏄惁鍚敤
+	private Boolean enable;// 是否启用
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Depart depart;// 閮ㄩ棬
+	private Depart depart;// 部门
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Position position;// 鑱屼綅
+	private Position position;// 职位
 
 	public String getEmail() {
 		return email;

@@ -15,26 +15,26 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 鏉冮檺璧勬簮
+ * 权限资源
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_res")
 public class Res extends IdEntity {
-	// 鍚岖О
+	// 名称
 	private String resName;
-	// 绫诲瀷
+	// 类型
 	private String type;
-	// 浠锋牸
+	// 价格
 	private String value;
-	// 搴忓垪
+	// 序列
 	private int sequence;
-	// 淇℃伅
+	// 信息
 	private String info;
-	// 瑙掕壊
+	// 角色
 	@ManyToMany(mappedBy = "reses", targetEntity = Role.class, fetch = FetchType.EAGER)
 	private List<Role> roles = new ArrayList<Role>();
 

@@ -26,7 +26,7 @@ public class PublicMethod {
         try {
             conn = this.dbConnectoin.getConnection();
         } catch (Exception e){
-            throw new Exception("鏁版嵁阈炬帴阌栾,璇锋镆ョ敤鎴疯緭鍏ョ殑淇℃伅!");
+            throw new Exception("数据链接错误,请检查用户输入的信息!");
         }
 
         return conn;

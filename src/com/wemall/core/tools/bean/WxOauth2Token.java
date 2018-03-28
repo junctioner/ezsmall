@@ -4,15 +4,15 @@ package com.wemall.core.tools.bean;
  * Created by John on 2016/1/13.
  */
 public class WxOauth2Token {
-    // 缃戦〉鎺堟潈鎺ュ彛璋幂敤鍑瘉
+    // 网页授权接口调用凭证
     private String accessToken;
-    // 鍑瘉链夋晥镞堕昵
+    // 凭证有效时长
     private int expiresIn;
-    // 鐢ㄤ簬鍒锋柊鍑瘉
+    // 用于刷新凭证
     private String refreshToken;
-    // 鐢ㄦ埛镙囱瘑
+    // 用户标识
     private String openId;
-    // 鐢ㄦ埛鎺堟潈浣灭敤鍩?
+    // 用户授权作用域
     private String scope;
 
     public String getAccessToken(){

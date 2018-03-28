@@ -10,7 +10,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 /**
- * 鍟嗗搧缁熻
+ * 商品统计
  * @author lianfu
  *
  */
@@ -18,28 +18,28 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "ezs_store_stat")
 public class StoreStat extends IdEntity {
-    //涓€锻ㄧ敤鎴?
+    //一周用户
     private int week_user;
-    //涓€锻ㄥ晢鍝?
+    //一周商品
     private int week_goods;
-    //涓€锻ㄥ簵阈?
+    //一周店铺
     private int week_store;
-    //涓€锻ㄨ鍗?
+    //一周订单
     private int week_order;
-    //涓€锻ㄦ姇璇?
+    //一周投诉
     private int week_complaint;
-    //涓€锻ㄦ姤阆?
+    //一周报道
     private int week_report;
-    //镓€链夌敤鎴?
+    //所有用户
     private int all_user;
-    //镓€链夊簵阈?
+    //所有店铺
     private int all_store;
-    //搴楅摵镟存柊
+    //店铺更新
     private int store_update;
-    //镓€链夊晢鍝?
+    //所有商品
     private int all_goods;
 
-    //璁㈠崟鏁伴噺
+    //订单数量
     @Column(precision = 12, scale = 2)
     private BigDecimal order_amount;
     private Date next_time;

@@ -18,34 +18,34 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 鐩稿唽
+ * 相册
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_album")
 public class Album extends IdEntity {
-	// 鐩稿唽鍚岖О
+	// 相册名称
 	private String album_name;
-	// 鐩稿唽搴忓佛
+	// 相册序号
 	private int album_sequence;
-	// 澶村儚
+	// 头像
 	@OneToMany(mappedBy = "album", cascade = { javax.persistence.CascadeType.REMOVE })
 	private List<Accessory> photos = new ArrayList<Accessory>();
-	// 鐩稿唽
+	// 相册
 	@OneToOne(fetch = FetchType.LAZY)
 	private Accessory album_cover;
-	// 榛樿鐩稿唽
+	// 默认相册
 	private boolean album_default;
 
-	// 鐩稿唽淇℃伅
+	// 相册信息
 	@Lob
 	@Column(columnDefinition = "LongText")
 	private String alblum_info;
 
-	// 鐩稿唽镓€灞炰汉
+	// 相册所属人
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 

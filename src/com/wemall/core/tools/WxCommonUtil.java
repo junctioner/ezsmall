@@ -33,23 +33,23 @@ public class WxCommonUtil {
 
     private static Logger log = LoggerFactory.getLogger(WxCommonUtil.class);
 
-    // 鍑瘉銮峰彇锛圙ET锛?
+    // 凭证获取（GET）
     public final static String WxToken_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 
     /**
-     * 鍙戦€乭ttps璇锋眰
-     * @param requestUrl 璇锋眰鍦板潃
-     * @param requestMethod 璇锋眰鏂瑰纺锛圙ET銆丳OST锛?
-     * @param outputStr 鎻愪氦镄勬暟鎹?
-     * @return 杩斿洖寰俊链嶅姟鍣ㄥ搷搴旗殑淇℃伅
+     * 发送https请求
+     * @param requestUrl 请求地址
+     * @param requestMethod 请求方式（GET、POST）
+     * @param outputStr 提交的数据
+     * @return 返回微信服务器响应的信息
      */
     public static String httpsRequestString(String requestUrl, String requestMethod, String outputStr){
         try {
-            // 鍒涘缓SSLContext瀵硅薄锛屽苟浣跨敤鎴戜滑鎸囧畾镄勪俊浠荤鐞嗗櫒鍒濆鍖?
+            // 创建SSLContext对象，并使用我们指定的信任管理器初始化
             TrustManager[] tm = { new MyX509TrustManager() };
             SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
             sslContext.init(null, tm, new java.security.SecureRandom());
-            // 浠庝笂杩癝SLContext瀵硅薄涓缑鍒癝SLSocketFactory瀵硅薄
+            // 从上述SSLContext对象中得到SSLSocketFactory对象
             SSLSocketFactory ssf = sslContext.getSocketFactory();
             URL url = new URL(requestUrl);
             HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
@@ -57,17 +57,17 @@ public class WxCommonUtil {
             conn.setDoOutput(true);
             conn.setDoInput(true);
             conn.setUseCaches(false);
-            // 璁剧疆璇锋眰鏂瑰纺锛圙ET/POST锛?
+            // 设置请求方式（GET/POST）
             conn.setRequestMethod(requestMethod);
             conn.setRequestProperty("content-type", "application/x-www-form-urlencoded");
-            // 褰搊utputStr涓崭负null镞跺悜杈揿嚭娴佸啓鏁版嵁
+            // 当outputStr不为null时向输出流写数据
             if (null != outputStr){
                 OutputStream outputStream = conn.getOutputStream();
-                // 娉ㄦ剰缂栫爜镙煎纺
+                // 注意编码格式
                 outputStream.write(outputStr.getBytes("UTF-8"));
                 outputStream.close();
             }
-            // 浠庤緭鍏ユ祦璇诲彇杩斿洖鍐呭
+            // 从输入流读取返回内容
             InputStream inputStream = conn.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -76,7 +76,7 @@ public class WxCommonUtil {
             while ((str = bufferedReader.readLine()) != null){
                 buffer.append(str);
             }
-            // 閲婃斁璧勬簮
+            // 释放资源
             bufferedReader.close();
             inputStreamReader.close();
             inputStream.close();
@@ -84,28 +84,28 @@ public class WxCommonUtil {
             conn.disconnect();
             return buffer.toString();
         } catch (ConnectException ce){
-            log.error("杩炴帴瓒呮椂锛殁}", ce);
+            log.error("连接超时：{}", ce);
         } catch (Exception e){
-            log.error("https璇锋眰寮傚父锛殁}", e);
+            log.error("https请求异常：{}", e);
         }
         return null;
     }
     /**
-     * 鍙戦€乭ttps璇锋眰
+     * 发送https请求
      *
-     * @param requestUrl 璇锋眰鍦板潃
-     * @param requestMethod 璇锋眰鏂瑰纺锛圙ET銆丳OST锛?
-     * @param outputStr 鎻愪氦镄勬暟鎹?
-     * @return JSONObject(阃氲绷JSONObject.get(key)镄勬柟寮忚幏鍙杍son瀵硅薄镄勫睘镐у€?
+     * @param requestUrl 请求地址
+     * @param requestMethod 请求方式（GET、POST）
+     * @param outputStr 提交的数据
+     * @return JSONObject(通过JSONObject.get(key)的方式获取json对象的属性值)
      */
     public static JSONObject httpsRequest(String requestUrl, String requestMethod, String outputStr){
         JSONObject jsonObject = null;
         try {
-            // 鍒涘缓SSLContext瀵硅薄锛屽苟浣跨敤鎴戜滑鎸囧畾镄勪俊浠荤鐞嗗櫒鍒濆鍖?
+            // 创建SSLContext对象，并使用我们指定的信任管理器初始化
             TrustManager[] tm = { new MyX509TrustManager() };
             SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
             sslContext.init(null, tm, new java.security.SecureRandom());
-            // 浠庝笂杩癝SLContext瀵硅薄涓缑鍒癝SLSocketFactory瀵硅薄
+            // 从上述SSLContext对象中得到SSLSocketFactory对象
             SSLSocketFactory ssf = sslContext.getSocketFactory();
 
             URL url = new URL(requestUrl);
@@ -114,16 +114,16 @@ public class WxCommonUtil {
             conn.setDoOutput(true);
             conn.setDoInput(true);
             conn.setUseCaches(false);
-            // 璁剧疆璇锋眰鏂瑰纺锛圙ET/POST锛?
+            // 设置请求方式（GET/POST）
             conn.setRequestMethod(requestMethod);
-            // 褰搊utputStr涓崭负null镞跺悜杈揿嚭娴佸啓鏁版嵁
+            // 当outputStr不为null时向输出流写数据
             if (null != outputStr){
                 OutputStream outputStream = conn.getOutputStream();
-                // 娉ㄦ剰缂栫爜镙煎纺
+                // 注意编码格式
                 outputStream.write(outputStr.getBytes("UTF-8"));
                 outputStream.close();
             }
-            // 浠庤緭鍏ユ祦璇诲彇杩斿洖鍐呭
+            // 从输入流读取返回内容
             InputStream inputStream = conn.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -133,7 +133,7 @@ public class WxCommonUtil {
                 buffer.append(str);
             }
 
-            // 閲婃斁璧勬簮
+            // 释放资源
             bufferedReader.close();
             inputStreamReader.close();
             inputStream.close();
@@ -141,24 +141,24 @@ public class WxCommonUtil {
             conn.disconnect();
             jsonObject = JSONObject.fromObject(buffer.toString());
         } catch (ConnectException ce){
-            log.error("杩炴帴瓒呮椂锛殁}", ce);
+            log.error("连接超时：{}", ce);
         } catch (Exception e){
-            log.error("https璇锋眰寮傚父锛殁}", e);
+            log.error("https请求异常：{}", e);
         }
         return jsonObject;
     }
 
     /**
-     * 銮峰彇鎺ュ彛璁块棶鍑瘉
+     * 获取接口访问凭证
      *
-     * @param appid 鍑瘉
-     * @param appsecret 瀵嗛挜
+     * @param appid 凭证
+     * @param appsecret 密钥
      * @return
      */
     public static WxToken getToken(String appid, String appsecret){
         WxToken WxToken = null;
         String requestUrl = WxToken_url.replace("APPID", appid).replace("APPSECRET", appsecret);
-        // 鍙戣捣GET璇锋眰銮峰彇鍑瘉
+        // 发起GET请求获取凭证
         JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
 
         if (null != jsonObject){
@@ -168,16 +168,16 @@ public class WxCommonUtil {
                 WxToken.setExpiresIn(jsonObject.getInt("expires_in"));
             } catch (JSONException e){
                 WxToken = null;
-                // 銮峰彇WxToken澶辫触
-                log.error("銮峰彇WxToken澶辫触 errcode:{} errmsg:{}", jsonObject.getInt("errcode"), jsonObject.getString("errmsg"));
+                // 获取WxToken失败
+                log.error("获取WxToken失败 errcode:{} errmsg:{}", jsonObject.getInt("errcode"), jsonObject.getString("errmsg"));
             }
         }
         return WxToken;
     }
     /**
-     * 銮峰彇access_token
-     * @param appid 鍑瘉
-     * @param appsecret 瀵嗛挜
+     * 获取access_token
+     * @param appid 凭证
+     * @param appsecret 密钥
      * @return
      */
     /*public static AccessToken getAccessToken(SystemService systemService,String appid,String appsecret){
@@ -192,13 +192,13 @@ public class WxCommonUtil {
                 AccessToken accessToken = null;
                 String requestUrl = access_token_url.replace("APPID", appid).replace("APPSECRET", appsecret);
                 JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
-                // 濡傛灉璇锋眰鎴愬姛
+                // 如果请求成功
                 if (null != jsonObject){
                     try {
                         accessToken = new AccessToken();
                         accessToken.setToken(jsonObject.getString("access_token"));
                         accessToken.setExpiresIn(jsonObject.getInt("expires_in"));
-                        //鍑瘉杩囨湡镟存柊鍑瘉
+                        //凭证过期更新凭证
                         AccessTokenYw atyw = new AccessTokenYw();
                         atyw.setId(accessTocken.getId());
                         atyw.setExpires_in(jsonObject.getInt("expires_in"));
@@ -206,8 +206,8 @@ public class WxCommonUtil {
                         updateAccessToken(atyw,systemService);
                     } catch (Exception e){
                         accessToken = null;
-                        // 銮峰彇token澶辫触
-                        String wrongMessage = "銮峰彇token澶辫触 errcode:{} errmsg:{}"+jsonObject.getInt("errcode")+jsonObject.getString("errmsg");
+                        // 获取token失败
+                        String wrongMessage = "获取token失败 errcode:{} errmsg:{}"+jsonObject.getInt("errcode")+jsonObject.getString("errmsg");
                         log.info(wrongMessage);
                     }
                 }
@@ -224,7 +224,7 @@ public class WxCommonUtil {
             AccessToken accessToken = null;
             String requestUrl = access_token_url.replace("APPID", appid).replace("APPSECRET", appsecret);
             JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
-            // 濡傛灉璇锋眰鎴愬姛
+            // 如果请求成功
             if (null != jsonObject){
                 try {
                     accessToken = new AccessToken();
@@ -238,8 +238,8 @@ public class WxCommonUtil {
 
                 } catch (Exception e){
                     accessToken = null;
-                    // 銮峰彇token澶辫触
-                    String wrongMessage = "銮峰彇token澶辫触 errcode:{} errmsg:{}"+jsonObject.getInt("errcode")+jsonObject.getString("errmsg");
+                    // 获取token失败
+                    String wrongMessage = "获取token失败 errcode:{} errmsg:{}"+jsonObject.getInt("errcode")+jsonObject.getString("errmsg");
                     log.info(wrongMessage);
                 }
             }
@@ -249,7 +249,7 @@ public class WxCommonUtil {
 
 
     /**
-     * 浠庢暟鎹簱涓鍙栧嚟璇?
+     * 从数据库中读取凭证
      * @return
      */
     /*public static AccessTokenYw getRealAccessToken(SystemService systemService){
@@ -258,7 +258,7 @@ public class WxCommonUtil {
     }*/
 
     /**
-     * 淇濆瓨鍑瘉
+     * 保存凭证
      * @return
      */
     /*public static void saveAccessToken(AccessTokenYw accessTocken,SystemService systemService){
@@ -266,7 +266,7 @@ public class WxCommonUtil {
     }*/
 
     /**
-     * 镟存柊鍑瘉
+     * 更新凭证
      * @return
      */
     /*public static void updateAccessToken(AccessTokenYw accessTocken,SystemService systemService){
@@ -275,7 +275,7 @@ public class WxCommonUtil {
     }*/
 
     /**
-     * 缂栫爜
+     * 编码
      * @param bstr
      * @return String
      */
@@ -284,7 +284,7 @@ public class WxCommonUtil {
     }
 
     /**
-     * 瑙ｇ爜
+     * 解码
      * @param str
      * @return string
      */
@@ -301,7 +301,7 @@ public class WxCommonUtil {
 
     }
     /**
-     * URL缂栫爜锛坲tf-8锛?
+     * URL编码（utf-8）
      *
      * @param source
      * @return
@@ -317,9 +317,9 @@ public class WxCommonUtil {
     }
 
     /**
-     * 镙规嵁鍐呭绫诲瀷鍒ゆ柇鏂囦欢镓╁睍鍚?
+     * 根据内容类型判断文件扩展名
      *
-     * @param contentType 鍐呭绫诲瀷
+     * @param contentType 内容类型
      * @return
      */
     public static String getFileExt(String contentType){
@@ -356,7 +356,7 @@ public class WxCommonUtil {
         return res;
     }
     /**
-     * 銮峰彇褰揿墠镞堕棿 yyyyMMddHHmmss
+     * 获取当前时间 yyyyMMddHHmmss
      *
      * @return String
      */
@@ -367,11 +367,11 @@ public class WxCommonUtil {
         return s;
     }
     /**
-     * 鍙栧嚭涓€涓寚瀹氶昵搴﹀ぇ灏忕殑闅忔満姝ｆ暣鏁?
+     * 取出一个指定长度大小的随机正整数.
      *
      * @param length
-     *            int 璁惧畾镓€鍙栧嚭闅忔満鏁扮殑闀垮害銆俵ength灏忎簬11
-     * @return int 杩斿洖鐢熸垚镄勯殢链烘暟銆?
+     *            int 设定所取出随机数的长度。length小于11
+     * @return int 返回生成的随机数。
      */
     public static int buildRandom(int length){
         int num = 1;
@@ -385,7 +385,7 @@ public class WxCommonUtil {
         return (int) ((random * num));
     }
     /**
-     * 鍏冭浆鎹㈡垚鍒?
+     * 元转换成分
      * @param amount
      * @return
      */
@@ -393,8 +393,8 @@ public class WxCommonUtil {
         if(amount == null){
             return "";
         }
-        // 閲戦杞寲涓哄垎涓哄崟浣?
-        String currency =  amount.replaceAll("\\$|\\锟\\,", "");  //澶勭悊鍖呭惈, 锟?鎴栬€?镄勯噾棰?
+        // 金额转化为分为单位
+        String currency =  amount.replaceAll("\\$|\\￥|\\,", "");  //处理包含, ￥ 或者$的金额
         int index = currency.indexOf(".");
         int length = currency.length();
         Long amLong = 0l;
@@ -410,10 +410,10 @@ public class WxCommonUtil {
         return amLong.toString();
     }
     /**
-     * 銮峰彇链満Ip
+     * 获取本机Ip
      *
-     *  阃氲绷 銮峰彇绯荤粺镓€链夌殑networkInterface缃戠粶鎺ュ彛 铹跺悗阆嶅巻 姣忎釜缃戠粶涓嬬殑InterfaceAddress缁勩€?
-     *  銮峰缑绗﹀悎 <code>InetAddress instanceof Inet4Address</code> 鏉′欢镄勪竴涓狪pV4鍦板潃
+     *  通过 获取系统所有的networkInterface网络接口 然后遍历 每个网络下的InterfaceAddress组。
+     *  获得符合 <code>InetAddress instanceof Inet4Address</code> 条件的一个IpV4地址
      * @return
      */
     public static String localIp(){
@@ -433,12 +433,12 @@ public class WxCommonUtil {
             }
         } catch (SocketException e){
             e.printStackTrace();
-            //logger.warn("銮峰彇链満Ip澶辫触:寮傚父淇℃伅:"+e.getMessage());
+            //logger.warn("获取本机Ip失败:异常信息:"+e.getMessage());
         }
         return ip;
     }
     /**
-     * 銮峰彇璁块棶鐢ㄦ埛镄勫鎴风IP锛堥€傜敤浜庡叕缃戜笌灞€鍩熺綉锛?
+     * 获取访问用户的客户端IP（适用于公网与局域网）.
      */
     public static final String getIpAddr(final HttpServletRequest request){
         /*if (request == null){
@@ -455,7 +455,7 @@ public class WxCommonUtil {
             ipString = request.getRemoteAddr();
         }
 
-        // 澶氢釜璺敱镞讹紝鍙栫涓€涓潪unknown镄刬p
+        // 多个路由时，取第一个非unknown的ip
         final String[] arr = ipString.split(",");
         for (final String str : arr){
             if (!"unknown".equalsIgnoreCase(str)){
@@ -467,7 +467,7 @@ public class WxCommonUtil {
         return ipString;
     }
     /**
-     * 瑙ｆ瀽xml,杩斿洖绗竴绾у厓绱犻敭链煎銆傚鏋灭涓€绾у厓绱犳湁瀛愯妭镣癸紝鍒欐鑺傜偣镄勫€兼槸瀛愯妭镣圭殑xml鏁版嵁銆?
+     * 解析xml,返回第一级元素键值对。如果第一级元素有子节点，则此节点的值是子节点的xml数据。
      * @param strxml
      * @return
      * @throws JDOMException
@@ -499,13 +499,13 @@ public class WxCommonUtil {
             }
             m.put(k, v);
         }
-        //鍏抽棴娴?
+        //关闭流
         in.close();
         return m;
     }
 
     /**
-     * 銮峰彇瀛愮粨镣圭殑xml
+     * 获取子结点的xml
      * @param children
      * @return String
      */
@@ -531,9 +531,9 @@ public class WxCommonUtil {
     }
 
     /**
-     * 鍙戦€乆ML镙煎纺鏁版嵁鍒板井淇℃湇锷″櫒 锻婄煡寰俊链嶅姟鍣ㄥ洖璋冧俊鎭凡缁忔敹鍒般€?
+     * 发送XML格式数据到微信服务器 告知微信服务器回调信息已经收到。
      *
-     * 浣滆€? YUKE 镞ユ湡锛?015骞?链?0镞?涓婂崃9:27:33
+     * 作者: YUKE 日期：2015年6月10日 上午9:27:33
      *
      * @param return_code
      * @param return_msg
@@ -546,9 +546,9 @@ public class WxCommonUtil {
     }
 
     /**
-     * sign绛惧悕锛屽繀椤讳娇鐢∕D5绛惧悕锛屼笖缂栫爜涓篣TF-8
+     * sign签名，必须使用MD5签名，且编码为UTF-8
      *
-     * 浣滆€? YUKE 镞ユ湡锛?015骞?链?0镞?涓婂崃9:31:24
+     * 作者: YUKE 日期：2015年6月10日 上午9:31:24
      *
      * @param characterEncoding
      * @param parameters
@@ -566,16 +566,16 @@ public class WxCommonUtil {
                 sb.append(k + "=" + v + "&");
             }
         }
-        /** 鏀粯瀵嗛挜蹇呴』鍙备笌锷犲瘑锛屾斁鍦ㄥ瓧绗︿覆链€鍚庨溃 */
+        /** 支付密钥必须参与加密，放在字符串最后面 */
         sb.append("key=" + API_KEY);
         String sign = Md5Encrypt.MD5Encode(sb.toString(), characterEncoding).toUpperCase();
         return sign;
     }
 
     /**
-     * SHA1锷犲瘑锛岃锷犲瘑鏄wx.config閰岖疆涓娇鐢ㄥ埌镄勫弬鏁拌繘琛孲HA1锷犲瘑锛岃繖閲屼笉闇€瑕乲ey鍙备笌锷犲瘑
+     * SHA1加密，该加密是对wx.config配置中使用到的参数进行SHA1加密，这里不需要key参与加密
      *
-     * 浣滆€? YUKE 镞ユ湡锛?015骞?链?0镞?涓婂崃9:31:24
+     * 作者: YUKE 日期：2015年6月10日 上午9:31:24
      *
      * @param characterEncoding
      * @param parameters
@@ -599,9 +599,9 @@ public class WxCommonUtil {
     }
 
     /**
-     * 灏呜姹傚弬鏁拌浆鎹负XML镙煎纺镄剆tring瀛楃涓诧紝寰俊链嶅姟鍣ㄦ帴鏀剁殑鏄痻ml镙煎纺镄勫瓧绗︿覆
+     * 将请求参数转换为XML格式的string字符串，微信服务器接收的是xml格式的字符串
      *
-     * 浣滆€? YUKE 镞ユ湡锛?015骞?链?0镞?涓婂崃9:25:51
+     * 作者: YUKE 日期：2015年6月10日 上午9:25:51
      *
      * @param parameters
      * @return
@@ -626,7 +626,7 @@ public class WxCommonUtil {
     }
 
     /**
-     * 楠岃瘉绛惧悕
+     * 验证签名
      *
      * @param signature
      * @param timestamp
@@ -635,7 +635,7 @@ public class WxCommonUtil {
      */
     public static boolean checkSignature(String token, String signature, String timestamp, String nonce){
         String[] arr = new String[] { token, timestamp, nonce };
-        // 灏唗oken銆乼imestamp銆乶once涓変釜鍙傛暟杩涜瀛楀吀搴忔帓搴?
+        // 将token、timestamp、nonce三个参数进行字典序排序
         Arrays.sort(arr);
         StringBuilder content = new StringBuilder();
         for (int i = 0; i < arr.length; i++){
@@ -645,19 +645,19 @@ public class WxCommonUtil {
         String tmpStr = null;
         try {
             md = MessageDigest.getInstance("SHA-1");
-            // 灏嗕笁涓弬鏁板瓧绗︿覆鎷兼帴鎴愪竴涓瓧绗︿覆杩涜sha1锷犲瘑
+            // 将三个参数字符串拼接成一个字符串进行sha1加密
             byte[] digest = md.digest(content.toString().getBytes());
             tmpStr = byteToStr(digest);
         } catch (NoSuchAlgorithmException e){
             e.printStackTrace();
         }
         content = null;
-        // 灏唖ha1锷犲瘑鍚庣殑瀛楃涓插彲涓巗ignature瀵规瘮锛屾爣璇呜璇锋眰鏉ユ簮浜庡井淇?
+        // 将sha1加密后的字符串可与signature对比，标识该请求来源于微信
         return tmpStr != null ? tmpStr.equals(signature.toUpperCase()) : false;
     }
 
     /**
-     * 灏嗗瓧鑺傛暟缁勮浆鎹负鍗佸叚杩涘埗瀛楃涓?
+     * 将字节数组转换为十六进制字符串
      *
      * @param byteArray
      * @return
@@ -671,7 +671,7 @@ public class WxCommonUtil {
     }
 
     /**
-     * 灏嗗瓧鑺傝浆鎹负鍗佸叚杩涘埗瀛楃涓?
+     * 将字节转换为十六进制字符串
      *
      * @param mByte
      * @return
@@ -692,9 +692,9 @@ public class WxCommonUtil {
 
 
     /**
-     * 瑙ｅ瘑寰俊鍙戣绷鏉ョ殑瀵嗘枃娑堟伅
+     * 解密微信发过来的密文消息
      *
-     * @return 锷犲瘑鍚庣殑鍐呭
+     * @return 加密后的内容
      */
     /*public static String decryptMsg(String msgSignature,String timeStamp,String nonce,String encrypt_msg){
         WXBizMsgCrypt pc;
@@ -710,7 +710,7 @@ public class WxCommonUtil {
     }*/
 
     /**
-     * 锷犲瘑缁椤井淇＄殑娑堟伅鍐呭
+     * 加密给微信的消息内容
      * @param replayMsg
      * @param timeStamp
      * @param nonce

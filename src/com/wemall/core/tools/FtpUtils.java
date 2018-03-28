@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * FTP宸ュ叿绫?
+ * FTP工具类
  *
  * @author wangjinbin@163.com
  */
@@ -23,40 +23,40 @@ public class FtpUtils {
     final static Logger log = LoggerFactory.getLogger(FtpUtils.class);
 
     /**
-     * Description: 鍚慒TP链嶅姟鍣ㄤ笂浼犳枃浠?
+     * Description: 向FTP服务器上传文件
      *
      * @Version1.0
      * @param url
-     *            FTP链嶅姟鍣╤ostname
+     *            FTP服务器hostname
      * @param port
-     *            FTP链嶅姟鍣ㄧ鍙?
+     *            FTP服务器端口
      * @param username
-     *            FTP鐧诲綍璐﹀佛
+     *            FTP登录账号
      * @param password
-     *            FTP鐧诲綍瀵嗙爜
+     *            FTP登录密码
      * @param path
-     *            FTP链嶅姟鍣ㄤ缭瀛樼洰褰?
+     *            FTP服务器保存目录
      * @param filename
-     *            涓娄紶鍒癋TP链嶅姟鍣ㄤ笂镄勬枃浠跺悕
+     *            上传到FTP服务器上的文件名
      * @param input
-     *            杈揿叆娴?
-     * @return 鎴愬姛杩斿洖true锛屽惁鍒栾繑锲瀎alse
+     *            输入流
+     * @return 成功返回true，否则返回false
      */
-    public static boolean uploadFile(String url,// FTP链嶅姟鍣╤ostname
-                                     int port,// FTP链嶅姟鍣ㄧ鍙?
-                                     String username, // FTP鐧诲綍璐﹀佛
-                                     String password, // FTP鐧诲綍瀵嗙爜
-                                     String path, // FTP链嶅姟鍣ㄤ缭瀛樼洰褰?
-                                     String filename, // 涓娄紶鍒癋TP链嶅姟鍣ㄤ笂镄勬枃浠跺悕
-                                     InputStream input // 杈揿叆娴?
+    public static boolean uploadFile(String url,// FTP服务器hostname
+                                     int port,// FTP服务器端口
+                                     String username, // FTP登录账号
+                                     String password, // FTP登录密码
+                                     String path, // FTP服务器保存目录
+                                     String filename, // 上传到FTP服务器上的文件名
+                                     InputStream input // 输入流
                                    ){
         boolean success = false;
         FTPClient ftp = new FTPClient();
         try {
             int reply;
-            ftp.connect(url, port);// 杩炴帴FTP链嶅姟鍣?
-            // 濡傛灉閲囩敤榛樿绔彛锛屽彲浠ヤ娇鐢╢tp.connect(url)镄勬柟寮忕洿鎺ヨ繛鎺TP链嶅姟鍣?
-            ftp.login(username, password);// 鐧诲綍
+            ftp.connect(url, port);// 连接FTP服务器
+            // 如果采用默认端口，可以使用ftp.connect(url)的方式直接连接FTP服务器
+            ftp.login(username, password);// 登录
             reply = ftp.getReplyCode();
             if (!FTPReply.isPositiveCompletion(reply)){
                 ftp.disconnect();
@@ -83,33 +83,33 @@ public class FtpUtils {
     }
 
     /**
-     * Description: 浠峄TP链嶅姟鍣ㄤ笅杞芥枃浠?
+     * Description: 从FTP服务器下载文件
      *
      * @Version1.0
      * @param url
-     *            FTP链嶅姟鍣╤ostname
+     *            FTP服务器hostname
      * @param port
-     *            FTP链嶅姟鍣ㄧ鍙?
+     *            FTP服务器端口
      * @param username
-     *            FTP鐧诲綍璐﹀佛
+     *            FTP登录账号
      * @param password
-     *            FTP鐧诲綍瀵嗙爜
+     *            FTP登录密码
      * @param remotePath
-     *            FTP链嶅姟鍣ㄤ笂镄勭浉瀵硅矾寰?
+     *            FTP服务器上的相对路径
      * @param fileName
-     *            瑕佷笅杞界殑鏂囦欢鍚?
+     *            要下载的文件名
      * @param localPath
-     *            涓嬭浇鍚庝缭瀛桦埌链湴镄勮矾寰?
+     *            下载后保存到本地的路径
      * @return
      */
-    public static List<String> downFile(String url, // FTP链嶅姟鍣╤ostname
-                                        int port,// FTP链嶅姟鍣ㄧ鍙?
-                                        String username, // FTP鐧诲綍璐﹀佛
-                                        String password, // FTP鐧诲綍瀵嗙爜
-                                        String remotePath,// FTP链嶅姟鍣ㄤ笂镄勭浉瀵硅矾寰?
-                                        String fileName,// 瑕佷笅杞界殑鏂囦欢鍚?
-                                        String match_flag,// 鏂囦欢鍚嶅尮閰嶆ā寮?0锛氭ā绯婂尮閰?1锛氱簿纭尮閰?
-                                        String localPath// 涓嬭浇鍚庝缭瀛桦埌链湴镄勮矾寰?
+    public static List<String> downFile(String url, // FTP服务器hostname
+                                        int port,// FTP服务器端口
+                                        String username, // FTP登录账号
+                                        String password, // FTP登录密码
+                                        String remotePath,// FTP服务器上的相对路径
+                                        String fileName,// 要下载的文件名
+                                        String match_flag,// 文件名匹配模式 0：模糊匹配 1：精确匹配
+                                        String localPath// 下载后保存到本地的路径
                                       ){
         List<String> lst_files = new ArrayList<String>();
 
@@ -117,26 +117,26 @@ public class FtpUtils {
         try {
             int reply;
             ftp.connect(url, port);
-            // 濡傛灉閲囩敤榛樿绔彛锛屽彲浠ヤ娇鐢╢tp.connect(url)镄勬柟寮忕洿鎺ヨ繛鎺TP链嶅姟鍣?
-            ftp.login(username, password);// 鐧诲綍
+            // 如果采用默认端口，可以使用ftp.connect(url)的方式直接连接FTP服务器
+            ftp.login(username, password);// 登录
             reply = ftp.getReplyCode();
             if (!FTPReply.isPositiveCompletion(reply)){
                 ftp.disconnect();
-                log.error("FTP链嶅姟鍣ㄨ繛鎺ュけ璐ワ紒");
+                log.error("FTP服务器连接失败！");
 
                 return lst_files;
             }
-            ftp.changeWorkingDirectory(remotePath);// 杞Щ鍒癋TP链嶅姟鍣ㄧ洰褰?
+            ftp.changeWorkingDirectory(remotePath);// 转移到FTP服务器目录
             FTPFile[] fs = ftp.listFiles();
             for (FTPFile ff : fs){
-                if ("0".equals(match_flag) && ff.getName().indexOf(fileName) >= 0){ // 鏂囦欢鍚嶆ā绯婂尮閰?
+                if ("0".equals(match_flag) && ff.getName().indexOf(fileName) >= 0){ // 文件名模糊匹配
                     File localFile = new File(localPath + "/" + ff.getName());
                     OutputStream is = new FileOutputStream(localFile);
                     ftp.retrieveFile(ff.getName(), is);
                     is.close();
 
                     lst_files.add(ff.getName());
-                }else if (ff.getName().equals(fileName)){ // 鏂囦欢鍚岖簿纭尮閰?
+                }else if (ff.getName().equals(fileName)){ // 文件名精确匹配
                     File localFile = new File(localPath + "/" + ff.getName());
                     OutputStream is = new FileOutputStream(localFile);
                     ftp.retrieveFile(ff.getName(), is);
@@ -148,7 +148,7 @@ public class FtpUtils {
 
             ftp.logout();
         } catch (IOException e){
-            log.error("FTP链嶅姟鍣ㄨ繛鎺ュ纾甯革紒" + e.getMessage());
+            log.error("FTP服务器连接异常！" + e.getMessage());
             e.printStackTrace();
         } finally {
             if (ftp.isConnected()){

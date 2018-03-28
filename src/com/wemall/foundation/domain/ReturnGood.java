@@ -13,40 +13,40 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
 /**
- * 阃€鍗?
- * @author 鍒樻亽绂?
+ * 退单
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_returm_good")
 public class ReturnGood extends IdEntity {
-	// 阃€鍗旷紪鍙?
+	// 退单编号
 	private String retrun_good_no;
-	// 璁㈠崟璇︽儏
+	// 订单详情
 	@OneToOne
 	private OrderForm orderForm;
-	// 鐢宠阃€鍗曟椂闂?
+	// 申请退单时间
 	private Date sappy_time;
-	// 阃€璐х姸镐?
+	// 退货状态
 	private int retrun_status;
-	// 阃€璐ф暟閲?
+	// 退货数量
 	private double retrun_num;
-	// 阃€璐ч噾棰?
+	// 退货金额
 	private BigDecimal price;
-	// 阃€璐у师锲?
+	// 退货原因
 	@ManyToOne
 	private Dict why;
-	// 琛ュ厖璇存槑
+	// 补充说明
 	private String explain;
-	// 澶勭悊钟舵€?
+	// 处理状态
 	private int process_state;
-	// 阃€璐ц
+	// 退货行
 	private String retrun_bank;
-	// 阃€璐у嚟璇?
+	// 退货凭证
 	@ManyToOne
 	private Accessory voucher;
-	// 澶勭悊浜?
+	// 处理人
 	private User user;
 	public String getRetrun_good_no() {
 		return retrun_good_no;

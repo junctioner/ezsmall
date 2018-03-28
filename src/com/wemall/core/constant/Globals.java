@@ -7,7 +7,7 @@ public class Globals {
     public static final int DEFAULT_SHOP_VERSION = 20170119;
     public static final String DEFAULT_SHOP_OUT_VERSION = "V2.2";
     public static final String DEFAULT_WBESITE_NAME = "wemall";
-    public static final String DEFAULT_CLOSE_REASON = "绯荤粺缁存姢涓?.....";
+    public static final String DEFAULT_CLOSE_REASON = "系统维护中......";
     public static final String DEFAULT_THEME = "default";
     public static final String DERAULT_USER_TEMPLATE = "user_templates";
     public static final String UPLOAD_FILE_PATH = "upload";

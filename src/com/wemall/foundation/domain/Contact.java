@@ -10,33 +10,33 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 鑱旗郴浜?
+ * 联系人
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_contact")
 public class Contact extends IdEntity {
-	// 鑱旗郴浜哄悕绉?
+	// 联系人名称
 	private String name;
-	// 镓嬫満鍙?
+	// 手机号
 	private String phone;
-	// 锲哄畾鐢佃瘽
+	// 固定电话
 	private String tel;
-	// 鑱旗郴鍖哄幙
+	// 联系区县
 	@ManyToOne
 	private Area area;
-	// 鑱旗郴浜哄湴鍧€
+	// 联系人地址
 	private String address;
-	// 鑱屽姟
+	// 职务
 	private String position;
-	// 镐у埆锛?鐢?濂筹级
+	// 性别（1男2女）
 	private int sex;
-	// 閮ㄩ棬
+	// 部门
 	private String depart;
-	// 闾
+	// 邮箱
 	private String email;
 
 	public String getName() {

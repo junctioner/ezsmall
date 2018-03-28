@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 瀹氭椂浠诲姟缁熻缁勪欢
+ * 定时任务统计组件
  */
 @Component("shop_stat")
 @Transactional
@@ -110,7 +110,7 @@ public class StatManageAction {
 //            this.mobileverifycodeService.delete(mvc.getId());
 //        }
 //
-//        // 搴楅摵鎻忚堪銆佹湇锷°€佺墿娴佷俊鎭瘎浠?
+//        // 店铺描述、服务、物流信息评价
 //        List<Store> stores = this.storeService.query("select obj from Store obj", null, -1, -1);
 //        List<Evaluate> evas;
 //        double service_evaluate;
@@ -359,7 +359,7 @@ public class StatManageAction {
 //            }
 //        }
 //
-//        //璁㈠崟鍒版湡镊姩email鎴栫煭淇￠€氱煡涔板
+//        //订单到期自动email或短信通知买家
 //        int auto_order_notice = this.configService.getSysConfig().getAuto_order_notice();
 //        cal = Calendar.getInstance();
 //        params.clear();
@@ -389,7 +389,7 @@ public class StatManageAction {
 //            }
 //        }
 //
-//        //镊畾涔夎鍗曞埌链熻嚜锷ㄦ敹璐?
+//        //自定义订单到期自动收货
 //        int auto_order_confirm = this.configService.getSysConfig().getAuto_order_confirm();
 //        cal = Calendar.getInstance();
 //        params.clear();
@@ -406,7 +406,7 @@ public class StatManageAction {
 //            if (ret){
 //                ofl = new OrderFormLog();
 //                ofl.setAddTime(new Date());
-//                ofl.setLog_info("纭鏀惰揣");
+//                ofl.setLog_info("确认收货");
 //                ofl.setLog_user(SecurityUserHolder.getCurrentUser());
 //                ofl.setOf(of);
 //                this.orderFormLogService.save(ofl);
@@ -438,10 +438,10 @@ public class StatManageAction {
 //                        PredepositLog log1 = new PredepositLog();
 //                        log1.setAddTime(new Date());
 //                        log1.setPd_log_user(seller);
-//                        log1.setPd_op_type("鍒嗘鼎");
+//                        log1.setPd_op_type("分润");
 //                        log1.setPd_log_amount(BigDecimal.valueOf(shop_availableBalance));
-//                        log1.setPd_log_info("镊姩纭鏀惰揣骞冲彴鍒嗘鼎銮峰缑棰勫瓨娆撅紝璁㈠崟" + of.getOrder_id());
-//                        log1.setPd_type("鍙敤棰勫瓨娆?);
+//                        log1.setPd_log_info("自动确认收货平台分润获得预存款，订单" + of.getOrder_id());
+//                        log1.setPd_type("可用预存款");
 //                        this.predepositLogService.save(log1);
 //
 //                        double seller_availableBalance = CommUtil.null2Double(of.getTotalPrice()) - shop_availableBalance;
@@ -451,10 +451,10 @@ public class StatManageAction {
 //                        PredepositLog log11 = new PredepositLog();
 //                        log11.setAddTime(new Date());
 //                        log11.setPd_log_user(seller);
-//                        log11.setPd_op_type("澧炲姞");
+//                        log11.setPd_op_type("增加");
 //                        log11.setPd_log_amount(BigDecimal.valueOf(seller_availableBalance));
-//                        log11.setPd_log_info("镊姩纭鏀惰揣澧炲姞棰勫瓨娆撅紝璁㈠崟鍙? + of.getOrder_id());
-//                        log11.setPd_type("鍙敤棰勫瓨娆?);
+//                        log11.setPd_log_info("自动确认收货增加预存款，订单号" + of.getOrder_id());
+//                        log11.setPd_type("可用预存款");
 //                        this.predepositLogService.save(log11);
 //
 //                        User buyer1 = of.getUser();
@@ -466,11 +466,11 @@ public class StatManageAction {
 //                        log = new PredepositLog();
 //                        log.setAddTime(new Date());
 //                        log.setPd_log_user(seller);
-//                        log.setPd_op_type("澧炲姞");
+//                        log.setPd_op_type("增加");
 //                        log.setPd_log_amount(of.getTotalPrice());
-//                        log.setPd_log_info("镊姩纭鏀惰揣澧炲姞棰勫瓨娆?璁㈠崟鍙? + of.getOrder_id());
+//                        log.setPd_log_info("自动确认收货增加预存款,订单号" + of.getOrder_id());
 //
-//                        log.setPd_type("鍙敤棰勫瓨娆?);
+//                        log.setPd_type("可用预存款");
 //                        this.predepositLogService.save(log);
 //
 //                        buyer = of.getUser();
@@ -486,7 +486,7 @@ public class StatManageAction {
 //        params.clear();
 //        cal.add(6, -auto_order_evaluate);
 //
-//        params.put("auto_order_evaluate", cal.getTime());//镊姩璁㈠崟璇勪环
+//        params.put("auto_order_evaluate", cal.getTime());//自动订单评价
 //        params.put("order_status_40", Integer.valueOf(40));
 //        params.put("order_status_47", Integer.valueOf(47));
 //        params.put("order_status_48", Integer.valueOf(48));

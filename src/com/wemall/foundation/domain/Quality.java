@@ -9,7 +9,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 璐ㄦ
+ * 质检
  * 
  * @author lianfu
  *
@@ -18,9 +18,9 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "ezs_quality")
 public class Quality extends IdEntity {
-	private String quality_no;// 璐ㄦ缂栧佛
-	private int status;// 璐ㄦ钟舵€?
-	private String report;// 璐ㄦ鎶ュ憡
+	private String quality_no;// 质检编号
+	private int status;// 质检状态
+	private String report;// 质检报告
 
 	public String getQuality_no() {
 		return quality_no;

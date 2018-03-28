@@ -15,27 +15,27 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.wemall.core.domain.IdEntity;
 
 /**
- * 璐墿琛?
+ * 购物表
  * 
- * @author 鍒樻亽绂?
+ * @author 刘恒福
  *
  */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_goodscart")
 public class GoodsCart extends IdEntity {
-	// 鍟嗗搧
+	// 商品
 	@OneToOne
 	private Goods goods;
-	// 鏁伴噺
+	// 数量
 	private int count;
-	// 浠锋牸
+	// 价格
 	@Column(precision = 12, scale = 2)
 	private BigDecimal price;
 	@ManyToOne(fetch = FetchType.LAZY)
-	private OrderForm of;// 璁㈠崟
-	private String cart_type;// 璐墿杞︾被鍨?
-	// 搴楅摵璐墿杞?
+	private OrderForm of;// 订单
+	private String cart_type;// 购物车类型
+	// 店铺购物车
 	@ManyToOne(fetch = FetchType.LAZY)
 	private StoreCart sc;
 

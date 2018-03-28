@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * UCenterç€¹ãˆ¡åŸ›ç»”?
+ * UCenter¿Í»§¶Ë
  */
 public class UCClient extends PHPFunctions {
     public static boolean IN_UC = true;

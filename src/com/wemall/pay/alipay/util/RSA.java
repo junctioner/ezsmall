@@ -105,11 +105,11 @@ public class RSA {
 
 
     /**
-    * RSA绛惧悕
-    * @param content 寰呯鍚嶆暟鎹?
-    * @param privateKey 鍟嗘埛绉侀挜
-    * @param input_charset 缂栫爜镙煎纺
-    * @return 绛惧悕链?
+    * RSA签名
+    * @param content 待签名数据
+    * @param privateKey 商户私钥
+    * @param input_charset 编码格式
+    * @return 签名值
     */
     public static String signWap(String content, String privateKey, String input_charset){
         try {
@@ -133,12 +133,12 @@ public class RSA {
     }
 
     /**
-    * RSA楠岀鍚嶆镆?
-    * @param content 寰呯鍚嶆暟鎹?
-    * @param sign 绛惧悕链?
-    * @param ali_public_key 鏀粯瀹濆叕阍?
-    * @param input_charset 缂栫爜镙煎纺
-    * @return 甯冨皵链?
+    * RSA验签名检查
+    * @param content 待签名数据
+    * @param sign 签名值
+    * @param ali_public_key 支付宝公钥
+    * @param input_charset 编码格式
+    * @return 布尔值
     */
     public static boolean verifyWap(String content, String sign, String ali_public_key, String input_charset){
         try {
@@ -161,11 +161,11 @@ public class RSA {
     }
 
     /**
-    * 瑙ｅ瘑
-    * @param content 瀵嗘枃
-    * @param private_key 鍟嗘埛绉侀挜
-    * @param input_charset 缂栫爜镙煎纺
-    * @return 瑙ｅ瘑鍚庣殑瀛楃涓?
+    * 解密
+    * @param content 密文
+    * @param private_key 商户私钥
+    * @param input_charset 编码格式
+    * @return 解密后的字符串
     */
     public static String decryptWap(String content, String private_key, String input_charset) throws Exception {
         PrivateKey prikey = getPrivateKeyWap(private_key);
@@ -175,7 +175,7 @@ public class RSA {
 
         InputStream ins = new ByteArrayInputStream(Base64Wap.decode(content));
         ByteArrayOutputStream writer = new ByteArrayOutputStream();
-        //rsa瑙ｅ瘑镄勫瓧鑺傚ぇ灏忔渶澶氭槸128锛屽皢闇€瑕佽В瀵嗙殑鍐呭锛屾寜128浣嶆媶寮€瑙ｅ瘑
+        //rsa解密的字节大小最多是128，将需要解密的内容，按128位拆开解密
         byte[] buf = new byte[128];
         int bufl;
 
@@ -199,8 +199,8 @@ public class RSA {
 
 
     /**
-    * 寰楀埌绉侀挜
-    * @param key 瀵嗛挜瀛楃涓诧纸缁忚绷base64缂栫爜锛?
+    * 得到私钥
+    * @param key 密钥字符串（经过base64编码）
     * @throws Exception
     */
     public static PrivateKey getPrivateKeyWap(String key) throws Exception {

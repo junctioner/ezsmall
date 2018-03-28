@@ -26,7 +26,8 @@
 				<div class="yzs-analysis-left">
 					<div class="yzs-analysis-box">
 						<div class="yzs-analysis-tit">
-							全部{{pink}}
+<!-- 							全部{{pink}} -->
+							$!ezsSubstance.name
 						</div>
 						<div class="yzs-analysis-con-info">
 							<div><span>来源：$!ezsSubstance.origin</span><span>发布时间：$CommUtil.formatLongDate($!ezsSubstance.addTime)</span></div>
@@ -36,11 +37,11 @@
 							<p>$!ezsSubstance.content</p>
 						</div>
 						<div class="yzs-analysis-con-tools">
-							<div><span @click="giveOrUp(2,1)">赞 <img src="#if($!documentShare.give==1)$!webPath/resources/style/shop/default/img/icon_35.png#else$!webPath/resources/style/shop/default/img/icon_34.png#end"></span> <span @click="giveOrUp(2,2)">踩 <img src="#if($!documentShare.give==1)$!webPath/resources/style/shop/default/img/icon_37.png#else$!webPath/resources/style/shop/default/img/icon_36.png#end"></span></div>
+							<div><span @click="giveOrUp(2,1)">赞$!ezsSubstance.clickLike <img src="#if($!documentShare.give==1)$!webPath/resources/style/shop/default/img/icon_35.png#else$!webPath/resources/style/shop/default/img/icon_34.png#end"></span> <span @click="giveOrUp(2,2)">踩 $!ezsSubstance.clickRrample<img src="#if($!documentShare.give==1)$!webPath/resources/style/shop/default/img/icon_37.png#else$!webPath/resources/style/shop/default/img/icon_36.png#end"></span></div>
 						</div>
 						<div class="yzs-analysis-con-page">
-							<div>上一篇：钢厂限产，10月双焦承压回落</div>
-							<div>下一篇：玉米深加工行业继续向好发</div>
+							<div>上一篇：<span  onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ezsSubstanceUp.id&ecId=$!ecId'">$!ezsSubstanceUp.name</span></div>
+							<div>下一篇：<span  onclick="window.location.href='$!webPath/signContentPage.htm?id=$!ezsSubstanceDown.id&ecId=$!ecId'">$!ezsSubstanceDown.name</span></div>
 						</div>
 						<div class="yzs-analysis-con-msg">本信息仅供您参考。未经允许，不得转载</div>
 					</div>
@@ -73,11 +74,14 @@
 						</div>
 						<div class="yzs-analysis-box2-list2">
 							<ul>
-								<li>聚丙烯粉料市场周烯粉201场周烯粉</li>
-								<li>聚丙烯粉料市场周报告</li>
-								<li>聚丙烯粉料市场周报告</li>
-								<li>聚丙烯粉料市场周报告</li>
-								<li>聚丙烯粉料市场周报告</li>
+<!-- 								<li>聚丙烯粉料市场周烯粉201场周烯粉</li> -->
+<!-- 								<li>聚丙烯粉料市场周报告</li> -->
+<!-- 								<li>聚丙烯粉料市场周报告</li> -->
+<!-- 								<li>聚丙烯粉料市场周报告</li> -->
+<!-- 								<li>聚丙烯粉料市场周报告</li> -->
+                                  #foreach($dc in $dcs)
+                                    <li onclick="window.location.href='$!webPath/signContentPage.htm?id=$!dc.id'">$!dc.name</li>
+                                  #end
 							</ul>
 						</div>
 					</div>
