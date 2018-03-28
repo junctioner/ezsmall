@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="keywords" content="$!config.keywords" >
+	<meta name="description" content="$!config.description" >
+	<meta name="generator" content="yzs 1.0">
+	<meta name="author" content="www.ezaisheng.com">
+	<meta name="copyright" content="wemall Inc. All Rights Reserved">
+    <title>$!config.title - Powered by wemall</title>
+    #if($!config.sina_domain_code)
+	$!{config.sina_domain_code}
+	#end
+	#if($!config.qq_domain_code)
+	$!{config.qq_domain_code}
+	#end
+    <link rel="stylesheet" href="$!webPath/resources/style/shop/default/css/yzs.css?v=1" />
+    <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+    <script src="$!webPath/resources/layui/layui.all.js"></script>
+    <script>
+		$(function(){
+			$(".yzs-order-list-as-sub").click(function(){
+				var num = $(this).parent().find(".yzs-order-list-as-num input").val();
+				if(num>0){
+					$(this).parent().find(".yzs-order-list-as-num input").val(num-1);
+				}
+			});
+			$(".yzs-order-list-as-add").click(function(){
+				var num = $(this).parent().find(".yzs-order-list-as-num input").val();
+				$(this).parent().find(".yzs-order-list-as-num input").val(parseInt(num)+1);
+			});
+			
+		});
+		//添加地址
+		function addFun(){
+			var i = 6
+			if(i>7){
+				layer.msg("联系地址最多新增8个！",{icon:7});
+				return;
+			}
+     	    layer.open({
+       	        type: 2,
+       	        title: '新增收货地址',
+       	        shadeClose: false,
+       	        shade: 0.8,
+       	        area: ['560px', '420px'],
+       	        content: '$!webPath/cart_address.htm',
+       	     	end:function(){
+       	        	if(falg){
+       	        		if(msgCode=="noSession"){
+       	        			window.location.href="$!webPath/index.htm";
+       	        		}else if(msgCode=="success"){
+       	        			window.location.reload()
+       	        		}
+       	        	}
+       	        },cancel:function(index,layero){
+       	        	
+       	        }
+       	    });
+		}
+    </script>
+</head>
+<body>
+    $!httpInclude.include("/top.htm")
+    $!httpInclude.include("/head.htm")
+    $!httpInclude.include("/nav.htm")
+	<div class="yzs-location-panner">
+		<div class="yzs-location">首页 &gt;  提交订单</div>
+	</div>
+	<div class="yzs-container-pannel">
+		<div class="yzs-container">
+			<div class="yzs-order-title">确认订单信息</div>
+			<div class="yzs-order-content">
+				<div class="yzs-order-title-sub">收货信息<span style="cursor: pointer" onclick="addFun();">新增收货地址</span></div>
+				<div class="yzs-order-address">
+					<div class="yzs-order-address-item">
+						<div class="yzs-order-address-sel">韩梅梅</div>
+						<div>北京 通州 马驹桥金桥产业基地环宇路3号桑德集团  韩梅梅  18611892672  <span style="cursor: pointer;margin-left: 20px;">默认地址</span></div>
+						<div><span style="cursor: pointer">编辑</span>  <span style="cursor: pointer">修改</span></div>
+					</div>
+					<div class="blank20" style="cursor: pointer">更多地址 <img style="margin-bottom:-13px;" src="$!webPath/resources/style/shop/default/img/icon_06.png"/></div>
+				</div>
+				<div class="yzs-order-title-sub">货品清单</div>
+				<div class="yzs-order-list">
+					<div style="width:100%;height:30px;line-height:30px;text-align:center;background:#F2F2F2;border:1px solid #CCCCCC;border-bottom:0px;">
+						<div style="float:left;width:528px;height:30px;">商品</div>
+						<div style="float:left;width:180px;height:30px;">单价（元）</div>
+						<div style="float:left;width:180px;height:30px;">数量</div>
+						<div style="float:left;width:270px;height:30px;">货款合计（元）</div>
+					</div>
+					<ul>
+					  #foreach($cr in $!cart)
+					      #foreach($gc in $!cr.gcs)
+						     #if($!gc.goods.goods_main_photo)
+				             #set($small_img="$!imageWebServer/$!{gc.goods.goods_main_photo.path}/$!{gc.goods.goods_main_photo.name}_small.$!{gc.goods.goods_main_photo.ext}")
+				             #else
+				             #set($small_img="$!imageWebServer/$!{config.goodsImage.path}/$!{config.goodsImage.name}")
+						     #end
+						    <li>
+							<div class="yzs-order-list-img"><img src="$!small_img"></div>
+							<div class="yzs-order-list-info">
+								<div>$!gc.goods.name</div>
+								<div>库存量：<span style="color:#ff6700;">$!gc.goods.inventory</span>$!gc.goods.util.name</div>
+								<div>库存地：<span>#if($!gc.goods.area)  #if($!gc.goods.area.parent.parent.common) $!gc.goods.area.parent.areaName&nbsp;#else $!gc.goods.area.parent.parent.areaName&nbsp;$!gc.goods.area.parent.areaName#end&nbsp;$!gc.goods.area.areaName #end $!gc.goods.area.areaName  $!gc.goods.addess</span></div>
+							</div>
+							<div class="yzs-order-list-price">¥$!gc.goods.price</div>
+							<div class="yzs-order-list-num">
+								<div class="yzs-order-list-as-box">
+									<div class="yzs-order-list-as-sub">-</div>
+									<div class="yzs-order-list-as-num"><input type="text" value="$!gc.count"></div>
+									<div class="yzs-order-list-as-add">+</div>
+								</div>
+							</div>
+							<div class="yzs-order-list-status">#if($!gc.goods.inventory>$!gc.count) 有货 #else 不足 #end</div>
+						</li>
+					    #end
+					#end
+					</ul>
+				</div>
+				<div class="yzs-order-remark">订单备注<input type="text" placeholder="限50个字（请将购买需求在备注中做详细说明）"/></div>
+				<div class="yzs-order-title-sub">发票信息<span>修改</span></div>
+				<div class="yzs-order-ticket">
+					<table cellspacing="0">
+						<tr>
+							<td>公司名称</td>
+							<td>税号</td>
+							<td>单位地址</td>
+							<td>电话号码</td>
+							<td>开户银行</td>
+							<td>银行账户</td>
+						</tr>
+						<tr >
+							<td>河北xxx公司</td>
+							<td>xxxxxxxxxxxxxxxxxxxxx</td>
+							<td>北京通州区马驹桥金桥产业基地环宇路3号桑德集团</td>
+							<td>xxxxxxxxxxx</td>
+							<td>xxxxxxxxxxxxxxxxxxxxx</td>
+							<td>xxxxxxxxxxxxxxxxxxxxx</td>
+						</tr>
+					</table>
+				</div>
+<!-- 				<div class="yzs-order-title-sub">物流费用</div> -->
+<!-- 				<div class="yzs-order-wlfee"> -->
+<!-- 					<table cellspacing="0"> -->
+<!-- 						<tr> -->
+<!-- 							<td>库存地</td> -->
+<!-- 							<td>收货地</td> -->
+<!-- 							<td>物流费用（元）</td> -->
+<!-- 						</tr> -->
+<!-- 						<tr> -->
+<!-- 							<td>河北-保定-蠡县-1号库</td> -->
+<!-- 							<td>北京通州区马驹桥金桥产业基地环宇路3号桑德集团</td> -->
+<!-- 							<td style="color:#ff6700;">500</td> -->
+<!-- 						</tr> -->
+<!-- 						<tr> -->
+<!-- 							<td>河北-保定-蠡县-1号库</td> -->
+<!-- 							<td>北京通州区马驹桥金桥产业基地环宇路3号桑德集团</td> -->
+<!-- 							<td style="color:#ff6700;">300</td> -->
+<!-- 						</tr> -->
+<!-- 					</table> -->
+<!-- 				</div> -->
+				<div class="yzs-order-price">
+					$!total_count件商品，商品总金额 <span>$!total_price</span><br>
+				</div>
+				<div class="yzs-order-res">
+					应付总额 <span>$!total_price</span><br>
+					运送至：北京通州区马驹桥金桥产业基地环宇路3号桑德集团 &nbsp; &nbsp;  收货人：韩梅梅 &nbsp; &nbsp;  18611892672
+				</div>
+				<div class="yzs-order-btn">
+					<div>提交订单</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="blank40"></div>		
+	</div>
+	$!httpInclude.include("/footer.htm") 
+</body>
+</html>
