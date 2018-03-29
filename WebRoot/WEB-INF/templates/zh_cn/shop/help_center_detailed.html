@@ -1,0 +1,21 @@
+<div class="yzs-help-right-tit">
+	<div>$!ezssubstance.name</div>
+	<div class="yzs-help-right-search">
+		<input type="text" placeholder="输入问题关键词，如密码"/>
+		<div></div>
+	</div>
+</div>
+<div class="yzs-help-right-detail">
+	<div class="yzs-help-right-detail-con">
+		<p>$!ezssubstance.content</p>
+	</div>
+	<div class="yzs-help-right-tools">
+		<div>浏览：<span>$!ezssubstance.clickRate</span> 更新时间: <span>2018-03-11 14:55:53</span></div>
+		<div>
+			<span id="btn_up" data-type="1"  @click="giveOrUp(2,1)"><img src="#if($!documentShare.give==1)$!webPath/resources/style/shop/default/img/icon_35.png#else$!webPath/resources/style/shop/default/img/icon_34.png#end"> <span>$!ezssubstance.clickLike</span></span> 
+			<span id="btn_down" data-type="0" @click="giveOrUp(2,2)"><img src="#if($!documentShare.give==1)$!webPath/resources/style/shop/default/img/icon_37.png#else$!webPath/resources/style/shop/default/img/icon_36.png#end" > <span>$!ezssubstance.clickRrample</span></span>
+		</div>
+	</div>
+</div>
+		
+

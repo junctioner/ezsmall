@@ -70,7 +70,8 @@ jQuery(document).ready(function(){
 	    	subheading:{required :true},
 	    	meta:{required :true},
 	    	keyWord:{required:true},
-	    	content:{required:true}
+	    	content:{required:true},
+	    	d:{accept:'jpeg,png,jpg'}
 		 },
 		messages:{
 			name:{required:"主标题不能为空"},
@@ -78,7 +79,8 @@ jQuery(document).ready(function(){
 			subheading:{required:"副标题不能为空"},
 			meta:{required:"手机模板不能为空"},
 			orderid:{number:"关键字不能为空"},
-			content:{required:"文档内容不能为空"}
+			content:{required:"文档内容不能为空"},
+			d:{accept:"图片格式不对"}
 		}
 	  }); 
 jQuery('#publicTime').attr("readonly","readonly").datepicker({
@@ -195,9 +197,10 @@ function saveForm(){
            <input type="radio" name="attribute" value="6"/>图文
           </span></li>
           <li><span>缩略图：</span><span><input type="file" name="a"/></span></li>
-          <li><span>附件：</span><span><input type="file" name="b" multiple="multiple" accept=".ppt,.pptx,.doc,.docx,.xls,.xlsx,.pdf,.zip"/>支持word、excel、ppt、pdf、zip</span></li>
+          <li><span>附件：</span><span><input type="file" name="b" id="b" multiple="multiple" accept=".ppt,.pptx,.doc,.docx,.xls,.xlsx,.pdf,.zip"/>支持word、excel、ppt、pdf、zip</span></li>
           <li><span>多媒体文件：</span><span><input type="file" name="c" accept=".mp4"/>支持MP4格式文件</span></li>
-          <li><span>图片集：</span><span><input type="file" name="d" multiple="multiple" accept="image/*"/></span></li>
+          <li><span>图片集：</span><span><input type="file" name="d" id="d" multiple="multiple" accept="image/*"/><input type="text" size="100" id="e" readonly="readonly"/></span></li>
+          <li id="box"></li>
           <li><span>文章内容：</span><span class="webname">
 	          <textarea name="content" cols="40" id="content">$!ezsSubstance.content</textarea>
 	          </span></li>
@@ -227,6 +230,15 @@ var vm=new Vue({
     },
     methods:{
         init:function (){
+        	this.photos='$!ezsSubstance.photos'.split(",")
+        	var html=null
+        	if(this.photos.length>0){
+        		$("#e").attr("value",this.photos.join(","))
+        		for(var i=0;i<this.photos.length;i++){
+            		html="<img style='width:100px;height:80px;float:left' src=$!webPath/upload/ezsSubstance/"+this.photos[i]+">"
+        	          $("#box").append(html)
+        		}
+        	}
         	this.remarkValue=eval('('+'$!ezsSubstance.remarkValue'+')');
         	var reid=this.remarkValue.remarkId
         	$("#classify input[name='f']").each(function(k,v){
