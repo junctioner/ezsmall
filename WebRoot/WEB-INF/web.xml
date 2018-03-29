@@ -223,4 +223,5 @@
 		<extension>chm</extension>
 		<mime-type>application/mshelp</mime-type>
 	</mime-mapping>
+	
 </web-app>
