@@ -41,7 +41,7 @@ public class GoodsManageAction {
     @RequestMapping("/admin/goods_list.htm")
     public ModelAndView test(HttpServletRequest request, HttpServletResponse response) {
 
-        ModelAndView mv = new JModelAndView("admin/blue/good_list.html", this.configService.getSysConfig(),
+        ModelAndView mv = new JModelAndView("afterSales/NewFile.html", this.configService.getSysConfig(),
                 this.userConfigService.getUserConfig(), 0, request, response);
 
         mv.addObject("msg", "hello world");
