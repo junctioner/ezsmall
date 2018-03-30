@@ -1,0 +1,28 @@
+		<div class="yzs-help-right-tit">
+						<div>搜索结果</div>
+						<div class="yzs-help-right-search">
+							<input type="text" placeholder="输入问题关键词，如密码"/>
+							<div></div>
+						</div>
+					</div>
+					<div class="yzs-help-right-list" id="showResult">
+			                    <div class="yzs-help-right-list-con">
+									<ul>
+									    #foreach($ob in $objs)						
+										<li  onclick="getContent($!ob.id);">$!ob.name</li>
+										#end
+									</ul>
+								</div>
+								<div class="fenye" align="center">
+								         <span id="queryCondition" style="display:none">
+										   #foreach($sm in $sms)
+									         <input name="$!sm.key" id="$!sm.key" type="hidden" value="$!sm.value"/>
+										   #end
+										 </span>
+										   <input name="currentPage" type="hidden" id="currentPage" value="$!currentPage" />
+									      $!gotoPageFormHTML </div>
+					</div>
+		
+		
+		
+		

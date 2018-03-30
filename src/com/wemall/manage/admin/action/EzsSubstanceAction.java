@@ -352,6 +352,7 @@ public class EzsSubstanceAction {
      */
     @RequestMapping({ "/admin/editEzsSubstance.htm" })
     public ModelAndView editSpecialSubject(String ecId,String ssId,String currentPage, String orderBy, String orderType,String columnid,String ssid, HttpServletRequest request, HttpServletResponse response) throws IOException{
+    	ssId=(ssId==null)?"":ssId;
     	WebForm wf = new WebForm();
     	EzsSubstance ezsSubstance = null;
     	ezsSubstance = (EzsSubstance)wf.toPo(request, EzsSubstance.class);

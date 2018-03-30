@@ -22,4 +22,6 @@ public interface IStoreCartService {
     public abstract boolean update(StoreCart paramStoreCart);
 
     public abstract List<StoreCart> query(String paramString, Map paramMap, int paramInt1, int paramInt2);
+
+	public abstract void deleteStoreCart(List<StoreCart> store_cookie_cart);
 }
