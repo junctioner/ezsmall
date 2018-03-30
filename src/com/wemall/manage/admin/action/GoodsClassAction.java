@@ -43,8 +43,7 @@ public class GoodsClassAction {
     private IUserConfigService userConfigService;
 
     @RequestMapping("/admin/goods_class_list.htm")
-    public ModelAndView admin_list(String currentPage, String orderBy, String orderType, HttpServletRequest request,
-            HttpServletResponse response) {
+    public ModelAndView admin_list(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new JModelAndView("afterSales/goodsClass.html", configService.getSysConfig(),
                 userConfigService.getUserConfig(), 0, request, response);
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -55,6 +54,20 @@ public class GoodsClassAction {
         list.add(map1);
         list.add(map2);
         mv.addObject("list", list);
+        return mv;
+    }
+
+    @RequestMapping("/admin/addGoodsClass.htm")
+    public ModelAndView addGoodsClass(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new JModelAndView("afterSales/addGoodsClass.html", configService.getSysConfig(),
+                userConfigService.getUserConfig(), 0, request, response);
+        return mv;
+    }
+
+    @RequestMapping("/admin/speedAddGoodsClass.htm")
+    public ModelAndView speedAddGoodsClass(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new JModelAndView("afterSales/speedAddGoodsClass.html", configService.getSysConfig(),
+                userConfigService.getUserConfig(), 0, request, response);
         return mv;
     }
 }

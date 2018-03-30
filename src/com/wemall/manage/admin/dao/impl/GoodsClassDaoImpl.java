@@ -8,14 +8,20 @@
 */
 
 package com.wemall.manage.admin.dao.impl;
+
+import org.springframework.stereotype.Repository;
+
+import com.wemall.manage.admin.dao.GoodsClassDao;
+
 /**
- * Description:	   <br/>
- * Date:     2018年3月30日 下午4:32:00 <br/>
- * @author   dingP
- * @version  
- * @see 	 
+ * Description: <br/>
+ * Date: 2018年3月30日 下午4:32:00 <br/>
+ * 
+ * @author dingP
+ * @version
+ * @see
  */
-public class GoodsClassDaoImpl {
+@Repository
+public class GoodsClassDaoImpl implements GoodsClassDao {
 
 }
-
