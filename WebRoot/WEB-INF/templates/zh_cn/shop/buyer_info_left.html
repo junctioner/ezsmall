@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>易再生-中国再生资源交易平台</title>
+   <link rel="stylesheet" href="$!webPath/resources/style/shop/default/css/yzs.css?v=1" />
+    <script type="text/javascript" src="$!webPath/resources/js/jquery-1.9.1.min.js"></script>
+    <script src="$!webPath/resources/js/yzs.js?v=1"></script>
+    <script>
+		$(function(){
+			$(".yzs-g-head-menu li").click(function(){
+				$(".yzs-g-head-menu li").removeClass("yzs-g-head-menu-sel");
+				$(this).addClass("yzs-g-head-menu-sel");
+			});
+			
+			$(".yzs-g-con-left-menu li").click(function(){
+				$(".yzs-g-con-left-menu li").removeClass("yzs-g-con-left-menu-sel");
+				$(this).addClass("yzs-g-con-left-menu-sel");
+			});
+			
+			
+		});
+    </script>
+</head>
+<body style="background:##F7F7F7;">
+	<div class="msg-bg"></div>
+	<div class="msg-box"></div>
+	<div class="yzs-g-container">
+		<div class="yzs-g-con-left">
+			<div class="yzs-g-con-left-menu">
+				<div class="yzs-g-con-left-top">买家中心</div>
+				<ul>
+					<li class="yzs-g-con-left-menu-sel">采购需求管理</li>
+					<li>样品采购订单管理</li>
+					<li>商品采购订单管理</li>
+					<li>采购合同管理</li>
+					<li>票据管理</li>
+					<li>收藏夹</li>
+					<li>退款管理</li>
+					<li>评价管理</li>
+					<li>消息通知</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var um = UM.getEditor('myEditor'); //实例化编辑器
+    </script>
+</body>
+</html>
