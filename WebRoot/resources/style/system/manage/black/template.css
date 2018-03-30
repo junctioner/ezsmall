@@ -845,14 +845,13 @@ color:#000
 }
 .allshop_table {
 	width:100%;
-	margin-left:20px;
 	border-bottom:2px solid #DDDDDD;
-	margin-top:20px;
 	border-collapse:collapse;
 }
 .allshop_table td {
 	border-bottom:1px solid #EEEEEE;
 	padding-left:10px;
+	text-align: center;
 }
 .allshop_table tr {
 	height:60px;
