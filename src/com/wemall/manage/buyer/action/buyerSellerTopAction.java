@@ -20,6 +20,16 @@ public class buyerSellerTopAction {
 	@Autowired
 	private IUserConfigService userConfigService;
 	
+	
+	@RequestMapping("/seller/index.htm")
+	public ModelAndView new_buy(String id, HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new JModelAndView("/default/buyer/smaple_order_manage.html", this.configService.getSysConfig(),
+				this.userConfigService.getUserConfig(), 1, request, response);
+		return mv;
+	}
+	
+	
+	
 	@RequestMapping("/seller/buyer_top.htm")
 	public ModelAndView buyer_top(String id, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new JModelAndView("/default/buyer/buyer_top.html", this.configService.getSysConfig(),
