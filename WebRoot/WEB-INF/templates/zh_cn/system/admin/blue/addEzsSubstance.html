@@ -71,7 +71,8 @@ jQuery(document).ready(function(){
 	    	subheading:{required :true},
 	    	meta:{required :true},
 	    	keyWord:{required:true},
-	    	content:{required:true}
+	    	content:{required:true},
+	    	d:{accept:'jpeg,png,jpg'}
 		 },
 		messages:{
 			name:{required:"主标题不能为空"},
@@ -79,7 +80,9 @@ jQuery(document).ready(function(){
 			subheading:{required:"副标题不能为空"},
 			meta:{required:"手机模板不能为空"},
 			orderid:{number:"关键字不能为空"},
-			content:{required:"文档内容不能为空"}
+			content:{required:"文档内容不能为空"},
+			d:{accept:"图片格式不对"}
+			
 		}
 	  }); 
 jQuery('#publicTime').attr("readonly","readonly").datepicker({
@@ -142,7 +145,7 @@ $(function(){
 		          reader.onload=function(e){
 			    //读取成功后返回的一个参数e，整个的一个进度事件
 			       // console.log(e);
-    	           html="<img style='width:100px;heght:80px;float:left' src="+e.target.result+">"
+    	           html="<img style='width:100px;height:80px;float:left' src="+e.target.result+">"
 	    	          $("#box").append(html)
 			     //选择所要显示图片的img，要赋值给img的src就是e中target下result里面
 			     //的base64编码格式的地址
@@ -253,12 +256,12 @@ $(function(){
           <li><span>缩略图：</span><span><input type="file" id="a"
 							name="a" /></span></li>
 					<li><span>附件：</span><span><input type="file" id="b"
-							name="b" multiple="multiple"
+							name="b" id="b" multiple="multiple"
 							accept=".ppt,.pptx,.doc,.docx,.xls,.xlsx,.pdf,.zip" />支持word、excel、ppt、pdf、zip<input type="text" size="100" id="f" readonly="readonly"/></span></li>
 					<li><span>多媒体文件：</span><span><input type="file" id="c"
 							name="c" accept=".mp4" />支持MP4格式文件</span></li>
 					<li><span>图片集：</span><span><input type="file" id="d"
-							name="d" multiple="multiple" /><input type="text" size="100" id="e" readonly="readonly"/></span></li>
+							name="d" id="d" multiple="multiple" accept="image/*"/><input type="text" size="100" id="e" readonly="readonly"/></span></li>
 					<li id="box"></li>
           <li><span>文章内容：</span><span class="webname">
 	          <textarea name="content" cols="40" id="content"></textarea>
