@@ -89,7 +89,7 @@ public class PriceQuotationsAction {
 
         Map map=new HashMap();
     	map.put("deleteStatus", false);   
-    	List<EzsSubstance> objs = this.ezsSubstanceService.query("from EzsSubstance bean where bean.deleteStatus=:deleteStatus order by id desc ", map, -1, -1);
+    	List<EzsSubstance> objs = this.ezsSubstanceService.query("from EzsSubstance bean where bean.deleteStatus=:deleteStatus order by bean.id desc ", map, -1, -1);
         mv.addObject("objs", objs);
         //返回研究报告的链接
         map.clear();
@@ -122,11 +122,66 @@ public class PriceQuotationsAction {
     	map.put("deleteStatus", false);
     	//取4条数据
     	List<EzsColumn> list = this.ezsColumnService.query("from EzsColumn bean where bean.deleteStatus=:deleteStatus and bean.parentEzsColumn.id=:pId order by id", map, 0, 4);
+    	//取三级栏目
+    	List<EzsColumn> ezss = null;
+    	map.clear();   	
+    	map.put("deleteStatus", false);
     	for (int i = 0; i < list.size(); i++) {
     		mv.addObject("ezsColumn"+i, list.get(i));
-		}
+    		map.put("pId", list.get(i).getId());
+    		ezss =this.ezsColumnService.query("from EzsColumn bean where bean.deleteStatus=:deleteStatus and bean.parentEzsColumn.id=:pId order by id", map, -1, -1);
+    		mv.addObject("ezss"+i, ezss);
+    	}
     	return mv;
     }
+    /**
+     * 异步获取文章和内容
+     */
+   
+   @RequestMapping("/helpCenterContent.htm")
+   public ModelAndView helpCenterContent(String id,String currentPage, String orderBy, String orderType, HttpServletRequest request, HttpServletResponse response){
+	    ModelAndView mv = new JModelAndView("help_center_content.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
+	    try {
+	    	String url = this.configService.getSysConfig().getAddress();
+	        if ((url == null) || (url.equals(""))){
+	            url = CommUtil.getURL(request);
+	        }
+	    	EzsSubstanceQueryObject qo = new EzsSubstanceQueryObject(currentPage, mv, "id",null);
+	    	qo.setPageSize(3);
+	        if(id!=null&&!"".equals(id)){
+	        	qo.addQuery("obj.ec.id",new SysMap("id",Long.parseLong(id)),"=");
+	        }
+	    	IPageList pList = this.ezsSubstanceService.list(qo);
+	        CommUtil.saveIPageList2ModelAndView(url + "/helpCenterContent.htm", "", "", pList, mv);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return mv;
+    }
+   
+   /**
+    * 异步获取单个文章的内容
+    */
+  
+  @RequestMapping({ "/helpCenterDetailed.htm" })
+  public ModelAndView helpCenterDetailed(String id, HttpServletRequest request, HttpServletResponse response){
+	    response.setContentType("text/plain");
+		response.setHeader("Cache-Control", "no-cache");
+		response.setCharacterEncoding("UTF-8");
+	    ModelAndView mv = new JModelAndView("help_center_detailed.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
+	    try {
+	    	Map map=new HashMap(); 
+	    	map.put("id", Long.parseLong(id));
+	    	map.put("deleteStatus", false);
+	    	//获取对应id的文章
+	    	List<EzsSubstance> objs = this.ezsSubstanceService.query("from EzsSubstance bean where bean.deleteStatus=:deleteStatus and bean.id=:id ", map, 0, 1);
+		    mv.addObject("ezssubstance", objs.get(0)); 
+	    } catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return mv;
+   } 
+    
     @RequestMapping({"/changePage.htm"})
     public ModelAndView changePage(String childEc,String ecId,String currentPage, String orderBy, String orderType, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
     	ModelAndView mv = new JModelAndView("priceQuotationsList.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 1, request, response);
