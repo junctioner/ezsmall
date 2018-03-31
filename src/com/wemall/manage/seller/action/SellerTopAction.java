@@ -20,7 +20,12 @@ public class SellerTopAction {
 	@Autowired
 	private IUserConfigService userConfigService;
 	
-	
+	@RequestMapping("/seller/index.htm")
+	public ModelAndView new_buy(String id, HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new JModelAndView("/default/seller/test.html", this.configService.getSysConfig(),
+				this.userConfigService.getUserConfig(), 1, request, response);
+		return mv;
+	}
 	
 	@RequestMapping("/seller/seller_top.htm")
 	public ModelAndView buyer_top(String id, HttpServletRequest request, HttpServletResponse response) {
@@ -28,12 +33,27 @@ public class SellerTopAction {
 				this.userConfigService.getUserConfig(), 1, request, response);
 		return mv;
 	}
+	
 	@RequestMapping("/seller/seller_info_left.htm")
 	public ModelAndView buyer_info_left(String id, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new JModelAndView("/default/seller/seller_info_left.html", this.configService.getSysConfig(),
 				this.userConfigService.getUserConfig(), 1, request, response);
 		return mv;
 	}
+	@RequestMapping("/seller/seller_login_left.htm")
+	public ModelAndView seller_login_left(String id, HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new JModelAndView("/default/seller/seller_login_left.html", this.configService.getSysConfig(),
+				this.userConfigService.getUserConfig(), 1, request, response);
+		return mv;
+	}
+	
+	@RequestMapping("/seller/seller_id_left.htm")
+	public ModelAndView seller_id_left(String id, HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new JModelAndView("/default/seller/seller_id_left.html", this.configService.getSysConfig(),
+				this.userConfigService.getUserConfig(), 1, request, response);
+		return mv;
+	}
+	
 	@RequestMapping("/seller/seller_link.htm")
 	public ModelAndView buyer_link(String id, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new JModelAndView("/default/seller/seller_link.html", this.configService.getSysConfig(),
