@@ -94,8 +94,56 @@
 								</div>
 							</div>
 						</li>
+						<li>
+							<div class="yzs-m-order-list-con1"><div>2018-3-22 19:30:46</div><div>订单编号：10000050023</div></div>
+							<div class="yzs-m-order-list-con2">
+								<div class="yzs-m-order-list-img"><img src="$!webPath/resources/style/shop/default/img/shop03.jpg"></div>
+								<div class="yzs-m-order-list-info">
+									<div>黑色XXXXXXXXXXXX废塑料</div>
+									<div></div>
+									<div></div>
+								</div>
+								<div class="yzs-m-order-list-price">¥27560</div>
+								<div class="yzs-m-order-list-num">5kg</div>
+								<div class="yzs-m-order-list-price"><span class="colororange">¥27560</span><br>含运费（<span class="colororange">¥20</span>）</div>
+								<div class="yzs-m-order-list-status">交易完成<br><span class="colorgreen">订单详情</span><br><button><span class="colorgreen" id="text01">查看物流</span></button></div>
+								<div class="yzs-m-order-list-opt"><span class="colorgreen">立即评价</span><br>
+									<div class="yzs-m-order-list-opt-btn">再次购买</div>
+								</div>
+							</div>
+						</li>
 						<!-- 弹出层 -->
-						<input type="button" value="弹出层"/>
+						<!-- <input id="text" type="button" value="弹出层"/> -->
+						<script>
+						jQuery(function(){
+							jQuery("#text01").click(function(){
+								layer.open({
+									  title: '<p style="font-size:26px">物流信息查看</p>'
+									  ,content: '<table style="font-size:18px" align="center"><tr><td>运输公司名称</td><td>顺风快递</td></tr><tr><td>运单号</td><td>10000000000000000000000</td></tr></table>'
+									  ,area: ['600px', '300px']
+									  ,btnAlign: 'c'
+									  ,btn: ['确定', '取消']
+									  ,yes: function(index, layero){
+									    //按钮【按钮一】的回调
+									    
+									  }
+									  ,btn2: function(index, layero){
+									    //按钮【按钮二】的回调
+									    
+									    //return false 开启该代码可禁止点击该按钮关闭
+									  }
+									 ,cancel: function(){ 
+									    //右上角关闭回调
+									    
+									    
+									    //return false 开启该代码可禁止点击该按钮关闭
+									  }
+									});  
+							});
+						})
+						 
+						</script>
+						
 						
 					</ul>
 				</div>
