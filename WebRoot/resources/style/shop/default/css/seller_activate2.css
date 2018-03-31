@@ -1,0 +1,51 @@
+
+
+.yzs-g-con-right  form h4{
+				height: 27px;
+				line-height: 27px;
+				font-family: 'Arial Normal', 'Arial';
+				font-weight: 400;
+				font-style: normal;
+				font-size: 13px;
+				color: #333333;
+				transform-origin: 305.5px 9.5px 0px;
+				background-color: rgba(242, 242, 242, 1);
+				text-indent: 1em;
+			}
+			.yzs-g-con-right  h3{
+				font-family: 'Arial Normal', 'Arial';
+				font-weight: 400;
+				font-style: normal;
+				font-size: 14px;
+				color: #333333;
+				padding-left: 50px;
+			}
+			.yzs-g-con-right  form table tr>td:nth-child(2){
+				text-align: left;
+				text-indent: 1.5em;
+			}
+			.yzs-g-con-right  form>input{
+				margin: 0;
+				padding: 0;
+				width: 140px;
+				height: 40px;
+				border-radius:5px;
+				box-shadow:none;
+				background-color: rgba(255, 255, 255, 1);
+				box-sizing: border-box;
+				border: 1px solid rgba(121,121,121,1);
+				cursor: pointer;
+				font-size: 13px;
+			} 
+			.yzs-g-con-right  form>input:hover{
+				background-color:rgba(22, 155, 213, 1);
+				color: #ffffff;
+			}
+			.yzs-g-con-right  form>input.save{
+				margin-left: 100px;
+				margin-top: 50px;
+			}
+			.yzs-g-con-right  form>input.submit{
+				margin-top: 50px;
+				margin-left: 20px;
+			}

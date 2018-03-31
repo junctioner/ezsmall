@@ -1,0 +1,55 @@
+@charset "UTF-8";
+.yzs-seller-activate1-div2{ position:relative;
+  left:0px;
+  top:0px;
+  width:593px;
+  height:611px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 1);
+  box-sizing:border-box;
+  border-width:1px;
+  border-style:solid;
+  border-color:rgba(121, 121, 121, 1);
+  border-radius:0px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;}
+ .seller_activate1_div3{
+  width:250px; height:40px; line-height:40px; font-size:20px; border-radius:5px; background-color:#00897c;
+  position:absolute;
+  top:50px;left:40px;
+ text-align:center;
+  }
+ .seller_activate1_div4{
+ width:250px; height:40px; line-height:40px; font-size:20px;  border:1px solid #000; border-radius:5px;
+ top:50px; left:300px;
+ position:absolute;
+ text-align:center;
+ }
+ .seller_activate1_div5{
+ position:relative;
+ height:100px;
+ }
+ .seller_activate_1_p1{
+ font-size:16px;
+ }
+ .seller_activate_1_div1{
+line-height:51px;
+height: 51px;
+background: inherit;
+    background-color: inherit;
+background-color: rgba(242, 242, 242, 1);
+font-size:25px;
+ }
+ .seller_activate_1_div2 div{
+  float:left;
+ }
+ .seller_activate_1_div3{
+ width:80px;top:100px;
+ }
+ .seller_activate_1_div4{
+ clear:both;
+ }
+ .seller_activate_1_div5{
+ 
+ }

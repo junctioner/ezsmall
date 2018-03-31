@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.wemall.core.mv.JModelAndView;
+import com.wemall.foundation.domain.GoodClass;
 import com.wemall.foundation.service.ISysConfigService;
 import com.wemall.foundation.service.IUserConfigService;
+import com.wemall.manage.admin.dao.impl.GoodsClassDaoImpl;
 
 /**
  * Description: <br/>
@@ -41,6 +43,9 @@ public class GoodsClassAction {
 
     @Autowired
     private IUserConfigService userConfigService;
+
+    @Autowired
+    private GoodsClassDaoImpl gd;
 
     @RequestMapping("/admin/goods_class_list.htm")
     public ModelAndView admin_list(HttpServletRequest request, HttpServletResponse response) {
@@ -61,6 +66,8 @@ public class GoodsClassAction {
     public ModelAndView addGoodsClass(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new JModelAndView("afterSales/addGoodsClass.html", configService.getSysConfig(),
                 userConfigService.getUserConfig(), 0, request, response);
+        List<GoodClass> list = gd.name();
+        mv.addObject("list", list);
         return mv;
     }
 

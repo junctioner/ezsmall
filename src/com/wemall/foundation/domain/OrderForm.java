@@ -91,6 +91,56 @@ public class OrderForm extends IdEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Logistics logistics;
+	
+	public OrderForm(){
+		
+	}
+
+	public OrderForm(String order_no, String order_type, List<GoodsCart> gcs,
+			BigDecimal total_price, User user, String cart_session_id,
+			int sc_status, int pay_mode, BigDecimal goods_amount, String msg,
+			Accessory bill, int order_status, BigDecimal first_price,
+			BigDecimal end_price, String pact_no, List<Accessory> pact_file,
+			int pact_status, Address address, Date finishtime, Invoice invoice,
+			Logistics logistics) {
+		super();
+		this.order_no = order_no;
+		this.order_type = order_type;
+		this.gcs = gcs;
+		this.total_price = total_price;
+		this.user = user;
+		this.cart_session_id = cart_session_id;
+		this.sc_status = sc_status;
+		this.pay_mode = pay_mode;
+		this.goods_amount = goods_amount;
+		this.msg = msg;
+		this.bill = bill;
+		this.order_status = order_status;
+		this.first_price = first_price;
+		this.end_price = end_price;
+		this.pact_no = pact_no;
+		this.pact_file = pact_file;
+		this.pact_status = pact_status;
+		this.address = address;
+		this.finishtime = finishtime;
+		this.invoice = invoice;
+		this.logistics = logistics;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderForm [order_no=" + order_no + ", order_type=" + order_type
+				+ ", gcs=" + gcs + ", total_price=" + total_price + ", user="
+				+ user + ", cart_session_id=" + cart_session_id
+				+ ", sc_status=" + sc_status + ", pay_mode=" + pay_mode
+				+ ", goods_amount=" + goods_amount + ", msg=" + msg + ", bill="
+				+ bill + ", order_status=" + order_status + ", first_price="
+				+ first_price + ", end_price=" + end_price + ", pact_no="
+				+ pact_no + ", pact_file=" + pact_file + ", pact_status="
+				+ pact_status + ", address=" + address + ", finishtime="
+				+ finishtime + ", invoice=" + invoice + ", logistics="
+				+ logistics + "]";
+	}
 
 	public String getOrder_no() {
 		return order_no;

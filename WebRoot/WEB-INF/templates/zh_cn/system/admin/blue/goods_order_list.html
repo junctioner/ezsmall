@@ -11,6 +11,7 @@
 <script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
 <script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
 <script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+<script src="$!webPath/resources/js/tm54/toolsByTM.js"></script>
 <script>
 jQuery(document).ready(function(){
   jQuery('#beginTime').datepicker({
@@ -23,11 +24,21 @@ jQuery(document).ready(function(){
 	  changeMonth: true,
 	  changeYear: true
   });
+  jQuery('#endTime').change(function(){
+	  var endTime = new Date(jQuery(this).val());
+	  var beginTime = new Date(jQuery('#beginTime').val());
+	  if(endTime<beginTime){
+		  errorAlertByTM("时间选择错误!", "#369", "#fff");
+		  jQuery(this).val("");
+	  }
+	  
+  });
   //
 });
 </script>
 </head>
 <body>
+
 <div class="cont">
   <h1 class="seth1">订单管理</h1>
   <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="javascript:void(0);" class="this">所有订单</a></span> <span class="tab-two"></span></div>
@@ -79,60 +90,52 @@ jQuery(document).ready(function(){
     </ul>
   </div>
   </form>
-  <form action="$!webPath/admin/order_list.htm" method="post" id="ListForm" >
-    <div class="allshop_table">
+    <div class="allshop_table" >
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr style="background: #if($!config.websiteCss=='blue') #2A7AD2 #end 
       #if($!config.websiteCss=='black')#333 #end; height:30px; color:#FFF">
-        <td width="15%">店铺名称</td>
-        <td width="15%">订单号</td>
-        <td width="10%">买家名称</td>
-        <td  width="15%">下单时间</td>
-        <td  width="8%">订单总额</td>
-        <td width="10%">支付方式</td>
-        <td width="8%">订单状态</td>
-        <td align="center">操作</td>
+        <td width="15%" >订单</td>
+        <td width="8%" >单价/数量</td>
+        <td width="8%" >订单金额</td>
+        <td  width="8%" >应收金额</td>
+        <td  width="8%" >实收金额</td>
+        <td width="15%" >采购商</td>
+        <td width="5%" >付款状态</td>
+        <td align="center" >状态</td>
+        <td align="center" >创建日期</td>
+        <td align="center" >跟单员</td>
+        <td width="10%" >操作</td>
       </tr>
-      #foreach($obj in $objs)
+       #foreach($obj in $objs)
       <tr>
-        <td>$!obj.store.store_name</td>
-        <td>$!obj.order_id</td>
-        <td>$!obj.user.userName</td>
-        <td>$!CommUtil.formatLongDate($!obj.addTime)</td>
-        <td>$!obj.totalPrice</td>
-            #set($payment="未支付")
+      <td width="15%">
+		<p style="padding: 5px 0;">订单号：<a href="">$!{obj.order_id}</a></p>
+		<a  href=""><div style="overflow: auto; padding: 5px 0;">
+		<img src="$!webPath/resources/style/system/front/wap/images/group_sort.png" alt="" style="display: block; float: left; width: 33% "/>
+		<span style="display: block; float:right; width: 63%" >黑色，白色PP片材 PP吹塑片 低价出售PP塑料透明片材. </span>
+		</div></a>
+      </td>
+        <td width="8%" style="text-align: center;">
+        <p>$!{obj.goods_unit_price}元</p>
+        <p>$!{obj.goods_unit_weight}(吨)</p>
+        </td>
+        <td width="8%" >$!{obj.order_price}</td>
+        <td  width="8%" >应收金额</td>
+        <td  width="8%" >实收金额</td>
+        <td width="15%" >
+		<a href=""><p>中文名</p>
+        <p>英文名</p>
+        <p>联系电话</p></a>
+		</td>
+		#set($payment="未付款")
             #if($!obj.payment.mark=="alipay")
-            #set($payment="支付宝")
+            #set($payment="全款支付")
             #end
             #if($!obj.payment.mark=="alipay_wap")
-            #set($payment="手机网页支付宝")
+            #set($payment="预付款支付")
             #end
-            #if($!obj.payment.mark=="bill")
-            #set($payment="快钱")
-            #end                 
-            #if($!obj.payment.mark=="chinabank")
-            #set($payment="网银在线")
-            #end       
-            #if($!obj.payment.mark=="outline")
-            #set($payment="线下支付")
-            #end                  
-            #if($!obj.payment.mark=="balance")
-            #set($payment="预存款支付")
-            #end 
-            #if($!obj.payment.mark=="payafter")
-            #set($payment="货到付款")
-            #end
-            #if($!obj.payment.mark=="paypal")
-            #set($payment="paypal")
-            #end
-          #if($!obj.payment.mark=="wxcodepay")
-          #set($payment="微信扫码支付")
-          #end
-          #if($!obj.payment.mark=="weixin_wap")
-          #set($payment="微信公众号支付")
-          #end
-        <td>$!payment</td>
-            #if($!obj.order_status==0)
+        <td width="5%" >$!{payment}</td>
+        #if($!obj.order_status==0)
             #set($status="已取消")
             #end
             #if($!obj.order_status==10)
@@ -158,9 +161,28 @@ jQuery(document).ready(function(){
             #end
             #if($!obj.order_status==60)
             #set($status="已结束")                                              
-            #end   
+            #end 
+        <td align="center" >$!{status}待确认</td>
+        <td align="center" >2018-3-30 19:15:21</td>
+        <td align="center" ><a href="">涂某某</a></td>
+        <td align="center" style="overflow: auto;">
+        <a href="" class="TMOrderOperation">查看详情</a>
+        <a href="" class="TMOrderOperation">日志</a>
+        <a href="" class="TMOrderOperation">取消订单</a>
+        <a href="" class="TMOrderOperation">订单确认</a>
+        <a href="" class="TMOrderOperation">调价</a>
+        </td>
+        <!-- <td>$!obj.store.store_name</td>
+        <td>$!obj.order_id</td>
+        <td>$!obj.user.userName</td>
+        <td>$!CommUtil.formatLongDate($!obj.addTime)</td>
+        <td>$!obj.totalPrice</td>
+            
+            
+        <td>$!payment</td>
+              
         <td>$!status</td>
-        <td align="center" class="blue xiahua"><a href="$!webPath/admin/order_view.htm?id=$!obj.id">查看</a></td>
+        <td align="center" class="blue xiahua"><a href="$!webPath/admin/order_view.htm?id=$!obj.id">查看</a></td> -->
       </tr>
      #end
     </table>
@@ -175,7 +197,6 @@ jQuery(document).ready(function(){
     <input name="order_status" type="hidden" id="order_status" value="$!order_status" />
     <input name="currentPage" type="hidden" id="currentPage" value="$!currentPage" />
     $!gotoPageFormHTML</div>
-  </form>
 </div>
 </body>
 </html>
