@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8" />
+    <title>易再生-中国再生资源交易平台</title>
+    <script>
+		$(function(){
+			$(".yzs-g-head-menu li").click(function(){
+				$(".yzs-g-head-menu li").removeClass("yzs-g-head-menu-sel");
+				$(this).addClass("yzs-g-head-menu-sel");
+			});
+			
+			$(".yzs-g-con-left-menu li").click(function(){
+				$(".yzs-g-con-left-menu li").removeClass("yzs-g-con-left-menu-sel");
+				$(this).addClass("yzs-g-con-left-menu-sel");
+			});
+			
+			$("#btn_type span").click(function(){
+				$("#btn_type span").removeClass("yzs-m-order-index-box1-tit-sel");
+				$(this).addClass("yzs-m-order-index-box1-tit-sel");
+			});
+		});
+    </script>
+</head>
+<body style="background:#F7F7F7;">
+	<div class="yzs-g-top-pannel">
+		<div class="yzs-g-top">
+			<div>
+				<span style="color:#d4e3f4;"><img style="margin-bottom:-13px;" src="$!webPath/resources/style/shop/default/img/icon_28.png"> 联系客服</span>
+			</div>
+			<div>
+				<span style="color:#ff6700;margin-right:10px;">进入供应商中心</span>
+				<span style="color:#999999;">退出</span>
+			</div>
+		</div>
+	</div>
+	<div class="yzs-g-head-pannel">
+		<div class="yzs-g-head">
+			<div class="yzs-g-head-top">
+				<div class="yzs-g-head-logo"></div>
+				<div class="yzs-g-head-menu">
+					<ul>
+						<li><div>账户设置</div></li>
+						<li><div>资金管理</div></li>
+						<li class="yzs-g-head-menu-sel"><div>买家中心</div></li>
+						<li><div>价格行情</div></li>
+						<li><div>金融服务</div></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<script type="text/javascript">
+		//var um = UM.getEditor('myEditor'); //实例化编辑器
+    </script>
+</body>
+</html>

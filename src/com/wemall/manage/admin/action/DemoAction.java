@@ -9,6 +9,9 @@
 
 package com.wemall.manage.admin.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -37,11 +40,25 @@ public class DemoAction {
     @Autowired
     private IUserConfigService userConfigService;
 
+    // @Autowired
+    // private PriceApprovalSercive priceApprovalSercive;
+
     @RequestMapping("/admin/store_list.htm")
     public ModelAndView demo(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView jView = new JModelAndView("afterSales/NewFile.html", this.configService.getSysConfig(),
                 this.userConfigService.getUserConfig(), 0, request, response);
-        jView.addObject("aaa", "hello CHINA");
+        // List<Goods> goodsList = priceApprovalSercive.queryPriceApproval();
+        jView.addObject("goodsList", "goodsList");
+        return jView;
+    }
+
+    @RequestMapping("/admin/approvalPrice.htm")
+    public ModelAndView approvalPrice(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView jView = new JModelAndView("afterSales/approvalPrice.html", this.configService.getSysConfig(),
+                this.userConfigService.getUserConfig(), 0, request, response);
+        Map<String, Object> listMap = new HashMap<String, Object>();
+        listMap.put("id", 1);
+        jView.addObject("listMap", listMap);
         return jView;
     }
 }

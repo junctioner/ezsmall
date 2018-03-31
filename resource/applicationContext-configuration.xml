@@ -22,8 +22,8 @@
 		<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />    -->
 	<!--文件上传设置-->
 	<bean id="multipartResolver" class="com.wemall.manage.admin.tools.MultiCommonsMultipartResolver">
-		<property name="maxUploadSize" value="5000000" />
-	    <property name="maxInMemorySize" value="5000000" />
+		<property name="maxUploadSize" value="500000000" />
+	    <property name="maxInMemorySize" value="500000000" />
 	</bean>
 	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
 	<bean id="velocityCongfig"
