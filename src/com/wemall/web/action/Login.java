@@ -38,15 +38,6 @@ public class Login {
         return mv;
     }
     
-    @RequestMapping({ "/admin/goods_class_list.htm" })
-    public ModelAndView admin_goods_class_list(String name,String userName,String publicTime,String ec,String userId,String status,String currentPage, String orderBy, String orderType, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
-        ModelAndView mv = new JModelAndView("admin/blue/goods_class_list.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
-        String url = this.configService.getSysConfig().getAddress();
-        if ((url == null) || (url.equals(""))){
-            url = CommUtil.getURL(request);
-        }
-        return mv;
-    }
     
     @RequestMapping({ "/admin/goods_brand_list.htm" })
     public ModelAndView admin_goods_brand_list(String name,String userName,String publicTime,String ec,String userId,String status,String currentPage, String orderBy, String orderType, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{

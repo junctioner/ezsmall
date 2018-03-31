@@ -44,7 +44,7 @@ public class GoodsOrderManageAction {
      * @return
      * @throws UnsupportedEncodingException
      */
-	 @RequestMapping({ "/admin/order_list.htm" })
+	 @RequestMapping({ "/admin/goods_order_list.htm" })
 	    public ModelAndView admin_list(String name,String userName,String publicTime,String ec,String userId,String status,String currentPage, String orderBy, String orderType, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
 	        ModelAndView mv = new JModelAndView("admin/blue/goods_order_list.html", this.configService.getSysConfig(), this.userConfigService.getUserConfig(), 0, request, response);
 	        List<Map<String,Object>> list = new ArrayList<Map<String, Object>>();

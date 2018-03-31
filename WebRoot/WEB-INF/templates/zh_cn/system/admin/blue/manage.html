@@ -79,7 +79,7 @@ jQuery(document).ready(function(){
           <li><a href="javascript:void(0);" id="user_list_op_q" onclick="openURL('url','$!webPath/admin/user_list.htm','main_workspace','user_list_op_q')">会员管理</a></li>
           <li><a href="javascript:void(0);" id="store_list_op_q" onclick="openURL('url','$!webPath/admin/store_list.htm','main_workspace','store_list_op_q')">店铺管理</a></li>
           <li><a href="javascript:void(0);" id="goods_manage_op_q" onclick="openURL('url','$!webPath/admin/goods_list.htm','main_workspace','goods_manage_op_q')">商品管理</a></li>
-          <li><a href="javascript:void(0);" id="order_list_op_q" onclick="openURL('url','$!webPath/admin/order_list.htm','main_workspace','order_list_op_q')">订单管理</a></li>
+          <li><a href="javascript:void(0);" id="order_list_op_q" onclick="openURL('url','$!webPath/admin/goods_order_list.htm','main_workspace','order_list_op_q')">商品订单管理</a></li>
         </ul>
         <ul class="ulleft" id="base_set" style="display:none;">
           <div class="leftone">基本设置</div>
@@ -121,12 +121,6 @@ jQuery(document).ready(function(){
                   <li><a href="javascript:void(0);" id="goods_spec_op" onclick="openURL('url','$!webPath/admin/goods_self_list.htm','main_workspace','goods_spec_op')">自营管理</a></li>
                   <li><a href="javascript:void(0);" id="goods_spec_op" onclick="openURL('url','$!webPath/admin/goods_supp_list.htm','main_workspace','goods_spec_op')">供应商管理</a></li>
         
-        
-
-		  <li><a href="javascript:void(0);" id="goods_spup_op" onclick="openURL('url','$!webPath/admin/goods_supplier_list.htm','main_workspace','goods_spec_op')">供应商商品</a></li>
-		  <li><a href="javascript:void(0);" id="goods_self_op" onclick="openURL('url','$!webPath/admin/goods_self_list.htm','main_workspace','goods_spec_op')">自营商品</a></li>
-
-
         </ul>
         <ul class="ulleft" style="display:none;" id="about_sparegoods">
           <div class="leftone">闲置相关</div>          
@@ -161,8 +155,8 @@ jQuery(document).ready(function(){
         </ul>
         <ul class="ulleft" style="display:none;" id="about_trade">
           <div class="leftone">交易管理</div>
-          <li><a href="javascript:void(0);" id="order_manage_op" onclick="openURL('url','$!webPath/admin/order_list.htm','main_workspace','order_manage_op')">订单管理</a> </li>
-                    <li><a href="javascript:void(0);" id="sample_order_manage_op" onclick="openURL('url','$!webPath/admin/sample_order_list.htm','main_workspace','order_manage_op')">样品订单管理</a> </li>
+          <li><a href="javascript:void(0);" id="order_manage_op" onclick="openURL('url','$!webPath/admin/goods_order_list.htm','main_workspace','order_manage_op')">商品订单管理</a> </li>
+                    <li><a href="javascript:void(0);" id="sample_order_manage_op" onclick="openURL('url','$!webPath/admin/sample_order_list.htm','main_workspace','order_manage_op')">样品商品订单管理</a> </li>
           <li><a href="javascript:void(0);" id="set_order_confirm_op" onclick="openURL('url','$!webPath/admin/set_order_confirm.htm','main_workspace','set_order_confirm_op')">订单设置</a> </li>
           <li><a href="javascript:void(0);" id="consult_manage_op" onclick="openURL('url','$!webPath/admin/consult_list.htm','main_workspace','consult_manage_op')">咨询管理</a></li>
           <li><a href="javascript:void(0);" id="report_manage_op" onclick="openURL('url','$!webPath/admin/report_list.htm','main_workspace','report_manage_op')">举报管理</a></li>
@@ -354,7 +348,7 @@ jQuery(document).ready(function(){
     </span> 
     <span class="weblist_sp">
     <h5>交易</h5>
-    <a href="javascript:void(0);" onclick="openURL('url','$!webPath/admin/order_list.htm','main_workspace','order_manage_op','about_trade')">订单管理</a>
+    <a href="javascript:void(0);" onclick="openURL('url','$!webPath/admin/goods_order_list.htm','main_workspace','order_manage_op','about_trade')">商品订单管理</a>
     <a href="javascript:void(0);" onclick="openURL('url','$!webPath/admin/set_order_confirm.htm','main_workspace','set_order_confirm_op','about_trade')">订单设置</a>
     <a href="javascript:void(0);" onclick="openURL('url','$!webPath/admin/consult_list.htm','main_workspace','consult_manage_op','about_trade')">咨询管理</a>
     <a href="javascript:void(0);" onclick="openURL('url','$!webPath/admin/report_list.htm','main_workspace','report_manage_op','about_trade')">举报管理</a>
@@ -451,7 +445,7 @@ $!uc_login_js
 						<li><a href="javascript:void(0);" id="goods_manage_op_q"
 							onclick="openURL('url','$!webPath/admin/goods_list.htm','main_workspace','goods_manage_op_q')">商品管理</a></li>
 						<li><a href="javascript:void(0);" id="order_list_op_q"
-							onclick="openURL('url','$!webPath/admin/order_list.htm','main_workspace','order_list_op_q')">订单管理</a></li>
+							onclick="openURL('url','$!webPath/admin/goods_order_list.htm','main_workspace','order_list_op_q')">商品订单管理</a></li>
 					</ul>
 					<ul class="ulleft" id="base_set" style="display: none;">
 						<div class="leftone">基本设置</div>
@@ -586,7 +580,7 @@ $!uc_login_js
 					<ul class="ulleft" style="display: none;" id="about_trade">
 						<div class="leftone">交易管理</div>
 						<li><a href="javascript:void(0);" id="order_manage_op"
-							onclick="openURL('url','$!webPath/admin/order_list.htm','main_workspace','order_manage_op')">订单管理</a>
+							onclick="openURL('url','$!webPath/admin/goods_order_list.htm','main_workspace','order_manage_op')">商品订单管理</a>
 						</li>
 						<li><a href="javascript:void(0);" id="set_order_confirm_op"
 							onclick="openURL('url','$!webPath/admin/set_order_confirm.htm','main_workspace','set_order_confirm_op')">订单设置</a>
@@ -814,7 +808,7 @@ $!uc_login_js
 				onclick="openURL('url','$!webPath/admin/sns_store.htm','main_workspace','store_sns_op','about_member')">店铺动态</a>
 			</span> <span class="weblist_sp">
 				<h5>交易</h5> <a href="javascript:void(0);"
-				onclick="openURL('url','$!webPath/admin/order_list.htm','main_workspace','order_manage_op','about_trade')">订单管理</a>
+				onclick="openURL('url','$!webPath/admin/goods_order_list.htm','main_workspace','order_manage_op','about_trade')">商品订单管理</a>
 				<a href="javascript:void(0);"
 				onclick="openURL('url','$!webPath/admin/set_order_confirm.htm','main_workspace','set_order_confirm_op','about_trade')">订单设置</a>
 				<a href="javascript:void(0);"
