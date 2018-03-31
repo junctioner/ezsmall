@@ -208,7 +208,6 @@ public class BaseManageAction {
                                  .getAttribute("uc_login_js"));
             mv.addObject("uc_login_js", uc_login_js);
         }
-
         return mv;
     }
 

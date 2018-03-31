@@ -894,7 +894,7 @@ left:-50%; z-index:0;}
 	padding-top:10px;
 }
 .allmem_search span {
-	padding-left:5px;
+	padding-left:1px;
 	padding-right:5px;
 }
 .allmem_search select {
@@ -911,6 +911,13 @@ left:-50%; z-index:0;}
 .size4 input {
 	width:160px;
 }
+.size5{
+	width:50px;
+	height:22px;
+	line-height:22px;
+	padding-left:5px;
+}
+.size6 select{width:150px;text-align: center;padding-left: 45px}
 .allmem_table {
 	width:100%;
 	margin-left:20px;
