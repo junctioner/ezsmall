@@ -70,9 +70,9 @@ jQuery(document).ready(function(){
         </span><span>—</span><span class="order_input size2">
         <input name="endTime" type="text" id="endTime" readonly="readonly" />
         </span> <span>订单金额</span><span class="order_input size2">
-        <input name="begin_price" type="text" id="begin_price" />
+        <input name="begin_price" type="text" id="begin_price" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
         </span><span>—</span><span class="order_input size2">
-        <input name="end_price" type="text" id="end_price" />
+        <input name="end_price" type="text" id="end_price" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
         </span> <span class="btn_search">
         <input name="" type="submit"  value="搜索" style="cursor:pointer;"/>
       </span> </li>

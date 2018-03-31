@@ -19,7 +19,7 @@ public class Test {
     public static void main(String[] args) {
 
         // 占位符
-        System.out.printf("hhh%swww", "sss");
+        System.out.printf("hhh%swww","sss");
 
     }
 

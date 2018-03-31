@@ -20,7 +20,37 @@
 				$(this).addClass("yzs-help-left-ul-li-ul-li-sel");
 			});
 		});
+		var ecid;
+		function getSubstance(id,page){
+			ecid=id;
+			jQuery.ajax({
+				url : "$!webPath/helpCenterContent.htm",
+				data : {
+					"id":id,
+					"currentPage":page
+				},
+				type : "POST",
+				dataType : "html",
+				error : function() {
+					return false;
+				},
+				success : function(data) {
+					jQuery("#showBody").empty();
+					jQuery("#showBody").html(data);					 
+				}
+		    });
+		}
 		
+		function gotoPage(page){
+			 getSubstance(ecid,page);
+		}
+		function getContent(id){
+			//文章的id
+			 jQuery.post('$!webPath/helpCenterDetailed.htm',{"id":id},function(data){
+			 jQuery("#showBody").empty();
+			 jQuery("#showBody").html(data);
+		    },"text");
+		}
     </script>
 </head>
 <body>
@@ -38,60 +68,64 @@
 					<div class="yzs-help-left-title">帮助中心</div>
 					<div class="yzs-help-left-menu">
 						<ul class="yzs-help-left-ul">
-							<li><div>$!ezsColumn0.name</div></li>
+							<li><div>$!ezsColumn0.name</div>
+							    <ul>
+                                     #foreach ($ezs in $ezss0)
+									<li class="yzs-help-left-ul-li-ul-li-sel" onclick="getSubstance($!ezs.id,'');">$!ezs.name</li>
+								     #end
+								</ul>
+							
+							</li>
 							<li class="yzs-help-left-ul-li-sel">
 								<div>$!ezsColumn1.name</div>
 								<ul>
-									<li>二级分类1</li>
-									<li class="yzs-help-left-ul-li-ul-li-sel">二级分类2</li>
-									<li>二级分类3</li>
+                                     #foreach ($ezs in $ezss1)
+									<li class="yzs-help-left-ul-li-ul-li-sel" onclick="getSubstance($!ezs.id,'');">$!ezs.name</li>
+								     #end
 								</ul>
 							</li>
 							<li>
 								<div>$!ezsColumn2.name</div>
 								<ul>
-									<li>二级分类4</li>
-									<li class="yzs-help-left-ul-li-ul-li-sel">二级分类5</li>
-									<li>二级分类6</li>
+								    #foreach ($ezs in $ezss2)
+									<li class="yzs-help-left-ul-li-ul-li-sel" onclick="getSubstance($!ezs.id,'');">$!ezs.name</li>
+								    #end
 								</ul>
 							</li>
-							<li><div>$!ezsColumn3.name</div></li>
+							<li><div>$!ezsColumn3.name</div>
+							    <ul>
+								    #foreach ($ezs in $ezss3)
+									<li class="yzs-help-left-ul-li-ul-li-sel" onclick="getSubstance($!ezs.id,'');">$!ezs.name</li>
+								    #end
+								</ul>
+							
+							</li>
 						</ul>
 					</div>
 				</div>
-				<div class="yzs-help-right">
-					<div class="yzs-help-right-tit">
-						<div>搜索结果</div>
-						<div class="yzs-help-right-search">
-							<input type="text" placeholder="输入问题关键词，如密码"/>
-							<div></div>
-						</div>
-					</div>
-					<div class="yzs-help-right-list">
-						<div class="yzs-help-right-list-con">
-							<ul>
-								<li>下载易再生交易手册</li>
-								<li>下载易再生交易手册</li>
-								<li>下载易再生交易手册</li>
-								<li>下载易再生交易手册</li>
-								<li>下载易再生交易手册</li>
-							</ul>
-						</div>
-						<div class="yzs-help-right-list-page">
-							<ul>
-								<li>1</li>
-								<li>2</li>
-								<li>3</li>
-								<li>4</li>
-								<li>5</li>
-								<li>6</li>
-								<li>7</li>
-								<li>8</li>
-								<li>9</li>
-								<li>10</li>
-							</ul>
-						</div>
-					</div>
+				<div class="yzs-help-right" id="showBody">
+							 <div class="yzs-help-right-tit">
+								<div>联系客服</div>
+								<div class="yzs-help-right-search">
+									<input type="text" placeholder="输入问题关键词，如密码"/>
+									<div></div>
+								</div>
+							</div>
+							<div class="yzs-help-right-card">
+								<div class="yzs-help-right-card1">
+									<div>电话客服</div>
+									<div>400-6666-890</div>
+								</div>
+								<div class="yzs-help-right-card2">
+									<div>在线咨询</div>
+									<div>点击咨询</div>
+								</div>
+								<div class="yzs-help-right-card3">
+									<div>意见反馈</div>
+									<div>点击反馈</div>
+								</div>
+							</div>
+					
 				</div>
 			</div>
 		</div>
@@ -99,8 +133,99 @@
 	</div>
 	
 	$!httpInclude.include("/footer.htm") 
-	<script type="text/javascript">
-		
+		<script type="text/javascript">
+	new Vue({
+	    el:"#theForm",
+	    data:{
+	    	pink:""
+	    },
+	    mounted:function () {
+	        this.$nextTick(function () {
+	            this.init();
+	        })
+	    },
+	    filters:{
+	    	formatMoney(value){
+	        }
+	    },
+	    methods:{
+	        init:function (){
+	        	this.pink='$!ezsSubstance.ec.name'
+	        	vm.pink='$!ezsSubstance.ec.name'
+	        },
+	        formatType:function(v){
+	            
+	        },
+	        giveOrUp:function(type,value){
+	        	if(type==1){
+	        		jQuery.ajax({
+		        		 type: "post",
+		                 url: "$!webPath/giveOrUp.htm",
+		                 data: {id:$!ezsSubstance.id,house:value},
+		                 dataType: "json",
+		                 success: function(data){
+		                	 if(data.flag){
+		                		 var house=data.houseStatus
+		                		 if(house){
+		                			 
+		                		 }else{
+		                			 
+		                		 }
+		                	 }
+		                 }
+		        	     
+		        	 })
+	        	}else if(type==2){
+	        		jQuery.ajax({
+		        		 type: "post",
+		                 url: "$!webPath/giveOrUp.htm",
+		                 data: {id:$!ezsSubstance.id,give:value},
+		                 dataType: "json",
+		                 success: function(data){
+		                	 if(data.flag){
+		                		 var give=data.give;
+		                		 var giveStatus=data.giveStatus
+		                		 if(giveStatus&&give==1){
+		                			 $("div.yzs-analysis-con-tools").find("div span:eq(0) img").attr("src","$!webPath/resources/style/shop/default/img/icon_35.png")
+		                			 $("div.yzs-analysis-con-tools").find("div span:eq(1) img").attr("src","$!webPath/resources/style/shop/default/img/icon_36.png")
+		                		 }else if(giveStatus&&give==2){
+		                			 $("div.yzs-analysis-con-tools").find("div span:eq(1) img").attr("src","$!webPath/resources/style/shop/default/img/icon_37.png")
+		                			 $("div.yzs-analysis-con-tools").find("div span:eq(0) img").attr("src","$!webPath/resources/style/shop/default/img/icon_34.png")
+		                		 }else if(!giveStatus&&give==1){
+		                			 $("div.yzs-analysis-con-tools").find("div span:eq(0) img").attr("src","$!webPath/resources/style/shop/default/img/icon_34.png")
+		                		 }else if(!giveStatus&&give==2){
+		                			 $("div.yzs-analysis-con-tools").find("div span:eq(1) img").attr("src","$!webPath/resources/style/shop/default/img/icon_36.png")
+		                		 }
+		                	 }
+		                 }
+		        	 })
+	        	}
+	        	 
+	        }
+	    }
+	});	
+	var vm=new Vue({
+	    el:"#pat",
+	    data:{
+	    	pink:""
+	    },
+	    mounted:function () {
+	        this.$nextTick(function () {
+	            this.init();
+	        })
+	    },
+	    filters:{
+	    	formatMoney(value){
+	        }
+	    },
+	    methods:{
+	        init:function (){
+	        },
+	        formatType:function(v){
+	            
+	        }
+	    }
+	});	
     </script>
 </body>
 </html>

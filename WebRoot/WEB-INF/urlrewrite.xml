@@ -12,10 +12,15 @@
 		<from>^/good_buy_([0-9]+).htm$</from>
 		<to type="forward">/good_buy.htm?id=$1</to>
 	</rule>
-		<rule>
+	<rule>
 		<note>样品采购</note>
 		<from>^/sample_buy_([0-9]+).htm$</from>
 		<to type="forward">/sample_buy.htm?id=$1</to>
+	</rule>
+	<rule>
+		<note>加入采购单</note>
+		<from>^/add_goodscart_([0-9]+).htm$</from>
+		<to type="forward">/add_goodscart.htm?id=$1</to>
 	</rule>
 </urlrewrite>
 
