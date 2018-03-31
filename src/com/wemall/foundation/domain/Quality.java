@@ -21,7 +21,7 @@ public class Quality extends IdEntity {
 	private String quality_no;// 质检编号
 	private int status;// 质检状态
 	private String report;// 质检报告
-
+    private String content;
 	public String getQuality_no() {
 		return quality_no;
 	}

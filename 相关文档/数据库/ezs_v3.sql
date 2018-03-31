@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2018-03-28 12:24:52
+Date: 2018-03-31 10:50:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -135,15 +135,15 @@ CREATE TABLE `ezs_area` (
   KEY `FK7D6B3B1ED79E13D4` (`parent_id`),
   KEY `FK2392E8CA7B57898B` (`parent_id`),
   KEY `FKFB34C9CE7B57898B` (`parent_id`),
-  CONSTRAINT `FKFB34C9CE7B57898B` FOREIGN KEY (`parent_id`) REFERENCES `ezs_area` (`id`),
   CONSTRAINT `FK2392E8CA7B57898B` FOREIGN KEY (`parent_id`) REFERENCES `ezs_area` (`id`),
-  CONSTRAINT `FK7D6B3B1ED79E13D4` FOREIGN KEY (`parent_id`) REFERENCES `ezs_area` (`id`)
+  CONSTRAINT `FK7D6B3B1ED79E13D4` FOREIGN KEY (`parent_id`) REFERENCES `ezs_area` (`id`),
+  CONSTRAINT `FKFB34C9CE7B57898B` FOREIGN KEY (`parent_id`) REFERENCES `ezs_area` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4525504 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ezs_area
 -- ----------------------------
-INSERT INTO `ezs_area` VALUES ('4521984', '2013-07-30 15:37:33', '', '北京市', '0', '0', null, '');
+INSERT INTO `ezs_area` VALUES ('4521984', '2013-07-30 15:37:33', '', '北京市', '0', '0', null, '');
 INSERT INTO `ezs_area` VALUES ('4521985', '2013-07-30 15:37:33', '', '北京市', '1', '0', '4521984', '');
 INSERT INTO `ezs_area` VALUES ('4521986', '2013-07-30 15:37:33', '', '东城区', '2', '0', '4521985', '');
 INSERT INTO `ezs_area` VALUES ('4521987', '2013-07-30 15:37:33', '', '西城区', '2', '0', '4521985', '');
@@ -3735,8 +3735,8 @@ CREATE TABLE `ezs_column` (
   UNIQUE KEY `id` (`id`),
   KEY `FK46C80576647DF96` (`parentEzsColumn_id`),
   KEY `FK46C8057F734E208` (`user_id`),
-  CONSTRAINT `FK46C8057F734E208` FOREIGN KEY (`user_id`) REFERENCES `ezs_user` (`id`),
-  CONSTRAINT `FK46C80576647DF96` FOREIGN KEY (`parentEzsColumn_id`) REFERENCES `ezs_column` (`id`)
+  CONSTRAINT `FK46C80576647DF96` FOREIGN KEY (`parentEzsColumn_id`) REFERENCES `ezs_column` (`id`),
+  CONSTRAINT `FK46C8057F734E208` FOREIGN KEY (`user_id`) REFERENCES `ezs_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -3759,12 +3759,34 @@ CREATE TABLE `ezs_comment` (
   UNIQUE KEY `id` (`id`),
   KEY `FK892DE17E5FB0FAC8` (`priceTrend_id`),
   KEY `FK892DE17EF734E208` (`user_id`),
-  CONSTRAINT `FK892DE17EF734E208` FOREIGN KEY (`user_id`) REFERENCES `ezs_user` (`id`),
-  CONSTRAINT `FK892DE17E5FB0FAC8` FOREIGN KEY (`priceTrend_id`) REFERENCES `ezs_price_trend` (`id`)
+  CONSTRAINT `FK892DE17E5FB0FAC8` FOREIGN KEY (`priceTrend_id`) REFERENCES `ezs_price_trend` (`id`),
+  CONSTRAINT `FK892DE17EF734E208` FOREIGN KEY (`user_id`) REFERENCES `ezs_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ezs_comment
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `ezs_communicate`
+-- ----------------------------
+DROP TABLE IF EXISTS `ezs_communicate`;
+CREATE TABLE `ezs_communicate` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `addTime` datetime DEFAULT NULL,
+  `deleteStatus` bit(1) NOT NULL,
+  `content` varchar(255) DEFAULT NULL,
+  `display` bit(1) DEFAULT b'0',
+  `name` varchar(255) DEFAULT NULL,
+  `dictType_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `FKE23C1F52910D6FAE` (`dictType_id`),
+  CONSTRAINT `FKE23C1F52910D6FAE` FOREIGN KEY (`dictType_id`) REFERENCES `ezs_dict` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ezs_communicate
 -- ----------------------------
 
 -- ----------------------------
@@ -3794,6 +3816,73 @@ CREATE TABLE `ezs_contact` (
 
 -- ----------------------------
 -- Records of ezs_contact
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `ezs_crm_consumer`
+-- ----------------------------
+DROP TABLE IF EXISTS `ezs_crm_consumer`;
+CREATE TABLE `ezs_crm_consumer` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `addTime` datetime DEFAULT NULL,
+  `deleteStatus` bit(1) NOT NULL,
+  `EIA_qualification` varchar(255) DEFAULT NULL,
+  `Qua_sewage_treatment` varchar(255) DEFAULT NULL,
+  `clue_source` varchar(255) DEFAULT NULL,
+  `cred_type` varchar(255) DEFAULT NULL,
+  `ent_id` varchar(255) DEFAULT NULL,
+  `ent_name` varchar(255) DEFAULT NULL,
+  `ente_Certificate` varchar(255) DEFAULT NULL,
+  `grade` int(11) DEFAULT '0',
+  `invoice` varchar(255) DEFAULT NULL,
+  `main_business` varchar(255) DEFAULT NULL,
+  `mon_turnover` varchar(255) DEFAULT NULL,
+  `num_workers` varchar(255) DEFAULT NULL,
+  `oper_address` varchar(255) DEFAULT NULL,
+  `oper_life` varchar(255) DEFAULT NULL,
+  `oper_scope` varchar(255) DEFAULT NULL,
+  `own_equipment` varchar(255) DEFAULT NULL,
+  `per_subject` varchar(255) DEFAULT NULL,
+  `platform_type` varchar(255) DEFAULT NULL,
+  `rented` bit(1) NOT NULL,
+  `site_area` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `tax_point` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ezs_crm_consumer
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `ezs_crm_contacts`
+-- ----------------------------
+DROP TABLE IF EXISTS `ezs_crm_contacts`;
+CREATE TABLE `ezs_crm_contacts` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `addTime` datetime DEFAULT NULL,
+  `deleteStatus` bit(1) NOT NULL,
+  `Infor_source` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `department` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `mobile` varchar(255) DEFAULT NULL,
+  `post` varchar(255) DEFAULT NULL,
+  `sex` varchar(255) DEFAULT NULL,
+  `telephone` varchar(255) DEFAULT NULL,
+  `tn_id` varchar(255) DEFAULT NULL,
+  `truename` varchar(255) DEFAULT NULL,
+  `consumer_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `FKF8C071D52FDB960A` (`consumer_id`),
+  CONSTRAINT `FKF8C071D52FDB960A` FOREIGN KEY (`consumer_id`) REFERENCES `ezs_crm_consumer` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ezs_crm_contacts
 -- ----------------------------
 
 -- ----------------------------
@@ -3842,6 +3931,7 @@ CREATE TABLE `ezs_customer` (
   `level_id` bigint(20) DEFAULT NULL,
   `paper_id` bigint(20) DEFAULT NULL,
   `source_id` bigint(20) DEFAULT NULL,
+  `communicate_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `FKE497F09F77BF49DA` (`source_id`),
@@ -3854,6 +3944,8 @@ CREATE TABLE `ezs_customer` (
   KEY `FKE497F09F42957892` (`paper_id`),
   KEY `FKE497F09F1CAD6AEC` (`group_id`),
   KEY `FKE497F09F7FB190CC` (`level_id`),
+  KEY `FKE497F09F54F7F8EC` (`communicate_id`),
+  CONSTRAINT `FKE497F09F54F7F8EC` FOREIGN KEY (`communicate_id`) REFERENCES `ezs_communicate` (`id`),
   CONSTRAINT `FKE497F09F140EC13A` FOREIGN KEY (`level_id`) REFERENCES `ezs_level` (`id`),
   CONSTRAINT `FKE497F09F1CAD6AEC` FOREIGN KEY (`group_id`) REFERENCES `ezs_group` (`id`),
   CONSTRAINT `FKE497F09F42957892` FOREIGN KEY (`paper_id`) REFERENCES `ezs_dict` (`id`),
@@ -3984,8 +4076,8 @@ CREATE TABLE `ezs_documentshare` (
   UNIQUE KEY `id` (`id`),
   KEY `FKDF39E76330951E` (`u_id`),
   KEY `FKDF39E763A6D17A15` (`e_id`),
-  CONSTRAINT `FKDF39E763A6D17A15` FOREIGN KEY (`e_id`) REFERENCES `ezs_ezssubstance` (`id`),
-  CONSTRAINT `FKDF39E76330951E` FOREIGN KEY (`u_id`) REFERENCES `ezs_user` (`id`)
+  CONSTRAINT `FKDF39E76330951E` FOREIGN KEY (`u_id`) REFERENCES `ezs_user` (`id`),
+  CONSTRAINT `FKDF39E763A6D17A15` FOREIGN KEY (`e_id`) REFERENCES `ezs_ezssubstance` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -4123,6 +4215,7 @@ CREATE TABLE `ezs_goods` (
   `supply_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `util_id` bigint(20) DEFAULT NULL,
+  `good_self` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `FK6BB7C63543969C9A` (`area_id`),
@@ -4148,7 +4241,6 @@ CREATE TABLE `ezs_goods` (
   KEY `FK6BB7C635DA76F75B` (`color_id`),
   KEY `FK6BB7C635FE9C824F` (`supply_id`),
   KEY `FK6BB7C6354C221E6F` (`goodClass_id`),
-  CONSTRAINT `FK6BB7C635D37292C8` FOREIGN KEY (`area_id`) REFERENCES `ezs_area` (`id`),
   CONSTRAINT `FK6BB7C63517B67DBA` FOREIGN KEY (`goodClass_id`) REFERENCES `ezs_goods_class` (`id`),
   CONSTRAINT `FK6BB7C6351CD911F7` FOREIGN KEY (`goods_main_photo_id`) REFERENCES `ezs_accessory` (`id`),
   CONSTRAINT `FK6BB7C63542FB0EAB` FOREIGN KEY (`logistics_id`) REFERENCES `ezs_dict` (`id`),
@@ -4166,6 +4258,7 @@ CREATE TABLE `ezs_goods` (
   CONSTRAINT `FK6BB7C6356ED23E6C` FOREIGN KEY (`quality_id`) REFERENCES `ezs_quality` (`id`),
   CONSTRAINT `FK6BB7C635748358D3` FOREIGN KEY (`region_id`) REFERENCES `ezs_area` (`id`),
   CONSTRAINT `FK6BB7C635B31F187D` FOREIGN KEY (`logistics_id`) REFERENCES `ezs_dict` (`id`),
+  CONSTRAINT `FK6BB7C635D37292C8` FOREIGN KEY (`area_id`) REFERENCES `ezs_area` (`id`),
   CONSTRAINT `FK6BB7C635D791125A` FOREIGN KEY (`form_id`) REFERENCES `ezs_dict` (`id`),
   CONSTRAINT `FK6BB7C635DA76F75B` FOREIGN KEY (`color_id`) REFERENCES `ezs_dict` (`id`),
   CONSTRAINT `FK6BB7C635F734E208` FOREIGN KEY (`user_id`) REFERENCES `ezs_user` (`id`),
@@ -4176,7 +4269,7 @@ CREATE TABLE `ezs_goods` (
 -- ----------------------------
 -- Records of ezs_goods
 -- ----------------------------
-INSERT INTO `ezs_goods` VALUES ('1', '2018-03-26 14:22:34', '', '1号仓库', '1', '1', '1', '1', '92', '0', '0', '是大师傅大师傅似的胜多负少士大夫士大夫', '1', '1', '2', '12', 'ezs_2018032600001', '0', '100', 'PET', '1', '', 'PEEX复合料', '10000', '', '2', '', '2018-03-26 18:46:01', null, '2', '2', '1', '0', '2', '4521986', '4', '18', '4', null, '25', null, null, null, '1', '22');
+INSERT INTO `ezs_goods` VALUES ('1', '2018-03-26 14:22:34', '', '1号仓库', '1', '1', '1', '1', '144', '0', '0', '是大师傅大师傅似的胜多负少士大夫士大夫', '1', '1', '2', '12', 'ezs_2018032600001', '0', '100', 'PET', '1', '', 'PEEX复合料', '10000', '', '2', '', '2018-03-26 18:46:01', null, '2', '2', '1', '0', '2', '4521986', '4', '18', '4', null, '25', null, '4521987', null, '1', '22', '');
 
 -- ----------------------------
 -- Table structure for `ezs_goodscart`
@@ -4194,23 +4287,20 @@ CREATE TABLE `ezs_goodscart` (
   `sc_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
-  KEY `FKA17E1ED5116857FA` (`goods_id`),
-  KEY `FKA17E1ED58B08BF0B` (`sc_id`),
-  KEY `FKA17E1ED5EA2DFB5` (`of_id`),
   KEY `FKA17E1ED57D0B278C` (`goods_id`),
   KEY `FKA17E1ED5C2B5759D` (`sc_id`),
   KEY `FKA17E1ED5464F9647` (`of_id`),
-  CONSTRAINT `FKA17E1ED5116857FA` FOREIGN KEY (`goods_id`) REFERENCES `ezs_goods` (`id`),
   CONSTRAINT `FKA17E1ED5464F9647` FOREIGN KEY (`of_id`) REFERENCES `ezs_orderform` (`id`),
   CONSTRAINT `FKA17E1ED57D0B278C` FOREIGN KEY (`goods_id`) REFERENCES `ezs_goods` (`id`),
-  CONSTRAINT `FKA17E1ED58B08BF0B` FOREIGN KEY (`sc_id`) REFERENCES `ezs_storecart` (`id`),
-  CONSTRAINT `FKA17E1ED5C2B5759D` FOREIGN KEY (`sc_id`) REFERENCES `ezs_storecart` (`id`),
-  CONSTRAINT `FKA17E1ED5EA2DFB5` FOREIGN KEY (`of_id`) REFERENCES `ezs_orderform` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `FKA17E1ED5C2B5759D` FOREIGN KEY (`sc_id`) REFERENCES `ezs_storecart` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ezs_goodscart
 -- ----------------------------
+INSERT INTO `ezs_goodscart` VALUES ('11', '2018-03-29 09:53:23', '', 'SELF_GOODS', '1', '10000.00', '1', null, '14');
+INSERT INTO `ezs_goodscart` VALUES ('12', '2018-03-29 10:10:13', '', 'SELF_GOODS', '1', '10000.00', '1', null, '15');
+INSERT INTO `ezs_goodscart` VALUES ('13', '2018-03-30 11:21:15', '', 'SELF_GOODS', '1', '10000.00', '1', null, '16');
 
 -- ----------------------------
 -- Table structure for `ezs_goods_cartography`
@@ -4410,6 +4500,9 @@ CREATE TABLE `ezs_logistics` (
   `service_time` datetime DEFAULT NULL,
   `status` int(11) NOT NULL,
   `total_price` decimal(19,2) DEFAULT NULL,
+  `add_cart_time` datetime DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `sendAddess` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -4462,6 +4555,9 @@ CREATE TABLE `ezs_orderform` (
   `invoice_id` bigint(20) DEFAULT NULL,
   `logistics_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `firest_time` datetime DEFAULT NULL,
+  `all_price` decimal(19,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `FK3708E471FC9802DA` (`logistics_id`),
@@ -4488,6 +4584,31 @@ CREATE TABLE `ezs_orderform` (
 
 -- ----------------------------
 -- Records of ezs_orderform
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `ezs_order_operat`
+-- ----------------------------
+DROP TABLE IF EXISTS `ezs_order_operat`;
+CREATE TABLE `ezs_order_operat` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `addTime` datetime DEFAULT NULL,
+  `deleteStatus` bit(1) NOT NULL,
+  `OperatStatus_id` bigint(20) DEFAULT NULL,
+  `orderForm_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `FK1664153EE74D28B` (`OperatStatus_id`),
+  KEY `FK1664153E976D92C` (`orderForm_id`),
+  KEY `FK1664153F734E208` (`user_id`),
+  CONSTRAINT `FK1664153F734E208` FOREIGN KEY (`user_id`) REFERENCES `ezs_user` (`id`),
+  CONSTRAINT `FK1664153E976D92C` FOREIGN KEY (`orderForm_id`) REFERENCES `ezs_orderform` (`id`),
+  CONSTRAINT `FK1664153EE74D28B` FOREIGN KEY (`OperatStatus_id`) REFERENCES `ezs_dict` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ezs_order_operat
 -- ----------------------------
 
 -- ----------------------------
@@ -4613,6 +4734,7 @@ CREATE TABLE `ezs_quality` (
   `quality_no` varchar(255) DEFAULT NULL,
   `report` varchar(255) DEFAULT NULL,
   `status` int(11) NOT NULL,
+  `content` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -4697,6 +4819,29 @@ CREATE TABLE `ezs_res` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `ezs_retrun_order_operat`
+-- ----------------------------
+DROP TABLE IF EXISTS `ezs_retrun_order_operat`;
+CREATE TABLE `ezs_retrun_order_operat` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `addTime` datetime DEFAULT NULL,
+  `deleteStatus` bit(1) NOT NULL,
+  `OperatStatus_id` bigint(20) DEFAULT NULL,
+  `returnGood_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `FKFAA81586EE74D28B` (`OperatStatus_id`),
+  KEY `FKFAA81586F734E208` (`user_id`),
+  CONSTRAINT `FKFAA81586F734E208` FOREIGN KEY (`user_id`) REFERENCES `ezs_user` (`id`),
+  CONSTRAINT `FKFAA81586EE74D28B` FOREIGN KEY (`OperatStatus_id`) REFERENCES `ezs_dict` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ezs_retrun_order_operat
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `ezs_role`
 -- ----------------------------
 DROP TABLE IF EXISTS `ezs_role`;
@@ -4775,8 +4920,11 @@ CREATE TABLE `ezs_source` (
   `identifying` varchar(255) DEFAULT NULL,
   `msg` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
+  UNIQUE KEY `id` (`id`),
+  KEY `FK1FBE151CF734E208` (`user_id`),
+  CONSTRAINT `FK1FBE151CF734E208` FOREIGN KEY (`user_id`) REFERENCES `ezs_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -4854,12 +5002,13 @@ CREATE TABLE `ezs_store` (
   CONSTRAINT `FK6C6327C0922F0497` FOREIGN KEY (`mianIndustry_id`) REFERENCES `ezs_dict` (`id`),
   CONSTRAINT `FK6C6327C0D37292C8` FOREIGN KEY (`area_id`) REFERENCES `ezs_area111` (`id`),
   CONSTRAINT `FK6C6327C0FBF0F0E6` FOREIGN KEY (`cardType_id`) REFERENCES `ezs_dict` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ezs_store
 -- ----------------------------
 INSERT INTO `ezs_store` VALUES ('1', '2018-03-26 19:09:31', '', null, '0', null, '0', '0', '0', '0', null, null, '0', null, null, null, null, null, '', '2', '0', null, null, null);
+INSERT INTO `ezs_store` VALUES ('2', '2018-03-30 12:26:04', '', null, '0', '武汉斯柯达信息有限公司', '0', '0', '0', '0', null, null, '0', null, null, null, null, null, '', '2', '0', null, null, null);
 
 -- ----------------------------
 -- Table structure for `ezs_storecart`
@@ -4884,11 +5033,14 @@ CREATE TABLE `ezs_storecart` (
   CONSTRAINT `FKB32937006758EBDA` FOREIGN KEY (`user_id`) REFERENCES `ezs_user` (`id`),
   CONSTRAINT `FKB3293700F734E208` FOREIGN KEY (`user_id`) REFERENCES `ezs_user` (`id`),
   CONSTRAINT `FKB3293700F9DFE81A` FOREIGN KEY (`store_id`) REFERENCES `ezs_store` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ezs_storecart
 -- ----------------------------
+INSERT INTO `ezs_storecart` VALUES ('14', '2018-03-29 09:53:23', '', null, '0', '0.00', '1', '1');
+INSERT INTO `ezs_storecart` VALUES ('15', '2018-03-29 10:10:13', '', 'a2ad2f91-965d-42f9-9166-dbcc8594c7f7', '0', '0.00', '1', null);
+INSERT INTO `ezs_storecart` VALUES ('16', '2018-03-30 11:21:15', '', '95758ee5-80bc-456f-8dd4-de9dd6eb5d15', '0', '0.00', '1', null);
 
 -- ----------------------------
 -- Table structure for `ezs_store_dict`
@@ -5085,11 +5237,11 @@ CREATE TABLE `ezs_sysconfig` (
   KEY `FK752FDBAE29729A14` (`store_weixin_logo_id`),
   KEY `FK752FDBAE89699B79` (`goodsImage_id`),
   KEY `FK752FDBAE7CA11E6B` (`memberIcon_id`),
-  CONSTRAINT `FK752FDBAE7CA11E6B` FOREIGN KEY (`memberIcon_id`) REFERENCES `ezs_accessory` (`id`),
   CONSTRAINT `FK752FDBAE29729A14` FOREIGN KEY (`store_weixin_logo_id`) REFERENCES `ezs_accessory` (`id`),
   CONSTRAINT `FK752FDBAE373AC6D8` FOREIGN KEY (`websiteLogo_id`) REFERENCES `ezs_accessory` (`id`),
   CONSTRAINT `FK752FDBAE3A0FFE6A` FOREIGN KEY (`weixin_qr_img_id`) REFERENCES `ezs_accessory` (`id`),
   CONSTRAINT `FK752FDBAE71BCB4FC` FOREIGN KEY (`weixin_qr_img_id`) REFERENCES `ezs_accessory` (`id`),
+  CONSTRAINT `FK752FDBAE7CA11E6B` FOREIGN KEY (`memberIcon_id`) REFERENCES `ezs_accessory` (`id`),
   CONSTRAINT `FK752FDBAE89699B79` FOREIGN KEY (`goodsImage_id`) REFERENCES `ezs_accessory` (`id`),
   CONSTRAINT `FK752FDBAEF1C5E382` FOREIGN KEY (`store_weixin_logo_id`) REFERENCES `ezs_accessory` (`id`),
   CONSTRAINT `FK752FDBAEFF8E1046` FOREIGN KEY (`websiteLogo_id`) REFERENCES `ezs_accessory` (`id`),
@@ -5125,12 +5277,14 @@ CREATE TABLE `ezs_syslog` (
   KEY `FK204A0258F734E208` (`user_id`),
   CONSTRAINT `FK204A02586758EBDA` FOREIGN KEY (`user_id`) REFERENCES `ezs_user` (`id`),
   CONSTRAINT `FK204A0258F734E208` FOREIGN KEY (`user_id`) REFERENCES `ezs_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ezs_syslog
 -- ----------------------------
 INSERT INTO `ezs_syslog` VALUES ('1', '2018-03-27 14:16:03', '', 'null于2018-03-27 14:16:03退出系统', '0:0:0:0:0:0:0:1', '用户退出', '0', '1');
+INSERT INTO `ezs_syslog` VALUES ('2', '2018-03-30 18:01:45', '', 'null于2018-03-30 18:01:45退出系统', '0:0:0:0:0:0:0:1', '用户退出', '0', '1');
+INSERT INTO `ezs_syslog` VALUES ('3', '2018-03-30 18:13:14', '', 'null于2018-03-30 18:13:14退出系统', '0:0:0:0:0:0:0:1', '用户退出', '0', '1');
 
 -- ----------------------------
 -- Table structure for `ezs_user`
@@ -5166,12 +5320,13 @@ CREATE TABLE `ezs_user` (
   CONSTRAINT `FKFB3DE50CC85E1868` FOREIGN KEY (`userInfo_id`) REFERENCES `ezs_userinfo` (`id`),
   CONSTRAINT `FKFB3DE50CEB84AE9B` FOREIGN KEY (`parent_id`) REFERENCES `ezs_user` (`id`),
   CONSTRAINT `FKFB3DE50CF9DFE81A` FOREIGN KEY (`store_id`) REFERENCES `ezs_store` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ezs_user
 -- ----------------------------
-INSERT INTO `ezs_user` VALUES ('1', null, '', '2018-03-27 14:15:58', '0:0:0:0:0:0:0:1', '9', '2018-03-28 10:33:40', '0:0:0:0:0:0:0:1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', null, 'ADMIN', null, '1', '1');
+INSERT INTO `ezs_user` VALUES ('1', '2018-03-30 12:23:32', '', '2018-03-30 18:12:26', '0:0:0:0:0:0:0:1', '26', '2018-03-30 18:12:26', '0:0:0:0:0:0:0:1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', null, 'ADMIN', null, '1', '1');
+INSERT INTO `ezs_user` VALUES ('2', '2018-03-30 12:23:34', '', '2018-03-30 12:23:38', '0:0:0:0:0:0:0:1', '4', '2018-03-30 18:13:24', '0:0:0:0:0:0:0:1', 'lhf', 'e10adc3949ba59abbe56e057f20f883e', null, 'BUYER', null, '2', '2');
 
 -- ----------------------------
 -- Table structure for `ezs_userconfig`
@@ -5224,12 +5379,13 @@ CREATE TABLE `ezs_userinfo` (
   CONSTRAINT `FKB09DE3BA82D8B1E8` FOREIGN KEY (`depart_id`) REFERENCES `ezs_depart` (`id`),
   CONSTRAINT `FKB09DE3BAC9F6A778` FOREIGN KEY (`sex_id`) REFERENCES `ezs_dict` (`id`),
   CONSTRAINT `FKB09DE3BAFDE8B648` FOREIGN KEY (`position_id`) REFERENCES `ezs_position` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ezs_userinfo
 -- ----------------------------
-INSERT INTO `ezs_userinfo` VALUES ('1', null, '', null, '', null, null, '0', null, null, null);
+INSERT INTO `ezs_userinfo` VALUES ('1', '2018-03-30 12:25:08', '', null, '', null, null, '0', null, null, null);
+INSERT INTO `ezs_userinfo` VALUES ('2', '2018-03-30 12:25:10', '', '479181871@qq.com', '', null, '15292926687', '0', null, null, null);
 
 -- ----------------------------
 -- Table structure for `ezs_user_role`
@@ -5251,4 +5407,29 @@ CREATE TABLE `ezs_user_role` (
 
 -- ----------------------------
 -- Records of ezs_user_role
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `wemall_integrallog`
+-- ----------------------------
+DROP TABLE IF EXISTS `wemall_integrallog`;
+CREATE TABLE `wemall_integrallog` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `addTime` datetime DEFAULT NULL,
+  `deleteStatus` bit(1) NOT NULL,
+  `content` longtext,
+  `integral` int(11) NOT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `integral_user_id` bigint(20) DEFAULT NULL,
+  `operate_user_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `FK52C0773B9A14F275` (`integral_user_id`),
+  KEY `FK52C0773B6CABCE4D` (`operate_user_id`),
+  CONSTRAINT `FK52C0773B6CABCE4D` FOREIGN KEY (`operate_user_id`) REFERENCES `ezs_user` (`id`),
+  CONSTRAINT `FK52C0773B9A14F275` FOREIGN KEY (`integral_user_id`) REFERENCES `ezs_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wemall_integrallog
 -- ----------------------------

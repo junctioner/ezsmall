@@ -31,6 +31,9 @@ public class Customer extends IdEntity {
 	// 来源
 	@ManyToOne
 	private Source source;
+	//沟通类型
+	@ManyToOne
+	private Communicate communicate;
 	// 卖家、买家、都是
 	private String role;
 	// 主营行业

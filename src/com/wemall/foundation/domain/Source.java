@@ -1,6 +1,7 @@
 package com.wemall.foundation.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -12,7 +13,11 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 
 import com.wemall.core.domain.IdEntity;
-
+/**
+ * 客户来源
+ * @author 刘恒福
+ *
+ */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_source")
@@ -25,6 +30,9 @@ public class Source extends IdEntity {
 	private String msg;
 	//是否启用
 	private boolean enable;
+	//创建者
+	@ManyToOne
+	private User user;
 	public String getName() {
 		return name;
 	}
@@ -48,6 +56,12 @@ public class Source extends IdEntity {
 	}
 	public void setEnable(boolean enable) {
 		this.enable = enable;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }

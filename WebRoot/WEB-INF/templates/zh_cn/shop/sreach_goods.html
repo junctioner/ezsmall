@@ -64,11 +64,7 @@
 					$(this).parent().parent().find(".lx-con-value p i").remove();
 				}else{
 					$(this).addClass("selected");
-<<<<<<< HEAD
-					$(this).parent().parent().addClass("multiSel").append('<div class="lx-btn-op"><span>确定</span><span class="cancel">取消</span><div class="lx-clear"></div></div>');
-=======
 					$(this).parent().parent().addClass("multiSel").append('<div class="lx-btn-op"><span onclick="sreach();">确定</span><span class="cancel">取消</span><div class="lx-clear"></div></div>');
->>>>>>> refs/remotes/gitee/master
 					$(this).parent().parent().find(".lx-btn-op").slideDown(200);
 					$(".lx-btn-op .cancel").click(function(){
 						$(this).parent().parent().find(".lx-con-op .mitbtn").click();
@@ -77,11 +73,7 @@
 					$(this).parent().parent().find(".lx-con-value p").removeClass("selected");
 				}
 			});
-<<<<<<< HEAD
-			$(".lx-con-value p").click(function(){
-=======
 			$(".lx-con-value").on("click","p",function(){
->>>>>>> refs/remotes/gitee/master
 				if($(this).parent().parent().find(".lx-con-op .mitbtn").hasClass("selected")){
 					if($(this).find(".fa").hasClass("fa-check-square-o")){
 						$(this).find(".fa").removeClass("fa-check-square-o").addClass("fa-square-o");
@@ -91,17 +83,6 @@
 				}else{
 					$(this).siblings(".selected").removeClass("selected");
 					$(this).addClass("selected");
-<<<<<<< HEAD
-				}
-				
-			});
-			$(".yzs-market-right-top>div").click(function(){
-				 $(this).addClass("selected").siblings().removeClass("selected");
-			});
-			
-		});
-		
-=======
 					sreach();
 				}
 			});
@@ -109,9 +90,6 @@
 			$(".yzs-market-right-top>div").click(function(){
 				if($(this).attr("id")!="btn_sure"){
 					$(this).addClass("selected").siblings().removeClass("selected");
-				}
-				if($(this).attr("id")=="item_hubnum"||$(this).attr("id")=="item_default"){
-					sreach();
 				}
 			});
 			//更多
@@ -130,7 +108,7 @@
 					jQuery(".area").html(data);
 				},"text");
 			});
-			$(".sreachtype input[name^='stock']").keyup(function(){
+			$(".sreachtype input").keyup(function(){
 				this.value = this.value.replace(/[^\d]/g, '');
 			});
 		});
@@ -150,7 +128,7 @@
 		    	 form.push($(item).find("span").attr("data-id"));
 		     });
 		     sreachtype = jQuery(".sreachtype .selected").attr("data-type");
-			 if(sreachtype=="price"){
+			 if(sreachtype=="stock"){
 				 var stockMix = jQuery("input[name='stock-mix']").val();
 				 var stockMax = jQuery("input[name='stock-max']").val();
 				 jQuery("input[name='stock-mix']").css("border","1px solid #cccccc");
@@ -164,9 +142,8 @@
 					 return;
 				 }
 			 }
-			 window.location.href ="$!webPath/sreach.htm?goodclass="+goodclasss.join(",")+"&area="+area.join(",")+"&color="+color.join(",")+"&form="+form.join(",")+"&sreachtype="+sreachtype+"&mixPrice="+jQuery("input[name='stock-mix']").val()+"&maxPrice="+jQuery("input[name='stock-max']").val()+"&keyword="+jQuery("input[name='keyword']").val();
+			 window.location.href ="$!webPath/sreach.htm?goodclass="+goodclasss.join(",")+"&area="+area.join(",")+"&color="+color.join(",")+"&form="+form.join(",")+"&sreachtype="+sreachtype+"&stockMix="+jQuery("input[name='stock-mix']").val()+"&max="+jQuery("input[name='stock-max']").val();
  		}
->>>>>>> refs/remotes/gitee/master
     </script>
 </head>
 <body>
@@ -175,14 +152,11 @@
     $!httpInclude.include("/nav.htm")
 	<div class="yzs-location-panner" style="background:#fff;margin-top:135px;">
 		<div class="yzs-location">首页 &gt;  自营商城
-<<<<<<< HEAD
 			<ul class="seleced-condition">
 				<li>品类：<span>再生通用塑料、再生特种塑料、再生工程塑料</span>&nbsp;<i class="fa fa-trash"></i></li>
 				<li>地区：<span>湖北省、广西壮族自治区、广西壮族自治区</span>&nbsp;<i class="fa fa-trash"></i></li>
 				<li>颜色：<span>湖北省、广西壮族自治区、广西壮族自治区</span>&nbsp;<i class="fa fa-trash"></i></li>
 			</ul>
-=======
->>>>>>> refs/remotes/gitee/master
 		</div>
 	</div>
 	<div class="yzs-container-pannel">
@@ -191,15 +165,9 @@
 			<div calss="lx-condition">
 				<div class="lx-con-row">
 					<div class="lx-con-name">品类：</div>
-<<<<<<< HEAD
-					<div class="lx-con-value">
-						#foreach($gc in $!gcs)
-							<p><span>$!gc.name</span></p>
-=======
 					<div class="lx-con-value goodclass">
 						#foreach($gc in $!gcs)
 							<p><span data-id="$!gc.id">$!gc.name</span></p>
->>>>>>> refs/remotes/gitee/master
 						#end
 						<div class="lx-clear"></div>
 					</div>
@@ -208,17 +176,10 @@
 				</div>
 				<div class="lx-con-row">
 					<div class="lx-con-name">地区：</div>
-<<<<<<< HEAD
-					<div class="lx-con-value">
-						#set($areas=$!areaViewTools.getAreaParentIsNull(24))
-						#foreach($ar in $!areas)
-						   <p><span>$!ar.areaName</span></p>
-=======
 					<div class="lx-con-value area">
 						#set($areas=$!areaViewTools.getAreaParentIsNull(24))
 						#foreach($ar in $!areas)
 						   <p><span data-id="$!ar.id">$!ar.areaName</span></p>
->>>>>>> refs/remotes/gitee/master
 						#end
 						<div class="lx-clear"></div>
 					</div>
@@ -227,15 +188,9 @@
 				</div>
 				<div class="lx-con-row more-condition">
 					<div class="lx-con-name">颜色：</div>
-<<<<<<< HEAD
-					<div class="lx-con-value">
-					   #foreach($cs in $!colors)
-						<p><span>$!cs.name</span></p>
-=======
 					<div class="lx-con-value color">
 					   #foreach($cs in $!colors)
 						<p><span data-id="$!cs.id">$!cs.name</span></p>
->>>>>>> refs/remotes/gitee/master
 					   #end
 						<div class="lx-clear"></div>
 					</div>
@@ -244,15 +199,9 @@
 				</div>
 				<div class="lx-con-row more-condition">
 					<div class="lx-con-name">形态：</div>
-<<<<<<< HEAD
-					<div class="lx-con-value">
-					  #foreach($fs in $!forms)
-						<p><span>$fs.name</span></p>
-=======
 					<div class="lx-con-value form">
 					  #foreach($fs in $!forms)
 						<p><span data-id="$!fs.id">$fs.name</span></p>
->>>>>>> refs/remotes/gitee/master
 					  #end
 						<div class="lx-clear"></div>
 					</div>
@@ -290,27 +239,15 @@
 					</div>
 				</div>
 				<div class="yzs-market-right">
-<<<<<<< HEAD
-					<div class="yzs-market-right-top">
-						<div id="item_default" class="selected">默认</div>
-						<div id="item_price">价格</div>
-						<div id="item_hubnum">库存</div>
-						<input type="text" placeholder="¥最低单价"/>
-						<div style="width:20px;text-align:right;"> - </div>
-						<input type="text" placeholder="¥最高单价"/>
-						<input type="text" placeholder="输入货品关键字"/>
-						<div id="btn_sure">确定</div>
-=======
 					<div class="yzs-market-right-top sreachtype">
-						<div id="item_default" class="selected" data-type="default">默认</div>
+						<div id="item_default" class="selected" data-type="default" onclick="sreach();">默认</div>
+						<div id="item_price" data-type="price" onclick="sreach();">价格</div>
 						<div id="item_hubnum" data-type="stock">库存</div>
-						<div id="item_price" data-type="price" >价格</div>
 						<input type="text" name="stock-mix" placeholder="¥最低单价"/>
 						<div style="width:20px;text-align:right;"> - </div>
 						<input type="text" name="stock-max" placeholder="¥最高单价"/>
 						<input type="text" name="keyword" placeholder="输入货品关键字"/>
 						<div id="btn_sure" onclick="sreach();">确定</div>
->>>>>>> refs/remotes/gitee/master
 					</div>
 					<div class="yzs-market-right-con">
 						<ul>

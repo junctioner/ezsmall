@@ -1,4 +1,4 @@
-# ezsmall
+# ezsmall_v2
 
 * 技术框架
     * springMVC + spring(2.5.6) + hibernate

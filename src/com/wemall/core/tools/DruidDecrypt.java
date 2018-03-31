@@ -14,7 +14,6 @@ public class DruidDecrypt {
 			System.out.println(configTools.encrypt("123456"));
 		//	System.out.println(configTools.encrypt("r2vv5fcp"));
 		} catch (Exception e){
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
