@@ -9,8 +9,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
+
 /**
  * 鍟嗗搧绫诲瀷
+ * 
  * @author lianfu
  *
  */
@@ -18,34 +20,50 @@ import com.wemall.core.domain.IdEntity;
 @Entity
 @Table(name = "ezs_goods_class")
 public class GoodClass extends IdEntity {
-	private String name;// 鍟嗗搧鍒嗙被鍚岖О
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Accessory photo;// 鍟嗗搧鍒嗙被锲剧墖
-	@ManyToOne(fetch = FetchType.LAZY)
-	private GoodClass parent;// 鍟嗗搧绫诲瀷鐖剁被
+    private String name;// 鍟嗗搧鍒嗙被鍚岖О
 
-	public String getName() {
-		return name;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Accessory photo;// 鍟嗗搧鍒嗙被锲剧墖
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    private GoodClass parent;// 鍟嗗搧绫诲瀷鐖剁被
 
-	public Accessory getPhoto() {
-		return photo;
-	}
+    public GoodClass() {
 
-	public void setPhoto(Accessory photo) {
-		this.photo = photo;
-	}
+        super();
+        // Auto-generated constructor stub
 
-	public GoodClass getParent() {
-		return parent;
-	}
+    }
 
-	public void setParent(GoodClass parent) {
-		this.parent = parent;
-	}
+    public GoodClass(String name, Accessory photo, GoodClass parent) {
+        super();
+        this.name = name;
+        this.photo = photo;
+        this.parent = parent;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Accessory getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Accessory photo) {
+        this.photo = photo;
+    }
+
+    public GoodClass getParent() {
+        return parent;
+    }
+
+    public void setParent(GoodClass parent) {
+        this.parent = parent;
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.wemall.foundation.domain;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +29,7 @@ import com.wemall.core.domain.IdEntity;
 public class Goods extends IdEntity {
 	private String good_no;// 商品编号
 	private String name;// 商品名称
-	private double price;// 商品单价
+	private BigDecimal price;// 商品单价
 	private int validity;// 商品有效期
 	private double inventory;// 商品库存量
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -99,11 +100,11 @@ public class Goods extends IdEntity {
 		this.name = name;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

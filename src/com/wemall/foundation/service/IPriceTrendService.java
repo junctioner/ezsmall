@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.wemall.core.query.support.IPageList;
+
 import com.wemall.core.query.support.IQueryObject;
-import com.wemall.foundation.domain.Dict;
+
 import com.wemall.foundation.domain.PriceTrend;
 
 public interface IPriceTrendService {
