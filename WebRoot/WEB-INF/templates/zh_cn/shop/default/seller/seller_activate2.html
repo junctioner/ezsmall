@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>易再生-中国再生资源交易平台</title>
+<link rel="stylesheet" href="$!webPath/resources/style/shop/default/css/seller_activate2.css" />
+</head>
+<body>
+	$!httpInclude.include("/seller/seller_link.htm")
+	$!httpInclude.include("/seller/seller_top.htm")
+	<div class="yzs-location-panner" style="background:#EEEEEE;">
+		<div class="yzs-location">当前位置：买家中心 &gt;供应商激活&gt; 完善供应商信息</div>
+	</div>
+	$!httpInclude.include("/seller/seller_info_left.htm")
+	<div class="yzs-g-con-right">
+	<h2>供应商资质信息完善</h2>		
+			<form method="post" action="#">
+				<h4>基本信息</h4>
+					<table>
+					<tr>
+						<td>企业名称</td>
+						<td>北京新易资源科技有限公司</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>年营业额</td>
+						<td><input type="text"/>&nbsp;万元</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>场地面积</td>
+						<td><input type="text"/>&nbsp;M2</td>
+						<td>是否租用&nbsp;&nbsp;
+							<input type="checkbox" name="rent" value="是"/>是&nbsp;&nbsp;
+							<input type="checkbox" name="rent" value="否"/>否
+						</td>
+					</tr>
+					<tr>
+						<td>设备数量</td>
+						<td><input type="text"/>&nbsp;台</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>工人数量</td>
+						<td><input type="text"/>&nbsp;人</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>总资产</td>
+						<td><input type="text"/>&nbsp;万元</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>实际控制人从业年限</td>
+						<td><input type="text"/>&nbsp;年</td>
+						<td></td>
+					</tr>
+					</table>
+					<h4>结算账号信息</h4>
+					<table>
+						<tr>
+							<td>银行开户号</td>
+							<td><input type="text" placeholder="请输入您的银行的开户名称"/></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>银行账号</td>
+							<td><input type="text" placeholder="请输入您的银行账号"/></td>
+						</tr>
+						<tr>
+							<td>开户银行支行名称</td>
+							<td><input type="text" placeholder="请输入您的银行开户名称"/></td>
+						</tr>
+						<tr>
+							<td>支行联行号</td>
+							<td><input type="text" placeholder="请输入开户行的支行联行号"/></td>
+						</tr>
+						<tr>
+							<td>开户银行所在地</td>
+							<td><select name="">
+								<option value="北京" selected="selected">北京</option>
+								<option value="上海">上海</option>
+								<option value="广州">广州</option>
+							</select></td>
+						</tr>										
+					</table>
+					<h4>发货地址信息</h4>
+					<table>
+						<tr>
+							<td>发货联系人姓名</td>
+							<td><input type="text" placeholder="联系人姓名"/></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>发货联系人电话</td>
+							<td><input type="text" placeholder="联系人电话"/></td>
+						</tr>
+						<tr>
+							<td>发货地址</td>
+							<td>
+								<select name="">
+									<option value="省/市/县" selected="selected">省/市/县</option>
+									<option value="北京">北京</option>
+									<option value="上海">上海</option>
+									<option value="广州">广州</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+					<input type="button" class="save" value="保存" />
+					<input type="submit" class="submit" value="提交" />
+			</form>
+			<h3>温馨提示：资料信息一经审核，不能修改，请您填写准确资料。</h3>
+		</div>	
+</body>
+</html>
