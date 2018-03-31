@@ -32,5 +32,8 @@
 	<p>分类目录：<input type="text" style="width: 100px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="mainClass">目录检测</a></p>
 	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级别：<input type="text" style="width: 50px;">0 - 不在首页显示 1 - 正常显示 2 - 首页和上级分类并列显示</p>
 	<input type="submit" value="确定" style="margin-left: 50px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="重置">
+	#foreach($GoodClass in $list)
+		<span>$!GoodClass.name</span>
+	#end
 </body>
 </html>

@@ -814,7 +814,6 @@ left:-50%; z-index:0;}
 }
 .allshop_table {
 	width:100%;
-	margin-left:20px;
 	border-bottom:2px solid #DDDDDD;
 	margin-top:20px;
 	border-collapse:collapse;
@@ -822,10 +821,13 @@ left:-50%; z-index:0;}
 .allshop_table td {
 	border-bottom:1px solid #EEEEEE;
 	padding-left:10px;
+	text-align: center;
 }
 .allshop_table tr {
 	height:60px;
 }
+
+
 .blue {
 	color:#06F;
 }
@@ -3745,3 +3747,11 @@ background:#FFC7AC;
 .weixin_nav_dl dd a { color:#FFF; text-align:center; font-weight:bold;}
 .weixin_add_nav img { margin:0px 10px;}
 .weixin_add_sj { width:11px; height:4px; position:absolute; bottom:41px; left:35px; background:url(images/wx_add_sj.png) no-repeat;}
+
+/*涂敏*/
+.TMOrderOperation {
+	display: inline-block;
+	width: 50%;
+	float: left;
+	padding: 3px 0;
+}
