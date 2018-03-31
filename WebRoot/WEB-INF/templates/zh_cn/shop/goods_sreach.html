@@ -20,6 +20,19 @@
     <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
     <script src="$!webPath/resources/layui/layui.all.js"></script>
     <script>
+         var goodclasss =[];var area=[];var color=[];var form=[];var sreachtype ="default";
+	   	 #foreach($g in $!goodsclassid)
+		 goodclasss.push($!g);
+		 #end
+		 #foreach($r in $!regionid)
+		    area.push($!r);
+		 #end
+		 #foreach($c in $!colorid)
+		   color.push($!c);
+		 #end
+		 #foreach($f in $!formid)
+		    form.push($!f);
+		 #end
 		$(function(){
 			$(".multiSelBtn").hover(function(){
 				$(this).addClass("hover");
@@ -114,21 +127,66 @@
 			$(".sreachtype input[name^='stock']").keyup(function(){
 				this.value = this.value.replace(/[^\d]/g, '');
 			});
+			
+			$(".seleced-condition").on("click","li",function(){
+				$(this).remove();
+				if($(this).hasClass("areas")){
+					area = [];
+				}if($(this).hasClass("color")){
+					color =[];
+				}if($(this).hasClass("goodsclass")){
+					goodclasss = [];
+				}if($(this).hasClass("form")){
+					form = [];
+				}
+				sreach();
+			})
 		});
 		//搜索方法
 		function sreach(){
-			var goodclasss =[];var area=[];var color=[];var form=[];var sreachtype ="default";
 		     jQuery(".goodclass .selected").each(function(index,item){
-		    	 goodclasss.push($(item).find("span").attr("data-id"))
+		    	 if(index==0){
+		    		 goodclasss = [];
+		    	 }
+		    	 goodclasss.push($(item).find("span").attr("data-id"));
+		    	 goodclasss = unique(goodclasss);
 		     });
 		     jQuery(".area .selected").each(function(index,item){
+		    	 if(index==0){
+		    		 area = [];
+		    	 }
 		    	 area.push($(item).find("span").attr("data-id"));
+		    	 area=unique(area);
 		     });
 		     jQuery(".color .selected").each(function(index,item){
+		    	 if(index==0){
+		    		 color = [];
+		    	 }
 		    	 color.push($(item).find("span").attr("data-id"));
+		    	 color=unique(color);
 		     });
 		     jQuery(".form .selected").each(function(index,item){
+		    	 if(index==0){
+		    		 form = [];
+		    	 }
 		    	 form.push($(item).find("span").attr("data-id"));
+		    	 form = unique(form);
+		     });
+		     jQuery(".goodclass>p").find(".fa-check-square-o").each(function(index,item){
+		    	 goodclasss.push($(item).siblings("span").attr("data-id"));
+		    	 goodclasss=unique(goodclasss);
+		     });
+		     jQuery(".area>p").find(".fa-check-square-o").each(function(index,item){
+		    	 area.push($(item).siblings("span").attr("data-id"));
+		    	 area=unique(area);
+		     });
+		     jQuery(".color>p").find(".fa-check-square-o").each(function(index,item){
+		    	 color.push($(item).siblings("span").attr("data-id"));
+		    	 color=unique(color);
+		     });
+		     jQuery(".form>p").find(".fa-check-square-o").each(function(index,item){
+		    	 form.push($(item).siblings("span").attr("data-id"));
+		    	 form=unique(color);
 		     });
 		     sreachtype = jQuery(".sreachtype .selected").attr("data-type");
 			 if(sreachtype=="price"){
@@ -145,8 +203,18 @@
 					 return;
 				 }
 			 }
-			 window.location.href ="$!webPath/sreach.htm?goodclass="+goodclasss.join(",")+"&area="+area.join(",")+"&color="+color.join(",")+"&form="+form.join(",")+"&sreachtype="+sreachtype+"&mixPrice="+jQuery("input[name='stock-mix']").val()+"&maxPrice="+jQuery("input[name='stock-max']").val()+"&keyword="+jQuery("input[name='keyword']").val();
+			 window.location.href ="$!webPath/sreach.htm?goodclass="+goodclasss.join(",")+"&area="+area.join(",")+"&color="+color.join(",")+"&form="+form.join(",")+"&sreachtype="+sreachtype+"&mixPrice="+jQuery("input[name='stock-mix']").val()+"&maxPrice="+jQuery("input[name='stock-max']").val()+"&keyword="+jQuery("input[name='keywords']").val();
  		}
+		function unique(arr) {
+		    var result = [], hash = {};
+		    for (var i = 0, elem; (elem = arr[i]) != null; i++) {
+		        if (!hash[elem]) {
+		            result.push(elem);
+		            hash[elem] = true;
+		        }
+		    }
+		    return result;
+		}
     </script>
 </head>
 <body>
@@ -155,6 +223,40 @@
     $!httpInclude.include("/nav.htm")
 	<div class="yzs-location-panner" style="background:#fff;margin-top:135px;">
 		<div class="yzs-location">首页 &gt;  自营商城
+			<ul class="seleced-condition">
+				#if($!goodsclassid)<li class="goodsclass">品类：
+				 <span>
+				   #foreach($g in $!gcs)
+				       #foreach($gid in $!goodsclassid)
+				      	 #if($g.id == $!gid) $!g.name、 #end
+				        #end
+				    #end
+				 </span>&nbsp;<i class="fa fa-trash"></i></li>#end
+				 #if($!regionid)<li class="areas">地区：
+				 <span>
+				   #foreach($g in $!areas)
+				       #foreach($aid in $!regionid)
+				           #if($g.id == $!aid) $!g.areaName、 #end
+				        #end
+				    #end
+				 </span>&nbsp;<i class="fa fa-trash"></i></li>#end
+				 #if($!colorid)<li class="color">颜色：
+				 <span>
+				   #foreach($g in $!colors)
+				       #foreach($cid in $!colorid)
+				          #if($g.id == $!cid) $!g.name、 #end 
+				        #end
+				    #end
+				 </span>&nbsp;<i class="fa fa-trash"></i></li>#end
+				 #if($!formid)<li class="form">形态：
+				 <span>
+				   #foreach($g in $!forms)
+				       #foreach($cid in $!formid)
+				          #if($g.id == $!cid) $!g.name、 #end 
+				        #end
+				    #end
+				 </span>&nbsp;<i class="fa fa-trash"></i></li>#end
+			</ul>
 		</div>
 	</div>
 	<div class="yzs-container-pannel">
@@ -238,13 +340,13 @@
 				</div>
 				<div class="yzs-market-right">
 					<div class="yzs-market-right-top sreachtype">
-						<div id="item_default" class="selected" data-type="default">默认</div>
-						<div id="item_hubnum" data-type="stock">库存</div>
-						<div id="item_price" data-type="price" >价格</div>
-						<input type="text" name="stock-mix" placeholder="¥最低单价"/>
+						<div id="item_default" #if($!sreachtype=='default')class="selected"#end data-type="default">默认</div>
+						<div id="item_hubnum" #if($!sreachtype=='stock')class="selected"#end data-type="stock">库存</div>
+						<div id="item_price" #if($!sreachtype=='price')class="selected"#end data-type="price" >价格</div>
+						<input type="text" name="stock-mix" placeholder="¥最低单价" value="$!mixPrice"/>
 						<div style="width:20px;text-align:right;"> - </div>
-						<input type="text" name="stock-max" placeholder="¥最高单价"/>
-						<input type="text" name="keyword" placeholder="输入货品关键字"/>
+						<input type="text" name="stock-max" placeholder="¥最高单价" value="$!maxPrice"/>
+						<input type="text" name="keywords" placeholder="输入货品关键字" value="$!keyword"/>
 						<div id="btn_sure" onclick="sreach();">确定</div>
 					</div>
 					<div class="yzs-market-right-con">
