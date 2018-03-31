@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="js/yzs.js?v=1"></script>
+    <script>
+		$(function(){
+			$(".yzs-g-head-menu li").click(function(){
+				$(".yzs-g-head-menu li").removeClass("yzs-g-head-menu-sel");
+				$(this).addClass("yzs-g-head-menu-sel");
+			});
+			
+			$(".yzs-g-con-left-menu li").click(function(){
+				$(".yzs-g-con-left-menu li").removeClass("yzs-g-con-left-menu-sel");
+				$(this).addClass("yzs-g-con-left-menu-sel");
+			});
+			
+			
+		});
+    </script>
+</head>
+
+<body style="background:#F7F7F7;">
+<div class="yzs-g-container">
+		<div class="yzs-g-con-left">
+			<div class="yzs-g-con-left-menu">
+				<div class="yzs-g-con-left-top">供应商中心</div>
+				<ul>
+					<li class="yzs-g-con-left-menu-sel">部门组管理</li>
+					<li>操作日志</li>
+					
+				</ul>
+			</div>
+		</div>
+		
+	<script type="text/javascript">
+		var um = UM.getEditor('myEditor'); //实例化编辑器
+    </script>
+</body>
+</html>
