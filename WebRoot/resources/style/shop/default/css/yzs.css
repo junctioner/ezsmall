@@ -557,7 +557,7 @@ li{list-style-type:none;}
 .yzs-suggest-box table tr td:first-child{width:85px;min-height:50px;text-align:center;}
 .yzs-suggest-box table tr td:last-child{width:615px;min-height:50px;}
 .yzs-suggest-box table tr td input{width:340px;height:30px;padding:0px 5px;border:1px solid #cccccc;font-size:14px;}
-.yzs-suggest-box table tr td textarea{width:600px;height:130px;padding:5px;border:1px solid #cccccc;resize:none;font-size:14px;font-family:'Î¢ÈíÑÅºÚ';}
+.yzs-suggest-box table tr td textarea{width:600px;height:130px;padding:5px;border:1px solid #cccccc;resize:none;font-size:14px;font-family:'Î¢ï¿½ï¿½ï¿½Åºï¿½';}
 .yzs-suggest-btn{width:140px;height:40px;line-height:40px;text-align:center;margin-top:30px;background:#00897c;color:#fff;font-size:14px;cursor:pointer;}
 .yzs-suggest-btn:hover{background:#119a8b;}
 
@@ -642,7 +642,7 @@ li{list-style-type:none;}
 .yzs-quotes-box2-list ul li div{width:184px;height:48px;line-height:48px;text-align:center;border:1px solid #ccc;cursor:pointer;}
 .yzs-quotes-box2-list ul li div:first-child{float:left;margin-right:10px;}
 .yzs-quotes-box2-list ul li div:last-child{float:right;}
-/*»ÃµÆÆ¬*/
+/*ï¿½Ãµï¿½Æ¬*/
 #yzs_report_focus{width:380px;height:436px;overflow:hidden;position:relative;margin:0px auto 20px auto;}
 #yzs_report_focus ul{height:436px;position:absolute;}
 #yzs_report_focus ul li{float:left;width:380px;height:436px;overflow:hidden;position:relative;background:#000;}
