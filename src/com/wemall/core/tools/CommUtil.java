@@ -61,10 +61,10 @@ import com.wemall.lucene.LuceneResult;
  */
 public class CommUtil {
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    public static final String self_goods ="SELF_GOODS";//自營商品
-    public static final String self_sample_goods="SELF_SAMPLE_GOODS";//自營樣品商品
-    public static final String match_sample_goods ="MATCH_SAMPLE_GOODS";//供應商樣品商品
-    public static final String match_goods ="MATCH_GOODS";//供應商商品
+	public static final String self_goods = "SELF_GOODS";// 自營商品
+	public static final String self_sample_goods = "SELF_SAMPLE_GOODS";// 自營樣品商品
+	public static final String match_sample_goods = "MATCH_SAMPLE_GOODS";// 供應商樣品商品
+	public static final String match_goods = "MATCH_GOODS";// 供應商商品
 	private static final Whitelist user_content_filter = Whitelist.relaxed();
 	static int totalFolder;
 	static int totalFile;
@@ -780,7 +780,6 @@ public class CommUtil {
 		}
 	}
 
-
 	public static void saveIPageList2ModelAndView(String url, String staticURL, String params, IPageList pList,
 			ModelAndView mv) {
 		if (pList != null) {
@@ -1374,5 +1373,17 @@ public class CommUtil {
 			}
 		}
 		return map;
+	}
+
+	public static List<Long> getByids(String ids) {
+		String[] idArray = splitByChar(ids, ",");
+		List<Long> idList = null;
+		if(idArray!=null&&idArray.length>0){
+			idList = new ArrayList<Long>();
+			for(String id:idArray){
+				idList.add(CommUtil.null2Long(id));
+			}
+		}
+        return idList;
 	}
 }

@@ -5,13 +5,17 @@ import javax.persistence.FetchType;
 
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import com.wemall.core.domain.IdEntity;
 
 /**
  * @author Administrator
  * wangxioa
  */
-
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_comment")
 public class Comment extends IdEntity {

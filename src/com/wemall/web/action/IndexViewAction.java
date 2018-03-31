@@ -95,16 +95,18 @@ public class IndexViewAction {
 		// 默认商品
 		params.clear();
 		params.put("deleteStatus", Boolean.valueOf(false));
+		params.put("status", 2);
 		List<Goods> goods = goodsService.query(
-				"select obj from Goods obj where obj.deleteStatus =:deleteStatus order by obj.addTime asc", params, 0,
+				"select obj from Goods obj where obj.deleteStatus =:deleteStatus and obj.status=:status order by obj.addTime asc", params, 0,
 				24);
 		mv.addObject("goods", goods);
 		// 优质推荐
 		params.clear();
 		params.put("deleteStatus", Boolean.valueOf(false));
 		params.put("recommend", Boolean.valueOf(true));
+		params.put("status", 2);
 		List<Goods> goods_reommend_list = goodsService.query(
-				"select obj from Goods obj where obj.deleteStatus =:deleteStatus and obj.recommend=:recommend order by obj.addTime asc",
+				"select obj from Goods obj where obj.deleteStatus =:deleteStatus and obj.recommend=:recommend and obj.status=:status order by obj.addTime asc",
 				params, 0, 4);
 		mv.addObject("goods_reommend_list", goods_reommend_list);
 		// 猜你喜欢商品
