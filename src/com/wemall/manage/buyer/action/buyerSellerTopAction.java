@@ -21,12 +21,12 @@ public class buyerSellerTopAction {
 	private IUserConfigService userConfigService;
 	
 	
-	@RequestMapping("/seller/index.htm")
-	public ModelAndView new_buy(String id, HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new JModelAndView("/default/buyer/smaple_order_manage.html", this.configService.getSysConfig(),
-				this.userConfigService.getUserConfig(), 1, request, response);
-		return mv;
-	}
+//	@RequestMapping("/seller/index.htm")
+//	public ModelAndView new_buy(String id, HttpServletRequest request, HttpServletResponse response) {
+//		ModelAndView mv = new JModelAndView("/default/seller/seller_activate2.html", this.configService.getSysConfig(),
+//				this.userConfigService.getUserConfig(), 1, request, response);
+//		return mv;
+//	}
 	
 	
 	

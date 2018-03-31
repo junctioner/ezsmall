@@ -20,7 +20,12 @@ public class SellerTopAction {
 	@Autowired
 	private IUserConfigService userConfigService;
 	
-	
+//	@RequestMapping("/seller/index.htm")
+//	public ModelAndView seller_activate2(String id, HttpServletRequest request, HttpServletResponse response) {
+//		ModelAndView mv = new JModelAndView("/default/seller/seller_activate2.html", this.configService.getSysConfig(),
+//				this.userConfigService.getUserConfig(), 1, request, response);
+//		return mv;
+//	}
 	
 	@RequestMapping("/seller/seller_top.htm")
 	public ModelAndView buyer_top(String id, HttpServletRequest request, HttpServletResponse response) {
@@ -40,4 +45,7 @@ public class SellerTopAction {
 				this.userConfigService.getUserConfig(), 1, request, response);
 		return mv;
 	}
+
+	
+	
 }
