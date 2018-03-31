@@ -20,25 +20,33 @@ public class SellerTopAction {
 	@Autowired
 	private IUserConfigService userConfigService;
 	
-//	@RequestMapping("/seller/index.htm")
-//	public ModelAndView seller_activate2(String id, HttpServletRequest request, HttpServletResponse response) {
-//		ModelAndView mv = new JModelAndView("/default/seller/seller_activate2.html", this.configService.getSysConfig(),
-//				this.userConfigService.getUserConfig(), 1, request, response);
-//		return mv;
-//	}
-	
 	@RequestMapping("/seller/seller_top.htm")
 	public ModelAndView buyer_top(String id, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new JModelAndView("/default/seller/seller_top.html", this.configService.getSysConfig(),
 				this.userConfigService.getUserConfig(), 1, request, response);
 		return mv;
 	}
+	
 	@RequestMapping("/seller/seller_info_left.htm")
 	public ModelAndView buyer_info_left(String id, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new JModelAndView("/default/seller/seller_info_left.html", this.configService.getSysConfig(),
 				this.userConfigService.getUserConfig(), 1, request, response);
 		return mv;
 	}
+	@RequestMapping("/seller/seller_login_left.htm")
+	public ModelAndView seller_login_left(String id, HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new JModelAndView("/default/seller/seller_login_left.html", this.configService.getSysConfig(),
+				this.userConfigService.getUserConfig(), 1, request, response);
+		return mv;
+	}
+	
+	@RequestMapping("/seller/seller_id_left.htm")
+	public ModelAndView seller_id_left(String id, HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new JModelAndView("/default/seller/seller_id_left.html", this.configService.getSysConfig(),
+				this.userConfigService.getUserConfig(), 1, request, response);
+		return mv;
+	}
+	
 	@RequestMapping("/seller/seller_link.htm")
 	public ModelAndView buyer_link(String id, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new JModelAndView("/default/seller/seller_link.html", this.configService.getSysConfig(),
