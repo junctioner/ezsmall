@@ -63,6 +63,7 @@ jQuery(document).ready(function(){
         <li><a href="javascript:void(0);" class="active" id="sys_tool_menu" onclick="openURL('show','sys_tool')">工具</a></li>
         <li><a href="javascript:void(0);" class="active" id="sys_tool_cms" onclick="openURL('show','sys_cms')">CMS管理</a></li>
         <li><a href="javascript:void(0);" class="active" id="crm_t_menu" onclick="openURL('show','crm_t')">客户管理</a></li>
+        <li><a href="javascript:void(0);" class="active" id="sys_tool_goods" onclick="openURL('show','sys_goods')">售后管理</a>
       </ul>
     </div>
   </div>
@@ -242,6 +243,28 @@ jQuery(document).ready(function(){
 					<li><a href="javascript:void(0);" id="data_set" onclick="openURL('url','$!webPath/admin/data_set.htm','main_workspace','data_set')">数据源设置</a></li>
 				
 					</ul>
+		 <ul class="ulleft" style="display:none;" id="sys_goods">
+          <div class="leftone">售后管理</div>
+           <li><a href="javascript:void(0);" id="complex_goods" suffix="cms_center_" onclick="openURL('url','$!webPath/admin/ezsColumn_list.htm','main_workspace','complex_goods')"><img id="cms_center_img" src="$!webPath/resources/style/system/manage/blue/images/contract.jpg" width="13" height="13" />批量调价申请</a>
+	          <ul id="goods_center_info">
+	               <li><a href="javascript:void(0);" id="cms_rule_op" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','cms_rule_op')">批量调价</a></li>
+              </ul>
+          </li>
+           <li><a href="javascript:void(0);" id="goods_approval" suffix="cms_center_" onclick="openURL('url','$!webPath/admin/goods_approval.htm','main_workspace','goods_approval')"><img id="cms_center_img" src="$!webPath/resources/style/system/manage/blue/images/contract.jpg" width="13" height="13" />调价审批列表</a>
+	          <ul id="goods_approval_info">
+	               <li><a href="javascript:void(0);" id="goods_approval1" onclick="openURL('url','$!webPath/admin/goods_approval1.htm','main_workspace','goods_approval1')">商品调价</a></li>
+	               <li><a href="javascript:void(0);" id="goods_approval2" onclick="openURL('url','$!webPath/admin/goods_approval2.htm','main_workspace','goods_approval2')">批量商品调价</a></li>
+              </ul>
+          </li>
+           <li><a href="javascript:void(0);" id="complex_goods" suffix="cms_center_" onclick="openURL('url','$!webPath/admin/ezsColumn_list.htm','main_workspace','complex_cms')"><img id="cms_center_img" src="$!webPath/resources/style/system/manage/blue/images/contract.jpg" width="13" height="13" />商品分类管理</a>
+	          <ul id="cms_center_info">
+	               <li><a href="javascript:void(0);" id="cms_rule_op" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','cms_rule_op')">子分类列表</a></li>
+	               <li><a href="javascript:void(0);" id="cms_rule_op" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','cms_rule_op')">分类添加</a></li>
+	               <li><a href="javascript:void(0);" id="cms_rule_op" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','cms_rule_op')">分类修改</a></li>
+              </ul>
+          </li>
+          
+        </ul>
       </div>
     </div>
     <div class="content">
