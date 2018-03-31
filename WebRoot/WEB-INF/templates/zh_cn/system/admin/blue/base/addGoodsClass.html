@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.mainClass{
+		width: 50px;
+		height: 20px;
+		color:black;
+		border: 1px solid #707070;
+		background-color: #DBDBDB;
+		text-decoration: none;
+	}
+</style>
+</head>
+<body>
+	<a href="javascript:void(0)" class="mainClass">分类添加</a>&nbsp;&nbsp;
+	<a href="javascript:void(0)" class="mainClass">分类列表</a>&nbsp;&nbsp;
+	<a href="javascript:void(0)" class="mainClass">管理分类</a>&nbsp;&nbsp;
+	<div style="width: 100%;height: 20px;background-color: #F2F2F2;border: 1px solid #CCCCCC;">分类添加</div>
+	<br><br>
+	<span style="display: block;">*上级分类：<select>
+					<option>顶级分类</option>
+					<option>废塑料</option>
+					<option>废家电</option>
+					<option>废钢材</option>
+				</select>
+	</span>
+	<br>
+	<div style="float: left;">分类名称：</div><div style="width: 150px;height: 150px;border: 1px solid #C1C1C1;margin-left: 90px;"></div>
+	<p>分类目录：<input type="text" style="width: 100px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="mainClass">目录检测</a></p>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级别：<input type="text" style="width: 50px;">0 - 不在首页显示 1 - 正常显示 2 - 首页和上级分类并列显示</p>
+	<input type="submit" value="确定" style="margin-left: 50px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="重置">
+	#foreach($GoodClass in $list)
+		<span>$!GoodClass.name</span>
+	#end
+</body>
+</html>
