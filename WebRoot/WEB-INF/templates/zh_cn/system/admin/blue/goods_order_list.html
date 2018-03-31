@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+<script src="$!webPath/resources/js/tm54/toolsByTM.js"></script>
+<script>
+jQuery(document).ready(function(){
+  jQuery('#beginTime').datepicker({
+	  dateFormat:"yy-mm-dd",
+	  changeMonth: true,
+	  changeYear: true
+  });
+  jQuery('#endTime').datepicker({
+	  dateFormat:"yy-mm-dd",
+	  changeMonth: true,
+	  changeYear: true
+  });
+  jQuery('#endTime').change(function(){
+	  var endTime = new Date(jQuery(this).val());
+	  var beginTime = new Date(jQuery('#beginTime').val());
+	  if(endTime<beginTime){
+		  errorAlertByTM("时间选择错误!", "#369", "#fff");
+		  jQuery(this).val("");
+	  }
+	  
+  });
+  //
+});
+</script>
+</head>
+<body>
+
+<div class="cont">
+  <h1 class="seth1">订单管理</h1>
+  <div class="settab"><span class="tab-one"></span> <span class="tabs"> <a href="javascript:void(0);" class="this">所有订单</a></span> <span class="tab-two"></span></div>
+  <form action="$!webPath/admin/order_list.htm" method="post" id="queryForm" >
+  <div class="orders">
+    <ul>
+      <li> <span>订单状态</span><span class="ordersel">
+        <select name="order_status" id="order_status">
+          <option value="">所有订单</option>
+          <option value="10">待付款</option>
+          <option value="20">待发货</option>
+          <option value="30">已发货</option>
+          <option value="40">已收货</option>
+          <option value="50">已完成</option>
+          <option value="0">已取消</option>
+        </select>
+      </span><span>类型</span><span>
+        <select name="type" id="type">
+          <option value="store">店铺名称</option>
+          <option value="buyer">买家名称</option>
+          <option value="order">订单号</option>
+        </select>
+        </span> <span class="order_input size1">
+        <input name="type_data" type="text" id="type_data" />
+      </span> <span>支付方式</span><span>
+        <select name="payment" id="payment">
+          <option value="">所有支付方式</option>
+          <option value="alipay">支付宝</option>
+          <option value="wxcodepay">微信扫码支付</option>
+      		<option value="weixin_wap">微信公众号支付</option>
+          <option value="chinabank">网银在线</option>
+          <option value="bill">快钱</option>
+          <option value="tenpay">财付通</option>
+          <option value="outline">线下支付</option>
+          <option value="balance">预付款支付</option>
+        </select>
+        </span></li>
+      <li> <span>下单时间</span><span class="order_input size2">
+        <input name="beginTime" type="text" id="beginTime"  readonly="readonly"/>
+        </span><span>—</span><span class="order_input size2">
+        <input name="endTime" type="text" id="endTime" readonly="readonly" />
+        </span> <span>订单金额</span><span class="order_input size2">
+        <input name="begin_price" type="text" id="begin_price" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+        </span><span>—</span><span class="order_input size2">
+        <input name="end_price" type="text" id="end_price" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+        </span> <span class="btn_search">
+        <input name="" type="submit"  value="搜索" style="cursor:pointer;"/>
+      </span> </li>
+    </ul>
+  </div>
+  </form>
+    <div class="allshop_table" >
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr style="background: #if($!config.websiteCss=='blue') #2A7AD2 #end 
+      #if($!config.websiteCss=='black')#333 #end; height:30px; color:#FFF">
+        <td width="15%" >订单</td>
+        <td width="8%" >单价/数量</td>
+        <td width="8%" >订单金额</td>
+        <td  width="8%" >应收金额</td>
+        <td  width="8%" >实收金额</td>
+        <td width="15%" >采购商</td>
+        <td width="5%" >付款状态</td>
+        <td align="center" >状态</td>
+        <td align="center" >创建日期</td>
+        <td align="center" >跟单员</td>
+        <td width="10%" >操作</td>
+      </tr>
+       #foreach($obj in $objs)
+      <tr>
+      <td width="15%">
+		<p style="padding: 5px 0;">订单号：<a href="">$!{obj.order_id}</a></p>
+		<a  href=""><div style="overflow: auto; padding: 5px 0;">
+		<img src="$!webPath/resources/style/system/front/wap/images/group_sort.png" alt="" style="display: block; float: left; width: 33% "/>
+		<span style="display: block; float:right; width: 63%" >黑色，白色PP片材 PP吹塑片 低价出售PP塑料透明片材. </span>
+		</div></a>
+      </td>
+        <td width="8%" style="text-align: center;">
+        <p>$!{obj.goods_unit_price}元</p>
+        <p>$!{obj.goods_unit_weight}(吨)</p>
+        </td>
+        <td width="8%" >$!{obj.order_price}</td>
+        <td  width="8%" >应收金额</td>
+        <td  width="8%" >实收金额</td>
+        <td width="15%" >
+		<a href=""><p>中文名</p>
+        <p>英文名</p>
+        <p>联系电话</p></a>
+		</td>
+		#set($payment="未付款")
+            #if($!obj.payment.mark=="alipay")
+            #set($payment="全款支付")
+            #end
+            #if($!obj.payment.mark=="alipay_wap")
+            #set($payment="预付款支付")
+            #end
+        <td width="5%" >$!{payment}</td>
+        #if($!obj.order_status==0)
+            #set($status="已取消")
+            #end
+            #if($!obj.order_status==10)
+            #set($status="待付款")
+            #end
+            #if($!obj.order_status==15)
+            #set($status="线下支付待审核")
+            #end
+            #if($!obj.order_status==16)
+            #set($status="货到付款待发货")
+            #end
+            #if($!obj.order_status==20)
+            #set($status="已付款")
+            #end
+            #if($!obj.order_status==30)
+            #set($status="已发货")        
+            #end                
+            #if($!obj.order_status==40)
+            #set($status="已收货")
+            #end
+            #if($!obj.order_status==50)
+            #set($status="已完成,已评价")                                              
+            #end
+            #if($!obj.order_status==60)
+            #set($status="已结束")                                              
+            #end 
+        <td align="center" >$!{status}待确认</td>
+        <td align="center" >2018-3-30 19:15:21</td>
+        <td align="center" ><a href="">涂某某</a></td>
+        <td align="center" style="overflow: auto;">
+        <a href="" class="TMOrderOperation">查看详情</a>
+        <a href="" class="TMOrderOperation">日志</a>
+        <a href="" class="TMOrderOperation">取消订单</a>
+        <a href="" class="TMOrderOperation">订单确认</a>
+        <a href="" class="TMOrderOperation">调价</a>
+        </td>
+        <!-- <td>$!obj.store.store_name</td>
+        <td>$!obj.order_id</td>
+        <td>$!obj.user.userName</td>
+        <td>$!CommUtil.formatLongDate($!obj.addTime)</td>
+        <td>$!obj.totalPrice</td>
+            
+            
+        <td>$!payment</td>
+              
+        <td>$!status</td>
+        <td align="center" class="blue xiahua"><a href="$!webPath/admin/order_view.htm?id=$!obj.id">查看</a></td> -->
+      </tr>
+     #end
+    </table>
+  </div>
+  <div class="fenye">
+    <input name="end_price" type="hidden" id="end_price" value="$!end_price" />
+    <input name="begin_price" type="hidden" id="begin_price" value="$!begin_price" />
+    <input name="endTime" type="hidden" id="endTime" value="$!endTime" />
+    <input name="beginTime" type="hidden" id="beginTime" value="$!beginTime" />
+    <input name="type_data" type="hidden" id="type_data" value="$!type_data" />
+    <input name="type" type="hidden" id="type" value="$!type" />
+    <input name="order_status" type="hidden" id="order_status" value="$!order_status" />
+    <input name="currentPage" type="hidden" id="currentPage" value="$!currentPage" />
+    $!gotoPageFormHTML</div>
+</div>
+</body>
+</html>
