@@ -53,17 +53,24 @@ jQuery(document).ready(function(){
         <li><a href="javascript:void(0);" class="home" id="common_operation_menu" onclick="openURL('show','common_operation')">首页</a></li>
         <li><a href="javascript:void(0);" class="active" id="base_set_menu" onclick="openURL('show','base_set')" >设置</a></li>
         <li><a href="javascript:void(0);" class="active" id="about_goods_menu" onclick="openURL('show','about_goods')">商品</a></li>
+
         <li><a href="javascript:void(0);" class="active" id="yzs_price_menu" onclick="openURL('show','yzs_price')">价格行情管理</a></li>
 <!--         <li><a href="javascript:void(0);" class="active" id="about_sparegoods_menu" onclick="openURL('show','about_sparegoods')">闲置</a></li> -->
 <!--         <li><a href="javascript:void(0);" class="active" id="about_store_menu" onclick="openURL('show','about_store')">店铺</a></li> -->
+
+
+
         <li><a href="javascript:void(0);" class="active" id="about_member_menu" onclick="openURL('show','about_member')">会员</a></li>
         <li><a href="javascript:void(0);" class="active" id="about_trade_menu" onclick="openURL('show','about_trade')">交易</a></li>
         <li><a href="javascript:void(0);" class="active" id="about_website_menu" onclick="openURL('show','about_website')">网站</a></li>
         <li><a href="javascript:void(0);" class="active" id="sys_tool_menu" onclick="openURL('show','sys_tool')">工具</a></li>
         <li><a href="javascript:void(0);" class="active" id="sys_tool_cms" onclick="openURL('show','sys_cms')">CMS管理</a></li>
         <li><a href="javascript:void(0);" class="active" id="crm_t_menu" onclick="openURL('show','crm_t')">客户管理</a></li>
+
+
+
       	<li><a href="javascript:void(0);" class="active" id="sys_tool_goods" onclick="openURL('show','sys_goods')">售后管理</a></li>
-      	
+
       </ul>
     </div>
   </div>
@@ -162,6 +169,7 @@ jQuery(document).ready(function(){
           <li><a href="javascript:void(0);" id="report_manage_op" onclick="openURL('url','$!webPath/admin/report_list.htm','main_workspace','report_manage_op')">举报管理</a></li>
           <li><a href="javascript:void(0);"  id="evaluate_manage_op" onclick="openURL('url','$!webPath/admin/evaluate_list.htm','main_workspace','evaluate_manage_op')">商品评价</a></li>
           <li><a href="javascript:void(0);" id="complaint_manage_op" onclick="openURL('url','$!webPath/admin/complaint_list.htm','main_workspace','complaint_manage_op')">投诉管理</a></li>
+          <li><a href="javascript:void(0);" id="address_manage_op" onclick="openURL('url','$!webPath/admin/address_list.htm','main_workspace','address_manage_op')">地址管理</a></li>
         </ul>
         <ul class="ulleft" style="display:none;" id="about_website">
           <div class="leftone">网站相关</div>
@@ -235,6 +243,7 @@ jQuery(document).ready(function(){
 						<li><a href="javascript:void(0);" id="crm_audit_list"
 							onclick="openURL('url','$!webPath/admin/crm_audit_list.htm','main_workspace','crm_audit_list')">客户信息审核</a></li>
 					</ul>
+
 					
 					  <ul class="ulleft" style="display: none;" id=yzs_price>
 						<div class="leftone">价格行情管理</div>
@@ -247,6 +256,7 @@ jQuery(document).ready(function(){
 					<li><a href="javascript:void(0);" id="data_set" onclick="openURL('url','$!webPath/admin/data_set.htm','main_workspace','data_set')">数据源设置</a></li>
 				
 					</ul>
+
 		 <ul class="ulleft" style="display:none;" id="sys_goods">
           <div class="leftone">售后管理</div>
            <li><a href="javascript:void(0);" id="complex_goods" suffix="cms_center_" onclick="openURL('url','$!webPath/admin/ezsColumn_list.htm','main_workspace','complex_goods')"><img id="cms_center_img" src="$!webPath/resources/style/system/manage/blue/images/contract.jpg" width="13" height="13" />批量调价申请</a>

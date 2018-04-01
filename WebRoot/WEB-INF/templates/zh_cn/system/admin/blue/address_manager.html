@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link
+	href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css"
+	type=text/css rel=stylesheet>
+	<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+	<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+	<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+	<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+	<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+	<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+</head>
+<body>
+	<div id="add">
+		<a href="javascript:void(0);" class="addAddress"><p
+				class="add_addr">+新增</p></a>
+	</div>
+
+	#foreach($obj in $list)
+	<div class="address clear">
+		<div class="del_and_update">
+			<a href="javascript:void(0);" tname="$!{obj.name}" taddress="$!{obj.address}" tphone="$!{obj.phone}" 
+				class="UpdateAddress">修改</a>&nbsp;| <a href="javascript:void(0);"
+				 tname="$!{obj.name}"class="del">删除</a>
+		</div>
+		<div class="content">
+			<table class="table">
+				<tr class="tr">
+					<td style="font-weight: 700;">收件人：</td>
+					<td>$!{obj.name}</td>
+				</tr>
+				<tr class="tr">
+					<td style="font-weight: 700;">地址：</td>
+					<td>$!{obj.address}</td>
+				</tr>
+				<tr class="tr">
+					<td style="font-weight: 700;">联系电话：</td>
+					<td>$!{obj.phone}</td>
+				</tr>
+			</table>
+		</div>
+
+	</div>
+	#end
+	<div id="AdressModification"
+		style="background-color: #FFF; height: 376px; width: 354px; border: 1px rgb(159, 159, 159) solid; box-sizing: border-box; padding: 10px 30px; position: absolute; top: 150px; left: 350px; display: none;">
+		<form onsubmit="return false" method="post">
+			<p style="font-size: 12px; line-height: 32px; font-weight: 700;">收件人:</p>
+			<input type="text"  class="tname"
+				style="width: 148px; height: 24px;" />
+			<p style="font-size: 12px; line-height: 32px; font-weight: 700;">所在区:</p>
+			<select style="width: 148px; height: 24px;">
+				<option value="北京">北京</option>
+				<option value="武汉">武汉</option>
+				<option value="深圳">深圳</option>
+			</select>
+
+			<p style="font-size: 12px; line-height: 32px; font-weight: 700;">详细地址:</p>
+			<input type="text"  class="taddress"
+				style="width: 288px; height: 24px;" />
+			<p style="font-size: 12px; line-height: 32px; font-weight: 700;">联系电话:</p>
+			<input type="text" class="tphone"
+				style="width: 111px; height: 24px;" />
+			<p style="margin: 60px 70px;">
+				<input type="submit" id="yes" value="保存" /> <input type="button"
+					id="no" value="取消" />
+
+			</p>
+
+		</form>
+
+	</div>
+	<div class="del_content">
+		<div class="del_c">
+			<p class="delete">
+				确定要删除【<span class="d_c"></span>】吗?
+			</p>
+			<input type="submit" id="yes_del" value="保存" /> <input type="button"
+				id="no_del" value="取消" />
+		</div>
+
+	</div>
+
+	<script type="text/javascript">
+		jQuery(document).ready(function() {
+			jQuery(".addAddress").click(function() {
+
+				jQuery("#AdressModification").css("display", "block");
+			})
+			jQuery("#yes").click(function() {
+				jQuery("#AdressModification").css("display", "none");
+			})
+			jQuery("#no").click(function() {
+				jQuery("#AdressModification").css("display", "none");
+			})
+
+			jQuery(".UpdateAddress").click(function() {
+				jQuery("#AdressModification").css("display", "block");
+
+			})
+
+			/* 	jQuery("#add").mouseover(function(){
+			 alert(123) 
+			 jQuery("#add").css({"background-color":"#ccc"});
+			 jQuery(".add_addr").css("color","black");
+			 })
+			 jQuery("#add").mouseout(function(){
+			 alert(123)
+			 jQuery("#add").css({"background-color":"#000"});
+			 jQuery(".add_addr").css("color","#fff");
+			 })
+			 */
+
+			var tname;
+			var taddress;
+			var tphone;
+			jQuery(".del").click(function() {
+				tname = jQuery(this).attr("tname");
+				jQuery(".d_c").text(tname);
+				jQuery(".del_content").show();
+			})
+			jQuery("#yes_del").click(function() {
+				delhide();
+			})
+
+			jQuery(".UpdateAddress").click(function() {
+				tname = jQuery(this).attr("tname");
+				taddress = jQuery(this).attr("taddress");
+				tphone = jQuery(this).attr("tphone");
+				jQuery(".tname").val(tname);
+				jQuery(".taddress").val(taddress);
+				jQuery(".tphone").val(tphone);
+			})
+
+			function delhide() {
+				jQuery(".del_content").hide();
+			}
+			jQuery("#no_del").click(function() {
+
+				jQuery(".del_content").hide();
+			})
+
+		})
+	</script>
+
+</body>
+</html>

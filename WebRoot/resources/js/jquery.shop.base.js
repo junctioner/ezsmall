@@ -20,15 +20,20 @@ String.prototype.replaceAll  = function(s1,s2){
 }  
 function openURL(args){
  var type=arguments[0];
+// alert(type)
  var item_id="";
  var url="";
  if(type=="show"){
-  item_id=arguments[1];	 
+  item_id=arguments[1];
+//  alert(item_id)
+  
  }
  if(type=="url"){
    url=arguments[1];
+//   alert(url)
  }
  var content_id=arguments[2];
+ 
  var url_id=arguments[3];
  var parent_id=arguments[4];
  //item_id不为空，显示数据

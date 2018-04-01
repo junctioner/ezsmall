@@ -3720,6 +3720,115 @@ background:#FFC7AC;
 .icon_sys img { width:20px; height:18px;}
 .icon_sys a.this { border:1px solid #F00; background:none;}
 
+/*地址管理页面*/
+/* * {
+				margin: 0;
+				padding: 0;
+				font-family: "微软雅黑";
+				font-size: 14px;
+			} */
+			
+			/* li {
+				list-style-type: none;
+			}
+			
+			a {
+				text-decoration: none;
+				color: inherit;
+			} */
+			
+			.address {
+				width: 450px;
+				height: 180px;
+				margin-top: 20px;
+				margin-left: 20px;
+				border: 1px solid;
+			}
+			
+			.del_and_update {
+				margin-top:10px ;
+				margin-right: 10px;
+				float: right;
+			}
+			.content{
+				float: left;
+				
+			}
+			.clear:after{
+				content: "";
+				display: block;
+				clear: both;
+				
+			}
+			.table{
+				margin-left: 20px;
+			    margin-top: 10px;	
+			}
+			.tr{
+				display: block;
+				margin: 12px 0px;
+			}
+			#add{
+				margin-left: 20px;
+			    margin-top: 20px;
+				color: #369;
+				width: 100px;
+				height: 40px;
+				background-color: rgb(211,243,254);
+			}
+			.addAddress{
+				display: block;
+				width: 100px;
+				height: 40px;
+				/* color:#369; */
+			}
+			.add_addr{
+			    
+				width: 40px;
+				height: 20px;
+				/* padding-top:12px ;
+				padding-left: 28px; */
+				padding:12px 30px;
+				
+			}
+			#yes{
+			
+			width: 66px; height: 28px;background:url(images/tj.jpg) no-repeat;border: none;color: #FFF;
+			}
+			#no{
+			width: 66px; height: 28px;background:url(images/tj.jpg) no-repeat;border: none;color: #FFF;
+			}
+			.del_content{
+				width: 240px;
+				height: 100px;
+				border: 1px solid;
+				background-color: rgb(211,243,254);
+				position: absolute;
+				left: 380px;
+				top: 220px;
+				display:none;
+			}
+			#yes_del{
+			width: 66px; height: 28px;background:url(images/tj.jpg) no-repeat;border: none;color: #000;border-radius: 5px;
+			}
+			#no_del{
+			width: 66px; height: 28px;background:url(images/tj.jpg) no-repeat;border: none;color: #000;border-radius: 5px;
+			}
+			.del_c{
+				/* margin-top: 24px;
+				margin-left: 50px; */
+				margin:24px 52px;
+			}
+			.delete{
+				margin-bottom: 10px;
+			}
+			/*地址管理页面*/
+			
+
+
+
+
+
 /*微商城菜单配置*/
 .weixin_box { width:280px; height:450px; margin:20px 20px; background-color:#f8fbff; border:2px solid #4586d6; border-radius:4px; position:relative;}
 .weixin_box_head { width:280px; height:26px;  line-height:26px; padding:2px 0px; overflow:hidden; background-color:#00546c; color:#FFF;}
