@@ -220,15 +220,44 @@ jQuery(document).ready(function(){
           </li>
           <li><a href="javascript:void(0);" id="lucene_op" onclick="openURL('url','$!webPath/admin/lucene.htm','main_workspace','lucene_op')">发布统计</a></li>          
         </ul>
-        <ul class="ulleft" style="display: none;" id="crm_t">
-						<div class="leftone">客户管理</div>
-						<li><a href="javascript:void(0);" id="crm_down_list"
-							onclick="openURL('url','$!webPath/admin/crm_down_list.htm','main_workspace','crm_down_list')">导入客户</a></li>
-						<li><a href="javascript:void(0);" id="crm_t_list"
-							onclick="openURL('url','$!webPath/admin/crm_t_list.htm','main_workspace','crm_t_list')">客户列表</a></li>
-						<li><a href="javascript:void(0);" id="crm_audit_list"
-							onclick="openURL('url','$!webPath/admin/crm_audit_list.htm','main_workspace','crm_audit_list')">客户信息审核</a></li>
-					</ul>
+        <ul class="ulleft" style="display:none;" id="crm_manage">
+        <div class="leftone">CRM管理</div>
+           <li><a href="javascript:void(0);" id="complex_crm_cus_mng" suffix="crm_cus_mng_"><img id="crm_cus_mng_img" src="$!webPath/resources/style/system/manage/blue/images/contract.jpg" width="13" height="13" />客户管理</a>
+	          <ul id="crm_cus_mng_info">
+	               <li><a href="javascript:void(0);" id="crm_cus_import" onclick="openURL('url','$!webPath/admin/importcustomer.htm','main_workspace','crm_cus_import')">导入客户</a></li>
+	               <li><a href="javascript:void(0);" id="crm_cus_list" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','crm_cus_list')">客户列表</a></li>
+	               <li><a href="javascript:void(0);" id="crm_cus_auditing" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','crm_cus_auditing')">客户信息审核</a></li>
+	               <li><a href="javascript:void(0);" id="crm_cus_Aut_adj" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','crm_cus_Aut_adj')">认证信息调整</a></li>
+	               <li><a href="javascript:void(0);" id="crm_cus_mng_adj" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','crm_cus_mng_adj')">客户管理员调整</a></li>
+	               <li><a href="javascript:void(0);" id="crm_cus_my" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','crm_cus_my')">我的客户</a></li>
+              </ul>
+          </li>
+          <li><a href="javascript:void(0);" id="complex_crm_config_mngs" suffix="crm_config_mngs_"><img id="crm_config_mngs_img" src="$!webPath/resources/style/system/manage/blue/images/contract.jpg" width="13" height="13" />配置管理</a>
+             <ul id="crm_config_mngs_info">
+	               <li><a href="javascript:void(0);" id="crm_cus_group" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','crm_cus_group')">客户分组</a></li>
+	               <li><a href="javascript:void(0);" id="crm_lel_set" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','crm_lel_set')">等级设置</a></li>
+	               <li><a href="javascript:void(0);" id="crm_comm_type" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','crm_comm_type')">沟通类型</a></li>
+	               <li><a href="javascript:void(0);" id="crm_clue_sour" onclick="openURL('url','$!webPath/admin/cluesource_list.htm','main_workspace','crm_clue_sour')">线索来源</a></li>
+	               <li><a href="javascript:void(0);" id="crm_gc_gen" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','crm_gc_gen')">推广码生成器</a></li>
+	               <li><a href="javascript:void(0);" id="crm_order_canl_reas" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','crm_order_canl_reas')">订单取消原因</a></li>
+	         </ul>
+          </li>
+          <li><a href="javascript:void(0);" id="complex_crm_emp_mngs" suffix="crm_emp_mngs_"><img id="crm_emp_mngs_img" src="$!webPath/resources/style/system/manage/blue/images/contract.jpg" width="13" height="13" />员工管理</a>
+             <ul id="crm_emp_mngs_info">
+	               <li><a href="javascript:void(0);" id="crm_emp_mngs" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','crm_emp_mngs')">员工信息</a></li>
+	               <li><a href="javascript:void(0);" id="crm_emp_perf" onclick="openURL('url','$!webPath/admin/loadAddEzsColumn.htm','main_workspace','crm_emp_perf')">员工绩效</a></li>
+	         </ul>
+          </li>
+          <li><a href="javascript:void(0);" id="complex_crm_sys_mngs" suffix="crm_sys_mngs_"><img id="crm_sys_mngs_img" src="$!webPath/resources/style/system/manage/blue/images/contract.jpg" width="13" height="13" />系统管理</a>
+             <ul id="crm_sys_mngs_info">
+	               <li><a href="javascript:void(0);" id="crm_dep_mngs" onclick="openURL('url','$!webPath/admin/depart_list.htm','main_workspace','crm_dep_mngs')">部门管理</a></li>
+	               <li><a href="javascript:void(0);" id="crm_posi_mngs" onclick="openURL('url','$!webPath/admin/position_list.htm','main_workspace','crm_posi_mngs')">岗位管理</a></li>
+	               <li><a href="javascript:void(0);" id="crm_role_mngs" onclick="openURL('url','$!webPath/admin/crm_role_list.htm','main_workspace','crm_role_mngs')">角色管理</a></li>
+	               <li><a href="javascript:void(0);" id="crm_user_mngs" onclick="openURL('url','$!webPath/admin/crm_user_list.htm','main_workspace','crm_user_mngs')">用户管理</a></li>
+	               <li><a href="javascript:void(0);" id="crm_pas_forg" onclick="openURL('url','$!webPath/admin/password_forget.htm','main_workspace','crm_pas_forg')">忘记密码</a></li>
+             </ul>
+          </li>
+        </ul>
 					
 					  <ul class="ulleft" style="display: none;" id=yzs_price>
 						<div class="leftone">价格行情管理</div>
