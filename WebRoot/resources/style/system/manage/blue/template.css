@@ -625,6 +625,12 @@ left:-50%; z-index:0;}
 	height:30px;
 	border:0px;
 }
+.btn_reset input {
+	background:url(images/search.jpg) no-repeat;
+	width:62px;
+	height:30px;
+	border:0px;
+}
 .shop_table {
 	width:100%;
 	margin-left:20px;
@@ -785,8 +791,9 @@ left:-50%; z-index:0;}
 }
 /*所有商家*/
 .orders {
-	padding-left:10px;
-	padding-top:10px;
+	padding:10px 10px 0;
+	
+	
 }
 .orders span {
 	padding-left:5px;
@@ -817,7 +824,14 @@ left:-50%; z-index:0;}
 	border-bottom:2px solid #DDDDDD;
 	margin-top:20px;
 	border-collapse:collapse;
+	
 }
+.allshop_table:nth-of-type(2){
+				display: none;
+			}
+.allshop_table:nth-of-type(3){
+				display: none;
+			}
 .allshop_table td {
 	border-bottom:1px solid #EEEEEE;
 	padding-left:10px;
