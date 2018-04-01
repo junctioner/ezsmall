@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -245,9 +246,39 @@ public class BaseManageAction {
         ModelAndView mv = new JModelAndView("admin/blue/aboutus.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
+        System.out.println(123);
+        return mv;
+    }
+    //地址登录页面
+    @SecurityMapping(display = false, rsequence = 0, title = "地址管理", value = "/admin/blue/address_manager*", rtype = "admin", rname = "地址管理", rcode = "address_manager",  rgroup = "设置")
+    @RequestMapping({"/admin/address_list.htm"})
+    public ModelAndView address(HttpServletRequest request, HttpServletResponse response){
+    	
+        ModelAndView mv = new JModelAndView("admin/blue/address_manager.html",
+                                            this.configService.getSysConfig(),
+                                            this.userConfigService.getUserConfig(), 0, request, response);
+        
+        List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+       Map<String,String> map = new HashMap<String,String>();
+       map.put("name", "张三");
+       map.put("address", "北京市通州区环字路3号");
+       map.put("phone", "13333333333");
+       Map<String,String> map1 = new HashMap<String,String>();
+       map1.put("name", "李四");
+       map1.put("address", "北京市通州区环字路4号");
+       map1.put("phone", "14444444444");
+       Map<String,String> map2 = new HashMap<String,String>();
+       map2.put("name", "王五");
+       map2.put("address", "北京市通州区环字路5号");
+       map2.put("phone", "15555555555");
+       list.add(map1);
+       list.add(map);
+       list.add(map2);
+        mv.addObject("list", list);
 
         return mv;
     }
+    
 
     @SecurityMapping(display = false, rsequence = 0, title = "站点设置", value = "/admin/set_site.htm*", rtype = "admin", rname = "站点设置", rcode = "admin_set_site", rgroup = "设置")
     @RequestMapping({"/admin/set_site.htm"})
