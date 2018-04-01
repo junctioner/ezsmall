@@ -1,7 +1,5 @@
 package com.wemall.core.tools;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
@@ -29,12 +27,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
+
 import javax.imageio.ImageIO;
+
 
 public class ImageCompress extends Frame {
     private static final long serialVersionUID = 48L;
-    private static final String version = "ImageCompress v1.0";
+
+    // private static final String version = "ImageCompress v1.0";
     private Panel mControlPanel;
     private BufferedImage mBufferedImage;
     private Label labelWidth = new Label("width:");
@@ -216,8 +216,8 @@ public class ImageCompress extends Frame {
             mBufferedImage = cOp.filter(mBufferedImage, null);
             FileOutputStream out = new FileOutputStream(targetImg);
 
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-            encoder.encode(mBufferedImage);
+            ImageIO.write(mBufferedImage, "jpg", out);
+
             out.close();
         } catch (FileNotFoundException localFileNotFoundException){
         } catch (IOException localIOException){

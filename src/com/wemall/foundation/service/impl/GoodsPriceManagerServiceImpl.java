@@ -11,7 +11,6 @@ package com.wemall.foundation.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -43,9 +42,9 @@ public class GoodsPriceManagerServiceImpl implements GoodsPriceManagerService {
      * @see com.wemall.foundation.service.impl.GoodsPriceManagerService#list()
      */
     @Override
-    public List<Map<String, Object>> list() {
+    public List<Goods> list() {
 
-        List<Map<String, Object>> list = this.goodsDAO.query("from Goods", new HashMap<>(), 1, 1);
+        List<Goods> list = this.goodsDAO.find(null, new HashMap<String, Object>(), 1, 1);
         return list;
     }
 

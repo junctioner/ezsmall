@@ -1,13 +1,13 @@
 package com.wemall.pay.bill.services;
 
-import com.wemall.pay.bill.config.BillConfig;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.wemall.pay.bill.config.BillConfig;
+
 /**
- * 快钱支付服务
+ * 蹇挶鏀粯鏈嶅姟
  */
 public class BillService {
     private static final String BILL_GATEWAY_NEW = "https://www.99bill.com/gateway/recvMerchantInfoAction.htm";
@@ -37,7 +37,3 @@ public class BillService {
         return sbHtml.toString();
     }
 }
-
-
-
-

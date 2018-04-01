@@ -1,13 +1,17 @@
 package com.wemall.pay;
 
-import com.wemall.core.tools.Md5Encrypt;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.wemall.core.tools.Md5Encrypt;
 
 /**
- * ÷ß∏∂±¶÷ß∏∂
+ * ÊîØ‰ªòÂÆùÊîØ‰ªò
  */
 public class Alipay {
     public static String CreateUrl_type1(String paygateway, String service, String sign_type, String out_trade_no, String input_charset, String partner, String agent, String key, String seller_email, String body, String subject, String price, String quantity, String show_url, String payment_type, String discount, String logistics_type, String logistics_fee, String logistics_payment, String return_url){
@@ -185,7 +189,3 @@ public class Alipay {
         return prestr + privateKey;
     }
 }
-
-
-
-

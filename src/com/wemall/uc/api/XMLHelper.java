@@ -1,34 +1,32 @@
 package com.wemall.uc.api;
 
-import com.sun.org.apache.xerces.internal.parsers.DOMParser;
-import java.io.IOException;
 import java.io.StringReader;
 import java.util.LinkedList;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
+import java.util.List;
+
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+
+
 
 public class XMLHelper {
-    public static LinkedList<String> uc_unserialize(String input){
-        LinkedList result = new LinkedList();
-
-        DOMParser parser = new DOMParser();
+    public static LinkedList<String> uc_unserialize(String input) {
+        LinkedList<String> result = new LinkedList<String>();
+        SAXReader reader = new SAXReader();
         try {
-            parser.parse(new InputSource(new StringReader(input)));
-            Document doc = parser.getDocument();
-            NodeList nl = doc.getChildNodes().item(0).getChildNodes();
-            int length = nl.getLength();
-            for (int i = 0; i < length; i++)
-                if (nl.item(i).getNodeType() == 1)
-                    result.add(nl.item(i).getTextContent());
-        } catch (SAXException e){
-            e.printStackTrace();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+            org.dom4j.Document document = reader.read(new StringReader(input));
+            org.dom4j.Element root = document.getRootElement();
+            List<Element> list = root.elements();
 
+            for (Element ele : list)
+                if (ele.getNodeType() == 1)
+                    result.add(ele.getText());
+
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } finally {
+        }
         return result;
     }
 }

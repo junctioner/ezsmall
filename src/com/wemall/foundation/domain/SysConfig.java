@@ -269,7 +269,7 @@ public class SysConfig extends IdEntity {
 
 	// 登录图片
 	@OneToMany(mappedBy = "config")
-	private List<Accessory> login_imgs = new ArrayList();
+    private List<Accessory> login_imgs = new ArrayList<Accessory>();
 
 	// 服务电话列表
 	@Column(columnDefinition = "LongText")

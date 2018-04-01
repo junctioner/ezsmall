@@ -1,12 +1,12 @@
 package com.wemall.pay.paypal;
 
+import java.util.List;
+
 import com.wemall.core.domain.virtual.SysMap;
 import com.wemall.core.tools.CommUtil;
 
-import java.util.List;
-
 /**
- * ±´±¦Ö§¸¶¹¤¾ß
+ * è´å®æ”¯ä»˜å·¥å…·
  */
 public class PaypalTools {
     public static String buildForm(List<SysMap> list){
@@ -23,7 +23,3 @@ public class PaypalTools {
         return sb.toString();
     }
 }
-
-
-
-

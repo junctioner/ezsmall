@@ -36,17 +36,17 @@ public class SecurityManagerSupport implements UserDetailsService, SecurityManag
         if (list.length == 2){
             loginRole = list[1];
         }
-        Map params = new HashMap();
+        Map<String, String> params = new HashMap<String, String>();
         params.put("userName", userName);
-        List users = this.userService.query("select obj from User obj where obj.name =:userName ",
+        List<User> users = this.userService.query("select obj from User obj where obj.name =:userName ",
                          params, -1, -1);
         if (users.isEmpty()){
             throw new UsernameNotFoundException("User " + userName +" has no GrantedAuthority");
         }
         User user = (User)users.get(0);
-        Set authorities = new HashSet();
+        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
         if ((!user.getRoles().isEmpty()) && (user.getRoles() != null)){
-            Iterator roleIterator = user.getRoles().iterator();
+            Iterator<Role> roleIterator = user.getRoles().iterator();
             while (roleIterator.hasNext()){
                 Role role = (Role)roleIterator.next();
                 if (loginRole.equalsIgnoreCase("ADMIN")){

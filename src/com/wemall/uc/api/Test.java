@@ -1,6 +1,5 @@
 package com.wemall.uc.api;
 
-import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 
@@ -15,7 +14,7 @@ public class Test {
         UCClient e = new UCClient();
         String result = e.uc_user_login("木子", "123456");
         System.out.println(result);
-        LinkedList rs = XMLHelper.uc_unserialize(result);
+        LinkedList<String> rs = XMLHelper.uc_unserialize(result);
         if (rs.size() > 0){
             int $uid = Integer.parseInt((String)rs.get(0));
             String $username = (String)rs.get(1);

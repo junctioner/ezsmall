@@ -26,9 +26,6 @@ import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
-
 /**
  * @author John增加
  * 创建日期 2015-10-16
@@ -101,8 +98,7 @@ public class OperateImage {
             // 绘制 缩小  后的图片
             tag.getGraphics().drawImage(src, 0, 0, width / widthRatio, height / heightRatio, null);
             out = new FileOutputStream(toImagePath);
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-            encoder.encode(tag);
+            ImageIO.write(tag, "jpg", out);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
@@ -133,8 +129,7 @@ public class OperateImage {
             // 绘制 缩小  后的图片
             tag.getGraphics().drawImage(src, 0, 0, width / ratio, height / ratio, null);
             out = new FileOutputStream(toImagePath);
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-            encoder.encode(tag);
+            ImageIO.write(tag, "jpg", out);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
@@ -166,8 +161,7 @@ public class OperateImage {
             //绘制放大后的图片
             tag.getGraphics().drawImage(src, 0, 0, width * widthRatio, height * heightRatio, null);
             out = new FileOutputStream(toImagePath);
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-            encoder.encode(tag);
+            ImageIO.write(tag, "jpg", out);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
@@ -199,8 +193,7 @@ public class OperateImage {
             //绘制放大后的图片
             tag.getGraphics().drawImage(src, 0, 0, width * ratio, height * ratio, null);
             out = new FileOutputStream(toImagePath);
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-            encoder.encode(tag);
+            ImageIO.write(tag, "jpg", out);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
@@ -230,8 +223,7 @@ public class OperateImage {
             //绘制放大后的图片
             tag.getGraphics().drawImage(src, 0, 0, width, height, null);
             out = new FileOutputStream(toImagePath);
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-            encoder.encode(tag);
+            ImageIO.write(tag, "jpg", out);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
@@ -461,8 +453,7 @@ public class OperateImage {
             Graphics g = image.getGraphics();
             g.drawImage(image2, x, y, null);
             os = new FileOutputStream(toPath);
-            JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
-            enc.encode(image);
+            ImageIO.write(image, "jpg", os);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
@@ -549,8 +540,7 @@ public class OperateImage {
             Graphics g = image.getGraphics();
             g.drawImage(image2, 0, 0, null);
             os = new FileOutputStream(toPath);
-            JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
-            enc.encode(image);
+            ImageIO.write(image, "jpg", os);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
@@ -585,8 +575,7 @@ public class OperateImage {
             Graphics g = image.getGraphics();
             g.drawImage(image2, image.getWidth() - image2.getWidth(), 0, null);
             os = new FileOutputStream(toPath);
-            JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
-            enc.encode(image);
+            ImageIO.write(image, "jpg", os);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
@@ -621,8 +610,7 @@ public class OperateImage {
             Graphics g = image.getGraphics();
             g.drawImage(image2, 0, image.getHeight() - image2.getHeight(), null);
             os = new FileOutputStream(toPath);
-            JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
-            enc.encode(image);
+            ImageIO.write(image, "jpg", os);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
@@ -657,8 +645,7 @@ public class OperateImage {
             Graphics g = image.getGraphics();
             g.drawImage(image2, image.getWidth() - image2.getWidth(), image.getHeight() - image2.getHeight(), null);
             os = new FileOutputStream(toPath);
-            JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
-            enc.encode(image);
+            ImageIO.write(image, "jpg", os);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
@@ -693,8 +680,7 @@ public class OperateImage {
             Graphics g = image.getGraphics();
             g.drawImage(image2, image.getWidth() / 2 - image2.getWidth() / 2, image.getHeight() / 2 - image2.getHeight() / 2, null);
             os = new FileOutputStream(toPath);
-            JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
-            enc.encode(image);
+            ImageIO.write(image, "jpg", os);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
@@ -729,8 +715,7 @@ public class OperateImage {
             Graphics g = image.getGraphics();
             g.drawImage(image2, image.getWidth() / 2 - image2.getWidth() / 2, 0, null);
             os = new FileOutputStream(toPath);
-            JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
-            enc.encode(image);
+            ImageIO.write(image, "jpg", os);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
@@ -765,8 +750,7 @@ public class OperateImage {
             Graphics g = image.getGraphics();
             g.drawImage(image2, image.getWidth() / 2 - image2.getWidth() / 2, image.getHeight() - image2.getHeight(), null);
             os = new FileOutputStream(toPath);
-            JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
-            enc.encode(image);
+            ImageIO.write(image, "jpg", os);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
@@ -801,8 +785,7 @@ public class OperateImage {
             Graphics g = image.getGraphics();
             g.drawImage(image2, 0, image.getHeight() / 2 - image2.getHeight() / 2, null);
             os = new FileOutputStream(toPath);
-            JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
-            enc.encode(image);
+            ImageIO.write(image, "jpg", os);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
@@ -837,8 +820,7 @@ public class OperateImage {
             Graphics g = image.getGraphics();
             g.drawImage(image2, image.getWidth() - image2.getWidth(), image.getHeight() / 2 - image2.getHeight() / 2, null);
             os = new FileOutputStream(toPath);
-            JPEGImageEncoder enc = JPEGCodec.createJPEGEncoder(os);
-            enc.encode(image);
+            ImageIO.write(image, "jpg", os);
         } catch(Exception e){
             e.printStackTrace();
         } finally {
