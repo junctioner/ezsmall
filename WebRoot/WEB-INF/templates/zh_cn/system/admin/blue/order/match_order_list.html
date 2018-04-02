@@ -29,15 +29,12 @@
 				changeYear : true
 			});
 			//
-			
-				jQuery(".this").click(function(){
-					var index=$(this).attr("val")-1;
-					
-					jQuery(".allshop_table:eq("+index+")").show().siblings(".allshop_table:not("+index+")").hide();
-
-				})
-				/* jQuery("a[id^=site_]").click(function(){
-					alert(123)
+			function fomartDate(date){
+				var d=new Date(date);
+				return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+				
+			}
+			jQuery("a[id^=site_]").click(function(){
 					var id = jQuery(this).attr("id");
 					var css = jQuery(this).attr("class");
 					if(css=="this") return false;
@@ -52,7 +49,59 @@
 						   jQuery(tid).hide();
 							}
 						})
-					}); */
+					}); 
+				jQuery("#site_ready").click(function(){
+					
+					var index=$(this).attr("val")-1;
+					
+					jQuery(".allshop_table:eq("+index+")").show().siblings(".allshop_table:not("+index+")").hide();
+
+				})
+				jQuery("#site_pass").click(function(){
+					
+					var index=$(this).attr("val")-1;
+					
+					jQuery(".allshop_table:eq("+index+")").show().siblings(".allshop_table:not("+index+")").hide();
+
+				})
+				jQuery("#site_not").click(function(){
+					
+					var index=$(this).attr("val")-1;
+					
+					jQuery(".allshop_table:eq("+index+")").show().siblings(".allshop_table:not("+index+")").hide();
+
+				})
+				 jQuery("#beginTime").change(function(){
+					 var beginTime=jQuery("#beginTime").val();
+					alert(fomartDate(new Date()));
+					
+					
+				}) 
+				function errorAlertByTM(message, bgc, color) {
+					var $ErrorAlert = jQuery("<div id='TMByError'><h3>" + message + "</h3></div>");
+					jQuery("body").append($ErrorAlert);
+					jQuery("#TMByError").css({
+						"transition": "opacity 1.5s",
+						"background-color": bgc,
+						"display": "inline-block",
+						"text-align": "center",
+						"opacity": "1",
+						"border-radius": "10%",
+						"position": "fixed",
+						"left": "45%",
+						"top": "45%",
+						"color": color,
+						"padding": "5px",
+						"overflow": "auto"
+					}).show();
+					setTimeout(function() {
+						jQuery("#TMByError").css("opacity", "0");
+					}, 1500);
+					setTimeout(function() {
+						jQuery("#TMByError").remove();
+					}, 3000);
+				}
+				 
 			
 		});
 	</script>
@@ -63,8 +112,8 @@
 		<div class="settab">
 			<span class="tab-one"></span> <span class="tabs"> <a
 				href="javascript:void(0);" val="1" id="site_ready" class="this">待审核(50)</a>&nbsp;|&nbsp;<a
-				href="javascript:void(0);" val="2" id="site_pass" class="this">已通过(50)</a>&nbsp;|&nbsp;<a
-				href="javascript:void(0);" val="3" id="site_not" class="this">未通过(50)</a></span> <span
+				href="javascript:void(0);" val="2" id="site_pass" >已通过(50)</a>&nbsp;|&nbsp;<a
+				href="javascript:void(0);" val="3" id="site_not" >未通过(50)</a></span> <span
 				class="tab-two"></span>
 				 
 		</div>
@@ -84,6 +133,7 @@
 					</li>
 					<li><span><select>
 					<option value="10">申请时间</option>
+					<option value="20">创建时间</option>
 					</select></span><span class="order_input size2"> <input
 							name="beginTime" type="text" id="beginTime" readonly="readonly" />
 					</span><span>—</span><span class="order_input size2"> <input
@@ -111,25 +161,33 @@
 						<td width="20%">日期</td>
 						<td width="10%" align="center">操作</td>
 					</tr>
+					#foreach($obj in $list)
 
 					<tr>
-					<td>tj34242342344</td>
-					<td>syz34242342423</td>
-					<td>-1000元</td>
-					<td>
-					<p style="margin:10px 0">东莞市东坑鑫成塑胶加工店</p>
-					<p style="margin:10px 0">dongkengxincheng</p>
-					<p style="margin:10px 0">13333333333</p>
+					<td>$!{obj.check_order}</td>
+					<td>$!{obj.order}</td>
+					<td>$!{obj.price}元</td>
+					<td class="n_check">
+					<div class="type">
+					<span>供</span>
+					</div>
+					<div>
+					
+					<p style="margin:10px 0">$!{obj.buyer_enterprise}</p>
+					<p style="margin:10px 0">$!{obj.buyer_name}</p>
+					<p style="margin:10px 0">$!{obj.buyer_phone}</p>
+					
+					</div>
 					
 					</td>
-					<td>zhangsan</td>
-					<td>待审核</td>
-					<td>创建:2017-12-20  19:32:00</td>
-					<td><a href="javascript:void(0);" class="r_check">审核</a></td>
+					<td>$!{obj.apply_man}</td>
+					<td>$!{obj.status}</td>
+					<td>创建:$!{obj.date}</td>
+					<td><a href="javascript:void(0);" class="r_check">$!{obj.check}</a></td>
 	
 						
 					</tr>
-					
+					#end
 					</table>
 			</div>
 			<div class="allshop_table">
@@ -146,27 +204,34 @@
 						<td width="20%">日期</td>
 						<td width="8%" align="center">操作</td>
 					</tr>
-
+					#foreach($obj in $list1)
 					<tr>
-					<td>tj34242342344</td>
-					<td>syz34242342423</td>
-					<td>-1000元</td>
-					<td>
-					<p style="margin:10px 0">东莞市东坑鑫成塑胶加工店</p>
-					<p style="margin:10px 0">dongkengxincheng</p>
-					<p style="margin:10px 0">13333333333</p>
+					<td>$!{obj.check_order}</td>
+					<td>$!{obj.order}</td>
+					<td>$!{obj.price}元</td>
+					<td class="n_check">
+					<div class="type">
+					<span>供</span>
+					</div>
+					<div>
+					
+					<p style="margin:10px 0">$!{obj.buyer_enterprise}</p>
+					<p style="margin:10px 0">$!{obj.buyer_name}</p>
+					<p style="margin:10px 0">$!{obj.buyer_phone}</p>
+					
+					</div>
 					
 					</td>
-					<td>zhangsan</td>
-					<td>审核通过</td>
-					<td>lisa</td>
-					<td><p>创建:2017-12-20  19:32:00</p>
-					<p>审批:2017-12-20  19:32:00</p></td>
-					<td><a href="javascript:void(0);" class="check">查看</a></td>
+					<td>$!{obj.apply_man}</td>
+					<td>$!{obj.status}</td>
+					<td>$!{obj.approve_man}</td>
+					<td><p>创建:$!{obj.date_apply}</p>
+					<p>审批:$!{obj.date_check}</p></td>
+					<td><a href="javascript:void(0);" class="check">$!{obj.check}</a></td>
 	
 						
 					</tr>
-					
+					#end
 					</table>
 			</div>
 			<div class="allshop_table">
@@ -183,27 +248,34 @@
 						<td width="20%">日期</td>
 						<td width="8%" align="center">操作</td>
 					</tr>
-
+				#foreach($obj in $list2)
 					<tr>
-					<td>tj34242342344</td>
-					<td>syz34242342423</td>
-					<td>-1000元</td>
-					<td>
-					<p style="margin:10px 0">东莞市东坑鑫成塑胶加工店</p>
-					<p style="margin:10px 0">dongkengxincheng</p>
-					<p style="margin:10px 0">13333333333</p>
+					<td>$!{obj.check_order}</td>
+					<td>$!{obj.order}</td>
+					<td>$!{obj.price}元</td>
+					<td class="n_check">
+					<div class="type">
+					<span>供</span>
+					</div>
+					<div>
+					
+					<p style="margin:10px 0">$!{obj.buyer_enterprise}</p>
+					<p style="margin:10px 0">$!{obj.buyer_name}</p>
+					<p style="margin:10px 0">$!{obj.buyer_phone}</p>
+					
+					</div>
 					
 					</td>
-					<td>zhangsan</td>
-					<td>审核不通过</td>
-					<td>lisa</td>
-					<td><p>创建:2017-12-20  19:32:00</p>
-					<p>审批:2017-12-20  19:32:00</p></td>
-					<td><a href="javascript:void(0);" class="check">查看</a></td>
+					<td>$!{obj.apply_man}</td>
+					<td>$!{obj.status}</td>
+					<td>$!{obj.approve_man}</td>
+					<td><p>创建:$!{obj.date_apply}</p>
+					<p>审批:$!{obj.date_check}</p></td>
+					<td><a href="javascript:void(0);" class="check">$!{obj.check}</a></td>
 	
 						
 					</tr>
-					
+					#end
 					</table>
 			</div>
 			

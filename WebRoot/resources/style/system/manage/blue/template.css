@@ -13,6 +13,7 @@ body, li, input, textarea, select, button {
 	padding:0px;
 	font-family:"Microsoft Yahei", "Lucida Grande", Verdana, Lucida, Helvetica, Arial, 'Simsun', sans-serif;
 }
+
 ul {
 	padding:0px;
 	margin:0px;
@@ -190,6 +191,19 @@ left:-50%; z-index:0;}
 	overflow:hidden;
 
 
+}
+.n_check{
+	position: relative;
+}
+.type{
+	float:left;
+	width:20px;
+	height:20px;
+	border:1px solid;
+	position: absolute;
+	top:32px;
+	left:66px;
+	background-color:rgb(211,243,254);
 }
 .lefts {
 	width:90%;

@@ -83,6 +83,20 @@ input[type="text"]:focus, input[type="text"]:hover, input[type="text"]:active, i
 	-webkit-box-shadow: 0 0 5px #ccc;
 	box-shadow: 0 0 5px #ccc;
 }
+.n_check{
+	position: relative;
+}
+.type{
+	float:left;
+	width:20px;
+	height:20px;
+	border:1px solid;
+	position: absolute;
+	top:32px;
+	left:66px;
+	background-color:black;
+	color:#fff;
+}
 button {
 	cursor:pointer;
 }
