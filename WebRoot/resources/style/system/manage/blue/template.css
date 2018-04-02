@@ -769,6 +769,42 @@ left:-50%; z-index:0;}
 	margin-left:20px;
 	background:url(images/czts.jpg) no-repeat 10px 10px;
 }
+
+.operation2 {
+	border:1px solid #D2D0D0;
+	margin-top:20px;
+	width:25%;
+	height:145px;
+	margin-left:20px;
+	background:url(images/czts.jpg) no-repeat 10px 10px;
+}
+.fenlei p{padding-left: 20px;padding-top: 20px;}
+.fenlei2 p{padding-left: 108px;padding-top: 20px;}
+.fenlei li{line-height: 38px;}
+.fenlei .ul li{float: left;padding-left: 7px;}
+.fenlei .ul {padding-left: 13px;padding-top: 20px;}
+.fenlei .ul2{position: absolute; left: 360px; top:305px;}
+.fenlei .ul3{position: absolute; top:555px;left: 25px;}
+.fenlei .ul3 li{padding-left: 35px;}
+
+.fenlei .ul4{position: absolute; left: 270px; top:598px;}
+
+.fenlei .ul5{position: absolute; left: 490px; top:598px;}
+.fenlei .huopin {position: absolute; top:820px;}
+.fenlei .huopin2 {position: absolute; top:950px;}
+
+.fenlei .huopin3 {position: absolute; top:1070px;}
+.fenlei .huopin4 {position: absolute; top:1137px; line-height: 50px;}
+.fenlei2 ul li{float: left; padding-left: 10px;padding-top: 40px;}
+.fenlei2 .tu{padding-top: 60px;}
+.fenlei3{line-height: 30px; }
+.miaoshu ul{position: absolute; left: 20px;}
+.fenlei4{position: absolute; top: 730px;}
+.fenlei4 ul li{line-height: 45px;padding-left: 45px;}
+.fenlei4 .p1{border: 1px rgb(204,204,204) solid; width: 800px;position: absolute; left: 40px;top:860px;}
+.fenlei4 .p2{font-weight: bold;font-size: 25px;padding-left: 40px;padding-top: 60px;}
+.fenlei4 .p3{padding-left: 40px;padding-top: 30px;}
+.tijiao .log_btn{background: url(images/u179.png) no-repeat; position: absolute;top:1770px;left: 310px; width: 100px;height: 50px;}
 .operation h3 {
 	padding-left:30px;
 	padding-top:10px;
