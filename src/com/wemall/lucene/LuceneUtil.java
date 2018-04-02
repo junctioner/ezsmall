@@ -1,13 +1,26 @@
 package com.wemall.lucene;
 
-import com.wemall.core.tools.CommUtil;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.NumericField;
-import org.apache.lucene.index.*;
+import org.apache.lucene.index.CorruptIndexException;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.QueryParser;
-import org.apache.lucene.search.*;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.Sort;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleFragmenter;
@@ -20,11 +33,7 @@ import org.jsoup.safety.Whitelist;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 import org.wltea.analyzer.lucene.IKSimilarity;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.wemall.core.tools.CommUtil;
 
 /**
  * Lucene全文检索工具
@@ -63,7 +72,7 @@ public class LuceneUtil {
 
     public List<LuceneVo> searchIndex(String keyword, int start, int size, double begin_price, double end_price, Sort sort) throws IOException {
         IndexSearcher searcher = null;
-        List list = new ArrayList();
+        List<LuceneVo> list = new ArrayList<LuceneVo>();
         IndexReader reader = null;
         try {
             index_file = new File(index_path);
@@ -123,7 +132,6 @@ public class LuceneUtil {
     public LuceneResult search(String params, int pageNo, double begin_price, double end_price, ScoreDoc after, Sort sort){
         LuceneResult pList = new LuceneResult();
         IndexSearcher isearcher = null;
-        List list = new ArrayList();
         IndexReader reader = null;
         try {
             index_file = new File(index_path);
@@ -149,7 +157,8 @@ public class LuceneUtil {
             int intPageNo = pageNo > pages ? pages : pageNo;
             if (intPageNo < 1)
                 intPageNo = 1;
-            List vo_list = searchIndex(params, (intPageNo - 1) * this.pageSize, this.pageSize, begin_price, end_price, sort);
+            List<LuceneVo> vo_list = searchIndex(params, (intPageNo - 1) * this.pageSize, this.pageSize, begin_price,
+                    end_price, sort);
             pList.setPages(pages);
             pList.setRows(topDocs.totalHits);
             pList.setCurrentPage(intPageNo);
@@ -185,7 +194,7 @@ public class LuceneUtil {
                 Document document = builderDocument(lucenceVo);
                 writer.addDocument(document);
             }
-            writer.optimize();
+            writer.forceMerge(1, true);
         } finally {
             writer.close();
         }
@@ -197,7 +206,7 @@ public class LuceneUtil {
             writer = openIndexWriter();
             Document document = builderDocument(vo);
             writer.addDocument(document);
-            writer.optimize();
+            writer.forceMerge(1, true);
         } catch (IOException e1){
             e1.printStackTrace();
             try {
@@ -289,15 +298,14 @@ public class LuceneUtil {
 
         index_file = new File(index_path);
         indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+        indexWriterConfig.setMaxBufferedDocs(100);
         IndexWriter writer = new IndexWriter(FSDirectory.open(index_file), indexWriterConfig);
-        writer.setMaxBufferedDocs(100);
 
         return writer;
     }
 
     private Document builderDocument(LuceneVo luceneVo){
         Document document = new Document();
-        Whitelist white = new Whitelist();
         Field id = new Field("id", String.valueOf(luceneVo.getVo_id()), Field.Store.YES, Field.Index.ANALYZED);
         Field title = new Field("title", Jsoup.clean(luceneVo.getVo_title(), Whitelist.none()), Field.Store.YES, Field.Index.ANALYZED);
         title.setBoost(10.0F);

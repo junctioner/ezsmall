@@ -62,8 +62,14 @@ public class OrderForm extends IdEntity {
 	private int order_status;// 订单状态
 	// 首付款
 	private BigDecimal first_price;
+	//首付支付时间
+	private Date firest_time;
+	//尾款支付时间
+	private Date end_time;
 	// 尾款
 	private BigDecimal end_price;
+	//全款
+	private BigDecimal all_price;
 	// 合同编号
 	private String pact_no;
 	// 合同附件
@@ -304,6 +310,22 @@ public class OrderForm extends IdEntity {
 
 	public void setGcs(List<GoodsCart> gcs) {
 		this.gcs = gcs;
+	}
+
+	public Date getFirest_time() {
+		return firest_time;
+	}
+
+	public void setFirest_time(Date firest_time) {
+		this.firest_time = firest_time;
+	}
+
+	public Date getEnd_time() {
+		return end_time;
+	}
+
+	public void setEnd_time(Date end_time) {
+		this.end_time = end_time;
 	}
 
 }

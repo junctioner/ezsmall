@@ -10,7 +10,8 @@
 package com.wemall.foundation.service;
 
 import java.util.List;
-import java.util.Map;
+
+import com.wemall.foundation.domain.Goods;
 
 /**
  * Description: <br/>
@@ -22,6 +23,6 @@ import java.util.Map;
  */
 public interface GoodsPriceManagerService {
 
-    List<Map<String, Object>> list();
+    List<Goods> list();
 
 }

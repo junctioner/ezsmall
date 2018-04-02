@@ -37,11 +37,11 @@ public class GoodsSellerAction {
 	 */
 	@RequestMapping("/good_buy.htm")
 	public ModelAndView new_buy(String id, HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new JModelAndView("default" + "/good_buy.html", this.configService.getSysConfig(),
+		ModelAndView mv = new JModelAndView("default" + "/goods_buy.html", this.configService.getSysConfig(),
 				this.userConfigService.getUserConfig(), 1, request, response);
 		String wemall_view_type = CommUtil.null2String(request.getSession().getAttribute("wemall_view_type"));// 显示类型
 		if ((wemall_view_type != null) && (!wemall_view_type.equals("")) && (wemall_view_type.equals("wap"))) {
-			mv = new JModelAndView("wap/good_buy.html", this.configService.getSysConfig(),
+			mv = new JModelAndView("wap/goods_buy.html", this.configService.getSysConfig(),
 					this.userConfigService.getUserConfig(), 1, request, response);
 		}
 		User user = SecurityUserHolder.getCurrentUser();
@@ -54,6 +54,8 @@ public class GoodsSellerAction {
 				mv.addObject("url", CommUtil.getURL(request) + "/goods_" + id + ".htm");
 			} else {
 				mv.addObject("obj", obj);
+				mv.addObject("count", 1);
+				mv.addObject("total_price", CommUtil.mul(obj.getPrice(), 1));
 			}
 		} else {
 			mv = new JModelAndView("error.html", this.configService.getSysConfig(),

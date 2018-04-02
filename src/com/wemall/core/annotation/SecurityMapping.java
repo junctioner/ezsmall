@@ -5,24 +5,24 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * ×Ô¶¨Òå×¢ÊÍ£¬ÓÃÓÚÈ¨ÏŞĞ£Ñé
+ * è‡ªå®šä¹‰æ³¨é‡Šï¼Œç”¨äºæƒé™æ ¡éªŒ
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({java.lang.annotation.ElementType.METHOD})
 public @interface SecurityMapping {
-    public abstract String title();// ±êÌâ
+    public abstract String title();// æ ‡é¢˜
 
-    public abstract String value();// urlµØÖ·Öµ
+    public abstract String value();// urlåœ°å€å€¼
 
-    public abstract String rname();// ½ÇÉ«Ãû
+    public abstract String rname();// è§’è‰²å
 
-    public abstract String rcode();// ½ÇÉ«´úÂë
+    public abstract String rcode();// è§’è‰²ä»£ç 
 
-    public abstract int rsequence();// ½ÇÉ«ĞòºÅ
+    public abstract int rsequence();// è§’è‰²åºå·
 
-    public abstract String rgroup();// ½ÇÉ«×é
+    public abstract String rgroup();// è§’è‰²ç»„
 
-    public abstract String rtype();// ½ÇÉ«ÀàĞÍ
+    public abstract String rtype();// è§’è‰²ç±»å‹
 
-    public abstract boolean display();// ÊÇ·ñÏÔÊ¾
+    public abstract boolean display();// æ˜¯å¦æ˜¾ç¤º
 }

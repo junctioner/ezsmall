@@ -1,9 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <title></title> #macro ( genericTree $somelist ) #foreach ( $some in
+
+<title></title> #macro(genericTree $somelist ) #foreach($some in
+
 $somelist )
 <option value="$!some.id">#if($!some.level>0) #foreach($count
 	in [-1..$!some.level])&nbsp;#end #end $!some.className</option>
@@ -20,7 +23,6 @@ $somelist )
 <script src="$!webPath/resources/js/jquery.shop.common.js"></script>
 <script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
 <script>
-	//
 	function ajax_update(id, fieldName, obj, value) {
 		var val;
 		if (value == undefined) {
@@ -97,16 +99,11 @@ $somelist )
 						</select></span> <span>订单</span> <span class="size5"> <input
 							name="goods_name" type="text" id="goods_name" /> - <input
 							name="goods_name" type="text" id="goods_name" />
-					</span> <br />
-					<br /> <!--           <select name="goods.goods_brand.id" id="goods.goods_brand.id"> -->
-						<!--           <option selected value="">更新日期</option> --> <!--           <option value="">创建时间</option> -->
-						<!--           </select> --> <span>下单时间</span><span
-						class="order_input size2"> <input name="beginTime"
-							type="text" id="beginTime" readonly="readonly" />
-					</span> <!--           <span class="size6"> --> <!--           <input style="width: 80px;" name="goods_name" type="text" id="goods_name" /> - -->
-						<!--           <input style="width: 80px;" name="goods_name" type="text" id="goods_name" /> -->
-						<!--           </span> --> <span>价格</span> <span class="size5">
-							<input name="goods_name" type="text" id="goods_name" /> - <input
+					</span> <br /> <br /> <span>下单时间</span><span class="order_input size2">
+							<input name="beginTime" type="text" id="beginTime"
+							readonly="readonly" />
+					</span> <span>价格</span> <span class="size5"> <input
+							name="goods_name" type="text" id="goods_name" /> - <input
 							name="goods_name" type="text" id="goods_name" />
 					</span> <span> <span>库存</span> <span class="size5"> <input
 								name="goods_name" type="text" id="goods_name" /> - <input
@@ -146,9 +143,6 @@ $somelist )
 						<td width="6%" align="center">排序</td>
 						<td width="10%" align="center">操作</td>
 					</tr>
-
-
-
 					#foreach($oo in $list)
 					<tr>
 						<td width="3%">&nbsp;<input type="checkbox"></td>

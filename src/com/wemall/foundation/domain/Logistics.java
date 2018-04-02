@@ -10,8 +10,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
+
 /**
  * 物流
+ * 
  * @author 刘恒福
  *
  */
@@ -37,6 +39,18 @@ public class Logistics extends IdEntity {
 	private int status;
 	// 备注
 	private String msg;
+	// 派车时间
+	private Date add_cart_time;
+	private String sendAddess;
+	private String phone;
+
+	public Date getAdd_cart_time() {
+		return add_cart_time;
+	}
+
+	public void setAdd_cart_time(Date add_cart_time) {
+		this.add_cart_time = add_cart_time;
+	}
 
 	public String getLogistics_no() {
 		return logistics_no;
@@ -84,6 +98,22 @@ public class Logistics extends IdEntity {
 
 	public void setService_time(Date service_time) {
 		this.service_time = service_time;
+	}
+
+	public String getSendAddess() {
+		return sendAddess;
+	}
+
+	public void setSendAddess(String sendAddess) {
+		this.sendAddess = sendAddess;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public Date getEnd_time() {

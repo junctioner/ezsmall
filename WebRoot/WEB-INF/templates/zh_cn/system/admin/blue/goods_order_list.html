@@ -28,7 +28,14 @@ jQuery(document).ready(function(){
 	  var endTime = new Date(jQuery(this).val());
 	  var beginTime = new Date(jQuery('#beginTime').val());
 	  if(endTime<beginTime){
-		  errorAlertByTM("时间选择错误!", "#369", "#fff");
+		  var arg = {
+					message: "时间选择错误!",
+					bgc: "#369",
+					color: "#fff",
+					fontsize: "中",
+					time: 3
+				};
+		  errorAlertByTM(arg);
 		  jQuery(this).val("");
 	  }
 	  

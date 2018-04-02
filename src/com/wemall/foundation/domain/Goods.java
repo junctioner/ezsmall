@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
@@ -39,6 +40,7 @@ public class Goods extends IdEntity {
 	private String keyword;// 商品搜索关键字
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Dict util;// 单位
+	@Column(columnDefinition = "bit default false")
 	private boolean recommend;// 是否推荐
 	private Date recommend_time;// 推荐日期
 	private int click;// 商品点击量
@@ -67,8 +69,10 @@ public class Goods extends IdEntity {
 	private String bending;// 弯曲强度
 	private String flexural;// 弯曲模量
 	private String burning;// 燃烧等级
+	@Column(columnDefinition = "bit default false")
 	private boolean protection;// 是否环保
 	private String content;// 描述
+	@Column(columnDefinition = "bit default false")
 	private double cncl_num;// 样品库存
 	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;// 发布人
@@ -78,8 +82,11 @@ public class Goods extends IdEntity {
 	private Quality quality;// 质检
 	@ManyToOne(cascade = { javax.persistence.CascadeType.REMOVE })
 	private Accessory goods_main_photo;// 主图片
+	@Column(columnDefinition = "bit default false")
 	private boolean memberLook;// 是否会员查看
 	private int goods_salenum;// 销量数
+	@Column(columnDefinition = "bit default false")
+	private boolean good_self;//是否自营商品
 	// 照片
 	@ManyToMany
 	@JoinTable(name = "ezs_goods_photo", joinColumns = {
@@ -442,6 +449,14 @@ public class Goods extends IdEntity {
 
 	public void setCartographys(List<Accessory> cartographys) {
 		this.cartographys = cartographys;
+	}
+
+	public boolean isGood_self() {
+		return good_self;
+	}
+
+	public void setGood_self(boolean good_self) {
+		this.good_self = good_self;
 	}
 
 }

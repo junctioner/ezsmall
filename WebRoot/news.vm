@@ -5,7 +5,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>欢迎你</h1>
-${msg}
+<h1>hello velocity</h1>
 </body>
 </html>

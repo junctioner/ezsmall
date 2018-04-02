@@ -1,0 +1,273 @@
+技术构架
+开发语言： Java
+数 据 库 ： MySQL、SQLServer、Oracle
+数据库持久层：阿里巴巴druid
+核心框架： Spring、SpringMVC、Hibernate
+缓存技术： Memcache
+全文检索： Lucene、HibernateSearch
+模板视图： Velocity、HTML、CSS、JQuery
+权限控制： SpringSecurity
+
+技术特点
+基于Java语言开发，融合OOP编程思想，安全性高、性能优越、扩展方便；
+系统内部结构耦合性低，分模块开发，便于多服务器拆分部署，提高系统性能；
+多层安全控制机制，采用MVC开发模式，使用SpringSecurity管理权限，7层过滤器彻底解决安全问题；
+应用Memcache缓存框架，数据缓存和资源缓存并存机制，提高系统数据加载效率，支持分布式缓存管理；
+Lucene全文检索原生API深度开发，完美支持电商平台，支持自定义词库管理，使得商城检索功能更加完善；
+内置自定义Velocity缓存标签，补充完善开源缓存框架不足，解决各类资源缓存，提升系统性能
+电商平台配属体系强大，完备的产品体系包含手机商城、微信商城、桌面助手等多种外相关电商统；
+
+系统支持的支付方式：平台统一支付（收款到平台账户，卖家申请提现后财务打款给卖家）和店铺支付（直接收款到卖家自己的账户）
+系统支持的在线支付方式：
+PC端（见PayTools.java,shop/goods_cart3.html）：微信扫码支付、支付宝支付、财付通支付、网银在线支付、贝宝支付、快钱支付
+WAP端（见CartViewAction.java,wap/goods_cart3.html）：微信公众号支付（只有在微信内打开显示）、支付宝手机网页支付（只有普通浏览器内打开显示，微信内打开不显示）
+
+推荐开发环境Windows7操作系统64位版、jdk1.7 64位版和tomcat7 64位版
+推荐生产环境Ubuntu14.04操作系统64位、jdk1.7 64位版和tomcat7 64位版
+
+PC前台首页：http://happyworld.vicp.io:8080/index.htm
+手机WAP前台首页：http://happyworld.vicp.io:8080/wap/index.htm
+管理员后台：http://happyworld.vicp.io:8080/admin/login.htm
+管理员：admin/123456
+买家中心：http://happyworld.vicp.io:8080/buyer/index.htm
+买家：zhangsan/123456、test3/123456
+卖家中心：http://happyworld.vicp.io:8080/seller/index.htm
+卖家：wemall/123456、liying/123456
+
+二次开发步骤：
+1.恢复数据库。用记事本打开wemall-demo.sql文件，注意中文没有乱码，将SQL内容复制到Navicat工具查询窗口中执行；导入后检查wemall_goods表中是否有乱码，没有乱码就正常；
+2.将wemall工程导入idea/eclipse/myeclipse等开发环境；
+3.配置开发环境JDK、debug和tomcat相关参数；
+4.修改src/jdbc.properties中mysqlbase.sid、mysqlbase.user、mysqlbase.password为您的mysql配置，其中mysqlbase.password需要使用com.wemall.core.tools.DruidDecrypt.java类进行加密；
+5.在开发环境中debug运行；It's ok!
+
+eclipse/myeclipse项目转IDEA项目步骤：
+1.导入eclipse/myeclipse工程的项目；
+2.file->project structure->project配置SDK；
+3.file->project structure->project配置project compiler output路径为XXX\web\WEB-INF\classes；
+3.file->project structure->modules配置paths的compiler output选择use module compile output path，并设置output path 为XXX\web\WEB-INF\classes；
+4.file->project structure->Libraries点击加号将项目XXX\web\WEB-INF\lib目录引入进来；
+5.配置tomcat本地debug环境，IDEA右上角configurations配置tomcat server->local，配置deployment为项目的web目录，就可以本地debug调试了；
+
+1.写入数据库中文是问号乱码的问题
+  解决办法：修改dbcp数据源为alibaba数据源，修改了jdbc.properties和applicationContext-configuration.xml配置文件中dataSource。
+  结果前后台正常，但是定时任务报错，如下提示：
+  org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: com.wemall.foundation.domain.Group.gg_list, no session or session was closed
+
+  另外dbcp1.2升级到1.4还是乱码，升级到2.1系统起不来
+  
+  注意：数据库采用UTF-8编码，默认密码root123，如果你的mysql数据库密码不是root123，请使用DruidDecrypt.java进行加密，并修改classes目录下的jdbc.properties配置文件。
+
+2.查看hibernate日志打印中参数值
+#log4j.appender.STDOUT.Threshold=trace
+#log4j.category.org.hibernate.SQL=trace
+#log4j.category.org.hibernate.type=trace
+
+3.系统目录结构
+Base	提供系统最基本能力支持，数据库表的持久化对象，各个表基本操作的接口以及文件上传功能。
+Core	整个系统的核心组件，在此组件当中包含了缓存、安全、使用Spring通过orm组件来代理hibernate做数据库操作、构造统一的DAO、QueryService等等。
+Buyer	针对买家管理实现用户中心、消息、收藏夹、购买订单等业务。
+Admin	基于管理员的能力对系统进行管理，此组件主要包含管理员所能操作的业务。
+Login-plug	系统中可使用其他登录方式，如QQ、新浪微博等，都在此组件进行接入。
+Lucene	提供快速对系统、店铺、产品进行全文索引功能。
+Pay	系统提供多种订单支持方式，其中有支付宝、网银在线、Paypal、财付通。
+Seller	卖家业务管理统一在这组件内实现，主要有：宝贝管理、订单管理。
+Timer	实现系统中的一些定时任务，统计任务等后台运行机制。
+Uc	支持ucenter整合，实现用户的一站式注册、登录、退出以及社区其他数据的交互。
+View	实现浏览查看功能，主要针对查询业务独立封装出来组件便于以后优化。
+
+==================代码结构分析==================
+产品goods相关代码：
+action类：com.wemall.view.web.action.GoodsViewAction.java
+domain模型类：com.wemall.foundation.domain.Goods.java
+query查询类：com.wemall.foundation.domain.query.GoodsQueryObject.java
+dao持久化类：com.wemall.foundation.GoodsDAO.java
+service服务接口：com.wemall.foundation.service.IGoodsService.java
+service服务实现：com.wemall.foundation.service.impl.GoodsServiceImpl.java
+html页面：
+  前台：templates/zh_cn/shop/default/goods_list.html,good_detail.html
+  系统管理员：templates/zh_cn/system/admin/blue/goods_list.html,goods_manage.html
+  用户中心：templates/zh_cn/user/default/usercenter/goods.html
+==================代码结构分析==================
+
+4.Velocity模板
+"#"用来标识Velocity的脚本语句，包括#set、#if 、#else、#end、#foreach、#end、#include、#parse、#macro等
+4.1判断
+#if($info.imgs)
+<img src="$info.imgs" border=0>
+#else
+<img src="noPhoto.jpg">
+#end
+4.2循环
+#foreach($info in $hotList1)
+    <a href="/bbsdoc.ejf?easyJWebCommand=show&&cid=$!info.cid" target="_blank">
+    $!info.title</a><br>
+#end
+4.3逻辑运算符:== && || !
+
+5.弹出对话框
+方案一：wemall使用方案
+页面引用<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<a href="javascript:void(0);" id="report_goods" #if(!$!user)dialog_uri="$!webPath/user_dialog_login.htm" dialog_title="会员登录" dialog_width="450" dialog_height="100" dialog_id="user_login"#end>举报此商品</a>
+方案二：使用layer弹出框组件，切记jquery必须1.8.3以上
+页面引用<script src="$!webPath/resources/layer/layer.js"></script>
+
+6.修正淘宝助手导入功能，模板在resources/data/taobao.cvs
+
+7.不要随意升级spring、springmvc等jar包，系统使用springmvc2.5.6。升级到spring3.4/3.11会出现系统启不来的情况
+
+8.ajax使用
+方法一：
+后台java:
+@RequestMapping(value = "/get_trans_area.htm", method = RequestMethod.POST)
+public void get_trans_area(HttpServletRequest request, HttpServletResponse response, String parentId) {
+    if(StringUtils.isEmpty(parentId)){
+        parentId = "100000";
+    }
+    TransArea transArea = this.transareaService.getObjById(Long.valueOf(Long.parseLong(parentId)));
+    List list = new ArrayList();
+    for (TransArea area : transArea.getChilds()) {
+        Map map = new HashMap();
+        map.put("id", area.getId());
+        map.put("areaName", area.getAreaName());
+        list.add(map);
+    }
+    String result = Json.toJson(list, JsonFormat.compact());
+
+    response.setContentType("text/html");
+    response.setHeader("Cache-Control", "no-cache");
+    response.setCharacterEncoding("UTF-8");
+    try {
+        PrintWriter writer = response.getWriter();
+        writer.print(result);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+前台js：
+jQuery.ajax({
+    type: "POST",
+    url: "$!webPath/get_trans_area.htm",
+    data: {parentId:id},
+    dataType: "json",
+    success:function(data){
+        if(id=="")
+            $("#area_tab span").eq(0).addClass("this");
+        var text ="";
+        var last_id="";
+        var last_level="";
+        var last_name="";
+        var city_id=$("#area_tab span[class='this']").find("a").attr("city_id");
+        jQuery.each(data, function(i,item){
+            last_id=item.id;
+            last_level=item.level;
+            last_name=item.areaName;
+            if(item.id==city_id){
+                text=text+"<li><a href='javascript:void(0);' class='this' id="+item.id+" level="+item.level+">"+item.areaName+"</a></li>";
+            }else{
+                text=text+"<li><a href='javascript:void(0);' id="+item.id+" level="+item.level+">"+item.areaName+"</a></li>";
+            }
+        });
+    }
+});
+方法二：
+后台java：
+@RequestMapping({"/seller/transport_area.htm"})
+public ModelAndView transport_area(HttpServletRequest request, HttpServletResponse response, String id, String trans_city_type, String trans_index) {
+    ModelAndView mv = new JModelAndView(
+            "user/default/usercenter/transport_area.html", this.configService
+            .getSysConfig(),
+            this.userConfigService.getUserConfig(), 0, request, response);
+    List objs = this.transAreaService
+            .query(
+                    "select obj from TransArea obj where obj.parent.id is null order by obj.sequence asc",
+                    null, -1, -1);
+    mv.addObject("objs", objs);
+    mv.addObject("trans_city_type", trans_city_type);
+    mv.addObject("trans_index", trans_index);
+    return mv;
+}
+前台js：
+jQuery.ajax({
+    type:'POST',
+    url:'$!webPath/seller/transport_area.htm',
+    data:{"trans_city_type":trans_city_type,"trans_index":trans_index},
+    success:function(data){
+             jQuery(".main").append(data);
+          }
+})
+
+9.全国区域，物流配送，收货地址表：
+前台配送区域选择表trans_area
+会员收货地址表area
+
+10.主要业务模型
+Store：店铺模型，表wemall_store
+StoreGrade：店铺级别，表wemall_storegrade
+StoreClass：店铺类型，表wemall_storeclass
+
+User：用户模型，表wemall_user
+
+Goods：商品模型，表wemall_goods，商品规格的库存和价格在商品表的goods_inventory_detail字段中，款式、材质和衣长在goods_property字段中
+GoodsSpecification：商品规格定义模型：表
+GoodsSpecProperty：商品规格属性定义模型，表wemall_goodsspecproperty
+注：wemall_goods_spec表定义wemall_goods和wemall_goods_spec_property表的关系
+GoodsClass：商品类型模型，表wemall_goodsclass
+UserGoodsClass：店铺自定义商品分类模型，表wemall_usergoodsclass
+注：wemall_goods_ugc表定义wemall_goods和wemall_usergoodsclass表的关系
+GoodsBrand：品牌模型，表wemall_goodsbrand
+GroupGoods：团购商品模型，表wemall_group_goods
+Group：团购模型，表wemall_group
+BargainGoods：特价商品，表wemall_bargain_goods
+DeliveryGoods：配送商品模型，表wemall_delivery_goods
+ActivityGoods：促销活动商品模型，表wemall_activity_goods
+
+StoreCart：购物车模型，表：wemall_storecart
+GoodsCart：购物明细模型，表：wemall_cart_gsp
+
+OrderForm：订单模型，表wemall_orderform
+Payment：支付模型，表wemall_payment
+
+Accessory：附件模型，表wemall_accessory
+Evaluate：评价模型，表wemall_evaluate
+Dynamic：动态模型，表wemall_dynamic
+
+11.订单关键属性
+支付方式 payment
+alipay：支付宝
+wxcodepay：微信扫码支付
+weixin_wap：微信公众号支付
+chinabank：网银在线
+bill：快钱
+tenpay：财付通
+outline：线下支付
+balance：预付款支付
+payafter：货到付款
+paypal：贝宝支付
+
+12.订单状态 order_status
+10：待付款
+15：线下支付待审核
+16：货到付款待发货
+20：待发货
+30：已发货
+40：已收货
+50：已完成,已评价
+60：已结束
+0：已取消
+
+13.店铺状态 store_status
+1 待审核
+2 正常
+3 违规关闭
+
+14.商品状态 goods_status
+0 上架
+1 仓库中
+-1 已下架
+-2 违规下架
+
+12.根据url找java的小技巧
+根据url地址，比如seller/payment.htm，不知道是在哪个java中实现的，也不知道是哪个页面html模板。
+这时可以用UltraEditor从文件夹中搜索“seller/payment.htm”关键字，可以找到java文件，方法中就有加载html页面。

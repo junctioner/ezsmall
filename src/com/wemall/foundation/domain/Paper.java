@@ -10,12 +10,16 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.wemall.core.domain.IdEntity;
-
+/**
+ * 证件
+ * @author 刘恒福
+ *
+ */
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "ezs_paper")
 public class Paper extends IdEntity {
-	// 正将
+	//证件
 	@ManyToOne
 	public Accessory certificate;
 	// 证件有效期

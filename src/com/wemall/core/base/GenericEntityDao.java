@@ -24,24 +24,14 @@ public class GenericEntityDao extends JpaDaoSupport {
         return getJpaTemplate().find(clazz, id);
     }
 
-    public List<Object> find(Class clazz, final String queryStr, final Map params, final int begin, final int max) {
-        final Class claz = clazz;
+    public List find(final Class clazz, final String queryStr, final Map<String, Object> params,
+            final int begin, final int max) {
         List ret = (List) getJpaTemplate().execute(new JpaCallback() {
-            /*
-             * private Class claz; private String queryStr; private Map params;
-             * private int begin; private int max; public JpaCallback(Class
-             * clazz, String queryStr, Map params, int begin, int max){
-             * this.claz =claz; this.queryStr = queryStr; this.params = params;
-             * this.begin =begin; this.max =max; }
-             */
             public Object doInJpa(EntityManager em) throws PersistenceException {
-                String clazzName = claz.getName();
-                StringBuffer sb = new StringBuffer("select obj from ");
-                sb.append(clazzName).append(" obj").append(" where ").append(queryStr);
-                Query query = em.createQuery(sb.toString());
-                for (Iterator localIterator = params.keySet().iterator(); localIterator.hasNext();) {
-                    Object key = localIterator.next();
-                    query.setParameter(key.toString(), params.get(key));
+                Query query = em.createQuery(queryStr);
+                for (Iterator<String> localIterator = params.keySet().iterator(); localIterator.hasNext();) {
+                    String key = localIterator.next();
+                    query.setParameter(key, params.get(key));
                 }
                 if ((begin >= 0) && (max > 0)) {
                     query.setFirstResult(begin);

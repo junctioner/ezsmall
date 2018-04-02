@@ -1,7 +1,32 @@
 package com.wemall.core.tools;
 
-import net.sf.json.JSONException;
-import net.sf.json.JSONObject;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.ConnectException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.SortedMap;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -9,13 +34,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.servlet.http.HttpServletRequest;
 
-import java.io.*;
-import java.net.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -25,6 +44,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.wemall.core.tools.bean.WxToken;
+
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
 
 /**
  * Created by John on 2016/1/13.
@@ -280,7 +302,7 @@ public class WxCommonUtil {
      * @return String
      */
     public static String encode(byte[] bstr){
-        return new sun.misc.BASE64Encoder().encode(bstr);
+        return Base64.encodeBase64String(bstr);
     }
 
     /**
@@ -289,16 +311,7 @@ public class WxCommonUtil {
      * @return string
      */
     public static byte[] decode(String str){
-
-        byte[] bt = null;
-        try {
-            sun.misc.BASE64Decoder decoder = new sun.misc.BASE64Decoder();
-            bt = decoder.decodeBuffer(str);
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        return bt;
-
+        return Base64.decodeBase64(str);
     }
     /**
      * URL编码（utf-8）
@@ -418,7 +431,7 @@ public class WxCommonUtil {
      */
     public static String localIp(){
         String ip = null;
-        Enumeration allNetInterfaces;
+        Enumeration<NetworkInterface> allNetInterfaces;
         try {
             allNetInterfaces = NetworkInterface.getNetworkInterfaces();
             while (allNetInterfaces.hasMoreElements()){
