@@ -33,15 +33,35 @@
 					<td>$!map.form.name</td>
 					<td></td>
 					<td>$!map.purpose</td>
-					<td>$!{map.density1}-$!{map.density2}</td>
-					<td>$!{map.cantilever1}-$!{map.cantilever2}</td>
-					<td>$!{map.freely1}-$!{map.freely2}</td>
-					<td>$!map.direction  $!map.range</td>
+					<td>$!{map.density1}~$!{map.density2}</td>
+					<td>$!{map.cantilever1}~$!{map.cantilever2}</td>
+					<td>$!{map.freely1}~$!{map.freely2}</td>
+					<td>
+					#if($!map.direction=='1')
+					+
+					#else
+					-
+					#end
+					$!{map.range}%
+					</td>
 					<td>$!map.proposer.name</td>
 					<td>$!map.proposerTime</td>
 					<td>$!map.approve.name</td>
 					<td>$!map.approveTime</td>
-					<td>$!map.state</td>
+					<td>
+					#if($!map.state==0)
+					<a href="">通过</a>
+					<a href="">拒绝</a>
+					#else
+					#if($!map.state==1)
+					已通过
+					#else
+					#if($!map.state==2)
+					<a href="javascript:void(0)" title="$!map.reason">已拒绝</a>
+					#end
+					#end
+					#end
+					</td>
 				</tr>
 				#end
 			</tbody>

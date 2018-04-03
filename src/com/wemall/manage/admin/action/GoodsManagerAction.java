@@ -47,7 +47,7 @@ public class GoodsManagerAction {
 
     @RequestMapping("/admin/goods_approval2.htm")
     public ModelAndView adjustPriceApproval(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("----------------");
+        // System.out.println("----------------");
         ModelAndView mv = new JModelAndView("admin/blue/base/good_approval.html", configService.getSysConfig(),
                 userConfigService.getUserConfig(), 0, request, response);
 

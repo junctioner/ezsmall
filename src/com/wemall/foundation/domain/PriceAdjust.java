@@ -2,6 +2,7 @@ package com.wemall.foundation.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -69,6 +70,7 @@ public class PriceAdjust extends IdEntity {
     private User proposer;
 
     // 申请时间
+    @Column(name = "proposer_time")
     private Date proposerTime;
 
     // 审批人
@@ -76,6 +78,7 @@ public class PriceAdjust extends IdEntity {
     private User approve;
 
     // 审批时间
+    @Column(name = "approve_time")
     private Date approveTime;
 
     // 审批状态
@@ -188,28 +191,12 @@ public class PriceAdjust extends IdEntity {
         this.proposer = proposer;
     }
 
-    public Date getProposerTime() {
-        return proposerTime;
-    }
-
-    public void setProposerTime(Date proposerTime) {
-        this.proposerTime = proposerTime;
-    }
-
     public User getApprove() {
         return approve;
     }
 
     public void setApprove(User approve) {
         this.approve = approve;
-    }
-
-    public Date getApproveTime() {
-        return approveTime;
-    }
-
-    public void setApproveTime(Date approveTime) {
-        this.approveTime = approveTime;
     }
 
     public String getState() {
@@ -228,14 +215,20 @@ public class PriceAdjust extends IdEntity {
         this.reason = reason;
     }
 
-    @Override
-    public String toString() {
-        return "PriceAdjust [goodclass=" + goodclass + ", color=" + color + ", form=" + form + ", purpose=" + purpose
-                + ", density1=" + density1 + ", density2=" + density2 + ", cantilever1=" + cantilever1
-                + ", cantilever2=" + cantilever2 + ", freely1=" + freely1 + ", freely2=" + freely2 + ", direction="
-                + direction + ", range=" + range + ", proposer=" + proposer + ", proposerTime=" + proposerTime
-                + ", approve=" + approve + ", approveTime=" + approveTime + ", state=" + state + ", reason=" + reason
-                + "]";
+    public Date getProposerTime() {
+        return proposerTime;
+    }
+
+    public void setProposerTime(Date proposerTime) {
+        this.proposerTime = proposerTime;
+    }
+
+    public Date getApproveTime() {
+        return approveTime;
+    }
+
+    public void setApproveTime(Date approveTime) {
+        this.approveTime = approveTime;
     }
 
 }
