@@ -9,7 +9,6 @@
 
 package com.wemall.foundation.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -17,8 +16,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wemall.core.dao.IGenericDAO;
-import com.wemall.foundation.domain.Goods;
+import com.wemall.foundation.dao.PriceAdjustDao;
+import com.wemall.foundation.domain.PriceAdjust;
 import com.wemall.foundation.service.GoodsPriceManagerService;
 
 /**
@@ -33,8 +32,8 @@ import com.wemall.foundation.service.GoodsPriceManagerService;
 @Transactional
 public class GoodsPriceManagerServiceImpl implements GoodsPriceManagerService {
 
-    @Resource(name = "goodsDAO")
-    private IGenericDAO<Goods> goodsDAO;
+    @Resource(name = "priceAdjustDao")
+    private PriceAdjustDao priceAdjustDao;
 
     /**
      * 简单描述该方法的实现功能（可选）.
@@ -42,9 +41,9 @@ public class GoodsPriceManagerServiceImpl implements GoodsPriceManagerService {
      * @see com.wemall.foundation.service.impl.GoodsPriceManagerService#list()
      */
     @Override
-    public List<Goods> list() {
+    public List<PriceAdjust> list() {
 
-        List<Goods> list = this.goodsDAO.find(null, new HashMap<String, Object>(), 1, 1);
+        List<PriceAdjust> list = this.priceAdjustDao.queryAll();
         return list;
     }
 

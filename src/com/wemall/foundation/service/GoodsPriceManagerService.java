@@ -11,7 +11,7 @@ package com.wemall.foundation.service;
 
 import java.util.List;
 
-import com.wemall.foundation.domain.Goods;
+import com.wemall.foundation.domain.PriceAdjust;
 
 /**
  * Description: <br/>
@@ -23,6 +23,6 @@ import com.wemall.foundation.domain.Goods;
  */
 public interface GoodsPriceManagerService {
 
-    List<Goods> list();
+    List<PriceAdjust> list();
 
 }

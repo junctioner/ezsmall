@@ -27,21 +27,21 @@
 			<tbody>
 				#foreach($map in $list)
 				<tr>
-					<td>$!map.abc</td>
+					<td>$!map.goodclass.id</td>
+					<td>$!map.goodclass.name</td>
+					<td>$!map.color.name</td>
+					<td>$!map.form.name</td>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td>$!map.purpose</td>
+					<td>$!{map.density1}-$!{map.density2}</td>
+					<td>$!{map.cantilever1}-$!{map.cantilever2}</td>
+					<td>$!{map.freely1}-$!{map.freely2}</td>
+					<td>$!map.direction  $!map.range</td>
+					<td>$!map.proposer.name</td>
+					<td>$!map.proposerTime</td>
+					<td>$!map.approve.name</td>
+					<td>$!map.approveTime</td>
+					<td>$!map.state</td>
 				</tr>
 				#end
 			</tbody>
