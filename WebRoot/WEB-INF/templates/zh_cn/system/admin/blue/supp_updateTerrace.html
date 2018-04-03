@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title></title> #macro ( genericTree $somelist ) #foreach ( $some in
+$somelist )
+<option value="$!some.id">#if($!some.level>0) #foreach($count
+	in [-1..$!some.level])&nbsp;#end #end $!some.className</option>
+#genericTree($some.childs) #end #end
+<!--[if IE]>
+<style type="text/css">
+.input{behavior: url($!webPath/resources/style/common/css/ie-css3.htc);}
+</style>
+<![endif]-->
+<link
+	href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"
+	rel="stylesheet" type="text/css" />
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script>
+	//
+	function ajax_update(id, fieldName, obj, value) {
+		var val;
+		if (value == undefined) {
+			val = jQuery(obj).val();
+		} else
+			val = value;
+		jQuery.ajax({
+			type : 'POST',
+			url : '$!webPath/admin/goods_ajax.htm',
+			data : {
+				"id" : id,
+				"fieldName" : fieldName,
+				"value" : val
+			},
+			beforeSend : function() {
+
+			},
+			success : function(data) {
+				if (val == "") {
+					jQuery(obj).attr(
+							"src",
+							"$!webPath/resources/style/system/manage/blue/images/"
+									+ data + ".png");
+				} else {
+					jQuery(obj).val(val);
+				}
+				if (value != undefined) {
+					jQuery(obj.parentNode.parentNode).remove();
+				}
+			}
+		});
+	}
+</script>
+<script>
+	jQuery(document).ready(function() {
+		jQuery('#beginTime').datepicker({
+			dateFormat : "yy-mm-dd",
+			changeMonth : true,
+			changeYear : true
+		});
+		jQuery('#endTime').datepicker({
+			dateFormat : "yy-mm-dd",
+			changeMonth : true,
+			changeYear : true
+		});
+		//
+	});
+</script>
+</head>
+<body scroll="yes">
+	<div class="cont">
+		<h1 class="seth1">供应商>待质检平台端修改</h1>
+		<div class="settab">
+			<span class="tab-one"></span> <span class="tabs"> <a
+				href="$!webPath/admin/supp_updateinspection.htm" class="this">供应商端</a> | <a
+				href="$!webPath/admin/supp_updateTerrace.htm">平台端</a>
+
+			</span> <span class="tab-two"></span>
+		</div>
+		<form name="queryForm" id="queryForm" action="" method="post">
+			<div class="allmem_search">
+				<ul>
+					<li><span> *商品分类:&nbsp;&nbsp;&nbsp;&nbsp;<select>
+								<option selected value="">再生废塑料</option>
+								<option selected value="">再生废塑料</option>
+								<option selected value="">再生废塑料</option>
+						</select>
+
+					</span> <span class="size6"> <select>
+								<option selected value="">所属分类</option>
+								<option value="">分类A</option>
+								<option value="">分类B</option>
+								<option value="">分类C</option>
+						</select></span> </span> <span class="size6"> <select>
+								<option selected value="">所属分类</option>
+								<option value="">分类A</option>
+								<option value="">分类B</option>
+								<option value="">分类C</option>
+						</select></span></li>
+					<br />
+					<br />
+					<li><p>&nbsp;&nbsp;废塑料 > 通用塑料 > EVA(乙烯)</p> <br /> <br /> <span
+						class="ming"> *商品名称:&nbsp;&nbsp;&nbsp;&nbsp; <input
+							type="text" value="再生废塑料黑色EVA颗粒"></li>
+
+
+				</ul>
+			</div>
+
+			<div class="fenlei2">
+				<ul>
+					<li class="tu">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*商品图片:&nbsp;&nbsp;</li>
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /><br />&nbsp;&nbsp;
+						<a href="#">删除</a></li>
+
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /><br />&nbsp;&nbsp;
+						<a href="#">删除</a></li>
+
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /><br />&nbsp;&nbsp;
+						<a href="#">删除</a></li>
+
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /><br />&nbsp;&nbsp;
+						<a href="#">删除</a></li>
+
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /><br />&nbsp;&nbsp;
+						<a href="#">删除</a></li>
+
+				</ul>
+
+				<div class="fenlei3">
+					<p>
+						<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最多可添加5张<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单张图片大小2M以内
+							<br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="file" /></span>
+					</p>
+				</div>
+				<br />
+
+				<ul>
+					<li class="tu">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*商品图片:&nbsp;&nbsp;</li>
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /><br />&nbsp;&nbsp;
+						<a href="#">删除</a></li>
+
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /><br />&nbsp;&nbsp;
+						<a href="#">删除</a></li>
+
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /><br />&nbsp;&nbsp;
+						<a href="#">删除</a></li>
+
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /><br />&nbsp;&nbsp;
+						<a href="#">删除</a></li>
+
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /><br />&nbsp;&nbsp;
+						<a href="#">删除</a></li>
+
+				</ul>
+				<div class="fenlei3">
+					<p>
+						<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最多可添加5张<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单张图片大小2M以内
+							<br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="file" /></span>
+					</p>
+				</div>
+
+				<div class="miaoshu">
+					<ul>
+						<li>*商品描述:</li>
+						<li><textarea rows="10" cols="100"> </textarea></li>
+					</ul>
+				</div>
+
+
+
+
+
+
+			</div>
+			<div class="fenlei4">
+				<ul>
+					<li>*商品库存: &nbsp;&nbsp;100吨</li>
+					<li>*库存所在地: &nbsp;&nbsp;东莞市东坑鑫成塑胶加工店54号</li>
+					<li>*颜 色: &nbsp;&nbsp; <span class="size6"> <select>
+								<option selected value="">所属分类</option>
+								<option value="">分类A</option>
+								<option value="">分类B</option>
+								<option value="">分类C</option>
+						</select></span>
+
+					</li>
+					<li>*形状: &nbsp;&nbsp; <span class="size6"> <select>
+								<option selected value="">所属分类</option>
+								<option value="">分类A</option>
+								<option value="">分类B</option>
+								<option value="">分类C</option>
+						</select></span>
+					</li>
+					<li>*来 源: &nbsp;&nbsp; <input type="text" />
+					</li>
+					<li>**用 途: &nbsp;&nbsp;<input type="text" /></li>
+					<li>*密 度: &nbsp;&nbsp;<input type="text" value="" size="5" />
+						- <input type="text" value="" size="5" /> g/cm3
+					</li>
+					<li>*悬臂梁缺口冲击: &nbsp;&nbsp;<input type="text" value="" size="5" />
+						- <input type="text" value="" size="5" /> kj/m2
+					</li>
+					<li>*简支梁缺口冲击: &nbsp;&nbsp;<input type="text" value="" size="5" />
+						- <input type="text" value="" size="5" /> kj/m2
+					</li>
+					<li>*溶指: &nbsp;&nbsp;<input type="text" value="" size="5" /> -
+						<input type="text" value="" size="5" /> kj/m2
+					</li>
+					<li>*灰分: &nbsp;&nbsp;<input type="text" value="" size="5" /> -
+						<input type="text" value="" size="5" /> kj/m2
+					</li>
+					<li>*水分: &nbsp;&nbsp;<input type="text" value="" size="5" /> -
+						<input type="text" value="" size="5" /> kj/m2
+					</li>
+					<li>*拉伸强度: &nbsp;&nbsp;<input type="text" value="" size="5" />
+						- <input type="text" value="" size="5" /> kj/m2
+					</li>
+					<li>*断裂伸长率: &nbsp;&nbsp;<input type="text" value="" size="5" />
+						- <input type="text" value="" size="5" /> kj/m2
+					</li>
+					<li>*弯曲强度: &nbsp;&nbsp;<input type="text" value="" size="5" />
+						- <input type="text" value="" size="5" /> kj/m2
+					</li>
+					<li>*弯曲模量: &nbsp;&nbsp;<input type="text" value="" size="5" />
+						- <input type="text" value="" size="5" /> kj/m2
+					</li>
+					<li>*燃烧等级: &nbsp;&nbsp;<input type="text" value="" size="5" />
+						- <input type="text" value="" size="5" /> kj/m2
+					</li>
+					<li>环保: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+						type="radio" name="r" checked />环保 &nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"
+						name="r" /> 不环保
+					</li>
+				</ul>
+				<p class="p1"></p>
+				<br />
+				<br />
+				<p class="p2">质检报告:</p>
+				<p class="p3">
+					报告编号: 566156645646<a href="#" style="color: blue;">查看报告</a>2017-12-25
+					16:32:00
+				</p>
+
+
+			</div>
+			
+		
+				<p class="tijiao">
+
+					<input type="submit" value="保存" style="color: white;" class="log_btn"/>
+
+				</p>
+
+		</form>
+
+
+	</div>
+
+
+</body>
+</html>
+l>

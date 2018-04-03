@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title> #macro ( genericTree $somelist ) #foreach ( $some in
+$somelist )
+<option value="$!some.id">#if($!some.level>0) #foreach($count
+	in [-1..$!some.level])&nbsp;#end #end $!some.className</option>
+#genericTree($some.childs) #end #end
+<!--[if IE]>
+<style type="text/css">
+.input{behavior: url($!webPath/resources/style/common/css/ie-css3.htc);}
+</style>
+<![endif]-->
+<link
+	href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"
+	rel="stylesheet" type="text/css" />
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script>
+	//
+	function ajax_update(id, fieldName, obj, value) {
+		var val;
+		if (value == undefined) {
+			val = jQuery(obj).val();
+		} else
+			val = value;
+		jQuery.ajax({
+			type : 'POST',
+			url : '$!webPath/admin/goods_ajax.htm',
+			data : {
+				"id" : id,
+				"fieldName" : fieldName,
+				"value" : val
+			},
+			beforeSend : function() {
+
+			},
+			success : function(data) {
+				if (val == "") {
+					jQuery(obj).attr(
+							"src",
+							"$!webPath/resources/style/system/manage/blue/images/"
+									+ data + ".png");
+				} else {
+					jQuery(obj).val(val);
+				}
+				if (value != undefined) {
+					jQuery(obj.parentNode.parentNode).remove();
+				}
+			}
+		});
+	}
+</script>
+</head>
+<body scroll="yes">
+	<div class="cont">
+		<h1 class="seth1"><a href="$!webPath/admin/goods_supp_list.htm">供应商商品列表></a><a href="$!webPath/admin/updateSupplier.htm">商品详情</a></h1>
+		<div class="settab">
+			<span class="tab-one"></span> <span class="tabs"> <a
+				href="$!webPath/admin/updateSupplier.htm" class="this">供应商端</a> | <a
+				href="$!webPath/admin/updateTerrace.htm">平台端</a>
+
+			</span> <span class="tab-two"></span>
+		</div>
+
+
+
+		<form name="ListForm" id="ListForm  vb" action="" method="post">
+			<div class="operation2">
+
+				<ul style="text-align: center;">
+					<li style="color: black; font-weight: bold; padding-top: 10px;">供应商</li>
+					<br />
+					<li style="color: blue;">东莞市东坑鑫成塑胶加工店</li>
+					<br />
+					<li style="color: blue;">dongkengxincheng</li>
+					<br />
+					<li>张三 13333333333 &nbsp;&nbsp; <a href="#">拨号</a></li>
+
+				</ul>
+			</div>
+
+			<div class="fenlei">
+				<p>商品分类:废塑料>通用塑料>EVA(乙烯)</p>
+				<p>
+					<img
+						src="$!webPath/resources/style/system/manage/blue/images/201995-120HG1030762.jpg"
+						width="302px" height="145px" alt="商品" />
+				</p>
+				<ul class="ul">
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /></li>
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /></li>
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /></li>
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /></li>
+					<li><img
+						src="$!webPath/resources/style/system/manage/blue/images/商品.png" /></li>
+				</ul>
+				<ul class="ul2">
+					<li>*商品名称:再生废塑料黑色EVA颗粒</li>
+					<li>有效期3天</li>
+					<li>*商品价格:7000元 /吨（含税价格）</li>
+					<li>*商品库存:100吨</li>
+					<li>*供应情况:长期稳定供货</li>
+					<li>地址:北京市天安门广场</li>
+				</ul>
+
+				<ul class="ul3">
+					<li style="font-size: 25px; font-weight: bold; padding-left: 1px;">参数信息:</li>
+					<li>颜色：黑色</li>
+					<li>用途：制造花盆</li>
+					<li>溶质：10-11g/min</li>
+					<li>水分 /</li>
+					<li>弯曲轻度 / mpa</li>
+					<li>环保:是</li>
+				</ul>
+				<ul class="ul4">
+					<li>形状:颗粒</li>
+					<li>密度:10-11/gcm3</li>
+					<li>灰分:/ %</li>
+					<li>拉伸强度 / mpa /</li>
+					<li>弯曲模量/ mpa</li>
+				</ul>
+
+				<ul class="ul5">
+					<li>来源:日常用品</li>
+					<li>悬臂梁缺口冲击:10-11 kj/m2</li>
+					<li>简支梁缺口冲击:10-11 kj/m2</li>
+					<li>断裂伸长率 / %</li>
+					<li>燃烧等级/ 三级</li>
+				</ul>
+
+				<p class="huopin">
+					<span style="font-size: 20px; font-weight: bold;">货品描述:</span><br />
+					<p style="position: absolute; left: 110px; top: 870px;">该货品品质良好，货物稳定</p>
+				</p>
+
+				<p class="huopin2">
+					<span style="font-size: 20px; font-weight: bold;">货品描述:</span><br />
+					<p style="position: absolute; left: 110px; top: 1000px;">该货品品质良好，货物稳定</p>
+				</p>
+
+
+				<p class="huopin3">
+					<span style="font-size: 20px; font-weight: bold;">质检报告:</span><br />
+					<span style="line-height: 70px;">报告编号:123456789 <a href="#">查看报告</a>
+						2018-4-1 21:36:00
+					</span>
+				</p>
+				<p class="huopin4">
+					报告编号:123456789 <a href="#">查看报告</a> 2018-4-1 21:36:00
+				</p>
+
+ 
+				<p style="position: absolute; left: 110px; top: 1000px;">
+					<p></p>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

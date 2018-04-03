@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link
+	href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css"
+	type=text/css rel=stylesheet>
+	<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+	<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+	<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+	<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+	<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+	<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+	<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+	<script>
+		jQuery(document).ready(function() {
+			jQuery('#beginTime').datepicker({
+				dateFormat : "yy-mm-dd",
+				changeMonth : true,
+				changeYear : true
+			});
+			jQuery('#endTime').datepicker({
+				dateFormat : "yy-mm-dd",
+				changeMonth : true,
+				changeYear : true
+			});
+			//
+			function formatDate(date){
+				var d=new Date(date);
+				return d.getTime();;
+				
+			}
+			jQuery("a[id^=site_]").click(function(){
+					var id = jQuery(this).attr("id");
+					var css = jQuery(this).attr("class");
+					if(css=="this") return false;
+					jQuery.each(jQuery("a[id^=site_]"),function(){
+						if(jQuery(this).attr("id")==id){
+							jQuery(this).addClass("this");
+							var tid = "#"+jQuery(this).attr("id").substring(5);
+							jQuery(tid).show();
+							}else{
+							jQuery(this).removeClass("this");
+						   var tid="#"+jQuery(this).attr("id").substring(5);
+						   jQuery(tid).hide();
+							}
+						})
+					}); 
+				jQuery("#site_ready").click(function(){
+					
+					var index=$(this).attr("val")-1;
+					
+					jQuery(".allshop_table:eq("+index+")").show().siblings(".allshop_table:not("+index+")").hide();
+
+				})
+				jQuery("#site_pass").click(function(){
+					
+					var index=$(this).attr("val")-1;
+					
+					jQuery(".allshop_table:eq("+index+")").show().siblings(".allshop_table:not("+index+")").hide();
+
+				})
+				jQuery("#site_not").click(function(){
+					
+					var index=$(this).attr("val")-1;
+					
+					jQuery(".allshop_table:eq("+index+")").show().siblings(".allshop_table:not("+index+")").hide();
+
+				})
+				 jQuery("#beginTime").change(function(){
+					 
+					 var beginTime=formatDate(jQuery("#beginTime").val());
+				
+					 
+					var today=formatDate(new Date());
+					
+					if(beginTime>today){
+						jQuery(".errorAlert").show();
+						setTimeout(function() {
+							jQuery(".errorAlert").css("opacity", "0");
+						}, 1500); 
+						
+						 setTimeout(function() {
+							jQuery(".errorAlert").css("opacity", "1").hide();
+						}, 3000); 
+						
+						 jQuery("#beginTime").val("");
+					}
+					
+					
+				}) 
+				 jQuery("#endTime").change(function(){
+					 var endTime=formatDate(jQuery("#endTime").val());
+					 
+					 var beginTime=formatDate(jQuery("#beginTime").val());
+					 var today=formatDate(new Date());
+					
+					 if(endTime < beginTime){
+						 jQuery(".errorAlert").show();
+							setTimeout(function() {
+								jQuery(".errorAlert").css("opacity", "0");
+							}, 1500); 
+							
+							 setTimeout(function() {
+								jQuery(".errorAlert").css("opacity", "1").hide();
+							}, 3000); 
+							
+							 jQuery("#endTime").val("");
+						 
+					 }
+					 if(endTime>today){
+						 jQuery(".errorAlert").show();
+							setTimeout(function() {
+								jQuery(".errorAlert").css("opacity", "0");
+							}, 1500); 
+							
+							 setTimeout(function() {
+								jQuery(".errorAlert").css("opacity", "1").hide();
+							}, 3000); 
+							
+							 jQuery("#endTime").val("");
+						 
+					 }
+					 
+				 })
+				function errorAlertByTM(message, bgc, color) {
+					var $ErrorAlert = jQuery("<div id='TMByError'><h3>" + message + "</h3></div>");
+					jQuery("body").append($ErrorAlert);
+					jQuery("#TMByError").css({
+						"transition": "opacity 1.5s",
+						"background-color": bgc,
+						"display": "inline-block",
+						"text-align": "center",
+						"opacity": "1",
+						"border-radius": "10%",
+						"position": "fixed",
+						"left": "45%",
+						"top": "45%",
+						"color": color,
+						"padding": "5px",
+						"overflow": "auto"
+					}).show();
+					setTimeout(function() {
+						jQuery("#TMByError").css("opacity", "0");
+					}, 1500);
+					setTimeout(function() {
+						jQuery("#TMByError").remove();
+					}, 3000);
+				}
+				 
+			
+		});
+	</script>
+</head>
+<body>
+	<div class="cont">
+		<h1 class="seth1">撮合订单管理</h1>
+		<div class="settab">
+			<span class="tab-one"></span> <span class="tabs"> <a
+				href="$!webPath/admin/match_list.htm" val="1" id="site_ready" >待审核(50)</a>&nbsp;|&nbsp;<a
+				href="$!webPath/admin/match_list_pass.htm" val="2" id="site_pass" >已通过(50)</a>&nbsp;|&nbsp;<a
+				href="$!webPath/admin/match_list_not.htm" val="3" id="site_not"  class="this">未通过(50)</a></span> <span
+				class="tab-two"></span>
+				 
+		</div>
+		<div class="errorAlert">
+		<h1>时间选择不正确</h1>
+		
+		</div>
+		
+		
+		<form action="$!webPath/admin/order_list.htm" method="post"
+			id="queryForm">
+			<div class="orders">
+				<ul>
+					<li> <span><select>
+								<option value="10">&nbsp;&nbsp;申请号&nbsp;</option>
+								<option value="20">&nbsp;&nbsp;订单号&nbsp;</option>
+								<option value="30">&nbsp;&nbsp;采购商&nbsp;</option>
+						</select></span>
+						
+						<span class="order_input size2"><input type="text" style="width:222px" /></span>
+					</li>
+					<li><span><select>
+					<option value="10">申请时间</option>
+					<option value="20">创建时间</option>
+					</select></span><span class="order_input size2"> <input
+							name="beginTime" type="text" id="beginTime" readonly="readonly" />
+					</span><span>—</span><span class="order_input size2"> <input
+							name="endTime" type="text" id="endTime" readonly="readonly" />
+					</span>  <span class="btn_search"> <input name="" type="submit"
+							value="搜索" style="cursor: pointer;" /></span>
+							<span class="btn_reset"> <input name="" type="reset"
+							value="重置" style="cursor: pointer;" />
+					</span></li>
+				</ul>
+			</div>
+		</form>
+		<div 
+			id="ListForm">
+			<div class="allshop_table">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr
+						style="background: #if($!config.websiteCss=='blue') #2A7AD2 #end #if($!config.websiteCss=='black') #333 #end; height: 30px; color: #FFF">
+						<td width="10%">申请单</td>
+						<td width="10%">订单</td>
+						<td width="10%">调价幅度</td>
+						<td width="20%">采购商</td>
+						<td width="10%">申请人</td>
+						<td width="10%">状态</td>
+						<td width="20%">日期</td>
+						<td width="10%" align="center">操作</td>
+					</tr>
+					#foreach($obj in $list)
+
+					<tr>
+					<td>$!{obj.check_order}</td>
+					<td>$!{obj.order}</td>
+					<td>$!{obj.price}元</td>
+					<td class="n_check">
+					<div class="type">
+					<span>供</span>
+					</div>
+					<div>
+					
+					<p style="margin:10px 0">$!{obj.buyer_enterprise}</p>
+					<p style="margin:10px 0">$!{obj.buyer_name}</p>
+					<p style="margin:10px 0">$!{obj.buyer_phone}</p>
+					
+					</div>
+					
+					</td>
+					<td>$!{obj.apply_man}</td>
+					<td>$!{obj.status}</td>
+					<td>创建:$!{obj.date}</td>
+					<td><a href="javascript:void(0);" class="r_check">$!{obj.check}</a></td>
+	
+						
+					</tr>
+					#end
+					</table>
+			</div>
+			<!-- <div class="allshop_table">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr
+						style="background: #if($!config.websiteCss=='blue') #2A7AD2 #end #if($!config.websiteCss=='black') #333 #end; height: 30px; color: #FFF">
+						<td width="10%">申请单</td>
+						<td width="10%">订单</td>
+						<td width="8%">调价幅度</td>
+						<td width="20%">采购商</td>
+						<td width="8%">申请人</td>
+						<td width="8%">状态</td>
+						<td width="8%">审批人</td>
+						<td width="20%">日期</td>
+						<td width="8%" align="center">操作</td>
+					</tr>
+					#foreach($obj in $list1)
+					<tr>
+					<td>$!{obj.check_order}</td>
+					<td>$!{obj.order}</td>
+					<td>$!{obj.price}元</td>
+					<td class="n_check">
+					<div class="type">
+					<span>供</span>
+					</div>
+					<div>
+					
+					<p style="margin:10px 0">$!{obj.buyer_enterprise}</p>
+					<p style="margin:10px 0">$!{obj.buyer_name}</p>
+					<p style="margin:10px 0">$!{obj.buyer_phone}</p>
+					
+					</div>
+					
+					</td>
+					<td>$!{obj.apply_man}</td>
+					<td>$!{obj.status}</td>
+					<td>$!{obj.approve_man}</td>
+					<td><p>创建:$!{obj.date_apply}</p>
+					<p>审批:$!{obj.date_approve}</p></td>
+					<td><a href="javascript:void(0);" class="check">$!{obj.check}</a></td>
+	
+						
+					</tr>
+					#end
+					</table>
+			</div>
+			<div class="allshop_table">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr
+						style="background: #if($!config.websiteCss=='blue') #2A7AD2 #end #if($!config.websiteCss=='black') #333 #end; height: 30px; color: #FFF">
+						<td width="10%">申请单</td>
+						<td width="10%">订单</td>
+						<td width="8%">调价幅度</td>
+						<td width="20%">采购商</td>
+						<td width="8%">申请人</td>
+						<td width="8%">状态</td>
+						<td width="8%">审批人</td>
+						<td width="20%">日期</td>
+						<td width="8%" align="center">操作</td>
+					</tr>
+				#foreach($obj in $list2)
+					<tr>
+					<td>$!{obj.check_order}</td>
+					<td>$!{obj.order}</td>
+					<td>$!{obj.price}元</td>
+					<td class="n_check">
+					<div class="type">
+					<span>供</span>
+					</div>
+					<div>
+					
+					<p style="margin:10px 0">$!{obj.buyer_enterprise}</p>
+					<p style="margin:10px 0">$!{obj.buyer_name}</p>
+					<p style="margin:10px 0">$!{obj.buyer_phone}</p>
+					
+					</div>
+					
+					</td>
+					<td>$!{obj.apply_man}</td>
+					<td>$!{obj.status}</td>
+					<td>$!{obj.approve_man}</td>
+					<td><p>创建:$!{obj.date_apply}</p>
+					<p>审批:$!{obj.date_approve}</p></td>
+					<td><a href="javascript:void(0);" class="check">$!{obj.check}</a></td>
+	
+						
+					</tr>
+					#end
+					</table>
+			</div> -->
+			
+					
+					
+					<!-- #foreach($list in $lists)
+					<tr>
+					<td width="15%"><p style="padding: 5px 0;">
+							订单号：<a href="">12312</a>
+						</p> <a href=""><div style="overflow: auto; padding: 5px 0;">
+								<img
+									src="$!webPath/resources/style/system/front/wap/images/details_right_b.gif"
+									alt="" style="display: block; float: left; width:" 33% "/> <span
+									style="display: block; float: right; width: 63%">黑色，白色PP片材
+									PP吹塑片 低价出售PP塑料透明片材. </span>
+							</div> </a></td>
+					<td width="8%">$!list.danjia</td>
+					<td width="10%">$!list.wuliu</td>
+					<td width="8%">$!list.danjia</td>
+					<td width="8%">600</td>
+					<td width="10%">523</td>
+					<td width="8%">$!list.ad</td>
+					<td width="8%">$!list.state</td>
+					<td width="8%">创建：2013-03-06</td>
+					<td width="8%">跟单员</td>
+					<td align="center"><a>日志</a><a>订单详情</a></td>
+				</tr>
+					 #end 
+					
+					
+					#foreach($obj in $objs) -->
+
+					<!--     <tr>
+        <td>$!obj.id</td>
+        <td>$!obj.singlePrice</td>
+        <td>$!obj.goodsNum</td>
+        <td>$!CommUtil.formatLongDate($!obj.addTime)</td>
+        <td>$!obj.totalPrice</td>
+            #set($payment="未支付")
+            #if($!obj.payment.mark=="alipay")
+            #set($payment="支付宝")
+            #end
+            #if($!obj.payment.mark=="alipay_wap")
+            #set($payment="手机网页支付宝")
+            #end
+            #if($!obj.payment.mark=="bill")
+            #set($payment="快钱")
+            #end                 
+            #if($!obj.payment.mark=="chinabank")
+            #set($payment="网银在线")
+            #end       
+            #if($!obj.payment.mark=="outline")
+            #set($payment="线下支付")
+            #end                  
+            #if($!obj.payment.mark=="balance")
+            #set($payment="预存款支付")
+            #end 
+            #if($!obj.payment.mark=="payafter")
+            #set($payment="货到付款")
+            #end
+            #if($!obj.payment.mark=="paypal")
+            #set($payment="paypal")
+            #end
+          #if($!obj.payment.mark=="wxcodepay")
+          #set($payment="微信扫码支付")
+          #end
+          #if($!obj.payment.mark=="weixin_wap")
+          #set($payment="微信公众号支付")
+          #end
+        <td>$!payment</td>
+            #if($!obj.order_status==0)
+            #set($status="已取消")
+            #end
+            #if($!obj.order_status==10)
+            #set($status="待付款")
+            #end
+            #if($!obj.order_status==15)
+            #set($status="线下支付待审核")
+            #end
+            #if($!obj.order_status==16)
+            #set($status="货到付款待发货")
+            #end
+            #if($!obj.order_status==20)
+            #set($status="已付款")
+            #end
+            #if($!obj.order_status==30)
+            #set($status="已发货")        
+            #end                
+            #if($!obj.order_status==40)
+            #set($status="已收货")
+            #end
+            #if($!obj.order_status==50)
+            #set($status="已完成,已评价")                                              
+            #end
+            #if($!obj.order_status==60)
+            #set($status="已结束")                                              
+            #end   
+        <td>$!status</td>
+        <td align="center" class="blue xiahua"><a href="$!webPath/admin/order_view.htm?id=$!obj.id">查看</a></td>
+      </tr>-->
+					<!-- #end -->
+				
+			<!-- <div class="fenye">
+				<input name="end_price" type="hidden" id="end_price"
+					value="$!end_price" /> <input name="begin_price" type="hidden"
+					id="begin_price" value="$!begin_price" /> <input name="endTime"
+					type="hidden" id="endTime" value="$!endTime" /> <input
+					name="beginTime" type="hidden" id="beginTime" value="$!beginTime" />
+				<input name="type_data" type="hidden" id="type_data"
+					value="$!type_data" /> <input name="type" type="hidden" id="type"
+					value="$!type" /> <input name="order_status" type="hidden"
+					id="order_status" value="$!order_status" /> <input
+					name="currentPage" type="hidden" id="currentPage"
+					value="$!currentPage" /> $!gotoPageFormHTML
+			</div> -->
+		</div>
+	</div>
+</body>
+</html>

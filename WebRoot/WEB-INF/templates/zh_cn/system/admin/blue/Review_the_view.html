@@ -1,0 +1,548 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+#macro ( genericTree $somelist ) 
+#foreach ( $some in $somelist )
+<option value="$!some.id">
+#if($!some.level>0)
+#foreach($count in [-1..$!some.level])&nbsp;#end #end $!some.className</option>
+#genericTree($some.childs) 
+#end 
+#end
+<!--[if IE]>
+<style type="text/css">
+.input{behavior: url($!webPath/resources/style/common/css/ie-css3.htc);}
+</style>
+<![endif]-->
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+
+<script>
+jQuery(document).ready(function() {
+	jQuery('#beginTime').datepicker({
+		dateFormat : "yy-mm-dd",
+		changeMonth : true,
+		changeYear : true
+	});
+	jQuery('#endTime').datepicker({
+		dateFormat : "yy-mm-dd",
+		changeMonth : true,
+		changeYear : true
+	});
+	//
+	function formatDate(date){
+		var d=new Date(date);
+		return d.getTime();;
+		
+	}
+	function formatDate(date){
+		var d=new Date(date);
+		return d.getTime();;
+		
+	}
+	jQuery("#beginTime").change(function(){
+		
+		 
+		 var beginTime=formatDate(jQuery("#beginTime").val());
+	
+		 
+		var today=formatDate(new Date());
+		
+		if(beginTime>today){
+			jQuery(".errorAlert").show();
+			setTimeout(function() {
+				jQuery(".errorAlert").css("opacity", "0");
+			}, 1500); 
+			
+			 setTimeout(function() {
+				jQuery(".errorAlert").css("opacity", "1").hide();
+			}, 3000); 
+			
+			 jQuery("#beginTime").val("");
+		}
+		
+		
+	}) 
+	 jQuery("#endTime").change(function(){
+					 var endTime=formatDate(jQuery("#endTime").val());
+					 
+					 var beginTime=formatDate(jQuery("#beginTime").val());
+					 var today=formatDate(new Date());
+					
+					 if(endTime < beginTime){
+						 jQuery(".errorAlert").show();
+							setTimeout(function() {
+								jQuery(".errorAlert").css("opacity", "0");
+							}, 1500); 
+							
+							 setTimeout(function() {
+								jQuery(".errorAlert").css("opacity", "1").hide();
+							}, 3000); 
+							
+							 jQuery("#endTime").val("");
+						 
+					 }
+					 if(endTime>today){
+						 jQuery(".errorAlert").show();
+							setTimeout(function() {
+								jQuery(".errorAlert").css("opacity", "0");
+							}, 1500); 
+							
+							 setTimeout(function() {
+								jQuery(".errorAlert").css("opacity", "1").hide();
+							}, 3000); 
+							
+							 jQuery("#endTime").val("");
+						 
+					 }
+					 
+				 })
+				 jQuery("#goods_price2").blur(function(){
+					
+				var jthis=jQuery(this).val();
+				
+				
+				var before=jQuery("#goods_price1").val();
+				
+				if(parseInt(jthis)<parseInt(before)){
+					
+					jQuery(".price_error").text("价格选择错误")
+				}
+					})
+					 jQuery("#goods_price2").focus(function(){
+						 jQuery(this).val("");
+						 jQuery(".price_error").text("");
+					 })
+				 
+				 
+				 
+				 jQuery("#g_store2").blur(function(){
+					
+				var jthis=jQuery(this).val();
+				
+				
+				var before=jQuery("#g_store1").val();
+				
+				if(parseInt(jthis)<parseInt(before)){
+					
+					jQuery(".error_store").text("库存选择错误")
+				}
+					})
+					 jQuery("#g_store2").focus(function(){
+						 jQuery(this).val("");
+						 jQuery(".error_store").text("");
+					 })
+})
+function ajax_update(id,fieldName,obj,value){
+   var val;
+   if(value==undefined){
+	 val=jQuery(obj).val();
+   }else val=value; 
+   jQuery.ajax({type:'POST',
+	              url:'$!webPath/admin/goods_ajax.htm',
+				  data:{"id":id,"fieldName":fieldName,"value":val},
+				beforeSend:function(){
+				  
+				},
+			   success:function(data){
+	             if(val==""){
+				   jQuery(obj).attr("src","$!webPath/resources/style/system/manage/blue/images/"+data+".png");
+				 }else{
+				   jQuery(obj).val(val);
+				 }    
+				 if(value!=undefined){
+				   jQuery(obj.parentNode.parentNode).remove();
+				 }
+              }
+	    });
+}
+jQuery('#beginTime').datepicker({
+	dateFormat : "yy-mm-dd",
+	changeMonth : true,
+	changeYear : true
+});
+jQuery('#endTime').datepicker({
+	dateFormat : "yy-mm-dd",
+	changeMonth : true,
+	changeYear : true
+});
+
+</script>
+
+
+<style type="text/css">
+		.box1{  
+    		border: 1px solid #787878;  
+    		width:470px;  
+    		height:410px;  
+    		display:none;
+    		position: absolute;
+    		left:458px;
+    		top:103px;
+    		background-color:rgb(211,243,254)
+			}
+		.box1 h5{text-align: left;margin-left: 50px;}
+		.box1 p{font-size: 12px;margin-left: 50px;} 
+		.box1 #button input{
+			position: relative;
+			top: 25px;left: 100px;
+			margin-left: 20px;
+			
+			width: 80px;height: 30px;
+			}
+		.box1 #check input{margin-left: 50px;}
+		.box1 #check{font-size: 12px;}
+		#text .te{width: 373px;
+    			  height: 88px;
+    			  margin-left: 50px;
+    			  font-family: '微软雅黑 Regular', '微软雅黑';
+                  font-weight: 400;
+                  font-style: normal;
+                  font-size: 13px;
+                  text-decoration: none;
+                  color: #000000;
+                  text-align: left;}
+                  
+                  .box2{  
+    		border: 1px solid #787878;  
+    		width:630px;  
+    		height:400px;  
+    		display:none; 
+    		position: absolute;
+    		left:458px;
+    		top:103px; 
+    		background-color:rgb(211,243,254)
+			}
+		.box2 h5{text-align: left;margin-left: 50px;}
+		.box2 p{font-size: 12px;margin-left: 50px;} 
+		.box2 #button input{
+			position: relative;
+			top: 25px;left: 175px;
+			margin-left: 20px;
+			/* background-color: #FF840B; */
+			width: 80px;height: 30px;
+			}
+		#text1{margin-top: 70px;}
+		#text1 .te{width: 530px;
+    			  height: 85px;
+    			  margin-left: 50px;
+    			  font-family: '微软雅黑 Regular', '微软雅黑';
+                  font-weight: 400;
+                  font-style: normal;
+                  font-size: 13px;
+                  text-decoration: none;
+                  color: #000000;
+                  text-align: left;}
+        ul li {list-style-type: none;float: left;font-size: 12px;}
+        .li1 li{margin-left: 100px;}
+        .li2 li{margin-left: 60px;}
+		</style>
+		
+		
+		
+
+</head>
+<body scroll="yes">
+<div class="cont">
+  <h1 class="seth1">供应商商品>待审核</h1>
+  <div class="settab"> 
+	<span class="tab-one"></span> <span class="tabs"> 
+	<a href="$!webPath/admin/goods_supp.htm" class="this">商品列表</a> |
+	<a href="$!webPath/admin/Review_the_view.htm">待审核</a>|
+	<a href="$!webPath/admin/supp_inspection.htm">待质检</a>|
+	<a href="$!webPath/admin/supp_pricing.htm">待定价</a>|
+	<a href="$!webPath/admin/Unapprove.htm">审核未通过</a>
+	</span> 
+	<div class="errorAlert">
+		<h1>时间选择不正确</h1>
+		
+		</div>
+	<span class="tab-two"></span>	</div>
+	<form name="queryForm" id="queryForm" action="" method="post">
+    <div class="allmem_search">
+      <ul>
+        <li><span>
+        <select>
+  			<option selected value="">商品名称</option>
+  			<option value="">供应商</option>      
+        </select>
+        </span> <span class="allmen size4">
+          <input name="goods" type="text" id="provider" onkeyup="this.value=this.value.replace(/[^\u4E00-\u9FA5]/g,'')"/>
+          </span> 
+          <span class="size6">
+          <select>
+  			<option selected value="">所属分类</option>
+  			<option value="">分类A</option>
+  			<option value="">分类B</option>
+  			<option value="">分类C</option>      
+        </select></span>
+          <span>库存</span>
+           <span class="size5">
+          <input name="goods_name" type="text" id="g_store1" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');if(this.value.split('.').length>2){this.value=this.value.split('.')[0]+'.'+this.value.split('.')[1]}"/> -
+          <input name="goods_name" type="text" id="g_store2" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');if(this.value.split('.').length>2){this.value=this.value.split('.')[0]+'.'+this.value.split('.')[1]}"/>
+          </span>
+          <span class="error_store"></span>
+          <br /><br />
+          <select name="goods.goods_brand.id" id="goods.goods_brand.id">
+          <option selected value="">创建时间</option>
+          <option value="">更新日期</option>
+          </select>
+          <span class="size6">
+          <input style="width: 80px;" name="beginTime" type="text" id="beginTime" readonly="readonly"/> -
+          <input style="width: 80px;" name="endTime" type="text" id="endTime" readonly="readonly"/>
+          </span>
+          <span>价格</span>
+          <span class="size5">
+          <input name="goods_name" type="text" id="goods_price1" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');if(this.value.split('.').length>2){this.value=this.value.split('.')[0]+'.'+this.value.split('.')[1]}"/> -
+          <input name="goods_name" type="text" id="goods_price2" onKeyUp="this.value=this.value.replace(/[^\.\d]/g,'');if(this.value.split('.').length>2){this.value=this.value.split('.')[0]+'.'+this.value.split('.')[1]}"/>
+          </span>
+          <span class="price_error"></span>
+          <span>
+          <select>
+  			<option selected value="">质检情况</option>
+  			<option value="">已质检</option>
+  			<option value="">未质检</option>      
+        </select></span>
+          <select>
+  			<option selected value="">上架状态</option>
+  			<option value="">已上架</option>
+  			<option value="">未上架</option>      
+        </select></span>
+          
+          <span class="btn_search">
+          <input name="" type="button"  value="搜索" style="cursor:pointer;" onclick="query();"/>
+        </span>
+        <span class="btn_search">
+          <input name="" type="reset"  value="重置" style="cursor:pointer;"/>
+        </span>
+         </li>
+      </ul>
+    </div>
+  </form>
+ 
+  <form name="ListForm" id="ListForm" action="" method="post">
+    <div class="brandtable">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="brand_table">
+        <tr style="background: #if($!config.websiteCss=='blue') #2A7AD2 #end 
+      #if($!config.websiteCss=='black')#333 #end; height:30px; color:#FFF">
+          <td width="3%">&nbsp;</td>
+          <td width="10%">分类</td>
+          <td width="10%">商品</td>
+          <td width="10%">供应商</td>
+          <td width="6%">供应价</td>
+          <td width="6%">销售价</td>
+          <td width="6%">库存</td>
+          <td width="6%" align="center">样品库存</td>
+          <td width="6%" align="center">销量</td>
+          <td width="6%" align="center">浏览</td>
+          <td width="15%" align="center">日期</td>
+          <td width="6%" align="center">排序</td>
+          <td width="10%" align="center">操作</td>
+        </tr>
+     
+     #foreach($oo in $list)
+					<tr>	<td><input type="checkbox"></td>	
+						<td width="10%">$!{oo.goods.goodClass.name}</td>
+						<td width="10%">$!{oo.goods.name}<span style="color: red">已质检  已锁定</span></td>
+						<td width="10%">$!{oo.goods.user.name}</td>
+						<td width="6%">$!{oo.supplyPrice}</td>
+						<td width="6%">$!{oo.goods.price}</td>
+						
+						<td width="6%">$!{oo.goods.inventory}</td>
+						<td width="6%">$!{oo.goods.content}</td>
+						<td width="6%">$!{oo.goods.cncl_num}</td>
+						<td width="6%">$!{oo.goods.status}</td>
+						<td width="6%">$!{oo.goods.recommend_time}</td>
+						<td width="6%">$!{oo.goods.form.sequence}</td>
+
+						<td width="15%" ><a href="$!webPath/admin/review_look.htm" style="color: red">查看 </a>&nbsp;<a href="javascript:void(0);" tid="$!{oo.id}" tname="$!{oo.shuiliaopian}" t_status="$!{oo.status}" class="btn">审核</a>&nbsp;<a href="javascript:void(0);" class="day_btn">日志</a> </td>
+						<td></td>
+					</tr>
+					#end
+     
+     
+     
+     
+     
+     
+      #foreach($obj in $objs)
+        <tr class="">
+          <td align="center"><input name="checkbox" type="checkbox" id="checkbox" value="$!obj.id" /></td>
+          <td><label>
+            <textarea name="textarea" cols="40" rows="3"  title="可编辑" onblur="ajax_update('$!obj.id','goods_name',this)">$!obj.goods_name</textarea>
+          </label></td>
+          <td>$!obj.goods_brand.name</td>
+          <td>$!obj.gc.className</td>
+          <td>$!obj.goods_store.store_name</td>
+          #if($!obj.goods_status==0)
+           #set($goods_status="上架")
+          #end
+          #if($!obj.goods_status==1)
+           #set($goods_status="仓库中")
+          #end
+          #if($!obj.goods_status==-1)
+           #set($goods_status="已下架")
+          #end
+          #if($!obj.goods_status==-2)
+           #set($goods_status="违规下架")
+          #end
+          <td>$!goods_status</td>
+          <td align="center"><img onclick="ajax_update('$!obj.id','store_recommend',this)" src="$!webPath/resources/style/system/manage/blue/images/$!{obj.store_recommend}.png" width="25" height="21" border="0" style="cursor:pointer;" title="特别推荐后在首页显示"/></td>
+          <td align="center"><img onclick="ajax_update('$!obj.id','goods_status',this,'-2')"  src="$!webPath/resources/style/system/manage/blue/images/weig.jpg"  border="0" style="cursor:pointer;" title="可编辑"/> </td>
+          <td align="center">$!obj.goods_click</td>
+          <td class="ac8" align="center"><a href="$!webPath/goods.htm?id=$!obj.id" target="_blank">查看</a></td>
+        </tr>
+     #end
+		<tr>
+        <td align="center"><input type="checkbox" name="all" id="all" value="" onclick="selectAll(this)"/>
+          <input name="mulitId" type="hidden" id="mulitId" /></td>
+        <td colspan="2" class="bdel">
+		<span class="sp1">全部</span><span class="sp2">
+          <div class="shop_btn_del shopbtn">
+            <input name="" type="button" value="删除" onclick="cmd('$!webPath/admin/goods_del.htm');" style="cursor:pointer;" />
+          </div>
+          </span>		  </td>
+        <td colspan="7"></td>
+      </tr>
+    </table>
+	  <div class="fenye" align="right">
+       <span id="queryCondition" style="display:none">
+		   #foreach($sm in $sms)
+     <input name="$!sm.key" id="$!sm.key" type="hidden" value="$!sm.value"/>
+		   #end
+	 </span>
+	   <input name="currentPage" type="hidden" id="currentPage" value="$!currentPage" />
+	   $!gotoPageFormHTML </div>
+    </div>
+  </form>
+  
+</div>
+<script type="text/javascript">
+var name;
+var status;
+var style;
+var content;
+var id;
+
+jQuery(document).ready(function(){
+	jQuery(".btn").click(function(){
+		
+		  name=jQuery(this).attr("tname");
+		  
+		  id=jQuery(this).attr("tid");
+	status=jQuery(this).attr("t_status");
+		 status = status.substring(0,2).concat("1"); 
+		 
+		 
+		
+		 
+		
+				jQuery(".goods_name").text(name)
+				
+		jQuery(".box1").css("display","block");
+				})
+				
+				jQuery("#yes").click(function(){
+					style=jQuery("input[name=check]").val();
+					content=jQuery("#remark").val();
+					
+					jQuery(".box1").css("display","none");
+					window.location.href="$!webPath/admin/supp_inspection1.htm?id="+id+"&style="+style+"&content="+content;
+				})
+				jQuery("#no").click(function(){
+					jQuery(".te").val("");
+					jQuery(".box1").css("display","none");
+				})
+				
+				
+			jQuery(function(){
+				jQuery(".day_btn").click(function(){
+					jQuery(".box2").css("display","block");
+				})
+				
+				jQuery("#day_no").click(function(){
+					jQuery(".te").val("");
+					jQuery(".box2").css("display","none");
+					
+				})
+			})
+			})
+		 jQuery(function(){
+			 jQuery(".te").on("input propertychange", function() {
+    			var jQuerythis = $(this),
+    				_val = jQuerythis.val(),
+    				count = "";
+    			if(_val.length >= 300) {
+    				
+    				jQuerythis.val(_val.substring(0, 300));
+    				jQuery(".log-warn").show();
+    			}else {
+    				jQuery(".log-warn").hide();
+    			}
+    		});
+      }); 
+				
+			
+		</script>
+		
+		
+		<div class="box2">
+		<ul class="li1">
+			<li>操作时间</li>
+			<li class="li3">操作员</li>
+			<li class="li3">内容</li>
+		</ul><br /><br />
+		<ul class="li2">
+			<li>2016-12-12 16:30:41</li>
+			<li>admin</li>
+			<li>初审通过。备注：商品描述符合通过条件</li>
+		</ul>
+		<br />
+		<div id="text1">
+			<h5>备注</h5>
+			<textarea name="remark" rows="15" cols="15" class="te" placeholder="说点什么...最多输入300个字符"></textarea>
+			<br />
+			<span class="log-warn" id="remark" style="color:red;display:none;font-size:12px;font-weight:normal;">&nbsp;(不能超过300字)</span>
+		</div>
+		<div id="button">
+			<input id="day_yes" type="submit"  value="确认" />
+			<input id="day_no" type="button"  value="关闭" />
+		</div>
+		</div>
+		
+		
+		<!--
+		审核
+		 -->
+	
+<div class="box1">
+		<h5>商品名称</h5> 
+		<p class="goods_name"></p>
+		<h5>审核结果</h5>
+		<div id="check">
+			<input type="radio" name="check" id="" value="1" />审核通过
+			<br /><br />
+			<input type="radio" name="check" id="" value="2" />审核不通过
+		</div>
+		<div id="text">
+			<h5>备注</h5>
+			<textarea name="" rows="10" cols="10" class="te" placeholder="说点什么...最多输入300个字符"></textarea>
+			<br />
+			<span class="log-warn" style="color:red;display:none;font-size:12px;font-weight:normal;">&nbsp;(不能超过300字)</span>
+		</div>
+		<div id="button">
+			<input id="yes" type="submit"  value="确认" />
+			<input id="no" type="button"  value="取消" />
+		</div>
+		</div>
+
+</body>
+</html>

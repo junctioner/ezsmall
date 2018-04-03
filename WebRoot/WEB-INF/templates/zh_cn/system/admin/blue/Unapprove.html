@@ -17,9 +17,51 @@
 </style>
 <![endif]-->
 <link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<link  href="$!webPath/resources/style/common/css/jquery-ui-1.8.22.custom.css" type=text/css rel=stylesheet>
 <script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.validate.min.js"></script>
 <script src="$!webPath/resources/js/jquery.shop.common.js"></script>
 <script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script src="$!webPath/resources/js/jquery-ui-1.8.21.js"></script>
+<script src="$!webPath/resources/js/jquery.zh.cn.js"></script>
+<style type="text/css">
+#BgDiv1{background-color:#e3e3e3; position:absolute; z-index:99; left:0; top:0; display:none; width:100%; height:1000px;opacity:0.5;filter: alpha(opacity=50);-moz-opacity: 0.5;}
+      
+      #btnShow1{cursor: pointer;}
+      #DialogDiv1{position:absolute;width:400px; left:50%; top:50%; margin-left:-200px; height:auto; z-index:100;background-color:#fff; border:1px #8FA4F5 solid; padding:1px;}
+      #DialogDiv1 h2{ height:25px; font-size:14px; background-color:#8FA4F5; position:relative; padding-left:10px; line-height:25px;}
+      #DialogDiv1 h2 a{position:absolute; right:5px; font-size:12px; color:#000000}
+      
+      .box1{  
+    		border: 1px solid #787878;  
+    		width:630px;  
+    		height:400px;  
+    		display:none;  
+			}
+		.box1 h5{text-align: left;margin-left: 50px;}
+		.box1 p{font-size: 12px;margin-left: 50px;} 
+		.box1 #button input{
+			position: relative;
+			top: 0px;left: 75px;
+			margin-left: 20px;
+			background-color: #57C0FB;
+			width: 80px;height: 30px;
+			}
+		#text{margin-top: 70px;}
+		#text .te{width: 280px;
+    			  height: 85px;
+    			  margin-left: 50px;
+    			  font-family: '微软雅黑 Regular', '微软雅黑';
+                  font-weight: 400;
+                  font-style: normal;
+                  font-size: 13px;
+                  text-decoration: none;
+                  color: #000000;
+                  text-align: left;}
+        ul li {list-style-type: none;float: left;font-size: 12px;}
+        .li2{margin-left: 30px;width: 80px;height: 20px;}
+        .li3{margin-left: 100px;}
+</style>
 <script>
 //
 function ajax_update(id,fieldName,obj,value){
@@ -46,17 +88,30 @@ function ajax_update(id,fieldName,obj,value){
 	    });
 }
 </script>
+<script type="text/javascript">
+   function ShowDIV(thisObjID) {
+          $("#BgDiv1").css({ display: "block", height: $(document).height() });
+          var yscroll = document.documentElement.scrollTop;
+          $("#" + thisObjID ).css("top", "100px");
+          $("#" + thisObjID ).css("display", "block");
+    document.documentElement.scrollTop = 0;
+      }
+      function closeDiv(thisObjID) {
+          $("#BgDiv1").css("display", "none");
+          $("#" + thisObjID).css("display", "none");
+      }
+ </script>
 </head>
 <body scroll="yes">
 <div class="cont">
-  <h1 class="seth1">供应商商品</h1>
+  <h1 class="seth1">供应商>审核未通过</h1>
   <div class="settab"> 
 	<span class="tab-one"></span> <span class="tabs"> 
-	<a href="$!webPath/admin/goods_list.htm" class="this">商品列表</a> |
-	<a href="$!webPath/admin/goods_list.htm">待审核</a>|
-	<a href="$!webPath/admin/goods_list.htm">待质检</a>|
-	<a href="$!webPath/admin/goods_list.htm">待定价</a>|
-	<a href="$!webPath/admin/goods_outline.htm">审核未通过</a>
+	<a href="$!webPath/admin/goods_supp.htm" class="this">商品列表</a> |
+	<a href="$!webPath/admin/Review_the_view.htm">待审核</a>|
+	<a href="$!webPath/admin/supp_inspection.htm">待质检</a>|
+	<a href="$!webPath/admin/supp_pricing.htm">待定价</a>|
+	<a href="$!webPath/admin/Unapprove.htm">审核未通过</a>
 	</span> 
 	<span class="tab-two"></span>	</div>
 	<form name="queryForm" id="queryForm" action="" method="post">
@@ -118,13 +173,32 @@ function ajax_update(id,fieldName,obj,value){
       </ul>
     </div>
   </form>
-  <div class="operation">
-    <h3>友情提示</h3>
-    <ul>
-      <li>上架商品，在商城前台所有访客均可查看，管理员和卖家都可以设置商品上架状态</li>
-      <li>违规商品，管理员根据商城访客举报结合实际情况设定违规，违规商品前台不可显示，只能管理员能取消违规</li>
-    </ul>
+  
+  <div id="BgDiv1"></div>
+  <div id="DialogDiv1" style="display:none" class="box1">
+   <div class="form">
+   		<ul>
+			<li>操作时间</li>
+			<li class="li3">操作员</li>
+			<li class="li3">内容</li>
+		</ul>
+		<ul>
+			<li>2016-12-12 16:30:41</li>
+			<li class="li2">admin</li>
+			<li class="li2">初审通过。备注：商品描述符合通过条件</li>
+		</ul>
+		<br />
+		<div id="text">
+			<h5>备注</h5>
+			<textarea name="" rows="15" cols="15" class="te"></textarea>
+		</div>
+		<div id="button">
+			<input id="yes" type="submit" onclick="closeDiv('DialogDiv1')"  value="确认" />
+			<input id="no" type="button" onclick="closeDiv('DialogDiv1')"  value="关闭" />
+		</div>
+   </div>
   </div>
+  
   <form name="ListForm" id="ListForm" action="" method="post">
     <div class="brandtable">
       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="brand_table">
@@ -162,11 +236,13 @@ function ajax_update(id,fieldName,obj,value){
 						<td width="6%">$!{oo.zhuangtai}</td>
 						<td width="6%">$!{oo.liuyangpin}</td>
 
-						<td width="15%">$!{oo.riqi}</td>
+						<td width="10%">$!{oo.riqi}</td>
 
 						<td width="6%">$!{oo.paixu}</td>
 
-						<td width="10%">删除 &nbsp; &nbsp; &nbsp;增加</td>
+						<td width="15%" >
+						<span id="btnShow1" onclick="ShowDIV('DialogDiv1')">日志</span>
+						</td>
 						<td></td>
 					</tr>
 					#end

@@ -1,0 +1,435 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+#macro ( genericTree $somelist ) 
+#foreach ( $some in $somelist )
+<option value="$!some.id">
+#if($!some.level>0)
+#foreach($count in [-1..$!some.level])&nbsp;#end #end $!some.className</option>
+#genericTree($some.childs) 
+#end 
+#end
+<!--[if IE]>
+<style type="text/css">
+.input{behavior: url($!webPath/resources/style/common/css/ie-css3.htc);}
+</style>
+<![endif]-->
+<link href="$!webPath/resources/style/system/manage/$!{config.websiteCss}/template.css"  rel="stylesheet" type="text/css"/>
+<script src="$!webPath/resources/js/jquery-1.8.3.min.js"></script>
+<script src="$!webPath/resources/js/jquery.shop.common.js"></script>
+<script src="$!webPath/resources/js/jquery.poshytip.min.js"></script>
+<script>
+//
+function ajax_update(id,fieldName,obj,value){
+   var val;
+   if(value==undefined){
+	 val=jQuery(obj).val();
+   }else val=value; 
+   jQuery.ajax({type:'POST',
+	              url:'$!webPath/admin/goods_ajax.htm',
+				  data:{"id":id,"fieldName":fieldName,"value":val},
+				beforeSend:function(){
+				  
+				},
+			   success:function(data){
+	             if(val==""){
+				   jQuery(obj).attr("src","$!webPath/resources/style/system/manage/blue/images/"+data+".png");
+				 }else{
+				   jQuery(obj).val(val);
+				 }    
+				 if(value!=undefined){
+				   jQuery(obj.parentNode.parentNode).remove();
+				 }
+              }
+	    });
+}
+</script>
+<style type="text/css">
+	#BgDiv1{background-color:#e3e3e3; position:absolute; z-index:99; left:0; top:0; display:none; width:100%; height:1000px;opacity:0.5;filter: alpha(opacity=50);-moz-opacity: 0.5;}
+	
+	.btnShow1{cursor: pointer;}
+	.btnShow2{cursor: pointer;}
+      #DialogDiv1{position:absolute;width:400px; left:50%; top:50%; margin-left:-200px; height:auto; z-index:100;background-color:#fff; border:1px #8FA4F5 solid; padding:1px;}
+      #DialogDiv1 h2{ height:25px; font-size:14px; background-color:#8FA4F5; position:relative; padding-left:10px; line-height:25px;}
+      #DialogDiv1 h2 a{position:absolute; right:5px; font-size:12px; color:#000000}
+      
+      .log-box1{  
+    		border: 1px solid #787878;  
+    		width:630px;  
+    		height:420px;  
+    		display:none;  
+			}
+		.log-box1 h5{text-align: left;margin-left: 50px;}
+		.log-box1 p{font-size: 12px;margin-left: 50px;} 
+		.log-box1 #button input{
+			position: relative;
+			top: 0px;left: 75px;
+			margin-left: 20px;
+			background-color: rgb(0,175,222);
+			width: 80px;height: 30px;
+			}
+		#log-text{margin-top: 70px;}
+		#log-text .te{width: 280px;
+    			  height: 85px;
+    			  margin-left: 50px;
+    			  font-family: '微软雅黑 Regular', '微软雅黑';
+                  font-weight: 400;
+                  font-style: normal;
+                  font-size: 13px;
+                  text-decoration: none;
+                  color: #000000;
+                  text-align: left;}
+        ul li {list-style-type: none;float: left;font-size: 12px;}
+        .li2{margin-left: 30px;width: 80px;height: 20px;}
+        .li3{margin-left: 100px;}
+        
+        .log-form{margin-top:20px;}
+        .log-tr:first-of-type td{text-align:center}
+        .log-tr td:nth-of-type(1){width:40%;text-align:center} 
+        .log-tr td:nth-of-type(2){width:20%;text-align:center} 
+        .log-tr td:nth-of-type(3){width:40%;} 
+        
+        .alert-span{
+				width: 13px;
+				height: 13px;
+				background-color: red;
+				border-radius: 50%;
+				display: inline-block;
+				text-align: center;
+				line-height: 12px;;
+				color: white;
+				font-size: 12px;
+				}
+        
+        .box2{  
+    		border: 1px solid #787878;  
+    		width:470px;  
+    		height:230px;  
+    		display:none;  
+			}
+		.box2 h5{text-align: left;margin-left: 50px;}
+		.box2 p{font-size: 12px;margin-left: 50px;}
+		
+		.box2 #button input{
+			position: relative;
+			top: 25px;left: 165px;
+			margin-left: 20px;
+			background-color: #FF840B;
+			width: 80px;height: 30px;
+			}
+		.check{border-radius: 50%;}
+		/* .price{width: 85px;} */
+		.precent{width: 50px;}
+        
+        
+</style>
+
+<!-- script -->
+
+</head>
+<body scroll="yes">
+<div class="cont">
+  <h1 class="seth1">供应商商品>待定价</h1>
+  <div class="settab"> 
+	<span class="tab-one"></span> <span class="tabs"> 
+	<a href="$!webPath/admin/goods_supp.htm" class="this">商品列表</a> |
+	<a href="$!webPath/admin/Review_the_view.htm">待审核</a>|
+	<a href="$!webPath/admin/supp_inspection.htm">待质检</a>|
+	<a href="$!webPath/admin/supp_pricing.htm">待定价</a>|
+	<a href="$!webPath/admin/Unapprove.htm">审核未通过</a>
+	</span> 
+	<span class="tab-two"></span>	</div>
+	<form name="queryForm" id="queryForm" action="" method="post">
+    <div class="allmem_search">
+      <ul>
+        <li><span>
+        <select>
+  			<option selected value="">商品名称</option>
+  			<option value="">供应商</option>      
+        </select>
+        </span> <span class="allmen size4">
+          <input name="goods_name" type="text" id="goods_name" />
+          </span> 
+          <span class="size6">
+          <select>
+  			<option selected value="">所属分类</option>
+  			<option value="">分类A</option>
+  			<option value="">分类B</option>
+  			<option value="">分类C</option>      
+        </select></span>
+          <span>库存</span>
+           <span class="size5">
+          <input name="goods_name" type="text" id="goods_name" /> -
+          <input name="goods_name" type="text" id="goods_name" />
+          </span>
+          <br /><br />
+          <select name="goods.goods_brand.id" id="goods.goods_brand.id">
+          <option selected value="">创建时间</option>
+          <option value="">更新日期</option>
+          </select>
+          <span class="size6">
+          <input style="width: 80px;" name="goods_name" type="text" id="goods_name" /> -
+          <input style="width: 80px;" name="goods_name" type="text" id="goods_name" />
+          </span>
+          <span>价格</span>
+          <span class="size5">
+          <input name="goods_name" type="text" id="goods_name" /> -
+          <input name="goods_name" type="text" id="goods_name" />
+          </span>
+          <span>
+          <select>
+  			<option selected value="">质检情况</option>
+  			<option value="">已质检</option>
+  			<option value="">未质检</option>      
+        </select></span>
+          <select>
+  			<option selected value="">上架状态</option>
+  			<option value="">已上架</option>
+  			<option value="">未上架</option>      
+        </select></span>
+          
+          <span class="btn_search">
+          <input name="" type="button"  value="搜索" style="cursor:pointer;" onclick="query();"/>
+        </span>
+        <span class="btn_search">
+          <input name="" type="reset"  value="重置" style="cursor:pointer;"/>
+        </span>
+         </li>
+      </ul>
+    </div>
+  </form>
+  
+  <form name="ListForm" id="ListForm" action="" method="post">
+    <div class="brandtable">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="brand_table">
+        <tr style="background: #if($!config.websiteCss=='blue') #2A7AD2 #end 
+      #if($!config.websiteCss=='black')#333 #end; height:30px; color:#FFF">
+          <td width="3%">&nbsp;</td>
+          <td width="10%">分类</td>
+          <td width="10%">商品</td>
+          <td width="10%">供应商</td>
+          <td width="6%">供应价</td>
+          <td width="6%">销售价</td>
+          <td width="6%">库存</td>
+          <td width="6%" align="center">样品库存</td>
+          <td width="6%" align="center">销量</td>
+          <td width="6%" align="center">浏览</td>
+          <td width="15%" align="center">日期</td>
+          <td width="6%" align="center">排序</td>
+          <td width="10%" align="center">操作</td>
+        </tr>
+     
+     #foreach($oo in $list)
+					<tr>
+					  <td width="3%">&nbsp;<input type="checkbox"></td>
+						
+						<td width="10%">$!{oo.fenlei}</td>
+					
+						
+						<td width="10%">$!{oo.shuiliaopian} <span style="color: red">已质检  已锁定</span></td>
+						<td width="10%">$!{oo.gongyigshang}</td>
+						<td width="6%">$!{oo.gongyingjia}</td>
+						<td width="6%">$!{oo.xiaoshoujia}</td>
+						
+						<td width="6%">$!{oo.kucun}</td>
+						<td width="6%">$!{oo.liulan}</td>
+						<td width="6%">$!{oo.zhuangtai}</td>
+						<td width="6%">$!{oo.liuyangpin}</td>
+
+						<td width="10%">$!{oo.riqi}</td>
+
+						<td width="6%">$!{oo.paixu}</td>
+
+						<td width="15%" ><a href="$!webPath/admin/supp_pricing_look.htm" style="color: red">查看 </a>&nbsp;
+							<span class="btnShow1" onclick="ShowDIV('DialogDiv1')" style="color:red">日志</span>&nbsp;
+							<!-- 设置售价/售价审核中 -->
+							<span class="btnShow2" onclick="ShowDIV('DialogDiv2')" style="color:red"></span>
+						 </td>
+						<td></td>
+					</tr>
+					#end
+     
+     
+     
+     
+     
+     
+      #foreach($obj in $objs)
+        <tr>
+          <td align="center"><input name="checkbox" type="checkbox" id="checkbox" value="$!obj.id" /></td>
+          <td><label>
+            <textarea name="textarea" cols="40" rows="3"  title="可编辑" onblur="ajax_update('$!obj.id','goods_name',this)">$!obj.goods_name</textarea>
+          </label></td>
+          <td>$!obj.goods_brand.name</td>
+          <td>$!obj.gc.className</td>
+          <td>$!obj.goods_store.store_name</td>
+          #if($!obj.goods_status==0)
+           #set($goods_status="上架")
+          #end
+          #if($!obj.goods_status==1)
+           #set($goods_status="仓库中")
+          #end
+          #if($!obj.goods_status==-1)
+           #set($goods_status="已下架")
+          #end
+          #if($!obj.goods_status==-2)
+           #set($goods_status="违规下架")
+          #end
+          <td>$!goods_status</td>
+          <td align="center"><img onclick="ajax_update('$!obj.id','store_recommend',this)" src="$!webPath/resources/style/system/manage/blue/images/$!{obj.store_recommend}.png" width="25" height="21" border="0" style="cursor:pointer;" title="特别推荐后在首页显示"/></td>
+          <td align="center"><img onclick="ajax_update('$!obj.id','goods_status',this,'-2')"  src="$!webPath/resources/style/system/manage/blue/images/weig.jpg"  border="0" style="cursor:pointer;" title="可编辑"/> </td>
+          <td align="center">$!obj.goods_click</td>
+          <td class="ac8" align="center"><a href="$!webPath/goods.htm?id=$!obj.id" target="_blank">查看</a></td>
+        </tr>
+     #end
+		<tr>
+        <td align="center"><input type="checkbox" name="all" id="all" value="" onclick="selectAll(this)"/>
+          <input name="mulitId" type="hidden" id="mulitId" /></td>
+        <td colspan="2" class="bdel">
+		<span class="sp1">全部</span><span class="sp2">
+          <div class="shop_btn_del shopbtn">
+            <input name="" type="button" value="删除" onclick="cmd('$!webPath/admin/goods_del.htm');" style="cursor:pointer;" />
+          </div>
+          </span>		  </td>
+        <td colspan="7"></td>
+      </tr>
+    </table>
+	  <div class="fenye" align="right">
+       <span id="queryCondition" style="display:none">
+		   #foreach($sm in $sms)
+     <input name="$!sm.key" id="$!sm.key" type="hidden" value="$!sm.value"/>
+		   #end
+	 </span>
+	   <input name="currentPage" type="hidden" id="currentPage" value="$!currentPage" />
+	   $!gotoPageFormHTML </div>
+    </div>
+  </form>
+</div>
+
+
+<div id="BgDiv1"></div>
+<div class="page-window">
+  <div id="DialogDiv1" style="display:none" class="log-box1">
+   <div class="log-form">
+   		
+		<table class="log-tab">
+			<tr class="log-tr">
+				<td>操作时间</td>
+				<td>操作员</td>
+				<td>内容</td>
+			</tr>
+			<tr class="log-tr">
+				<td>2016-12-12 16:30:41</td>
+				<td>admin</td>
+				<td>初审通过。备注：商品描述符合通过条件</td>
+			</tr>
+		</table>
+		
+		<br />
+		<div id="log-text">
+			<h5>备注<span class="log-warn" style="color:red;display:none;font-size:12px;font-weight:normal;">&nbsp;(不能超过300字)</span></h5>
+			<textarea name="" rows="15" cols="15" class="te"></textarea>
+		</div>
+		<div id="button">
+			<input id="div1-yes" type="submit" onclick="closeDiv('DialogDiv1')"  value="确认" />
+			<input id="div1-no" type="button" onclick="closeDiv('DialogDiv1')"  value="关闭" />
+		</div>
+   </div>
+  </div>
+  
+<div id="DialogDiv2" style="display:none">
+	#set($status=800)
+	#if($status==800)
+   <div class="box2">
+		<h5>黑色，白色PP片材 PP吹塑片 低价出售PP塑料透明片材..</h5>
+		<p>供应价：<span class="supp-price">5000</span>元/吨</p>
+		<p>销售价：<span class="setprice-span"></span>元/吨</p>
+		
+		<p>
+			<input type="hidden" name="" />
+			<input class="check" type="radio" name="select-price" id="" value="" />原价
+			<input class="check" type="radio" name="select-price" id="" value="" />加价
+			按百分比 <input class="precent" type="text" name="set-precent" id="" value="" />%
+		</p>
+		<div id="button">
+			<input id="div2-yes" type="submit"  value="提交" />
+		</div>
+   </div>
+   #end
+   #if($status==801)
+   
+   #end
+   #if($status==802)
+   
+   #end
+</div>
+  
+<script>
+
+	jQuery(function(){
+		showStatus();
+		jQuery("input[name=set-precent]").blur(function(){
+			var old_price = parseFloat(jQuery("supp-price").val());
+			var precent = parseFloat(jQuery(this).val());
+			var new_price = (old_price*precent)/100;
+			jQuery(".setprice-span").text(new_price);
+			jQuery("input[name=select-price]").val(new_price);
+		});
+	});
+
+	function showStatus(){
+		var status = 800;
+	/* 售价待审核800，售价审核中801，售价审核不通过802 */
+		switch(status){
+			case 800:
+				jQuery(".btnShow2").text("设置售价");
+				break;
+			case 801:
+				jQuery(".btnShow2").text("售价审核中");
+				break;
+			case 802:
+			jQuery(".btnShow2").html("设置售价<span class='alert-mark'>!</span>");
+			jQuery(".alert-mark").addClass("alert-span");
+				break;
+			default:
+				break;
+		}
+	}
+	
+</script>
+  
+</div>
+
+<script type="text/javascript">
+   function ShowDIV(thisObjId) {
+	   jQuery("#BgDiv1").css({ display: "block", height: jQuery(document).height() });
+          var yscroll = document.documentElement.scrollTop;
+          jQuery("#" + thisObjId ).css("top", "100px");
+          jQuery("#" + thisObjId ).css("display", "block");
+    document.documentElement.scrollTop = 0;
+      }
+      function closeDiv(thisObjId) {
+    	  jQuery("#BgDiv1").css("display", "none");
+          jQuery("#" + thisObjId).css("display", "none");
+      }
+      
+      jQuery(function(){
+    		jQuery(".te").on("input propertychange", function() {
+    			var jQuerythis = $(this),
+    				_val = jQuerythis.val(),
+    				count = "";
+    			if(_val.length >= 300) {
+    				jQuerythis.val(_val.substring(0, 300));
+    				jQuery(".log-warn").show();
+    			}else {
+    				jQuery(".log-warn").hide();
+    			}
+    		});
+      });
+      
+ </script>
+
+</body>
+</html>
