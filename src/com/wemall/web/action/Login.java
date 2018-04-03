@@ -33,13 +33,12 @@ public class Login {
 	private IUserConfigService userConfigService;
 	@Autowired
 	private ImageViewTools imageViewTools;
-<<<<<<< HEAD
+
 	@Autowired
 	private GoodsAuditProcessService goodsAuditProcessService;
 	@Autowired
 	private IGoodsService iGoodsService;
-=======
->>>>>>> refs/remotes/origin/master
+
 
 	@RequestMapping({ "/hello" })
 	public ModelAndView login(HttpServletRequest request,
@@ -190,7 +189,7 @@ public class Login {
 		if ((url == null) || (url.equals(""))) {
 			url = CommUtil.getURL(request);
 		}
-<<<<<<< HEAD
+
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("goods.status", 540);
@@ -466,7 +465,7 @@ public class Login {
 	}
 	
 	@RequestMapping("/admin/priclook.htm")
-	public ModelAndView admin_priclook(String name, String userName,
+	public ModelAndView admin_priclook1(String name, String userName,
 			String publicTime, String ec, String userId, String status,
 			String currentPage, String orderBy, String orderType,
 			HttpServletRequest request, HttpServletResponse response)
@@ -609,58 +608,10 @@ public class Login {
 			url = CommUtil.getURL(request);
 		}
 		return mv;
-=======
-		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-		Map<String, String> map = new HashMap<String, String>();
-
-		map.put("fenlei", "ppt塑料片");
-		map.put("shuiliaopian", "塑料片");
-		map.put("gongyigshang", "海天酱油供应商");
-		map.put("gongyingjia", "5000");
-		map.put("xiaoshoujia", "6000");
-		map.put("kucun", "100");
-		map.put("zhuangtai", "100");
-		map.put("riqi", "2018-3-31");
-		map.put("paixu", "5");
-		map.put("liulan", "1000");
-		map.put("liuyangpin", "500");
-
-		Map<String, String> map2 = new HashMap<String, String>();
-		map2.put("fenlei", "ppt塑料片");
-		map2.put("shuiliaopian", "塑料片");
-		map2.put("gongyigshang", "海天酱油供应商");
-		map2.put("gongyingjia", "5000");
-		map2.put("xiaoshoujia", "6000");
-		map2.put("kucun", "100");
-		map2.put("liulan", "1000");
-		map2.put("zhuangtai", "100");
-		map2.put("riqi", "2018-3-31");
-		map2.put("paixu", "8");
-		map2.put("liuyangpin", "500");
-
-		Map<String, String> map3 = new HashMap<String, String>();
-
-		map3.put("fenlei", "ppt塑料片");
-		map3.put("shuiliaopian", "塑料片");
-		map3.put("gongyigshang", "海天酱油供应商");
-		map3.put("gongyingjia", "5000");
-		map3.put("xiaoshoujia", "6000");
-		map3.put("kucun", "100");
-		map3.put("zhuangtai", "100");
-		map3.put("riqi", "2018-3-31");
-		map3.put("paixu", "10");
-		map3.put("liulan", "1000");
-		map3.put("liuyangpin", "500");
-
-		list.add(map);
-		list.add(map2);
-		list.add(map3);
-		mv.addObject("list", list);
-		return mv;
 	}
 
 	@RequestMapping({ "/admin/goods_outline.htm" })
-	public ModelAndView admin_goods_outline(String name, String userName,
+	public ModelAndView admin_goods_outline1(String name, String userName,
 			String publicTime, String ec, String userId, String status,
 			String currentPage, String orderBy, String orderType,
 			HttpServletRequest request, HttpServletResponse response)
@@ -677,7 +628,7 @@ public class Login {
 	}
 
 	@RequestMapping({ "/admin/goods_self.htm" })
-	public ModelAndView admin_goods_self_list(String name, String userName,
+	public ModelAndView admin_goods_self_list1(String name, String userName,
 			String publicTime, String ec, String userId, String status,
 			String currentPage, String orderBy, String orderType,
 			HttpServletRequest request, HttpServletResponse response)
@@ -741,7 +692,7 @@ public class Login {
 	}
 
 	@RequestMapping("/admin/updateSupplier.htm")
-	public ModelAndView updateSupplier(String name, String userName,
+	public ModelAndView updateSupplier1(String name, String userName,
 			String publicTime, String ec, String userId, String status,
 			String currentPage, String orderBy, String orderType,
 			HttpServletRequest request, HttpServletResponse response)
@@ -758,7 +709,7 @@ public class Login {
 	
 	
 	@RequestMapping("/admin/updateTerrace.htm")
-	public ModelAndView updateTerrace(String name, String userName,
+	public ModelAndView updateTerrace1(String name, String userName,
 			String publicTime, String ec, String userId, String status,
 			String currentPage, String orderBy, String orderType,
 			HttpServletRequest request, HttpServletResponse response)
@@ -775,7 +726,7 @@ public class Login {
 	
 	
 	@RequestMapping("/admin/goods_self_audi.htm")
-	public ModelAndView admin_goods_self_audi(String name, String userName,
+	public ModelAndView admin_goods_self_audi1(String name, String userName,
 			String publicTime, String ec, String userId, String status,
 			String currentPage, String orderBy, String orderType,
 			HttpServletRequest request, HttpServletResponse response)
@@ -845,7 +796,7 @@ public class Login {
 	}
 	
 	@RequestMapping("/admin/goods_self_pric.htm")
-	public ModelAndView admin_goods_self_pric(String name, String userName,
+	public ModelAndView admin_goods_self_pric1(String name, String userName,
 			String publicTime, String ec, String userId, String status,
 			String currentPage, String orderBy, String orderType,
 			HttpServletRequest request, HttpServletResponse response)
@@ -861,7 +812,7 @@ public class Login {
 	}
 	
 	@RequestMapping("/admin/updateaudi.htm")
-	public ModelAndView admin_updateaudi(String name, String userName,
+	public ModelAndView admin_updateaudi1(String name, String userName,
 			String publicTime, String ec, String userId, String status,
 			String currentPage, String orderBy, String orderType,
 			HttpServletRequest request, HttpServletResponse response)
@@ -941,9 +892,9 @@ public class Login {
 
 		
 	}
->>>>>>> refs/remotes/origin/master
 
-}
+
+
 	@RequestMapping("/admin/review_flat.htm")
 	public ModelAndView review_self(String name, String userName,
 			String publicTime, String ec, String userId, String status,
