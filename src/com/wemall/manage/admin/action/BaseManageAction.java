@@ -38,17 +38,21 @@ import com.wemall.core.tools.CommUtil;
 import com.wemall.core.tools.WebForm;
 import com.wemall.core.tools.database.DatabaseTools;
 import com.wemall.foundation.domain.Accessory;
+import com.wemall.foundation.domain.Address;
 import com.wemall.foundation.domain.LogType;
 import com.wemall.foundation.domain.StoreStat;
 import com.wemall.foundation.domain.SysConfig;
 import com.wemall.foundation.domain.User;
 import com.wemall.foundation.service.IAccessoryService;
+import com.wemall.foundation.service.IAddressService;
 import com.wemall.foundation.service.IGoodsService;
 import com.wemall.foundation.service.IStoreService;
 import com.wemall.foundation.service.IStoreStatService;
 import com.wemall.foundation.service.ISysConfigService;
 import com.wemall.foundation.service.IUserConfigService;
 import com.wemall.foundation.service.IUserService;
+import com.wemall.manage.admin.service.AddressService;
+import com.wemall.manage.admin.service.impl.AddressServiceImpl;
 import com.wemall.manage.admin.tools.MsgTools;
 import com.wemall.manage.admin.tools.StatTools;
 import com.wemall.uc.api.UCClient;
@@ -89,6 +93,10 @@ public class BaseManageAction {
 
     @Autowired
     private StatTools statTools;
+    
+   
+    @Autowired
+    private IAddressService addressService;
 
     @Log(title = "用户登陆", type = LogType.LOGIN, description = "", entityName = "", ip = "")
     @RequestMapping({"/login_success.htm"})
@@ -252,29 +260,16 @@ public class BaseManageAction {
     //地址登录页面
     @SecurityMapping(display = false, rsequence = 0, title = "地址管理", value = "/admin/blue/address_manager*", rtype = "admin", rname = "地址管理", rcode = "address_manager",  rgroup = "设置")
     @RequestMapping({"/admin/address_list.htm"})
-    public ModelAndView address(HttpServletRequest request, HttpServletResponse response){
+    public ModelAndView address(String id,HttpServletRequest request, HttpServletResponse response){
     	
         ModelAndView mv = new JModelAndView("admin/blue/address_manager.html",
                                             this.configService.getSysConfig(),
                                             this.userConfigService.getUserConfig(), 0, request, response);
         
-        List<Map<String,String>> list = new ArrayList<Map<String,String>>();
-       Map<String,String> map = new HashMap<String,String>();
-       map.put("name", "张三");
-       map.put("address", "北京市通州区环字路3号");
-       map.put("phone", "13333333333");
-       Map<String,String> map1 = new HashMap<String,String>();
-       map1.put("name", "李四");
-       map1.put("address", "北京市通州区环字路4号");
-       map1.put("phone", "14444444444");
-       Map<String,String> map2 = new HashMap<String,String>();
-       map2.put("name", "王五");
-       map2.put("address", "北京市通州区环字路5号");
-       map2.put("phone", "15555555555");
-       list.add(map1);
-       list.add(map);
-       list.add(map2);
-        mv.addObject("list", list);
+
+//        = Map paramMap;
+//		addressService.query("select a.* from Address a,User u where u.id=:id", paramMap, 0, 2);
+//       
 
         return mv;
     }

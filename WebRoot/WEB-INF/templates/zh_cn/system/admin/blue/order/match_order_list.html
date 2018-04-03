@@ -29,9 +29,9 @@
 				changeYear : true
 			});
 			//
-			function fomartDate(date){
+			function formatDate(date){
 				var d=new Date(date);
-				return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+				return d.getTime();;
 				
 			}
 			jQuery("a[id^=site_]").click(function(){
@@ -72,11 +72,61 @@
 
 				})
 				 jQuery("#beginTime").change(function(){
-					 var beginTime=jQuery("#beginTime").val();
-					alert(fomartDate(new Date()));
+					 
+					 var beginTime=formatDate(jQuery("#beginTime").val());
+				
+					 
+					var today=formatDate(new Date());
+					
+					if(beginTime>today){
+						jQuery(".errorAlert").show();
+						setTimeout(function() {
+							jQuery(".errorAlert").css("opacity", "0");
+						}, 1500); 
+						
+						 setTimeout(function() {
+							jQuery(".errorAlert").css("opacity", "1").hide();
+						}, 3000); 
+						
+						 jQuery("#beginTime").val("");
+					}
 					
 					
 				}) 
+				 jQuery("#endTime").change(function(){
+					 var endTime=formatDate(jQuery("#endTime").val());
+					 
+					 var beginTime=formatDate(jQuery("#beginTime").val());
+					 var today=formatDate(new Date());
+					
+					 if(endTime < beginTime){
+						 jQuery(".errorAlert").show();
+							setTimeout(function() {
+								jQuery(".errorAlert").css("opacity", "0");
+							}, 1500); 
+							
+							 setTimeout(function() {
+								jQuery(".errorAlert").css("opacity", "1").hide();
+							}, 3000); 
+							
+							 jQuery("#endTime").val("");
+						 
+					 }
+					 if(endTime>today){
+						 jQuery(".errorAlert").show();
+							setTimeout(function() {
+								jQuery(".errorAlert").css("opacity", "0");
+							}, 1500); 
+							
+							 setTimeout(function() {
+								jQuery(".errorAlert").css("opacity", "1").hide();
+							}, 3000); 
+							
+							 jQuery("#endTime").val("");
+						 
+					 }
+					 
+				 })
 				function errorAlertByTM(message, bgc, color) {
 					var $ErrorAlert = jQuery("<div id='TMByError'><h3>" + message + "</h3></div>");
 					jQuery("body").append($ErrorAlert);
@@ -111,11 +161,15 @@
 		<h1 class="seth1">撮合订单管理</h1>
 		<div class="settab">
 			<span class="tab-one"></span> <span class="tabs"> <a
-				href="javascript:void(0);" val="1" id="site_ready" class="this">待审核(50)</a>&nbsp;|&nbsp;<a
-				href="javascript:void(0);" val="2" id="site_pass" >已通过(50)</a>&nbsp;|&nbsp;<a
-				href="javascript:void(0);" val="3" id="site_not" >未通过(50)</a></span> <span
+				href="$!webPath/admin/match_list.htm" val="1"  class="this">待审核(50)</a>&nbsp;|&nbsp;<a
+				href="$!webPath/admin/match_list_pass.htm" val="2"  >已通过(50)</a>&nbsp;|&nbsp;<a
+				href="$!webPath/admin/match_list_not.htm" val="3"  >未通过(50)</a></span> <span
 				class="tab-two"></span>
 				 
+		</div>
+		<div class="errorAlert">
+		<h1>时间选择不正确</h1>
+		
 		</div>
 		
 		
@@ -146,7 +200,7 @@
 				</ul>
 			</div>
 		</form>
-		<form action="$!webPath/admin/order_list.htm" method="post"
+		<div 
 			id="ListForm">
 			<div class="allshop_table">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -190,7 +244,7 @@
 					#end
 					</table>
 			</div>
-			<div class="allshop_table">
+		<!-- 	<div class="allshop_table">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr
 						style="background: #if($!config.websiteCss=='blue') #2A7AD2 #end #if($!config.websiteCss=='black') #333 #end; height: 30px; color: #FFF">
@@ -226,15 +280,15 @@
 					<td>$!{obj.status}</td>
 					<td>$!{obj.approve_man}</td>
 					<td><p>创建:$!{obj.date_apply}</p>
-					<p>审批:$!{obj.date_check}</p></td>
+					<p>审批:$!{obj.date_approve}</p></td>
 					<td><a href="javascript:void(0);" class="check">$!{obj.check}</a></td>
 	
 						
 					</tr>
 					#end
 					</table>
-			</div>
-			<div class="allshop_table">
+			</div> -->
+			<!-- <div class="allshop_table">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr
 						style="background: #if($!config.websiteCss=='blue') #2A7AD2 #end #if($!config.websiteCss=='black') #333 #end; height: 30px; color: #FFF">
@@ -270,14 +324,14 @@
 					<td>$!{obj.status}</td>
 					<td>$!{obj.approve_man}</td>
 					<td><p>创建:$!{obj.date_apply}</p>
-					<p>审批:$!{obj.date_check}</p></td>
+					<p>审批:$!{obj.date_approve}</p></td>
 					<td><a href="javascript:void(0);" class="check">$!{obj.check}</a></td>
 	
 						
 					</tr>
 					#end
 					</table>
-			</div>
+			</div> -->
 			
 					
 					
@@ -378,7 +432,7 @@
       </tr>-->
 					<!-- #end -->
 				
-			<div class="fenye">
+			<!-- <div class="fenye">
 				<input name="end_price" type="hidden" id="end_price"
 					value="$!end_price" /> <input name="begin_price" type="hidden"
 					id="begin_price" value="$!begin_price" /> <input name="endTime"
@@ -390,8 +444,8 @@
 					id="order_status" value="$!order_status" /> <input
 					name="currentPage" type="hidden" id="currentPage"
 					value="$!currentPage" /> $!gotoPageFormHTML
-			</div>
-		</form>
+			</div> -->
+		</div>
 	</div>
 </body>
 </html>

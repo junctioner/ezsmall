@@ -10,7 +10,6 @@ import com.wemall.foundation.domain.Accessory;
 @Repository("accessoryDAO")
 public class AccessoryDAO extends GenericDAO<Accessory> {
 	
-	
-	
+		
 	
 }
