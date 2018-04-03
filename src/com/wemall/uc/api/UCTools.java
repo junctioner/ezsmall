@@ -1,17 +1,18 @@
 package com.wemall.uc.api;
 
-import com.wemall.foundation.domain.SysConfig;
-import com.wemall.foundation.service.ISysConfigService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.wemall.foundation.domain.SysConfig;
+import com.wemall.foundation.service.ISysConfigService;
+
 /**
- * UCenter¹¤¾ß
+ * UCenterå·¥å…·
  */
 @Component
 public class UCTools {
@@ -86,7 +87,3 @@ public class UCTools {
         tools.active_user("test", "122", "333@test.com");
     }
 }
-
-
-
-

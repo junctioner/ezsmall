@@ -49,39 +49,61 @@ function ajax_update(id,fieldName,obj,value){
 </head>
 <body scroll="yes">
 <div class="cont">
-  <h1 class="seth1">商品管理</h1>
+  <h1 class="seth1">总商品列表</h1>
   <div class="settab"> 
 	<span class="tab-one"></span> <span class="tabs"> 
-	<a href="$!webPath/admin/goods_list.htm" class="this">所有商品</a> |<a href="$!webPath/admin/goods_outline.htm">违规下架商品</a></span> 
+	<a href="$!webPath/admin/goods_list.htm" class="this">商品列表</a> |
+	<a href="$!webPath/admin/goods_list.htm">待审核</a>|
+
+	<a href="$!webPath/admin/goods_outline.htm">审核未通过</a>
+	</span> 
 	<span class="tab-two"></span>	</div>
 	<form name="queryForm" id="queryForm" action="" method="post">
     <div class="allmem_search">
       <ul>
-        <li> <span>商品名称</span> <span class="allmen size4">
+        <li><span>
+        <select>
+  			<option selected value="">商品名称</option>
+  			<option value="">供应商</option>      
+        </select>
+        </span> <span class="allmen size4">
           <input name="goods_name" type="text" id="goods_name" />
-          </span> <span>品牌名称</span> 
+          </span> 
+          <span class="size6">
+          <select>
+  			<option selected value="">所属分类</option>
+  			<option value="">分类A</option>
+  			<option value="">分类B</option>
+  			<option value="">分类C</option>      
+        </select></span>
+          <span>库存</span>
+           <span class="size5">
+          <input name="goods_name" type="text" id="goods_name" /> -
+          <input name="goods_name" type="text" id="goods_name" />
+          </span>
+          <br /><br />
           <select name="goods.goods_brand.id" id="goods.goods_brand.id">
-          <option value="">所有品牌</option>
-          #foreach($gb in $gbs)
-          <option value="$!gb.id">$!gb.name</option>
-          #end
+          <option selected value="">创建时间</option>
+          <option value="">更新日期</option>
           </select>
-          <span>类别</span>
-          <select name="goods.gc.id" id="goods.gc.id">
-          <option value="">所有分类</option>
-            
-           #genericTree($!gcs)
+          <span class="size6">
+          <input style="width: 80px;" name="goods_name" type="text" id="goods_name" /> -
+          <input style="width: 80px;" name="goods_name" type="text" id="goods_name" />
+          </span>
+          <span>价格</span>
+          <span class="size5">
+          <input name="goods_name" type="text" id="goods_name" /> -
+          <input name="goods_name" type="text" id="goods_name" />
+          </span>
+         
           
-          </select>
-          <span>特别推荐</span>
-          <select name="store_recommend" id="store_recommend">
-            <option value="">是否特别推荐</option>
-            <option value="true">是</option>
-            <option value="false">否</option>
-</select>
           <span class="btn_search">
           <input name="" type="button"  value="搜索" style="cursor:pointer;" onclick="query();"/>
-        </span> </li>
+        </span>
+        <span class="btn_search">
+          <input name="" type="reset"  value="重置" style="cursor:pointer;"/>
+        </span>
+         </li>
       </ul>
     </div>
   </form>
@@ -98,17 +120,51 @@ function ajax_update(id,fieldName,obj,value){
         <tr style="background: #if($!config.websiteCss=='blue') #2A7AD2 #end 
       #if($!config.websiteCss=='black')#333 #end; height:30px; color:#FFF">
           <td width="3%">&nbsp;</td>
-          <td width="25%">商品名称
-           </td>
-          <td width="10%">品牌</td>
-          <td width="10%">分类名</td>
-          <td width="10%">所在店铺</td>
-          <td width="6%">商品状态</td>
-          <td width="6%" align="center">特别推荐</td>
-          <td width="6%" align="center">违规下架</td>
-          <td width="6%" align="center">查看次数</td>
-          <td  align="center">操作</td>
+          <td width="10%">分类</td>
+          <td width="10%">商品</td>
+          <td width="10%">供应商</td>
+          <td width="6%">供应价</td>
+          <td width="6%">销售价</td>
+          <td width="6%">库存</td>
+          <td width="6%" align="center">样品库存</td>
+          <td width="6%" align="center">销量</td>
+          <td width="6%" align="center">浏览</td>
+          <td width="15%" align="center">日期</td>
+          <td width="6%" align="center">排序</td>
+          <td width="10%" align="center">操作</td>
         </tr>
+     
+     #foreach($oo in $list)
+					<tr>
+					  <td width="3%">&nbsp;<input type="checkbox"></td>
+						
+						<td width="10%">$!{oo.fenlei}</td>
+					
+						
+						<td width="10%">$!{oo.shuiliaopian} <span style="color: red">已质检  已锁定</span></td>
+						<td width="10%">$!{oo.gongyigshang}</td>
+						<td width="6%">$!{oo.gongyingjia}</td>
+						<td width="6%">$!{oo.xiaoshoujia}</td>
+						
+						<td width="6%">$!{oo.kucun}</td>
+						<td width="6%">$!{oo.liulan}</td>
+						<td width="6%">$!{oo.zhuangtai}</td>
+						<td width="6%">$!{oo.liuyangpin}</td>
+
+						<td width="10%">$!{oo.riqi}</td>
+
+						<td width="6%">$!{oo.paixu}</td>
+
+						<td width="15%" style="color: red">修改 &nbsp;上架&nbsp;日志 &nbsp;锁定</td>
+						<td></td>
+					</tr>
+					#end
+     
+     
+     
+     
+     
+     
       #foreach($obj in $objs)
         <tr>
           <td align="center"><input name="checkbox" type="checkbox" id="checkbox" value="$!obj.id" /></td>

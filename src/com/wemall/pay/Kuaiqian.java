@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ¿ìÇ®Ö§¸¶
+ * å¿«é’±æ”¯ä»˜
  */
 public class Kuaiqian {
     public static String calSignMsg(String inputCharset, String pageUrl, String bgUrl, String version, String language, String signType, String merchantAcctId, String payerName, String payerContactType, String payerContact, String orderId, String orderAmount, String orderTime, String productName, String productNum, String productId, String productDesc, String ext1, String ext2, String payType, String bankId, String pid, String key){

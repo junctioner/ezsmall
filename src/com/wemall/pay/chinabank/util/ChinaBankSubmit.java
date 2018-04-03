@@ -6,7 +6,7 @@ import com.wemall.core.tools.CommUtil;
 import java.util.List;
 
 /**
- * 网银在线支付
+ * 缃戦摱鍦ㄧ嚎鏀粯
  */
 public class ChinaBankSubmit {
     public static String buildForm(List<SysMap> list){

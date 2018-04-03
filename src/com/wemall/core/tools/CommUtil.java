@@ -12,7 +12,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,11 +47,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGEncodeParam;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
+//import com.sun.image.codec.jpeg.JPEGCodec;
+//import com.sun.image.codec.jpeg.JPEGEncodeParam;
+//import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import com.wemall.core.query.support.IPageList;
-import com.wemall.foundation.domain.Accessory;
 import com.wemall.foundation.domain.SysConfig;
 import com.wemall.lucene.LuceneResult;
 
@@ -61,10 +59,10 @@ import com.wemall.lucene.LuceneResult;
  */
 public class CommUtil {
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    public static final String self_goods ="SELF_GOODS";//自營商品
-    public static final String self_sample_goods="SELF_SAMPLE_GOODS";//自營樣品商品
-    public static final String match_sample_goods ="MATCH_SAMPLE_GOODS";//供應商樣品商品
-    public static final String match_goods ="MATCH_GOODS";//供應商商品
+	public static final String self_goods = "SELF_GOODS";// 自營商品
+	public static final String self_sample_goods = "SELF_SAMPLE_GOODS";// 自營樣品商品
+	public static final String match_sample_goods = "MATCH_SAMPLE_GOODS";// 供應商樣品商品
+	public static final String match_goods = "MATCH_GOODS";// 供應商商品
 	private static final Whitelist user_content_filter = Whitelist.relaxed();
 	static int totalFolder;
 	static int totalFile;
@@ -96,7 +94,7 @@ public class CommUtil {
 	}
 
 	public static List<String> str2list(String s) throws IOException {
-		List list = new ArrayList();
+        List<String> list = new ArrayList<String>();
 		if ((s != null) && (!s.equals(""))) {
 			StringReader fr = new StringReader(s);
 			BufferedReader br = new BufferedReader(fr);
@@ -201,11 +199,12 @@ public class CommUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public static Map saveFileToServer(HttpServletRequest request, String filePath, String saveFilePathName,
+    public static Map<String, Object> saveFileToServer(HttpServletRequest request, String filePath,
+            String saveFilePathName,
 			String saveFileName, String[] extendes) throws IOException {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		CommonsMultipartFile file = (CommonsMultipartFile) multipartRequest.getFile(filePath);
-		Map map = new HashMap();
+        Map<String, Object> map = new HashMap<String, Object>();
 		if ((file != null) && (!file.isEmpty())) {
 			String extend = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1)
 					.toLowerCase();
@@ -216,7 +215,7 @@ public class CommUtil {
 				saveFileName = saveFileName + "." + extend;
 			}
 			float fileSize = Float.valueOf((float) file.getSize()).floatValue();
-			List errors = new ArrayList();
+            List<String> errors = new ArrayList<String>();
 			boolean flag = true;
 			if (extendes != null) {
 				for (String s : extendes) {
@@ -230,7 +229,6 @@ public class CommUtil {
 				if (!path.exists()) {
 					path.mkdir();
 				}
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 				DataOutputStream out = new DataOutputStream(
 						new FileOutputStream(saveFilePathName + File.separator + saveFileName));
 				InputStream is = null;
@@ -352,8 +350,7 @@ public class CommUtil {
 
 			g.dispose();
 			FileOutputStream out = new FileOutputStream(targetImg);
-			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-			encoder.encode(image);
+            ImageIO.write(image, "jpg", out);
 			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -362,13 +359,6 @@ public class CommUtil {
 
 	public static boolean createSmall(String source, String target, int width, int height) {
 		try {
-			File sourceFile = new File(source);
-			File targetFile = new File(target);
-			BufferedImage bis = ImageIO.read(sourceFile);
-			int w = bis.getWidth();
-			int h = bis.getHeight();
-			int nw = width;
-			int nh = nw * h / w;
 			ImageCompress.ImageScale(source, target, width, height);
 			return true;
 		} catch (Exception e) {
@@ -381,7 +371,6 @@ public class CommUtil {
 	public static boolean createSmall_old(String source, String target, int width) {
 		try {
 			File sourceFile = new File(source);
-			File targetFile = new File(target);
 			BufferedImage bis = ImageIO.read(sourceFile);
 			int w = bis.getWidth();
 			int h = bis.getHeight();
@@ -415,6 +404,7 @@ public class CommUtil {
 		g.setBackground(Color.white);
 		g.drawImage(theImg, 0, 0, null);
 		FontMetrics metrics = new FontMetrics(font) {
+            private static final long serialVersionUID = -6369735026669658664L;
 		};
 		Rectangle2D bounds = metrics.getStringBounds(text, null);
 		int widthInPixels = (int) bounds.getWidth();
@@ -458,10 +448,7 @@ public class CommUtil {
 		g.dispose();
 		try {
 			FileOutputStream out = new FileOutputStream(outPath);
-			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-			JPEGEncodeParam param = encoder.getDefaultJPEGEncodeParam(bimage);
-			param.setQuality(qualNum, true);
-			encoder.encode(bimage, param);
+            ImageIO.write(bimage, "jpg", out);
 			out.close();
 		} catch (Exception e) {
 			return false;
@@ -487,61 +474,13 @@ public class CommUtil {
 		return ret;
 	}
 
-	public static List toRowChildList(List list, int perNum) {
-		List l = new ArrayList();
-		if (list == null) {
-			return l;
-		}
 
-		for (int i = 0; i < list.size(); i += perNum) {
-			List cList = new ArrayList();
-			for (int j = 0; j < perNum; j++)
-				if (i + j < list.size())
-					cList.add(list.get(i + j));
-			l.add(cList);
-		}
-
-		return l;
-	}
-
-	public static List copyList(List list, int begin, int end) {
-		List l = new ArrayList();
-		if (list == null)
-			return l;
-		if (end > list.size())
-			end = list.size();
-		for (int i = begin; i < end; i++) {
-			l.add(list.get(i));
-		}
-
-		return l;
-	}
 
 	public static boolean isNotNull(Object obj) {
 		return (obj != null) && (!obj.toString().equals(""));
 	}
 
-	public static void copyFile(String oldPath, String newPath) {
-		try {
-			int bytesum = 0;
-			int byteread = 0;
-			File oldfile = new File(oldPath);
-			if (oldfile.exists()) {
-				InputStream inStream = new FileInputStream(oldPath);
-				FileOutputStream fs = new FileOutputStream(newPath);
-				byte[] buffer = new byte[1444];
 
-				while ((byteread = inStream.read(buffer)) != -1) {
-					bytesum += byteread;
-					fs.write(buffer, 0, byteread);
-				}
-				inStream.close();
-			}
-		} catch (Exception e) {
-			System.out.println("复制单个文件操作出错 ");
-			e.printStackTrace();
-		}
-	}
 
 	public static boolean deleteFolder(String path) {
 		boolean flag = false;
@@ -780,7 +719,6 @@ public class CommUtil {
 		}
 	}
 
-
 	public static void saveIPageList2ModelAndView(String url, String staticURL, String params, IPageList pList,
 			ModelAndView mv) {
 		if (pList != null) {
@@ -936,14 +874,13 @@ public class CommUtil {
 		return s.trim().indexOf(sub.trim());
 	}
 
-	public static Map cal_time_space(Date begin, Date end) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static Map<String, Long> cal_time_space(Date begin, Date end) {
 		long l = end.getTime() - begin.getTime();
 		long day = l / 86400000L;
 		long hour = l / 3600000L - day * 24L;
 		long min = l / 60000L - day * 24L * 60L - hour * 60L;
 		long second = l / 1000L - day * 24L * 60L * 60L - hour * 60L * 60L - min * 60L;
-		Map map = new HashMap();
+        Map<String, Long> map = new HashMap<String, Long>();
 		map.put("day", Long.valueOf(day));
 		map.put("hour", Long.valueOf(hour));
 		map.put("min", Long.valueOf(min));
@@ -1088,7 +1025,6 @@ public class CommUtil {
 	}
 
 	public static String filterHTML(String content) {
-		Whitelist whiteList = new Whitelist();
 		String s = Jsoup.clean(content, user_content_filter);
 
 		return s;
@@ -1149,7 +1085,7 @@ public class CommUtil {
 			try {
 				bi = ImageIO.read(file);
 				try {
-					int i = bi.getType();
+                    bi.getType();
 					imgwrong = true;
 				} catch (Exception e) {
 					imgwrong = false;
@@ -1170,20 +1106,6 @@ public class CommUtil {
 		}
 
 		return a;
-	}
-
-	public static boolean del_acc(HttpServletRequest request, Accessory acc) {
-		boolean ret = true;
-		boolean ret1 = true;
-		if (acc != null) {
-			String path = request.getRealPath("/") + acc.getPath() + File.separator + acc.getName();
-			String small_path = request.getRealPath("/") + acc.getPath() + File.separator + acc.getName() + "_small."
-					+ acc.getExt();
-			ret = deleteFile(path);
-			ret1 = deleteFile(small_path);
-		}
-
-		return (ret) && (ret1);
 	}
 
 	public static boolean fileExist(String path) {
@@ -1266,7 +1188,7 @@ public class CommUtil {
 	}
 
 	public static Set<Integer> randomInt(int a, int length) {
-		Set list = new TreeSet();
+        Set<Integer> list = new TreeSet<Integer>();
 		int size = length;
 		if (length > a) {
 			size = a;
@@ -1281,7 +1203,6 @@ public class CommUtil {
 	}
 
 	public static Double formatDouble(Object obj, int len) {
-		Double ret = Double.valueOf(0.0D);
 		String format = "0.0";
 		for (int i = 1; i < len; i++) {
 			format = format + "0";
@@ -1361,9 +1282,9 @@ public class CommUtil {
 		return system_domain;
 	}
 
-	public static Map getStrMap(String str) {
-		Map map = new HashMap();
-		map.put("aread_id", 0);
+    public static Map<String, String> getStrMap(String str) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("aread_id", "0");
 		if (str != null && !"".equals(str)) {
 			String[] strs = StringUtils.split(str, ",");
 			if (strs != null && strs.length > 0) {
@@ -1374,5 +1295,17 @@ public class CommUtil {
 			}
 		}
 		return map;
+	}
+
+	public static List<Long> getByids(String ids) {
+		String[] idArray = splitByChar(ids, ",");
+		List<Long> idList = null;
+		if(idArray!=null&&idArray.length>0){
+			idList = new ArrayList<Long>();
+			for(String id:idArray){
+				idList.add(CommUtil.null2Long(id));
+			}
+		}
+        return idList;
 	}
 }

@@ -3,6 +3,7 @@ package com.wemall.core.tools;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -10,13 +11,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ObjectExcelRead {
-
-    private static Logger logger = LoggerFactory.getLogger(ObjectExcelRead.class);
 
 	/**
 	 *
@@ -54,33 +51,34 @@ public class ObjectExcelRead {
 		Sheet sheet = wb.getSheetAt(sheetnum);
 		int rowNum = sheet.getLastRowNum() + 1; // 取得最后一行的行号
 		for (int i = startrow; i < rowNum; i++) { // 行循环开始
-			HashMap varpd = new HashMap();
+            Map<String, String> varpd = new HashMap<String, String>();
 			Row row = sheet.getRow(i); // 行
 			int cellNum = row.getLastCellNum(); // 每行的最后一个单元格位置
 			for (int j = startcol; j < cellNum; j++) { // 列循环开始
 				Cell cell = row.getCell(Short.parseShort(j + ""));
 				String cellValue = null;
 				if (null != cell) {
-					switch (cell.getCellType()) { // 判断excel单元格内容的格式，并对其进行转换，以便插入数据库
-					case 0:
-						cellValue = String.valueOf((int) cell.getNumericCellValue());
+                    switch (cell.getCellTypeEnum()) { // 判断excel单元格内容的格式，并对其进行转换，以便插入数据库
+                    case NUMERIC:// 0
+                        cellValue = Double.toString(cell.getNumericCellValue());
 						break;
-					case 1:
+                    case STRING:// 1
 						cellValue = cell.getStringCellValue();
 						break;
-					case 2:
-						cellValue = cell.getNumericCellValue() + "";
-						// cellValue = String.valueOf(cell.getDateCellValue());
-						break;
-					case 3:
+                    // case FORMULA:
+                    // cellValue = cell.getNumericCellValue() + "";
+                    // // cellValue = String.valueOf(cell.getDateCellValue());
+                    // break;
+                    case BLANK:// 3
 						cellValue = "";
 						break;
-					case 4:
+                    case BOOLEAN:// 4
 						cellValue = String.valueOf(cell.getBooleanCellValue());
-						break;
-					case 5:
+                    case ERROR:// 5
 						cellValue = String.valueOf(cell.getErrorCellValue());
 						break;
+                    default:
+                        cellValue = null;
 					}
 				} else {
 					cellValue = "";

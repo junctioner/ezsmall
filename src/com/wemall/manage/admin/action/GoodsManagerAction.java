@@ -9,10 +9,7 @@
 
 package com.wemall.manage.admin.action;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.wemall.core.mv.JModelAndView;
+import com.wemall.foundation.domain.PriceAdjust;
 import com.wemall.foundation.service.GoodsPriceManagerService;
 import com.wemall.foundation.service.ISysConfigService;
 import com.wemall.foundation.service.IUserConfigService;
@@ -49,23 +47,11 @@ public class GoodsManagerAction {
 
     @RequestMapping("/admin/goods_approval2.htm")
     public ModelAndView adjustPriceApproval(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("----------------");
+        // System.out.println("----------------");
         ModelAndView mv = new JModelAndView("admin/blue/base/good_approval.html", configService.getSysConfig(),
                 userConfigService.getUserConfig(), 0, request, response);
 
-        List<Map<String, Object>> lista = goodsPriceManagerService.list();
-        System.out.println(lista.size());
-        for (Map<String, Object> goods : lista) {
-            System.out.println(goods);
-        }
-
-        List<Map<String, Object>> list = new ArrayList<>();
-        Map<String, Object> map = new HashMap<>();
-        map.put("abc", 234);
-        list.add(map);
-        list.add(map);
-        list.add(map);
-        list.add(map);
+        List<PriceAdjust> list = goodsPriceManagerService.list();
 
         mv.addObject("list", list);
         return mv;

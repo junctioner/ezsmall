@@ -46,6 +46,8 @@ public class ReturnGood extends IdEntity {
 	// 退货凭证
 	@ManyToOne
 	private Accessory voucher;
+	//退单类型
+	private String retrun_order_type;
 	// 处理人
 	private User user;
 	public String getRetrun_good_no() {
@@ -119,6 +121,12 @@ public class ReturnGood extends IdEntity {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public String getRetrun_order_type() {
+		return retrun_order_type;
+	}
+	public void setRetrun_order_type(String retrun_order_type) {
+		this.retrun_order_type = retrun_order_type;
 	}
 	
 }

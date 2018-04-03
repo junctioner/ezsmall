@@ -9,7 +9,9 @@
 
 package com.wemall.manage.admin.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,12 +54,14 @@ public class DemoAction {
         return jView;
     }
 
-    @RequestMapping("/admin/approvalPrice.htm")
+    @RequestMapping("/admin/goods_approval1.htm")
     public ModelAndView approvalPrice(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView jView = new JModelAndView("afterSales/approvalPrice.html", this.configService.getSysConfig(),
+        ModelAndView jView = new JModelAndView("admin/blue/base/approvalPrice.html", this.configService.getSysConfig(),
                 this.userConfigService.getUserConfig(), 0, request, response);
-        Map<String, Object> listMap = new HashMap<String, Object>();
-        listMap.put("id", 1);
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
+        map.put("id", 1);
+        listMap.add(map);
         jView.addObject("listMap", listMap);
         return jView;
     }

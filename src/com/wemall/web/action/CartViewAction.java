@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -91,13 +90,8 @@ public class CartViewAction {
 					List<StoreCart> store_cookie_cart = this.storeCartService.query(
 							"select obj from StoreCart obj where (obj.cart_session_id=:cart_session_id or obj.user.id=:user_id) and obj.sc_status=:sc_status and obj.store.id=:store_id",
 							params, -1, -1);
+					//清除自己商城的商品
 					this.storeCartService.deleteStoreCart(store_cookie_cart);
-//					for (StoreCart sc:store_cookie_cart) {
-//						for (GoodsCart gc : sc.getGcs()) {
-//							this.goodsCartService.delete(gc.getId());
-//						}
-//						this.storeCartService.delete(sc.getId());
-//					}
 				}
 				params.clear();
 				params.put("cart_session_id", cart_session_id);

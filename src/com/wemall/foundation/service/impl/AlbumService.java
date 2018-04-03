@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sun.org.apache.xml.internal.dtm.ref.DTMDefaultBaseIterators.InternalAxisIteratorBase;
 import com.wemall.core.query.support.IPageList;
 import com.wemall.core.query.support.IQueryObject;
 import com.wemall.foundation.domain.Album;

@@ -1,6 +1,5 @@
 package com.wemall.uc.api;
 
-import com.wemall.core.tools.CommUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,8 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import com.wemall.core.tools.CommUtil;
+
 /**
- * UCenter¿Í»§¶Ë
+ * UCenterå®¢æˆ·ç«¯
  */
 public class UCClient extends PHPFunctions {
     public static boolean IN_UC = true;
@@ -380,7 +381,3 @@ public class UCClient extends PHPFunctions {
         return uc_api_post("user", "deleteavatar", args);
     }
 }
-
-
-
-

@@ -481,6 +481,7 @@ jQuery(document).ready(function(){
 						</td>
 					</tr>
 					
+<<<<<<< HEAD
 					#end
 					
 					 #foreach($obj in $objs)
@@ -511,6 +512,25 @@ jQuery(document).ready(function(){
 						<td align="center">$!obj.goods_click</td>
 						<td class="ac8" align="center"><a
 							href="$!webPath/goods.htm?id=$!obj.id" target="_blank">查看</a></td>
+=======
+						
+						<td width="10%">$!{oo.shuiliaopian} <span style="color: red">已质检  已锁定</span></td>
+						<td width="10%">$!{oo.gongyigshang}</td>
+						<td width="6%">$!{oo.gongyingjia}</td>
+						<td width="6%">$!{oo.xiaoshoujia}</td>
+						
+						<td width="6%">$!{oo.kucun}</td>
+						<td width="6%">$!{oo.liulan}</td>
+						<td width="6%">$!{oo.zhuangtai}</td>
+						<td width="6%">$!{oo.liuyangpin}</td>
+
+						<td width="10%">$!{oo.riqi}</td>
+
+						<td width="6%">$!{oo.paixu}</td>
+
+						<td width="15%" ><a href="$!webPath/admin/updateSupplier.htm" style="color: red">修改 </a>&nbsp;上架&nbsp;日志 &nbsp;价格调整</td>
+						<td></td>
+>>>>>>> refs/remotes/origin/master
 					</tr>
 					#end
 					<tr>
